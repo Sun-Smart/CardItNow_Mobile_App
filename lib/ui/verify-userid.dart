@@ -22,7 +22,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   File? imgFile;
   File? imgFiles;
   final ImagePicker _picker = ImagePicker();
-  final _phonenumberController = TextEditingController();
+  final phonenumberController = TextEditingController();
 
   void openCamera() async {
     var imggallery = await _picker.pickImage(source: ImageSource.camera);
@@ -31,14 +31,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     final mb = kb / 1024;
 
     setState(() {
-      imgFile = File(imggallery!.path);
-      if (mb < 2) {
-        print('==========================');
-        print(mb);
-        print('==========================');
-      } else {
-        imgFile = File(imggallery.path);
-      }
+      // imgFile = File(imggallery!.path);
+      // if (mb < 2) {
+      //   print('==========================');
+      //   print(mb);
+      //   print('==========================');
+      // } else {
+      //   imgFile = File(imggallery.path);
+      // }
     });
   }
 
@@ -169,33 +169,21 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ),
                   const SizedBox(height: 20),
                   displayImage(),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   MyCustomInputBox(
-                    label: "Enter ID Number ",
-                    controller: _phonenumberController,
-                    //label: 'Email address',
-                    obsecureText: false,
-                    inputHint: dropdownvalue == null
-                        ? "Enter Your Document Number"
-                        : "Enter Your ${dropdownvalue.toString()} No",
-                    /*prefixIcon: Icon(
-                      Icons.email,
-                      size: 25,
-                      color: Colors.grey[400],
-                    ),*/
-                    validator: (value) {
-                      if (_phonenumberController.text.isEmpty) {
-                        return "Please Enter The Email";
-                      } else if (!_phonenumberController.text.contains("@") ||
-                          !_phonenumberController.text.endsWith('.com')) {
-                        return "Please Enter The valid Email";
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
+                      label: "Enter ID Number ",
+                      controller: phonenumberController,
+                      obsecureText: false,
+                      inputHint: dropdownvalue == null
+                          ? "Enter Your Document Number"
+                          : "Enter Your ${dropdownvalue.toString()} Number",
+                      validator: (value) {
+                        if (phonenumberController.text.isEmpty) {
+                          return "Enter ${dropdownvalue.toString()} Number";
+                        } else {
+                          return null;
+                        }
+                      }),
                   Container(
                       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Upload your Selfie',
@@ -220,7 +208,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              openCamera();
+              // openGallery();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +229,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                openGallery();
+                // openGallery();
               },
               child: Image.file(imgFiles!, height: 160)));
     }
@@ -258,7 +246,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              openCamera();
+              // openCamera();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -279,22 +267,17 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                openCamera();
+                //openGallery();
               },
               child: Image.file(imgFile!, height: 160)));
-      //return Image.file(imgFile!, width: 350, height: 350);
     }
   }
 
   Widget bulildbutton() {
     return AuthButton(
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          '/registerloading',
-        );
-        if (formKey.currentState!.validate()) {}
-      },
-      text: "Next",
-    );
+        onTap: () {
+          if (formKey.currentState!.validate()) {}
+        },
+        text: "Next");
   }
 }
