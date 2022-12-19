@@ -1,14 +1,14 @@
 import 'dart:io';
 
+import 'package:cardit/themes/styles.dart';
+import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/widgets/auth_button.dart';
+import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:cardit/themes/styles.dart';
-import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/widgets/auth_button.dart';
-import 'package:cardit/widgets/custom_input.dart';
 
 class VerifyUserId extends StatefulWidget {
   const VerifyUserId({Key? key}) : super(key: key);
@@ -25,35 +25,32 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   final _phonenumberController = TextEditingController();
 
   void openCamera() async {
-    var imggallery = await _picker.pickImage(source: ImageSource.gallery);
-    // int sizeInBytes = File(imgCamera!.path).lengthSync();
-    // double sizeInMb = sizeInBytes / (1024 * 1024);
+    var imggallery = await _picker.pickImage(source: ImageSource.camera);
+    final bytes = (await imggallery!.readAsBytes()).lengthInBytes;
+    final kb = bytes / 1024;
+    final mb = kb / 1024;
 
     setState(() {
       imgFile = File(imggallery!.path);
-      /*if (sizeInMb > 2) {
-        print('============eeeeee==============');
-        print(sizeInMb);
+      if (mb < 2) {
+        print('==========================');
+        print(mb);
         print('==========================');
       } else {
-        imgFile = File(imgCamera.path);
-      }*/
+        imgFile = File(imggallery.path);
+      }
     });
   }
 
   void openGallery() async {
-    var imgcamera = await _picker.pickImage(source: ImageSource.camera);
+    var imgcamera = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       imgFiles = File(imgcamera!.path);
     });
   }
 
-  var item = [
-    'Passport',
-    'Driving License',
-    'National ID',
-    'UMID',
-  ];
+  var item = ['Passport', 'Driving License', 'National ID', 'UMID'];
+
   String? dropdownvalue;
 
   @override
@@ -110,9 +107,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Container(
                     margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
@@ -161,19 +156,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   Container(
-                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Upload your ID',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 20,
+                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Text(
+                      'Upload your ID',
+                      style: TextStyle(
+                          fontFamily: 'Sora',
+                          fontSize: 14,
+                          color: Styles.whitecustomlable),
+                    ),
                   ),
+                  const SizedBox(height: 20),
                   displayImage(),
                   const SizedBox(
                     height: 20,
@@ -209,13 +203,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   displayImageSelfie(),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                 ])));
   }
 
@@ -236,13 +226,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/uplodicon.png",
-                  width: 32,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
+                Image.asset("assets/uplodicon.png", width: 32),
+                SizedBox(height: 5),
                 Text('Upload your Selfie'),
               ],
             ),
@@ -279,13 +264,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/uplodicon.png",
-                  width: 32,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
+                Image.asset("assets/uplodicon.png", width: 32),
+                SizedBox(height: 5),
                 Text('Image should not be more than 2 mb'),
               ],
             ),
