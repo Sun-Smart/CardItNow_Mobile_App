@@ -1,0 +1,239 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0XFFffffff),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+            child: AppBar(
+              leading: Container(
+                  width: 10,
+                  height: 10,
+                  child: SvgPicture.asset('assets/sortingleft.svg',
+                      width: 10, height: 10)),
+              actions: <Widget>[
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 14, color: HexColor('#004751')),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      '/login',
+                    );
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(fontSize: 16, color: HexColor('#004751')),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                SizedBox(
+                    height: 10,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: HexColor('#CEE812'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          '/register',
+                        );
+                      },
+                      child: Text('Register',
+                          style: TextStyle(
+                              fontSize: 14, color: HexColor('#004751'))),
+                    )),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            )),
+      ),
+      body: Container(
+          color: Color(0XFFF7F7F7),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                topBanner(),
+                buildtitle(),
+                SizedBox(
+                  height: 20,
+                ),
+                buildbutton(),
+                buildbCart()
+              ],
+            ),
+          )),
+    );
+  }
+
+  Widget topBanner() {
+    return Container(
+        color: Color(0XFFF7F7F7),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+        child: Stack(clipBehavior: Clip.none, children: <Widget>[
+          Image.asset(
+            "assets/banner.png",
+          ),
+          Positioned(
+            bottom: -60,
+            right: 10,
+            width: 120,
+            height: 120,
+            child: IconButton(
+              icon: Image.asset(
+                height: 200,
+                width: 200,
+                "assets/banner-icon.png",
+              ),
+              tooltip: 'start',
+              onPressed: () {},
+            ),
+          )
+        ]));
+  }
+
+  Widget buildtitle() {
+    return Container(
+        color: Color(0XFFF7F7F7),
+        padding: EdgeInsets.all(15),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Text("Simplify Payments",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color(0XFF041316),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
+              RichText(
+                text: const TextSpan(
+                  text: 'with ',
+                  style: TextStyle(
+                      color: Color(0XFF041316),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Cardit',
+                        style:
+                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
+                    TextSpan(text: ' it '),
+                    TextSpan(
+                        text: 'Now',
+                        style:
+                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              RichText(
+                text: const TextSpan(
+                  text: ' ',
+                  style: TextStyle(
+                      color: Color(0XFF041316),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'With Carditnow you can pay ',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(4, 19, 22, 0.30))),
+                    TextSpan(
+                        text: 'Anyone, Anywhere, Anytime.',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(4, 19, 22, 0.75))),
+                  ],
+                ),
+              ),
+            ]));
+  }
+
+  Widget buildbutton() {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Color(0XFF004751),
+        ),
+        margin: EdgeInsets.all(15),
+        child: InkWell(
+          highlightColor: Color(0XFF004751),
+          focusColor: Color(0XFF004751),
+          splashColor: Colors.green, // splash color
+          onTap: () {}, // button pressed
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Text(
+                    "Get Started",
+                    style: TextStyle(color: Color(0XFFCEE812), fontSize: 18),
+                  ),
+                  SvgPicture.asset(
+                    'assets/getstart.svg',
+                    width: 42,
+                    height: 42,
+                  ), // text
+                ],
+              )),
+        ));
+  }
+
+  Widget buildbCart() {
+    return Container(
+        color: Color(0XFFF7F7F7),
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Image.asset(
+            "assets/visa.png",
+            width: 50,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Image.asset(
+            width: 50,
+            'assets/americon.png',
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          SvgPicture.asset(
+            'assets/master.svg',
+            width: 40,
+          )
+        ]));
+  }
+}
