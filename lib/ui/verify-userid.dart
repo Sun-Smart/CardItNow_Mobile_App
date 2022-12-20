@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -7,6 +8,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,31 +25,50 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   final formKey = GlobalKey<FormState>();
   final phoneNumberController = TextEditingController();
 
-  final ImagePicker imagePicker = ImagePicker();
-  String imagePath = "";
-  String base64String = "";
   File? imageFile;
+  File? imageFile1;
+  Uint8List? bytes;
+  String? img64;
+  List<String> images = [];
 
-  void openCamera() async {
-    final imageCamera = await imagePicker.pickImage(source: ImageSource.camera);
+  //Image to Byte64
+  Future<void> openGallery() async {
+    var picker = ImagePicker();
+    final imageGallery = await picker.pickImage(source: ImageSource.gallery);
+    if (imageGallery!.path.isEmpty == false) {
+      setState(() {
+        imageFile = File(imageGallery!.path);
+      });
+      List<int> fileInBytes = await imageFile!.readAsBytes();
+      String fileInBase64 = base64Encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+      log(fileInBase64);
+      print('******************* BASE 64 SOURCE *******************');
+    } else {
+      if (kDebugMode) {
+        print('Null');
+      }
+    }
   }
 
-  void openGallery() async {
-    final imageGallery =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-    Uint8List imageByte = await imageFile!.readAsBytes();
-    setState(() {
-      if (imageGallery != null) {
-        imagePath = imageGallery.path;
-        imageFile = File(imagePath);
-        base64String = base64.encode(imageByte);
-        print('Base Url *************** Base Url');
-        print(base64String);
-        print('Base Url *************** Base Url');
-      } else {
-        print('No Image Selected');
+  //Camera to Byte64
+  Future<void> openCamera() async {
+    var picker = ImagePicker();
+    final imageGallery = await picker.pickImage(source: ImageSource.camera);
+    if (imageGallery!.path.isEmpty == false) {
+      setState(() {
+        imageFile1 = File(imageGallery!.path);
+      });
+      List<int> fileInBytes = await imageFile1!.readAsBytes();
+      String fileInBase64 = base64Encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+      log(fileInBase64);
+      print('******************* BASE 64 SOURCE *******************');
+    } else {
+      if (kDebugMode) {
+        print('Null');
       }
-    });
+    }
   }
 
   var item = ['Passport', 'Driving License', 'National ID', 'UMID'];
@@ -198,8 +219,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                 ])));
   }
 
+  //Upload Your selfie
   Widget displayImageSelfie() {
-    if (imageFile == null) {
+    if (imageFile1 == null) {
       return Container(
           margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -209,7 +231,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              openGallery();
+              openCamera();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -230,12 +252,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                openGallery();
+                openCamera();
               },
-              child: Image.file(imageFile!, height: 160)));
+              child: Image.file(imageFile1!)));
     }
   }
 
+  //Upload Your Document
   Widget displayImage() {
     if (imageFile == null) {
       return Container(
@@ -243,8 +266,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: MemoryImage(base64Decode(base64String))),
               border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
@@ -272,7 +293,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             onTap: () async {
               openGallery();
             },
-            child: Image.file(imageFile!, fit: BoxFit.fill),
+            child: Image.file(imageFile!),
           ));
     }
   }

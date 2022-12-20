@@ -1,15 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 final userDetails = FirebaseAuth.instance.currentUser!;
 
@@ -26,14 +24,14 @@ class DashbordScreenState extends State<DashbordScreen>
 
   int _currentsliderindex = 0;
   List<_SalesData> data = [
-    _SalesData('Jan', 35, Color(0XffEDEDED)),
-    _SalesData('Feb', 50, Color(0XffEDEDED)),
-    _SalesData('Mar', 100, Color(0XffEDEDED)),
-    _SalesData('Apr', 32, Color(0XffEDEDED)),
-    _SalesData('May', 40, Color(0XffEDEDED)),
-    _SalesData('June', 90, Color(0XffEDEDED)),
-    _SalesData('July', 150, Color(0Xff036D7A)),
-    _SalesData('August', 80, Color(0XffEDEDED)),
+    _SalesData('Jan', 35, const Color(0XffEDEDED)),
+    _SalesData('Feb', 50, const Color(0XffEDEDED)),
+    _SalesData('Mar', 100, const Color(0XffEDEDED)),
+    _SalesData('Apr', 32, const Color(0XffEDEDED)),
+    _SalesData('May', 40, const Color(0XffEDEDED)),
+    _SalesData('June', 90, const Color(0XffEDEDED)),
+    _SalesData('July', 150, const Color(0Xff036D7A)),
+    _SalesData('August', 80, const Color(0XffEDEDED)),
   ];
   var item = [
     'Monthly',
@@ -51,9 +49,9 @@ class DashbordScreenState extends State<DashbordScreen>
     return WillPopScope(
       onWillPop: _onBackButtonPressed,
       child: Scaffold(
-          bottomNavigationBar: BottomNavBarWidget(0),
+          bottomNavigationBar: const BottomNavBarWidget(0),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70.0),
+            preferredSize: const Size.fromHeight(70.0),
             child: AppBar(
               elevation: 0,
               centerTitle: false,
@@ -69,7 +67,7 @@ class DashbordScreenState extends State<DashbordScreen>
                       Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: Color(0xff036D7A),
+                            color: const Color(0xff036D7A),
                           ),
                           child: Image.asset(
                             'assets/profile.png',
@@ -86,7 +84,7 @@ class DashbordScreenState extends State<DashbordScreen>
                               RichText(
                                   text: TextSpan(
                                       text: 'Hello!  ',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Color(0xff036D7A),
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
@@ -94,7 +92,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                       children: <TextSpan>[
                                     TextSpan(
                                         text: userDetails.displayName!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Color(0xffC9E313),
                                             fontSize: 18)),
                                   ])),
@@ -111,7 +109,7 @@ class DashbordScreenState extends State<DashbordScreen>
                   )),
               actions: [
                 Padding(
-                    padding: EdgeInsets.only(right: 10.0, top: 10),
+                    padding: const EdgeInsets.only(right: 10.0, top: 10),
                     child: GestureDetector(
                       onTap: () {},
                       child: Image.asset(
@@ -134,7 +132,7 @@ class DashbordScreenState extends State<DashbordScreen>
               buildPayChart(),
               buildTranstitle(),
               _buildBusinesscard(),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],
@@ -173,8 +171,8 @@ class DashbordScreenState extends State<DashbordScreen>
   Widget Slider() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(top: 10),
+      decoration: const BoxDecoration(
         //color: themeChange.darkTheme ? Colors.black : Colors.white,
         image: DecorationImage(
           image: AssetImage("assets/dashbordpg.png"),
@@ -188,24 +186,24 @@ class DashbordScreenState extends State<DashbordScreen>
   Widget buildPaySchedule() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
-                color: Color(0XFFffffff),
+                border: Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                color: const Color(0XFFffffff),
               ),
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: InkWell(
-                highlightColor: Color(0XFFffffff),
-                focusColor: Color(0XFFffffff),
+                highlightColor: const Color(0XFFffffff),
+                focusColor: const Color(0XFFffffff),
                 splashColor: Colors.green, // splash color
                 onTap: () {}, // button pressed
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -224,7 +222,7 @@ class DashbordScreenState extends State<DashbordScreen>
                           style: TextStyle(
                               color: themeChange.darkTheme
                                   ? Colors.black
-                                  : Color(0XFF413D4B),
+                                  : const Color(0XFF413D4B),
                               fontSize: 14),
                         ),
 
@@ -235,17 +233,17 @@ class DashbordScreenState extends State<DashbordScreen>
           Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
-                color: Color(0XFFffffff),
+                border: Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                color: const Color(0XFFffffff),
               ),
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: InkWell(
-                highlightColor: Color(0XFFffffff),
-                focusColor: Color(0XFFffffff),
+                highlightColor: const Color(0XFFffffff),
+                focusColor: const Color(0XFFffffff),
                 splashColor: Colors.green, // splash color
                 onTap: () {}, // button pressed
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -255,14 +253,14 @@ class DashbordScreenState extends State<DashbordScreen>
                         Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(2),
-                              color: Color(0xffC9E313),
+                              color: const Color(0xffC9E313),
                             ),
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             child: Image.asset(
                               "assets/calander.png",
                               width: 20,
                             )),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         const Text(
@@ -282,20 +280,24 @@ class DashbordScreenState extends State<DashbordScreen>
   Widget buildTranstitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "Recent Transactions",
             style: TextStyle(
-                color: themeChange.darkTheme ? Colors.white : Color(0XFF041316),
+                color: themeChange.darkTheme
+                    ? Colors.white
+                    : const Color(0XFF041316),
                 fontSize: 20),
           ),
           Text(
             'View',
             style: TextStyle(
-                color: themeChange.darkTheme ? Colors.blue : Color(0Xff004751),
+                color: themeChange.darkTheme
+                    ? Colors.blue
+                    : const Color(0Xff004751),
                 fontSize: 14),
           )
         ],
@@ -309,19 +311,20 @@ class DashbordScreenState extends State<DashbordScreen>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Text(
               "Money Spend",
               style: TextStyle(
-                  color:
-                      themeChange.darkTheme ? Colors.white : Color(0XFF041316),
+                  color: themeChange.darkTheme
+                      ? Colors.white
+                      : const Color(0XFF041316),
                   fontSize: 20),
             )),
         Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 3.6,
           height: MediaQuery.of(context).size.height / 15,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
               //borderRadius: const BorderRadius.all(Radius.circular(3)))
               ),
@@ -337,15 +340,17 @@ class DashbordScreenState extends State<DashbordScreen>
               hint: Text(
                 'Monthly',
                 style: TextStyle(
-                    color:
-                        themeChange.darkTheme ? Colors.blue : Color(0Xff004751),
+                    color: themeChange.darkTheme
+                        ? Colors.blue
+                        : const Color(0Xff004751),
                     fontSize: 14),
               ),
               icon: InkWell(
                 child: Icon(
                   Icons.keyboard_arrow_down,
-                  color:
-                      themeChange.darkTheme ? Colors.white : Color(0Xff004751),
+                  color: themeChange.darkTheme
+                      ? Colors.white
+                      : const Color(0Xff004751),
                 ),
               ),
               items: item.map((String item) {
@@ -371,7 +376,7 @@ class DashbordScreenState extends State<DashbordScreen>
 
   Widget buildPayChart() {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             // primaryXAxis: CategoryAxis(isVisible: false),
@@ -389,8 +394,8 @@ class DashbordScreenState extends State<DashbordScreen>
                   name: 'Sales',
 
                   // Enable data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true),
-                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  dataLabelSettings: const DataLabelSettings(isVisible: true),
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
                   trackColor: Colors.grey,
                   pointColorMapper: (_SalesData data, _) => data.color)
             ]));
@@ -401,14 +406,14 @@ class DashbordScreenState extends State<DashbordScreen>
 
     items.add(buildTransactionCade(
         '25 December 2022', '₱ 4000', 'Paid to San Nicolas', 45879652, true));
-    items.add(SizedBox(
+    items.add(const SizedBox(
       height: 20,
     ));
     items.add(buildTransactionCade(
         '28 December 2022', '₱ 5000', 'Paid to San suresh', 45879652, false));
 
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
       child: Column(
         children: items,
       ),
@@ -419,15 +424,15 @@ class DashbordScreenState extends State<DashbordScreen>
       String date, String amount, String paidname, int tax, bool states) {
     return Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Color(0XffE5E5E5), width: 1.5),
+          border: Border.all(color: const Color(0XffE5E5E5), width: 1.5),
           //borderRadius: const BorderRadius.all(Radius.circular(3)))
         ),
         // padding: EdgeInsets.all(15),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(15),
-              color: Color(0Xff004751),
+              padding: const EdgeInsets.all(15),
+              color: const Color(0Xff004751),
               child: Column(
                 children: [
                   Row(
@@ -435,7 +440,7 @@ class DashbordScreenState extends State<DashbordScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(amount.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0XffCEE812),
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -445,7 +450,7 @@ class DashbordScreenState extends State<DashbordScreen>
                               color: Color(0Xffffffff), fontSize: 9))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
@@ -455,11 +460,11 @@ class DashbordScreenState extends State<DashbordScreen>
                             style: const TextStyle(
                                 color: Color(0Xffffffff), fontSize: 14),
                             textAlign: TextAlign.left),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         )
                       ]),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -468,9 +473,9 @@ class DashbordScreenState extends State<DashbordScreen>
                       Text('TXN ID  :  ' + amount.toString(),
                           style: const TextStyle(
                               color: Color(0Xffffffff), fontSize: 11)),
-                      Text('Download Receipt',
-                          style: const TextStyle(
-                              color: Color(0Xffffffff), fontSize: 10))
+                      const Text('Download Receipt',
+                          style:
+                              TextStyle(color: Color(0Xffffffff), fontSize: 10))
                     ],
                   ),
                 ],
@@ -486,14 +491,16 @@ class DashbordScreenState extends State<DashbordScreen>
                     : Image.asset(
                         "assets/paymentsuccess.png",
                         width: 32,
-                        color: Color(0XffFF9D00),
+                        color: const Color(0XffFF9D00),
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(states ? 'Transaction Success' : 'Confirmation Pending',
                     style: TextStyle(
-                        color: states ? Color(0Xff0AA06E) : Color(0XffFF9D00),
+                        color: states
+                            ? const Color(0Xff0AA06E)
+                            : const Color(0XffFF9D00),
                         fontSize: 14))
               ],
             )

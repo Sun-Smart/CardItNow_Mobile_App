@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp(
             navigatorKey: navigatorKey,
-            title: 'Flutter Cardit',
+            title: 'Cardit',
             debugShowCheckedModeBanner: false,
             //theme: themeProvider.getTheme,
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
