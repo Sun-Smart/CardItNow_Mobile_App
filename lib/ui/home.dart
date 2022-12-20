@@ -230,24 +230,11 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset(
-            "assets/visa.png",
-            width: 50,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Image.asset(
-            width: 50,
-            'assets/americon.png',
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          SvgPicture.asset(
-            'assets/master.svg',
-            width: 40,
-          )
+          Image.asset("assets/visa.png", width: 50),
+          const SizedBox(width: 10),
+          Image.asset(width: 50, 'assets/americon.png'),
+          const SizedBox(width: 10),
+          SvgPicture.asset('assets/master.svg', width: 40)
         ]));
   }
 }

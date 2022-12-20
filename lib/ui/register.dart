@@ -55,54 +55,6 @@ class _RegisterState extends State<Register> {
                             children: [
                               buildToptitle(),
                               buildtitle(),
-                              Column(
-                                children: [
-                                  RadioListTile(
-                                    title: Row(
-                                      children: [
-                                        Image.asset("assets/philipine.png",
-                                            width: 25, height: 25),
-                                        const SizedBox(width: 25),
-                                        const Text(
-                                          "Philipines",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ],
-                                    ),
-                                    value: "Philpines",
-                                    groupValue: gender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  RadioListTile(
-                                    title: Row(
-                                      children: [
-                                        Image.asset("assets/uae.jpg",
-                                            width: 25, height: 25),
-                                        const SizedBox(width: 25),
-                                        Text(
-                                          "UAE",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                      ],
-                                    ),
-                                    value: "UAE",
-                                    groupValue: gender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
-                                    },
-                                  ),
-                                ],
-                              )
                             ])),
                     buildbutton(),
                     bulidForm(),
