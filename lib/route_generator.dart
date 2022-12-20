@@ -6,6 +6,7 @@ import 'package:cardit/ui/dashboard/loans.dart';
 import 'package:cardit/ui/login.dart';
 import 'package:cardit/ui/register-loading.dart';
 import 'package:cardit/ui/register.dart';
+import 'package:cardit/ui/select_country.dart';
 import 'package:cardit/ui/update-password-code.dart';
 import 'package:cardit/ui/update-password.dart';
 import 'package:cardit/ui/verify-email.dart';
@@ -31,6 +32,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Login());
       case '/register':
         return MaterialPageRoute(builder: (_) => const Register());
+      case '/selectcountry':
+        return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':
         return MaterialPageRoute(builder: (_) => const Passcode());
       case '/verifyemail':

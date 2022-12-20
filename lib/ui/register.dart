@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -218,12 +217,10 @@ class _RegisterState extends State<Register> {
                                           width: 24.0,
                                           child: Theme(
                                             data: ThemeData(
-                                                unselectedWidgetColor: themeChange
-                                                        .darkTheme
-                                                    ? Colors.white
-                                                    : Color(
-                                                        0xff004751) 
-                                                ),
+                                                unselectedWidgetColor:
+                                                    themeChange.darkTheme
+                                                        ? Colors.white
+                                                        : Color(0xff004751)),
                                             child: Checkbox(
                                               activeColor: themeChange.darkTheme
                                                   ? Colors.white
@@ -448,16 +445,9 @@ class _RegisterState extends State<Register> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Image.asset(
-                      "assets/google.png",
-                      width: 32,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    const SizedBox(width: 20),
+                    Image.asset("assets/google.png", width: 32),
+                    SizedBox(width: 15),
                     Text(
                       "Sign Up using Google",
                       style: TextStyle(color: Color(0XFF413D4B), fontSize: 14),
@@ -466,18 +456,14 @@ class _RegisterState extends State<Register> {
                   ],
                 )),
           )),
-      const SizedBox(
-        height: 10,
-      ),
+      const SizedBox(height: 10),
       Text(
         'Or',
         style: TextStyle(
             fontSize: 14,
             color: themeChange.darkTheme ? Colors.white : HexColor('#413D4B')),
       ),
-      const SizedBox(
-        height: 10,
-      ),
+      const SizedBox(height: 10),
     ]);
   }
 

@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
                           )),
                       onPressed: () {
                         Navigator.of(context).pushNamed(
-                          '/register',
+                          '/selectcountry',
                         );
                       },
                       child: Text('Register',

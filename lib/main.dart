@@ -1,16 +1,12 @@
+import 'dart:async';
+
 import 'package:cardit/route_generator.dart';
-import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 

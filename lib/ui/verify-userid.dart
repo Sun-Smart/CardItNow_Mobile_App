@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -19,33 +21,32 @@ class VerifyUserId extends StatefulWidget {
 
 class _VerifyUserIdState extends State<VerifyUserId> {
   final formKey = GlobalKey<FormState>();
-  File? imgFile;
-  File? imgFiles;
-  final ImagePicker _picker = ImagePicker();
-  final phonenumberController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+
+  final ImagePicker imagePicker = ImagePicker();
+  String imagePath = "";
+  String base64String = "";
+  File? imageFile;
 
   void openCamera() async {
-    var imggallery = await _picker.pickImage(source: ImageSource.camera);
-    final bytes = (await imggallery!.readAsBytes()).lengthInBytes;
-    final kb = bytes / 1024;
-    final mb = kb / 1024;
-
-    setState(() {
-      // imgFile = File(imggallery!.path);
-      // if (mb < 2) {
-      //   print('==========================');
-      //   print(mb);
-      //   print('==========================');
-      // } else {
-      //   imgFile = File(imggallery.path);
-      // }
-    });
+    final imageCamera = await imagePicker.pickImage(source: ImageSource.camera);
   }
 
   void openGallery() async {
-    var imgcamera = await _picker.pickImage(source: ImageSource.gallery);
+    final imageGallery =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    Uint8List imageByte = await imageFile!.readAsBytes();
     setState(() {
-      imgFiles = File(imgcamera!.path);
+      if (imageGallery != null) {
+        imagePath = imageGallery.path;
+        imageFile = File(imagePath);
+        base64String = base64.encode(imageByte);
+        print('Base Url *************** Base Url');
+        print(base64String);
+        print('Base Url *************** Base Url');
+      } else {
+        print('No Image Selected');
+      }
     });
   }
 
@@ -172,13 +173,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   MyCustomInputBox(
                       label: "Enter ID Number ",
-                      controller: phonenumberController,
+                      controller: phoneNumberController,
                       obsecureText: false,
                       inputHint: dropdownvalue == null
                           ? "Enter Your Document Number"
                           : "Enter Your ${dropdownvalue.toString()} Number",
                       validator: (value) {
-                        if (phonenumberController.text.isEmpty) {
+                        if (phoneNumberController.text.isEmpty) {
                           return "Enter ${dropdownvalue.toString()} Number";
                         } else {
                           return null;
@@ -198,7 +199,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget displayImageSelfie() {
-    if (imgFiles == null) {
+    if (imageFile == null) {
       return Container(
           margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -208,15 +209,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              // openGallery();
+              openGallery();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset("assets/uplodicon.png", width: 32),
-                SizedBox(height: 5),
-                Text('Upload your Selfie'),
+                const SizedBox(height: 5),
+                const Text('Upload your Selfie'),
               ],
             ),
           ));
@@ -229,24 +230,26 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                // openGallery();
+                openGallery();
               },
-              child: Image.file(imgFiles!, height: 160)));
+              child: Image.file(imageFile!, height: 160)));
     }
   }
 
   Widget displayImage() {
-    if (imgFile == null) {
+    if (imageFile == null) {
       return Container(
           margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: MemoryImage(base64Decode(base64String))),
               border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              // openCamera();
+              openGallery();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -266,10 +269,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
-              onTap: () async {
-                //openGallery();
-              },
-              child: Image.file(imgFile!, height: 160)));
+            onTap: () async {
+              openGallery();
+            },
+            child: Image.file(imageFile!, fit: BoxFit.fill),
+          ));
     }
   }
 
