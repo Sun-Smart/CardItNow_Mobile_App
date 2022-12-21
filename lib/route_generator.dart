@@ -4,6 +4,9 @@ import 'package:cardit/ui/dashboard/dashbordscreen.dart';
 import 'package:cardit/ui/dashboard/loans-payment.dart';
 import 'package:cardit/ui/dashboard/loans.dart';
 import 'package:cardit/ui/login.dart';
+import 'package:cardit/ui/manage_cards/add_card.dart';
+import 'package:cardit/ui/manage_cards/manula_card.dart';
+import 'package:cardit/ui/manage_cards/scan_card.dart';
 import 'package:cardit/ui/register-loading.dart';
 import 'package:cardit/ui/register.dart';
 import 'package:cardit/ui/select_country.dart';
@@ -12,6 +15,7 @@ import 'package:cardit/ui/update-password.dart';
 import 'package:cardit/ui/verify-email.dart';
 import 'package:cardit/ui/verify-userid.dart';
 import 'package:flutter/material.dart';
+
 import 'ui/Userprofile/profile.dart';
 import 'ui/Userprofile/settings.dart';
 import 'ui/Userprofile/userdetails.dart';
@@ -68,6 +72,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const UserDetails());
       case '/settings':
         return MaterialPageRoute(builder: (_) => const Settings());
+      case '/addCard':
+        return MaterialPageRoute(builder: (_) => const AddCard());
+      case '/scanCard':
+        return MaterialPageRoute(builder: (_) => const ScanCard());
+      case '/manualCard':
+        return MaterialPageRoute(builder: (_) => const ManualCard());
 
       default:
         return _errorRoute();

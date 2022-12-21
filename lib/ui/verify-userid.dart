@@ -99,7 +99,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Text(
         'Verify Your Id',
         style: TextStyle(
@@ -115,7 +115,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Form(
             key: formKey,
             child: Column(
@@ -123,7 +123,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Select ID',
                           style: TextStyle(
                               fontFamily: 'Sora',
@@ -131,12 +131,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               color: Styles.whitecustomlable))),
                   const SizedBox(height: 10),
                   Container(
-                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color(0XffB7C5C7), width: 1.5),
+                        border: Border.all(
+                            color: const Color(0XffB7C5C7), width: 1.5),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(3))),
                     child: Padding(
@@ -180,7 +180,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: Text(
                       'Upload your ID',
                       style: TextStyle(
@@ -207,7 +207,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         }
                       }),
                   Container(
-                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Upload your Selfie',
                           style: TextStyle(
                               fontFamily: 'Sora',
@@ -223,11 +223,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget displayImageSelfie() {
     if (imageFile1 == null) {
       return Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
@@ -245,10 +245,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           ));
     } else {
       return Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
@@ -262,11 +262,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget displayImage() {
     if (imageFile == null) {
       return Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
@@ -277,17 +277,17 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset("assets/uplodicon.png", width: 32),
-                SizedBox(height: 5),
-                Text('Image should not be more than 2 mb'),
+                const SizedBox(height: 5),
+                const Text('Image should not be more than 2 mb'),
               ],
             ),
           ));
     } else {
       return Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
@@ -301,12 +301,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget bulildbutton() {
     return AuthButton(
         decoration: BoxDecoration(
-          // color: HexColor('#CEE812'),
-          color: HexColor('#CEE812'),
-          borderRadius: BorderRadius.circular(5),
-        ),
+            color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (formKey.currentState!.validate()) {}
+          // if (formKey.currentState!.validate()) {}
+          Navigator.of(context).pushNamed('/dashbordScreen');
         },
         text: "Next");
   }

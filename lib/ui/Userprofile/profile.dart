@@ -1,15 +1,15 @@
 // ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors
 
 import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/dashboard/dashbordscreen.dart';
+import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/widgets/bottom_navbar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -46,7 +46,7 @@ class _ProfileState extends State<Profile> {
             buildmenu(
                 'assets/banner/usericon.png', 'User Details', '/userdetails'),
             SizedBox(height: 15),
-            buildmenu('assets/banner/card.png', 'Manage Cards', '/settings'),
+            buildmenu('assets/banner/card.png', 'Manage Cards', '/addCard'),
             SizedBox(height: 15),
             buildmenu('assets/banner/reward.png', 'My Rewards', '/settings'),
             SizedBox(height: 15),
@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
             buildmenu(
                 'assets/banner/chart.png', 'Help and Support', '/settings'),
             SizedBox(height: 15),
-            buildlogout('assets/banner/logout.png', 'Log out', '')
+            buildlogout('assets/banner/logout.png', 'Log out')
           ],
         ),
       )),
@@ -102,11 +102,9 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(userDetails.photoURL!)),
+              CircleAvatar(radius: 50, backgroundImage: NetworkImage('')),
               const SizedBox(height: 5),
-              Text(userDetails.displayName!,
+              Text('',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: themeChange.darkTheme
@@ -115,7 +113,7 @@ class _ProfileState extends State<Profile> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text(userDetails.email!,
+              Text('',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromARGB(255, 177, 178, 178),
@@ -129,14 +127,13 @@ class _ProfileState extends State<Profile> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return ListTile(
         onTap: () {
-          // Navigator.of(context).pushNamed(link);
+          Navigator.of(context).pushNamed(link);
         },
         leading: Container(
             padding: const EdgeInsets.all(8),
             decoration: const BoxDecoration(
-              color: Color(0XffCEE812),
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-            ),
+                color: Color(0XffCEE812),
+                borderRadius: BorderRadius.all(Radius.circular(50))),
             child: Image.asset(icon, width: 20)),
         title: Text(text,
             style: TextStyle(
@@ -148,24 +145,70 @@ class _ProfileState extends State<Profile> {
             color: themeChange.darkTheme ? Colors.white : Colors.black));
   }
 
-  Widget buildlogout(String icon, String text, String link) {
+  Widget buildlogout(String icon, String text) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return ListTile(
-      onTap: () {
-        // Navigator.of(context).pushNamed('/onboardsellerlode');
-        print('Logout Pressed.....................');
-        AuthService().signOut();
+        onTap: () {
+          _onBackButtonPressed();
+        },
+        leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+                color: Color(0XffCEE812),
+                borderRadius: BorderRadius.all(Radius.circular(50))),
+            child: Image.asset(icon, width: 20)),
+        title: Text(text,
+            style: TextStyle(
+                color: themeChange.darkTheme ? Colors.white : Color(0Xff1B1B1B),
+                fontSize: 16,
+                fontWeight: FontWeight.normal)),
+        trailing: Icon(Icons.keyboard_arrow_right_outlined,
+            size: 35,
+            color: themeChange.darkTheme ? Colors.white : Colors.black));
+  }
+
+  //Back Press
+  Future<bool> _onBackButtonPressed() async {
+    bool exitApp = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 10,
+          title: const Text('Really...',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+          content: const Text('Do you want to Logout the app?',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('No',
+                  style: TextStyle(
+                      fontFamily: 'ProductSans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('Yes',
+                  style: TextStyle(
+                      fontFamily: 'ProductSans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
+            )
+          ],
+        );
       },
-      leading: Image.asset(
-        icon,
-        width: 24,
-        color: themeChange.darkTheme ? Colors.white : Color(0Xff004751),
-      ),
-      title: Text(text,
-          style: TextStyle(
-              color: themeChange.darkTheme ? Colors.white : Color(0Xff004751),
-              fontSize: 18,
-              fontWeight: FontWeight.normal)),
     );
+    return exitApp ?? false;
   }
 }

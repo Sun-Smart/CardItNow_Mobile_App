@@ -51,6 +51,7 @@ dependencies:
   firebase_auth: ^4.1.5
   google_sign_in: ^5.4.2
   http: ^0.13.5
+  awesome_card: ^1.1.7
 
 dev_dependencies:
   flutter_test:

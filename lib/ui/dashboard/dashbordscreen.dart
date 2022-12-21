@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -9,7 +8,7 @@ import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
 
-final userDetails = FirebaseAuth.instance.currentUser!;
+//final userDetails = FirebaseAuth.instance.currentUser!;
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({Key? key}) : super(key: key);
@@ -33,10 +32,7 @@ class DashbordScreenState extends State<DashbordScreen>
     _SalesData('July', 150, const Color(0Xff036D7A)),
     _SalesData('August', 80, const Color(0XffEDEDED)),
   ];
-  var item = [
-    'Monthly',
-    'weekly',
-  ];
+  var item = ['Monthly', 'weekly'];
   String? dropdownvalue;
   @override
   void initState() {
@@ -91,7 +87,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                       /*defining default style is optional */
                                       children: <TextSpan>[
                                     TextSpan(
-                                        text: userDetails.displayName!,
+                                        text: '',
                                         style: const TextStyle(
                                             color: Color(0xffC9E313),
                                             fontSize: 18)),
@@ -146,21 +142,38 @@ class DashbordScreenState extends State<DashbordScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Really ??'),
-          content: const Text('Do you want to close the app??'),
+          elevation: 10,
+          title: const Text('Really...',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+          content: const Text('Do you want to Close the app?',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
           actions: <Widget>[
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('No'),
+              child: const Text('No',
+                  style: TextStyle(
+                      fontFamily: 'ProductSans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Yes'),
-            ),
+              child: const Text('Yes',
+                  style: TextStyle(
+                      fontFamily: 'ProductSans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
+            )
           ],
         );
       },
@@ -225,8 +238,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                   : const Color(0XFF413D4B),
                               fontSize: 14),
                         ),
-
-                        // text
+                        //text
                       ],
                     )),
               )),

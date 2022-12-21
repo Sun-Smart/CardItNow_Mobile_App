@@ -184,6 +184,7 @@ class _RegisterState extends State<Register> {
                                                     isChecked = false;
                                                   } else {
                                                     isChecked = true;
+                                                    showAlertDialog(context);
                                                   }
                                                 });
                                               },
@@ -205,7 +206,7 @@ class _RegisterState extends State<Register> {
                                         color: HexColor('#004751')),
                                   ),
                                   onPressed: () {
-                                    showAlertDialog(context);
+                                    //showAlertDialog(context);
                                   },
                                   child: Text(
                                     'terms and conditions.',
