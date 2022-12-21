@@ -1,15 +1,13 @@
 import 'dart:ui';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../themes/theme_notifier.dart';
 import '../widgets/auth_button.dart';
-import '../widgets/custom_input.dart';
 
 class Passcode extends StatefulWidget {
   const Passcode({super.key});
@@ -121,6 +119,10 @@ class _PasscodeState extends State<Passcode> {
 
   Widget bulildbutton() {
     return AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
       onTap: () {
         Navigator.of(context).pushNamed(
           '/dashbordScreen',

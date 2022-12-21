@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
-import '../../widgets/custom_input.dart';
 
 class OnboardSellerLoad extends StatefulWidget {
   const OnboardSellerLoad({Key? key}) : super(key: key);
@@ -115,6 +115,10 @@ class _OnboardSellerloadState extends State<OnboardSellerLoad> {
 
   Widget bulildbutton() {
     return AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
       color: Color(0XffC4C4C4),
       onTap: () {
         Navigator.of(context).pushNamed(

@@ -1,9 +1,7 @@
 import 'dart:ui';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../themes/styles.dart';
@@ -124,6 +122,10 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
 
   Widget bulildbutton() {
     return AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
       onTap: () {
         Navigator.of(context).pushNamed(
           '/updatepassword',

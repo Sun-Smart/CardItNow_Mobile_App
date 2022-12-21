@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
-import '../../widgets/custom_input.dart';
 
 class PaymentsDetails extends StatefulWidget {
   const PaymentsDetails({Key? key}) : super(key: key);
@@ -219,6 +219,10 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
 
   Widget bulildbutton() {
     return AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
       onTap: () {},
       text: "Contact Support",
     );

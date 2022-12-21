@@ -300,6 +300,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   Widget bulildbutton() {
     return AuthButton(
+        decoration: BoxDecoration(
+          // color: HexColor('#CEE812'),
+          color: HexColor('#CEE812'),
+          borderRadius: BorderRadius.circular(5),
+        ),
         onTap: () {
           if (formKey.currentState!.validate()) {}
         },

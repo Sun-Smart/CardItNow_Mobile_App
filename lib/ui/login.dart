@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -223,6 +222,10 @@ class _LoginState extends State<Login> {
                             ),
                           ])),
                   AuthButton(
+                    decoration: BoxDecoration(
+                      color: HexColor('#CEE812'),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         '/4digitpasscode',

@@ -285,15 +285,23 @@ class _RegisterState extends State<Register> {
                         ],
                       )),
                   AuthButton(
-                      onTap: () {
-                        if (isChecked == false && isChecked1 == false) {
-                          print('Select the Check Box');
-                        } else if (isChecked == true && isChecked1 == true) {
-                          Navigator.of(context).pushNamed('/verifyemail');
-                        }
-                        //if (formKey.currentState!.validate()) {}
-                      },
-                      text: "Register"),
+                    onTap: () {
+                      if (isChecked == false) {
+                        print('Select the Check Box');
+                      } else if (isChecked == true) {
+                        Navigator.of(context).pushNamed('/verifyemail');
+                      }
+                      //if (formKey.currentState!.validate()) {}
+                    },
+                    text: "Register",
+                    decoration: BoxDecoration(
+                      color: isChecked == true
+                          ? HexColor('#CEE812')
+                          : Color.fromARGB(255, 218, 248, 159),
+                      // color: color != null ? color : HexColor('#CEE812'),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
@@ -266,6 +267,10 @@ class _OnboardSellerState extends State<OnboardSeller> {
 
   Widget bulildbutton() {
     return AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
       onTap: () {
         Navigator.of(context).pushNamed(
           '/onboardsellerlode',
