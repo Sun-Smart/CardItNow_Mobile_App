@@ -1,9 +1,7 @@
-import 'dart:math' as math;
-
-import 'package:awesome_card/awesome_card.dart';
-import 'package:cardit/widgets/auth_button.dart';
+import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'package:credit_card_scanner/models/card_details.dart';
+import 'package:credit_card_scanner/models/card_scan_options.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ScanCard extends StatefulWidget {
   const ScanCard({Key? key}) : super(key: key);
@@ -13,33 +11,23 @@ class ScanCard extends StatefulWidget {
 }
 
 class _ScanCardState extends State<ScanCard> {
-  String cardNumber = '';
-  String cardHolderName = '';
-  String expiryDate = '';
-  String cvv = '';
-  String bankName = '';
-  bool showBack = false;
-  int maxLength = 16;
+  CardDetails? _cardDetails;
+  CardScanOptions scanOptions = const CardScanOptions(
+    scanCardHolderName: true,
+    // enableDebugLogs: true,
+    validCardsToScanBeforeFinishingScan: 5,
+    possibleCardHolderNamePositions: [
+      CardHolderNameScanPosition.aboveCardNumber,
+    ],
+  );
 
-  late FocusNode _focusNode;
-  TextEditingController cardNumberCTR1 = TextEditingController();
-  TextEditingController expiryFieldCTR1 = TextEditingController();
-
-  @override
-  void initState() {
-    _focusNode = FocusNode();
-    _focusNode.addListener(() {
-      setState(() {
-        _focusNode.hasFocus ? showBack = true : showBack = false;
-      });
+  Future<void> scanCard() async {
+    final CardDetails? cardDetails =
+        await CardScanner.scanCard(scanOptions: scanOptions);
+    if (!mounted || cardDetails == null) return;
+    setState(() {
+      _cardDetails = cardDetails;
     });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -54,186 +42,33 @@ class _ScanCardState extends State<ScanCard> {
           },
           icon: const Icon(Icons.close, size: 30),
         ),
+        title: const Text('Scan Card'),
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 20),
-            CreditCard(
-                cardNumber: cardNumber,
-                cardExpiry: expiryDate,
-                cardHolderName: cardHolderName,
-                cvv: cvv,
-                bankName: bankName.toUpperCase(),
-                showBackSide: showBack,
-                cardType: CardType.masterCard,
-                frontBackground: CardBackgrounds.black,
-                backBackground: CardBackgrounds.black,
-                showShadow: true),
-            const SizedBox(height: 40),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: cardNumberCTR1,
-                    decoration: InputDecoration(
-                        labelText: 'Enter Card Number',
-                        labelStyle:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                        prefixIcon:
-                            const Icon(Icons.credit_card, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            width: 3,
-                            color: Color.fromARGB(255, 218, 248, 159),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: HexColor('#CEE812')),
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                    maxLength: 16,
-                    onChanged: (value) {
-                      final newCardValue = value.trim();
-                      var newStr = ' ';
-                      final step = 4;
-                      for (var i = 0; i < newCardValue.length; i += step) {
-                        newStr += newCardValue.substring(
-                            i, math.min(i + step, newCardValue.length));
-                        if (i + step < newCardValue.length) newStr += ' ';
-                      }
-                      setState(() {
-                        cardNumber = newStr;
-                      });
-                    },
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: expiryFieldCTR1,
-                    decoration: InputDecoration(
-                        labelText: 'MM / YY',
-                        labelStyle:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                        prefixIcon: const Icon(Icons.calendar_month,
-                            color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            width: 3,
-                            color: Color.fromARGB(255, 218, 248, 159),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: HexColor('#CEE812')),
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                    maxLength: 5,
-                    onChanged: (value) {
-                      var newDateValue = value.trim();
-                      final isPressingBackSpace =
-                          expiryDate.length > newDateValue.length;
-                      final containsSlash = newDateValue.contains('/');
-                      if (newDateValue.length >= 2 &&
-                          !containsSlash &&
-                          !isPressingBackSpace) {
-                        newDateValue = newDateValue.substring(0, 2) +
-                            '/' +
-                            newDateValue.substring(2);
-                      }
-                      setState(() {
-                        expiryFieldCTR1.text = newDateValue;
-                        expiryFieldCTR1.selection = TextSelection.fromPosition(
-                            TextPosition(offset: newDateValue.length));
-                        expiryDate = newDateValue;
-                      });
-                    },
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: 'Card Holder Name',
-                        labelStyle:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                        prefixIcon:
-                            const Icon(Icons.person, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            width: 3,
-                            color: Color.fromARGB(255, 218, 248, 159),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: HexColor('#CEE812')),
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                    onChanged: (value) {
-                      setState(() {
-                        cardHolderName = value.trim();
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: 'Enter Bank Name',
-                        labelStyle:
-                            const TextStyle(color: Colors.black, fontSize: 15),
-                        prefixIcon: const Icon(Icons.home, color: Colors.black),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            width: 3,
-                            color: Color.fromARGB(255, 218, 248, 159),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: HexColor('#CEE812')),
-                          borderRadius: BorderRadius.circular(15),
-                        )),
-                    onChanged: (value) {
-                      setState(() {
-                        bankName = value.trim();
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20),
-                AuthButton(
-                  decoration: BoxDecoration(
-                    color: HexColor('#CEE812'),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  onTap: () {},
-                  text: 'SUBMIT',
-                )
-              ],
-            )
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            MaterialButton(
+              color: Colors.blue,
+              onPressed: () async {
+                scanCard();
+              },
+              child: const Text('scan card'),
+            ),
+            Text('$_cardDetails'),
+            // Expanded(
+            //   child: OptionConfigureWidget(
+            //     initialOptions: scanOptions,
+            //     onScanOptionChanged: (newOptions) => scanOptions = newOptions,
+            //   ),
+            // )
           ],
         ),
       ),
     );
   }
+
+  // OptionConfigureWidget(
+  //     {required CardScanOptions initialOptions,
+  //     required Function(dynamic newOptions) onScanOptionChanged}) {}
 }
