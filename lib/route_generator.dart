@@ -1,8 +1,13 @@
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/ui/4digit-passcode.dart';
+import 'package:cardit/ui/dashboard/choose_LPG.dart';
+import 'package:cardit/ui/dashboard/dashboard_payment.dart';
 import 'package:cardit/ui/dashboard/dashbordscreen.dart';
 import 'package:cardit/ui/dashboard/loans-payment.dart';
 import 'package:cardit/ui/dashboard/loans.dart';
+import 'package:cardit/ui/dashboard/onboard_recipient.dart';
+import 'package:cardit/ui/dashboard/select_documents.dart';
+import 'package:cardit/ui/dashboard/select_recipient.dart';
 import 'package:cardit/ui/login.dart';
 import 'package:cardit/ui/manage_cards/add_card.dart';
 import 'package:cardit/ui/manage_cards/manula_card.dart';
@@ -78,6 +83,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ScanCard());
       case '/manualCard':
         return MaterialPageRoute(builder: (_) => const ManualCard());
+      case '/selecttypeofrecipient':
+        return MaterialPageRoute(builder: (_) => const RecipientType());
+      case '/selectdocuments':
+        return MaterialPageRoute(builder: (_) => const SelectDocuments());
+      case '/onboardrecipient':
+        return MaterialPageRoute(builder: (_) => const onboardRecipient());
+      case '/payment_dashboard':
+        return MaterialPageRoute(builder: (_) => const PaymentDashboard());
+      case '/chooseLPG':
+        return MaterialPageRoute(builder: (_) => const ChooseLPG());
 
       default:
         return _errorRoute();

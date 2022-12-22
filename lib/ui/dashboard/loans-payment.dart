@@ -261,6 +261,8 @@ class _LoansPaymentState extends State<LoansPayment> {
             }));
   }
 
+  
+  
   Widget _buildguide(DataUser partners) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return InkWell(
