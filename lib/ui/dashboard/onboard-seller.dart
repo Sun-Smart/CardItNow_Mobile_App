@@ -82,6 +82,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Account Holder Name",
                     controller: _holdernameController,
                     //label: 'Email address',
@@ -101,6 +102,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Seller’s Email ",
                     controller: _emailController,
                     //label: 'Email address',
@@ -123,6 +125,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Business Reg Number",
                     controller: _businessController,
                     //label: 'Email address',
@@ -142,6 +145,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Phone Number",
                     controller: _phonenumberController,
                     //label: 'Email address',
@@ -225,6 +229,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     height: 15,
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Account Number",
                     controller: _accountnumberController,
                     //label: 'Email address',
@@ -244,6 +249,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Enter Swift Code",
                     controller: _swiftcodeController,
                     //label: 'Email address',

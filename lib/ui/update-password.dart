@@ -92,6 +92,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             key: formKey,
             child: Column(children: [
               MyCustomInputBox(
+                enabled: true,
                 controller: _otpController,
                 label: 'New Password',
                 inputHint: 'Enter a strong password',
@@ -111,6 +112,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                 },
               ),
               MyCustomInputBox(
+                enabled: true,
                 controller: _otpController,
                 label: 'Confirm Password',
                 inputHint: 'Confirm Password',

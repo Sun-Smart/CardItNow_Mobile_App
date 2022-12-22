@@ -89,6 +89,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
             key: formKey,
             child: Stack(children: [
               MyCustomInputBox(
+                enabled: true,
                 label: "Email Verification Code",
                 controller: _phonenumberController,
                 //label: 'Email address',

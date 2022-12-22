@@ -18,12 +18,13 @@ import 'package:flutter/material.dart';
 
 import 'ui/Userprofile/profile.dart';
 import 'ui/Userprofile/settings.dart';
-import 'ui/Userprofile/userdetails.dart';
 import 'ui/dashboard/onboard-seller-apply.dart';
 import 'ui/dashboard/onboard-seller-load.dart';
 import 'ui/dashboard/onboard-seller.dart';
 import 'ui/dashboard/payments.dart';
 import 'ui/dashboard/paymentsdetails.dart';
+import 'ui/profile_information/profile_information.dart';
+import 'ui/user_details/userdetails.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -78,6 +79,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ScanCard());
       case '/manualCard':
         return MaterialPageRoute(builder: (_) => const ManualCard());
+      case '/profileInformation':
+        return MaterialPageRoute(
+            builder: (_) => const ProfileInformation(passingValue: ''));
 
       default:
         return _errorRoute();

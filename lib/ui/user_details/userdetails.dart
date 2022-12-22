@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/styles.dart';
@@ -33,14 +35,11 @@ class _UserDetailsState extends State<UserDetails> {
   TextEditingController dateCtl = TextEditingController();
   File? imgFiles;
   File? imgcameraFile;
-  File? imggalleryFiles;
+  File? imggalleryFile;
   final ImagePicker _picker = ImagePicker();
 
   void openCamera() async {
     var cameraFile = await _picker.pickImage(source: ImageSource.camera);
-    //int sizeInBytes = File(imgcameraFile!.path).lengthSync();
-    //double sizeInMb = sizeInBytes / (1024 * 1024);
-
     setState(() {
       imgcameraFile = File(cameraFile!.path);
     });
@@ -49,7 +48,7 @@ class _UserDetailsState extends State<UserDetails> {
   void openGallery() async {
     var imgGallery = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      imggalleryFiles = File(imgGallery!.path);
+      imggalleryFile = File(imgGallery!.path);
     });
   }
 
@@ -59,23 +58,13 @@ class _UserDetailsState extends State<UserDetails> {
     'UserE892',
     'UserE893',
     'UserE894',
-    'UserE895',
+    'UserE895'
   ];
-  String? dropdownvalue;
 
-  var country = [
-    'India',
-    'America',
-    'Usa',
-    'Uk',
-  ];
+  String? dropdownvalue;
+  var country = ['India', 'America', 'Usa', 'Uk'];
   String? dropdowncountry;
-  var city = [
-    'TamilNadu',
-    'Chennai',
-    'Salam',
-    'Thanipadi',
-  ];
+  var city = ['TamilNadu', 'Chennai', 'Salam', 'Thanipadi'];
   String? dropdowncity;
 
   @override
@@ -86,6 +75,7 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -101,16 +91,12 @@ class _UserDetailsState extends State<UserDetails> {
                 fontSize: 24,
                 fontWeight: FontWeight.bold),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Color(0XffCEE812),
             indicatorWeight: 2.5,
             tabs: [
-              Tab(
-                text: "Personal Details",
-              ),
-              Tab(
-                text: "National ID ",
-              ),
+              Tab(text: "Personal Details"),
+              Tab(text: "Upload Document"),
             ],
           ),
         ),
@@ -124,17 +110,11 @@ class _UserDetailsState extends State<UserDetails> {
         child: Container(
       child: Column(
         children: [
-          SizedBox(
-            height: 40,
-          ),
+          SizedBox(height: 40),
           _buildImage(),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           _buildImageEdit(),
-          SizedBox(
-            height: 40,
-          ),
+          SizedBox(height: 40),
           _buildField()
         ],
       ),
@@ -146,26 +126,57 @@ class _UserDetailsState extends State<UserDetails> {
         onTap: () {
           _showPicker(context);
         },
-        child: Text(
-          'Edit Avatar',
-        ));
+        child: Text('Edit Avatar'));
   }
 
   Widget _buildImage() {
     if (imgFiles == null) {
-      return Container(
-          height: 100.0,
-          width: 100.0,
-          decoration: BoxDecoration(
-              color: Color(0Xff004751),
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage("assets/banner/userprofile.png"),
-                  fit: BoxFit.fill)));
+      return SizedBox(
+        height: 115,
+        width: 115,
+        child: Stack(
+          clipBehavior: Clip.none,
+          fit: StackFit.expand,
+          children: [
+            const CircleAvatar(
+              backgroundColor: Colors.red,
+              child: CircleAvatar(
+                backgroundImage: AssetImage("assets/banner/userprofile.png"),
+                backgroundColor: Colors.white,
+                radius: 55,
+              ),
+            ),
+            Positioned(
+                bottom: 5,
+                right: -10,
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  child: MaterialButton(
+                      onPressed: () {
+                        cameraOptions(context);
+                      },
+                      child:
+                          Icon(Icons.camera_alt_outlined, color: Colors.white),
+                      padding: const EdgeInsets.all(5),
+                      shape: const CircleBorder()),
+                )),
+          ],
+        ),
+      );
+
+      // Container(
+      //   height: 125.0,
+      //   width: 125.0,
+      //   decoration: const BoxDecoration(
+      //       color: Color(0Xff004751),
+      //       shape: BoxShape.circle,
+      //       image: DecorationImage(
+      //           image: AssetImage("assets/banner/userprofile.png"),
+      //           fit: BoxFit.fill)));
     } else {
       return Container(
-          height: 100.0,
-          width: 100.0,
+          height: 125.0,
+          width: 125.0,
           decoration: BoxDecoration(
               border: Border.all(color: Colors.grey, width: 3),
               borderRadius: BorderRadius.circular(100),
@@ -184,6 +195,7 @@ class _UserDetailsState extends State<UserDetails> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
+                    enabled: true,
                     label: "First Name*",
                     controller: _holdernameController,
                     //label: 'Email address',
@@ -203,6 +215,7 @@ class _UserDetailsState extends State<UserDetails> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Middle Name ",
                     controller: _middleController,
                     //label: 'Email address',
@@ -215,6 +228,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),*/
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Last Name*",
                     controller: _lastnameController,
                     //label: 'Email address',
@@ -234,6 +248,7 @@ class _UserDetailsState extends State<UserDetails> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Enter Your Email*",
                     controller: _emailController,
                     //label: 'Email address',
@@ -256,6 +271,7 @@ class _UserDetailsState extends State<UserDetails> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Phone Number*",
                     controller: _phoneController,
                     obsecureText: false,
@@ -278,19 +294,18 @@ class _UserDetailsState extends State<UserDetails> {
                               color: themeChange.darkTheme
                                   ? Colors.white
                                   : HexColor('#505050')))),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
-                    color: Colors.white,
-                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5)),
                     child: DropdownButtonFormField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 1)),
-                      ),
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 1))),
                       // underline:Container(),
                       //  validator: (value)=>value==null?'field required':null,
                       dropdownColor: Colors.white,
@@ -322,13 +337,10 @@ class _UserDetailsState extends State<UserDetails> {
                           dropdownvalue = newValue!;
                         });
                       },
-
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -337,9 +349,7 @@ class _UserDetailsState extends State<UserDetails> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Stack(clipBehavior: Clip.none, children: <Widget>[
                     Container(
                         padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -354,12 +364,12 @@ class _UserDetailsState extends State<UserDetails> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: BorderSide(
-                                  color: HexColor('#B7C5C7'), width: 1.3),
+                                  color: HexColor('#000000'), width: 1.3),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: BorderSide(
-                                  color: HexColor('#B7C5C7'), width: 1.3),
+                                  color: HexColor('#000000'), width: 1.3),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
@@ -420,10 +430,9 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                     )
                   ]),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Address*",
                     controller: _addressController,
                     //label: 'Email address',
@@ -451,13 +460,13 @@ class _UserDetailsState extends State<UserDetails> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
-                    color: Colors.white,
                     margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5)),
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
@@ -503,9 +512,7 @@ class _UserDetailsState extends State<UserDetails> {
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -514,11 +521,11 @@ class _UserDetailsState extends State<UserDetails> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: Styles.whitecustomlable))),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5)),
                     margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
                     child: DropdownButtonFormField(
@@ -565,10 +572,9 @@ class _UserDetailsState extends State<UserDetails> {
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Postal code",
                     controller: _postalController,
                     //label: 'Email address',
@@ -689,6 +695,7 @@ class _UserDetailsState extends State<UserDetails> {
             height: 20,
           ),
           MyCustomInputBox(
+            enabled: true,
             label: "Your Id",
             controller: _possportController,
             //label: 'Email address',
@@ -715,14 +722,11 @@ class _UserDetailsState extends State<UserDetails> {
                       fontFamily: 'Sora',
                       fontSize: 14,
                       color: HexColor('#505050')))),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           displayImage(),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           MyCustomInputBox(
+            enabled: true,
             label: "Id Number",
             controller: _postalController,
             //label: 'Email address',
@@ -808,7 +812,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   Widget displayImage() {
-    if (imggalleryFiles == null) {
+    if (imggalleryFile == null) {
       return Container(
           margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -848,12 +852,162 @@ class _UserDetailsState extends State<UserDetails> {
                 border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
                 borderRadius: const BorderRadius.all(Radius.circular(3)),
                 image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: FileImage(
-                      imggalleryFiles!,
-                    ))),
+                    fit: BoxFit.fill, image: FileImage(imggalleryFile!))),
           ));
       //return Image.file(imgFile!, width: 350, height: 350);
     }
+  }
+
+  cameraOptions(BuildContext context) {
+    return Dialogs.materialDialog(
+        color: Colors.white,
+        msg: 'Select your mode to upload profile',
+        title: 'Upload Images',
+        dialogWidth: kIsWeb ? 0.3 : null,
+        context: context,
+        actions: [
+          Column(
+            children: [
+              SizedBox(
+                height: 48.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(1.0, 2.0),
+                            blurRadius: 8.0,
+                            spreadRadius: 2.0)
+                      ]),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                          width: 48.0,
+                          height: 48.0,
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: HexColor('#CEE812'),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Icon(Icons.person, color: Colors.black))),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: MaterialButton(
+                            minWidth: 220,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Choose Default Avator',
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 48.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(1.0, 2.0),
+                            blurRadius: 8.0,
+                            spreadRadius: 2.0)
+                      ]),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                          width: 48.0,
+                          height: 48.0,
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: HexColor('#CEE812'),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Icon(Icons.photo, color: Colors.black))),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: MaterialButton(
+                            minWidth: 220,
+                            onPressed: () {
+                              openGallery();
+                            },
+                            child: Text(
+                              "Upload Gallery Photo's",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 48.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(1.0, 2.0),
+                            blurRadius: 8.0,
+                            spreadRadius: 2.0)
+                      ]),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                          width: 48.0,
+                          height: 48.0,
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            color: HexColor('#CEE812'),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                          ),
+                          child: Align(
+                              alignment: Alignment.center,
+                              child:
+                                  Icon(Icons.camera_alt, color: Colors.black))),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: MaterialButton(
+                            minWidth: 220,
+                            onPressed: () {
+                              openCamera();
+                            },
+                            child: Text(
+                              'Take Selfi',
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+        ]);
   }
 }

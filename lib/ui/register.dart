@@ -131,6 +131,7 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Use your Email ",
                     controller: _phonenumberController,
                     //label: 'Email address',

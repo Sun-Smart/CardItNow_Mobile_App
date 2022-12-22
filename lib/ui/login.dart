@@ -121,6 +121,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
+                    enabled: true,
                     label: "Email ",
                     controller: _phonenumberController,
                     //label: 'Email address',
@@ -143,6 +144,7 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   MyCustomInputBox(
+                    enabled: true,
                     controller: _otpController,
                     label: 'Password',
                     inputHint: 'Enter Password',

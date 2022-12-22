@@ -193,6 +193,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   displayImage(),
                   const SizedBox(height: 20),
                   MyCustomInputBox(
+                      enabled: true,
                       label: "Enter ID Number ",
                       controller: phoneNumberController,
                       obsecureText: false,
@@ -304,7 +305,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           // if (formKey.currentState!.validate()) {}
-          Navigator.of(context).pushNamed('/dashbordScreen');
+          Navigator.of(context).pushNamed('/profileInformation');
         },
         text: "Next");
   }

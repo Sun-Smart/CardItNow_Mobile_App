@@ -14,6 +14,7 @@ class MyCustomInputBox extends StatefulWidget {
   final bool? obsecureText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final bool? enabled;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
   final TextEditingController controller;
@@ -30,6 +31,7 @@ class MyCustomInputBox extends StatefulWidget {
       this.textInputType,
       this.textInputAction,
       required this.controller,
+      required this.enabled,
       this.maxLines,
       this.validator})
       : super(key: key);
@@ -52,7 +54,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.only(left: 20, bottom: 0),
+            padding: const EdgeInsets.only(left: 20, bottom: 0),
             child: Text(
               widget.label ?? "",
               style: TextStyle(
@@ -64,34 +66,31 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           alignment: Alignment.bottomCenter,
           width: MediaQuery.of(context).size.width / 1,
-
           // height: MediaQuery.of(context).size.height * 0.070,
           child: TextFormField(
             obscureText: widget.inputHint == 'Password' ? showpass : false,
             controller: widget.controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.validator,
+            enabled: widget.enabled,
             style: TextStyle(
-              fontFamily: 'Sora',
-              fontSize: 18,
-              color: HexColor('#2f2145'),
-            ),
+                fontFamily: 'Sora', fontSize: 18, color: HexColor('#2f2145')),
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              //suffixIcon: widget.suffixIcon,
+              //  suffixIcon: widget.suffixIcon,
               prefixIcon: widget.prefixIcon,
               helperText: '',
               floatingLabelBehavior: FloatingLabelBehavior.never,
               hintText: widget.inputHint,
-              helperStyle: TextStyle(fontFamily: 'Sora', fontSize: 14),
+              helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
               hintStyle: const TextStyle(
                 fontSize: 12,
                 fontFamily: 'Sora',
@@ -101,30 +100,27 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               focusColor: Colors.grey.shade300,
+              border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black)),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: BorderSide(color: HexColor('#B7C5C7'), width: 1.3),
-              ),
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide:
+                      const BorderSide(color: Colors.black, width: 1.3)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
-                borderSide: BorderSide(color: HexColor('#B7C5C7'), width: 1.3),
+                borderSide: const BorderSide(color: Colors.black, width: 1.3),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                gapPadding: 7,
-                borderSide:
-                    const BorderSide(color: Color.fromARGB(255, 255, 9, 9)),
-              ),
+                  borderRadius: BorderRadius.circular(4),
+                  gapPadding: 7,
+                  borderSide: const BorderSide(color: Colors.black)),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide:
-                    const BorderSide(color: Color.fromARGB(255, 255, 9, 9)),
-              ),
-              errorStyle: TextStyle(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: const BorderSide(color: Colors.black)),
+              errorStyle: const TextStyle(
                   fontFamily: 'Sora',
                   fontSize: 13,
                   fontWeight: FontWeight.bold),
-
               suffixIcon: widget.inputHint == 'Password'
                   ? GestureDetector(
                       onTap: () {
@@ -166,8 +162,6 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             ),
           ),
         ),
-
-        //
       ],
     );
   }

@@ -1,5 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -179,6 +183,33 @@ class DashbordScreenState extends State<DashbordScreen>
       },
     );
     return exitApp ?? false;
+  }
+
+  //Back Press
+  _backPressed(BuildContext context) {
+    return Dialogs.bottomMaterialDialog(
+        msg: 'Do you want to Close the app?',
+        title: 'Really...',
+        context: context,
+        actions: [
+          IconsOutlineButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            text: 'No',
+            iconData: Icons.cancel_outlined,
+            textStyle: TextStyle(color: Colors.grey),
+            iconColor: Colors.grey,
+          ),
+          IconsButton(
+            onPressed: () {},
+            text: 'Yes',
+            iconData: Icons.delete,
+            color: Colors.red,
+            textStyle: TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
   }
 
   Widget Slider() {
@@ -404,7 +435,6 @@ class DashbordScreenState extends State<DashbordScreen>
                   yValueMapper: (_SalesData sales, _) => sales.sales,
                   xValueMapper: (_SalesData sales, _) => sales.year,
                   name: 'Sales',
-
                   // Enable data label
                   dataLabelSettings: const DataLabelSettings(isVisible: true),
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
