@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+Size size = WidgetsBinding.instance.window.physicalSize /
+    WidgetsBinding.instance.window.devicePixelRatio;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,8 @@ import '../widgets/custom_input.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;
+bool _isLoggedIn = false;
+Map _userObj = {};
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -131,7 +134,6 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
-                    enabled: true,
                     label: "Use your Email ",
                     controller: _phonenumberController,
                     //label: 'Email address',
@@ -152,6 +154,7 @@ class _RegisterState extends State<Register> {
                         return null;
                       }
                     },
+                    enabled: false,
                   ),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
@@ -207,7 +210,7 @@ class _RegisterState extends State<Register> {
                                         color: HexColor('#004751')),
                                   ),
                                   onPressed: () {
-                                    //showAlertDialog(context);
+                                    showAlertDialog(context);
                                   },
                                   child: Text(
                                     'terms and conditions.',
@@ -297,10 +300,7 @@ class _RegisterState extends State<Register> {
                     },
                     text: "Register",
                     decoration: BoxDecoration(
-                      color: isChecked == true
-                          ? HexColor('#CEE812')
-                          : Color.fromARGB(255, 218, 248, 159),
-                      // color: color != null ? color : HexColor('#CEE812'),
+                      color: HexColor('#CEE812'),
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
@@ -360,7 +360,17 @@ class _RegisterState extends State<Register> {
             highlightColor: Color(0XFFffffff),
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
-            onTap: () {}, // button pressed
+            onTap: () {
+              FacebookAuth.instance.login(
+                  permissions: ["public_profile", "email"]).then((value) {
+                FacebookAuth.instance.getUserData().then((userData) {
+                  setState(() {
+                    _isLoggedIn = true;
+                    _userObj = userData;
+                  });
+                });
+              });
+            }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Row(
