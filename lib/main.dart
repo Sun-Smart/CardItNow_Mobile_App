@@ -6,6 +6,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       },
       child: Consumer<DarkThemeProvider>(
         builder: (BuildContext context, value, Widget? child) {
-          return MaterialApp(
+          return GetMaterialApp(
             navigatorKey: navigatorKey,
             title: 'Card-it',
             debugShowCheckedModeBanner: false,

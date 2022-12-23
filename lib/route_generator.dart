@@ -1,5 +1,6 @@
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/ui/4digit-passcode.dart';
+import 'package:cardit/ui/Userprofile/select_avatar.dart';
 import 'package:cardit/ui/dashboard/dashbordscreen.dart';
 import 'package:cardit/ui/dashboard/loans-payment.dart';
 import 'package:cardit/ui/dashboard/loans.dart';
@@ -7,6 +8,7 @@ import 'package:cardit/ui/login.dart';
 import 'package:cardit/ui/manage_cards/add_card.dart';
 import 'package:cardit/ui/manage_cards/manula_card.dart';
 import 'package:cardit/ui/manage_cards/scan_card.dart';
+import 'package:cardit/ui/profile_information/profile_information.dart';
 import 'package:cardit/ui/register-loading.dart';
 import 'package:cardit/ui/register.dart';
 import 'package:cardit/ui/select_country.dart';
@@ -78,6 +80,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ScanCard());
       case '/manualCard':
         return MaterialPageRoute(builder: (_) => const ManualCard());
+      case '/profileInformation':
+        return MaterialPageRoute(builder: (_) => const ProfileInformation());
+      case '/avatarPageView':
+        return MaterialPageRoute(builder: (_) => const AvatarPageView());
 
       default:
         return _errorRoute();

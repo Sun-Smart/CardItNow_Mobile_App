@@ -6,9 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class ProfileInformation extends StatefulWidget {
-  final String passingValue;
-  const ProfileInformation({Key? key, required this.passingValue})
-      : super(key: key);
+  const ProfileInformation({Key? key}) : super(key: key);
 
   @override
   State<ProfileInformation> createState() => _ProfileInformationState();
@@ -140,7 +138,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Navigator.of(context).pushNamed('/dashbordScreen');
+          Navigator.of(context).pushNamed('/avatarPageView');
         },
         text: "Next");
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cardit/ui/Userprofile/select_avatar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -901,56 +902,14 @@ class _UserDetailsState extends State<UserDetails> {
                           child: MaterialButton(
                             minWidth: 220,
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AvatarPageView()));
                             },
                             child: Text(
                               'Choose Default Avator',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: 48.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(1.0, 2.0),
-                            blurRadius: 8.0,
-                            spreadRadius: 2.0)
-                      ]),
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                          width: 48.0,
-                          height: 48.0,
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            color: HexColor('#CEE812'),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                          ),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Icon(Icons.photo, color: Colors.black))),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: MaterialButton(
-                            minWidth: 220,
-                            onPressed: () {
-                              openGallery();
-                            },
-                            child: Text(
-                              "Upload Gallery Photo's",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             ),

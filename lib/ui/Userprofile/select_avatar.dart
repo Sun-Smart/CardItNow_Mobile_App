@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:cardit/const/common/sizeutils.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -156,6 +154,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   onTap: () {
+                    Navigator.of(context).pushNamed('/dashbordScreen');
                     // Navigator.of(context).pushNamed(
                     //   '/4digitpasscode',
                     // );
