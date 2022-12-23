@@ -12,13 +12,13 @@ import 'package:cardit/ui/register.dart';
 import 'package:cardit/ui/select_country.dart';
 import 'package:cardit/ui/update-password-code.dart';
 import 'package:cardit/ui/update-password.dart';
+import 'package:cardit/ui/user_details/userdetails.dart';
 import 'package:cardit/ui/verify-email.dart';
 import 'package:cardit/ui/verify-userid.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/Userprofile/profile.dart';
 import 'ui/Userprofile/settings.dart';
-import 'ui/Userprofile/userdetails.dart';
 import 'ui/dashboard/onboard-seller-apply.dart';
 import 'ui/dashboard/onboard-seller-load.dart';
 import 'ui/dashboard/onboard-seller.dart';
