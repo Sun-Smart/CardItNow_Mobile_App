@@ -8,6 +8,7 @@ class AuthButton extends StatelessWidget {
   final Color? color, bordercolor;
   final FontWeight? fontweight;
   final BoxDecoration decoration;
+
   const AuthButton(
       {Key? key,
       required this.onTap,
