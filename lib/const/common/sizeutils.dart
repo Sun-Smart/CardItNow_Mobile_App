@@ -1,7 +1,6 @@
 import 'package:cardit/main.dart';
 import 'package:flutter/material.dart';
 
-
 const num DESIGN_WIDTH = 375;
 const num DESIGN_HEIGHT = 667;
 const num DESIGN_STATUS_BAR = 40;
