@@ -17,7 +17,7 @@ class SlicedCard extends CustomPainter {
       );
 
   @override
-  void paint(Canvas canvas, Size size) {
+  Future<void> paint(Canvas canvas, Size size) async {
     Paint paint = Paint()
       ..color = _color
       ..style = PaintingStyle.fill;

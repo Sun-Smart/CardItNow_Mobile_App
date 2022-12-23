@@ -245,7 +245,9 @@ class DashbordScreenState extends State<DashbordScreen>
                 highlightColor: const Color(0XFFffffff),
                 focusColor: const Color(0XFFffffff),
                 splashColor: Colors.green, // splash color
-                onTap: () {}, // button pressed
+                onTap: () {
+                  Navigator.of(context).pushNamed('/payment_dashboard');
+                }, // button pressed
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Row(
