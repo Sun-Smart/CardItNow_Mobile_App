@@ -1,8 +1,9 @@
-import 'package:cardit/ui/dashboard/dashbordscreen.dart';
-import 'package:cardit/ui/splashscreen.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../ui/dashboard_screen/dashbord_screen.dart';
 
 class AuthService {
   //1. Handle Auth State()
@@ -29,7 +30,7 @@ class AuthService {
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
 
-    //Create a new Crendential
+    //Create a new Credential
     final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 

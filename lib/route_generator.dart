@@ -1,31 +1,31 @@
 import 'package:cardit/services/gmail_auth_services.dart';
-import 'package:cardit/ui/4digit-passcode.dart';
-import 'package:cardit/ui/Userprofile/select_avatar.dart';
-import 'package:cardit/ui/dashboard/dashbordscreen.dart';
-import 'package:cardit/ui/dashboard/loans-payment.dart';
-import 'package:cardit/ui/dashboard/loans.dart';
-import 'package:cardit/ui/login.dart';
-import 'package:cardit/ui/manage_cards/add_card.dart';
-import 'package:cardit/ui/manage_cards/manula_card.dart';
-import 'package:cardit/ui/manage_cards/scan_card.dart';
-import 'package:cardit/ui/profile_information/profile_information.dart';
-import 'package:cardit/ui/register-loading.dart';
-import 'package:cardit/ui/register.dart';
-import 'package:cardit/ui/select_country.dart';
-import 'package:cardit/ui/update-password-code.dart';
-import 'package:cardit/ui/update-password.dart';
-import 'package:cardit/ui/user_details/userdetails.dart';
-import 'package:cardit/ui/verify-email.dart';
-import 'package:cardit/ui/verify-userid.dart';
+import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
+import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
+import 'package:cardit/ui/loan_screen/loans-payment_screen.dart';
+import 'package:cardit/ui/loan_screen/loans_screen.dart';
+import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
+import 'package:cardit/ui/register_loading_screen/register_loading_screen.dart';
+import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
+import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
+import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
+import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
+import 'package:cardit/ui/verify_userid_screen/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/Userprofile/profile.dart';
-import 'ui/Userprofile/settings.dart';
-import 'ui/dashboard/onboard-seller-apply.dart';
-import 'ui/dashboard/onboard-seller-load.dart';
-import 'ui/dashboard/onboard-seller.dart';
-import 'ui/dashboard/payments.dart';
-import 'ui/dashboard/paymentsdetails.dart';
+import 'ui/avator_screen/select_avatar_screen.dart';
+import 'ui/login_screen/login_screen.dart';
+import 'ui/manage_card_screen/add_card_screen.dart';
+import 'ui/manage_card_screen/manula_card_screen.dart';
+import 'ui/manage_card_screen/scan_card_screen.dart';
+import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
+import 'ui/onboard_screen/onboard-seller_screen.dart';
+import 'ui/payment_screen/payments_details_screen.dart';
+import 'ui/payment_screen/payments_screen.dart';
+import 'ui/profile_information_screen/profile_information_screen.dart';
+import 'ui/register_screen/register_screen.dart';
+import 'ui/setting_screen/settings_screen.dart';
+import 'ui/user_detail_screen/user_details_screen.dart';
+import 'ui/user_profile_screen/profile_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

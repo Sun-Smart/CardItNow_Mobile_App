@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class AuthButton extends StatelessWidget {
+class AuthButton extends StatefulWidget {
   final String text;
   final void Function()? onTap;
   final double? width, height, fontsize;
@@ -23,18 +23,23 @@ class AuthButton extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<AuthButton> createState() => _AuthButtonState();
+}
+
+class _AuthButtonState extends State<AuthButton> {
+  @override
   Widget build(BuildContext context) {
     var scrWidth = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        width: width ?? scrWidth * 0.90,
+        width: widget.width ?? scrWidth * 0.90,
         height: MediaQuery.of(context).size.height * 0.07,
-        decoration: decoration,
+        decoration: widget.decoration,
         child: Center(
           child: Text(
-            text,
+            widget.text,
             style: TextStyle(
               fontFamily: 'ProductSans',
               fontSize: 14,
