@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildToptitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,8 +67,8 @@ class _ProfileState extends State<Profile> {
           Text('Profile',
               textAlign: TextAlign.left,
               style: TextStyle(
-                  color:
-                      themeChange.darkTheme ? Colors.white : Color(0XFF1B1B1B),
+                  // color:
+                  //     themeChange.darkTheme ? Colors.white : Color(0XFF1B1B1B),
                   fontSize: 25,
                   fontWeight: FontWeight.bold)),
           TextButton(
@@ -80,9 +80,9 @@ class _ProfileState extends State<Profile> {
               'Set up to Recieve',
               style: TextStyle(
                   fontSize: 12,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : HexColor('#1B1B1B'),
+                  // color: themeChange.darkTheme
+                  //     ? Colors.white
+                  //     : HexColor('#1B1B1B'),
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(15),
@@ -103,9 +103,9 @@ class _ProfileState extends State<Profile> {
               Text('',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      color: themeChange.darkTheme
-                          ? Colors.white
-                          : Color(0XFF1B1B1B),
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : Color(0XFF1B1B1B),
                       fontSize: 18,
                       fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildmenu(String icon, String text, String link) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return ListTile(
         onTap: () {
           Navigator.of(context).pushNamed(link);
@@ -133,16 +133,18 @@ class _ProfileState extends State<Profile> {
             child: Image.asset(icon, width: 20)),
         title: Text(text,
             style: TextStyle(
-                color: themeChange.darkTheme ? Colors.white : Color(0Xff1B1B1B),
+                // color: themeChange.darkTheme ? Colors.white : Color(0Xff1B1B1B),
                 fontSize: 16,
                 fontWeight: FontWeight.normal)),
-        trailing: Icon(Icons.keyboard_arrow_right_outlined,
-            size: 35,
-            color: themeChange.darkTheme ? Colors.white : Colors.black));
+        trailing: Icon(
+          Icons.keyboard_arrow_right_outlined,
+          size: 35,
+        ));
+    // color: themeChange.darkTheme ? Colors.white : Colors.black));
   }
 
   Widget buildlogout(String icon, String text) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return ListTile(
         onTap: () {
           _onBackButtonPressed();
@@ -155,12 +157,14 @@ class _ProfileState extends State<Profile> {
             child: Image.asset(icon, width: 20)),
         title: Text(text,
             style: TextStyle(
-                color: themeChange.darkTheme ? Colors.white : Color(0Xff1B1B1B),
+                // color: themeChange.darkTheme ? Colors.white : Color(0Xff1B1B1B),
                 fontSize: 16,
                 fontWeight: FontWeight.normal)),
-        trailing: Icon(Icons.keyboard_arrow_right_outlined,
-            size: 35,
-            color: themeChange.darkTheme ? Colors.white : Colors.black));
+        trailing: Icon(
+          Icons.keyboard_arrow_right_outlined,
+          size: 35,
+          // color: themeChange.darkTheme ? Colors.white : Colors.black,
+        ));
   }
 
   //Back Press
@@ -194,7 +198,7 @@ class _ProfileState extends State<Profile> {
             ElevatedButton(
               onPressed: () {
                 AuthService().signOut();
-                // Navigator.of(context).pop(true);
+                Navigator.of(context).pop(true);
               },
               child: const Text('Yes',
                   style: TextStyle(

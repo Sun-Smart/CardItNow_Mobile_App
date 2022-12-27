@@ -1,6 +1,7 @@
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../ui/dashboard_screen/dashbord_screen.dart';
@@ -20,7 +21,7 @@ class AuthService {
     );
   }
 
-  //2. Signin With Google account()
+  //2. SignIn With Google account()
   signinWithGoogle() async {
     // Trigger the auth flow
     final GoogleSignInAccount? googleUser =

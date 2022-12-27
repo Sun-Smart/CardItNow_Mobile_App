@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:cardit/ui/login_screen/login_screen.dart';
-import 'package:cardit/ui/register_screen/register_screen.dart';
+import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +34,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
             elevation: 0,
-            leading: SvgPicture.asset(
-              'assets/sortingleft.svg',
-              width: 16,
-            ),
+            leading: SvgPicture.asset('assets/sortingleft.svg', width: 16),
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
@@ -77,7 +74,7 @@ class _HomeState extends State<Home> {
                   if (value == 1) {
                     Get.to(const Login());
                   } else if (value == 2) {
-                    Get.to(const Register());
+                    Get.to(const Selectcountry());
                   }
                 },
               )
@@ -195,7 +192,7 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(const Register());
+            Get.to(const Selectcountry());
           }),
     );
   }
@@ -204,13 +201,15 @@ class _HomeState extends State<Home> {
     return Container(
         color: const Color(0XFFF7F7F7),
         padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset("assets/visa.png", width: 50),
-          const SizedBox(width: 10),
-          Image.asset(width: 50, 'assets/americon.png'),
-          const SizedBox(width: 10),
-          SvgPicture.asset('assets/master.svg', width: 40)
-        ]));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset("assets/visa.png", width: 50),
+            const SizedBox(width: 10),
+            Image.asset(width: 50, 'assets/americon.png'),
+            const SizedBox(width: 10),
+            SvgPicture.asset('assets/master.svg', width: 40)
+          ],
+        ));
   }
 }

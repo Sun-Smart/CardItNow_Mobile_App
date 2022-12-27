@@ -1,15 +1,20 @@
-import 'package:cardit/themes/theme_notifier.dart';
+// ignore_for_file: unrelated_type_equality_checks, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
 import '../register_screen/register_screen.dart';
 
 var type = '';
 var countrytype = ['assets/newlogo.png', 'assets/newuae.png'];
-var countryname = ['Philipines', 'UAE'];
+var countryname = ['Philippines', 'UAE'];
 bool country = false;
 var isphilipines;
+var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+var uaeData = ['UAE Number'];
+final philipine = 'philipine Data';
+final uae = 'UAE Data';
 
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
@@ -28,42 +33,37 @@ class _SelectcountryState extends State<Selectcountry> {
             buildToptitle(),
             buildtitle(),
             Container(
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: Row(
                 children: [
-                  Text(
-                    "Select Your Country",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor('#004751')),
-                  ),
+                  Text("Select Your Country",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor('#004751'))),
                 ],
               ),
             ),
             ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 itemCount: countrytype.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        country == isphilipines ? true : false;
-                        print(country);
+                        country == countrytype[0] ? true : false;
                         isphilipines;
-                        print(isphilipines);
                         type = countrytype[index];
                       });
                     },
                     child: Container(
-                      // padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: Card(
                         color: type == countrytype[index]
-                            ? Color(0xffA8DAB5)
+                            ? HexColor('#CEE812')
                             : Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -72,18 +72,13 @@ class _SelectcountryState extends State<Selectcountry> {
                           children: [
                             Row(
                               children: [
-                                Image.asset(
-                                  countrytype[index],
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                SizedBox(width: 30),
-                                Text(
-                                  countryname[index],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                )
+                                Image.asset(countrytype[index],
+                                    width: 100, height: 100),
+                                const SizedBox(width: 30),
+                                Text(countryname[index],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16))
                               ],
                             ),
                           ],
@@ -107,12 +102,11 @@ class _SelectcountryState extends State<Selectcountry> {
                               textStyle: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Register(
-                                        // countrytype: type,
-                                        )));
+                            if (type == countrytype[0]) {
+                              Get.to(Register(value: philipineData));
+                            } else if (type == countrytype[1]) {
+                              Get.to(Register(value: uaeData));
+                            }
                           },
                           child: Text(
                             "CONFIRM",
@@ -135,17 +129,13 @@ class _SelectcountryState extends State<Selectcountry> {
   }
 
   Widget buildToptitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.close,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: const Icon(Icons.close, size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -155,22 +145,23 @@ class _SelectcountryState extends State<Selectcountry> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Join ',
                     style: TextStyle(
-                        fontSize: 28,
-                        color: themeChange.darkTheme
-                            ? Colors.white
-                            : HexColor('#CEE812')),
+                      fontSize: 28,
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : HexColor('#CEE812'),
+                    ),
                   ),
                   Image.asset("assets/carditlogo.png", width: 100, height: 65),
                 ],
