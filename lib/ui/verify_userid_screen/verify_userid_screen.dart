@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -90,7 +91,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
                     children: [
               buildtitle(),
               bulidForm(),
@@ -120,10 +121,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         child: Form(
             key: formKey,
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
+                mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
                 children: [
                   Container(
+
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Select ID',
                           style: TextStyle(
@@ -133,7 +135,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    width: MediaQuery.of(context).size.width / 1.1,
+                    width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -262,7 +264,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     if (imageFile1 == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -301,7 +303,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     if (imageFile == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
+
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -337,7 +340,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget bulildbutton() {
+
     return AuthButton(
+
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {

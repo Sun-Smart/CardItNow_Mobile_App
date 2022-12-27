@@ -1,24 +1,34 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'dart:convert';
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../themes/styles.dart';
 import '../../../themes/theme_notifier.dart';
 import '../../../widgets/auth_button.dart';
 import '../../../widgets/custom_input.dart';
+import 'package:http/http.dart' as http;
+
+import '../../responsive/responsive.dart';
+import '../verify_email_screen/verify_email_screen.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;
 bool _isLoggedIn = false;
 Map _userObj = {};
-
+final emailController = TextEditingController();
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -28,8 +38,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
 
+final AuthCon con=Get.find();
   String? gender;
   @override
   Widget build(BuildContext context) {
@@ -41,15 +51,15 @@ class _RegisterState extends State<Register> {
             Container(
                 color: Styles.colorBackgroundBlock,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
                   children: [
                     Container(
                         // padding: EdgeInsets.only(top: 20, bottom: 30),
                         margin: EdgeInsets.only(top: 40),
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
-                            fit: BoxFit.cover,
+                              fit:  Responsive.isMobile(context)?BoxFit.cover:BoxFit.fill,
                           ),
                         ),
                         child: Column(
@@ -96,8 +106,8 @@ class _RegisterState extends State<Register> {
     return Container(
         padding: EdgeInsets.all(15),
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
+            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -109,12 +119,16 @@ class _RegisterState extends State<Register> {
                             ? Colors.white
                             : HexColor('#004751')),
                   ),
+
                   Image.asset(
                     "assets/carditlogo.png",
                     width: 100,
                     height: 65,
                   ),
                 ],
+              ),
+              SizedBox(
+                width: Responsive.isMobile(context)?0:MediaQuery.of(context).size.width / 14,
               ),
               Image.asset(
                 "assets/userimg.png",
@@ -135,16 +149,21 @@ class _RegisterState extends State<Register> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Use your Email ",
-                    controller: _emailController,
+                    // onChanged:(v){
+                    //   setState(() {
+                    //
+                    //   });
+                    // },
+                    controller: emailController,
                     textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     obsecureText: false,
                     inputHint: 'Enter your email',
                     validator: (value) {
-                      if (_emailController.text.isEmpty) {
+                      if (emailController.text.isEmpty) {
                         return "Please Enter The Email";
-                      } else if (!_emailController.text.contains("@") ||
-                          !_emailController.text.endsWith('.com')) {
+                      } else if (!emailController.text.contains("@") ||
+                          !emailController.text.endsWith('.com')) {
                         return "Please Enter The valid Email";
                       } else {
                         return null;
@@ -154,7 +173,9 @@ class _RegisterState extends State<Register> {
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Enter your email',
+
                       floatingLabelBehavior: FloatingLabelBehavior.never,
+
                       helperStyle:
                           const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
@@ -188,13 +209,19 @@ class _RegisterState extends State<Register> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  // Text("${emailController.text}"),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
                         children: [
+
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment:Responsive.isMobile(context)?
+                              MainAxisAlignment.start:MainAxisAlignment.start,
                               children: [
+                                SizedBox(
+                                  width: Responsive.isMobile(context)?0:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.7:MediaQuery.of(context).size.width /3.6,
+                                ),
                                 Container(
                                     child: Row(
                                         mainAxisAlignment:
@@ -256,13 +283,17 @@ class _RegisterState extends State<Register> {
                               ]),
                           //2 factor begin
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment:Responsive.isMobile(context)?
+                              MainAxisAlignment.start:MainAxisAlignment.start,
                               children: [
                                 Container(
                                     child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        mainAxisAlignment:Responsive.isMobile(context)?
+                                            MainAxisAlignment.start:MainAxisAlignment.start,
                                         children: [
+                                          SizedBox(
+                                            width: Responsive.isMobile(context)?0:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.7:MediaQuery.of(context).size.width /3.6,
+                                          ),
                                       SizedBox(
                                           height: 20.0,
                                           width: 24.0,
@@ -325,7 +356,13 @@ class _RegisterState extends State<Register> {
                     onTap: () {
                       if (isChecked == false) {
                       } else if (isChecked == true) {
-                        Navigator.of(context).pushNamed('/verifyemail');
+                        // Navigator.of(context).pushNamed('/verifyemail');
+                      }
+                      if(emailController.text.isEmpty){
+                        Fluttertoast.showToast(msg: 'Enter your Email Id');
+                      }else{
+                         con.registerAPI(emailController.text.toString());
+                        // Navigator.of(context).pushNamed('/verifyemail');
                       }
                     },
                     text: isChecked == false
@@ -382,6 +419,8 @@ class _RegisterState extends State<Register> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(children: [
       Container(
+          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.3:MediaQuery.of(context).size.width /2.5,
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
@@ -400,6 +439,11 @@ class _RegisterState extends State<Register> {
                     _isLoggedIn = true;
                     _userObj = userData;
                   });
+                  if(_isLoggedIn=true){
+                    Get.offAll(DashbordScreen());
+                  }else{
+                    Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                  }
                 });
               });
             }, // button pressed
@@ -428,6 +472,7 @@ class _RegisterState extends State<Register> {
           )),
       const SizedBox(height: 10),
       Container(
+          width:  Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.3:MediaQuery.of(context).size.width /2.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
@@ -471,7 +516,7 @@ class _RegisterState extends State<Register> {
   showAlertDialog(BuildContext context) {
     Widget okButton = Container(
         alignment: Alignment.center,
-        width: 300,
+        // width:Responsive.isMobile(context)? 300:MediaQuery.of(context).size.width / 5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Color(0XFF004751),
@@ -497,12 +542,15 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Text(
-          "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
-          style: TextStyle(
-            fontSize: 13,
-            color: Styles.whitecolortext,
-          )),
+      content: Container(
+        width:Responsive.isMobile(context)? 300:MediaQuery.of(context).size.width / 5,
+        child: Text(
+            "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+            style: TextStyle(
+              fontSize: 13,
+              color: Styles.whitecolortext,
+            )),
+      ),
       actions: [
         okButton,
       ],
@@ -516,4 +564,8 @@ class _RegisterState extends State<Register> {
       },
     );
   }
+
+
+
+
 }

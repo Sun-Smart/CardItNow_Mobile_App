@@ -1,16 +1,22 @@
 import 'dart:ui';
 
+import 'package:cardit/ui/register_screen/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
 class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
+  final String otpvalue;
+  const VerifyEmail({super.key,
+    this.otpvalue = '',
+  });
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();
@@ -25,18 +31,18 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color(0XFFffffff),
-      bottomNavigationBar: bulildbutton(),
+      // bottomNavigationBar: bulildbutton(),
       body: Container(
           // color: Color(0XFFffffff),
           child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
           children: [
             Container(
                 padding: EdgeInsets.only(top: 20, bottom: 30),
                 margin: EdgeInsets.only(top: 40),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
                     children: [
                       buildToptitle(),
                       buildtitle(),
@@ -46,6 +52,20 @@ class _VerifyEmailState extends State<VerifyEmail> {
               height: 10,
             ),
             emailText(),
+
+            AuthButton(
+                decoration: BoxDecoration(
+                  color: HexColor('#CEE812'),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  '/verifyuserid',
+                );
+                if (formKey.currentState!.validate()) {}
+              },
+              text: "Next"
+            ),
           ],
         ),
       )),
@@ -55,8 +75,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget buildToptitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+        crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
         children: [
           IconButton(
             icon: Icon(
@@ -138,7 +158,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 ),
               ),
               Positioned(
-                  right: 20,
+                  right: Responsive.isMobile(context)?20:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.5:MediaQuery.of(context).size.width /3.2,
                   top: 40,
                   child: TextButton(
                     style: TextButton.styleFrom(
@@ -176,7 +196,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       : HexColor('#000000')),
             ),
             Text(
-              'rita@carditnow.com',
+             emailController.text,
               style: TextStyle(
                   fontSize: 14,
                   color: themeChange.darkTheme
@@ -188,19 +208,19 @@ class _VerifyEmailState extends State<VerifyEmail> {
         ));
   }
 
-  Widget bulildbutton() {
-    return AuthButton(
-      decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          '/verifyuserid',
-        );
-        if (formKey.currentState!.validate()) {}
-      },
-      text: "Next",
-    );
-  }
+  // Widget bulildbutton() {
+  //   return AuthButton(
+  //     decoration: BoxDecoration(
+  //       color: HexColor('#CEE812'),
+  //       borderRadius: BorderRadius.circular(5),
+  //     ),
+  //     onTap: () {
+  //       Navigator.of(context).pushNamed(
+  //         '/verifyuserid',
+  //       );
+  //       if (formKey.currentState!.validate()) {}
+  //     },
+  //     text: "Next",
+  //   );
+  // }
 }

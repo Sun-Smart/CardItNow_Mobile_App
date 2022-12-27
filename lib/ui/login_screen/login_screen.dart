@@ -13,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -34,15 +36,17 @@ class _LoginState extends State<Login> {
           color: Styles.colorBackgroundBlock,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
               children: [
                 Container(
                     padding: EdgeInsets.only(top: 20, bottom: 30),
                     margin: EdgeInsets.only(top: 40),
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
-                            fit: BoxFit.cover)),
+                            fit:  Responsive.isMobile(context)?BoxFit.cover:BoxFit.fill
+                        )
+                    ),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -94,12 +98,12 @@ class _LoginState extends State<Login> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
+            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
             children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-            child: Text('We’ve \n Missed you!',
+            child: Text('We’ve \nMissed you!',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     color: themeChange.darkTheme
@@ -108,6 +112,9 @@ class _LoginState extends State<Login> {
                     fontSize: 28,
                     fontFamily: 'Sora',
                     fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(
+            width: Responsive.isMobile(context)?0:MediaQuery.of(context).size.width / 14,
           ),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
@@ -124,7 +131,7 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MyCustomInputBox(
+                     MyCustomInputBox(
                     enabled: true,
                     label: "Email",
                     obsecureText: false,
@@ -235,7 +242,7 @@ class _LoginState extends State<Login> {
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
                           children: [
                             Container(
                                 child: Row(
@@ -270,6 +277,9 @@ class _LoginState extends State<Login> {
                                         fontSize: 14,
                                       ))
                                 ])),
+                            SizedBox(
+                              width: Responsive.isMobile(context)?0:MediaQuery.of(context).size.width / 14,
+                            ),
                             TextButton(
                               style: TextButton.styleFrom(
                                 textStyle: TextStyle(

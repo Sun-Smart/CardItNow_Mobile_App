@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cardit/ui/login_screen/login_screen.dart';
 import 'package:cardit/ui/register_screen/register_screen.dart';
+import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 
@@ -34,10 +36,10 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
             elevation: 0,
-            leading: SvgPicture.asset(
-              'assets/sortingleft.svg',
-              width: 16,
-            ),
+            // leading: SvgPicture.asset(
+            //   'assets/sortingleft.svg',
+            //   width: 16,
+            // ),
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
@@ -77,7 +79,7 @@ class _HomeState extends State<Home> {
                   if (value == 1) {
                     Get.to(const Login());
                   } else if (value == 2) {
-                    Get.to(const Register());
+                    Get.to(const Selectcountry());
                   }
                 },
               )
@@ -85,13 +87,15 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          topBanner(),
-          buildTitle(),
-          buildButton(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
+          children: [
+            topBanner(),
+            buildTitle(),
+            buildButton(),
+          ],
+        ),
       ),
       bottomNavigationBar: _buildCart(),
     );
@@ -102,7 +106,11 @@ class _HomeState extends State<Home> {
         color: Styles.colorBackgroundBlock,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
         child: Stack(clipBehavior: Clip.none, children: <Widget>[
-          Image.asset("assets/banner.png"),
+          Responsive.isDesktop(context)?  Image.asset("assets/webbanner.png",fit: BoxFit.fill,width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:MediaQuery.of(context).size.width / 1,
+          height: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1.5:MediaQuery.of(context).size.width / 4.6,
+          ):Image.asset("assets/banner.png",fit: BoxFit.fill,width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:MediaQuery.of(context).size.width / 1,
+            height: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1.5:MediaQuery.of(context).size.width / 4.6,
+          ),
           Positioned(
             bottom: -60,
             right: 10,
@@ -123,30 +131,56 @@ class _HomeState extends State<Home> {
         color: Styles.colorBackgroundBlock,
         padding: const EdgeInsets.all(15),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
+            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
             children: [
-              Text("Simplify Payments",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Styles.whitecolortext,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
+              Row(
+                mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
+                children: [
+                  Text("Simplify Payments",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Styles.whitecolortext,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
+                  RichText(
+                    text: TextSpan(
+                      text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?' with ':"",
+                      style: TextStyle(
+                          color: Styles.whitecolortext,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      children:  <TextSpan>[
+                        TextSpan(
+                            text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?'Cardit':"",
+                            style:
+                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
+                        TextSpan(text:Responsive.isDesktop(context)&&Responsive.isTablet(context)? ' it ':""),
+                        TextSpan(
+                            text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?'Now':"",
+                            style:
+                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
               RichText(
                 text: TextSpan(
-                  text: 'with ',
+                  text: Responsive.isMobile(context)?'with ':"",
                   style: TextStyle(
                       color: Styles.whitecolortext,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
-                  children: const <TextSpan>[
+                  children:  <TextSpan>[
                     TextSpan(
-                        text: 'Cardit',
+                        text: Responsive.isMobile(context)?'Cardit':"",
                         style:
                             TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
-                    TextSpan(text: ' it '),
+                    TextSpan(text: Responsive.isMobile(context)?' it ':""),
                     TextSpan(
-                        text: 'Now',
+                        text: Responsive.isMobile(context)?'Now':"",
                         style:
                             TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
                   ],
@@ -189,6 +223,7 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
+          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.4:MediaQuery.of(context).size.width /2.5,
           child: const Text("Get Started",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
