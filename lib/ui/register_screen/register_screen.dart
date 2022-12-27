@@ -3,9 +3,11 @@
 import 'dart:ui';
 
 import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +22,8 @@ bool _isLoggedIn = false;
 Map _userObj = {};
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final List<String> value;
+  const Register({super.key, required this.value});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -39,32 +42,25 @@ class _RegisterState extends State<Register> {
         child: Column(
           children: [
             Container(
-                color: Styles.colorBackgroundBlock,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        // padding: EdgeInsets.only(top: 20, bottom: 30),
-                        margin: EdgeInsets.only(top: 40),
-                        decoration: const BoxDecoration(
+              color: Styles.colorBackgroundBlock,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 40),
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/loginbg.png"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              buildToptitle(),
-                              buildtitle(),
-                            ])),
-                    buildbutton(),
-                    bulidForm(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                )),
+                              image: AssetImage("assets/loginbg.png"),
+                              fit: BoxFit.cover)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [buildToptitle(), buildtitle()])),
+                  buildbutton(),
+                  bulidForm(),
+                  SizedBox(height: 30),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -78,11 +74,9 @@ class _RegisterState extends State<Register> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.close,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.close,
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -109,17 +103,10 @@ class _RegisterState extends State<Register> {
                             ? Colors.white
                             : HexColor('#004751')),
                   ),
-                  Image.asset(
-                    "assets/carditlogo.png",
-                    width: 100,
-                    height: 65,
-                  ),
+                  Image.asset("assets/carditlogo.png", width: 100, height: 65),
                 ],
               ),
-              Image.asset(
-                "assets/userimg.png",
-                width: 107,
-              ),
+              Image.asset("assets/userimg.png", width: 107),
             ]));
   }
 
@@ -237,10 +224,9 @@ class _RegisterState extends State<Register> {
                                     ])),
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14,
-                                        color: HexColor('#004751')),
-                                  ),
+                                      textStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: HexColor('#004751'))),
                                   onPressed: () {
                                     showAlertDialog(context);
                                   },
@@ -301,10 +287,9 @@ class _RegisterState extends State<Register> {
                                     ])),
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14,
-                                        color: HexColor('#004751')),
-                                  ),
+                                      textStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: HexColor('#004751'))),
                                   onPressed: () {
                                     showAlertDialog(context);
                                   },
@@ -325,25 +310,22 @@ class _RegisterState extends State<Register> {
                     onTap: () {
                       if (isChecked == false) {
                       } else if (isChecked == true) {
-                        Navigator.of(context).pushNamed('/verifyemail');
+                        Get.to(VerifyEmail(value: widget.value));
                       }
                     },
                     text: isChecked == false
                         ? 'Accept Terms & Condition'
                         : "Register",
                     decoration: BoxDecoration(
-                      color: isChecked == false
-                          ? HexColor('#E9F9B2')
-                          : HexColor('#CEE812'),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                        color: isChecked == false
+                            ? HexColor('#E9F9B2')
+                            : HexColor('#CEE812'),
+                        borderRadius: BorderRadius.circular(5)),
                   ),
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Navigator.of(context).pushNamed(
-                        '/login',
-                      );
+                      Navigator.of(context).pushNamed('/login');
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -408,16 +390,9 @@ class _RegisterState extends State<Register> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Image.asset(
-                      "assets/fb.png",
-                      width: 32,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    const SizedBox(width: 20),
+                    Image.asset("assets/fb.png", width: 32),
+                    SizedBox(width: 15),
                     Text(
                       "Sign Up using Facebook",
                       style: TextStyle(color: Color(0XFF413D4B), fontSize: 14),
@@ -499,10 +474,7 @@ class _RegisterState extends State<Register> {
       title: Text("Terms and Conditions."),
       content: Text(
           "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
-          style: TextStyle(
-            fontSize: 13,
-            color: Styles.whitecolortext,
-          )),
+          style: TextStyle(fontSize: 13, color: Styles.whitecolortext)),
       actions: [
         okButton,
       ],

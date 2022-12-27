@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
 import 'dart:math' as math;
 
+import 'package:cardit/ui/manage_card_screen/scan_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AddCard extends StatefulWidget {
@@ -45,36 +49,22 @@ class _AddCardState extends State<AddCard> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.document_scanner_outlined)),
-          Center(
-              child: TextButton(
-                  onPressed: () {},
-                  child: Text('Scan Card',
-                      style: TextStyle(
-                          color: HexColor('#041316'),
-                          fontSize: 14,
-                          fontFamily: 'Sora')))),
-          const SizedBox(width: 20),
-        ],
+        centerTitle: true,
+        title: Text('Add Credit Card',
+            style: TextStyle(
+                color: HexColor('#004751'),
+                fontFamily: 'Sora',
+                fontSize: 16,
+                fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Form(
             key: formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Add Credit Card',
-                    style: TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor('#004751'))),
                 const SizedBox(height: 20),
                 MyCustomInputBox(
                   enabled: true,
@@ -320,17 +310,44 @@ class _AddCardState extends State<AddCard> {
           ),
         ),
       ),
-      bottomNavigationBar: AuthButton(
-        decoration: BoxDecoration(
-          color: HexColor('#CEE812'),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        onTap: () {
-          if (formKey.currentState!.validate()) {
-            // Get.to(const Passcode());
-          }
-        },
-        text: "Verify and Proceed",
+      bottomNavigationBar: bottomData(),
+    );
+  }
+
+  Widget bottomData() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 6,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.document_scanner_outlined, color: HexColor('#004751')),
+              TextButton(
+                  onPressed: () {
+                    Get.to(const ScanCard());
+                  },
+                  child: Text('Scan Card',
+                      style: TextStyle(
+                          fontFamily: 'Sora',
+                          fontSize: 14,
+                          color: HexColor('#004751')))),
+            ],
+          ),
+          AuthButton(
+            decoration: BoxDecoration(
+              color: HexColor('#CEE812'),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                // Get.to(const Passcode());
+              }
+            },
+            text: "Verify and Add",
+          ),
+        ],
       ),
     );
   }

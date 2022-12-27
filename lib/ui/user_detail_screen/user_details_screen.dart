@@ -7,10 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/material_dialogs.dart';
-import 'package:provider/provider.dart';
 
-import '../../themes/styles.dart';
-import '../../themes/theme_notifier.dart';
 import '../../widgets/custom_input.dart';
 import 'upload_documents_screen.dart';
 
@@ -69,7 +66,7 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return DefaultTabController(
       length: 2,
@@ -77,14 +74,14 @@ class _UserDetailsState extends State<UserDetails> {
         appBar: AppBar(
           elevation: 2,
           leading: BackButton(
-            color: themeChange.darkTheme ? Colors.white : Colors.black,
-          ),
+              // color: themeChange.darkTheme ? Colors.white : Colors.black,
+              ),
           title: Text(
             "User Details",
             style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Colors.white
-                    : const Color(0Xff1B1B1B),
+                // color: themeChange.darkTheme
+                //     ? Colors.white
+                //     : const Color(0Xff1B1B1B),
                 fontSize: 24,
                 fontWeight: FontWeight.bold),
           ),
@@ -186,7 +183,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   Widget _buildField() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Form(
             key: formKey,
@@ -461,11 +458,12 @@ class _UserDetailsState extends State<UserDetails> {
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Choose your Interests',
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : HexColor('#505050')))),
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: themeChange.darkTheme
+                            //     ? Colors.white
+                            //     : HexColor('#505050')
+                          ))),
                   const SizedBox(height: 15),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -518,9 +516,10 @@ class _UserDetailsState extends State<UserDetails> {
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Date of Birth*',
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: Styles.whitecustomlable,
+                          ))),
                   const SizedBox(height: 15),
                   Stack(clipBehavior: Clip.none, children: <Widget>[
                     Container(
@@ -655,9 +654,10 @@ class _UserDetailsState extends State<UserDetails> {
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Country',
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: Styles.whitecustomlable,
+                          ))),
                   const SizedBox(height: 15),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -716,9 +716,10 @@ class _UserDetailsState extends State<UserDetails> {
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('City',
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: Styles.whitecustomlable,
+                          ))),
                   const SizedBox(height: 15),
                   Container(
                     decoration: BoxDecoration(

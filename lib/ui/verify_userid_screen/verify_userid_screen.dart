@@ -1,10 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cardit/themes/styles.dart';
-import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,10 +12,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
-  const VerifyUserId({Key? key}) : super(key: key);
+  final List<String> value;
+  const VerifyUserId({Key? key, required this.value}) : super(key: key);
 
   @override
   State<VerifyUserId> createState() => _VerifyUserIdState();
@@ -72,49 +72,74 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   var item = ['Passport', 'Driving License', 'National ID', 'UMID'];
+  var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+  var uaeData = ['UAE Number'];
+  var value1 = 'PHILIPPINE DATA';
+  var value2 = 'UAE DATA';
 
   String? dropdownvalue;
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         bottomNavigationBar: bulildbutton(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leading: BackButton(
-            color: themeChange.darkTheme ? Colors.white : Colors.black,
-          ),
+          foregroundColor: Colors.black,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.close,
+                size: 30,
+              )),
+          actions: [
+            Center(
+              child: GestureDetector(
+                child: Container(
+                  // margin: EdgeInsets.only(),
+                  height: 30,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: HexColor('#CEE812'), width: 3),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Center(
+                    child: Text(
+                      "Skip",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: HexColor('#004751'),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+          ],
         ),
         body: Container(
-            //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-              buildtitle(),
-              bulidForm(),
-            ]))));
+                    children: [buildtitle(), bulidForm()]))));
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
       child: Text(
         'Verify Your Id',
         style: TextStyle(
-          fontSize: 28,
-          fontFamily: 'Sora',
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+            fontSize: 28, fontFamily: 'Sora', fontWeight: FontWeight.bold),
       ),
     );
   }
 
   Widget bulidForm() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         padding: const EdgeInsets.all(15),
         child: Form(
@@ -125,11 +150,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                 children: [
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Select ID',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                      child: const Text('Select ID',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 14))),
                   const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -147,26 +169,16 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         dropdownColor: Colors.white,
                         isExpanded: true,
                         value: dropdownvalue,
-                        hint: Text(
-                          'Select Document',
-                          style: TextStyle(
-                              color: Styles.whitecustomlable, fontSize: 14),
-                        ),
-                        icon: InkWell(
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: themeChange.darkTheme
-                                ? Colors.white
-                                : Colors.black45,
-                          ),
-                        ),
-                        items: item.map((String item) {
+                        hint: const Text('Select Document',
+                            style: TextStyle(fontSize: 14)),
+                        icon: const InkWell(
+                            child: Icon(Icons.keyboard_arrow_down)),
+                        items: widget.value.map((String data) {
                           return DropdownMenuItem(
-                            value: item,
-                            child: Text(item,
-                                style: const TextStyle(
-                                    color: Color(0Xff413D4B), fontSize: 14)),
-                          );
+                              value: data,
+                              child: Text(data,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
                         }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
@@ -180,12 +192,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Text(
+                    child: const Text(
                       'Upload your ID',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: Styles.whitecustomlable),
+                      style: TextStyle(fontFamily: 'Sora', fontSize: 14),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -246,11 +255,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Upload your Selfie',
+                      child: const Text('Upload your Selfie',
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: Styles.whitecustomlable
+                          ))),
                   const SizedBox(height: 20),
                   displayImageSelfie(),
                   const SizedBox(height: 20),
