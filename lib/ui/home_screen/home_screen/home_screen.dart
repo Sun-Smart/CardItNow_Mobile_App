@@ -1,7 +1,9 @@
+// ignore_for_file: unnecessary_import
+
 import 'dart:ui';
 
-import 'package:cardit/ui/login_screen/login_screen.dart';
-import 'package:cardit/ui/register_screen/register_screen.dart';
+import 'package:cardit/ui/home_screen/login_screen/login_screen.dart';
+import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,8 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../themes/styles.dart';
-import '../../themes/theme_notifier.dart';
+import '../../../themes/styles.dart';
+import '../../../themes/theme_notifier.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -72,7 +74,7 @@ class _HomeState extends State<Home> {
                   if (value == 1) {
                     Get.to(const Login());
                   } else if (value == 2) {
-                    Get.to(const Register(value: []));
+                    Get.to(const Selectcountry());
                   }
                 },
               )
@@ -190,7 +192,7 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(const Register(value: []));
+            Get.to(const Selectcountry());
           }),
     );
   }

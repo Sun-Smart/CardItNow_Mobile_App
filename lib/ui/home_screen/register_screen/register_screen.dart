@@ -3,8 +3,10 @@
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
+import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -17,7 +19,6 @@ import '../../../themes/styles.dart';
 import '../../../themes/theme_notifier.dart';
 import '../../../widgets/auth_button.dart';
 import '../../../widgets/custom_input.dart';
-import '../../responsive/responsive.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;
@@ -144,11 +145,6 @@ class _RegisterState extends State<Register> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Use your Email ",
-                    // onChanged:(v){
-                    //   setState(() {
-                    //
-                    //   });
-                    // },
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
@@ -364,10 +360,10 @@ class _RegisterState extends State<Register> {
                       )),
                   AuthButton(
                     onTap: () {
-                      if (isChecked == false) {
-                      } else if (isChecked == true) {
-                        Navigator.of(context).pushNamed('/verifyemail');
-                      }
+                      if (formKey.currentState!.validate()) {
+                        Get.to(VerifyEmail(value: widget.value));
+                      } else if (isChecked == false) {
+                      } else if (isChecked == true) {}
                     },
                     text: isChecked == false
                         ? 'Accept Terms & Condition'
@@ -426,10 +422,9 @@ class _RegisterState extends State<Register> {
                   ? MediaQuery.of(context).size.width / 4.3
                   : MediaQuery.of(context).size.width / 2.5,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
-            color: Color(0XFFffffff),
-          ),
+              borderRadius: BorderRadius.circular(2),
+              border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
+              color: Color(0XFFffffff)),
           margin: EdgeInsets.all(15),
           child: InkWell(
             highlightColor: Color(0XFFffffff),
@@ -459,10 +454,9 @@ class _RegisterState extends State<Register> {
                     const SizedBox(width: 20),
                     Image.asset("assets/fb.png", width: 32),
                     SizedBox(width: 15),
-                    Text(
-                      "Sign Up using Facebook",
-                      style: TextStyle(color: Color(0XFF413D4B), fontSize: 14),
-                    ),
+                    Text("Sign Up using Facebook",
+                        style:
+                            TextStyle(color: Color(0XFF413D4B), fontSize: 14)),
                     // text
                   ],
                 )),
@@ -496,11 +490,9 @@ class _RegisterState extends State<Register> {
                     const SizedBox(width: 20),
                     Image.asset("assets/google.png", width: 32),
                     SizedBox(width: 15),
-                    Text(
-                      "Sign Up using Google",
-                      style: TextStyle(color: Color(0XFF413D4B), fontSize: 14),
-                    ),
-                    // text
+                    Text("Sign Up using Google",
+                        style: TextStyle(
+                            color: Color(0XFF413D4B), fontSize: 14)), // text
                   ],
                 )),
           )),
@@ -519,9 +511,7 @@ class _RegisterState extends State<Register> {
         alignment: Alignment.center,
         // width:Responsive.isMobile(context)? 300:MediaQuery.of(context).size.width / 5,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Color(0XFF004751),
-        ),
+            borderRadius: BorderRadius.circular(8), color: Color(0XFF004751)),
         margin: EdgeInsets.all(15),
         child: InkWell(
           highlightColor: Color(0XFF004751),

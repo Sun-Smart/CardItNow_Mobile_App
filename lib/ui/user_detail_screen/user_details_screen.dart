@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cardit/ui/avator_screen/select_avatar_screen.dart';
+import 'package:cardit/ui/avator_screen/select_avator_screen/select_avatar_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

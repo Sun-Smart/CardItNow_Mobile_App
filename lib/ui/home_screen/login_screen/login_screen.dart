@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
 import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -14,8 +14,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-
-import '../../responsive/responsive.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -28,7 +26,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final AuthCon con=Get.find();
+  final AuthCon con = Get.find();
   bool _isChecked = false;
 
   @override
@@ -39,17 +37,19 @@ class _LoginState extends State<Login> {
           color: Styles.colorBackgroundBlock,
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment:Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
+              crossAxisAlignment: Responsive.isMobile(context)
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center,
               children: [
                 Container(
                     padding: EdgeInsets.only(top: 20, bottom: 30),
                     margin: EdgeInsets.only(top: 40),
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
-                            fit:  Responsive.isMobile(context)?BoxFit.cover:BoxFit.fill
-                        )
-                    ),
+                            fit: Responsive.isMobile(context)
+                                ? BoxFit.cover
+                                : BoxFit.fill)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -101,8 +101,12 @@ class _LoginState extends State<Login> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Row(
-            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
-            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
+            mainAxisAlignment: Responsive.isMobile(context)
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            crossAxisAlignment: Responsive.isMobile(context)
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
             children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
@@ -117,7 +121,9 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.bold)),
           ),
           SizedBox(
-            width: Responsive.isMobile(context)?0:MediaQuery.of(context).size.width / 14,
+            width: Responsive.isMobile(context)
+                ? 0
+                : MediaQuery.of(context).size.width / 14,
           ),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
@@ -134,7 +140,7 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                     MyCustomInputBox(
+                  MyCustomInputBox(
                     enabled: true,
                     label: "Email",
                     obsecureText: false,
@@ -246,7 +252,9 @@ class _LoginState extends State<Login> {
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
                       child: Row(
-                          mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
+                          mainAxisAlignment: Responsive.isMobile(context)
+                              ? MainAxisAlignment.spaceBetween
+                              : MainAxisAlignment.center,
                           children: [
                             Container(
                                 child: Row(
@@ -282,7 +290,9 @@ class _LoginState extends State<Login> {
                                       ))
                                 ])),
                             SizedBox(
-                              width: Responsive.isMobile(context)?0:MediaQuery.of(context).size.width / 14,
+                              width: Responsive.isMobile(context)
+                                  ? 0
+                                  : MediaQuery.of(context).size.width / 14,
                             ),
                             TextButton(
                               style: TextButton.styleFrom(
@@ -315,13 +325,13 @@ class _LoginState extends State<Login> {
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(const Passcode());
                       // }
-                      if(_emailController.text.isEmpty){
+                      if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
-                      }else if(_passwordController.text.isEmpty){
+                      } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-
-                      }else{
-                        con.loginAPI(_emailController.text,_passwordController.text);
+                      } else {
+                        con.loginAPI(
+                            _emailController.text, _passwordController.text);
                       }
                     },
                     text: "Login",

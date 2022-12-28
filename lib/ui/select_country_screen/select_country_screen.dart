@@ -1,12 +1,18 @@
-import 'package:cardit/responsive/responsive.dart';
-import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+// ignore_for_file: prefer_const_declarations
 
-import '../register_screen/register_screen.dart';
+import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 var type = '';
 var countrytype = ['assets/newlogo.png', 'assets/newuae.png'];
 var countryname = ['Philippines', 'UAE'];
+var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+var uaeData = ['UAE Number'];
+final philipine = 'philipine Data';
+final uae = 'UAE Data';
 bool country = false;
 var isphilipines;
 
@@ -90,7 +96,7 @@ class _SelectcountryState extends State<Selectcountry> {
                       margin: EdgeInsets.all(10),
                       child: Card(
                         color: type == countrytype[index]
-                            ? Color(0xffA8DAB5)
+                            ? HexColor('#CEE812')
                             : Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -134,11 +140,11 @@ class _SelectcountryState extends State<Selectcountry> {
                               textStyle: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Register(value: [])));
+                            if (type == countrytype[0]) {
+                              Get.to(Register(value: philipineData));
+                            } else if (type == countrytype[1]) {
+                              Get.to(Register(value: uaeData));
+                            }
                           },
                           child: Text(
                             "CONFIRM",

@@ -40,11 +40,7 @@ class _ManualCardState extends State<ManualCard> {
           color: HexColor('#CEE812'),
           borderRadius: BorderRadius.circular(5),
         ),
-        onTap: () {
-          // if (formKey.currentState!.validate()) {
-          //   // Get.to(const Passcode());
-          // }
-        },
+        onTap: () {},
         text: "Verify and Proceed",
       ),
     );

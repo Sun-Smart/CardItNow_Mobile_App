@@ -17,7 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
-  const VerifyUserId({Key? key}) : super(key: key);
+  final List<String> value;
+  const VerifyUserId({Key? key, required this.value}) : super(key: key);
 
   @override
   State<VerifyUserId> createState() => _VerifyUserIdState();
@@ -72,8 +73,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       }
     }
   }
-
-  var item = ['Passport', 'Driving License', 'National ID', 'UMID'];
 
   String? dropdownvalue;
 
@@ -162,7 +161,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                 : Colors.black45,
                           ),
                         ),
-                        items: item.map((String item) {
+                        items: widget.value.map((String item) {
                           return DropdownMenuItem(
                             value: item,
                             child: Text(item,

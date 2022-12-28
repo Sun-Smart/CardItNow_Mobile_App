@@ -1,7 +1,13 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_import
+
 import 'dart:ui';
 
+import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
+import 'package:cardit/ui/verify_userid_screen/verify_userid_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +16,8 @@ import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
 class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
+  const VerifyEmail({super.key, required this.value});
+  final List<String> value;
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();
@@ -42,9 +49,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             emailText(),
           ],
         ),
@@ -75,16 +80,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: EdgeInsets.all(15),
-      child: Text(
-        'Verify Your Email Id ',
-        style: TextStyle(
-          fontSize: 28,
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
+        padding: EdgeInsets.all(15),
+        child: Text('Verify Your Email Id ',
+            style: TextStyle(
+                fontSize: 28,
+                color:
+                    themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                fontWeight: FontWeight.bold)));
   }
 
   Widget bulidForm() {
@@ -167,23 +169,20 @@ class _VerifyEmailState extends State<VerifyEmail> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            Text(
-              'We have sent you verification code on',
-              style: TextStyle(
-                  fontSize: 14,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : HexColor('#000000')),
-            ),
-            Text(
-              'rita@carditnow.com',
-              style: TextStyle(
-                  fontSize: 14,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : HexColor('#000000'),
-                  fontWeight: FontWeight.bold),
-            ),
+            Text('We have sent you verification code on',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: themeChange.darkTheme
+                        ? Colors.white
+                        : HexColor('#000000'))),
+            const SizedBox(height: 5),
+            Text(emailController.text,
+                style: TextStyle(
+                    fontSize: 14,
+                    color: themeChange.darkTheme
+                        ? Colors.white
+                        : HexColor('#000000'),
+                    fontWeight: FontWeight.bold))
           ],
         ));
   }
@@ -195,9 +194,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/verifyuserid',
-        );
+        Get.to(VerifyUserId(value: widget.value));
         if (formKey.currentState!.validate()) {}
       },
       text: "Next",

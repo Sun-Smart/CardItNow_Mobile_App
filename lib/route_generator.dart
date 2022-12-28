@@ -1,6 +1,4 @@
-import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
-import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
-import 'package:cardit/ui/home_screen/home_screen.dart';
+import 'package:cardit/ui/avator_screen/4digit_psw_screen/4digit_passcode_screen.dart';
 import 'package:cardit/ui/loan_screen/loans-payment_screen.dart';
 import 'package:cardit/ui/loan_screen/loans_screen.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
@@ -11,8 +9,9 @@ import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/avator_screen/select_avatar_screen.dart';
-import 'ui/login_screen/login_screen.dart';
+import 'ui/avator_screen/select_avator_screen/select_avatar_screen.dart';
+import 'ui/dashboard_screen/dashbord_screen.dart';
+import 'ui/home_screen/login_screen/login_screen.dart';
 import 'ui/manage_card_screen/add_card_screen.dart';
 import 'ui/manage_card_screen/manula_card_screen.dart';
 import 'ui/manage_card_screen/scan_card_screen.dart';
