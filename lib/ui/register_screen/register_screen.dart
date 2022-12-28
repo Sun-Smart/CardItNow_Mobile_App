@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +17,6 @@ import '../../../themes/styles.dart';
 import '../../../themes/theme_notifier.dart';
 import '../../../widgets/auth_button.dart';
 import '../../../widgets/custom_input.dart';
-import 'package:http/http.dart' as http;
-
 import '../../responsive/responsive.dart';
 import '../verify_email_screen/verify_email_screen.dart';
 
@@ -26,6 +25,7 @@ bool isChecked1 = false;
 bool _isLoggedIn = false;
 Map _userObj = {};
 final emailController = TextEditingController();
+
 class Register extends StatefulWidget {
   final List<String> value;
   const Register({super.key, required this.value});
@@ -37,7 +37,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
 
-final AuthCon con=Get.find();
+  final AuthCon con = Get.find();
   String? gender;
   @override
   Widget build(BuildContext context) {
@@ -102,8 +102,12 @@ final AuthCon con=Get.find();
     return Container(
         padding: EdgeInsets.all(15),
         child: Row(
-            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
-            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
+            mainAxisAlignment: Responsive.isMobile(context)
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            crossAxisAlignment: Responsive.isMobile(context)
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -165,9 +169,7 @@ final AuthCon con=Get.find();
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Enter your email',
-
                       floatingLabelBehavior: FloatingLabelBehavior.never,
-
                       helperStyle:
                           const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
@@ -206,13 +208,19 @@ final AuthCon con=Get.find();
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
                         children: [
-
                           Row(
-                              mainAxisAlignment:Responsive.isMobile(context)?
-                              MainAxisAlignment.start:MainAxisAlignment.start,
+                              mainAxisAlignment: Responsive.isMobile(context)
+                                  ? MainAxisAlignment.start
+                                  : MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: Responsive.isMobile(context)?0:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.7:MediaQuery.of(context).size.width /3.6,
+                                  width: Responsive.isMobile(context)
+                                      ? 0
+                                      : Responsive.isDesktop(context)
+                                          ? MediaQuery.of(context).size.width /
+                                              2.7
+                                          : MediaQuery.of(context).size.width /
+                                              3.6,
                                 ),
                                 Container(
                                     child: Row(
@@ -274,17 +282,30 @@ final AuthCon con=Get.find();
                               ]),
                           //2 factor begin
                           Row(
-                              mainAxisAlignment:Responsive.isMobile(context)?
-                              MainAxisAlignment.start:MainAxisAlignment.start,
+                              mainAxisAlignment: Responsive.isMobile(context)
+                                  ? MainAxisAlignment.start
+                                  : MainAxisAlignment.start,
                               children: [
                                 Container(
                                     child: Row(
-                                        mainAxisAlignment:Responsive.isMobile(context)?
-                                            MainAxisAlignment.start:MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            Responsive.isMobile(context)
+                                                ? MainAxisAlignment.start
+                                                : MainAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            width: Responsive.isMobile(context)?0:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.7:MediaQuery.of(context).size.width /3.6,
-                                          ),
+                                      SizedBox(
+                                        width: Responsive.isMobile(context)
+                                            ? 0
+                                            : Responsive.isDesktop(context)
+                                                ? MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.7
+                                                : MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3.6,
+                                      ),
                                       SizedBox(
                                           height: 20.0,
                                           width: 24.0,
@@ -400,8 +421,11 @@ final AuthCon con=Get.find();
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(children: [
       Container(
-          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.3:MediaQuery.of(context).size.width /2.5,
-
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.3
+                  : MediaQuery.of(context).size.width / 2.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
@@ -420,9 +444,9 @@ final AuthCon con=Get.find();
                     _isLoggedIn = true;
                     _userObj = userData;
                   });
-                  if(_isLoggedIn=true){
+                  if (_isLoggedIn = true) {
                     Get.offAll(DashbordScreen());
-                  }else{
+                  } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }
                 });
@@ -446,7 +470,11 @@ final AuthCon con=Get.find();
           )),
       const SizedBox(height: 10),
       Container(
-          width:  Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.3:MediaQuery.of(context).size.width /2.5,
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.3
+                  : MediaQuery.of(context).size.width / 2.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
@@ -535,8 +563,4 @@ final AuthCon con=Get.find();
       },
     );
   }
-
-
-
-
 }

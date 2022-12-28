@@ -24,36 +24,42 @@ class _SelectcountryState extends State<Selectcountry> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
+          crossAxisAlignment: Responsive.isMobile(context)
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: [
             Container(
                 // color: Styles.colorBackgroundBlock,
                 child: Column(
-                  crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      // padding: EdgeInsets.only(top: 20, bottom: 30),
-                        margin: EdgeInsets.only(top: 40),
-                        decoration:  BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/loginbg.png"),
-                            fit:  Responsive.isMobile(context)?BoxFit.cover:BoxFit.fill,
-                          ),
-                        ),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              buildToptitle(),
-                              buildtitle(),
-                            ])),
-
-                  ],
-                )),
-
+              crossAxisAlignment: Responsive.isMobile(context)
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center,
+              children: [
+                Container(
+                    // padding: EdgeInsets.only(top: 20, bottom: 30),
+                    margin: EdgeInsets.only(top: 40),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/loginbg.png"),
+                        fit: Responsive.isMobile(context)
+                            ? BoxFit.cover
+                            : BoxFit.fill,
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          buildToptitle(),
+                          buildtitle(),
+                        ])),
+              ],
+            )),
             Container(
               margin: const EdgeInsets.all(15),
               child: Row(
-                mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
+                mainAxisAlignment: Responsive.isMobile(context)
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
                 children: [
                   Text("Select Your Country",
                       style: TextStyle(
@@ -177,8 +183,9 @@ class _SelectcountryState extends State<Selectcountry> {
     return Container(
         padding: const EdgeInsets.all(15),
         child: Row(
-            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
-
+            mainAxisAlignment: Responsive.isMobile(context)
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
             children: [
               Row(
                 children: [
