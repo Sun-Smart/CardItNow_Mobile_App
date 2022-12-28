@@ -1,3 +1,4 @@
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -36,7 +37,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
             children: [
               buildtitle(),
               buildForm(),

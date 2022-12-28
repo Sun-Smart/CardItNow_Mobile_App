@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_declarations
-
 import 'dart:math' as math;
 
+import 'package:cardit/ui/manage_card_screen/scan_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:credit_card_scanner/models/card_details.dart';
@@ -72,58 +71,78 @@ class _AddCardState extends State<AddCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, top: 20, bottom: 10),
-                  child: Text('Card Number',
-                      style: TextStyle(
-                          color: HexColor('#004751'),
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold)),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    controller: cardNumberCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: cardNumberCtrl.text.isEmpty
-                          ? 'Card Number'
-                          : _cardDetails?.cardNumber,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Colors.black, width: 2),
+              children: [
+                Text('Add Credit Card',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('#004751'))),
+                const SizedBox(height: 20),
+                MyCustomInputBox(
+                  enabled: true,
+                  label: "Card Number",
+                  controller: creditCardController,
+                  textInputType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  obsecureText: false,
+                  inputHint: 'Enter your card number',
+                  validator: (value) {
+                    if (creditCardController.text.isEmpty) {
+                      return "Please Enter Card Number";
+                    } else {
+                      return null;
+                    }
+                  },
+                  maxLines: 16,
+                  onChanged: (value) {
+                    final newCardValue = value!.trim();
+                    var newStr = ' ';
+                    const step = 4;
+                    for (var i = 0; i < newCardValue.length; i += step) {
+                      newStr += newCardValue.substring(
+                          i, math.min(i + step, newCardValue.length));
+                      if (i + step < newCardValue.length) newStr += ' ';
+                    }
+                    setState(() {
+                      cardNumber = newStr;
+                    });
+                  },
+                  inputDecoration: InputDecoration(
+                      suffixIcon:
+                          const Icon(Icons.atm_outlined, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: '4XXX 5XXX 7XXX 3XXX',
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      helperStyle:
+                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                      hintStyle: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.normal,
                       ),
-                    ),
-                    maxLength: 16,
-                    validator: (value) {
-                      if (cardNumberCtrl.text.isEmpty) {
-                        return "Please Enter Card Number";
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (value) {
-                      final newCardNumber = value.trim();
-                      var newStr = '';
-                      final step = 4;
-                      for (var i = 0; i < newCardNumber.length; i += step) {
-                        newStr += newCardNumber.substring(
-                            i, math.min(i + step, newCardNumber.length));
-                        if (i + step < newCardNumber.length) newStr += ' ';
-                      }
-                      setState(() {
-                        cardNumber = newStr;
-                      });
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, bottom: 10),
-                  child: Text('Card Expiry Date',
-                      style: TextStyle(
-                          color: HexColor('#004751'),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 15),
+                      focusColor: Colors.grey.shade300,
+                      border: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          gapPadding: 7,
+                          borderSide: const BorderSide(color: Colors.grey)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(color: Colors.grey)),
+                      errorStyle: const TextStyle(
                           fontFamily: 'Sora',
                           fontSize: 14,
                           fontWeight: FontWeight.bold)),
@@ -235,16 +254,19 @@ class _AddCardState extends State<AddCard> {
                           color: HexColor('#004751')))),
             ],
           ),
-          AuthButton(
-            decoration: BoxDecoration(
-                color: HexColor('#CEE812'),
-                borderRadius: BorderRadius.circular(5)),
-            onTap: () {
-              if (formKey.currentState!.validate()) {}
-            },
-            text: "Verify and Add",
-          ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: AuthButton(
+        decoration: BoxDecoration(
+          color: HexColor('#CEE812'),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        onTap: () {
+          if (formKey.currentState!.validate()) {
+            // Get.to(const Passcode());
+          }
+        },
+        text: "Verify and Proceed",
       ),
     );
   }

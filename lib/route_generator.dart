@@ -1,5 +1,6 @@
 import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
 import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
+import 'package:cardit/ui/home_screen/home_screen.dart';
 import 'package:cardit/ui/loan_screen/loans-payment_screen.dart';
 import 'package:cardit/ui/loan_screen/loans_screen.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
@@ -28,6 +29,9 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
+      // case '/':
+      //   return MaterialPageRoute(
+      //       builder: (_) => AuthService().handleAuthState());
       case '/':
         return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':

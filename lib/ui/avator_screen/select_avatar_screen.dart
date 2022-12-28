@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -66,6 +67,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
         ],
       ),
       body: Column(
+
         children: [
           Container(
             margin: EdgeInsets.all(5),
@@ -90,9 +92,9 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     //itemCount: images.length,
                     itemCount: avatars.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 1,
-                        childAspectRatio: 1),
+                        crossAxisCount: Responsive.isMobile(context)?3:Responsive.isDesktop(context)?6:4,
+                        crossAxisSpacing:  Responsive.isMobile(context)?1:Responsive.isDesktop(context)?4:2,
+                        childAspectRatio: Responsive.isMobile(context)?1:Responsive.isDesktop(context)?2:2),
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -119,12 +121,14 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 Container(
                   margin: EdgeInsets.only(left: 25),
                   child: Row(
+                    mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
                     children: [
                       InkWell(
                         onTap: () {
                           imagePicker();
                         },
                         child: Row(
+
                           children: [
                             Text("Upload ",
                                 style: TextStyle(

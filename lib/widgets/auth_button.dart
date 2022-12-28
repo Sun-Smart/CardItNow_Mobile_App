@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../responsive/responsive.dart';
+
 class AuthButton extends StatefulWidget {
   final String text;
   final void Function()? onTap;
@@ -34,7 +36,7 @@ class _AuthButtonState extends State<AuthButton> {
       onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        width: widget.width ?? scrWidth * 0.90,
+        width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.4:MediaQuery.of(context).size.width /2.5,
         height: MediaQuery.of(context).size.height * 0.07,
         decoration: widget.decoration,
         child: Center(
