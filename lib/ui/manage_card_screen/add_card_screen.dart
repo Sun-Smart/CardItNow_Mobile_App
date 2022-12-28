@@ -1,13 +1,15 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_declarations
 
 import 'dart:math' as math;
 
-import 'package:cardit/ui/manage_card_screen/scan_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
-import 'package:cardit/widgets/custom_input.dart';
+import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'package:credit_card_scanner/models/card_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'scan_card_screen.dart';
 
 class AddCard extends StatefulWidget {
   const AddCard({Key? key}) : super(key: key);
@@ -18,29 +20,33 @@ class AddCard extends StatefulWidget {
 
 class _AddCardState extends State<AddCard> {
   final formKey = GlobalKey<FormState>();
-  final creditCardController = TextEditingController();
-  final nameOnCardController = TextEditingController();
-  final bankNameController = TextEditingController();
+  TextEditingController cardNumberCtrl = TextEditingController();
+  TextEditingController expiryFieldCtrl = TextEditingController();
+  TextEditingController cardHolderNameCtrl = TextEditingController();
 
-  late FocusNode _focusNode;
   String cardNumber = '';
+  String cardHolderName = '';
+  String expiryDate = '';
   bool showBack = false;
 
-  @override
-  void initState() {
-    _focusNode = FocusNode();
-    _focusNode.addListener(() {
-      setState(() {
-        _focusNode.hasFocus ? showBack = true : showBack = false;
-      });
-    });
-    super.initState();
-  }
+  // Scan Card Function
+  CardDetails? _cardDetails;
+  CardScanOptions scanOptions = const CardScanOptions(
+    scanCardHolderName: true,
+    // enableDebugLogs: true,
+    validCardsToScanBeforeFinishingScan: 5,
+    possibleCardHolderNamePositions: [
+      CardHolderNameScanPosition.aboveCardNumber
+    ],
+  );
 
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
+  Future<void> scanCard() async {
+    final CardDetails? cardDetails =
+        await CardScanner.scanCard(scanOptions: scanOptions);
+    if (!mounted || cardDetails == null) return;
+    setState(() {
+      _cardDetails = cardDetails;
+    });
   }
 
   @override
@@ -64,246 +70,139 @@ class _AddCardState extends State<AddCard> {
           child: Form(
             key: formKey,
             child: Column(
-              children: [
-                const SizedBox(height: 20),
-                MyCustomInputBox(
-                  enabled: true,
-                  label: "Card Number",
-                  controller: creditCardController,
-                  textInputType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
-                  obsecureText: false,
-                  inputHint: 'Enter your card number',
-                  validator: (value) {
-                    if (creditCardController.text.isEmpty) {
-                      return "Please Enter Card Number";
-                    } else {
-                      return null;
-                    }
-                  },
-                  maxLines: 16,
-                  onChanged: (value) {
-                    final newCardValue = value!.trim();
-                    var newStr = ' ';
-                    const step = 4;
-                    for (var i = 0; i < newCardValue.length; i += step) {
-                      newStr += newCardValue.substring(
-                          i, math.min(i + step, newCardValue.length));
-                      if (i + step < newCardValue.length) newStr += ' ';
-                    }
-                    setState(() {
-                      cardNumber = newStr;
-                    });
-                  },
-                  inputDecoration: InputDecoration(
-                      suffixIcon:
-                          const Icon(Icons.atm_outlined, color: Colors.black),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: '4XXX 5XXX 7XXX 3XXX',
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 25, top: 20, bottom: 10),
+                  child: Text('Card Number',
+                      style: TextStyle(
+                          color: HexColor('#004751'),
                           fontFamily: 'Sora',
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
-                MyCustomInputBox(
-                  enabled: true,
-                  label: "Validate",
-                  controller: nameOnCardController,
-                  textInputType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  obsecureText: false,
-                  suffixIcon: const Icon(
-                    Icons.atm_outlined,
-                    color: Colors.grey,
-                  ),
-                  inputHint: 'Enter Your Validate',
-                  validator: (value) {
-                    if (nameOnCardController.text.isEmpty) {
-                      return "Please Enter Card Validate";
-                    } else {
-                      return null;
-                    }
-                  },
-                  inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: '09/24',
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    controller: cardNumberCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      hintText: cardNumberCtrl.text.isEmpty
+                          ? 'Card Number'
+                          : _cardDetails?.cardNumber,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(color: Colors.black, width: 2),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
+                    ),
+                    maxLength: 16,
+                    validator: (value) {
+                      if (cardNumberCtrl.text.isEmpty) {
+                        return "Please Enter Card Number";
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      final newCardNumber = value.trim();
+                      var newStr = '';
+                      final step = 4;
+                      for (var i = 0; i < newCardNumber.length; i += step) {
+                        newStr += newCardNumber.substring(
+                            i, math.min(i + step, newCardNumber.length));
+                        if (i + step < newCardNumber.length) newStr += ' ';
+                      }
+                      setState(() {
+                        cardNumber = newStr;
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25, bottom: 10),
+                  child: Text('Card Expiry Date',
+                      style: TextStyle(
+                          color: HexColor('#004751'),
                           fontFamily: 'Sora',
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
-                MyCustomInputBox(
-                  enabled: true,
-                  label: "Name On Card",
-                  controller: nameOnCardController,
-                  textInputType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  obsecureText: false,
-                  suffixIcon: const Icon(
-                    Icons.atm_outlined,
-                    color: Colors.grey,
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: expiryFieldCtrl,
+                    decoration: InputDecoration(
+                        hintText: cardNumberCtrl.text.isEmpty
+                            ? 'Card Expiry'
+                            : _cardDetails?.expiryDate,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
+                    maxLength: 5,
+                    validator: (value) {
+                      if (expiryFieldCtrl.text.isEmpty) {
+                        return "Please Enter Card Expory Date";
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      var newDateValue = value.trim();
+                      final isPressingBackspace =
+                          expiryDate.length > newDateValue.length;
+                      final containsSlash = newDateValue.contains('/');
+                      if (newDateValue.length >= 2 &&
+                          !containsSlash &&
+                          !isPressingBackspace) {
+                        newDateValue = newDateValue.substring(0, 2) +
+                            '/' +
+                            newDateValue.substring(2);
+                      }
+                      setState(() {
+                        expiryFieldCtrl.text = newDateValue;
+                        expiryFieldCtrl.selection = TextSelection.fromPosition(
+                            TextPosition(offset: newDateValue.length));
+                        expiryDate = newDateValue;
+                      });
+                    },
                   ),
-                  inputHint: 'Enter Your Name',
-                  validator: (value) {
-                    if (nameOnCardController.text.isEmpty) {
-                      return "Please Enter Card Name";
-                    } else {
-                      return null;
-                    }
-                  },
-                  inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter your name',
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25, bottom: 10),
+                  child: Text('Card Holder Name',
+                      style: TextStyle(
+                          color: HexColor('#004751'),
                           fontFamily: 'Sora',
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
-                MyCustomInputBox(
-                  enabled: true,
-                  label: "Bank Name",
-                  controller: bankNameController,
-                  textInputType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  obsecureText: false,
-                  suffixIcon: const Icon(
-                    Icons.atm_outlined,
-                    color: Colors.grey,
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: cardHolderNameCtrl,
+                    validator: (value) {
+                      if (cardHolderNameCtrl.text.isEmpty) {
+                        return "Please Enter Card Holder Name";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: InputDecoration(
+                        hintText: 'Card Holder Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
+                    onChanged: (value) {
+                      setState(() {
+                        cardHolderName = value;
+                      });
+                    },
                   ),
-                  inputHint: 'Enter your bank name',
-                  validator: (value) {
-                    if (bankNameController.text.isEmpty) {
-                      return "Please Enter Bank Name";
-                    } else {
-                      return null;
-                    }
-                  },
-                  inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter bank name',
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -317,7 +216,7 @@ class _AddCardState extends State<AddCard> {
   Widget bottomData() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 6,
+      height: MediaQuery.of(context).size.height / 5.5,
       child: Column(
         children: [
           Row(
@@ -327,6 +226,7 @@ class _AddCardState extends State<AddCard> {
               TextButton(
                   onPressed: () {
                     Get.to(const ScanCard());
+                    //scanCard();
                   },
                   child: Text('Scan Card',
                       style: TextStyle(
@@ -337,13 +237,10 @@ class _AddCardState extends State<AddCard> {
           ),
           AuthButton(
             decoration: BoxDecoration(
-              color: HexColor('#CEE812'),
-              borderRadius: BorderRadius.circular(5),
-            ),
+                color: HexColor('#CEE812'),
+                borderRadius: BorderRadius.circular(5)),
             onTap: () {
-              if (formKey.currentState!.validate()) {
-                // Get.to(const Passcode());
-              }
+              if (formKey.currentState!.validate()) {}
             },
             text: "Verify and Add",
           ),

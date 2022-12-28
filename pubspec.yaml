@@ -57,7 +57,7 @@ dependencies:
   flutter_swipe_button: ^2.1.1+1
   custom_sliding_segmented_control: ^1.7.3
   credit_card_scanner: ^1.0.5
-  credit_card_type_detector: ^2.0.0
+  flutter_card_scanner_latest: ^1.0.5
 
 dev_dependencies:
   flutter_test:

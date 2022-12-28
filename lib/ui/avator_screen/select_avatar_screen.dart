@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -78,10 +80,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
             ),
           ),
           Container(
-            // color: Colors.amber,
-            // height: size.height / 0.5,
-            //
-            // width: size.width / 1,
             child: Column(
               children: [
                 Container(
@@ -186,17 +184,16 @@ class _AvatarPageViewState extends State<AvatarPageView> {
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             )),
-        padding: EdgeInsets.only(left: 90, top: 12, bottom: 12, right: 20),
+        padding: EdgeInsets.only(left: 0, top: 12, bottom: 12, right: 0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
               onPressed: () {
-                getIDImage(ImageSource.gallery);
+                getIDImage(ImageSource.camera);
               },
-              icon: Icon(
-                Icons.image_outlined,
-              ),
+              icon: Icon(Icons.camera_alt_outlined, size: 30),
             ),
           ],
         ),

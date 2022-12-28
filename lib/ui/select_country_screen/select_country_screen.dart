@@ -13,8 +13,6 @@ bool country = false;
 var isphilipines;
 var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
 var uaeData = ['UAE Number'];
-final philipine = 'philipine Data';
-final uae = 'UAE Data';
 
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);

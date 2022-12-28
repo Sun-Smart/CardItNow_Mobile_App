@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, unnecessary_import
+
+import 'dart:async';
 
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ScanCard extends StatefulWidget {
@@ -13,32 +16,24 @@ class ScanCard extends StatefulWidget {
 
 class _ScanCardState extends State<ScanCard> {
   CardDetails? _cardDetails;
-  CardScanOptions scanOptions = CardScanOptions(
-      scanExpiryDate: true,
-      enableDebugLogs: true,
-      maxCardHolderNameLength: 30,
-      scanCardHolderName: true,
-      considerPastDatesInExpiryDateScan: true,
-      enableLuhnCheck: true,
-      validCardsToScanBeforeFinishingScan: 5,
-      possibleCardHolderNamePositions: [
-        CardHolderNameScanPosition.aboveCardNumber
-      ]);
-
-  Future<void> scanCard() async {
-    final CardDetails? cardDetails =
-        await CardScanner.scanCard(scanOptions: scanOptions);
-    if (!mounted || cardDetails == null) return;
+  Future<void> buttonTapped() async {
+    final CardDetails? cardDetails = await CardScanner.scanCard(
+        scanOptions: CardScanOptions(
+            scanCardHolderName: true,
+            scanExpiryDate: true,
+            maxCardHolderNameLength: 30));
+    // if (!mounted || cardDetails == null) return;
     setState(() {
       _cardDetails = cardDetails;
     });
+    print(cardDetails);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Add Credit Card',
+          title: Text('Scan Credit Card',
               style: TextStyle(
                   color: HexColor('#004751'),
                   fontFamily: 'Sora',
@@ -52,23 +47,19 @@ class _ScanCardState extends State<ScanCard> {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.close, size: 30))),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  scanCard();
-                },
-                child: Text('Scan Card')),
-            Column(
-              children: [
-                Text('${_cardDetails?.cardNumber}'),
-                Text('${_cardDetails?.expiryDate}'),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    buttonTapped();
+                  },
+                  child: Text('Button Pressed'))),
+          Text('${_cardDetails?.cardHolderName}'),
+          Text('${_cardDetails?.expiryDate}'),
+          Text('${_cardDetails?.cardNumber}'),
+        ],
       ),
     );
   }

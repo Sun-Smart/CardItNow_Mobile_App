@@ -18,26 +18,8 @@ class _CreditCardPageState extends State<CreditCardPage> {
   String expiryDate = '';
   bool showBack = false;
 
-  late FocusNode _focusNode;
   TextEditingController cardNumberCtrl = TextEditingController();
   TextEditingController expiryFieldCtrl = TextEditingController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _focusNode = FocusNode();
-  //   _focusNode.addListener(() {
-  //     setState(() {
-  //       _focusNode.hasFocus ? showBack = true : showBack = false;
-  //     });
-  //   });
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   _focusNode.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +33,8 @@ class _CreditCardPageState extends State<CreditCardPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: 40),
-            CreditCard(
-                cardNumber: cardNumber,
-                cardExpiry: expiryDate,
-                cardHolderName: cardHolderName,
-                bankName: 'Axis Bank',
-                showBackSide: showBack,
-                frontBackground: CardBackgrounds.black,
-                backBackground: CardBackgrounds.white,
-                showShadow: true,
-                mask: getCardTypeMask(
-                    cardType: CardType.rupay,
-                    cardNumber: AutofillHints.creditCardFamilyName)),
-            const SizedBox(height: 40),
+            creditCardData(cardNumber, expiryDate, cardHolderName),
+            SizedBox(height: 40),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +43,12 @@ class _CreditCardPageState extends State<CreditCardPage> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     controller: cardNumberCtrl,
-                    decoration: InputDecoration(hintText: 'Card Number'),
+                    decoration: InputDecoration(
+                        hintText: 'Card Number',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
                     maxLength: 16,
                     onChanged: (value) {
                       final newCardNumber = value.trim();
@@ -90,11 +65,17 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     controller: expiryFieldCtrl,
-                    decoration: InputDecoration(hintText: 'Card Expiry'),
+                    decoration: InputDecoration(
+                        hintText: 'Card Expiry',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
                     maxLength: 5,
                     onChanged: (value) {
                       var newDateValue = value.trim();
@@ -117,10 +98,16 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
-                    decoration: InputDecoration(hintText: 'Card Holder Name'),
+                    decoration: InputDecoration(
+                        hintText: 'Card Holder Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
                     onChanged: (value) {
                       setState(() {
                         cardHolderName = value;
@@ -128,24 +115,28 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                //   child: TextFormField(
-                //     decoration: InputDecoration(hintText: 'CVV'),
-                //     maxLength: 3,
-                //     onChanged: (value) {
-                //       setState(() {
-                //         cvv = value;
-                //       });
-                //     },
-                //     focusNode: _focusNode,
-                //   ),
-                // ),
+                SizedBox(height: 10),
               ],
             )
           ],
         ),
       ),
     );
+  }
+
+  Widget creditCardData(
+      String cardNumber, String expiryDate, String cardHolderName) {
+    return CreditCard(
+        cardNumber: cardNumber,
+        cardExpiry: expiryDate,
+        cardHolderName: cardHolderName,
+        bankName: 'Axis Bank',
+        showBackSide: showBack,
+        frontBackground: CardBackgrounds.black,
+        backBackground: CardBackgrounds.white,
+        showShadow: true,
+        mask: getCardTypeMask(
+            cardType: CardType.rupay,
+            cardNumber: AutofillHints.creditCardFamilyName));
   }
 }
