@@ -16,9 +16,8 @@ class _CreditCardPageState extends State<CreditCardPage> {
   String cardNumber = '';
   String cardHolderName = '';
   String expiryDate = '';
-  String cvv = '';
   bool showBack = false;
-
+  String cvv = '';
   late FocusNode _focusNode;
   TextEditingController cardNumberCtrl = TextEditingController();
   TextEditingController expiryFieldCtrl = TextEditingController();
@@ -63,7 +62,6 @@ class _CreditCardPageState extends State<CreditCardPage> {
               frontBackground: CardBackgrounds.black,
               backBackground: CardBackgrounds.white,
               showShadow: true,
-              // mask: getCardTypeMask(cardType: CardType.americanExpress),
             ),
             const SizedBox(height: 40),
             Column(
@@ -74,7 +72,13 @@ class _CreditCardPageState extends State<CreditCardPage> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     controller: cardNumberCtrl,
-                    decoration: InputDecoration(hintText: 'Card Number'),
+                    decoration: InputDecoration(
+                      hintText: 'Card Number',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.black, width: 2),
+                      ),
+                    ),
                     maxLength: 16,
                     onChanged: (value) {
                       final newCardNumber = value.trim();
@@ -91,11 +95,20 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     controller: expiryFieldCtrl,
-                    decoration: InputDecoration(hintText: 'Card Expiry'),
+
+                    decoration: InputDecoration(
+                        hintText: 'Card Expiry',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2))),
+
+                    // decoration: InputDecoration(hintText: 'Card Expiry'),
                     maxLength: 5,
                     onChanged: (value) {
                       var newDateValue = value.trim();
@@ -118,6 +131,17 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 10),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                      hintText: 'Card Holder Name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.black, width: 2),
+                      ),
+                    ))),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
@@ -129,24 +153,28 @@ class _CreditCardPageState extends State<CreditCardPage> {
                     },
                   ),
                 ),
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                //   child: TextFormField(
-                //     decoration: InputDecoration(hintText: 'CVV'),
-                //     maxLength: 3,
-                //     onChanged: (value) {
-                //       setState(() {
-                //         cvv = value;
-                //       });
-                //     },
-                //     focusNode: _focusNode,
-                //   ),
-                // ),
+                SizedBox(height: 10),
               ],
             )
           ],
         ),
       ),
     );
+  }
+
+  Widget creditCardData(
+      String cardNumber, String expiryDate, String cardHolderName) {
+    return CreditCard(
+        cardNumber: cardNumber,
+        cardExpiry: expiryDate,
+        cardHolderName: cardHolderName,
+        bankName: 'Axis Bank',
+        showBackSide: showBack,
+        frontBackground: CardBackgrounds.black,
+        backBackground: CardBackgrounds.white,
+        showShadow: true,
+        mask: getCardTypeMask(
+            cardType: CardType.rupay,
+            cardNumber: AutofillHints.creditCardFamilyName));
   }
 }

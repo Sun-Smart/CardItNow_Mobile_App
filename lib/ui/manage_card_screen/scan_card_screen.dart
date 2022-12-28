@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'package:credit_card_scanner/models/card_details.dart';
+import 'package:credit_card_scanner/models/card_scan_options.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ScanCard extends StatefulWidget {
   const ScanCard({Key? key}) : super(key: key);
@@ -13,17 +12,14 @@ class ScanCard extends StatefulWidget {
 
 class _ScanCardState extends State<ScanCard> {
   CardDetails? _cardDetails;
-  CardScanOptions scanOptions = CardScanOptions(
-      scanExpiryDate: true,
-      enableDebugLogs: true,
-      maxCardHolderNameLength: 30,
-      scanCardHolderName: true,
-      considerPastDatesInExpiryDateScan: true,
-      enableLuhnCheck: true,
-      validCardsToScanBeforeFinishingScan: 5,
-      possibleCardHolderNamePositions: [
-        CardHolderNameScanPosition.aboveCardNumber
-      ]);
+  CardScanOptions scanOptions = const CardScanOptions(
+    scanCardHolderName: true,
+    // enableDebugLogs: true,
+    validCardsToScanBeforeFinishingScan: 5,
+    possibleCardHolderNamePositions: [
+      CardHolderNameScanPosition.aboveCardNumber,
+    ],
+  );
 
   Future<void> scanCard() async {
     final CardDetails? cardDetails =
@@ -38,38 +34,41 @@ class _ScanCardState extends State<ScanCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Add Credit Card',
-              style: TextStyle(
-                  color: HexColor('#004751'),
-                  fontFamily: 'Sora',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.close, size: 30))),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.close, size: 30),
+        ),
+        title: const Text('Scan Card'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  scanCard();
-                },
-                child: Text('Scan Card')),
-            Column(
-              children: [
-                Text('${_cardDetails?.cardNumber}'),
-                Text('${_cardDetails?.expiryDate}'),
-              ],
+            MaterialButton(
+              color: Colors.blue,
+              onPressed: () async {
+                scanCard();
+              },
+              child: const Text('scan card'),
             ),
+            Text('$_cardDetails'),
+            // Expanded(
+            //   child: OptionConfigureWidget(
+            //     initialOptions: scanOptions,
+            //     onScanOptionChanged: (newOptions) => scanOptions = newOptions,
+            //   ),
+            // )
           ],
         ),
       ),
     );
   }
+
+  // OptionConfigureWidget(
+  //     {required CardScanOptions initialOptions,
+  //     required Function(dynamic newOptions) onScanOptionChanged}) {}
 }

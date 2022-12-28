@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:cardit/ui/login_screen/login_screen.dart';
 import 'package:cardit/ui/register_screen/register_screen.dart';
-import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
-import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,6 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive/responsive.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 
@@ -37,16 +34,12 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
             elevation: 0,
-            // leading: SvgPicture.asset(
-            //   'assets/sortingleft.svg',
-            //   width: 16,
-            // ),
+            leading: SvgPicture.asset('assets/sortingleft.svg', width: 16),
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
-                  color: const Color(0XFFCEE812),
-                  borderRadius: BorderRadius.circular(4),
-                ),
+                    color: const Color(0XFFCEE812),
+                    borderRadius: BorderRadius.circular(4)),
                 fromMax: true,
                 children: const {
                   1: Text('Login',
@@ -68,11 +61,10 @@ class _HomeState extends State<Home> {
                   color: Colors.transparent,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.transparent,
-                      blurRadius: 2.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(0.0, 3.0),
-                    ),
+                        color: Colors.transparent,
+                        blurRadius: 2.0,
+                        spreadRadius: 1.0,
+                        offset: Offset(0.0, 3.0)),
                   ],
                 ),
                 fixedWidth: 100,
@@ -80,7 +72,7 @@ class _HomeState extends State<Home> {
                   if (value == 1) {
                     Get.to(const Login());
                   } else if (value == 2) {
-                    Get.to(const Selectcountry());
+                    Get.to(const Register(value: []));
                   }
                 },
               )
@@ -88,15 +80,13 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
-          children: [
-            topBanner(),
-            buildTitle(),
-            buildButton(),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          topBanner(),
+          buildTitle(),
+          buildButton(),
+        ],
       ),
       bottomNavigationBar: _buildCart(),
     );
@@ -107,11 +97,7 @@ class _HomeState extends State<Home> {
         color: Styles.colorBackgroundBlock,
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
         child: Stack(clipBehavior: Clip.none, children: <Widget>[
-          Responsive.isDesktop(context)?  Image.asset("assets/webbanner.png",fit: BoxFit.fill,width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:MediaQuery.of(context).size.width / 1,
-          height: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1.5:MediaQuery.of(context).size.width / 4.6,
-          ):Image.asset("assets/banner.png",fit: BoxFit.fill,width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:MediaQuery.of(context).size.width / 1,
-            height: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1.5:MediaQuery.of(context).size.width / 4.6,
-          ),
+          Image.asset("assets/banner.png"),
           Positioned(
             bottom: -60,
             right: 10,
@@ -132,56 +118,30 @@ class _HomeState extends State<Home> {
         color: Styles.colorBackgroundBlock,
         padding: const EdgeInsets.all(15),
         child: Column(
-            crossAxisAlignment: Responsive.isMobile(context)?CrossAxisAlignment.start:CrossAxisAlignment.center,
-            mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
-                children: [
-                  Text("Simplify Payments",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Styles.whitecolortext,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold)),
-                  RichText(
-                    text: TextSpan(
-                      text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?' with ':"",
-                      style: TextStyle(
-                          color: Styles.whitecolortext,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                      children:  <TextSpan>[
-                        TextSpan(
-                            text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?'Cardit':"",
-                            style:
-                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
-                        TextSpan(text:Responsive.isDesktop(context)&&Responsive.isTablet(context)? ' it ':""),
-                        TextSpan(
-                            text: Responsive.isDesktop(context)&&Responsive.isTablet(context)?'Now':"",
-                            style:
-                            TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
-                      ],
-                    ),
-                  ),
-
-                ],
-              ),
+              Text("Simplify Payments",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Styles.whitecolortext,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
               RichText(
                 text: TextSpan(
-                  text: Responsive.isMobile(context)?'with ':"",
+                  text: 'with ',
                   style: TextStyle(
                       color: Styles.whitecolortext,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
-                  children:  <TextSpan>[
+                  children: const <TextSpan>[
                     TextSpan(
-                        text: Responsive.isMobile(context)?'Cardit':"",
+                        text: 'Cardit',
                         style:
                             TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
-                    TextSpan(text: Responsive.isMobile(context)?' it ':""),
+                    TextSpan(text: ' it '),
                     TextSpan(
-                        text: Responsive.isMobile(context)?'Now':"",
+                        text: 'Now',
                         style:
                             TextStyle(fontSize: 18, color: Color(0XFFCEE812))),
                   ],
@@ -224,14 +184,13 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
-          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.4:MediaQuery.of(context).size.width /2.5,
           child: const Text("Get Started",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(const Selectcountry());
+            Get.to(const Register(value: []));
           }),
     );
   }
@@ -240,15 +199,13 @@ class _HomeState extends State<Home> {
     return Container(
         color: const Color(0XFFF7F7F7),
         padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset("assets/visa.png", width: 50),
-            const SizedBox(width: 10),
-            Image.asset(width: 50, 'assets/americon.png'),
-            const SizedBox(width: 10),
-            SvgPicture.asset('assets/master.svg', width: 40)
-          ],
-        ));
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Image.asset("assets/visa.png", width: 50),
+          const SizedBox(width: 10),
+          Image.asset(width: 50, 'assets/americon.png'),
+          const SizedBox(width: 10),
+          SvgPicture.asset('assets/master.svg', width: 40)
+        ]));
   }
 }
