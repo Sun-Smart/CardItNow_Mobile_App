@@ -185,9 +185,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
              emailController.text,
               style: TextStyle(
                   fontSize: 14,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : HexColor('#000000'),
+                  // color: themeChange.darkTheme
+                  //     ? Colors.white
+                  //     : HexColor('#000000'),
                   fontWeight: FontWeight.bold),
             ),
           ],

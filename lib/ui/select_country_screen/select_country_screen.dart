@@ -143,12 +143,11 @@ class _SelectcountryState extends State<Selectcountry> {
                                 textStyle: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold)),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Register(
-                                          // countrytype: type,
-                                          )));
+                              if (type == countrytype[0]) {
+                                Get.to(Register(value: philipineData));
+                              } else if (type == countrytype[1]) {
+                                Get.to(Register(value: uaeData));
+                              }
                             },
                             child: Text(
                               "CONFIRM",
