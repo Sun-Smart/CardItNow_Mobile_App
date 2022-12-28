@@ -38,9 +38,8 @@ class _HomeState extends State<Home> {
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
-                  color: const Color(0XFFCEE812),
-                  borderRadius: BorderRadius.circular(4),
-                ),
+                    color: const Color(0XFFCEE812),
+                    borderRadius: BorderRadius.circular(4)),
                 fromMax: true,
                 children: const {
                   1: Text('Login',
@@ -62,11 +61,10 @@ class _HomeState extends State<Home> {
                   color: Colors.transparent,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.transparent,
-                      blurRadius: 2.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(0.0, 3.0),
-                    ),
+                        color: Colors.transparent,
+                        blurRadius: 2.0,
+                        spreadRadius: 1.0,
+                        offset: Offset(0.0, 3.0)),
                   ],
                 ),
                 fixedWidth: 100,
