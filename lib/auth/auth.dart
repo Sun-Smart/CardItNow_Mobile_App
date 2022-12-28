@@ -1,15 +1,13 @@
 import 'dart:convert';
 
+import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import '../api_endpoints.dart';
 import '../base_client.dart';
-
 import '../ui/register_screen/register_screen.dart';
 import '../ui/verify_email_screen/verify_email_screen.dart';
 import 'init.dart';
@@ -18,7 +16,7 @@ class AuthCon extends GetxController with BaseController {
 
   @override
   void onInit() {
-  termsconditions();
+  // termsconditions();
     super.onInit();
   }
 
@@ -63,25 +61,26 @@ class AuthCon extends GetxController with BaseController {
   //otp
   final TextEditingController otpCon = TextEditingController();
 
-  void loginAPI({resend = false}) async {
+  void loginAPI(email,password) async {
     showLoading();
-    var body = {
-      'email': emailController.text,
-    };
+    // var body = {
+    //   'email': emailController.text,
+    // };
     var response =
-        await BaseClient().post(API().logIn, body).catchError(handleError);
+        await BaseClient().get("Token?email=$email&Password=$password").catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
-    if (data['status']) {
-
+    print("hii"+data.toString());
+    if (data["token"].toString().isNotEmpty) {
+    Get.to(DashbordScreen());
       // token.value = userData["token"];
-      if (!resend) {
-        // Get.to(OtpScreenView());
-      }
+      // if (!resend) {
+      //   // Get.to(OtpScreenView());
+      // }
     } else {
-      Fluttertoast.showToast(msg: data['message']);
+      Fluttertoast.showToast(msg:"Check Your Login Credentials");
     }
   }
 
@@ -105,21 +104,26 @@ class AuthCon extends GetxController with BaseController {
   void registerAPI(email) async {
     showLoading();
 
-//  var body={
-// // "email":email
-//  };
+ var body={
+"email":email
+ };
     var response =
-    await BaseClient().get(API().register+'?email='+email).catchError(handleError);
-    if (response  == null) return Get.to(()=>VerifyEmail());
+    await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
+    if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
  print('check'+data);
- if(data=="Success"){
-   Get.to(()=>VerifyEmail());
- }else{
-   Fluttertoast.showToast(msg: "Check Your Mail");
- }
+
+    if (data["success"].toString().isNotEmpty) {
+      Get.to(VerifyEmail());
+      // token.value = userData["token"];
+      // if (!resend) {
+      //   // Get.to(OtpScreenView());
+      // }
+    } else {
+      Fluttertoast.showToast(msg:"Something  wrong");
+    }
   }
 
 

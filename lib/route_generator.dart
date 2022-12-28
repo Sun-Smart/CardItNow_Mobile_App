@@ -7,6 +7,7 @@ import 'package:cardit/ui/loan_screen/loans_screen.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
 import 'package:cardit/ui/register_loading_screen/register_loading_screen.dart';
 import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
@@ -36,7 +37,7 @@ class RouteGenerator {
       //   return MaterialPageRoute(
       //       builder: (_) => AuthService().handleAuthState());
       case '/':
-        return MaterialPageRoute(builder: (_) => const Home());
+        return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/register':

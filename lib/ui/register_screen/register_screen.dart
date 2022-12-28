@@ -362,6 +362,7 @@ final AuthCon con=Get.find();
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
                       }else{
                          con.registerAPI(emailController.text.toString());
+
                         // Navigator.of(context).pushNamed('/verifyemail');
                       }
                     },

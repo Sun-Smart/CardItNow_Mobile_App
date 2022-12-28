@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
@@ -9,6 +10,7 @@ import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final AuthCon con=Get.find();
   bool _isChecked = false;
 
   @override
@@ -308,8 +311,16 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        Get.to(const Passcode());
+                      // if (formKey.currentState!.validate()) {
+                      //   Get.to(const Passcode());
+                      // }
+                      if(_emailController.text.isEmpty){
+                        Fluttertoast.showToast(msg: "Entery your Email");
+                      }else if(_passwordController.text.isEmpty){
+                        Fluttertoast.showToast(msg: "Enter Your Password");
+
+                      }else{
+                        con.loginAPI(_emailController.text,_passwordController.text);
                       }
                     },
                     text: "Login",
