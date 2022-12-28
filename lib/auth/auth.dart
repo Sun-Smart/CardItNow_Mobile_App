@@ -16,7 +16,7 @@ class AuthCon extends GetxController with BaseController {
 
   @override
   void onInit() {
-  // termsconditions();
+  termsconditions();
     super.onInit();
   }
 
@@ -57,6 +57,9 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController mobileCon = TextEditingController();
   var otp = ''.obs;
   var token = ''.obs;
+
+  //terms
+  var viewTerms=''.obs;
 
   //otp
   final TextEditingController otpCon = TextEditingController();
@@ -128,17 +131,21 @@ class AuthCon extends GetxController with BaseController {
 
 
   void termsconditions() async {
-    showLoading();
-
+    // showLoading();
+    // var body = {
+    //   'email': emailController.text,
+    // };
     var response =
     await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    hideLoading();
-    tc= data['data'];
-    print('check'+data);
 
+    // hideLoading();
+    print("hii"+data.toString());
+
+    viewTerms=data[0]['termiddesc'];
   }
+
 
 
 
