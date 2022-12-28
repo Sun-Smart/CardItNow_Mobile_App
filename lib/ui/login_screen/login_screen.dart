@@ -189,6 +189,7 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const SizedBox(height: 20),
                   MyCustomInputBox(
                     enabled: true,
                     controller: _passwordController,

@@ -1,15 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../themes/Themes.dart';
-import '../../themes/theme_notifier.dart';
-import '../../widgets/bottom_navbar.dart';
-import '../../widgets/promo_slider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -28,7 +17,7 @@ class SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         //bottomNavigationBar: BottomNavBarWidget(2),
         appBar: PreferredSize(
@@ -179,9 +168,9 @@ class SettingsState extends State<Settings> {
                           Text(
                             "Dark Mode",
                             style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Colors.black,
+                              // color: themeChange.darkTheme
+                              //     ? Colors.white
+                              //     : Colors.black,
                               fontSize: 16,
                             ),
                           ),
@@ -194,14 +183,14 @@ class SettingsState extends State<Settings> {
                           )
                         ],
                       ),
-                      Switch(
-                        value: themeChange.darkTheme,
-                        onChanged: (value) {
-                          themeChange.darkTheme = value;
-                        },
-                        activeTrackColor: Colors.lightGreenAccent,
-                        activeColor: Colors.green,
-                      ),
+                      // Switch(
+                      //   // value: themeChange.darkTheme,
+                      //   onChanged: (value) {
+                      //     themeChange.darkTheme = value;
+                      //   },
+                      //   activeTrackColor: Colors.lightGreenAccent,
+                      //   activeColor: Colors.green,
+                      // ),
                     ],
                   ),
                 ]))));

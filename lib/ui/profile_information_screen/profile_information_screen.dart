@@ -74,7 +74,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "First Name ",
               controller: firstNameController,
               obsecureText: false,
@@ -120,7 +120,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Last Name ",
               controller: lastNameController,
               obsecureText: false,
@@ -166,7 +166,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Required Number",
               controller: requiredNoController,
               obsecureText: false,
@@ -215,7 +215,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               label: "Date Of Brith ",
               controller: dateOfBrithController,
               obsecureText: false,
-              enabled: false,
+              enabled: true,
               textInputType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               inputHint: "Your Date Of Brith",
@@ -258,7 +258,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Issue ",
               controller: issueDateController,
               obsecureText: false,
@@ -301,7 +301,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Expired Date",
               controller: expiredDateController,
               obsecureText: false,
@@ -344,7 +344,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Address",
               controller: addressController,
               obsecureText: false,
@@ -387,7 +387,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
             const SizedBox(height: 20),
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "Postal Code",
               controller: postalCodeController,
               obsecureText: false,

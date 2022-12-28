@@ -38,31 +38,30 @@ class _AvatarPageViewState extends State<AvatarPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         actions: [
           Center(
             child: GestureDetector(
               child: Container(
-                // margin: EdgeInsets.only(),
                 height: 30,
                 width: 80,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueAccent),
+                    border: Border.all(color: HexColor('#CEE812'), width: 3),
                     borderRadius: BorderRadius.circular(30)),
                 child: Center(
                   child: Text(
                     "Skip",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                        color: HexColor('#004751'),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
-          )
+          ),
+          const SizedBox(width: 20),
         ],
       ),
       body: Column(
@@ -72,7 +71,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
             margin: EdgeInsets.all(5),
             child: Row(
               children: [
-                Text("Select Yout Avatar",
+                Text("Select Your Avatar",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -107,8 +106,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                 : Colors.white,
                             elevation: 4,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
+                                borderRadius: BorderRadius.circular(15.0)),
                             child: Container(
                               child: Image.asset(
                                 //images[index],

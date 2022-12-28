@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'dart:ui';
 
 import 'package:cardit/ui/register_screen/register_screen.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
 import '../../responsive/responsive.dart';
 import '../../themes/theme_notifier.dart';
@@ -39,8 +40,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
           crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
           children: [
             Container(
-                padding: EdgeInsets.only(top: 20, bottom: 30),
-                margin: EdgeInsets.only(top: 40),
+                padding: EdgeInsets.only(top: 10, bottom: 30),
+                margin: EdgeInsets.only(top: 30),
                 child: Column(
                     crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
                     children: [
@@ -48,9 +49,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             emailText(),
 
             AuthButton(
@@ -73,17 +72,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
 
   Widget buildToptitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
 
         crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.close, size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -93,14 +88,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
         'Verify Your Email Id ',
         style: TextStyle(
           fontSize: 28,
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+          // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -163,38 +158,29 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   child: TextButton(
                     style: TextButton.styleFrom(
                         textStyle: TextStyle(
-                      fontSize: 14,
-                      color: HexColor('#036D7B'),
-                    )),
+                            fontSize: 14, color: HexColor('#036D7B'))),
                     onPressed: () {},
                     child: Text(
                       'Resend',
                       style: TextStyle(
-                        fontSize: 14,
-                        color: HexColor('#036D7B'),
-                        fontFamily: 'Sora',
-                      ),
+                          fontSize: 14,
+                          color: HexColor('#036D7B'),
+                          fontFamily: 'Sora'),
                     ),
                   )),
             ])));
   }
 
   Widget emailText() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         alignment: Alignment.center,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            Text(
-              'We have sent you verification code on',
-              style: TextStyle(
-                  fontSize: 14,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : HexColor('#000000')),
-            ),
+            Text('We have sent you verification code on',
+                style: TextStyle(fontSize: 14)),
             Text(
              emailController.text,
               style: TextStyle(

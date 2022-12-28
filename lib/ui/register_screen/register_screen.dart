@@ -30,7 +30,8 @@ bool _isLoggedIn = false;
 Map _userObj = {};
 final emailController = TextEditingController();
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final List<String> value;
+  const Register({super.key, required this.value});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -88,11 +89,9 @@ final AuthCon con=Get.find();
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.close,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.close,
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -264,10 +263,9 @@ final AuthCon con=Get.find();
                                     ])),
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14,
-                                        color: HexColor('#004751')),
-                                  ),
+                                      textStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: HexColor('#004751'))),
                                   onPressed: () {
                                     showAlertDialog(context);
                                   },
@@ -332,10 +330,9 @@ final AuthCon con=Get.find();
                                     ])),
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14,
-                                        color: HexColor('#004751')),
-                                  ),
+                                      textStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: HexColor('#004751'))),
                                   onPressed: () {
                                     showAlertDialog(context);
                                   },
@@ -370,18 +367,15 @@ final AuthCon con=Get.find();
                         ? 'Accept Terms & Condition'
                         : "Register",
                     decoration: BoxDecoration(
-                      color: isChecked == false
-                          ? HexColor('#E9F9B2')
-                          : HexColor('#CEE812'),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                        color: isChecked == false
+                            ? HexColor('#E9F9B2')
+                            : HexColor('#CEE812'),
+                        borderRadius: BorderRadius.circular(5)),
                   ),
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Navigator.of(context).pushNamed(
-                        '/login',
-                      );
+                      Navigator.of(context).pushNamed('/login');
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -453,16 +447,9 @@ final AuthCon con=Get.find();
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Image.asset(
-                      "assets/fb.png",
-                      width: 32,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
+                    const SizedBox(width: 20),
+                    Image.asset("assets/fb.png", width: 32),
+                    SizedBox(width: 15),
                     Text(
                       "Sign Up using Facebook",
                       style: TextStyle(color: Color(0XFF413D4B), fontSize: 14),

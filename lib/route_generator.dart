@@ -1,4 +1,3 @@
-import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/ui/4digit_psw_screen/4digit_passcode_screen.dart';
 import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
 import 'package:cardit/ui/home_screen/home_screen.dart';
@@ -10,8 +9,6 @@ import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
-import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
-import 'package:cardit/ui/verify_userid_screen/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/avator_screen/select_avatar_screen.dart';
@@ -24,7 +21,6 @@ import 'ui/onboard_screen/onboard-seller_screen.dart';
 import 'ui/payment_screen/payments_details_screen.dart';
 import 'ui/payment_screen/payments_screen.dart';
 import 'ui/profile_information_screen/profile_information_screen.dart';
-import 'ui/register_screen/register_screen.dart';
 import 'ui/setting_screen/settings_screen.dart';
 import 'ui/user_detail_screen/user_details_screen.dart';
 import 'ui/user_profile_screen/profile_screen.dart';
@@ -40,20 +36,20 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
-      case '/register':
-        return MaterialPageRoute(builder: (_) => const Register());
+      // case '/register':
+      //   return MaterialPageRoute(builder: (_) => const Register(type: ''));
       case '/selectcountry':
         return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':
         return MaterialPageRoute(builder: (_) => const Passcode());
-      case '/verifyemail':
-        return MaterialPageRoute(builder: (_) => const VerifyEmail());
+      // case '/verifyemail':
+      //   return MaterialPageRoute(builder: (_) => const VerifyEmail());
       case '/updatepasswordcode':
         return MaterialPageRoute(builder: (_) => const UpdatePasswordCode());
       case '/updatepassword':
         return MaterialPageRoute(builder: (_) => const UpdatePassword());
-      case '/verifyuserid':
-        return MaterialPageRoute(builder: (_) => const VerifyUserId());
+      // case '/verifyuserid':
+      //   return MaterialPageRoute(builder: (_) => const VerifyUserId());
       case '/dashbordScreen':
         return MaterialPageRoute(builder: (_) => const DashbordScreen());
       case '/registerloading':

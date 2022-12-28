@@ -2,16 +2,20 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
 import '../register_screen/register_screen.dart';
 
 var type = '';
 var countrytype = ['assets/newlogo.png', 'assets/newuae.png'];
-var countryname = ['Philipines', 'UAE'];
+var countryname = ['Philippines', 'UAE'];
 bool country = false;
 var isphilipines;
+var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+var uaeData = ['UAE Number'];
+final philipine = 'philipine Data';
+final uae = 'UAE Data';
 
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
@@ -53,17 +57,15 @@ class _SelectcountryState extends State<Selectcountry> {
                 )),
 
             Container(
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Select Your Country",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor('#004751')),
-                  ),
+                  Text("Select Your Country",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor('#004751'))),
                 ],
               ),
             ),
@@ -170,17 +172,13 @@ class _SelectcountryState extends State<Selectcountry> {
   }
 
   Widget buildToptitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.close,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: const Icon(Icons.close, size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -190,22 +188,23 @@ class _SelectcountryState extends State<Selectcountry> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Row(
             mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
 
             children: [
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Join ',
                     style: TextStyle(
-                        fontSize: 28,
-                        color: themeChange.darkTheme
-                            ? Colors.white
-                            : HexColor('#CEE812')),
+                      fontSize: 28,
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : HexColor('#CEE812'),
+                    ),
                   ),
                   Image.asset("assets/carditlogo.png", width: 100, height: 65),
                 ],

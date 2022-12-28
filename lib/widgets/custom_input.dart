@@ -1,9 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-
-import '../themes/theme_notifier.dart';
 
 class MyCustomInputBox extends StatefulWidget {
   final String? label;
@@ -46,7 +44,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -57,12 +55,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             padding: const EdgeInsets.only(left: 16, bottom: 0),
             child: Text(
               widget.label ?? "",
-              style: TextStyle(
-                fontFamily: 'Sora',
-                fontSize: 14,
-                color:
-                    themeChange.darkTheme ? Colors.white : HexColor('#505050'),
-              ),
+              style: TextStyle(fontFamily: 'Sora', fontSize: 14),
             ),
           ),
         ),

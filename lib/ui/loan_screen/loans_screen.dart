@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
-import '../../themes/styles.dart';
-import '../../themes/theme_notifier.dart';
+import 'package:flutter/material.dart';
+
 import '../../widgets/bottom_navbar.dart';
 
 class Loans extends StatefulWidget {
@@ -31,7 +27,7 @@ class _LoansState extends State<Loans> {
               title: Text(
                 'Easy Installment',
                 style: TextStyle(
-                    color: Styles.whitecolortext,
+                    // color: Styles.whitecolortext,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -59,7 +55,7 @@ class _LoansState extends State<Loans> {
                         fit: BoxFit.contain,
                         width: 25,
                         height: 22,
-                        color: Styles.whitecolortext,
+                        // color: Styles.whitecolortext,
                       ),
                     )),
               ],
@@ -89,7 +85,7 @@ class _LoansState extends State<Loans> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.all(35),
@@ -102,8 +98,8 @@ class _LoansState extends State<Loans> {
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'Sora',
-                color:
-                    themeChange.darkTheme ? Colors.white : HexColor('#026C7A'),
+                // color:
+                //     themeChange.darkTheme ? Colors.white : HexColor('#026C7A'),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -115,7 +111,7 @@ class _LoansState extends State<Loans> {
               style: TextStyle(
                 fontSize: 12,
                 fontFamily: 'Sora',
-                color: themeChange.darkTheme ? Colors.white : Color(0Xff81898A),
+                // color: themeChange.darkTheme ? Colors.white : Color(0Xff81898A),
               ),
               textAlign: TextAlign.center,
             ),
@@ -151,7 +147,7 @@ class _LoansState extends State<Loans> {
   }
 
   Widget buildfaq() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -163,9 +159,9 @@ class _LoansState extends State<Loans> {
             child: ExpansionTile(
               title: Text('What are the benefits?',
                   style: TextStyle(
-                      color: themeChange.darkTheme
-                          ? Colors.white
-                          : Color(0Xff81898A),
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : Color(0Xff81898A),
                       fontSize: 18)),
               children: [
                 Container(
@@ -184,9 +180,9 @@ class _LoansState extends State<Loans> {
             child: ExpansionTile(
               title: Text('How i can repay?',
                   style: TextStyle(
-                      color: themeChange.darkTheme
-                          ? Colors.white
-                          : Color(0Xff81898A),
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : Color(0Xff81898A),
                       fontSize: 18)),
               children: [
                 Container(

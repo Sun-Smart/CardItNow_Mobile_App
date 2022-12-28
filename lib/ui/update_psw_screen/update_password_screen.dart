@@ -3,9 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
-import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -52,7 +50,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   }
 
   Widget buildToptitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +58,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
+              // color: themeChange.darkTheme ? Colors.white : Colors.black,
               size: 30,
             ),
             onPressed: () {
@@ -72,14 +70,14 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   }
 
   Widget buildtitle() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
         'Update \n Password',
         style: TextStyle(
           fontSize: 28,
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+          // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
           fontWeight: FontWeight.bold,
         ),
       ),

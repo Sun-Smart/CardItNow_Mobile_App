@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -76,7 +75,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         'Update \n Password',
         style: TextStyle(
           fontSize: 28,
-          color: Styles.whitecustomlable,
+          // color: Styles.whitecustomlable,
           fontWeight: FontWeight.bold,
         ),
       ),
