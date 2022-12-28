@@ -34,10 +34,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
             elevation: 0,
-            leading: SvgPicture.asset(
-              'assets/sortingleft.svg',
-              width: 16,
-            ),
+            leading: SvgPicture.asset('assets/sortingleft.svg', width: 16),
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
