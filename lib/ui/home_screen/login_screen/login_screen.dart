@@ -347,7 +347,7 @@ class _LoginState extends State<Login> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: "Don't have an account? ",
+                              text: "Don't have an account?",
                               style: TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 14,

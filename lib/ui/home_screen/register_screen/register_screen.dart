@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:cardit/api_endpoints.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
@@ -360,10 +361,10 @@ class _RegisterState extends State<Register> {
                       )),
                   AuthButton(
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        Get.to(VerifyEmail(value: widget.value));
-                      } else if (isChecked == false) {
-                      } else if (isChecked == true) {}
+                      if (isChecked == false) {
+                      } else if (isChecked == true) {
+                        Navigator.of(context).pushNamed('/verifyemail');
+                      }
                     },
                     text: isChecked == false
                         ? 'Accept Terms & Condition'
@@ -533,12 +534,12 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Text(
-          "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+      content: Obx(()=>Text(
+          con.viewTerms.value,
           style: TextStyle(
             fontSize: 13,
             color: Styles.whitecolortext,
-          )),
+          )),),
       actions: [
         okButton,
       ],

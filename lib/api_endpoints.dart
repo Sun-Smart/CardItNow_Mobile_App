@@ -9,7 +9,7 @@ class API {
 
 
   //Terms acceptance
-  String terms ="customertermsacceptance";
+  String terms ="customertermsacceptance/fulllist";
 
 
   //home
