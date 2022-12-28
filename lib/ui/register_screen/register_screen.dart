@@ -1,24 +1,23 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../themes/styles.dart';
 import '../../../themes/theme_notifier.dart';
 import '../../../widgets/auth_button.dart';
 import '../../../widgets/custom_input.dart';
 import '../../responsive/responsive.dart';
-import '../verify_email_screen/verify_email_screen.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;

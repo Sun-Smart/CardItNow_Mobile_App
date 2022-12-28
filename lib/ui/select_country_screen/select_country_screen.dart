@@ -1,6 +1,5 @@
-import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../register_screen/register_screen.dart';
@@ -138,9 +137,8 @@ class _SelectcountryState extends State<Selectcountry> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Register(
-                                        // countrytype: type,
-                                        )));
+                                    builder: (context) =>
+                                        const Register(value: [])));
                           },
                           child: Text(
                             "CONFIRM",

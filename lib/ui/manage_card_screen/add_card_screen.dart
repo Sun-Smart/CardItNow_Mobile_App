@@ -1,14 +1,14 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'dart:math' as math;
 
 import 'package:cardit/ui/manage_card_screen/scan_card_screen.dart';
-import 'package:cardit/widgets/auth_button.dart';
+import 'package:cardit/widgets/custom_input.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:credit_card_scanner/models/card_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import 'scan_card_screen.dart';
 
 class AddCard extends StatefulWidget {
   const AddCard({Key? key}) : super(key: key);
@@ -19,6 +19,7 @@ class AddCard extends StatefulWidget {
 
 class _AddCardState extends State<AddCard> {
   final formKey = GlobalKey<FormState>();
+  TextEditingController creditCardController = TextEditingController();
   TextEditingController cardNumberCtrl = TextEditingController();
   TextEditingController expiryFieldCtrl = TextEditingController();
   TextEditingController cardHolderNameCtrl = TextEditingController();
@@ -236,38 +237,24 @@ class _AddCardState extends State<AddCard> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 5.5,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.document_scanner_outlined, color: HexColor('#004751')),
-              TextButton(
-                  onPressed: () {
-                    Get.to(const ScanCard());
-                    //scanCard();
-                  },
-                  child: Text('Scan Card',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: HexColor('#004751')))),
-            ],
-          ),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.document_scanner_outlined, color: HexColor('#004751')),
+            TextButton(
+                onPressed: () {
+                  Get.to(const ScanCard());
+                  //scanCard();
+                },
+                child: Text('Scan Card',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 14,
+                        color: HexColor('#004751'))))
+          ],
         ),
-      ),
-      bottomNavigationBar: AuthButton(
-        decoration: BoxDecoration(
-          color: HexColor('#CEE812'),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        onTap: () {
-          if (formKey.currentState!.validate()) {
-            // Get.to(const Passcode());
-          }
-        },
-        text: "Verify and Proceed",
-      ),
+      ]),
     );
   }
 }

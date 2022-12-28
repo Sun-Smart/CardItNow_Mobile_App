@@ -1,10 +1,9 @@
+import 'package:awesome_card/awesome_card.dart';
 import 'package:cardit/ui/manage_card_screen/add_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import 'credit_card_page.dart';
 
 class ManualCard extends StatefulWidget {
   const ManualCard({Key? key}) : super(key: key);

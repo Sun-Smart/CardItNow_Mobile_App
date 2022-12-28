@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                   if (value == 1) {
                     Get.to(const Login());
                   } else if (value == 2) {
-                    Get.to(const Register());
+                    Get.to(const Register(value: []));
                   }
                 },
               )
@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(const Register());
+            Get.to(const Register(value: []));
           }),
     );
   }
