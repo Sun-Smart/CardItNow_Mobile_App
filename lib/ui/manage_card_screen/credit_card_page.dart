@@ -16,29 +16,28 @@ class _CreditCardPageState extends State<CreditCardPage> {
   String cardNumber = '';
   String cardHolderName = '';
   String expiryDate = '';
-  String cvv = '';
   bool showBack = false;
 
   late FocusNode _focusNode;
   TextEditingController cardNumberCtrl = TextEditingController();
   TextEditingController expiryFieldCtrl = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _focusNode.addListener(() {
-      setState(() {
-        _focusNode.hasFocus ? showBack = true : showBack = false;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _focusNode = FocusNode();
+  //   _focusNode.addListener(() {
+  //     setState(() {
+  //       _focusNode.hasFocus ? showBack = true : showBack = false;
+  //     });
+  //   });
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   _focusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +53,17 @@ class _CreditCardPageState extends State<CreditCardPage> {
           children: <Widget>[
             const SizedBox(height: 40),
             CreditCard(
-              cardNumber: cardNumber,
-              cardExpiry: expiryDate,
-              cardHolderName: cardHolderName,
-              cvv: cvv,
-              bankName: 'Axis Bank',
-              showBackSide: showBack,
-              frontBackground: CardBackgrounds.black,
-              backBackground: CardBackgrounds.white,
-              showShadow: true,
-              // mask: getCardTypeMask(cardType: CardType.americanExpress),
-            ),
+                cardNumber: cardNumber,
+                cardExpiry: expiryDate,
+                cardHolderName: cardHolderName,
+                bankName: 'Axis Bank',
+                showBackSide: showBack,
+                frontBackground: CardBackgrounds.black,
+                backBackground: CardBackgrounds.white,
+                showShadow: true,
+                mask: getCardTypeMask(
+                    cardType: CardType.rupay,
+                    cardNumber: AutofillHints.creditCardFamilyName)),
             const SizedBox(height: 40),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
