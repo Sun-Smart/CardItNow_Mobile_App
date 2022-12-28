@@ -62,6 +62,9 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                   ),
                 ),
               ),
+              onTap: (){
+                Get.to(const Passcode());
+              },
             ),
           ),
           const SizedBox(width: 20),

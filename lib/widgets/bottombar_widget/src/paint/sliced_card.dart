@@ -9,12 +9,7 @@ class SlicedCard extends CustomPainter {
     required Color cardColor,
     required double heightFraction,
   }) =>
-      CustomPaint(
-        painter: SlicedCard(
-          cardColor,
-          heightFraction,
-        ),
-      );
+      CustomPaint(painter: SlicedCard(cardColor, heightFraction));
 
   @override
   Future<void> paint(Canvas canvas, Size size) async {

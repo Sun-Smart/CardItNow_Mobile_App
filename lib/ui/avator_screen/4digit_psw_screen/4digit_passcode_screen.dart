@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, avoid_unnecessary_containers, prefer_const_constructors
+
 import 'dart:ui';
 
 import 'package:cardit/themes/theme_notifier.dart';
@@ -17,6 +19,7 @@ class Passcode extends StatefulWidget {
 
 class _PasscodeState extends State<Passcode> {
   final formKey = GlobalKey<FormState>();
+  final _otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +39,7 @@ class _PasscodeState extends State<Passcode> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 30,
-            )
+            SizedBox(height: 30)
           ],
         ),
       )),
@@ -105,6 +106,9 @@ class _PasscodeState extends State<Passcode> {
                         showFieldAsBox: true,
                         //runs when a code is typed in
                         onCodeChanged: (String code) {
+                          if (_otpController.text.isEmpty) {
+                            'Enter Your OTP';
+                          }
                           //handle validation or checks here
                         },
                       )),
@@ -118,8 +122,9 @@ class _PasscodeState extends State<Passcode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/dashbordScreen');
-        if (formKey.currentState!.validate()) {}
+        if (formKey.currentState!.validate()) {
+          Navigator.of(context).pushNamed('/dashbordScreen');
+        }
       },
       text: "Done",
     );

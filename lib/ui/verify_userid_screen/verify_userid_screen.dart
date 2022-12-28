@@ -7,11 +7,13 @@ import 'dart:typed_data';
 
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/profile_information_screen/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -86,6 +88,32 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           leading: BackButton(
             color: themeChange.darkTheme ? Colors.white : Colors.black,
           ),
+          actions: [
+            Center(
+              child: GestureDetector(
+                child: Container(
+                  height: 30,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: HexColor('#CEE812'), width: 3),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Center(
+                    child: Text(
+                      "Skip",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: HexColor('#004751'),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Get.to(const ProfileInformation());
+                },
+              ),
+            ),
+            const SizedBox(width: 20),
+          ],
         ),
         body: Container(
             //color: Color(0XFFffffff),
@@ -148,26 +176,20 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         dropdownColor: Colors.white,
                         isExpanded: true,
                         value: dropdownvalue,
-                        hint: Text(
-                          'Select Document',
-                          style: TextStyle(
-                              color: Styles.whitecustomlable, fontSize: 14),
-                        ),
+                        hint: Text('Select Document',
+                            style: TextStyle(
+                                color: Styles.whitecustomlable, fontSize: 14)),
                         icon: InkWell(
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: themeChange.darkTheme
-                                ? Colors.white
-                                : Colors.black45,
-                          ),
-                        ),
+                            child: Icon(Icons.keyboard_arrow_down,
+                                color: themeChange.darkTheme
+                                    ? Colors.white
+                                    : Colors.black45)),
                         items: widget.value.map((String item) {
                           return DropdownMenuItem(
-                            value: item,
-                            child: Text(item,
-                                style: const TextStyle(
-                                    color: Color(0Xff413D4B), fontSize: 14)),
-                          );
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
                         }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
@@ -205,10 +227,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),
                         hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal,
-                        ),
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 15),
                         focusColor: Colors.grey.shade300,
@@ -342,7 +363,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Navigator.of(context).pushNamed('/profileInformation');
+          if (formKey.currentState!.validate()) {
+            Navigator.of(context).pushNamed('/profileInformation');
+          }
         },
         text: "Next");
   }

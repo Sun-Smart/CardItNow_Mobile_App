@@ -14,7 +14,7 @@ import 'init.dart';
 class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
-  // termsconditions();
+    // termsconditions();
     super.onInit();
   }
 
@@ -57,7 +57,7 @@ class AuthCon extends GetxController with BaseController {
   var token = ''.obs;
 
   //terms
-  var viewTerms=''.obs;
+  var viewTerms = ''.obs;
 
   //otp
   final TextEditingController otpCon = TextEditingController();
@@ -130,17 +130,13 @@ class AuthCon extends GetxController with BaseController {
   void termsconditions() async {
     showLoading();
 
-    var response =
-    await BaseClient().get(API().terms).catchError(handleError);
+    var response = await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-    tc= data['data'];
-    print('check'+data);
-
+    tc = data['data'];
+    print('check' + data);
   }
-
-
 
   void updateGoalAPI() async {
     showLoading();

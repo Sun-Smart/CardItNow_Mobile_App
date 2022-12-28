@@ -100,7 +100,11 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 controller: _phonenumberController,
                 obsecureText: false,
                 inputHint: 'Enter Verification Code',
-                validator: (value) {},
+                validator: (value) {
+                  if (_phonenumberController.text.isEmpty) {
+                    return 'Enter Your OTP';
+                  }
+                },
                 inputDecoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -194,8 +198,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Get.to(VerifyUserId(value: widget.value));
-        if (formKey.currentState!.validate()) {}
+        if (formKey.currentState!.validate()) {
+          Get.to(VerifyUserId(value: widget.value));
+        }
       },
       text: "Next",
     );

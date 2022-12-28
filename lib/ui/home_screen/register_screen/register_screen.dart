@@ -2,7 +2,6 @@
 
 import 'dart:ui';
 
-import 'package:cardit/api_endpoints.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
@@ -361,9 +360,12 @@ class _RegisterState extends State<Register> {
                       )),
                   AuthButton(
                     onTap: () {
-                      if (isChecked == false) {
+                      if (formKey.currentState!.validate()) {
+                        Get.to(VerifyEmail(value: widget.value));
+                      } else if (isChecked == false) {
                       } else if (isChecked == true) {
-                        Navigator.of(context).pushNamed('/verifyemail');
+                        // Navigator.of(context).pushNamed('/verifyemail');
+
                       }
                     },
                     text: isChecked == false
@@ -534,12 +536,13 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Obx(()=>Text(
-          con.viewTerms.value,
-          style: TextStyle(
-            fontSize: 13,
-            color: Styles.whitecolortext,
-          )),),
+      content: Obx(
+        () => Text(con.viewTerms.value,
+            style: TextStyle(
+              fontSize: 13,
+              color: Styles.whitecolortext,
+            )),
+      ),
       actions: [
         okButton,
       ],
