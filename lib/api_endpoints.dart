@@ -5,8 +5,8 @@ class API {
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
   String logIn = "member/login";
-  String register = "SendOTP";
-
+  String register = "customermaster/SendOTP";
+  String verifyotp = "verifyotp/Verify";
 
   //Terms acceptance
   String terms ="customertermsacceptance/fulllist";

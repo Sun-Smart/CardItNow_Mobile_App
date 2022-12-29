@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,9 @@ class MyCustomInputBox extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool? enabled;
+  final int? maxLength;
+
+  final TextInputType? keyboardType;
   final Widget? Function(String?)? onChanged;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
@@ -29,7 +34,9 @@ class MyCustomInputBox extends StatefulWidget {
       this.inputHint,
       this.prefixIcon,
       this.suffixIcon,
-      this.maxLines})
+      this.maxLines,
+      this.maxLength,
+      this.keyboardType})
       : super(key: key);
   @override
   _MyCustomInputBoxState createState() => _MyCustomInputBoxState();
@@ -44,7 +51,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Align(
@@ -71,6 +78,8 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
           // height: MediaQuery.of(context).size.height * 0.070,
 
           child: TextFormField(
+            maxLength: widget.maxLength,
+            keyboardType: widget.keyboardType,
             onChanged: widget.onChanged,
             obscureText: widget.inputHint == 'Password' ? showpass : false,
             controller: widget.controller,

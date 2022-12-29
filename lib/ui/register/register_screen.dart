@@ -5,8 +5,8 @@ import 'dart:ui';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
-import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
-import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -15,10 +15,10 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../../themes/styles.dart';
-import '../../../themes/theme_notifier.dart';
-import '../../../widgets/auth_button.dart';
-import '../../../widgets/custom_input.dart';
+import '../../themes/styles.dart';
+import '../../themes/theme_notifier.dart';
+import '../../widgets/auth_button.dart';
+import '../../widgets/custom_input.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;
@@ -27,8 +27,7 @@ Map _userObj = {};
 final emailController = TextEditingController();
 
 class Register extends StatefulWidget {
-  final List<String> value;
-  const Register({super.key, required this.value});
+  const Register({super.key, });
 
   @override
   State<Register> createState() => _RegisterState();
@@ -45,19 +44,24 @@ class _RegisterState extends State<Register> {
       backgroundColor: Styles.colorBackgroundBlock,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
                 color: Styles.colorBackgroundBlock,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: Responsive.isMobile(context)
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.center,
                   children: [
                     Container(
                         // padding: EdgeInsets.only(top: 20, bottom: 30),
                         margin: EdgeInsets.only(top: 40),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
-                            fit: BoxFit.cover,
+                            fit: Responsive.isMobile(context)
+                                ? BoxFit.cover
+                                : BoxFit.fill,
                           ),
                         ),
                         child: Column(
@@ -126,10 +130,12 @@ class _RegisterState extends State<Register> {
                   ),
                 ],
               ),
-              Image.asset(
-                "assets/userimg.png",
-                width: 107,
+              SizedBox(
+                width: Responsive.isMobile(context)
+                    ? 0
+                    : MediaQuery.of(context).size.width / 14,
               ),
+              Image.asset("assets/userimg.png", width: 107),
             ]));
   }
 
@@ -145,8 +151,8 @@ class _RegisterState extends State<Register> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Use your Email ",
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
-                    textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     obsecureText: false,
                     inputHint: 'Enter your email',
@@ -198,7 +204,6 @@ class _RegisterState extends State<Register> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  // Text("${emailController.text}"),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
@@ -209,14 +214,17 @@ class _RegisterState extends State<Register> {
                                   : MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: Responsive.isMobile(context)
-                                      ? 0
-                                      : Responsive.isDesktop(context)
-                                          ? MediaQuery.of(context).size.width /
-                                              2.7
-                                          : MediaQuery.of(context).size.width /
-                                              3.6,
-                                ),
+                                    width: Responsive.isMobile(context)
+                                        ? 0
+                                        : Responsive.isDesktop(context)
+                                            ? MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.7
+                                            : MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3.6),
                                 Container(
                                     child: Row(
                                         mainAxisAlignment:
@@ -242,14 +250,14 @@ class _RegisterState extends State<Register> {
                                                     isChecked = false;
                                                   } else {
                                                     isChecked = true;
-                                                    showAlertDialog(context);
+                                                    // showAlertDialog(context);
                                                   }
                                                 });
                                               },
                                             ),
                                           )),
                                       SizedBox(width: 10.0),
-                                      Text("I agree to the ",
+                                      Text("I agree to the",
                                           style: TextStyle(
                                             color: themeChange.darkTheme
                                                 ? Colors.white
@@ -257,16 +265,12 @@ class _RegisterState extends State<Register> {
                                             fontSize: 14,
                                           ))
                                     ])),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: HexColor('#004751'))),
-                                  onPressed: () {
+                                InkWell(
+                                  onTap: (){
                                     showAlertDialog(context);
                                   },
                                   child: Text(
-                                    'terms and conditions.',
+                                    ' Terms & Conditions.',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: themeChange.darkTheme
@@ -361,20 +365,29 @@ class _RegisterState extends State<Register> {
                   AuthButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Get.to(VerifyEmail(value: widget.value));
+                        // Get.to(VerifyEmail());
                       } else if (isChecked == false) {
-                      } else if (isChecked == true) {
-                        // Navigator.of(context).pushNamed('/verifyemail');
-
+                      } else if (isChecked == true) {}
+                      // if (formKey.currentState!.validate()) {
+                      //   Get.to(VerifyEmail(value: widget.value));
+                      // } else if (isChecked == false) {
+                      // } else if (isChecked == true) {
+                      //   // Navigator.of(context).pushNamed('/verifyemail');
+                      // }
+                      if (emailController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: 'Enter your Email Id');
+                      } else {
+                        con.registerAPI(emailController.text.toString());
                       }
                     },
-                    text: isChecked == false
-                        ? 'Accept Terms & Condition'
-                        : "Register",
+                    // text: isChecked == false
+                    //     ? 'Accept Terms & Condition'
+                    text: "Register",
                     decoration: BoxDecoration(
-                        color: isChecked == false
-                            ? HexColor('#E9F9B2')
-                            : HexColor('#CEE812'),
+                        color:
+                            // isChecked == false
+                            //     ? HexColor('#E9F9B2')
+                            HexColor('#CEE812'),
                         borderRadius: BorderRadius.circular(5)),
                   ),
                   const SizedBox(height: 10),
@@ -536,8 +549,12 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Obx(
-        () => Text(con.viewTerms.value,
+      content: Container(
+        width: Responsive.isMobile(context)
+            ? 300
+            : MediaQuery.of(context).size.width / 5,
+        child: Text(
+            "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,

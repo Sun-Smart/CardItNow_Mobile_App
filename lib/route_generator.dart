@@ -1,28 +1,28 @@
-import 'package:cardit/ui/avator_screen/4digit_psw_screen/4digit_passcode_screen.dart';
-import 'package:cardit/ui/loan_screen/loans-payment_screen.dart';
-import 'package:cardit/ui/loan_screen/loans_screen.dart';
+import 'package:cardit/ui/register/4digit_passcode_screen.dart';
+import 'package:cardit/ui/landingscreens/loans-payment_screen.dart';
+import 'package:cardit/ui/landingscreens/loans_screen.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
-import 'package:cardit/ui/register_loading_screen/register_loading_screen.dart';
-import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
+import 'package:cardit/ui/register/register_loading_screen.dart';
+import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/avator_screen/select_avator_screen/select_avatar_screen.dart';
-import 'ui/dashboard_screen/dashbord_screen.dart';
-import 'ui/home_screen/login_screen/login_screen.dart';
-import 'ui/manage_card_screen/add_card_screen.dart';
-import 'ui/manage_card_screen/manula_card_screen.dart';
-import 'ui/manage_card_screen/scan_card_screen.dart';
+import 'ui/register/select_avatar_screen.dart';
+import 'ui/landingscreens/dashbord_screen.dart';
+import 'ui/login/login_screen.dart';
+import 'ui/landingscreens/add_card_screen.dart';
+import 'ui/landingscreens/manula_card_screen.dart';
+import 'ui/landingscreens/scan_card_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
-import 'ui/payment_screen/payments_details_screen.dart';
-import 'ui/payment_screen/payments_screen.dart';
-import 'ui/profile_information_screen/profile_information_screen.dart';
-import 'ui/setting_screen/settings_screen.dart';
-import 'ui/user_detail_screen/user_details_screen.dart';
-import 'ui/user_profile_screen/profile_screen.dart';
+import 'ui/landingscreens/payments_details_screen.dart';
+import 'ui/landingscreens/payments_screen.dart';
+import 'ui/landingscreens/profile_information_screen.dart';
+import 'ui/landingscreens/settings_screen.dart';
+import 'ui/landingscreens/user_details_screen.dart';
+import 'ui/landingscreens/profile_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

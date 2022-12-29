@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../ui/dashboard_screen/dashbord_screen.dart';
+import '../ui/landingscreens/dashbord_screen.dart';
 
 class AuthService {
   //1. Handle Auth State()

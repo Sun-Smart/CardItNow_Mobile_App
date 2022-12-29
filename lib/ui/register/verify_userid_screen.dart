@@ -5,9 +5,11 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/profile_information_screen/profile_information_screen.dart';
+import 'package:cardit/ui/landingscreens/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,11 +77,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       }
     }
   }
-
+final AuthCon con=Get.find();
   String? dropdownvalue;
-
+  var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+  var uaeData = ['UAE'];
   @override
   Widget build(BuildContext context) {
+
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         bottomNavigationBar: bulildbutton(),
@@ -119,7 +123,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: Responsive.isMobile(context)
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
               buildtitle(),
               bulidForm(),
@@ -149,8 +155,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         child: Form(
             key: formKey,
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: Responsive.isMobile(context)
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.center,
+                mainAxisAlignment: Responsive.isMobile(context)
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
                 children: [
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -162,7 +172,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    width: MediaQuery.of(context).size.width / 1.1,
+                    width: Responsive.isMobile(context)
+                        ? MediaQuery.of(context).size.width / 1
+                        : Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4.5
+                            : MediaQuery.of(context).size.width / 2.5,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -184,7 +198,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                 color: themeChange.darkTheme
                                     ? Colors.white
                                     : Colors.black45)),
-                        items: widget.value.map((String item) {
+                        items:con.isUAE.value?uaeData.map((String item) {
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
+                        }).toList(): philipineData.map((String item) {
                           return DropdownMenuItem(
                               value: item,
                               child: Text(item,
@@ -222,7 +242,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       inputDecoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Enter ${dropdownvalue}',
+                        hintText: dropdownvalue==null?"Select Document":'Enter ${dropdownvalue} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -284,7 +304,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     if (imageFile1 == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
