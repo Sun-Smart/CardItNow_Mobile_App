@@ -126,10 +126,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ],
               ),
-              Image.asset(
-                "assets/userimg.png",
-                width: 107,
-              ),
+              Image.asset("assets/userimg.png", width: 107),
             ]));
   }
 
@@ -145,8 +142,8 @@ class _RegisterState extends State<Register> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Use your Email ",
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
-                    textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     obsecureText: false,
                     inputHint: 'Enter your email',
@@ -198,7 +195,6 @@ class _RegisterState extends State<Register> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  // Text("${emailController.text}"),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
@@ -209,14 +205,17 @@ class _RegisterState extends State<Register> {
                                   : MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: Responsive.isMobile(context)
-                                      ? 0
-                                      : Responsive.isDesktop(context)
-                                          ? MediaQuery.of(context).size.width /
-                                              2.7
-                                          : MediaQuery.of(context).size.width /
-                                              3.6,
-                                ),
+                                    width: Responsive.isMobile(context)
+                                        ? 0
+                                        : Responsive.isDesktop(context)
+                                            ? MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.7
+                                            : MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3.6),
                                 Container(
                                     child: Row(
                                         mainAxisAlignment:
@@ -363,10 +362,7 @@ class _RegisterState extends State<Register> {
                       if (formKey.currentState!.validate()) {
                         Get.to(VerifyEmail(value: widget.value));
                       } else if (isChecked == false) {
-                      } else if (isChecked == true) {
-                        // Navigator.of(context).pushNamed('/verifyemail');
-
-                      }
+                      } else if (isChecked == true) {}
                     },
                     text: isChecked == false
                         ? 'Accept Terms & Condition'

@@ -96,6 +96,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
             child: Stack(children: [
               MyCustomInputBox(
                 enabled: true,
+                maxLength: 6,
+                keyboardType: TextInputType.number,
                 label: "Enter the verification code ",
                 controller: _phonenumberController,
                 obsecureText: false,

@@ -10,27 +10,31 @@ class MyCustomInputBox extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool? enabled;
+  final int? maxLength;
   final Widget? Function(String?)? onChanged;
   final TextInputType? textInputType;
+  final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextEditingController controller;
   final int? maxLines;
-  const MyCustomInputBox(
-      {Key? key,
-      this.textInputType,
-      this.textInputAction,
-      required this.controller,
-      required this.enabled,
-      required this.obsecureText,
-      required this.inputDecoration,
-      this.validator,
-      this.onChanged,
-      this.label,
-      this.inputHint,
-      this.prefixIcon,
-      this.suffixIcon,
-      this.maxLines})
-      : super(key: key);
+  const MyCustomInputBox({
+    Key? key,
+    this.textInputType,
+    this.textInputAction,
+    required this.controller,
+    required this.enabled,
+    required this.obsecureText,
+    required this.inputDecoration,
+    this.validator,
+    this.onChanged,
+    this.label,
+    this.inputHint,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.maxLines,
+    this.maxLength,
+    this.keyboardType,
+  }) : super(key: key);
   @override
   _MyCustomInputBoxState createState() => _MyCustomInputBoxState();
 }
@@ -71,6 +75,8 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
           // height: MediaQuery.of(context).size.height * 0.070,
 
           child: TextFormField(
+            maxLength: widget.maxLength,
+            keyboardType: widget.keyboardType,
             onChanged: widget.onChanged,
             obscureText: widget.inputHint == 'Password' ? showpass : false,
             controller: widget.controller,

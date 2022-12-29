@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print, avoid_unnecessary_containers
 
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
@@ -43,13 +43,11 @@ class _SelectcountryState extends State<Selectcountry> {
                     padding: EdgeInsets.only(top: 10, bottom: 30),
                     margin: EdgeInsets.only(top: 40),
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/loginbg.png"),
-                        fit: Responsive.isMobile(context)
-                            ? BoxFit.cover
-                            : BoxFit.fill,
-                      ),
-                    ),
+                        image: DecorationImage(
+                            image: AssetImage("assets/loginbg.png"),
+                            fit: Responsive.isMobile(context)
+                                ? BoxFit.cover
+                                : BoxFit.fill)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -58,7 +56,7 @@ class _SelectcountryState extends State<Selectcountry> {
                         ])),
               ])),
           Container(
-            margin: const EdgeInsets.all(15),
+            margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               mainAxisAlignment: Responsive.isMobile(context)
                   ? MainAxisAlignment.start
@@ -190,12 +188,9 @@ class _SelectcountryState extends State<Selectcountry> {
                     'Join ',
                     style: TextStyle(
                       fontSize: 28,
-                      // color: themeChange.darkTheme
-                      //     ? Colors.white
-                      //     : HexColor('#CEE812'),
                     ),
                   ),
-                  Image.asset("assets/carditlogo.png", width: 100, height: 65),
+                  Image.asset("assets/carditlogo.png", width: 100),
                 ],
               ),
             ]));
