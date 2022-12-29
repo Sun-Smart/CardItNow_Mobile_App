@@ -242,7 +242,7 @@ class _RegisterState extends State<Register> {
                                                     isChecked = false;
                                                   } else {
                                                     isChecked = true;
-                                                    showAlertDialog(context);
+                                                   // showAlertDialog(context);
                                                   }
                                                 });
                                               },
@@ -360,12 +360,12 @@ class _RegisterState extends State<Register> {
                       )),
                   AuthButton(
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        Get.to(VerifyEmail(value: widget.value));
-                      } else if (isChecked == false) {
-                      } else if (isChecked == true) {
-                        // Navigator.of(context).pushNamed('/verifyemail');
-                      }
+                      // if (formKey.currentState!.validate()) {
+                      //   Get.to(VerifyEmail(value: widget.value));
+                      // } else if (isChecked == false) {
+                      // } else if (isChecked == true) {
+                      //   // Navigator.of(context).pushNamed('/verifyemail');
+                      // }
                       if(emailController.text.isEmpty){
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
                       }else{
@@ -373,13 +373,14 @@ class _RegisterState extends State<Register> {
 
                       }
                     },
-                    text: isChecked == false
-                        ? 'Accept Terms & Condition'
-                        : "Register",
+                    // text: isChecked == false
+                    //     ? 'Accept Terms & Condition'
+                        text: "Register",
                     decoration: BoxDecoration(
-                        color: isChecked == false
-                            ? HexColor('#E9F9B2')
-                            : HexColor('#CEE812'),
+                        color:
+                        // isChecked == false
+                        //     ? HexColor('#E9F9B2')
+                             HexColor('#CEE812'),
                         borderRadius: BorderRadius.circular(5)),
                   ),
                   const SizedBox(height: 10),
@@ -541,14 +542,13 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Obx(
-        () => Text(
+      content: Text(
             "sss",
             // con.viewTerms.value,
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,
-            )),
+            )
       ),
       actions: [
         okButton,

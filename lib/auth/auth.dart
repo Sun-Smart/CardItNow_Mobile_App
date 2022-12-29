@@ -115,7 +115,7 @@ class AuthCon extends GetxController with BaseController {
  print('check'+data);
 
     if (data=="Success") {
-      Get.to(VerifyEmail(value: [],));
+      Get.to(VerifyEmail(value: []));
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
