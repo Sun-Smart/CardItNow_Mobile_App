@@ -3,9 +3,11 @@
 import 'dart:ui';
 
 import 'package:cardit/ui/register_screen/register_screen.dart';
+import 'package:cardit/ui/verify_userid_screen/verify_userid_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../responsive/responsive.dart';
@@ -58,9 +60,11 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               onTap: () {
+                  Get.to();
                 Navigator.of(context).pushNamed(
                   '/verifyuserid',
                 );
+
                 if (formKey.currentState!.validate()) {}
               },
               text: "Next"

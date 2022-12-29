@@ -355,9 +355,12 @@ final AuthCon con=Get.find();
                       } else if (isChecked == true) {
                         // Navigator.of(context).pushNamed('/verifyemail');
                       }
-                      if(emailController.text.isEmpty){
+                      if(isChecked == false){
+
+                      }else if(emailController.text.isEmpty){
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
-                      }else{
+                      }
+                      else{
                          con.registerAPI(emailController.text.toString());
 
                         // Navigator.of(context).pushNamed('/verifyemail');

@@ -115,7 +115,7 @@ class AuthCon extends GetxController with BaseController {
     hideLoading();
  print('check'+data);
 
-    if (data["success"].toString().isNotEmpty) {
+    if (data=="Success") {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
