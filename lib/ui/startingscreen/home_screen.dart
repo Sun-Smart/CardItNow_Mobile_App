@@ -3,8 +3,8 @@
 import 'dart:ui';
 
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/home_screen/login_screen/login_screen.dart';
-import 'package:cardit/ui/select_country_screen/select_country_screen.dart';
+import 'package:cardit/ui/login/login_screen.dart';
+import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,8 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../themes/styles.dart';
-import '../../../themes/theme_notifier.dart';
+import '../../themes/styles.dart';
+import '../../themes/theme_notifier.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

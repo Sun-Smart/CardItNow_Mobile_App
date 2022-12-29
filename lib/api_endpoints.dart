@@ -6,7 +6,7 @@ class API {
 
   String logIn = "member/login";
   String register = "customermaster/SendOTP";
-
+  String verifyotp = "verifyotp/Verify";
 
   //Terms acceptance
   String terms ="customertermsacceptance/fulllist";

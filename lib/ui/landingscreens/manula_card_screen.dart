@@ -1,5 +1,5 @@
 import 'package:awesome_card/awesome_card.dart';
-import 'package:cardit/ui/manage_card_screen/add_card_screen.dart';
+import 'package:cardit/ui/landingscreens/add_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

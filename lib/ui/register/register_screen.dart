@@ -5,8 +5,8 @@ import 'dart:ui';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
-import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
-import 'package:cardit/ui/verify_email_screen/verify_email_screen.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -15,10 +15,10 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../../themes/styles.dart';
-import '../../../themes/theme_notifier.dart';
-import '../../../widgets/auth_button.dart';
-import '../../../widgets/custom_input.dart';
+import '../../themes/styles.dart';
+import '../../themes/theme_notifier.dart';
+import '../../widgets/auth_button.dart';
+import '../../widgets/custom_input.dart';
 
 bool isChecked = false;
 bool isChecked1 = false;
@@ -27,8 +27,7 @@ Map _userObj = {};
 final emailController = TextEditingController();
 
 class Register extends StatefulWidget {
-  final List<String> value;
-  const Register({super.key, required this.value});
+  const Register({super.key, });
 
   @override
   State<Register> createState() => _RegisterState();
@@ -258,7 +257,7 @@ class _RegisterState extends State<Register> {
                                             ),
                                           )),
                                       SizedBox(width: 10.0),
-                                      Text("I agree to the ",
+                                      Text("I agree to the",
                                           style: TextStyle(
                                             color: themeChange.darkTheme
                                                 ? Colors.white
@@ -266,16 +265,12 @@ class _RegisterState extends State<Register> {
                                             fontSize: 14,
                                           ))
                                     ])),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: HexColor('#004751'))),
-                                  onPressed: () {
+                                InkWell(
+                                  onTap: (){
                                     showAlertDialog(context);
                                   },
                                   child: Text(
-                                    'terms and conditions.',
+                                    ' Terms & Conditions.',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: themeChange.darkTheme
@@ -370,7 +365,7 @@ class _RegisterState extends State<Register> {
                   AuthButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Get.to(VerifyEmail(value: widget.value));
+                        // Get.to(VerifyEmail());
                       } else if (isChecked == false) {
                       } else if (isChecked == true) {}
                       // if (formKey.currentState!.validate()) {

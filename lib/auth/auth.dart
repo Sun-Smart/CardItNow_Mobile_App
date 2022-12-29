@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:cardit/ui/dashboard_screen/dashbord_screen.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -8,17 +9,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../api_endpoints.dart';
 import '../base_client.dart';
-import '../ui/verify_email_screen/verify_email_screen.dart';
+import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
 
   @override
   void onInit() {
-  // termsconditions();
+    // termsconditions();
     super.onInit();
   }
-
+  var isUAE = false.obs;
 //termsand conditions
   var tc=[];
   //avatar
@@ -26,6 +27,7 @@ class AuthCon extends GetxController with BaseController {
 
   //gender
   var gender = 1.obs;
+
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -37,7 +39,7 @@ class AuthCon extends GetxController with BaseController {
 
   //current diet
   var dietType = "Vegetarian".obs;
-  
+
   //fitness level
   var isBeginner = true.obs;
   var isIntermediate = false.obs;
@@ -66,14 +68,14 @@ class AuthCon extends GetxController with BaseController {
     //   'email': emailController.text,
     // };
     var response =
-        await BaseClient().get("Token?email=$email&Password=$password").catchError(handleError);
+    await BaseClient().get("Token?email=$email&Password=$password").catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
     print("hii"+data.toString());
     if (data["token"].toString().isNotEmpty) {
-    Get.to(DashbordScreen());
+      Get.to(DashbordScreen());
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
@@ -103,25 +105,52 @@ class AuthCon extends GetxController with BaseController {
   void registerAPI(email) async {
     showLoading();
 
- var body={
-"email":email
- };
+    var body={
+      "email":email
+    };
     var response =
     await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
- print('check'+data);
+    print('check'+data);
 
     if (data=="Success") {
-      Get.to(VerifyEmail(value: []));
+      Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
       Fluttertoast.showToast(msg:"Something  wrong");
+    }
+  }
+//verifyotp
+
+  void verify(email,otp) async {
+    showLoading();
+
+    var body={
+
+    };
+    var response =
+    await BaseClient().post(API().verifyotp+'?email=$email&otp='+otp,body).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    hideLoading();
+    print('check'+data);
+
+    if (data=="match") {
+      Get.to(VerifyUserId(value: []));
+      // token.value = userData["token"];
+      // if (!resend) {
+      //   // Get.to(OtpScreenView());
+      // }
+    } else {
+      // Get.to(VerifyUserId(value: []));
+      Fluttertoast.showToast(msg:data.toString());
     }
   }
 
@@ -166,7 +195,7 @@ class AuthCon extends GetxController with BaseController {
       'fitness_goals[]': fitGoalList,
     };
     var response =
-        await BaseClient().post(API().updateGoal, body).catchError(handleError);
+    await BaseClient().post(API().updateGoal, body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 

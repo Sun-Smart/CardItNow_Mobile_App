@@ -1,20 +1,15 @@
 // ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print, avoid_unnecessary_containers
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-var type = '';
-var countrytype = ['assets/newlogo.png', 'assets/newuae.png'];
-var countryname = ['Philippines', 'UAE'];
-var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
-var uaeData = ['UAE Number'];
-final philipine = 'philipine Data';
-final uae = 'UAE Data';
-bool country = false;
-var isphilipines;
+
+
+
 
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
@@ -24,6 +19,20 @@ class Selectcountry extends StatefulWidget {
 }
 
 class _SelectcountryState extends State<Selectcountry> {
+
+  var type = '';
+
+  var country=[
+    {
+      "img":'assets/newlogo.png',
+      "type":'Philippines'
+    },
+    {
+      "img":'assets/newuae.png',
+      "type":'UAE'
+    },
+  ];
+  final AuthCon con=Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +49,8 @@ class _SelectcountryState extends State<Selectcountry> {
                       : CrossAxisAlignment.center,
                   children: [
                 Container(
-                    padding: EdgeInsets.only(top: 10, bottom: 30),
-                    margin: EdgeInsets.only(top: 40),
+                    padding: EdgeInsets.only(top: 0, bottom: 30),
+                    margin: EdgeInsets.only(top: 24),
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
@@ -51,6 +60,9 @@ class _SelectcountryState extends State<Selectcountry> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: 20,
+                          ),
                           buildToptitle(),
                           buildtitle(),
                         ])),
@@ -70,6 +82,9 @@ class _SelectcountryState extends State<Selectcountry> {
               ],
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Container(
             width: Responsive.isMobile(context)
                 ? MediaQuery.of(context).size.width / 1
@@ -80,25 +95,30 @@ class _SelectcountryState extends State<Selectcountry> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(10),
-                itemCount: countrytype.length,
+                itemCount: country.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        country == isphilipines ? true : false;
-                        print(country);
-                        isphilipines;
-                        print(isphilipines);
-                        type = countrytype[index];
+                        type = country[index]['type']!;
+                        print(type);
+                        if(type=='UAE'){
+                          con.isUAE.value=true;
+                        }else{
+                          con.isUAE.value=false;
+
+                        }
+
                       });
                     },
                     child: Container(
                       margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
                       child: Card(
-                        color: type == countrytype[index]
+                        elevation: 0,
+                        color: type == country[index]['type']
                             ? HexColor('#CEE812')
-                            : Colors.white,
+                            : Colors.transparent,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
@@ -107,10 +127,10 @@ class _SelectcountryState extends State<Selectcountry> {
                             Column(
                               children: [
                                 const SizedBox(height: 10),
-                                Image.asset(countrytype[index],
+                                Image.asset(country[index]['img']!,
                                     width: 100, height: 100),
                                 const SizedBox(height: 10),
-                                Text(countryname[index],
+                                Text(country[index]['type']!,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16)),
@@ -148,11 +168,9 @@ class _SelectcountryState extends State<Selectcountry> {
                               textStyle: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            if (type == countrytype[0]) {
-                              Get.to(Register(value: philipineData));
-                            } else if (type == countrytype[1]) {
-                              Get.to(Register(value: uaeData));
-                            }
+                            Get.to(Register());
+
+
                           },
                           child: Text(
                             "CONFIRM",

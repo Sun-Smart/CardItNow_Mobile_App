@@ -5,10 +5,11 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/profile_information_screen/profile_information_screen.dart';
+import 'package:cardit/ui/landingscreens/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,11 +77,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       }
     }
   }
-
+final AuthCon con=Get.find();
   String? dropdownvalue;
-
+  var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
+  var uaeData = ['UAE'];
   @override
   Widget build(BuildContext context) {
+
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         bottomNavigationBar: bulildbutton(),
@@ -195,7 +198,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                 color: themeChange.darkTheme
                                     ? Colors.white
                                     : Colors.black45)),
-                        items: widget.value.map((String item) {
+                        items:con.isUAE.value?uaeData.map((String item) {
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
+                        }).toList(): philipineData.map((String item) {
                           return DropdownMenuItem(
                               value: item,
                               child: Text(item,
@@ -233,7 +242,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       inputDecoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Enter ${dropdownvalue}',
+                        hintText: dropdownvalue==null?"Select Document":'Enter ${dropdownvalue} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),

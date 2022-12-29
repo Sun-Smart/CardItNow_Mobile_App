@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cardit/ui/home_screen/home_screen/home_screen.dart';
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';

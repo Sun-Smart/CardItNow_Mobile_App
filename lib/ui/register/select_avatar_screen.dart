@@ -3,14 +3,14 @@
 import 'dart:io';
 
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/avator_screen/4digit_psw_screen/4digit_passcode_screen.dart';
+import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../main.dart';
-import '../../../widgets/auth_button.dart';
+import '../../main.dart';
+import '../../widgets/auth_button.dart';
 
 var type = '';
 
