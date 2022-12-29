@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -11,30 +13,31 @@ class MyCustomInputBox extends StatefulWidget {
   final Widget? prefixIcon;
   final bool? enabled;
   final int? maxLength;
+
+  final TextInputType? keyboardType;
   final Widget? Function(String?)? onChanged;
   final TextInputType? textInputType;
-  final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final TextEditingController controller;
   final int? maxLines;
-  const MyCustomInputBox({
-    Key? key,
-    this.textInputType,
-    this.textInputAction,
-    required this.controller,
-    required this.enabled,
-    required this.obsecureText,
-    required this.inputDecoration,
-    this.validator,
-    this.onChanged,
-    this.label,
-    this.inputHint,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.maxLines,
-    this.maxLength,
-    this.keyboardType,
-  }) : super(key: key);
+  const MyCustomInputBox(
+      {Key? key,
+      this.textInputType,
+      this.textInputAction,
+      required this.controller,
+      required this.enabled,
+      required this.obsecureText,
+      required this.inputDecoration,
+      this.validator,
+      this.onChanged,
+      this.label,
+      this.inputHint,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.maxLines,
+      this.maxLength,
+      this.keyboardType})
+      : super(key: key);
   @override
   _MyCustomInputBoxState createState() => _MyCustomInputBoxState();
 }
@@ -48,7 +51,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Align(

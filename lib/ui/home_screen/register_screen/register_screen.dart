@@ -45,19 +45,24 @@ class _RegisterState extends State<Register> {
       backgroundColor: Styles.colorBackgroundBlock,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
                 color: Styles.colorBackgroundBlock,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: Responsive.isMobile(context)
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.center,
                   children: [
                     Container(
                         // padding: EdgeInsets.only(top: 20, bottom: 30),
                         margin: EdgeInsets.only(top: 40),
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/loginbg.png"),
-                            fit: BoxFit.cover,
+                            fit: Responsive.isMobile(context)
+                                ? BoxFit.cover
+                                : BoxFit.fill,
                           ),
                         ),
                         child: Column(
@@ -125,6 +130,11 @@ class _RegisterState extends State<Register> {
                     height: 65,
                   ),
                 ],
+              ),
+              SizedBox(
+                width: Responsive.isMobile(context)
+                    ? 0
+                    : MediaQuery.of(context).size.width / 14,
               ),
               Image.asset("assets/userimg.png", width: 107),
             ]));
@@ -544,12 +554,17 @@ class _RegisterState extends State<Register> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
-      content: Text("sss",
-          // con.viewTerms.value,
-          style: TextStyle(
-            fontSize: 13,
-            color: Styles.whitecolortext,
-          )),
+      content: Container(
+        width: Responsive.isMobile(context)
+            ? 300
+            : MediaQuery.of(context).size.width / 5,
+        child: Text(
+            "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+            style: TextStyle(
+              fontSize: 13,
+              color: Styles.whitecolortext,
+            )),
+      ),
       actions: [
         okButton,
       ],
