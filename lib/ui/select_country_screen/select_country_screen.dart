@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_declarations
+// ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
 
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
@@ -27,21 +27,20 @@ class _SelectcountryState extends State<Selectcountry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: Responsive.isMobile(context)
-              ? CrossAxisAlignment.start
-              : CrossAxisAlignment.center,
-          children: [
-            Container(
-                // color: Styles.colorBackgroundBlock,
-                child: Column(
-              crossAxisAlignment: Responsive.isMobile(context)
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.center,
-              children: [
+      body: Column(
+        crossAxisAlignment: Responsive.isMobile(context)
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
+        children: [
+          Container(
+              // color: Styles.colorBackgroundBlock,
+              child: Column(
+                  crossAxisAlignment: Responsive.isMobile(context)
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.center,
+                  children: [
                 Container(
-                    // padding: EdgeInsets.only(top: 20, bottom: 30),
+                    padding: EdgeInsets.only(top: 10, bottom: 30),
                     margin: EdgeInsets.only(top: 40),
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -57,111 +56,105 @@ class _SelectcountryState extends State<Selectcountry> {
                           buildToptitle(),
                           buildtitle(),
                         ])),
+              ])),
+          Container(
+            margin: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: Responsive.isMobile(context)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                Text("Select Your Country",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('#004751'))),
               ],
-            )),
-            Container(
-              margin: const EdgeInsets.all(15),
+            ),
+          ),
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(10),
+              itemCount: countrytype.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      country == isphilipines ? true : false;
+                      print(country);
+                      isphilipines;
+                      print(isphilipines);
+                      type = countrytype[index];
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
+                    child: Card(
+                      color: type == countrytype[index]
+                          ? HexColor('#CEE812')
+                          : Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                          child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(height: 10),
+                              Image.asset(countrytype[index],
+                                  width: 100, height: 100),
+                              SizedBox(height: 10),
+                              Text(countryname[index],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        ],
+                      )),
+                    ),
+                  ),
+                );
+              }),
+          const Spacer(),
+          if (type != '')
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
-                mainAxisAlignment: Responsive.isMobile(context)
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
                 children: [
-                  Text("Select Your Country",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: HexColor('#004751'))),
+                  Expanded(
+                      child: SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: HexColor('#CEE812'),
+                            textStyle: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                        onPressed: () {
+                          if (type == countrytype[0]) {
+                            Get.to(Register(value: philipineData));
+                          } else if (type == countrytype[1]) {
+                            Get.to(Register(value: uaeData));
+                          }
+                        },
+                        child: Text(
+                          "CONFIRM",
+                          style: TextStyle(
+                            fontFamily: 'ProductSans',
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#004751'),
+                          ),
+                        )),
+                  )),
                 ],
               ),
             ),
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
-                itemCount: countrytype.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        country == isphilipines ? true : false;
-                        print(country);
-                        isphilipines;
-                        print(isphilipines);
-                        type = countrytype[index];
-                      });
-                    },
-                    child: Container(
-                      // padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.all(10),
-                      child: Card(
-                        color: type == countrytype[index]
-                            ? HexColor('#CEE812')
-                            : Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                            child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  countrytype[index],
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                SizedBox(width: 30),
-                                Text(
-                                  countryname[index],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ],
-                        )),
-                      ),
-                    ),
-                  );
-                }),
-            const Spacer(),
-            if (type != '')
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: HexColor('#CEE812'),
-                              textStyle: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                          onPressed: () {
-                            if (type == countrytype[0]) {
-                              Get.to(Register(value: philipineData));
-                            } else if (type == countrytype[1]) {
-                              Get.to(Register(value: uaeData));
-                            }
-                          },
-                          child: Text(
-                            "CONFIRM",
-                            style: TextStyle(
-                              fontFamily: 'ProductSans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: HexColor('#004751'),
-                            ),
-                          )),
-                    )),
-                  ],
-                ),
-              ),
-            const SizedBox(height: 30),
-          ],
-        ),
+          const SizedBox(height: 30),
+        ],
       ),
     );
   }

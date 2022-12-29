@@ -186,7 +186,7 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
-          child: const Text("Get Started",
+          child: const Text("Swipe to start...",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
                   fontSize: 16,
