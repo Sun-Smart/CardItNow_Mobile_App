@@ -2,18 +2,18 @@
 
 import 'dart:ui';
 
-import 'package:cardit/ui/home_screen/register_screen/register_screen.dart';
-import 'package:cardit/ui/verify_userid_screen/verify_userid_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
+import '../home_screen/register_screen/register_screen.dart';
+import '../verify_userid_screen/verify_userid_screen.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key, required this.value});
@@ -51,6 +51,22 @@ class _VerifyEmailState extends State<VerifyEmail> {
             bulidForm(),
             SizedBox(height: 10),
             emailText(),
+
+            AuthButton(
+                decoration: BoxDecoration(
+                  color: HexColor('#CEE812'),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              onTap: () {
+
+                Navigator.of(context).pushNamed(
+                  '/verifyuserid',
+                );
+
+                if (formKey.currentState!.validate()) {}
+              },
+              text: "Next"
+            ),
           ],
         ),
       )),

@@ -5,21 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../ui/verify_email_screen/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
+
   @override
   void onInit() {
-    // termsconditions();
+  // termsconditions();
     super.onInit();
   }
 
 //termsand conditions
-  var tc = [];
+  var tc=[];
   //avatar
   var avatarImage;
 
@@ -36,7 +37,7 @@ class AuthCon extends GetxController with BaseController {
 
   //current diet
   var dietType = "Vegetarian".obs;
-
+  
   //fitness level
   var isBeginner = true.obs;
   var isIntermediate = false.obs;
@@ -56,33 +57,29 @@ class AuthCon extends GetxController with BaseController {
   var otp = ''.obs;
   var token = ''.obs;
 
-  //terms
-  var viewTerms = ''.obs;
-
   //otp
   final TextEditingController otpCon = TextEditingController();
 
-  void loginAPI(email, password) async {
+  void loginAPI(email,password) async {
     showLoading();
     // var body = {
     //   'email': emailController.text,
     // };
-    var response = await BaseClient()
-        .get("Token?email=$email&Password=$password")
-        .catchError(handleError);
+    var response =
+        await BaseClient().get("Token?email=$email&Password=$password").catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
-    print("hii" + data.toString());
+    print("hii"+data.toString());
     if (data["token"].toString().isNotEmpty) {
-      Get.to(DashbordScreen());
+    Get.to(DashbordScreen());
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg: "Check Your Login Credentials");
+      Fluttertoast.showToast(msg:"Check Your Login Credentials");
     }
   }
 
@@ -106,37 +103,43 @@ class AuthCon extends GetxController with BaseController {
   void registerAPI(email) async {
     showLoading();
 
-    var body = {"email": email};
-    var response = await BaseClient()
-        .post(API().register + '?email=' + email, body)
-        .catchError(handleError);
+ var body={
+"email":email
+ };
+    var response =
+    await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
-    print('check' + data);
+ print('check'+data);
 
-    if (data["success"].toString().isNotEmpty) {
+    if (data=="Success") {
       Get.to(VerifyEmail(value: []));
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg: "Something  wrong");
+      Fluttertoast.showToast(msg:"Something  wrong");
     }
   }
+
 
   void termsconditions() async {
     showLoading();
 
-    var response = await BaseClient().get(API().terms).catchError(handleError);
+    var response =
+    await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-    tc = data['data'];
-    print('check' + data);
+    tc= data['data'];
+    print('check'+data);
+
   }
+
+
 
   void updateGoalAPI() async {
     showLoading();
@@ -174,4 +177,7 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data['message']);
     }
   }
+
+
+
 }

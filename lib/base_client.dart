@@ -158,7 +158,7 @@ class BaseClient {
       var response = await http
           .post(uri,
               headers: <String, String>{
-                'accept': 'plain/text',
+                'accept': 'application/json',
                // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJeUxURXlMVEkySURBME9qQXdPakE0TGpZd01qWXpOQzB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxMi8yNi8yMDIyIDM6MzI6MjMgUE0iLCJleHAiOjE2NzIyMjg5NDMsImlzcyI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyJ9.d0FA5lAJ8zC6uPF9mRr6Z2IGIQa_f65dW9ETfdqH0ZU'
               },
               body: payloadObj)
