@@ -2,9 +2,6 @@
     package="com.example.cardit">
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
     <application
         android:label="cardit"
         android:name="${applicationName}"

@@ -1,13 +1,16 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/avator_screen/4digit_psw_screen/4digit_passcode_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../main.dart';
-import '../../widgets/auth_button.dart';
+import '../../../main.dart';
+import '../../../widgets/auth_button.dart';
 
 var type = '';
 
@@ -31,7 +34,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
     "assets/Memoji Girls 1-13.png",
     "assets/Memoji Girls 1-15.png",
     "assets/Memoji Girls 2-6.png",
-    "assets/Memoji Girls 4-13.png",
+    "assets/Memoji Girls 4-13.png"
   ];
 
   @override
@@ -59,13 +62,15 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                   ),
                 ),
               ),
+              onTap: (){
+                Get.to(const Passcode());
+              },
             ),
           ),
           const SizedBox(width: 20),
         ],
       ),
       body: Column(
-
         children: [
           Container(
             margin: EdgeInsets.all(5),
@@ -80,10 +85,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
             ),
           ),
           Container(
-            // color: Colors.amber,
-            // height: size.height / 0.5,
-            //
-            // width: size.width / 1,
             child: Column(
               children: [
                 Container(
@@ -94,9 +95,21 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     //itemCount: images.length,
                     itemCount: avatars.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: Responsive.isMobile(context)?3:Responsive.isDesktop(context)?6:4,
-                        crossAxisSpacing:  Responsive.isMobile(context)?1:Responsive.isDesktop(context)?4:2,
-                        childAspectRatio: Responsive.isMobile(context)?1:Responsive.isDesktop(context)?2:2),
+                        crossAxisCount: Responsive.isMobile(context)
+                            ? 3
+                            : Responsive.isDesktop(context)
+                                ? 6
+                                : 4,
+                        crossAxisSpacing: Responsive.isMobile(context)
+                            ? 1
+                            : Responsive.isDesktop(context)
+                                ? 4
+                                : 2,
+                        childAspectRatio: Responsive.isMobile(context)
+                            ? 1
+                            : Responsive.isDesktop(context)
+                                ? 2
+                                : 2),
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -123,15 +136,15 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 Container(
                   margin: EdgeInsets.only(left: 25),
                   child: Row(
-                    mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
+                    mainAxisAlignment: Responsive.isMobile(context)
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-                          imagePicker();
-                        },
-                        child: Row(
-
-                          children: [
+                          onTap: () {
+                            imagePicker();
+                          },
+                          child: Row(children: [
                             Text("Upload ",
                                 style: TextStyle(
                                     fontFamily: 'Sofa',
@@ -142,10 +155,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                     fontFamily: 'Sofa',
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: HexColor('#004751'))),
-                          ],
-                        ),
-                      ),
+                                    color: HexColor('#004751')))
+                          ]))
                     ],
                   ),
                 ),
@@ -154,11 +165,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       color: HexColor('#CEE812'),
                       borderRadius: BorderRadius.circular(5)),
                   onTap: () {
-                    Navigator.of(context).pushNamed('/dashbordScreen');
-                    // Navigator.of(context).pushNamed(
-                    //   '/4digitpasscode',
-                    // );
-                    // if (formkey.currentState!.validate()) {}
+                    Get.to(const Passcode());
                   },
                   text: "Next",
                 ),
@@ -190,17 +197,16 @@ class _AvatarPageViewState extends State<AvatarPageView> {
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             )),
-        padding: EdgeInsets.only(left: 90, top: 12, bottom: 12, right: 20),
+        padding: EdgeInsets.only(left: 0, top: 12, bottom: 12, right: 0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
               onPressed: () {
-                getIDImage(ImageSource.gallery);
+                getIDImage(ImageSource.camera);
               },
-              icon: Icon(
-                Icons.image_outlined,
-              ),
+              icon: Icon(Icons.camera_alt_outlined, size: 30),
             ),
           ],
         ),

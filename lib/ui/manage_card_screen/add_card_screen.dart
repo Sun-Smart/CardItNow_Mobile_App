@@ -65,7 +65,7 @@ class _AddCardState extends State<AddCard> {
             key: formKey,
             child: Column(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 MyCustomInputBox(
                   enabled: true,
                   label: "Card Number",
@@ -134,7 +134,7 @@ class _AddCardState extends State<AddCard> {
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 MyCustomInputBox(
                   enabled: true,
                   label: "Validate",
@@ -191,7 +191,7 @@ class _AddCardState extends State<AddCard> {
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 MyCustomInputBox(
                   enabled: true,
                   label: "Name On Card",
@@ -248,7 +248,7 @@ class _AddCardState extends State<AddCard> {
                           fontSize: 15,
                           fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 MyCustomInputBox(
                   enabled: true,
                   label: "Bank Name",

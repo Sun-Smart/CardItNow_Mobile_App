@@ -38,7 +38,7 @@ class _ScanCardState extends State<ScanCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Add Credit Card',
+          title: Text('Scan Card',
               style: TextStyle(
                   color: HexColor('#004751'),
                   fontFamily: 'Sora',
@@ -63,8 +63,21 @@ class _ScanCardState extends State<ScanCard> {
                 child: Text('Scan Card')),
             Column(
               children: [
-                Text('${_cardDetails?.cardNumber}'),
-                Text('${_cardDetails?.expiryDate}'),
+                Text('${_cardDetails?.cardNumber}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        fontFamily: 'Sora')),
+                Text('${_cardDetails?.expiryDate}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        fontFamily: 'Sora')),
+                Text('${_cardDetails?.cardHolderName}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        fontFamily: 'Sora')),
               ],
             ),
           ],

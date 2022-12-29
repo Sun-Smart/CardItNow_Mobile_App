@@ -5,16 +5,18 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/profile_information_screen/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
   final List<String> value;
@@ -74,35 +76,22 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
   }
 
-  var item = ['Passport', 'Driving License', 'National ID', 'UMID'];
-  var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
-  var uaeData = ['UAE Number'];
-  var value1 = 'PHILIPPINE DATA';
-  var value2 = 'UAE DATA';
-
   String? dropdownvalue;
 
   @override
   Widget build(BuildContext context) {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         bottomNavigationBar: bulildbutton(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.close,
-                size: 30,
-              )),
+          leading: BackButton(
+            color: themeChange.darkTheme ? Colors.white : Colors.black,
+          ),
           actions: [
             Center(
               child: GestureDetector(
                 child: Container(
-                  // margin: EdgeInsets.only(),
                   height: 30,
                   width: 80,
                   decoration: BoxDecoration(
@@ -118,15 +107,19 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     ),
                   ),
                 ),
+                onTap: () {
+                  Get.to(const ProfileInformation());
+                },
               ),
             ),
             const SizedBox(width: 20),
           ],
         ),
         body: Container(
+            //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
               buildtitle(),
               bulidForm(),
@@ -134,35 +127,42 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget buildtitle() {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
       child: Text(
         'Verify Your Id',
         style: TextStyle(
-            fontSize: 28, fontFamily: 'Sora', fontWeight: FontWeight.bold),
+          fontSize: 28,
+          fontFamily: 'Sora',
+          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 
   Widget bulidForm() {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         padding: const EdgeInsets.all(15),
         child: Form(
             key: formKey,
             child: Column(
-                crossAxisAlignment: Responsive.isMobile(context)? CrossAxisAlignment.start:CrossAxisAlignment.center,
-                mainAxisAlignment: Responsive.isMobile(context)?MainAxisAlignment.start:MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: const Text('Select ID',
-                          style: TextStyle(fontFamily: 'Sora', fontSize: 14))),
+                      child: Text('Select ID',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Styles.whitecustomlable))),
                   const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
+                    width: MediaQuery.of(context).size.width / 1.1,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -176,14 +176,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         dropdownColor: Colors.white,
                         isExpanded: true,
                         value: dropdownvalue,
-                        hint: const Text('Select Document',
-                            style: TextStyle(fontSize: 14)),
-                        icon: const InkWell(
-                            child: Icon(Icons.keyboard_arrow_down)),
-                        items: widget.value.map((String data) {
+                        hint: Text('Select Document',
+                            style: TextStyle(
+                                color: Styles.whitecustomlable, fontSize: 14)),
+                        icon: InkWell(
+                            child: Icon(Icons.keyboard_arrow_down,
+                                color: themeChange.darkTheme
+                                    ? Colors.white
+                                    : Colors.black45)),
+                        items: widget.value.map((String item) {
                           return DropdownMenuItem(
-                              value: data,
-                              child: Text(data,
+                              value: item,
+                              child: Text(item,
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)));
                         }).toList(),
@@ -199,9 +203,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: const Text(
+                    child: Text(
                       'Upload your ID',
-                      style: TextStyle(fontFamily: 'Sora', fontSize: 14),
+                      style: TextStyle(
+                          fontFamily: 'Sora',
+                          fontSize: 14,
+                          color: Styles.whitecustomlable),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -220,10 +227,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),
                         hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal,
-                        ),
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 15),
                         focusColor: Colors.grey.shade300,
@@ -262,12 +268,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: const Text('Upload your Selfie',
+                      child: Text('Upload your Selfie',
                           style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            // color: Styles.whitecustomlable
-                          ))),
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Styles.whitecustomlable))),
                   const SizedBox(height: 20),
                   displayImageSelfie(),
                   const SizedBox(height: 20),
@@ -279,7 +284,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     if (imageFile1 == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
+          width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -318,8 +323,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     if (imageFile == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.5:MediaQuery.of(context).size.width /2.5,
-
+          width: MediaQuery.of(context).size.width / 1,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -355,13 +359,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget bulildbutton() {
-
     return AuthButton(
-
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Navigator.of(context).pushNamed('/profileInformation');
+          if (formKey.currentState!.validate()) {
+            Navigator.of(context).pushNamed('/profileInformation');
+          }
         },
         text: "Next");
   }

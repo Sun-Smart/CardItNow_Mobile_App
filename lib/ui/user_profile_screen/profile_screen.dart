@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors
+// ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -102,12 +102,7 @@ class _ProfileState extends State<Profile> {
               const SizedBox(height: 5),
               Text('',
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                      // color: themeChange.darkTheme
-                      //     ? Colors.white
-                      //     : Color(0XFF1B1B1B),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
               Text('',
                   textAlign: TextAlign.left,

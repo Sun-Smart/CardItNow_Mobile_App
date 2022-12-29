@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +44,13 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Align(
-          alignment: Responsive.isMobile(context)? Alignment.centerLeft:Alignment.center,
+          alignment: Responsive.isMobile(context)
+              ? Alignment.centerLeft
+              : Alignment.center,
           child: Padding(
             padding: const EdgeInsets.only(left: 16, bottom: 0),
             child: Text(
@@ -63,7 +63,11 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
         Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
           alignment: Alignment.bottomCenter,
-          width: Responsive.isMobile(context)?MediaQuery.of(context).size.width / 1:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4:MediaQuery.of(context).size.width /2.3,
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2.3,
           // height: MediaQuery.of(context).size.height * 0.070,
 
           child: TextFormField(

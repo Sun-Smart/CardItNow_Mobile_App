@@ -1,33 +1,27 @@
-import 'dart:ui';
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
+import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../themes/theme_notifier.dart';
-import '../../widgets/auth_button.dart';
-
-class Passcode extends StatefulWidget {
-  const Passcode({super.key});
+class Enter4DigitPasscode extends StatefulWidget {
+  const Enter4DigitPasscode({super.key});
 
   @override
-  State<Passcode> createState() => _PasscodeState();
+  State<Enter4DigitPasscode> createState() => _Enter4DigitPasscodeState();
 }
 
-class _PasscodeState extends State<Passcode> {
+class _Enter4DigitPasscodeState extends State<Enter4DigitPasscode> {
   final formKey = GlobalKey<FormState>();
-  final _phonenumberController = TextEditingController();
-  final _otpController = TextEditingController();
-  bool _isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0XFFffffff),
       bottomNavigationBar: bulildbutton(),
       body: Container(
-          // color: Color(0XFFffffff),
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +36,7 @@ class _PasscodeState extends State<Passcode> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 30,
-            )
+            SizedBox(height: 30)
           ],
         ),
       )),
@@ -76,7 +68,7 @@ class _PasscodeState extends State<Passcode> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Set 4 Digit \n Passcode ',
+        'Enter 4 Digit \n Passcode ',
         style: TextStyle(
           fontSize: 28,
           color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
@@ -124,9 +116,7 @@ class _PasscodeState extends State<Passcode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/dashbordScreen',
-        );
+        //Navigator.of(context).pushNamed('/dashbordScreen');
         if (formKey.currentState!.validate()) {}
       },
       text: "Done",

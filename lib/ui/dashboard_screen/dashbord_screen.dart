@@ -2,6 +2,7 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -162,7 +163,7 @@ class DashbordScreenState extends State<DashbordScreen>
                   color: HexColor('#90BA06'),
                   borderRadius: BorderRadius.circular(5)),
               onTap: () {
-                Navigator.pop(context);
+                SystemNavigator.pop();
               },
               text: "Yes",
             ),
@@ -292,22 +293,18 @@ class DashbordScreenState extends State<DashbordScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Recent Transactions",
-            style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Colors.white
-                    : const Color(0XFF041316),
-                fontSize: 20),
-          ),
-          Text(
-            'View',
-            style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Colors.blue
-                    : const Color(0Xff004751),
-                fontSize: 14),
-          )
+          Text("Recent Transactions",
+              style: TextStyle(
+                  color: themeChange.darkTheme
+                      ? Colors.white
+                      : const Color(0XFF041316),
+                  fontSize: 20)),
+          Text('View',
+              style: TextStyle(
+                  color: themeChange.darkTheme
+                      ? Colors.blue
+                      : const Color(0Xff004751),
+                  fontSize: 14))
         ],
       ),
     );
