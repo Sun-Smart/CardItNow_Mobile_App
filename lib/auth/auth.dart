@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../api_endpoints.dart';
 import '../base_client.dart';
-import '../ui/register_screen/register_screen.dart';
 import '../ui/verify_email_screen/verify_email_screen.dart';
 import 'init.dart';
 
@@ -116,7 +115,7 @@ class AuthCon extends GetxController with BaseController {
  print('check'+data);
 
     if (data=="Success") {
-      Get.to(VerifyEmail());
+      Get.to(VerifyEmail(value: [],));
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());

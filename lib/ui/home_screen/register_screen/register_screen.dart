@@ -542,7 +542,9 @@ class _RegisterState extends State<Register> {
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
       content: Obx(
-        () => Text(con.viewTerms.value,
+        () => Text(
+            "sss",
+            // con.viewTerms.value,
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,
