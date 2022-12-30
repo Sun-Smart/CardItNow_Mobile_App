@@ -45,7 +45,7 @@ class LoansPayment extends StatefulWidget {
       },
     ],
   };
-
+//static
   @override
   State<LoansPayment> createState() => _LoansPaymentState();
 }
