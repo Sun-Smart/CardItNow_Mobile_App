@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/password.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -123,6 +124,7 @@ class AuthCon extends GetxController with BaseController {
       //   // Get.to(OtpScreenView());
       // }
     } else {
+
       Fluttertoast.showToast(msg:"Something  wrong");
     }
   }
@@ -143,13 +145,14 @@ class AuthCon extends GetxController with BaseController {
     print('check'+data);
 
     if (data=="match") {
-      Get.to(VerifyUserId(value: []));
+      Get.to(()=>Password());
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
       // Get.to(VerifyUserId(value: []));
+      Get.to(()=>Password());
       Fluttertoast.showToast(msg:data.toString());
     }
   }

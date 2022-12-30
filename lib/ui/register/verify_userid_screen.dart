@@ -9,7 +9,7 @@ import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/landingscreens/profile_information_screen.dart';
+import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,8 +21,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
-  final List<String> value;
-  const VerifyUserId({Key? key, required this.value}) : super(key: key);
+
+  const VerifyUserId({Key? key,}) : super(key: key);
 
   @override
   State<VerifyUserId> createState() => _VerifyUserIdState();

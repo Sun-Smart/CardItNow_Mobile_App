@@ -19,7 +19,7 @@ import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
 import 'ui/landingscreens/payments_details_screen.dart';
 import 'ui/landingscreens/payments_screen.dart';
-import 'ui/landingscreens/profile_information_screen.dart';
+import 'ui/register/profile_information_screen.dart';
 import 'ui/landingscreens/settings_screen.dart';
 import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/landingscreens/profile_screen.dart';

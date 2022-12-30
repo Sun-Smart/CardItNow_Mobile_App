@@ -41,6 +41,12 @@ class _AvatarPageViewState extends State<AvatarPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading:IconButton(onPressed: (){
+          Get.back();
+        },
+        icon: Icon(Icons.arrow_back),
+        ),
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         actions: [

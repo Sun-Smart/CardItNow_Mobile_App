@@ -3,8 +3,11 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
+import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -439,7 +442,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Navigator.of(context).pushNamed('/avatarPageView');
+          Get.to(()=>Twofactor());
+          // Navigator.of(context).pushNamed('/avatarPageView');
         },
         text: "Next");
   }
