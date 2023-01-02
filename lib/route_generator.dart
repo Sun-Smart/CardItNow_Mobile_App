@@ -1,3 +1,7 @@
+import 'package:cardit/ui/loan_screen/loan_amount.dart';
+import 'package:cardit/ui/loan_screen/payment_overview.dart';
+import 'package:cardit/ui/loan_screen/payment_successful.dart';
+import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/landingscreens/loans-payment_screen.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
@@ -83,12 +87,20 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ProfileInformation());
       case '/avatarPageView':
         return MaterialPageRoute(builder: (_) => const AvatarPageView());
+      case '/loanamount':
+        return MaterialPageRoute(builder: (_) => LoanAmount());
+      case '/bankdetails':
+        return MaterialPageRoute(builder: (_) => BankDetails());
+      case '/paymentoverview':
+        return MaterialPageRoute(builder: (_) => PaymentOverview());
+      case '/paymentsuccess':
+        return MaterialPageRoute(builder: (_) => PaymentSuccessful());
 
       default:
         return _errorRoute();
     }
   }
-
+//routing
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(builder: (_) {
       return const Scaffold(

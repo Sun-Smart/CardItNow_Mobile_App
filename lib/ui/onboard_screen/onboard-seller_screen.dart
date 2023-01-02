@@ -97,6 +97,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your account number",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -127,6 +134,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                         border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your email",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -154,6 +168,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your account Number",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -181,6 +202,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                       border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your Phone number",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -202,7 +230,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                               color: Styles.whitecustomlable))),
                   const SizedBox(height: 15),
                   Container(
-                    margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  //  margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -268,6 +296,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your Account Number",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -295,6 +330,13 @@ class _OnboardSellerState extends State<OnboardSeller> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter swift code of your Bank",
+                     focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
