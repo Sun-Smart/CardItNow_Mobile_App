@@ -160,8 +160,7 @@ class AuthCon extends GetxController with BaseController {
   void termsconditions() async {
     showLoading();
 
-    var response =
-    await BaseClient().get(API().terms).catchError(handleError);
+    var response = await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
