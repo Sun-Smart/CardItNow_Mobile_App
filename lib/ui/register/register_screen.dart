@@ -159,8 +159,13 @@ class _RegisterState extends State<Register> {
                     validator: (value) {
                       if (emailController.text.isEmpty) {
                         return "Please Enter The Email";
-                      } else if (!emailController.text.contains("@") ||
-                          !emailController.text.endsWith('.com')) {
+                      } else if (!emailController.text.contains("@")
+                      //     ||
+                      //     !emailController.text.endsWith('.com')||
+                      // !emailController.text.endsWith('.co.in')
+                      )
+
+                      {
                         return "Please Enter The valid Email";
                       } else {
                         return null;

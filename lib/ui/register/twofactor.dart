@@ -2,6 +2,7 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:local_auth/local_auth.dart';
 
 import 'select_avatar_screen.dart';
 
@@ -13,6 +14,9 @@ class Twofactor extends StatefulWidget {
 }
 
 class _TwofactorState extends State<Twofactor> {
+  final LocalAuthentication auth = LocalAuthentication();
+
+  String msg = "You are not authorized.";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +151,22 @@ class _TwofactorState extends State<Twofactor> {
 
 
                               InkWell(child: Image.asset('assets/touch  id 1.png'),
-                                onTap: (){},),
+                                onTap: ()async{
+                                  try {
+                                    bool pass = await auth.authenticate(
+                                        localizedReason:
+                                        'Authenticate with pattern/pin/passcode',
+                                        options: AuthenticationOptions(
+                                            biometricOnly: false, stickyAuth: true));
+                                    if (pass) {
+                                      msg = "You are Authenticated.";
+                                      setState(() {});
+                                    }
+                                  } catch (e) {
+                                    print("ss"+e.toString());
+                                    msg = "Error while opening fingerprint/face scanner";
+                                  }
+                                },),
                               SizedBox(width: 20,),
 
                               InkWell(child: Image.asset('assets/face id.png'),

@@ -144,16 +144,16 @@ class AuthCon extends GetxController with BaseController {
     hideLoading();
     print('check'+data);
 
-    if (data=="match") {
+    if (data=="Success") {
       Get.to(()=>Password());
-      // token.value = userData["token"];
-      // if (!resend) {
-      //   // Get.to(OtpScreenView());
-      // }
+      Fluttertoast.showToast(msg: data.toString());
+
     } else {
-      // Get.to(VerifyUserId(value: []));
-      Get.to(()=>Password());
-      Fluttertoast.showToast(msg:data.toString());
+
+      Fluttertoast.showToast(msg:
+
+      data.toString()
+    );
     }
   }
 

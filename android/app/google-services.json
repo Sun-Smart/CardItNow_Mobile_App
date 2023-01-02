@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "988064158191-uua98m8n75cdd6uqr3f4t92juoig3bk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cardit",
+            "certificate_hash": "f294c9b50b65f5876902a1d60b13cb51fd61b3fc"
+          }
+        },
+        {
           "client_id": "988064158191-jduk6pn7dl3lgbpjs29eqp95lt61s8dv.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -26,8 +26,10 @@ class Password extends StatefulWidget {
 class _PasswordState extends State<Password> {
   final formKey = GlobalKey<FormState>();
   @override
+  bool _isObscure = true;
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: bulildbutton(),
       body:  SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -98,13 +100,15 @@ class _PasswordState extends State<Password> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
+
                     enabled: true,
                     label: "Enter Your Password ",
                     keyboardType: TextInputType.emailAddress,
                     controller: password,
                     textInputAction: TextInputAction.next,
-                    obsecureText: false,
+                    obsecureText: _isObscure,
                     inputHint: 'Enter Your Password',
+
                     validator: (value) {
                       if(password.text.isEmpty){
                         return "Please Enter your password";
@@ -118,6 +122,15 @@ class _PasswordState extends State<Password> {
                       }
                     },
                     inputDecoration: InputDecoration(
+
+                      suffixIcon: IconButton(
+                        color: Colors.cyan,
+                        onPressed: (){
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },icon:Icon(_isObscure?Icons.visibility:Icons.visibility_off) ,
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Enter your Password',
@@ -175,6 +188,14 @@ class _PasswordState extends State<Password> {
                       }
                     },
                     inputDecoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        color: Colors.cyan,
+                        onPressed: (){
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },icon:Icon(_isObscure?Icons.visibility:Icons.visibility_off) ,
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Retype Your Password',
@@ -214,33 +235,41 @@ class _PasswordState extends State<Password> {
                   ),
 
 
-                  AuthButton(
-                    onTap: () {
-                    if(password.text.isEmpty){
-                    Fluttertoast.showToast(msg: "Please Enter Your Password");
-                    }
-                    else if(confirmpassword.text.isEmpty){
-                      Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
-                    }
-                    else if(password.text!=confirmpassword.text){
-                      Fluttertoast.showToast(msg: "Password has mismatched");
-                    }
-                    else{
-                      Get.to(()=>VerifyUserId());
-                    }
-                    },
 
-                    text: "Confirm",
-                    decoration: BoxDecoration(
-                        color:
-                        // isChecked == false
-                        //     ? HexColor('#E9F9B2')
-                        HexColor('#CEE812'),
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
+
+                  // AuthButton(
+                  //   onTap: () {
+                  //   if(password.text.isEmpty){
+                  //   Fluttertoast.showToast(msg: "Please Enter Your Password");
+                  //   }
+                  //   else if(confirmpassword.text.isEmpty){
+                  //     Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
+                  //   }
+                  //   else if(password.text!=confirmpassword.text){
+                  //     Fluttertoast.showToast(msg: "Password has mismatched");
+                  //   }
+                  //   else{
+                  //     Get.to(()=>VerifyUserId(),
+                  //
+                  //     );Fluttertoast.showToast(msg: "Password Set Successfully");
+                  //   }
+                  //   },
+                  //
+                  //   text: "Confirm",
+                  //   decoration: BoxDecoration(
+                  //       color:
+                  //       // isChecked == false
+                  //       //     ? HexColor('#E9F9B2')
+                  //       HexColor('#CEE812'),
+                  //       borderRadius: BorderRadius.circular(5)),
+                  // ),
                   const SizedBox(height: 10),
 
-                ])));
+                ]
+            )
+        )
+
+    );
   }
   Widget buildtitle() {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -257,5 +286,34 @@ class _PasswordState extends State<Password> {
     );
   }
 
+
+  Widget bulildbutton() {
+    return AuthButton(
+      onTap: () {
+        if(password.text.isEmpty){
+          Fluttertoast.showToast(msg: "Please Enter Your Password");
+        }
+        else if(confirmpassword.text.isEmpty){
+          Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
+        }
+        else if(password.text!=confirmpassword.text){
+          Fluttertoast.showToast(msg: "Password has mismatched");
+        }
+        else{
+          Get.to(()=>VerifyUserId(),
+
+          );Fluttertoast.showToast(msg: "Password Set Successfully");
+        }
+      },
+
+      text: "Confirm",
+      decoration: BoxDecoration(
+          color:
+          // isChecked == false
+          //     ? HexColor('#E9F9B2')
+          HexColor('#CEE812'),
+          borderRadius: BorderRadius.circular(5)),
+    );
+  }
 
 }

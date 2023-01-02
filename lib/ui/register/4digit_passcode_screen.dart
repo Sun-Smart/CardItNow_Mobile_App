@@ -7,8 +7,11 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
+import 'terms&condition.dart';
 
 class Passcode extends StatefulWidget {
   const Passcode({super.key});
@@ -123,10 +126,11 @@ class _PasscodeState extends State<Passcode> {
       ),
       onTap: () {
         if (formKey.currentState!.validate()) {
-          Navigator.of(context).pushNamed('/dashbordScreen');
+          // Navigator.of(context).pushNamed('/dashbordScreen');
+          Get.to(()=>termsandconditions());
         }
       },
-      text: "Done",
+      text: "Next",
     );
   }
 }

@@ -170,7 +170,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     style: TextButton.styleFrom(
                         textStyle: TextStyle(
                             fontSize: 14, color: HexColor('#036D7B'))),
-                    onPressed: () {},
+                    onPressed: () {
+                      con.registerAPI(emailController.text.toString());
+                      Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
+                    },
                     child: Text(
                       'Resend',
                       style: TextStyle(

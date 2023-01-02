@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../main.dart';
 import '../../widgets/auth_button.dart';
 
-var type = '';
+
 
 class AvatarPageView extends StatefulWidget {
   const AvatarPageView({super.key});
@@ -23,6 +23,7 @@ class AvatarPageView extends StatefulWidget {
 
 class _AvatarPageViewState extends State<AvatarPageView> {
   var indx = 0;
+  var type = '';
   var avatars = [
     "assets/Memoji Girls 4-17.png",
     "assets/Memoji Boys 1-12.png",
@@ -119,18 +120,26 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
-                          Card(
-                            color: type == avatars[index]
-                                ? Color(0xffA8DAB5)
-                                : Colors.white,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
-                            child: Container(
-                              child: Image.asset(
-                                //images[index],
-                                avatars[index],
-                                // fit: BoxFit.cover,
+                          Container(
+                            child: InkWell(
+                              onTap:(){
+                                type == avatars[index];
+                              },
+                              child: Card(
+
+                                color: type == avatars[index]
+                                    ? HexColor('#CEE812')
+                                    : Colors.white,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                child: Container(
+                                  child: Image.asset(
+                                    //images[index],
+                                      avatars[index]
+                                    // fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

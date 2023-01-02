@@ -1,5 +1,7 @@
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/register_screen.dart';
+import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -223,6 +225,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               textInputAction: TextInputAction.next,
               inputHint: "Your Date Of Brith",
               inputDecoration: InputDecoration(
+                suffixIcon: Icon(Icons.calendar_month),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Date of brith',
@@ -442,7 +445,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Get.to(()=>Twofactor());
+          Get.to(()=> isChecked1==true? Twofactor():AvatarPageView());
           // Navigator.of(context).pushNamed('/avatarPageView');
         },
         text: "Next");

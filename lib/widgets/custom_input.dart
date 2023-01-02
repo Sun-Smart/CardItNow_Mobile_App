@@ -20,6 +20,7 @@ class MyCustomInputBox extends StatefulWidget {
   final TextInputAction? textInputAction;
   final TextEditingController controller;
   final int? maxLines;
+
   const MyCustomInputBox(
       {Key? key,
       this.textInputType,
@@ -45,6 +46,7 @@ class MyCustomInputBox extends StatefulWidget {
 class _MyCustomInputBoxState extends State<MyCustomInputBox> {
   bool isSubmitted = false;
   bool showpass = true;
+  // bool _isObscure = false;
   final checkBoxIcon = 'assets/checkbox.svg';
 
   @override
