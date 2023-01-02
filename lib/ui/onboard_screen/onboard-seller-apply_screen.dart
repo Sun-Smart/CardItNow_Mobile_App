@@ -281,7 +281,9 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        showAlertDialog(context);
+        Navigator.of(context).pushNamed('/loanamount')
+            // showAlertDialog(context);
+            ;
       },
       text: "Proceed to Apply",
     );

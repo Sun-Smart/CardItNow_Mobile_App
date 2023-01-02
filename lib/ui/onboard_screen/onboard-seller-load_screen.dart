@@ -123,6 +123,7 @@ class _OnboardSellerloadState extends State<OnboardSellerLoad> {
       onTap: () {
         Navigator.of(context).pushNamed(
           '/onboardsellerapply',
+        
         );
       },
       text: "Start BNPL Payment",
