@@ -124,7 +124,6 @@ class AuthCon extends GetxController with BaseController {
       //   // Get.to(OtpScreenView());
       // }
     } else {
-
       Fluttertoast.showToast(msg:"Something  wrong");
     }
   }

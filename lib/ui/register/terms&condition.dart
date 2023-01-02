@@ -1,5 +1,7 @@
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -45,34 +47,36 @@ class _termsandconditionsState extends State<termsandconditions> {
   }
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
-      margin: EdgeInsets.all(15),
-      height: MediaQuery.of(context).size.height / 1,
-      width: MediaQuery.of(context).size.width / 1,
-      child: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("1.Clause",style: TextStyle(
-                    fontWeight: FontWeight.bold,fontSize: 25,color:Colors.grey
-                ),),
-                SizedBox(
-                  height: 15,
-                ),
-                Text("Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
-
-
-                  style: TextStyle(
-                      fontSize: 16,color:Colors.grey,fontFamily: 'sora'
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(15),
+        height: MediaQuery.of(context).size.height / 1,
+        width: MediaQuery.of(context).size.width / 1,
+        child: ListView.builder(
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("1.Clause",style: TextStyle(
+                      fontWeight: FontWeight.bold,fontSize: 25,color:Colors.grey
                   ),),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            );
-          }),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text("Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+
+
+                    style: TextStyle(
+                        fontSize: 16,color:Colors.grey,fontFamily: 'sora'
+                    ),),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }),
+      ),
     );
   }
 
@@ -103,7 +107,7 @@ class _termsandconditionsState extends State<termsandconditions> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-
+    Get.to(()=>DashbordScreen());
 
       },
       text: "Next",

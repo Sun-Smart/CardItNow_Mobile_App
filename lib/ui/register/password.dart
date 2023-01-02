@@ -177,7 +177,7 @@ class _PasswordState extends State<Password> {
                     keyboardType: TextInputType.emailAddress,
                     controller: confirmpassword,
                     textInputAction: TextInputAction.next,
-                    obsecureText: false,
+                    obsecureText: _isObscure,
                     inputHint: 'Retype your email',
                     validator: (value) {
                      if(confirmpassword.text.isEmpty){
@@ -194,7 +194,8 @@ class _PasswordState extends State<Password> {
                           setState(() {
                             _isObscure = !_isObscure;
                           });
-                        },icon:Icon(_isObscure?Icons.visibility:Icons.visibility_off) ,
+                        },
+                        icon:Icon(_isObscure?Icons.visibility:Icons.visibility_off) ,
                       ),
                       filled: true,
                       fillColor: Colors.white,

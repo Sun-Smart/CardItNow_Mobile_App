@@ -1,8 +1,10 @@
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'select_avatar_screen.dart';
 
@@ -15,7 +17,7 @@ class Twofactor extends StatefulWidget {
 
 class _TwofactorState extends State<Twofactor> {
   final LocalAuthentication auth = LocalAuthentication();
-
+  bool pass = false;
   String msg = "You are not authorized.";
   @override
   Widget build(BuildContext context) {
@@ -64,51 +66,9 @@ class _TwofactorState extends State<Twofactor> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        // padding: EdgeInsets.only(top: 20, bottom: 30),
-                        // margin: EdgeInsets.only(top: 40),
-                        // decoration: const BoxDecoration(
-                        //   image: DecorationImage(
-                        //     image: AssetImage("assets/loginbg.png"),
-                        //     fit: BoxFit.cover,
-                        //   ),
-                        // ),
+
                         child: Column(children: [
-                          // Padding(
-                          //   padding: const EdgeInsets.all(8.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //
-                          //     children: [
-                          //     // InkWell(
-                          //     //       child: Icon(Icons.arrow_back,
-                          //     //       color: Colors.black,),
-                          //     //       onTap: (){
-                          //     //         Navigator.pop(context);
-                          //     //       },
-                          //     //     ),
-                          //     //
-                          //           Row(
-                          //             children: [
-                          //               Container(
-                          //
-                          //           width:60 ,
-                          //               height: 25,
-                          //               decoration: BoxDecoration(
-                          //                 borderRadius: BorderRadius.circular(25),
-                          //                 border: Border.all(
-                          //                   color: HexColor('#004751')
-                          //                 )
-                          //
-                          //               ),
-                          //               child: Center(
-                          //                 child: Text("Skip",
-                          //                 style: TextStyle(
-                          //                   color:  HexColor('#004751')
-                          //                 ),),
-                          //               ),),
-                          //             ],
-                          //           )],),
-                          // ),
+
 
                           Row(
                             children: [
@@ -152,14 +112,18 @@ class _TwofactorState extends State<Twofactor> {
 
                               InkWell(child: Image.asset('assets/touch  id 1.png'),
                                 onTap: ()async{
+
                                   try {
+                                    var pref = await SharedPreferences.getInstance();
+                                    pref.setBool('pass', true);
+
                                     bool pass = await auth.authenticate(
-                                        localizedReason:
-                                        'Authenticate with pattern/pin/passcode',
-                                        options: AuthenticationOptions(
+                                        localizedReason: 'Authenticate with pattern/pin/passcode',
+                                        options: const AuthenticationOptions(
                                             biometricOnly: false, stickyAuth: true));
+
                                     if (pass) {
-                                      msg = "You are Authenticated.";
+                                      msg = "Biometric Successfully setted";
                                       setState(() {});
                                     }
                                   } catch (e) {
@@ -170,7 +134,26 @@ class _TwofactorState extends State<Twofactor> {
                               SizedBox(width: 20,),
 
                               InkWell(child: Image.asset('assets/face id.png'),
-                                onTap: (){},),
+                                onTap: ()async{
+    try {
+    var pref = await SharedPreferences.getInstance();
+    pref.setBool('pass', true);
+
+     pass = await auth.authenticate(
+    localizedReason: 'Authenticate with pattern/pin/passcode',
+    options: const AuthenticationOptions(
+    biometricOnly: false, stickyAuth: true));
+
+    if (pass) {
+    msg = "Biometric Successfully setted";
+    setState(() {});
+    }
+    } catch (e) {
+    print("ss"+e.toString());
+    msg = "Error while opening fingerprint/face scanner";
+    }
+
+                                },),
                             ],
                           ),
                           SizedBox(height: 20,),
@@ -197,8 +180,13 @@ class _TwofactorState extends State<Twofactor> {
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
-        Navigator.pop(context);
-        Get.to(AvatarPageView());
+        if(pass==true){
+          Get.to(AvatarPageView());
+        }else{
+          Fluttertoast.showToast(msg: "You have not set Your Biometrics");
+          Get.to(AvatarPageView());
+        }
+
       },
       text: "Enable",  decoration: BoxDecoration(
       color: HexColor('#CEE812'),
