@@ -111,7 +111,7 @@ class AuthCon extends GetxController with BaseController {
     };
     var response =
     await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
-    if (response == null) return Get.to(VerifyEmail());
+    if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
@@ -149,7 +149,7 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data.toString());
 
     } else {
-      Get.to(()=>Password());
+
       Fluttertoast.showToast(msg:
 
       data.toString()
