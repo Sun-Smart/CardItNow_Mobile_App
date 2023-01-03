@@ -29,9 +29,14 @@ class DialogHelper {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Text("Oops!! Network Issue",
+                style: TextStyle(
+                  fontSize: 18,fontWeight: FontWeight.bold,fontFamily: 'sora'
+                ),
+                ),
                 // Txt(
                 //   text: title,
-                //   weight: FontWeight.bold,
+               //   weight: FontWeight.bold,
                 //   color: Get.theme.primaryColor,
                 // ),
                 // Txt(

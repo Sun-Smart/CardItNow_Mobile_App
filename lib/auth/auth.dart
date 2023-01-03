@@ -17,12 +17,12 @@ class AuthCon extends GetxController with BaseController {
 
   @override
   void onInit() {
-    // termsconditions();
+    termsconditions();
     super.onInit();
   }
   var isUAE = false.obs;
 //termsand conditions
-  var tc=[];
+  var termscond;
   //avatar
   var avatarImage;
 
@@ -111,7 +111,7 @@ class AuthCon extends GetxController with BaseController {
     };
     var response =
     await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
-    if (response == null) return;
+    if (response == null) return Get.to(VerifyEmail());
     var data = json.decode(response);
 
     hideLoading();
@@ -124,6 +124,7 @@ class AuthCon extends GetxController with BaseController {
       //   // Get.to(OtpScreenView());
       // }
     } else {
+
       Fluttertoast.showToast(msg:"Something  wrong");
     }
   }
@@ -137,7 +138,7 @@ class AuthCon extends GetxController with BaseController {
     };
     var response =
     await BaseClient().post(API().verifyotp+'?email=$email&otp='+otp,body).catchError(handleError);
-    if (response == null) return;
+    if (response == null) return ;
     var data = json.decode(response);
 
     hideLoading();
@@ -148,7 +149,7 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data.toString());
 
     } else {
-
+      Get.to(()=>Password());
       Fluttertoast.showToast(msg:
 
       data.toString()
@@ -164,7 +165,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-    tc= data['data'];
+    termscond= data[0];
     print('check'+data);
 
   }

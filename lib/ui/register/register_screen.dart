@@ -559,7 +559,7 @@ class _RegisterState extends State<Register> {
             ? 300
             : MediaQuery.of(context).size.width / 5,
         child: Text(
-            "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+              con.termscond["label"],
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,
