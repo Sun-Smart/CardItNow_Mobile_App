@@ -84,6 +84,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter The Holder Name",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -115,6 +122,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                       border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: " Enter The Email",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -142,6 +156,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                       border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your account number",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -169,6 +190,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                       border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your Phone number",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -263,6 +291,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                       border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your  Account  number",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -290,6 +325,14 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       }
                     },
                     inputDecoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                      hintText: "Enter your  Account  number",
+                       focusedBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(width: 2,   color:Color(0xFFE5E5E5) )),
+                          enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 2, color:Color(0xFFE5E5E5)   )),
+                        
                         filled: true,
                         fillColor: Colors.white,
                         floatingLabelBehavior: FloatingLabelBehavior.never,
