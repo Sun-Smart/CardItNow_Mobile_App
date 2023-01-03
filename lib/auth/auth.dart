@@ -18,6 +18,7 @@ class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
     termsconditions();
+    geoaccess();
     super.onInit();
   }
   var isUAE = false.obs;
@@ -25,7 +26,8 @@ class AuthCon extends GetxController with BaseController {
   var termscond;
   //avatar
   var avatarImage;
-
+ // geoaccess
+var geoacclist;
   //gender
   var gender = 1.obs;
 
@@ -121,11 +123,10 @@ class AuthCon extends GetxController with BaseController {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
-      //   // Get.to(OtpScreenView());
+      // Get.to(OtpScreenView());
       // }
     } else {
-
-      Fluttertoast.showToast(msg:"Something  wrong");
+      Fluttertoast.showToast(msg:"Something wrong");
     }
   }
 //verifyotp
@@ -166,6 +167,18 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     hideLoading();
     termscond= data[0];
+    print('check'+data);
+
+  }
+
+  void geoaccess() async {
+    showLoading();
+
+    var response = await BaseClient().get(API().terms).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    hideLoading();
+    geoacclist= data[0];
     print('check'+data);
 
   }

@@ -23,7 +23,7 @@ import '../../widgets/custom_input.dart';
 bool isChecked = false;
 bool isChecked1 = false;
 bool isLoggedIn = false;
-Map _userObj = {};
+Map userObj = {};
 final emailController = TextEditingController();
 
 class Register extends StatefulWidget {
@@ -457,10 +457,11 @@ class _RegisterState extends State<Register> {
                 FacebookAuth.instance.getUserData().then((userData) {
                   setState(() {
                     isLoggedIn = true;
-                    _userObj = userData;
+                    userObj = userData;
                   });
                   if (isLoggedIn = true) {
-                    Get.offAll(DashbordScreen());
+                    con.registerAPI(userData.toString());
+                    // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }

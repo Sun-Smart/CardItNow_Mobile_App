@@ -196,6 +196,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
             Text('We have sent you verification code on',
                 style: TextStyle(fontSize: 14)),
             Text(
+
               emailController.text,
               style: TextStyle(
                   fontSize: 14,
