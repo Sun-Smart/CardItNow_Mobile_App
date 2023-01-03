@@ -1,7 +1,12 @@
+import 'package:cardit/ui/landingscreens/choose_LPG_screen.dart';
+import 'package:cardit/ui/landingscreens/dashboard_payment_screen.dart';
+import 'package:cardit/ui/landingscreens/select_documents_screen.dart';
+import 'package:cardit/ui/landingscreens/select_recipient_screen.dart';
 import 'package:cardit/ui/loan_screen/loan_amount.dart';
 import 'package:cardit/ui/loan_screen/payment_overview.dart';
 import 'package:cardit/ui/loan_screen/payment_successful.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
+import 'package:cardit/ui/onboard_screen/onboard_recipient_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/landingscreens/loans-payment_screen.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
@@ -95,11 +100,24 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => PaymentOverview());
       case '/paymentsuccess':
         return MaterialPageRoute(builder: (_) => PaymentSuccessful());
+      case '/payment_dashboard':
+        return MaterialPageRoute(builder: (_) => PaymentDashboard());
+      case '/selecttypeofrecipient':
+        return MaterialPageRoute(builder: (_) => RecipientType());
+      case '/selectdocuments':
+        return MaterialPageRoute(builder: (_) => SelectDocuments());
+      case '/onboardrecipient':
+        return MaterialPageRoute(builder: (_) => onboardRecipient());
+      case '/chooseLPG':
+        return MaterialPageRoute(builder: (_) => ChooseLPG());
+
+//git push
 
       default:
         return _errorRoute();
     }
   }
+
 //routing
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(builder: (_) {
