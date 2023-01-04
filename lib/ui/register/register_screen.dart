@@ -24,7 +24,7 @@ bool isChecked = false;
 bool isChecked1 = false;
 bool isLoggedIn = false;
 Map userObj = {};
-final emailController = TextEditingController();
+
 
 class Register extends StatefulWidget {
   const Register({super.key, });
@@ -152,14 +152,14 @@ class _RegisterState extends State<Register> {
                     enabled: true,
                     label: "Use your Email ",
                     keyboardType: TextInputType.emailAddress,
-                    controller: emailController,
+                    controller: con.emailController,
                     textInputAction: TextInputAction.next,
                     obsecureText: false,
                     inputHint: 'Enter your email',
                     validator: (value) {
-                      if (emailController.text.isEmpty) {
+                      if (con.emailController.text.isEmpty) {
                         return "Please Enter The Email";
-                      } else if (!emailController.text.contains("@")
+                      } else if (!con.emailController.text.contains("@")
                       //     ||
                       //     !emailController.text.endsWith('.com')||
                       // !emailController.text.endsWith('.co.in')
@@ -379,10 +379,10 @@ class _RegisterState extends State<Register> {
                       // } else if (isChecked == true) {
                       //   // Navigator.of(context).pushNamed('/verifyemail');
                       // }
-                      if (emailController.text.isEmpty) {
+                      if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
                       } else {
-                        con.registerAPI(emailController.text.toString());
+                        con.registerAPI(con.emailController.text.toString());
                       }
                     },
                     // text: isChecked == false
@@ -560,7 +560,7 @@ class _RegisterState extends State<Register> {
             ? 300
             : MediaQuery.of(context).size.width / 5,
         child: Text(
-              con.termscond["label"],
+              con.termscond["discription"],
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,

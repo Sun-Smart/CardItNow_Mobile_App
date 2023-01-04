@@ -2,11 +2,13 @@
 
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,7 @@ class Passcode extends StatefulWidget {
 class _PasscodeState extends State<Passcode> {
   final formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
+  final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +99,7 @@ class _PasscodeState extends State<Passcode> {
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: OtpTextField(
+
                         fieldWidth: 50,
                         borderWidth: 1,
                         numberOfFields: 4,
@@ -125,9 +129,11 @@ class _PasscodeState extends State<Passcode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        if (formKey.currentState!.validate()) {
-          // Navigator.of(context).pushNamed('/dashbordScreen');
-          Get.to(()=>termsandconditions());
+        if (_otpController.text.isEmpty) {
+          Fluttertoast.showToast(msg: "Enter Your Passcode");
+         // Get.to(()=>termsandconditions());
+        }else{
+          con.pinsetapi(con.emailController.text, _otpController.text);
         }
       },
       text: "Next",

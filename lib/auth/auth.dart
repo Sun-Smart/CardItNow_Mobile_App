@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -59,6 +60,7 @@ var geoacclist;
   // login
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
+  final emailController = TextEditingController();
   var otp = ''.obs;
   var token = ''.obs;
 
@@ -142,6 +144,7 @@ var geoacclist;
     if (response == null) return ;
     var data = json.decode(response);
 
+
     hideLoading();
     print('check'+data);
 
@@ -158,14 +161,70 @@ var geoacclist;
     }
   }
 
+  // password
 
-  void termsconditions() async {
+  void passwordapi(email,password) async {
     showLoading();
 
-    var response = await BaseClient().get(API().terms).catchError(handleError);
+    var body={
+
+    };
+    var response =
+    await BaseClient().post(API().password+'?email='+email+'&password='+password,body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+
     hideLoading();
+    print('pass'+data);
+
+    if (data=="Success") {
+      Get.to(VerifyUserId());
+      // token.value = userData["token"];
+      // if (!resend) {
+      // Get.to(OtpScreenView());
+      // }
+    } else {
+      Fluttertoast.showToast(msg:data.toString());
+    }
+  }
+
+  //
+//pinset
+
+  void pinsetapi(email,pin) async {
+    showLoading();
+
+    var body={
+
+    };
+    var response =
+    await BaseClient().post(API().password+'?email='+email+'&pin='+pin,body).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    hideLoading();
+    print('pass'+data);
+
+    if (data=="Success") {
+      Get.to(termsandconditions());
+      // token.value = userData["token"];
+      // if (!resend) {
+      // Get.to(OtpScreenView());
+      // }
+    } else {
+      Fluttertoast.showToast(msg:data.toString());
+    }
+  }
+  //
+
+
+  void termsconditions() async {
+    // showLoading();
+
+    var response = await BaseClient().get(API().termsmaster).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    // hideLoading();
     termscond= data[0];
     print('check'+data);
 

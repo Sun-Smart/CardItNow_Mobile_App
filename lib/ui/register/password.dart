@@ -1,3 +1,4 @@
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 // import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -24,6 +25,7 @@ class Password extends StatefulWidget {
 }
 
 class _PasswordState extends State<Password> {
+  final AuthCon con = Get.find();
   final formKey = GlobalKey<FormState>();
   @override
   bool _isObscure = true;
@@ -301,9 +303,9 @@ class _PasswordState extends State<Password> {
           Fluttertoast.showToast(msg: "Password has mismatched");
         }
         else{
-          Get.to(()=>VerifyUserId(),
+          con.passwordapi(con.emailController.text, password.text);
+          // Get.to(()=>VerifyUserId(),
 
-          );Fluttertoast.showToast(msg: "Password Set Successfully");
         }
       },
 

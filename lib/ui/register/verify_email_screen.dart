@@ -171,7 +171,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         textStyle: TextStyle(
                             fontSize: 14, color: HexColor('#036D7B'))),
                     onPressed: () {
-                      con.registerAPI(emailController.text.toString());
+                      con.registerAPI(con.emailController.text.toString());
                       Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
                     },
                     child: Text(
@@ -197,7 +197,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 style: TextStyle(fontSize: 14)),
             Text(
 
-              emailController.text,
+              con.emailController.text,
               style: TextStyle(
                   fontSize: 14,
                   // color: themeChange.darkTheme
@@ -227,7 +227,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
         }
         else{
           // Get.to(VerifyUserId(value: widget.value));
-          con.verify(emailController.text, phonenumberController.text);
+          con.verify(con.emailController.text, phonenumberController.text);
         }
       },
       text: "Next",
