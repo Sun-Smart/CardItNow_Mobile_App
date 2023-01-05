@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import, avoid_print, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -12,7 +12,6 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,45 +39,41 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   String? img64;
   List<String> images = [];
 
-  File documentFile = File('');
-
   //Image to Byte64
   Future<void> openGallery() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      setState(() {
-        documentFile = File(result.files.single.path ?? "");
-      });
-    }
+    print("iiiiiiiiii");
+     var result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      allowedExtensions: ['pdf', 'doc'],
+      type: FileType.custom,
+    );
     // var picker = ImagePicker();
-    // final imageGallery = await picker.pickImage(
-    //   source: ImageSource.gallery,
-    // );
-    //
-    // if (imageGallery!.path.isEmpty == false) {
-    //   setState(() {
-    //     imageFile = File(imageGallery!.path);
-    //   });
-    //   List<int> fileInBytes = await imageFile!.readAsBytes();
-    //   String fileInBase64 = base64Encode(fileInBytes);
-    //   print('******************* BASE 64 SOURCE *******************');
-    //   log(fileInBase64);
-    //   print('******************* BASE 64 SOURCE *******************');
-    // } else {
-    //   if (kDebugMode) {
-    //     print('Null');
-    //   }
-    // }
+    //final imageGallery = await picker.pickImage(source: ImageSource.gallery);
+    if (result!.files.first.path!.isEmpty == false) {
+      setState(() {
+        imageFile = File(result.files.first.path!);
+        print("--pathhhhh---${imageFile}");
+      });
+      List<int> fileInBytes = await imageFile!.readAsBytes();
+      String fileInBase64 = base64Encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+      log(fileInBase64);
+      print('******************* BASE 64 SOURCE *******************');
+    } else {
+      if (kDebugMode) {
+        print('Null');
+      }
+    }
   }
 
   //Camera to Byte64
   Future<void> openCamera() async {
-    var picker = ImagePicker();
+    
+     var picker = ImagePicker();
     final imageGallery = await picker.pickImage(source: ImageSource.camera);
     if (imageGallery!.path.isEmpty == false) {
       setState(() {
-        imageFile1 = File(imageGallery!.path);
+        imageFile1 = File(imageGallery.path);
       });
       List<int> fileInBytes = await imageFile1!.readAsBytes();
       String fileInBase64 = base64Encode(fileInBytes);
@@ -240,12 +235,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Upload your ID',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Text(
+                      'Upload your ID',
+                      style: TextStyle(
+                          fontFamily: 'Sora',
+                          fontSize: 14,
+                          color: Styles.whitecustomlable),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   displayImage(),
                   const SizedBox(height: 20),
@@ -296,19 +294,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           ? "Enter Your Document Number"
                           : "Enter Your ${dropdownvalue.toString()} Number",
                       validator: (value) {
-                        if (phoneNumberController.text.isEmpty) {
-                          return "Enter ${dropdownvalue.toString()} Number";
+                        if (dropdownvalue == null) {
+                          return "Enter Your Document Type";
                         } else {
-                          return null;
+                          return "Enter ${dropdownvalue.toString()} Number";
                         }
-
-                        // if (phoneNumberController.text.isEmpty) {
-                        //   return value!.isEmpty
-                        //       ? 'Please select document type'
-                        //       : "Enter ${dropdownvalue.toString()} Number";
-                        // } else {
-                        //   return null;
-                        // }
                       }),
                   const SizedBox(height: 20),
                   Container(
@@ -369,7 +359,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   //Upload Your Document
   Widget displayImage() {
-    if (documentFile != null) {
+    if (imageFile == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -402,7 +392,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             onTap: () async {
               openGallery();
             },
-            child: Image.file(documentFile!),
+            child: Image.file(imageFile!),
           ));
     }
   }
