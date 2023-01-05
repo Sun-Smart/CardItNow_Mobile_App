@@ -10,7 +10,10 @@ class API {
 
   //Terms acceptance
   String terms ="customertermsacceptance/fulllist";
-  String termsmaster ="termsmaster";
+ // String termsmaster ="termsmaster";
+  //terms and condition api
+ String termsmaster="termsCondition/TermsList";
+
   String password = "customermaster/password config";
   String pinset = "customermaster/TPIN config";
 

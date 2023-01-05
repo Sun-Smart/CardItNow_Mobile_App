@@ -4,6 +4,7 @@ import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -276,7 +277,14 @@ class _LoginState extends State<Login> {
                                               ? Colors.white
                                               : Color(0xff004751),
                                           value: _isChecked,
-                                          onChanged: (value) {},
+                                          onChanged: (value) {
+                                            setState(() {
+                                                print("ischecked---------${_isChecked}");
+                                               _isChecked=!_isChecked;
+                                             
+                                            });
+                                           
+                                          },
                                         ),
                                       )),
                                   SizedBox(width: 10.0),
@@ -331,7 +339,7 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Enter Your Password");
                       } else {
                         con.loginAPI(
-                            _emailController.text, _passwordController.text);
+                            _emailController.text, _passwordController.text,_isChecked);
                       }
                     },
                     text: "Login",

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,7 @@ Size size = WidgetsBinding.instance.window.physicalSize /
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+ // await Firebase.initializeApp();
   HttpOverrides.global = new MyHttpOverrides();
   runApp(const MyApp());
   Get.put(AuthCon());

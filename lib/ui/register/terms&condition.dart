@@ -72,9 +72,9 @@ class _termsandconditionsState extends State<termsandconditions> {
                     height: 15,
                   ),
                   Text(
-                    // con.termscond["label"].toString(),
+                     con.termscond["label"].toString(),
 
-                    "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
+                   // "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
 
                     style: TextStyle(
                         fontSize: 16, color: Colors.grey, fontFamily: 'sora'),
@@ -118,7 +118,7 @@ class _termsandconditionsState extends State<termsandconditions> {
       onTap: () {
         Get.to(() => DashbordScreen());
       },
-      text: "Next",
+      text: "Done",
     );
   }
 
