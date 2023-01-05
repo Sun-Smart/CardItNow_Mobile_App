@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -16,10 +18,8 @@ class termsandconditions extends StatefulWidget {
 }
 
 class _termsandconditionsState extends State<termsandconditions> {
-
   final AuthCon con = Get.find();
   @override
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -47,6 +47,7 @@ class _termsandconditionsState extends State<termsandconditions> {
       ),
     );
   }
+
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return SingleChildScrollView(
@@ -60,9 +61,13 @@ class _termsandconditionsState extends State<termsandconditions> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("1.Clause",style: TextStyle(
-                      fontWeight: FontWeight.bold,fontSize: 25,color:Colors.grey
-                  ),),
+                  Text(
+                    "1.Clause",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Colors.grey),
+                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -71,10 +76,9 @@ class _termsandconditionsState extends State<termsandconditions> {
 
                     "Customer shall pay for all Products delivered or date services performed within 30 days from the date of Supplier’s invoice. Payment shall be deemed to have been made when a check is received by Supplier or payment is received by an electronic transfer in Supplier’s bank account. Supplier reserves the right to assess interest on any late payments from the date due until receipt of payment in full at the lesser of (a) one and one-half percent per month compounded monthly, or (b) the maximum rate permitted by law, and to charge Customer for any collection or litigation expenses, including reasonable attorney’s fees incurred by Supplier in the collection of late payment.",
 
-
                     style: TextStyle(
-                        fontSize: 16,color:Colors.grey,fontFamily: 'sora'
-                    ),),
+                        fontSize: 16, color: Colors.grey, fontFamily: 'sora'),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -112,13 +116,11 @@ class _termsandconditionsState extends State<termsandconditions> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-    Get.to(()=>DashbordScreen());
-
+        Get.to(() => DashbordScreen());
       },
       text: "Next",
     );
   }
-
 
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);

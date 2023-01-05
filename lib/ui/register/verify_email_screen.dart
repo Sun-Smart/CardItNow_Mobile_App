@@ -1,9 +1,8 @@
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/register/register_screen.dart';
-import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +14,7 @@ import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
 final phonenumberController = TextEditingController();
+
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({
     super.key,
@@ -196,7 +196,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
             Text('We have sent you verification code on',
                 style: TextStyle(fontSize: 14)),
             Text(
-
               con.emailController.text,
               style: TextStyle(
                   fontSize: 14,
@@ -212,20 +211,16 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget bulildbutton() {
     return AuthButton(
       decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
+          color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
         // Get.to(VerifyUserId(value: widget.value));
         // // Navigator.of(context).pushNamed(
         // //   '/verifyuserid',
         // // );
         // if (formKey.currentState!.validate()) {}
-        if(phonenumberController.text.isEmpty){
+        if (phonenumberController.text.isEmpty) {
           Fluttertoast.showToast(msg: "Enter Your OTP");
-
-        }
-        else{
+        } else {
           // Get.to(VerifyUserId(value: widget.value));
           con.verify(con.emailController.text, phonenumberController.text);
         }

@@ -50,11 +50,9 @@ class _Enter4DigitPasscodeState extends State<Enter4DigitPasscode> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.arrow_back,
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                size: 30),
             onPressed: () {
               Navigator.pop(context);
             },

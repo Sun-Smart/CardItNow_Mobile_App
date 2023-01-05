@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_import, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
@@ -12,6 +12,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
-
-  const VerifyUserId({Key? key,}) : super(key: key);
+  const VerifyUserId({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<VerifyUserId> createState() => _VerifyUserIdState();
@@ -40,22 +42,36 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   //Image to Byte64
   Future<void> openGallery() async {
-    var picker = ImagePicker();
-    final imageGallery = await picker.pickImage(source: ImageSource.gallery);
-    if (imageGallery!.path.isEmpty == false) {
-      setState(() {
-        imageFile = File(imageGallery!.path);
-      });
-      List<int> fileInBytes = await imageFile!.readAsBytes();
-      String fileInBase64 = base64Encode(fileInBytes);
-      print('******************* BASE 64 SOURCE *******************');
-      log(fileInBase64);
-      print('******************* BASE 64 SOURCE *******************');
-    } else {
-      if (kDebugMode) {
-        print('Null');
-      }
-    }
+    final result = await FilePicker.platform.pickFiles();
+    // if (result != null) {
+    //   PlatformFile file = result.files.first;
+    //   print(file.name);
+    //   print(file.bytes);
+    //   print(file.size);
+    //   print(file.extension);
+    //   print(file.path);
+    // } else {
+    //   print('No file selected');
+    // }
+    // var picker = ImagePicker();
+    // final imageGallery = await picker.pickImage(
+    //   source: ImageSource.gallery,
+    // );
+    //
+    // if (imageGallery!.path.isEmpty == false) {
+    //   setState(() {
+    //     imageFile = File(imageGallery!.path);
+    //   });
+    //   List<int> fileInBytes = await imageFile!.readAsBytes();
+    //   String fileInBase64 = base64Encode(fileInBytes);
+    //   print('******************* BASE 64 SOURCE *******************');
+    //   log(fileInBase64);
+    //   print('******************* BASE 64 SOURCE *******************');
+    // } else {
+    //   if (kDebugMode) {
+    //     print('Null');
+    //   }
+    // }
   }
 
   //Camera to Byte64
@@ -77,13 +93,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       }
     }
   }
-final AuthCon con=Get.find();
+
+  final AuthCon con = Get.find();
   String? dropdownvalue;
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
   @override
   Widget build(BuildContext context) {
-
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
         bottomNavigationBar: bulildbutton(),
@@ -198,19 +214,23 @@ final AuthCon con=Get.find();
                                 color: themeChange.darkTheme
                                     ? Colors.white
                                     : Colors.black45)),
-                        items:con.isUAE.value?uaeData.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList(): philipineData.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList(),
+                        items: con.isUAE.value
+                            ? uaeData.map((String item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList()
+                            : philipineData.map((String item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
@@ -222,15 +242,12 @@ final AuthCon con=Get.find();
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Text(
-                      'Upload your ID',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: Styles.whitecustomlable),
-                    ),
-                  ),
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('Upload your ID',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Styles.whitecustomlable))),
                   const SizedBox(height: 20),
                   displayImage(),
                   const SizedBox(height: 20),
@@ -242,7 +259,9 @@ final AuthCon con=Get.find();
                       inputDecoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: dropdownvalue==null?"Select Document":'Enter ${dropdownvalue} Number',
+                        hintText: dropdownvalue == null
+                            ? "Select Document"
+                            : 'Enter ${dropdownvalue} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -284,6 +303,14 @@ final AuthCon con=Get.find();
                         } else {
                           return null;
                         }
+
+                        // if (phoneNumberController.text.isEmpty) {
+                        //   return value!.isEmpty
+                        //       ? 'Please select document type'
+                        //       : "Enter ${dropdownvalue.toString()} Number";
+                        // } else {
+                        //   return null;
+                        // }
                       }),
                   const SizedBox(height: 20),
                   Container(
@@ -375,7 +402,9 @@ final AuthCon con=Get.find();
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              openGallery();
+              //openGallery();
+              final result = await FilePicker.platform.pickFiles();
+              print(result);
             },
             child: Image.file(imageFile!),
           ));

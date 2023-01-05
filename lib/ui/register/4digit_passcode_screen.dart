@@ -13,8 +13,6 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import 'terms&condition.dart';
-
 class Passcode extends StatefulWidget {
   const Passcode({super.key});
 
@@ -99,7 +97,6 @@ class _PasscodeState extends State<Passcode> {
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: OtpTextField(
-
                         fieldWidth: 50,
                         borderWidth: 1,
                         numberOfFields: 4,
@@ -125,14 +122,12 @@ class _PasscodeState extends State<Passcode> {
   Widget bulildbutton() {
     return AuthButton(
       decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
+          color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
         if (_otpController.text.isEmpty) {
           Fluttertoast.showToast(msg: "Enter Your Passcode");
-         // Get.to(()=>termsandconditions());
-        }else{
+          // Get.to(()=>termsandconditions());
+        } else {
           con.pinsetapi(con.emailController.text, _otpController.text);
         }
       },

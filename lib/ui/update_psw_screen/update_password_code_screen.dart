@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unused_field, prefer_final_fields
+
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -40,9 +42,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
           ],
         ),
       )),
