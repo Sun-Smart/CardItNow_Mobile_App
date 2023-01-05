@@ -3,9 +3,14 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/register/register_screen.dart';
+import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+
+
+
 
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
@@ -15,16 +20,24 @@ class Selectcountry extends StatefulWidget {
 }
 
 class _SelectcountryState extends State<Selectcountry> {
+
   var type = '';
 
-  var country = [
-    {"img": 'assets/newlogo.png', "type": 'Philippines'},
-    {"img": 'assets/newuae.png', "type": 'UAE'},
+  var country=[
+    {
+      "img":'assets/newlogo.png',
+      "type":'Philippines'
+    },
+    {
+      "img":'assets/newuae.png',
+      "type":'UAE'
+    },
   ];
-  final AuthCon con = Get.find();
+  final AuthCon con=Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       body: Column(
         crossAxisAlignment: Responsive.isMobile(context)
             ? CrossAxisAlignment.start
@@ -87,18 +100,21 @@ class _SelectcountryState extends State<Selectcountry> {
                 itemCount: country.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  return SingleChildScrollView(
+                  return 
+                  SingleChildScrollView(
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () {
                         setState(() {
                           type = country[index]['type']!;
                           print(type);
-                          if (type == 'UAE') {
-                            con.isUAE.value = true;
-                          } else {
-                            con.isUAE.value = false;
+                          if(type=='UAE'){
+                            con.isUAE.value=true;
+                          }else{
+                            con.isUAE.value=false;
+                  
                           }
+                  
                         });
                       },
                       child: Container(
@@ -117,12 +133,7 @@ class _SelectcountryState extends State<Selectcountry> {
                                 children: [
                                   const SizedBox(height: 10),
                                   Image.asset(country[index]['img']!,
-                                      width: Responsive.isMobile(context)
-                                          ? 100
-                                          : 50,
-                                      height: Responsive.isMobile(context)
-                                          ? 100
-                                          : 50),
+                                      width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
                                   const SizedBox(height: 10),
                                   Text(country[index]['type']!,
                                       style: TextStyle(
@@ -134,6 +145,7 @@ class _SelectcountryState extends State<Selectcountry> {
                             ],
                           )),
                         ),
+                        
                       ),
                     ),
                   );
@@ -141,45 +153,57 @@ class _SelectcountryState extends State<Selectcountry> {
           ),
           const Spacer(),
           if (type != '')
-            Container(
-              width: Responsive.isMobile(context)
-                  ? MediaQuery.of(context).size.width / 1
-                  : Responsive.isDesktop(context)
-                      ? MediaQuery.of(context).size.width / 4.3
-                      : MediaQuery.of(context).size.width / 2.5,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: Responsive.isMobile(context)
-                      ? MainAxisAlignment.start
-                      : MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 55,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: HexColor('#CEE812'),
-                              textStyle: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                          onPressed: () {
-                            Get.to(Register());
-                          },
-                          child: Text(
-                            "CONFIRM",
-                            style: TextStyle(
-                              fontFamily: 'ProductSans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: HexColor('#004751'),
-                            ),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          //const SizedBox(height: 30),
-        ],
+          //   Container(
+          //     width: Responsive.isMobile(context)
+          //         ? MediaQuery.of(context).size.width / 1
+          //         : Responsive.isDesktop(context)
+          //             ? MediaQuery.of(context).size.width / 4.3
+          //             : MediaQuery.of(context).size.width / 2.5,
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 10),
+          //       child: Row(
+          //         mainAxisAlignment: Responsive.isMobile(context)
+          //             ? MainAxisAlignment.center
+          //             : MainAxisAlignment.center,
+          //         children: [
+          //           SizedBox(
+          //             height: 55,
+          //             child: ElevatedButton(
+          //             style: ElevatedButton.styleFrom(
+          //                 backgroundColor: HexColor('#CEE812'),
+          //                 textStyle: const TextStyle(
+          //                     fontSize: 18, fontWeight: FontWeight.bold)),
+          //             onPressed: () {
+          //               Get.to(Register());
+
+
+          //             },
+          //             child: Text(
+          //               "CONFIRM",
+          //               style: TextStyle(
+          //                 fontFamily: 'ProductSans',
+          //                 fontSize: 14,
+          //                 fontWeight: FontWeight.bold,
+          //                 color: HexColor('#004751'),
+          //               ),
+          //             )),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // //const SizedBox(height: 30),
+        AuthButton(
+      decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      onTap: () {
+        Get.to(Register());
+      },
+      text: "Next",
+    )
+     ],
       ),
     );
   }
