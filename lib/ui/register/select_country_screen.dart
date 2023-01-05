@@ -7,10 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-
-
-
-
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
 
@@ -19,20 +15,13 @@ class Selectcountry extends StatefulWidget {
 }
 
 class _SelectcountryState extends State<Selectcountry> {
-
   var type = '';
 
-  var country=[
-    {
-      "img":'assets/newlogo.png',
-      "type":'Philippines'
-    },
-    {
-      "img":'assets/newuae.png',
-      "type":'UAE'
-    },
+  var country = [
+    {"img": 'assets/newlogo.png', "type": 'Philippines'},
+    {"img": 'assets/newuae.png', "type": 'UAE'},
   ];
-  final AuthCon con=Get.find();
+  final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,21 +87,18 @@ class _SelectcountryState extends State<Selectcountry> {
                 itemCount: country.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  return 
-                  SingleChildScrollView(
+                  return SingleChildScrollView(
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () {
                         setState(() {
                           type = country[index]['type']!;
                           print(type);
-                          if(type=='UAE'){
-                            con.isUAE.value=true;
-                          }else{
-                            con.isUAE.value=false;
-                  
+                          if (type == 'UAE') {
+                            con.isUAE.value = true;
+                          } else {
+                            con.isUAE.value = false;
                           }
-                  
                         });
                       },
                       child: Container(
@@ -131,7 +117,12 @@ class _SelectcountryState extends State<Selectcountry> {
                                 children: [
                                   const SizedBox(height: 10),
                                   Image.asset(country[index]['img']!,
-                                      width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
+                                      width: Responsive.isMobile(context)
+                                          ? 100
+                                          : 50,
+                                      height: Responsive.isMobile(context)
+                                          ? 100
+                                          : 50),
                                   const SizedBox(height: 10),
                                   Text(country[index]['type']!,
                                       style: TextStyle(
@@ -166,24 +157,22 @@ class _SelectcountryState extends State<Selectcountry> {
                     SizedBox(
                       height: 55,
                       child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: HexColor('#CEE812'),
-                          textStyle: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      onPressed: () {
-                        Get.to(Register());
-
-
-                      },
-                      child: Text(
-                        "CONFIRM",
-                        style: TextStyle(
-                          fontFamily: 'ProductSans',
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: HexColor('#004751'),
-                        ),
-                      )),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: HexColor('#CEE812'),
+                              textStyle: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                          onPressed: () {
+                            Get.to(Register());
+                          },
+                          child: Text(
+                            "CONFIRM",
+                            style: TextStyle(
+                              fontFamily: 'ProductSans',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: HexColor('#004751'),
+                            ),
+                          )),
                     ),
                   ],
                 ),

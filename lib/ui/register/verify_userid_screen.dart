@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_import, avoid_print
+// ignore_for_file: prefer_const_constructors, unnecessary_import, avoid_print, unnecessary_null_comparison
 
 import 'dart:convert';
 import 'dart:developer';
@@ -40,19 +40,17 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   String? img64;
   List<String> images = [];
 
+  File documentFile = File('');
+
   //Image to Byte64
   Future<void> openGallery() async {
-    final result = await FilePicker.platform.pickFiles();
-    // if (result != null) {
-    //   PlatformFile file = result.files.first;
-    //   print(file.name);
-    //   print(file.bytes);
-    //   print(file.size);
-    //   print(file.extension);
-    //   print(file.path);
-    // } else {
-    //   print('No file selected');
-    // }
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      setState(() {
+        documentFile = File(result.files.single.path ?? "");
+      });
+    }
     // var picker = ImagePicker();
     // final imageGallery = await picker.pickImage(
     //   source: ImageSource.gallery,
@@ -371,7 +369,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   //Upload Your Document
   Widget displayImage() {
-    if (imageFile == null) {
+    if (documentFile != null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -402,11 +400,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              //openGallery();
-              final result = await FilePicker.platform.pickFiles();
-              print(result);
+              openGallery();
             },
-            child: Image.file(imageFile!),
+            child: Image.file(documentFile!),
           ));
     }
   }

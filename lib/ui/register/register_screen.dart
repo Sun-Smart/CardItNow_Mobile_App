@@ -4,9 +4,6 @@ import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/services/gmail_auth_services.dart';
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
-import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -25,9 +22,10 @@ bool isChecked1 = false;
 bool isLoggedIn = false;
 Map userObj = {};
 
-
 class Register extends StatefulWidget {
-  const Register({super.key, });
+  const Register({
+    super.key,
+  });
 
   @override
   State<Register> createState() => _RegisterState();
@@ -160,12 +158,10 @@ class _RegisterState extends State<Register> {
                       if (con.emailController.text.isEmpty) {
                         return "Please Enter The Email";
                       } else if (!con.emailController.text.contains("@")
-                      //     ||
-                      //     !emailController.text.endsWith('.com')||
-                      // !emailController.text.endsWith('.co.in')
-                      )
-
-                      {
+                          //     ||
+                          //     !emailController.text.endsWith('.com')||
+                          // !emailController.text.endsWith('.co.in')
+                          ) {
                         return "Please Enter The valid Email";
                       } else {
                         return null;
@@ -271,7 +267,7 @@ class _RegisterState extends State<Register> {
                                           ))
                                     ])),
                                 InkWell(
-                                  onTap: (){
+                                  onTap: () {
                                     showAlertDialog(context);
                                   },
                                   child: Text(
@@ -473,7 +469,7 @@ class _RegisterState extends State<Register> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                     SizedBox(width: 20),
+                    SizedBox(width: 20),
                     Image.asset("assets/fb.png", width: 32),
                     SizedBox(width: 15),
                     Text("Sign Up using Facebook",
@@ -502,7 +498,7 @@ class _RegisterState extends State<Register> {
             splashColor: Colors.green, // splash color
             onTap: () {
               print("Gmail Tapped Done");
-             // AuthService().signinWithGoogle();
+              // AuthService().signinWithGoogle();
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
@@ -559,8 +555,7 @@ class _RegisterState extends State<Register> {
         width: Responsive.isMobile(context)
             ? 300
             : MediaQuery.of(context).size.width / 5,
-        child: Text(
-              con.termscond["termdetails"],
+        child: Text(con.termscond["termdetails"],
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,

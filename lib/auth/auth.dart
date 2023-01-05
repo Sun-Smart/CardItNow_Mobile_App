@@ -1,17 +1,14 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
-import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
-import 'package:cardit/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+
 import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../ui/register/verify_email_screen.dart';
