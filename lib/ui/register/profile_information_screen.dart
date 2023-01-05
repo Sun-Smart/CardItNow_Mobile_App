@@ -1,18 +1,14 @@
-// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages
+// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages, avoid_print
 
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/register/register_screen.dart';
-import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -272,7 +268,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Your Issue',
+                hintText: 'Date Of Brith',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
@@ -547,10 +543,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (formKey.currentState!.validate()) {
-            Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+            if (issueDateController.text != expiredDateController.text) {
+              Fluttertoast.showToast(msg: "Date has mismatched");
+            }
+            print('Done');
+          } else {
+            //   Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
-
-          // Navigator.of(context).pushNamed('/avatarPageView');
         },
         text: "Next");
   }

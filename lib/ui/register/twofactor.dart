@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,9 +28,7 @@ class _TwofactorState extends State<Twofactor> {
         bottomNavigationBar: buildbutton(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leading: BackButton(
-            color: Colors.black,
-          ),
+          leading: BackButton(color: Colors.black),
           actions: [
             Center(
               child: GestureDetector(
