@@ -502,7 +502,7 @@ class _RegisterState extends State<Register> {
             splashColor: Colors.green, // splash color
             onTap: () {
               print("Gmail Tapped Done");
-              AuthService().signinWithGoogle();
+             // AuthService().signinWithGoogle();
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
@@ -560,7 +560,7 @@ class _RegisterState extends State<Register> {
             ? 300
             : MediaQuery.of(context).size.width / 5,
         child: Text(
-              con.termscond["discription"],
+              con.termscond["termdetails"],
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,

@@ -98,47 +98,51 @@ class _SelectcountryState extends State<Selectcountry> {
                 itemCount: country.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        type = country[index]['type']!;
-                        print(type);
-                        if(type=='UAE'){
-                          con.isUAE.value=true;
-                        }else{
-                          con.isUAE.value=false;
-
-                        }
-
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                      child: Card(
-                        elevation: 0,
-                        color: type == country[index]['type']
-                            ? HexColor('#CEE812')
-                            : Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                            child: Column(
-                          children: [
-                            Column(
-                              children: [
-                                const SizedBox(height: 10),
-                                Image.asset(country[index]['img']!,
-                                    width: 100, height: 100),
-                                const SizedBox(height: 10),
-                                Text(country[index]['type']!,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16)),
-                                const SizedBox(height: 10),
-                              ],
-                            ),
-                          ],
-                        )),
+                  return 
+                  SingleChildScrollView(
+                    child: InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: () {
+                        setState(() {
+                          type = country[index]['type']!;
+                          print(type);
+                          if(type=='UAE'){
+                            con.isUAE.value=true;
+                          }else{
+                            con.isUAE.value=false;
+                  
+                          }
+                  
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
+                        child: Card(
+                          elevation: 0,
+                          color: type == country[index]['type']
+                              ? HexColor('#CEE812')
+                              : Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                              child: Column(
+                            children: [
+                              Column(
+                                children: [
+                                  const SizedBox(height: 10),
+                                  Image.asset(country[index]['img']!,
+                                      width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
+                                  const SizedBox(height: 10),
+                                  Text(country[index]['type']!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+                            ],
+                          )),
+                        ),
                       ),
                     ),
                   );
@@ -159,34 +163,33 @@ class _SelectcountryState extends State<Selectcountry> {
                       ? MainAxisAlignment.start
                       : MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                        child: SizedBox(
+                    SizedBox(
                       height: 55,
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: HexColor('#CEE812'),
-                              textStyle: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                          onPressed: () {
-                            Get.to(Register());
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: HexColor('#CEE812'),
+                          textStyle: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        Get.to(Register());
 
 
-                          },
-                          child: Text(
-                            "CONFIRM",
-                            style: TextStyle(
-                              fontFamily: 'ProductSans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: HexColor('#004751'),
-                            ),
-                          )),
-                    )),
+                      },
+                      child: Text(
+                        "CONFIRM",
+                        style: TextStyle(
+                          fontFamily: 'ProductSans',
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor('#004751'),
+                        ),
+                      )),
+                    ),
                   ],
                 ),
               ),
             ),
-          const SizedBox(height: 30),
+          //const SizedBox(height: 30),
         ],
       ),
     );

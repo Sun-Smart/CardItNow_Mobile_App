@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
+import 'package:cardit/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -15,23 +18,22 @@ import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
-
   @override
   void onInit() {
     termsconditions();
     geoaccess();
     super.onInit();
   }
+
   var isUAE = false.obs;
 //termsand conditions
   var termscond;
   //avatar
   var avatarImage;
- // geoaccess
-var geoacclist;
+  // geoaccess
+  var geoacclist;
   //gender
   var gender = 1.obs;
-
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -67,18 +69,27 @@ var geoacclist;
   //otp
   final TextEditingController otpCon = TextEditingController();
 
-  void loginAPI(email,password) async {
+  void loginAPI(email, password, bool ischecked_checkbox) async {
+    print("working");
     showLoading();
-    // var body = {
-    //   'email': emailController.text,
-    // };
-    var response =
-    await BaseClient().get("Token?email=$email&Password=$password").catchError(handleError);
+    var response = await BaseClient()
+        .get("Token?email=$email&Password=$password")
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+    if (ischecked_checkbox == true) {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      await _prefs.setString("save_token", data["token"].toString());
+
+      print("--------${_prefs.getString("save_token")}");
+    } else {
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      await _prefs.clear();
+      print("--------${_prefs.getString("save_token")}");
+    }
 
     hideLoading();
-    print("hii"+data.toString());
+    print("response " + data.toString());
     if (data["token"].toString().isNotEmpty) {
       Get.to(DashbordScreen());
       // token.value = userData["token"];
@@ -86,7 +97,7 @@ var geoacclist;
       //   // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg:"Check Your Login Credentials");
+      Fluttertoast.showToast(msg: "Check Your Login Credentials");
     }
   }
 
@@ -110,125 +121,126 @@ var geoacclist;
   void registerAPI(email) async {
     showLoading();
 
-    var body={
-      "email":email
-    };
-    var response =
-    await BaseClient().post(API().register+'?email='+email,body).catchError(handleError);
+    var body = {"email": email};
+    var response = await BaseClient()
+        .post(API().register + '?email=' + email, body)
+        .catchError(handleError);
     if (response == null) return;
+    //Get.to(VerifyUserId());
     var data = json.decode(response);
 
     hideLoading();
-    print('check'+data);
+    print('check' + data);
 
-    if (data=="Success") {
+    if (data == "Success") {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
       // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg:"Something wrong");
+      Fluttertoast.showToast(msg: "Something wrong");
     }
   }
 //verifyotp
 
-  void verify(email,otp) async {
+  void verify(email, otp) async {
     showLoading();
 
-    var body={
-
-    };
-    var response =
-    await BaseClient().post(API().verifyotp+'?email=$email&otp='+otp,body).catchError(handleError);
-    if (response == null) return ;
+    var body = {};
+    var response = await BaseClient()
+        .post(API().verifyotp + '?email=$email&otp=' + otp, body)
+        .catchError(handleError);
+    if (response == null) return;
     var data = json.decode(response);
 
-
     hideLoading();
-    print('check'+data);
+    print('check' + data);
 
-    if (data=="Success") {
-      Get.to(()=>Password());
+    if (data == "Success") {
+      Get.to(() => Password());
       Fluttertoast.showToast(msg: data.toString());
-
     } else {
-
-      Fluttertoast.showToast(msg:
-
-      data.toString()
-    );
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
   // password
 
-  void passwordapi(email,password) async {
+  void passwordapi(email, password) async {
     showLoading();
 
-    var body={
-
-    };
-    var response =
-    await BaseClient().post(API().password+'?email='+email+'&password='+password,body).catchError(handleError);
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().password + '?email=' + email + '&password=' + password, body)
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
-    print('pass'+data);
+    print('pass' + data);
 
-    if (data=="Success") {
+    if (data == "Success") {
       Get.to(VerifyUserId());
       // token.value = userData["token"];
       // if (!resend) {
       // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg:data.toString());
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
   //
 //pinset
 
-  void pinsetapi(email,pin) async {
+  void pinsetapi(email, pin) async {
     showLoading();
 
-    var body={
-
-    };
-    var response =
-    await BaseClient().post(API().password+'?email='+email+'&pin='+pin,body).catchError(handleError);
+    var body = {};
+    var response = await BaseClient()
+        .post(API().password + '?email=' + email + '&pin=' + pin, body)
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     hideLoading();
-    print('pass'+data);
+    print('pass' + data);
 
-    if (data=="Success") {
+    if (data == "Success") {
       Get.to(termsandconditions());
       // token.value = userData["token"];
       // if (!resend) {
       // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg:data.toString());
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
   //
 
-
+//terms and condition
   void termsconditions() async {
     // showLoading();
 
-    var response = await BaseClient().get(API().termsmaster).catchError(handleError);
+    var response =
+        await BaseClient().get(API().termsmaster).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     // hideLoading();
-    termscond= data[0];
-    print('check'+data);
-
+    termscond = data[0];
+    print('check' + data);
   }
+  //profile info
+  // void profileinfo()async {
+  //    showLoading();
+
+  //   var response = await BaseClient().post(API()., ).catchError(handleError);
+  //   if (response == null) return;
+  //   var data = json.decode(response);
+  //    hideLoading();
+  // }
 
   void geoaccess() async {
     showLoading();
@@ -237,12 +249,9 @@ var geoacclist;
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-    geoacclist= data[0];
-    print('check'+data);
-
+    geoacclist = data[0];
+    print('check' + data);
   }
-
-
 
   void updateGoalAPI() async {
     showLoading();
@@ -269,7 +278,7 @@ var geoacclist;
       'fitness_goals[]': fitGoalList,
     };
     var response =
-    await BaseClient().post(API().updateGoal, body).catchError(handleError);
+        await BaseClient().post(API().updateGoal, body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
@@ -280,7 +289,4 @@ var geoacclist;
       Fluttertoast.showToast(msg: data['message']);
     }
   }
-
-
-
 }
