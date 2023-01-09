@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'dart:ui';
 
@@ -42,9 +42,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       buildtitle(),
                     ])),
             bulidForm(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
           ],
         ),
       )),
@@ -74,7 +72,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Update \n Password',
+        'Forgot \n Password',
         style: TextStyle(
           fontSize: 28,
           // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
@@ -151,7 +149,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
       onTap: () {
         if (formKey.currentState!.validate()) {}
       },
-      text: "Update Password",
+      text: "Save Password",
     );
   }
 }

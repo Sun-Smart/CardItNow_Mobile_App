@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import, avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: unnecessary_import, avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, unnecessary_new
 
 import 'dart:ui';
 
@@ -7,10 +7,11 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 
 class Passcode extends StatefulWidget {
@@ -21,8 +22,14 @@ class Passcode extends StatefulWidget {
 }
 
 class _PasscodeState extends State<Passcode> {
+  BoxDecoration get _pinPutDecoration {
+    return BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(5.0));
+  }
+
   final formKey = GlobalKey<FormState>();
-  final _otpController = TextEditingController();
+  final TextEditingController otpCon = TextEditingController();
   final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -57,11 +64,9 @@ class _PasscodeState extends State<Passcode> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.arrow_back,
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -77,10 +82,9 @@ class _PasscodeState extends State<Passcode> {
       child: Text(
         'Set 4 Digit \n Passcode ',
         style: TextStyle(
-          fontSize: 28,
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+            fontSize: 28,
+            color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+            fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -95,27 +99,30 @@ class _PasscodeState extends State<Passcode> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                      padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
-                      child: OtpTextField(
-                        fieldWidth: 50,
-                        borderWidth: 1,
-                        numberOfFields: 4,
-                        borderColor: Color(0xFF512DA8),
-                        textStyle: TextStyle(
-                            fontSize: 35,
-                            color: themeChange.darkTheme
-                                ? Colors.white
-                                : HexColor('#1B1B1B')),
-                        //set to true to show as box or false to show as dash
-                        showFieldAsBox: true,
-                        //runs when a code is typed in
-                        onCodeChanged: (String code) {
-                          if (_otpController.text.isEmpty) {
-                            'Enter Your OTP';
+                    padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                    child: PinPut(
+                        controller: otpCon,
+                        onChanged: (o) {
+                          if (o.length == 4) {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
                           }
-                          //handle validation or checks here
                         },
-                      )),
+                        // eachFieldPadding: const EdgeInsets.all(10),
+                        // eachFieldHeight: 40,
+                        // eachFieldWidth: 30,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                        ],
+                        followingFieldDecoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(0)),
+                        keyboardType: TextInputType.number,
+                        submittedFieldDecoration: _pinPutDecoration.copyWith(
+                            borderRadius: BorderRadius.circular(0)),
+                        selectedFieldDecoration: _pinPutDecoration,
+                        fieldsCount: 4),
+                  ),
                 ])));
   }
 
@@ -124,11 +131,10 @@ class _PasscodeState extends State<Passcode> {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
-        if (_otpController.text.isEmpty) {
-          Fluttertoast.showToast(msg: "Enter Your Passcode");
-          // Get.to(()=>termsandconditions());
+        if (otpCon.text.isEmpty) {
+          Fluttertoast.showToast(msg: 'Enter Your 4 Digit Passcode');
         } else {
-          con.pinsetapi(con.emailController.text, _otpController.text);
+          con.pinsetapi(con.emailController.text, otpCon.text);
         }
       },
       text: "Next",

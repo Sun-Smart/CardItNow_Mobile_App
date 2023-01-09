@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
@@ -18,18 +20,19 @@ class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
     termsconditions();
+    showAvatorMaster();
     geoaccess();
     super.onInit();
   }
 
   var isUAE = false.obs;
-//termsand conditions
-  var termscond;
-  //avatar
-  var avatarImage;
+  // terms and conditions
+  var termscond = '';
+  // avatar
+  var avatarImageList = [];
   // geoaccess
   var geoacclist;
-  //gender
+  // gender
   var gender = 1.obs;
 
   //weight
@@ -66,6 +69,7 @@ class AuthCon extends GetxController with BaseController {
   //otp
   final TextEditingController otpCon = TextEditingController();
 
+  //loginApi
   void loginAPI(email, password, bool ischecked_checkbox) async {
     print("working");
     showLoading();
@@ -98,6 +102,7 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  //loginOtp
   void loginOTP() async {
     if (otp.value == otpCon.text) {
       otp = ''.obs;
@@ -115,10 +120,12 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  //regsterApi
   void registerAPI(email) async {
     showLoading();
 
     var body = {"email": email};
+
     var response = await BaseClient()
         .post(API().register + '?email=' + email, body)
         .catchError(handleError);
@@ -139,8 +146,8 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: "Something wrong");
     }
   }
-//verifyotp
 
+  //verifyotp
   void verify(email, otp) async {
     showLoading();
 
@@ -163,10 +170,8 @@ class AuthCon extends GetxController with BaseController {
   }
 
   // password
-
   void passwordapi(email, password) async {
-    showLoading();
-
+    // showLoading();
     var body = {};
     var response = await BaseClient()
         .post(
@@ -175,7 +180,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
 
-    hideLoading();
+    // hideLoading();
     print('pass' + data);
 
     if (data == "Success") {
@@ -189,21 +194,21 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-  //
-//pinset
-
+  //pinset
   void pinsetapi(email, pin) async {
-    showLoading();
+    // showLoading();
+    print(email);
+    print(pin);
 
     var body = {};
     var response = await BaseClient()
-        .post(API().password + '?email=' + email + '&pin=' + pin, body)
+        .post(API().pinset + '?email=' + email + '&pin=' + pin, body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
-    hideLoading();
-    print('pass' + data);
+    // hideLoading();
+    print('pass-------------------' + data);
 
     if (data == "Success") {
       Get.to(termsandconditions());
@@ -215,20 +220,51 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data.toString());
     }
   }
-  //
 
-//terms and condition
+  //terms and condition
   void termsconditions() async {
-    // showLoading();
-
     var response =
         await BaseClient().get(API().termsmaster).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    // hideLoading();
-    termscond = data[0];
-    print('check' + data);
+    termscond = data[0]['termdetails'];
   }
+
+  //show Avator Master
+  void showAvatorMaster() async {
+    var response =
+        await BaseClient().get(API().showAvatorMaster).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    avatarImageList = data;
+    print(avatarImageList);
+  }
+
+  //upload Avator and Selfi
+  void avatorSelfi(avator) async {
+    // showLoading();
+    print(avator);
+    var body = {};
+    var response = await BaseClient()
+        .post(API().uploadAvator + 'ImageFile=' + avator, body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    // hideLoading();
+    print('pass-------------------' + data);
+    if (data == "Success") {
+      Fluttertoast.showToast(msg: 'Data Upload Successfully...');
+      print(data.toString());
+      // Get.to(termsandconditions());
+      // token.value = userData["token"];
+      // if (!resend) {
+      // Get.to(OtpScreenView());
+      // }
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
   //profile info
   // void profileinfo()async {
   //    showLoading();
@@ -240,18 +276,15 @@ class AuthCon extends GetxController with BaseController {
   // }
 
   void geoaccess() async {
-    showLoading();
-
     var response = await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    hideLoading();
     geoacclist = data[0];
-    print('check' + data);
+    // print('check' + data);
   }
 
   void updateGoalAPI() async {
-    showLoading();
+    // showLoading();
     List<String> fitGoalList = [];
     if (manageWeight.value) {
       fitGoalList.add("1");
@@ -279,7 +312,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
 
-    hideLoading();
+    // hideLoading();
     if (data['status']) {
       Fluttertoast.showToast(msg: data['message']);
     } else {

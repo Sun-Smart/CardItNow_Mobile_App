@@ -172,7 +172,7 @@ class _PasswordState extends State<Password> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Conform Password',
+                          Text('Confirm Password',
                               style: TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 15,
@@ -259,7 +259,8 @@ class _PasswordState extends State<Password> {
                   //       HexColor('#CEE812'),
                   //       borderRadius: BorderRadius.circular(5)),
                   // ),
-                  const SizedBox(height: 10),
+
+                  SizedBox(height: 10),
                 ])));
   }
 

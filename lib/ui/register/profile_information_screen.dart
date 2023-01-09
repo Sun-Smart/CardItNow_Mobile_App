@@ -6,9 +6,14 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import 'register_screen.dart';
+import 'select_avatar_screen.dart';
+import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -543,13 +548,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (formKey.currentState!.validate()) {
+            Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             if (issueDateController.text != expiredDateController.text) {
               Fluttertoast.showToast(msg: "Date has mismatched");
             }
             print('Done');
-          } else {
-            //   Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-          }
+          } else {}
         },
         text: "Next");
   }

@@ -39,7 +39,6 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Styles.colorBackgroundBlock,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +88,7 @@ class _RegisterState extends State<Register> {
         children: [
           IconButton(
             icon: Icon(Icons.close,
-                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                color: themeChange.darkTheme ? Colors.black : Colors.black,
                 size: 30),
             onPressed: () {
               Navigator.pop(context);
@@ -121,11 +120,7 @@ class _RegisterState extends State<Register> {
                             ? Colors.white
                             : HexColor('#004751')),
                   ),
-                  Image.asset(
-                    "assets/carditlogo.png",
-                    width: 100,
-                    height: 65,
-                  ),
+                  Image.asset("assets/carditlogo.png", width: 100, height: 65),
                 ],
               ),
               SizedBox(
@@ -555,7 +550,7 @@ class _RegisterState extends State<Register> {
         width: Responsive.isMobile(context)
             ? 300
             : MediaQuery.of(context).size.width / 5,
-        child: Text(con.termscond["termdetails"],
+        child: Text(con.termscond,
             style: TextStyle(
               fontSize: 13,
               color: Styles.whitecolortext,

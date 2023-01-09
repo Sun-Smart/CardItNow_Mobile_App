@@ -9,10 +9,10 @@ class API {
   String verifyotp = "verifyotp/Verify";
 
   //Terms acceptance
-  String terms ="customertermsacceptance/fulllist";
- // String termsmaster ="termsmaster";
+  String terms = "customertermsacceptance/fulllist";
+  // String termsmaster ="termsmaster";
   //terms and condition api
- String termsmaster="termsCondition/TermsList";
+  String termsmaster = "termsCondition/TermsList";
 
   String password = "customermaster/password config";
   String pinset = "customermaster/TPIN config";
@@ -35,4 +35,9 @@ class API {
   String updateGoal = "profile/goals/update";
   String dietPlanList = "mealPlan";
   String updateDietPlan = "mealPlan/status_update";
+
+  //avator
+  String showAvatorMaster = 'avatarmaster'; // Avator Images Get Api
+  String uploadAvator = "avatarmaster/UploadSelfi";
+  String uploadProcessDocument = "customermaster/ProcessDocument";
 }

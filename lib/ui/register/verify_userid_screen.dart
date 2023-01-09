@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -12,6 +12,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +39,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Uint8List? bytes;
   String? img64;
   List<String> images = [];
+  var convertedImage = '';
 
   //Image to Byte64
   Future<void> openGallery() async {
     print("iiiiiiiiii");
-     var result = await FilePicker.platform.pickFiles(
+    var result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       allowedExtensions: ['pdf', 'doc'],
       type: FileType.custom,
@@ -58,6 +60,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
+      convertedImage = fileInBase64;
       print('******************* BASE 64 SOURCE *******************');
     } else {
       if (kDebugMode) {
@@ -68,8 +71,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   //Camera to Byte64
   Future<void> openCamera() async {
-    
-     var picker = ImagePicker();
+    var picker = ImagePicker();
     final imageGallery = await picker.pickImage(source: ImageSource.camera);
     if (imageGallery!.path.isEmpty == false) {
       setState(() {
@@ -91,6 +93,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   String? dropdownvalue;
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -295,7 +298,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           : "Enter Your ${dropdownvalue.toString()} Number",
                       validator: (value) {
                         if (dropdownvalue == null) {
-                          return "Enter Your Document Type";
+                          return "Select Your Document Type";
                         } else {
                           return "Enter ${dropdownvalue.toString()} Number";
                         }
@@ -303,7 +306,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Upload your Selfie',
+                      child: Text(
+                          'Take'
+                          ' Selfie',
                           style: TextStyle(
                               fontFamily: 'Sora',
                               fontSize: 14,

@@ -72,7 +72,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Update \n Password',
+        'Forgot \n Password',
         style: TextStyle(
           fontSize: 28,
           // color: Styles.whitecustomlable,
