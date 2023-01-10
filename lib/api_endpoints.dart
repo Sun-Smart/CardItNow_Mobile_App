@@ -1,6 +1,7 @@
 class API {
   // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+  String localUrl = "http://localhost:5001/carditnowapi/";
   // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
@@ -37,7 +38,7 @@ class API {
   String updateDietPlan = "mealPlan/status_update";
 
   //avator
-  String showAvatorMaster = 'avatarmaster'; // Avator Images Get Api
+  String showAvatorMaster = "avatarmaster"; // Avator Images Get Api
   String uploadAvator = "avatarmaster/UploadSelfi";
   String uploadProcessDocument = "customermaster/ProcessDocument";
 }
