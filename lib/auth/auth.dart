@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
@@ -22,7 +23,6 @@ import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
-import 'package:http/http.dart' as http;
 
 class AuthCon extends GetxController with BaseController {
   @override
@@ -32,6 +32,7 @@ class AuthCon extends GetxController with BaseController {
     geoaccess();
     super.onInit();
   }
+
   File? image;
   var isUAE = false.obs;
   // terms and conditions
@@ -66,9 +67,9 @@ class AuthCon extends GetxController with BaseController {
   RxBool newExcercise = false.obs;
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
-  var regDoc='';
-  var uploadimg ='';
-  String choosedDocId ='';
+  var regDoc = '';
+  var uploadimg = '';
+  String choosedDocId = '';
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -143,7 +144,10 @@ class AuthCon extends GetxController with BaseController {
     var body = {};
 
     var response = await BaseClient()
-        .post(API().register + '?email=' + email, body,)
+        .post(
+          API().register + '?email=' + email,
+          body,
+        )
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
@@ -213,19 +217,18 @@ class AuthCon extends GetxController with BaseController {
 
   //profile Infomation
   void profileInformatrion(
-      email,
-      firstName,
-      lastName,
-      city,
-      state,
-      requiredno,
-      dateofbrith,
-      issuedate,
-      expirydate,
-      address,
-      postalcode,
-
-      ) async {
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    issuedate,
+    expirydate,
+    address,
+    postalcode,
+  ) async {
     var body = {};
     var response = await BaseClient()
         .post(
@@ -283,7 +286,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     avatarImageList = data;
-    print("avatarcheck"+avatarImageList.length.toString());
+    print("avatarcheck" + avatarImageList.length.toString());
   }
 
   //upload Avator and Selfi
@@ -292,43 +295,41 @@ class AuthCon extends GetxController with BaseController {
     print(avator);
     var body = {};
 
-
     if (image != null) {
-   var file=  await http.MultipartFile.fromPath('Imagefile', image!.path);
+      var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
 
       var response = await BaseClient()
-          .post(API().uploadAvator, body, isMultiPart: true,file: file,isDev: true)
+          .post(API().uploadAvator, body,
+              isMultiPart: true, file: file, isDev: true)
           .catchError(handleError);
       if (response == null) return;
       var data = json.decode(response);
-   if (data == "Success") {
-     Fluttertoast.showToast(msg: 'Data Upload Successfully...');
-     print(data.toString());
-     // Get.to(termsandconditions());
-     // token.value = userData["token"];
-     // if (!resend) {
-     // Get.to(OtpScreenView());
-     // }
-   } else {
-     Fluttertoast.showToast(msg: data.toString());
-   }
+      if (data == "Success") {
+        Fluttertoast.showToast(msg: 'Data Upload Successfully...');
+        print(data.toString());
+        // Get.to(termsandconditions());
+        // token.value = userData["token"];
+        // if (!resend) {
+        // Get.to(OtpScreenView());
+        // }
+      } else {
+        Fluttertoast.showToast(msg: data.toString());
+      }
     }
-
   }
 
-
   void uploadDocx(
-      email,  docid, ) async {
-    var body = {
-
-    };
-    log(uploadimg+"DD");
-    print(uploadimg+"BB");
+    email,
+    docid,
+  ) async {
+    var body = {};
+    log(uploadimg + "DD");
+    print(uploadimg + "BB");
     var response = await BaseClient()
         .post(
-        API().uploadProcessDocument +
-           "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
-        body)
+            API().uploadProcessDocument +
+                "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
+            body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -340,7 +341,6 @@ class AuthCon extends GetxController with BaseController {
       print("---------failed");
     }
   }
-
 
   //profile info
   // void profileinfo()async {

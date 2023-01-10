@@ -13,10 +13,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import 'register_screen.dart';
-import 'select_avatar_screen.dart';
-import 'twofactor.dart';
-
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
 
@@ -683,25 +679,24 @@ class _ProfileInformationState extends State<ProfileInformation> {
           //}
           Get.to(const AvatarPageView());
           if (formKey.currentState!.validate()) {
-
             if (issueDateController.text == expiredDateController.text) {
               Fluttertoast.showToast(
                   msg: "Issue date and Expiry date is same...");
             } else {
               con.profileInformatrion(
                 con.emailController.text,
-                  firstNameController.text,
-                  lastNameController.text,
-                  cityNameController.text,
-                  stateNameController.text,
-                  requiredNoController.text,
-                  dateOfBrithController.text,
-                  issueDateController.text,
-                  expiredDateController.text,
-                  addressController.text,
-                  postalCodeController.text,
-                  );
-             // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+                firstNameController.text,
+                lastNameController.text,
+                cityNameController.text,
+                stateNameController.text,
+                requiredNoController.text,
+                dateOfBrithController.text,
+                issueDateController.text,
+                expiredDateController.text,
+                addressController.text,
+                postalCodeController.text,
+              );
+              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             }
           } else {
             Fluttertoast.showToast(msg: "Data Save Successfully...");
