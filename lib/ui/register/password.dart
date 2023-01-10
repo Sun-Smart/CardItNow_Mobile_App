@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, unused_local_variable, non_constant_identifier_names
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
@@ -29,6 +29,18 @@ class _PasswordState extends State<Password> {
 
   bool _isObscure = true;
   bool _isConformObscure = true;
+
+  RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+  //A function that validate user entered password
+  bool validatePassword(String pass) {
+    String _password = pass.trim();
+    if (pass_valid.hasMatch(_password)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,61 +123,76 @@ class _PasswordState extends State<Password> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
-                          TextField(
-                            obscureText: _isObscure,
-                            controller: password,
-                            decoration: InputDecoration(
-                                labelText: 'Enter New Password',
-                                suffixIcon: IconButton(
-                                  icon: Icon(_isObscure
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  },
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.normal),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
-                          ),
+                          TextFormField(
+                              obscureText: _isObscure,
+                              controller: password,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter password";
+                                } else if (value.length < 6) {
+                                  return 'Must be more than 6 charater';
+                                } else {
+                                  //call function to check password
+                                  bool result = validatePassword(value);
+                                  if (result) {
+                                    // create account event
+                                    return null;
+                                  } else {
+                                    return " Password should contain Special Characters";
+                                  }
+                                }
+                              },
+                              decoration: InputDecoration(
+                                  labelText: 'Enter New Password',
+                                  suffixIcon: IconButton(
+                                    icon: Icon(_isObscure
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    },
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.normal),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold))),
                         ],
                       )),
-
                   Padding(
                       padding: EdgeInsets.all(20),
                       child: Column(
@@ -178,9 +205,25 @@ class _PasswordState extends State<Password> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
-                          TextField(
+                          TextFormField(
                             controller: confirmpassword,
                             obscureText: _isConformObscure,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter password";
+                              } else if (value.length < 6) {
+                                return 'Must be more than 6 charater';
+                              } else {
+                                //call function to check password
+                                bool result = validatePassword(value);
+                                if (result) {
+                                  // create account event
+                                  return null;
+                                } else {
+                                  return " Password should contain Special Characters";
+                                }
+                              }
+                            },
                             decoration: InputDecoration(
                                 labelText: 'Enter Conform Password',
                                 suffixIcon: IconButton(
@@ -232,35 +275,7 @@ class _PasswordState extends State<Password> {
                           ),
                         ],
                       )),
-
-                  // AuthButton(
-                  //   onTap: () {
-                  //   if(password.text.isEmpty){
-                  //   Fluttertoast.showToast(msg: "Please Enter Your Password");
-                  //   }
-                  //   else if(confirmpassword.text.isEmpty){
-                  //     Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
-                  //   }
-                  //   else if(password.text!=confirmpassword.text){
-                  //     Fluttertoast.showToast(msg: "Password has mismatched");
-                  //   }
-                  //   else{
-                  //     Get.to(()=>VerifyUserId(),
-                  //
-                  //     );Fluttertoast.showToast(msg: "Password Set Successfully");
-                  //   }
-                  //   },
-                  //
-                  //   text: "Confirm",
-                  //   decoration: BoxDecoration(
-                  //       color:
-                  //       // isChecked == false
-                  //       //     ? HexColor('#E9F9B2')
-                  //       HexColor('#CEE812'),
-                  //       borderRadius: BorderRadius.circular(5)),
-                  // ),
-
-                  SizedBox(height: 10),
+                  SizedBox(height: 10)
                 ])));
   }
 
@@ -282,15 +297,16 @@ class _PasswordState extends State<Password> {
   Widget bulildbutton() {
     return AuthButton(
       onTap: () {
-        if (password.text.isEmpty) {
-          Fluttertoast.showToast(msg: "Please Enter Your Password");
-        } else if (confirmpassword.text.isEmpty) {
-          Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
-        } else if (password.text != confirmpassword.text) {
-          Fluttertoast.showToast(msg: "Password has mismatched");
-        } else {
-          con.passwordapi(con.emailController.text, password.text);
-          // Get.to(()=>VerifyUserId(),
+        if (formKey.currentState!.validate()) {
+          if (password.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Please Enter Your Password");
+          } else if (confirmpassword.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Please Enter Your Confirm Password");
+          } else if (password.text != confirmpassword.text) {
+            Fluttertoast.showToast(msg: "Password has mismatched");
+          } else {
+            con.passwordapi(con.emailController.text, password.text);
+          }
         }
       },
       text: "Confirm",

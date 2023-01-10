@@ -3,6 +3,7 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -652,29 +653,30 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (formKey.currentState!.validate()) {
-            con.profileInformatrion(
-                firstNameController.text,
-                lastNameController.text,
-                cityNameController.text,
-                stateNameController.text,
-                'stateNameController.text',
-                dateOfBrithController.text,
-                issueDateController.text,
-                expiredDateController.text,
-                addressController.text,
-                postalCodeController.text,
-                "null",
-                "null");
-            //   if (issueDateController.text == expiredDateController.text) {
-            //     Fluttertoast.showToast(
-            //         msg: "Issue date and Expiry date is same...");
-            //   } else {
-            //     Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-            //   }
-            // } else {
-            //   Fluttertoast.showToast(msg: "Data Save Successfully...");
-          }
+          // if (formKey.currentState!.validate()) {
+          // con.profileInformatrion(
+          //     firstNameController.text,
+          //     lastNameController.text,
+          //     cityNameController.text,
+          //     stateNameController.text,
+          //     'stateNameController.text',
+          //     dateOfBrithController.text,
+          //     issueDateController.text,
+          //     expiredDateController.text,
+          //     addressController.text,
+          //     postalCodeController.text,
+          //     "null",
+          //     "null");
+          //   if (issueDateController.text == expiredDateController.text) {
+          //     Fluttertoast.showToast(
+          //         msg: "Issue date and Expiry date is same...");
+          //   } else {
+          //     Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+          //   }
+          // } else {
+          //   Fluttertoast.showToast(msg: "Data Save Successfully...");
+          //}
+          Get.to(const AvatarPageView());
         },
         text: "Next");
   }

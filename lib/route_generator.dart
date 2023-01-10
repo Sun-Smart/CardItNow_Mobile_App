@@ -19,7 +19,6 @@ import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'services/gmail_auth_services.dart';
 import 'ui/landingscreens/add_card_screen.dart';
 import 'ui/landingscreens/dashbord_screen.dart';
 import 'ui/landingscreens/manula_card_screen.dart';
@@ -32,24 +31,21 @@ import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
+import 'ui/register/password.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
+import 'ui/startingscreen/home_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
-            builder: (_) => AuthService().handleAuthState());
-
-      // case '/':
-      //   // const SplashScreens()
-      //   return MaterialPageRoute(builder: (_) => const SplashScreens());
+        return MaterialPageRoute(builder: (_) => const Password());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
-      // case '/register':
-      //   return MaterialPageRoute(builder: (_) => const Register(type: ''));
+      case '/home':
+        return MaterialPageRoute(builder: (_) => const Home());
       case '/selectcountry':
         return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':

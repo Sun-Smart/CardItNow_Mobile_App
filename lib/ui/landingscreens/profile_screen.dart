@@ -2,12 +2,17 @@
 
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+
+import 'dashbord_screen.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -71,20 +76,17 @@ class _ProfileState extends State<Profile> {
                   fontSize: 25,
                   fontWeight: FontWeight.bold)),
           TextButton(
-            style: TextButton.styleFrom(
-              textStyle: TextStyle(fontSize: 14, color: HexColor('#004751')),
-            ),
-            onPressed: () {},
-            child: Text(
-              'Set up to Recieve',
-              style: TextStyle(
-                  fontSize: 12,
-                  // color: themeChange.darkTheme
-                  //     ? Colors.white
-                  //     : HexColor('#1B1B1B'),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+              style: TextButton.styleFrom(
+                textStyle: TextStyle(fontSize: 14, color: HexColor('#004751')),
+              ),
+              onPressed: () {},
+              child: Text('Set up to Recieve',
+                  style: TextStyle(
+                      fontSize: 12,
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : HexColor('#1B1B1B'),
+                      fontWeight: FontWeight.bold))),
         ]);
   }
 
@@ -97,13 +99,15 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(radius: 50, backgroundImage: NetworkImage('')),
+              CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage('userDetails.photoURL')),
               const SizedBox(height: 5),
-              Text('',
+              Text('userDetails?.displayName',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text('',
+              Text('userDetails?.email',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromARGB(255, 177, 178, 178),
@@ -179,27 +183,23 @@ class _ProfileState extends State<Profile> {
                   fontSize: 14,
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('No',
-                  style: TextStyle(
-                      fontFamily: 'ProductSans',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold)),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                AuthService().signOut();
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('Yes',
-                  style: TextStyle(
-                      fontFamily: 'ProductSans',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold)),
-            )
+            AuthButton(
+                decoration: BoxDecoration(
+                    color: HexColor('#90BA06'),
+                    borderRadius: BorderRadius.circular(5)),
+                onTap: () {
+                  GetStorage().remove('token');
+                  Get.offAndToNamed('/home');
+                },
+                text: "Yes"),
+            AuthButton(
+                decoration: BoxDecoration(
+                    color: HexColor('#D2ED78'),
+                    borderRadius: BorderRadius.circular(5)),
+                onTap: () {
+                  Get.back();
+                },
+                text: "No"),
           ],
         );
       },

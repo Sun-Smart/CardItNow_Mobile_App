@@ -16,9 +16,7 @@ import '../../widgets/custom_input.dart';
 final phonenumberController = TextEditingController();
 
 class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({
-    super.key,
-  });
+  const VerifyEmail({super.key});
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();

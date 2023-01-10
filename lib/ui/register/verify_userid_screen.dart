@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 import 'dart:developer';
@@ -22,9 +22,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class VerifyUserId extends StatefulWidget {
-  const VerifyUserId({
-    Key? key,
-  }) : super(key: key);
+  const VerifyUserId({Key? key}) : super(key: key);
 
   @override
   State<VerifyUserId> createState() => _VerifyUserIdState();

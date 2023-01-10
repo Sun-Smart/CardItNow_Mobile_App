@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +15,7 @@ import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
 
-//final userDetails = FirebaseAuth.instance.currentUser!;
+final userDetails = FirebaseAuth.instance.currentUser;
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({Key? key}) : super(key: key);
@@ -66,15 +69,10 @@ class DashbordScreenState extends State<DashbordScreen>
                     children: [
                       Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: const Color(0xff036D7A),
-                          ),
-                          child: Image.asset(
-                            'assets/profile.png',
-                            fit: BoxFit.cover,
-                            height: 43,
-                            width: 43,
-                          )),
+                              borderRadius: BorderRadius.circular(30),
+                              color: const Color(0xff036D7A)),
+                          child: Image.asset('assets/profile.png',
+                              fit: BoxFit.cover, height: 43, width: 43)),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.all(20.0),
@@ -83,7 +81,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             children: [
                               RichText(
                                   text: TextSpan(
-                                      text: 'Hello!  ',
+                                      text: 'Hello!',
                                       style: const TextStyle(
                                           color: Color(0xff036D7A),
                                           fontSize: 16,
@@ -94,7 +92,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                         text: '',
                                         style: const TextStyle(
                                             color: Color(0xffC9E313),
-                                            fontSize: 18)),
+                                            fontSize: 18))
                                   ])),
                               const Text(
                                 'Welcome !',
