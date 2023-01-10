@@ -63,6 +63,8 @@ dependencies:
   firebase_auth: ^4.2.5
   firebase_core: ^2.4.1
   pinput: 1.2.2
+  syncfusion_flutter_pdfviewer: ^20.4.43
+
 
 dev_dependencies:
   flutter_test:

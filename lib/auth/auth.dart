@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/twofactor.dart';
@@ -49,7 +51,7 @@ class AuthCon extends GetxController with BaseController {
   var selectedHeight = 50.0.obs;
 
   //current diet
-  var dietType = "Vegetarian".obs;
+  RxString dietType = "Vegetarian".obs;
 
   //fitness level
   var isBeginner = true.obs;
@@ -60,9 +62,12 @@ class AuthCon extends GetxController with BaseController {
   var manageWeight = false.obs;
   var increaseEnergy = false.obs;
   var inceaseMuscleMass = false.obs;
-  var newExcercise = false.obs;
-  var workoutWithoutOutSide = false.obs;
-  var fitEveryDay = false.obs;
+  RxBool newExcercise = false.obs;
+  RxBool workoutWithoutOutSide = false.obs;
+  RxBool fitEveryDay = false.obs;
+  var regDoc='';
+  var uploadimg ='';
+  String choosedDocId ='';
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -299,6 +304,32 @@ class AuthCon extends GetxController with BaseController {
     }
 
   }
+
+
+  void uploadDocx(
+      email,  docid, ) async {
+    var body = {
+
+    };
+    log(uploadimg+"DD");
+    print(uploadimg+"BB");
+    var response = await BaseClient()
+        .post(
+        API().uploadProcessDocument +
+           "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
+        body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    print("--------------------------------$data");
+    if (data == 'Success') {
+      Get.to(ProfileInformation());
+      print("successsssssss");
+    } else {
+      print("---------failed");
+    }
+  }
+
 
   //profile info
   // void profileinfo()async {
