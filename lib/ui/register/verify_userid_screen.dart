@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -12,14 +12,17 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+import 'pdfView.dart';
 
 class VerifyUserId extends StatefulWidget {
   const VerifyUserId({Key? key}) : super(key: key);
@@ -37,35 +40,106 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Uint8List? bytes;
   String? img64;
   List<String> images = [];
-  var convertedImage = '';
+  //  Future<void> openGallery() async {
+  //   var picker = ImagePicker();
+  //   final imageGallery = await picker.pickImage(source: ImageSource.gallery);
+  //   if (imageGallery!.path.isEmpty == false) {
+  //     setState(() {
+  //       imageFile = File(imageGallery!.path);
+  //     });
+  //     List<int> fileInBytes = await imageFile!.readAsBytes();
+  //     String fileInBase64 = base64Encode(fileInBytes);
+  //     print('******************* BASE 64 SOURCE *******************');
+  //     log(fileInBase64);
+  //     print('******************* BASE 64 SOURCE *******************');
+  //   } else {
+  //     if (kDebugMode) {
+  //       print('Null');
+  //     }
+  //   }
+  // }
 
   //Image to Byte64
-  Future<void> openGallery() async {
-    print("iiiiiiiiii");
-    var result = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
-      allowedExtensions: ['pdf', 'doc'],
-      type: FileType.custom,
-    );
-    // var picker = ImagePicker();
-    //final imageGallery = await picker.pickImage(source: ImageSource.gallery);
-    if (result!.files.first.path!.isEmpty == false) {
+  File? _file;
+  PlatformFile? _platformFile;
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+  var indexes;
+
+  openGallery() async {
+    final file = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+    if (file != null) {
       setState(() {
-        imageFile = File(result.files.first.path!);
-        print("--pathhhhh---${imageFile}");
+
+        _file = File(file.files.single.path!);
+        _platformFile = file.files.first;
+
+        List<int> fileBytes = _file!.readAsBytesSync();
+        con.regDoc = base64.encode(fileBytes);
+
       });
-      List<int> fileInBytes = await imageFile!.readAsBytes();
-      String fileInBase64 = base64Encode(fileInBytes);
-      print('******************* BASE 64 SOURCE *******************');
-      log(fileInBase64);
-      convertedImage = fileInBase64;
-      print('******************* BASE 64 SOURCE *******************');
-    } else {
-      if (kDebugMode) {
-        print('Null');
-      }
     }
   }
+
+  openFie() {
+    // print('pathoffile--pathoffile--$pathoffile');
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+Get.to(()=>PdfView(fileUrl: _file!.path));
+        },
+        child: Text(
+          _platformFile!.name,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          softWrap: true,
+          style: const TextStyle(
+              fontSize: 15, color: Colors.black, fontWeight: FontWeight.w700),
+        ),
+        // SfPdfViewer.file(
+        //       File('/data/user/0/com.example.cardit/cache/file_picker/dummy.pdf',
+
+        //       ),
+        //       key: _pdfViewerKey,
+        //       )
+      ),
+    );
+  }
+
+  // Future<void> openGallery() async {
+
+  //   print("iiiiiiiiii");
+  //   final result = await FilePicker.platform.pickFiles(
+  //     allowMultiple: false,
+  //     allowedExtensions: ['pdf', 'doc'],
+  //     type: FileType.custom,
+  //   );
+  //   final bytes = File(result!.files.first.path!).readAsBytesSync();
+
+  //   String file64 = base64Encode(bytes);
+  //   print("-----------------$file64");
+  //   setState(() {
+  //    var  file_pdf =result.files.first.path;
+  //    print("iuytrewqwerty${file_pdf}");
+  //   });
+  //   // var picker = ImagePicker();
+  //   //final imageGallery = await picker.pickImage(source: ImageSource.gallery);
+  //   // if (result!.files.first.path == false) {
+  //   //   print("iutytyfgg---------------${result!.files.first.path}");
+  //   //   setState(() {
+  //   //     imageFile = File(result!.files.first.path!);
+  //   //     print("--pathhhhh---${imageFile}");
+  //   //   });
+  //   // List<int> fileInBytes = await result!.files.first.path.readAsBytes();
+  //   // String fileInBase64 = base64Encode(int.parse.files.first.path));
+  //   // print('******************* BASE 64 SOURCE *******************');
+  //   // log(fileInBase64);
+  //   // print('******************* BASE 64 SOURCE *******************');
+  //   // } else {
+  //   //   if (kDebugMode) {
+  //   //     print('Null');
+  //   //  }
+  // }
 
   //Camera to Byte64
   Future<void> openCamera() async {
@@ -79,6 +153,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
+      ;
+      con.uploadimg = base64.encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
     } else {
       if (kDebugMode) {
@@ -91,7 +167,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   String? dropdownvalue;
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
-
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -130,16 +205,16 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           ],
         ),
         body: Container(
-            //color: Color(0XFFffffff),
+          //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: Responsive.isMobile(context)
                         ? CrossAxisAlignment.start
                         : CrossAxisAlignment.center,
                     children: [
-              buildtitle(),
-              bulidForm(),
-            ]))));
+                      buildtitle(),
+                      bulidForm(),
+                    ]))));
   }
 
   Widget buildtitle() {
@@ -185,14 +260,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     width: Responsive.isMobile(context)
                         ? MediaQuery.of(context).size.width / 1
                         : Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4.5
-                            : MediaQuery.of(context).size.width / 2.5,
+                        ? MediaQuery.of(context).size.width / 4.5
+                        : MediaQuery.of(context).size.width / 2.5,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color(0XffB7C5C7), width: 1.5),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(3))),
+                        const BorderRadius.all(Radius.circular(3))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton(
@@ -210,24 +285,25 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                     : Colors.black45)),
                         items: con.isUAE.value
                             ? uaeData.map((String item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item,
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList()
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B),
+                                      fontSize: 14)));
+                        }).toList()
                             : philipineData.map((String item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item,
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList(),
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B),
+                                      fontSize: 14)));
+                        }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
+                            con.choosedDocId=newValue;
                           });
                         },
                         style: const TextStyle(color: Colors.black),
@@ -261,7 +337,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                             : 'Enter ${dropdownvalue} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
-                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
                         hintStyle: const TextStyle(
                             fontSize: 12,
                             fontFamily: 'Sora',
@@ -296,7 +372,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           : "Enter Your ${dropdownvalue.toString()} Number",
                       validator: (value) {
                         if (dropdownvalue == null) {
-                          return "Select Your Document Type";
+                          return "Enter Your Document Type";
                         } else {
                           return "Enter ${dropdownvalue.toString()} Number";
                         }
@@ -304,9 +380,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(height: 20),
                   Container(
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text(
-                          'Take'
-                          ' Selfie',
+                      child: Text('Upload your Selfie',
                           style: TextStyle(
                               fontFamily: 'Sora',
                               fontSize: 14,
@@ -325,8 +399,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+              ? MediaQuery.of(context).size.width / 4.5
+              : MediaQuery.of(context).size.width / 2.5,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -356,13 +430,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 openCamera();
               },
-              child: Image.file(imageFile1!)));
+              child: Image.file(
+                imageFile1!,
+              )));
     }
   }
 
   //Upload Your Document
   Widget displayImage() {
-    if (imageFile == null) {
+    if (_platformFile == null) {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           width: MediaQuery.of(context).size.width / 1,
@@ -385,18 +461,57 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             ),
           ));
     } else {
-      return Container(
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
-          decoration: BoxDecoration(
-              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-              borderRadius: const BorderRadius.all(Radius.circular(3))),
-          child: InkWell(
-            onTap: () async {
-              openGallery();
-            },
-            child: Image.file(imageFile!),
-          ));
+      return InkWell(
+
+        // onTap: () {
+        //  _launchInBrowser(Uri(path: _file.toString() ));
+
+        // },
+        child: Center(
+          child: Container(
+            height: MediaQuery.of(context).size.height / 10,
+            width: MediaQuery.of(context).size.width / 1.2,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.withOpacity(0.5)),
+            child: Stack(children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 60,
+                child: Card(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(children: [
+                      // Image.asset(
+                      //   "assets/pdf_image.png",
+                      //   width: 25,
+                      // ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      openFie(),
+                    ]),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      );
+
+      //  Container(
+      //     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+      //     width: MediaQuery.of(context).size.width / 1,
+      //     decoration: BoxDecoration(
+      //         border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+      //         borderRadius: const BorderRadius.all(Radius.circular(3))),
+      //     child: InkWell(
+      //       onTap: () async {
+      //         openGallery();
+      //       },
+      //       child: Text(_platformFile!.name),
+      //     ));
     }
   }
 
@@ -405,9 +520,27 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (formKey.currentState!.validate()) {
-            Navigator.of(context).pushNamed('/profileInformation');
+          if(phoneNumberController.text.isEmpty){
+            Fluttertoast.showToast(msg: 'Enter ${dropdownvalue} Number',);
+          }else{
+            con.uploadDocx(
+              con.emailController.text,
+           phoneNumberController.text
+            );
           }
+          // setState(() {
+          //   con.uploadDocx(
+          //       con.emailController.text.toString(),
+          //       // int.parse(indexes.toString()),
+          //       1,
+          //       "wwerftghyjhgfdsdf",
+          //       int.parse(phoneNumberController.text.toString()),
+          //       'hiii');
+          // });
+
+          // if (formKey.currentState!.validate()) {
+          //   Navigator.of(context).pushNamed('/profileInformation');
+          // }
         },
         text: "Next");
   }
