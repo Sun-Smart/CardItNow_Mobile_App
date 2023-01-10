@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -492,8 +493,8 @@ class _RegisterState extends State<Register> {
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
             onTap: () {
-              print("Gmail Tapped Done");
-              // AuthService().signinWithGoogle();
+              // print("Gmail Tapped Done");
+              AuthService().signinWithGoogle();
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
@@ -547,18 +548,12 @@ class _RegisterState extends State<Register> {
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
       content: Container(
-        width: Responsive.isMobile(context)
-            ? 300
-            : MediaQuery.of(context).size.width / 5,
-        child: Text(con.termscond,
-            style: TextStyle(
-              fontSize: 13,
-              color: Styles.whitecolortext,
-            )),
-      ),
-      actions: [
-        okButton,
-      ],
+          width: Responsive.isMobile(context)
+              ? 300
+              : MediaQuery.of(context).size.width / 5,
+          child: Text(con.termscond,
+              style: TextStyle(fontSize: 13, color: Styles.whitecolortext))),
+      actions: [okButton],
     );
 
     // show the dialog

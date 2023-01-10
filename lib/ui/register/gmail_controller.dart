@@ -1,15 +1,32 @@
 // ignore_for_file: prefer_final_fields, unnecessary_import
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class GmailController extends GetxController {
   var _googleSignin = GoogleSignIn();
   var googleAccount = Rx<GoogleSignInAccount?>(null);
 
-  login() async {
-    googleAccount.value = await _googleSignin.signIn();
+  // login() async {
+  //   googleAccount.value = await _googleSignin.signIn();
+  // }
+
+  //1. Handle Auth State()
+  handleAuthState() {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData) {
+          return const DashbordScreen();
+        } else {
+          return const SplashScreens();
+        }
+      },
+    );
   }
 
   //2. SignIn With Google account()
@@ -31,6 +48,7 @@ class GmailController extends GetxController {
   }
 
   logout() async {
-    googleAccount.value = await _googleSignin.signOut();
+    // googleAccount.value = await _googleSignin.signOut();
+    FirebaseAuth.instance.signOut();
   }
 }

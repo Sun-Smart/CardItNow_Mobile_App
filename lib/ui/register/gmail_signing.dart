@@ -36,7 +36,6 @@ class _GoogleSigningPageState extends State<GoogleSigningPage> {
     return FloatingActionButton.extended(
         onPressed: () {
           // controller.login();
-
           controller.signinWithGoogle();
         },
         icon: Icon(Icons.gps_off_outlined, color: Colors.black),
