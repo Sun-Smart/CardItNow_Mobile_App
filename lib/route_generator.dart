@@ -32,14 +32,16 @@ import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
-import 'ui/register/gmail_signing.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
+import 'ui/startingscreen/home_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (_) => const SplashScreens());
       // case '/':
       //   return MaterialPageRoute(
       //       builder: (_) => AuthService().handleAuthState());
@@ -48,8 +50,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
-      // case '/register':
-      //   return MaterialPageRoute(builder: (_) => const Register(type: ''));
+      case '/home':
+        return MaterialPageRoute(builder: (_) => const Home());
       case '/selectcountry':
         return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':

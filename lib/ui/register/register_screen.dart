@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print
 
 import 'dart:ui';
 
@@ -492,9 +492,10 @@ class _RegisterState extends State<Register> {
             highlightColor: Color(0XFFffffff),
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
-            onTap: () {
-              // print("Gmail Tapped Done");
+            onTap: () async {
+              //Gmail Auth
               AuthService().signinWithGoogle();
+              print(AuthService().signinWithGoogle());
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),

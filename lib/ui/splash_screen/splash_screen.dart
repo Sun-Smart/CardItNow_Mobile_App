@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class SplashScreens extends StatefulWidget {
@@ -20,9 +21,12 @@ class StartState extends State<SplashScreens> {
   }
 
   _navigation() async {
-    await Future.delayed(const Duration(seconds: 5), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Home()));
+    await Future.delayed(const Duration(milliseconds: 2500), () {});
+    if (GetStorage().read('token') == null) {
+      Get.toNamed('/home');
+    } else {
+      Get.toNamed('/dashbordScreen');
+    }
   }
 
   @override
@@ -32,11 +36,8 @@ class StartState extends State<SplashScreens> {
       home: Scaffold(
           backgroundColor: HexColor('#004751'),
           body: Center(
-            child: SvgPicture.asset(
-              'assets/lodaingimg.svg',
-              width: 190,
-              height: 58,
-            ),
+            child: SvgPicture.asset('assets/lodaingimg.svg',
+                width: 190, height: 58),
           )),
     );
   }

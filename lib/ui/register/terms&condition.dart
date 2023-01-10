@@ -1,10 +1,10 @@
 // ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -93,11 +93,9 @@ class _termsandconditionsState extends State<termsandconditions> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: themeChange.darkTheme ? Colors.white : Colors.black,
-              size: 30,
-            ),
+            icon: Icon(Icons.arrow_back,
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -108,15 +106,16 @@ class _termsandconditionsState extends State<termsandconditions> {
 
   Widget bulildbutton() {
     return AuthButton(
-      decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      onTap: () {
-        Get.to(() => DashbordScreen());
-      },
-      text: "Done",
-    );
+        decoration: BoxDecoration(
+            color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
+        onTap: () {
+          if (GetStorage().read('token') == null) {
+            Get.toNamed('/home');
+          } else {
+            Get.toNamed('/dashbordScreen');
+          }
+        },
+        text: "Done");
   }
 
   Widget buildtitle() {
