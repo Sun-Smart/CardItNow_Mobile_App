@@ -658,28 +658,33 @@ class _ProfileInformationState extends State<ProfileInformation> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (formKey.currentState!.validate()) {
-            // con.profileInformatrion(
-            //     firstNameController.text,
-            //     lastNameController.text,
-            //     cityNameController.text,
-            //     stateNameController.text,
-            //     'stateNameController.text',
-            //     dateOfBrithController.text,
-            //     issueDateController.text,
-            //     expiredDateController.text,
-            //     addressController.text,
-            //     postalCodeController.text,
-            //     "null",
-            //     "null");
+
+
+
             if (issueDateController.text == expiredDateController.text) {
               Fluttertoast.showToast(
                   msg: "Issue date and Expiry date is same...");
             } else {
-              Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+              con.profileInformatrion(
+                con.emailController.text,
+                  firstNameController.text,
+                  lastNameController.text,
+                  cityNameController.text,
+                  stateNameController.text,
+                  requiredNoController.text,
+                  // 'stateNameController.text',
+                  dateOfBrithController.text,
+                  issueDateController.text,
+                  expiredDateController.text,
+                  addressController.text,
+                  postalCodeController.text,
+                  );
+              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             }
-          } else {
-            Fluttertoast.showToast(msg: "Data Save Successfully...");
           }
+          // else {
+          //   Fluttertoast.showToast(msg: "Data Save Successfully...");
+          // }
         },
         text: "Next");
   }

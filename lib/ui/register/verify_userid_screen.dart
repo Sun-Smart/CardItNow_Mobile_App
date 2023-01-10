@@ -230,6 +230,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
+                            var indexes = philipineData.indexOf(dropdownvalue!);
+                            // var uaeindex = uaeData.indexOf(dropdownvalue!);
+                            print(indexes.toString());
+                            // print(uaeindex.toString());
+
                           });
                         },
                         style: const TextStyle(color: Colors.black),

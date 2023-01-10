@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/register/select_avatar_screen.dart';
+import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 import 'package:http/http.dart' as http;
@@ -190,53 +193,33 @@ class AuthCon extends GetxController with BaseController {
 
   //profile Infomation
   void profileInformatrion(
+      email,
       firstName,
       lastName,
       city,
       state,
-      status,
+      requiredno,
       dateofbrith,
       issuedate,
       expirydate,
       address,
       postalcode,
-      createDate,
-      mobile) async {
+
+      ) async {
     var body = {};
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                '&firstname' +
-                firstName +
-                '&lastname' +
-                lastName +
-                '&state' +
-                state +
-                '&city' +
-                city +
-                '&mobile' +
-                mobile +
-                '&dateofbirth' +
-                dateofbrith +
-                '&address' +
-                address +
-                '&postalcode' +
-                postalcode +
-                '&idissuedate' +
-                issuedate +
-                '&idexpirydate' +
-                expirydate +
-                '&status' +
-                status +
-                'createddate' +
-                createDate,
+               '?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate',
+
             body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
-      Fluttertoast.showToast(msg: 'Data Save Done');
+      Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -269,6 +252,8 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+
+
   //terms and condition
   void termsconditions() async {
     var response =
@@ -299,7 +284,7 @@ class AuthCon extends GetxController with BaseController {
    var file=  await http.MultipartFile.fromPath('Imagefile', image!.path);
 
       var response = await BaseClient()
-          .post(API().uploadAvator, body, isMultiPart: true,file: file,isDev: true)
+          .post(API().uploadAvator, body, isMultiPart: true,file: file,)
           .catchError(handleError);
       if (response == null) return;
       var data = json.decode(response);
