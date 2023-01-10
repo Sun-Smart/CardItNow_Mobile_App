@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, constant_identifier_names, avoid_print
 
 import 'dart:async';
 import 'dart:convert';

@@ -16,6 +16,7 @@ class API {
 
   String password = "customermaster/password config";
   String pinset = "customermaster/TPIN config";
+  String updateProfileInformation = 'customermaster/UpdateProfileInformation';
 
   //home
   String home = "";
