@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, constant_identifier_names, avoid_print
+// ignore_for_file: sort_child_properties_last, constant_identifier_names, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors
 
 import 'dart:async';
 import 'dart:convert';
@@ -25,13 +25,11 @@ class DialogHelper {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "Oops!! Network Issue",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'sora'),
-                ),
+                Text("Oops!! Network Issue",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sora')),
                 // Txt(
                 //   text: title,
                 //   weight: FontWeight.bold,
@@ -127,10 +125,9 @@ class UnAuthorizedException extends AppException {
 
 class BaseClient {
   static const int TIME_OUT_DURATION = 20;
+
   //GET
-  Future<dynamic> get(
-    String endPoint,
-  ) async {
+  Future<dynamic> get(String endPoint) async {
     var uri = Uri.parse(API().baseURL + endPoint);
     print(uri.toString());
     try {
@@ -151,33 +148,26 @@ class BaseClient {
   }
 
   //POST
-  Future<dynamic> post(String endPoint, dynamic payloadObj,{isMultiPart=false,file,isDev=false}) async {
-
-
+  Future<dynamic> post(String endPoint, dynamic payloadObj,
+      {isMultiPart = false, file, isDev = false}) async {
     var productionUrl = Uri.parse(API().baseURL + endPoint);
     var devUrl = Uri.parse(API().localUrl + endPoint);
-
     // var payload = json.encode(payloadObj);\
     // print(uri);
-    var uri=isDev?devUrl:productionUrl;
-    print(uri.toString()+"url");
-
+    var uri = isDev ? devUrl : productionUrl;
+    print(uri.toString() + "url");
     try {
-      var normalReq= http
-          .post(uri,
+      var normalReq = http.post(uri,
           headers: <String, String>{
             'accept': 'application/json',
             // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJeUxURXlMVEkySURBME9qQXdPakE0TGpZd01qWXpOQzB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxMi8yNi8yMDIyIDM6MzI6MjMgUE0iLCJleHAiOjE2NzIyMjg5NDMsImlzcyI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyJ9.d0FA5lAJ8zC6uPF9mRr6Z2IGIQa_f65dW9ETfdqH0ZU'
           },
           body: payloadObj);
-      var multiPartReq= http.MultipartRequest('POST', uri,);
-
-      if(isMultiPart){
+      var multiPartReq = http.MultipartRequest('POST', uri);
+      if (isMultiPart) {
         print('yesss');
-        multiPartReq.headers.addAll(
-            {"Content-type": "multipart/form-data"});
+        multiPartReq.headers.addAll({"Content-type": "multipart/form-data"});
         multiPartReq.files.add(file);
-
         var response = await multiPartReq.send();
         final respStr = await response.stream.bytesToString();
         // var response = await
@@ -185,17 +175,13 @@ class BaseClient {
         print(respStr + "body");
         // var result = json.decode(respStr);
         print(response.statusCode.toString() + "body");
-
         // return _processResponse(result);
-
-      }
-      else{
-        var response = await
-        normalReq.timeout(const Duration(seconds: TIME_OUT_DURATION));
+      } else {
+        var response =
+            await normalReq.timeout(const Duration(seconds: TIME_OUT_DURATION));
         print(response.body + "body");
         return _processResponse(response);
       }
-
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());
     } on TimeoutException {

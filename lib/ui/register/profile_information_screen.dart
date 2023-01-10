@@ -659,8 +659,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
         onTap: () {
           if (formKey.currentState!.validate()) {
 
-
-
             if (issueDateController.text == expiredDateController.text) {
               Fluttertoast.showToast(
                   msg: "Issue date and Expiry date is same...");
@@ -672,19 +670,17 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   cityNameController.text,
                   stateNameController.text,
                   requiredNoController.text,
-                  // 'stateNameController.text',
                   dateOfBrithController.text,
                   issueDateController.text,
                   expiredDateController.text,
                   addressController.text,
                   postalCodeController.text,
                   );
-              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+             // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             }
+          } else {
+            Fluttertoast.showToast(msg: "Data Save Successfully...");
           }
-          // else {
-          //   Fluttertoast.showToast(msg: "Data Save Successfully...");
-          // }
         },
         text: "Next");
   }

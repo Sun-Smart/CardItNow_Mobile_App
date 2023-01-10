@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
-import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/register/register_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
@@ -210,8 +210,7 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-               '?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate',
-
+                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate",
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -252,8 +251,6 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-
-
   //terms and condition
   void termsconditions() async {
     var response =
@@ -284,7 +281,7 @@ class AuthCon extends GetxController with BaseController {
    var file=  await http.MultipartFile.fromPath('Imagefile', image!.path);
 
       var response = await BaseClient()
-          .post(API().uploadAvator, body, isMultiPart: true,file: file,)
+          .post(API().uploadAvator, body, isMultiPart: true,file: file,isDev: true)
           .catchError(handleError);
       if (response == null) return;
       var data = json.decode(response);

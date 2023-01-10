@@ -1,9 +1,8 @@
-// ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -192,7 +191,7 @@ class _ProfileState extends State<Profile> {
             ),
             ElevatedButton(
               onPressed: () {
-               // AuthService().signOut();
+                AuthService().signOut();
                 Navigator.of(context).pop(true);
               },
               child: const Text('Yes',

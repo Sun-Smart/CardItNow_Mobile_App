@@ -167,21 +167,18 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           : MediaQuery.of(context).size.width / 3.2,
                   top: 40,
                   child: TextButton(
-                    style: TextButton.styleFrom(
-                        textStyle: TextStyle(
-                            fontSize: 14, color: HexColor('#036D7B'))),
-                    onPressed: () {
-                      con.registerAPI(con.emailController.text.toString());
-                      Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
-                    },
-                    child: Text(
-                      'Resend',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: HexColor('#036D7B'),
-                          fontFamily: 'Sora'),
-                    ),
-                  )),
+                      style: TextButton.styleFrom(
+                          textStyle: TextStyle(
+                              fontSize: 14, color: HexColor('#036D7B'))),
+                      onPressed: () {
+                        con.registerAPI(con.emailController.text.toString());
+                        Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
+                      },
+                      child: Text('Resend',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: HexColor('#036D7B'),
+                              fontFamily: 'Sora')))),
             ])));
   }
 
