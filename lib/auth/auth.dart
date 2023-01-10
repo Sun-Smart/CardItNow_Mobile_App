@@ -11,7 +11,7 @@ import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,6 +70,8 @@ class AuthCon extends GetxController with BaseController {
   var regDoc = '';
   var uploadimg = '';
   String choosedDocId = '';
+
+  var googleMail = '';
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -140,9 +142,7 @@ class AuthCon extends GetxController with BaseController {
   //regsterApi
   void registerAPI(email) async {
     showLoading();
-
     var body = {};
-
     var response = await BaseClient()
         .post(
           API().register + '?email=' + email,

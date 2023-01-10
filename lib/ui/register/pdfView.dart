@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-
 class PdfView extends StatelessWidget {
   final String fileUrl;
   const PdfView({Key? key, required this.fileUrl}) : super(key: key);
@@ -11,11 +10,11 @@ class PdfView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:       SfPdfViewer.file(
-            File(fileUrl,
-
-            ),
-            ),
+      body: SfPdfViewer.file(
+        File(
+          fileUrl,
+        ),
+      ),
     );
   }
 }

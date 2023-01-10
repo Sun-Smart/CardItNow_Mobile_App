@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -12,7 +11,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -70,13 +69,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
     if (file != null) {
       setState(() {
-
         _file = File(file.files.single.path!);
         _platformFile = file.files.first;
 
         List<int> fileBytes = _file!.readAsBytesSync();
         con.regDoc = base64.encode(fileBytes);
-
       });
     }
   }
@@ -86,7 +83,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     return Expanded(
       child: InkWell(
         onTap: () {
-Get.to(()=>PdfView(fileUrl: _file!.path));
+          Get.to(() => PdfView(fileUrl: _file!.path));
         },
         child: Text(
           _platformFile!.name,
@@ -205,16 +202,16 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
           ],
         ),
         body: Container(
-          //color: Color(0XFFffffff),
+            //color: Color(0XFFffffff),
             child: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: Responsive.isMobile(context)
                         ? CrossAxisAlignment.start
                         : CrossAxisAlignment.center,
                     children: [
-                      buildtitle(),
-                      bulidForm(),
-                    ]))));
+              buildtitle(),
+              bulidForm(),
+            ]))));
   }
 
   Widget buildtitle() {
@@ -260,14 +257,14 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
                     width: Responsive.isMobile(context)
                         ? MediaQuery.of(context).size.width / 1
                         : Responsive.isDesktop(context)
-                        ? MediaQuery.of(context).size.width / 4.5
-                        : MediaQuery.of(context).size.width / 2.5,
+                            ? MediaQuery.of(context).size.width / 4.5
+                            : MediaQuery.of(context).size.width / 2.5,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color(0XffB7C5C7), width: 1.5),
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(3))),
+                            const BorderRadius.all(Radius.circular(3))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton(
@@ -285,25 +282,25 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
                                     : Colors.black45)),
                         items: con.isUAE.value
                             ? uaeData.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B),
-                                      fontSize: 14)));
-                        }).toList()
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList()
                             : philipineData.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B),
-                                      fontSize: 14)));
-                        }).toList(),
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
-                            con.choosedDocId=newValue;
+                            con.choosedDocId = newValue;
                           });
                         },
                         style: const TextStyle(color: Colors.black),
@@ -337,7 +334,7 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
                             : 'Enter ${dropdownvalue} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
-                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
                         hintStyle: const TextStyle(
                             fontSize: 12,
                             fontFamily: 'Sora',
@@ -399,8 +396,8 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
-              ? MediaQuery.of(context).size.width / 4.5
-              : MediaQuery.of(context).size.width / 2.5,
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -462,7 +459,6 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
           ));
     } else {
       return InkWell(
-
         // onTap: () {
         //  _launchInBrowser(Uri(path: _file.toString() ));
 
@@ -520,13 +516,13 @@ Get.to(()=>PdfView(fileUrl: _file!.path));
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if(phoneNumberController.text.isEmpty){
-            Fluttertoast.showToast(msg: 'Enter ${dropdownvalue} Number',);
-          }else{
-            con.uploadDocx(
-              con.emailController.text,
-           phoneNumberController.text
+          if (phoneNumberController.text.isEmpty) {
+            Fluttertoast.showToast(
+              msg: 'Enter ${dropdownvalue} Number',
             );
+          } else {
+            con.uploadDocx(
+                con.emailController.text, phoneNumberController.text);
           }
           // setState(() {
           //   con.uploadDocx(
