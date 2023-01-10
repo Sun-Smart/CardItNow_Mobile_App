@@ -173,7 +173,6 @@ class AuthCon extends GetxController with BaseController {
 
   // password
   void passwordapi(email, password) async {
-    // showLoading();
     var body = {};
     var response = await BaseClient()
         .post(
@@ -181,16 +180,63 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-
-    // hideLoading();
     print('pass' + data);
-
     if (data == "Success") {
       Get.to(VerifyUserId());
-      // token.value = userData["token"];
-      // if (!resend) {
-      // Get.to(OtpScreenView());
-      // }
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  //profile Infomation
+  void profileInformatrion(
+      firstName,
+      lastName,
+      city,
+      state,
+      status,
+      dateofbrith,
+      issuedate,
+      expirydate,
+      address,
+      postalcode,
+      createDate,
+      mobile) async {
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().updateProfileInformation +
+                '&firstname' +
+                firstName +
+                '&lastname' +
+                lastName +
+                '&state' +
+                state +
+                '&city' +
+                city +
+                '&mobile' +
+                mobile +
+                '&dateofbirth' +
+                dateofbrith +
+                '&address' +
+                address +
+                '&postalcode' +
+                postalcode +
+                '&idissuedate' +
+                issuedate +
+                '&idexpirydate' +
+                expirydate +
+                '&status' +
+                status +
+                'createddate' +
+                createDate,
+            body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      Fluttertoast.showToast(msg: 'Data Save Done');
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }

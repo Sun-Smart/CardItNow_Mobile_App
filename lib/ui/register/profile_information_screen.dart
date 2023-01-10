@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, depend_on_referenced_packages, avoid_print
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -23,8 +24,11 @@ class ProfileInformation extends StatefulWidget {
 }
 
 class _ProfileInformationState extends State<ProfileInformation> {
+  final AuthCon con = Get.find();
   final formKey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
+  final cityNameController = TextEditingController();
+  final stateNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final requiredNoController = TextEditingController();
   final dateOfBrithController = TextEditingController();
@@ -192,6 +196,111 @@ class _ProfileInformationState extends State<ProfileInformation> {
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
+              label: "City ",
+              controller: cityNameController,
+              obsecureText: false,
+              inputHint: "Your City Name",
+              textInputType: TextInputType.text,
+              validator: (value) {
+                if (cityNameController.text.isEmpty) {
+                  return "Please Enter City Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+              inputDecoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'City Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.normal),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 10),
+            MyCustomInputBox(
+              enabled: true,
+              label: "State ",
+              controller: stateNameController,
+              obsecureText: false,
+              inputHint: "Your State Name",
+              textInputType: TextInputType.text,
+              validator: (value) {
+                if (stateNameController.text.isEmpty) {
+                  return "Please Enter State Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+              inputDecoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'State Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 10),
+            MyCustomInputBox(
+              enabled: true,
               label: "Required Number",
               controller: requiredNoController,
               obsecureText: false,
@@ -273,7 +382,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Date Of Brith',
+                hintText: 'YYYY-MM-DD',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
@@ -338,7 +447,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Your Issue',
+                hintText: 'YYYY-MM-DD',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
@@ -403,7 +512,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Your Expired Date',
+                hintText: 'YYYY-MM-DD',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
@@ -536,6 +645,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -548,12 +658,28 @@ class _ProfileInformationState extends State<ProfileInformation> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (formKey.currentState!.validate()) {
-            Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-            if (issueDateController.text != expiredDateController.text) {
-              Fluttertoast.showToast(msg: "Date has mismatched");
+            // con.profileInformatrion(
+            //     firstNameController.text,
+            //     lastNameController.text,
+            //     cityNameController.text,
+            //     stateNameController.text,
+            //     'stateNameController.text',
+            //     dateOfBrithController.text,
+            //     issueDateController.text,
+            //     expiredDateController.text,
+            //     addressController.text,
+            //     postalCodeController.text,
+            //     "null",
+            //     "null");
+            if (issueDateController.text == expiredDateController.text) {
+              Fluttertoast.showToast(
+                  msg: "Issue date and Expiry date is same...");
+            } else {
+              Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             }
-            print('Done');
-          } else {}
+          } else {
+            Fluttertoast.showToast(msg: "Data Save Successfully...");
+          }
         },
         text: "Next");
   }
