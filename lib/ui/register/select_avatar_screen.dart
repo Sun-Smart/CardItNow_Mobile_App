@@ -124,6 +124,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                     // imagePickerAvator(avatorDatas, () {
                                     //   con.avatorSelfi(avatorDatas);
                                     // });
+
                                     print(con.avatarImageList.toString());
                                   },
                                   child: Card(
@@ -135,8 +136,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                         borderRadius:
                                             BorderRadius.circular(15.0)),
                                     child: Container(
-                                      child: Text(
-                                          con.avatarImageList[index]['value']),
+                                      child: Image.network(
+                                          con.avatarImageList[index]['aurl']),
                                       // child: Image.network(con.avatarImage),
                                     ),
                                   ),
@@ -190,12 +191,12 @@ class _AvatarPageViewState extends State<AvatarPageView> {
   }
 
   //Camera Image Picker
-  File? image;
+
   Future getIDImage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
     if (image == null) return;
     final imageTemporary = File(image.path);
-    setState(() => this.image = imageTemporary);
+    setState(() => this.con.image = imageTemporary);
     imagePickerCamera(imageTemporary);
     print('File Path *************** $imageTemporary');
   }
@@ -231,9 +232,9 @@ class _AvatarPageViewState extends State<AvatarPageView> {
         return AlertDialog(
           elevation: 10,
           actions: <Widget>[
-            image != null
+            con.image != null
                 ? Image.file(
-                    cacheHeight: 600, cacheWidth: 500, image!, fit: BoxFit.fill)
+                    cacheHeight: 600, cacheWidth: 500, con.image!, fit: BoxFit.fill)
                 : Center(
                     child: Text('No Image Found',
                         style: TextStyle(

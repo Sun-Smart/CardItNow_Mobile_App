@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/password.dart';
@@ -15,6 +16,7 @@ import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
+import 'package:http/http.dart' as http;
 
 class AuthCon extends GetxController with BaseController {
   @override
@@ -24,7 +26,7 @@ class AuthCon extends GetxController with BaseController {
     geoaccess();
     super.onInit();
   }
-
+  File? image;
   var isUAE = false.obs;
   // terms and conditions
   var termscond = '';
@@ -124,10 +126,10 @@ class AuthCon extends GetxController with BaseController {
   void registerAPI(email) async {
     showLoading();
 
-    var body = {"email": email};
+    var body = {};
 
     var response = await BaseClient()
-        .post(API().register + '?email=' + email, body)
+        .post(API().register + '?email=' + email, body,)
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
@@ -283,32 +285,37 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     avatarImageList = data;
-    print(avatarImageList);
+    print("avatarcheck"+avatarImageList.length.toString());
   }
 
   //upload Avator and Selfi
   void avatorSelfi(avator) async {
-    // showLoading();
+    showLoading();
     print(avator);
     var body = {};
-    var response = await BaseClient()
-        .post(API().uploadAvator + 'ImageFile=' + avator, body)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-    // hideLoading();
-    print('pass-------------------' + data);
-    if (data == "Success") {
-      Fluttertoast.showToast(msg: 'Data Upload Successfully...');
-      print(data.toString());
-      // Get.to(termsandconditions());
-      // token.value = userData["token"];
-      // if (!resend) {
-      // Get.to(OtpScreenView());
-      // }
-    } else {
-      Fluttertoast.showToast(msg: data.toString());
+
+
+    if (image != null) {
+   var file=  await http.MultipartFile.fromPath('Imagefile', image!.path);
+
+      var response = await BaseClient()
+          .post(API().uploadAvator, body, isMultiPart: true,file: file,isDev: true)
+          .catchError(handleError);
+      if (response == null) return;
+      var data = json.decode(response);
+   if (data == "Success") {
+     Fluttertoast.showToast(msg: 'Data Upload Successfully...');
+     print(data.toString());
+     // Get.to(termsandconditions());
+     // token.value = userData["token"];
+     // if (!resend) {
+     // Get.to(OtpScreenView());
+     // }
+   } else {
+     Fluttertoast.showToast(msg: data.toString());
+   }
     }
+
   }
 
   //profile info
