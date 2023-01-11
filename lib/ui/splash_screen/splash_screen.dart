@@ -23,7 +23,7 @@ class StartState extends State<SplashScreens> {
   _navigation() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {});
     if (GetStorage().read('token') == null) {
-      Get.toNamed('/home');
+      Get.toNamed('/splash2');
     } else {
       Get.toNamed('/dashbordScreen');
     }
@@ -36,8 +36,24 @@ class StartState extends State<SplashScreens> {
       home: Scaffold(
           backgroundColor: HexColor('#004751'),
           body: Center(
-            child: SvgPicture.asset('assets/lodaingimg.svg',
-                width: 190, height: 58),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                SvgPicture.asset('assets/lodaingimg.svg',
+                    width: 230, height: 65),
+                SizedBox(
+                  height: 30,
+                ),
+                Text("${"MAKE  YOUR  LIFE  EASY"}",
+                style: TextStyle(
+                  fontSize: 15, color: Colors.white,
+                  fontFamily: 'sora'
+                ),
+                ),
+
+              ],
+            ),
           )),
     );
   }
