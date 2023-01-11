@@ -23,19 +23,19 @@ class AvatarPageView extends StatefulWidget {
 class _AvatarPageViewState extends State<AvatarPageView> {
   var indx = 0;
   var type = '';
-  // var avatars = [
-  //   "assets/Memoji Girls 4-17.png",
-  //   "assets/Memoji Boys 1-12.png",
-  //   "assets/Memoji Boys 1-15.png",
-  //   "assets/Memoji Boys 1-20.png",
-  //   "assets/Memoji Boys 1-24.png",
-  //   "assets/Memoji Boys 2-1.png",
-  //   "assets/Memoji Boys 2-18.png",
-  //   "assets/Memoji Girls 1-13.png",
-  //   "assets/Memoji Girls 1-15.png",
-  //   "assets/Memoji Girls 2-6.png",
-  //   "assets/Memoji Girls 4-13.png"
-  // ];
+  var avatars = [
+    "assets/Memoji Girls 4-17.png",
+    "assets/Memoji Boys 1-12.png",
+    "assets/Memoji Boys 1-15.png",
+    "assets/Memoji Boys 1-20.png",
+    "assets/Memoji Boys 1-24.png",
+    "assets/Memoji Boys 2-1.png",
+    "assets/Memoji Boys 2-18.png",
+    "assets/Memoji Girls 1-13.png",
+    "assets/Memoji Girls 1-15.png",
+    "assets/Memoji Girls 2-6.png",
+    "assets/Memoji Girls 4-13.png"
+  ];
   final AuthCon con = Get.find();
 
   @override
@@ -95,8 +95,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     height: size.height / 1.5,
                     width: size.width / 1,
                     child: GridView.builder(
-                        //itemCount: images.length,
-                        itemCount: con.avatarImageList.length,
+                        itemCount: avatars.length,
+                        // itemCount: con.avatarImageList.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: Responsive.isMobile(context)
                                 ? 3
@@ -119,16 +119,19 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                               Container(
                                 child: InkWell(
                                   onTap: () {
-                                    //  type == avatars[index];
-                                    // var avatorDatas = con.avatarImage.length;
-                                    // imagePickerAvator(avatorDatas, () {
-                                    //   con.avatorSelfi(avatorDatas);
-                                    // });
+                                    type == avatars[index];
+                                    var avatorDatas = avatars[index];
+                                    imagePickerAvator(avatorDatas, () {
+                                      // con.avatorSelfi(avatorDatas);
+                                    });
 
                                     print(con.avatarImageList.toString());
                                   },
                                   child: Card(
-                                    color: type == con.avatarImageList.length
+                                    // color: type == con.avatarImageList.length
+                                    //     ? HexColor('#CEE812')
+                                    //     : Colors.white,
+                                    color: type == avatars.length
                                         ? HexColor('#CEE812')
                                         : Colors.white,
                                     elevation: 4,
@@ -136,8 +139,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                         borderRadius:
                                             BorderRadius.circular(15.0)),
                                     child: Container(
-                                      child: Image.network(
-                                          con.avatarImageList[index]['aurl']),
+                                      child: Image.asset(avatars[index]),
+
+                                      // Image.network(
+                                      //     con.avatarImageList[index]['aurl']),
                                       // child: Image.network(con.avatarImage),
                                     ),
                                   ),
@@ -234,7 +239,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
           actions: <Widget>[
             con.image != null
                 ? Image.file(
-                    cacheHeight: 600, cacheWidth: 500, con.image!, fit: BoxFit.fill)
+                    cacheHeight: 600,
+                    cacheWidth: 500,
+                    con.image!,
+                    fit: BoxFit.fill)
                 : Center(
                     child: Text('No Image Found',
                         style: TextStyle(
@@ -261,7 +269,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     color: HexColor('#CEE812'),
                     onPressed: () {
                       print(imagePath);
-                      con.avatorSelfi(imagePath);
+                      Get.back();
+                      // Get.to(() => Passcode());
+                      // Navigator.pop(context);
+                      // con.avatorSelfi(imagePath);
                     },
                     child: Text('SAVE',
                         style: TextStyle(

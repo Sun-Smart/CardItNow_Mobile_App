@@ -36,6 +36,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   File? imageFile;
   File? imageFile1;
+  File? imagedoc2;
   Uint8List? bytes;
   String? img64;
   List<String> images = [];
@@ -137,8 +138,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   //   //     print('Null');
   //   //  }
   // }
-
-  //Camera to Byte64
+//doc to 64
   Future<void> openCamera() async {
     var picker = ImagePicker();
     final imageGallery = await picker.pickImage(source: ImageSource.camera);
@@ -147,6 +147,29 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         imageFile1 = File(imageGallery.path);
       });
       List<int> fileInBytes = await imageFile1!.readAsBytes();
+      String fileInBase64 = base64Encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+      log(fileInBase64);
+      ;
+      con.uploadimg = base64.encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+    } else {
+      if (kDebugMode) {
+        print('Null');
+      }
+    }
+  }
+  //
+
+  //Camera to Byte64
+  Future<void> opendoc() async {
+    var picker = ImagePicker();
+    final imageGallery = await picker.pickImage(source: ImageSource.camera);
+    if (imageGallery!.path.isEmpty == false) {
+      setState(() {
+        imagedoc2 = File(imageGallery.path);
+      });
+      List<int> fileInBytes = await imagedoc2!.readAsBytes();
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
@@ -308,18 +331,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Text(
-                      'Upload your ID',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: Styles.whitecustomlable),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  displayImage(),
+                  // Container(
+                  //   margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  //   child: Text(
+                  //     'Upload your ID',
+                  //     style: TextStyle(
+                  //         fontFamily: 'Sora',
+                  //         fontSize: 14,
+                  //         color: Styles.whitecustomlable),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20),
+                  displayImagedoc(),
                   const SizedBox(height: 20),
                   MyCustomInputBox(
                       enabled: true,
@@ -433,6 +456,55 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
   }
 
+//photo doc upload
+  Widget displayImagedoc() {
+    if (imagedoc2 == null) {
+      return Container(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
+          height: 160,
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              borderRadius: const BorderRadius.all(Radius.circular(3))),
+          child: InkWell(
+            onTap: () async {
+              opendoc();
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.camera_alt_outlined,
+                ),
+                // Image.asset("assets/uplodicon.png", width: 32),
+                const SizedBox(height: 5),
+                const Text('Scan your Document'),
+              ],
+            ),
+          ));
+    } else {
+      return Container(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: MediaQuery.of(context).size.width / 1,
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              borderRadius: const BorderRadius.all(Radius.circular(3))),
+          child: InkWell(
+              onTap: () async {
+                openCamera();
+              },
+              child: Image.file(
+                imagedoc2!,
+              )));
+    }
+  }
+
+  //
   //Upload Your Document
   Widget displayImage() {
     if (_platformFile == null) {

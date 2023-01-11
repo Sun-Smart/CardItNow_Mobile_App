@@ -36,17 +36,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final addressController = TextEditingController();
   final postalCodeController = TextEditingController();
 
-
   String? dropdownvalue;
   String? dropdownvalueCity;
-  var selectedcountry = ['UAE','Philipines'];
-  var philipinecity =['Manila','Davao City','Cebu City','loliocity'];
-  var uaecities =['Dubai','Abudhabi','Sharjah','Fujariah'];
+  var selectedcountry = ['UAE', 'Philipines'];
+  var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
+  var uaecities = ['Dubai', 'Abudhabi', 'Sharjah', 'Fujariah'];
   var uaeData = ['UAE'];
 
   @override
   Widget build(BuildContext context) {
-
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       bottomNavigationBar: bulildbutton(),
@@ -241,58 +239,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 10),
-            MyCustomInputBox(
-              enabled: true,
-              label: "City ",
-              controller: cityNameController,
-              obsecureText: false,
-              inputHint: "Your City Name",
-              textInputType: TextInputType.text,
-              validator: (value) {
-                if (cityNameController.text.isEmpty) {
-                  return "Please Enter City Name...";
-                } else {
-                  return null;
-                }
-              },
-              textInputAction: TextInputAction.next,
-              inputDecoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'City Name',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.normal),
-                contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
@@ -319,58 +265,110 @@ class _ProfileInformationState extends State<ProfileInformation> {
               ),
             ),
             const SizedBox(height: 10),
-            MyCustomInputBox(
-              enabled: true,
-              label: "State ",
-              controller: stateNameController,
-              obsecureText: false,
-              inputHint: "Your State Name",
-              textInputType: TextInputType.text,
-              validator: (value) {
-                if (stateNameController.text.isEmpty) {
-                  return "Please Enter State Name...";
-                } else {
-                  return null;
-                }
-              },
-              textInputAction: TextInputAction.next,
-              inputDecoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'State Name',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.normal,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            // MyCustomInputBox(
+            //   enabled: true,
+            //   label: "City ",
+            //   controller: cityNameController,
+            //   obsecureText: false,
+            //   inputHint: "Your City Name",
+            //   textInputType: TextInputType.text,
+            //   validator: (value) {
+            //     if (cityNameController.text.isEmpty) {
+            //       return "Please Enter City Name...";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   textInputAction: TextInputAction.next,
+            //   inputDecoration: InputDecoration(
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'City Name',
+            //     floatingLabelBehavior: FloatingLabelBehavior.never,
+            //     helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+            //     hintStyle: const TextStyle(
+            //         fontSize: 12,
+            //         fontFamily: 'Sora',
+            //         fontWeight: FontWeight.normal),
+            //     contentPadding:
+            //         const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            //     focusColor: Colors.grey.shade300,
+            //     border: const OutlineInputBorder(
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         gapPadding: 7,
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorStyle: const TextStyle(
+            //         fontFamily: 'Sora',
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
+            // MyCustomInputBox(
+            //   enabled: true,
+            //   label: "State ",
+            //   controller: stateNameController,
+            //   obsecureText: false,
+            //   inputHint: "Your State Name",
+            //   textInputType: TextInputType.text,
+            //   validator: (value) {
+            //     if (stateNameController.text.isEmpty) {
+            //       return "Please Enter State Name...";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   textInputAction: TextInputAction.next,
+            //   inputDecoration: InputDecoration(
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'State Name',
+            //     floatingLabelBehavior: FloatingLabelBehavior.never,
+            //     helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+            //     hintStyle: const TextStyle(
+            //       fontSize: 12,
+            //       fontFamily: 'Sora',
+            //       fontWeight: FontWeight.normal,
+            //     ),
+            //     contentPadding:
+            //         const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            //     focusColor: Colors.grey.shade300,
+            //     border: const OutlineInputBorder(
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         gapPadding: 7,
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorStyle: const TextStyle(
+            //         fontFamily: 'Sora',
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
@@ -490,70 +488,70 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
-            MyCustomInputBox(
-              enabled: true,
-              label: "Expired Date",
-              keyboardType: TextInputType.none,
-              controller: expiredDateController,
-              obsecureText: false,
-              validator: (value) {
-                if (expiredDateController.text.isEmpty) {
-                  return "Please Select Expired Date...";
-                } else {
-                  return null;
-                }
-              },
-              inputDecoration: InputDecoration(
-                suffixIcon: GestureDetector(
-                  onTap: () async {
-                    DateTime date = DateTime(1900);
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    date = (await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2100)))!;
-                    expiredDateController.text =
-                        DateFormat("yyyy-MM-dd").format(date);
-                  },
-                  child: Icon(Icons.date_range, color: Colors.black),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'YYYY-MM-DD',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.normal),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            // const SizedBox(height: 10),
+            // MyCustomInputBox(
+            //   enabled: true,
+            //   label: "Expired Date",
+            //   keyboardType: TextInputType.none,
+            //   controller: expiredDateController,
+            //   obsecureText: false,
+            //   validator: (value) {
+            //     if (expiredDateController.text.isEmpty) {
+            //       return "Please Select Expired Date...";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   inputDecoration: InputDecoration(
+            //     suffixIcon: GestureDetector(
+            //       onTap: () async {
+            //         DateTime date = DateTime(1900);
+            //         FocusScope.of(context).requestFocus(new FocusNode());
+            //         date = (await showDatePicker(
+            //             context: context,
+            //             initialDate: DateTime.now(),
+            //             firstDate: DateTime(1900),
+            //             lastDate: DateTime(2100)))!;
+            //         expiredDateController.text =
+            //             DateFormat("yyyy-MM-dd").format(date);
+            //       },
+            //       child: Icon(Icons.date_range, color: Colors.black),
+            //     ),
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'YYYY-MM-DD',
+            //     floatingLabelBehavior: FloatingLabelBehavior.never,
+            //     helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+            //     hintStyle: const TextStyle(
+            //         fontSize: 12,
+            //         fontFamily: 'Sora',
+            //         fontWeight: FontWeight.normal),
+            //     contentPadding:
+            //         const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            //     focusColor: Colors.grey.shade300,
+            //     border: const OutlineInputBorder(
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         gapPadding: 7,
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorStyle: const TextStyle(
+            //         fontFamily: 'Sora',
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
@@ -618,14 +616,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
                   : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+                      ? MediaQuery.of(context).size.width / 4.5
+                      : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
-                  border: Border.all(
-                      color: const Color(0XffB7C5C7), width: 1.5),
-                  borderRadius:
-                  const BorderRadius.all(Radius.circular(3))),
+                  border:
+                      Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(3))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: DropdownButton(
@@ -637,27 +634,25 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
-                      child: Icon(Icons.keyboard_arrow_down,
-                          // color: themeChange.darkTheme
-                          //     ? Colors.white
-                          //     : Colors.black45
-                      )
-                  ),
+                      child: Icon(
+                    Icons.keyboard_arrow_down,
+                    // color: themeChange.darkTheme
+                    //     ? Colors.white
+                    //     : Colors.black45
+                  )),
                   items: selectedcountry.map((String item) {
                     return DropdownMenuItem(
                         value: item,
                         child: Text(item,
                             style: const TextStyle(
-                                color: Color(0Xff413D4B),
-                                fontSize: 14)));
+                                color: Color(0Xff413D4B), fontSize: 14)));
                   }).toList(),
-
                   onChanged: (String? newValue) {
                     setState(() {
-                      dropdownvalueCity=null;
+                      dropdownvalueCity = null;
                       dropdownvalue = newValue!;
                       con.choosedDocId = newValue;
-                      con.isUAE.value=dropdownvalue=='UAE'?true:false;
+                      con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
                     });
                   },
                   style: const TextStyle(color: Colors.black),
@@ -682,14 +677,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
                   : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+                      ? MediaQuery.of(context).size.width / 4.5
+                      : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
-                  border: Border.all(
-                      color: const Color(0XffB7C5C7), width: 1.5),
-                  borderRadius:
-                  const BorderRadius.all(Radius.circular(3))),
+                  border:
+                      Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(3))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: DropdownButton(
@@ -701,29 +695,27 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
-                      child: Icon(Icons.keyboard_arrow_down,
-                        // color: themeChange.darkTheme
-                        //     ? Colors.white
-                        //     : Colors.black45
-                      )
-                  ),
+                      child: Icon(
+                    Icons.keyboard_arrow_down,
+                    // color: themeChange.darkTheme
+                    //     ? Colors.white
+                    //     : Colors.black45
+                  )),
                   items: con.isUAE.value
                       ? uaecities.map((String item) {
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item,
-                            style: const TextStyle(
-                                color: Color(0Xff413D4B),
-                                fontSize: 14)));
-                  }).toList()
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
+                        }).toList()
                       : philipinecity.map((String item) {
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item,
-                            style: const TextStyle(
-                                color: Color(0Xff413D4B),
-                                fontSize: 14)));
-                  }).toList(),
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
+                        }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
                       dropdownvalueCity = newValue!;
@@ -734,7 +726,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 ),
               ),
             ),
-
 
             const SizedBox(height: 10),
             MyCustomInputBox(
