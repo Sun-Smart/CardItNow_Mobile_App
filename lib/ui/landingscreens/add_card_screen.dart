@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_if_null_operators
 
 import 'dart:math' as math;
 
@@ -47,16 +47,9 @@ class _AddCardState extends State<AddCard> {
   CardDetails? _cardDetails;
   CardScanOptions scanOptions = CardScanOptions(
     scanExpiryDate: true,
-    // enableDebugLogs: true,
-    //  maxCardHolderNameLength: 30,
     scanCardHolderName: true,
-    // considerPastDatesInExpiryDateScan: true,
-    //  enableLuhnCheck: true,
-    validCardsToScanBeforeFinishingScan: 5,
-    // possibleCardHolderNamePositions: [
-    //   CardHolderNameScanPosition.aboveCardNumber
-    // ],
-  );
+    considerPastDatesInExpiryDateScan: true,
+    validCardsToScanBeforeFinishingScan: 5);
 
   Future<void> scanCard() async {
     final CardDetails? cardDetails =
@@ -79,8 +72,7 @@ class _AddCardState extends State<AddCard> {
                 color: HexColor('#004751'),
                 fontFamily: 'Sora',
                 fontSize: 16,
-                fontWeight: FontWeight.bold)),
-      ),
+                fontWeight: FontWeight.bold))),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Form(
@@ -327,9 +319,9 @@ class _AddCardState extends State<AddCard> {
                         fontSize: 15,
                         fontWeight: FontWeight.bold)),
               ),
-              Text('${_cardDetails?.cardNumber}'),
-              Text('${_cardDetails?.expiryDate}'),
-              Text('${_cardDetails?.cardHolderName}'),
+              Text('${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}'),
+              Text('${_cardDetails?.cardHolderName== null ? '' : _cardDetails?.cardHolderName}'),
+              Text('${_cardDetails?.expiryDate== null ? '' : _cardDetails?.expiryDate}'),
             ],
           ),
         ),

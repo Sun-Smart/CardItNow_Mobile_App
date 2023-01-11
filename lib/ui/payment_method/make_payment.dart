@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'on_board_payee.dart';
+
 class MakePaymentPage extends StatefulWidget {
   const MakePaymentPage({Key? key}) : super(key: key);
 
@@ -42,7 +44,7 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                 'Payment Transfer to the payee within 5 \nworking days'),
             SizedBox(height: 20),
             selectCard(context, () {
-              print('2 Tapped');
+              Get.to(const OnBoardPayeePage());
             }, 'Brankas',
                 'Payment Transfer to the payee within 1 \nworking day'),
           ],
