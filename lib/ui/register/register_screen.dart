@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -450,9 +451,11 @@ class _RegisterState extends State<Register> {
                   setState(() {
                     isLoggedIn = true;
                     userObj = userData;
+                    print(userObj.toString()+'ffff');
                   });
                   if (isLoggedIn = true) {
-                    con.registerAPI(userData.toString());
+                    con.registerAPI(userData['email']);
+                    GetStorage().write('username', userData['name']);
                     // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");

@@ -103,11 +103,11 @@ class _ProfileState extends State<Profile> {
                   radius: 50,
                   backgroundImage: NetworkImage('userDetails.photoURL')),
               const SizedBox(height: 5),
-              Text('userDetails?.displayName',
+              Text('${GetStorage().read('username')}',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text('userDetails?.email',
+              Text('${GetStorage().read('username')}',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromARGB(255, 177, 178, 178),

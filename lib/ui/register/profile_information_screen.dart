@@ -13,6 +13,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../themes/styles.dart';
+
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
 
@@ -34,8 +36,17 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final addressController = TextEditingController();
   final postalCodeController = TextEditingController();
 
+
+  String? dropdownvalue;
+  String? dropdownvalueCity;
+  var selectedcountry = ['UAE','Philipines'];
+  var philipinecity =['Manila','Davao City','Cebu City','loliocity'];
+  var uaecities =['Dubai','Abudhabi','Sharjah','Fujariah'];
+  var uaeData = ['UAE'];
+
   @override
   Widget build(BuildContext context) {
+
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       bottomNavigationBar: bulildbutton(),
@@ -65,7 +76,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     return Container(
       padding: const EdgeInsets.all(15),
       child: Text(
-        'Profile Information',
+        'HI ! Tell About Your Self',
         style: TextStyle(
           fontSize: 28,
           fontFamily: 'Sora',
@@ -177,6 +188,71 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
                         const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 10),
+            MyCustomInputBox(
+              enabled: true,
+              keyboardType: TextInputType.none,
+              label: "Date Of Brith",
+              controller: dateOfBrithController,
+              obsecureText: false,
+              validator: (value) {
+                if (dateOfBrithController.text.isEmpty) {
+                  return "Please Select Date Of Brith...";
+                } else {
+                  return null;
+                }
+              },
+              inputDecoration: InputDecoration(
+                suffixIcon: GestureDetector(
+                  onTap: () async {
+                    DateTime date = DateTime(1900);
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    date = (await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100)))!;
+                    dateOfBrithController.text =
+                        DateFormat("yyyy-MM-dd").format(date);
+                  },
+                  child: Icon(Icons.date_range, color: Colors.black),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'YYYY-MM-DD',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     gapPadding: 7,
@@ -348,71 +424,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
-            MyCustomInputBox(
-              enabled: true,
-              keyboardType: TextInputType.none,
-              label: "Date Of Brith",
-              controller: dateOfBrithController,
-              obsecureText: false,
-              validator: (value) {
-                if (dateOfBrithController.text.isEmpty) {
-                  return "Please Select Date Of Brith...";
-                } else {
-                  return null;
-                }
-              },
-              inputDecoration: InputDecoration(
-                suffixIcon: GestureDetector(
-                  onTap: () async {
-                    DateTime date = DateTime(1900);
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    date = (await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2100)))!;
-                    dateOfBrithController.text =
-                        DateFormat("yyyy-MM-dd").format(date);
-                  },
-                  child: Icon(Icons.date_range, color: Colors.black),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'YYYY-MM-DD',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.normal,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
@@ -592,6 +604,138 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
+            const SizedBox(height: 10),
+            Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Text('Select Your country',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 14,
+                        color: Styles.whitecustomlable))),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              width: Responsive.isMobile(context)
+                  ? MediaQuery.of(context).size.width / 1
+                  : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
+              height: MediaQuery.of(context).size.height / 15,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: const Color(0XffB7C5C7), width: 1.5),
+                  borderRadius:
+                  const BorderRadius.all(Radius.circular(3))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButton(
+                  underline: const SizedBox(),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  value: dropdownvalue,
+                  hint: Text('Select Your Country',
+                      style: TextStyle(
+                          color: Styles.whitecustomlable, fontSize: 14)),
+                  icon: InkWell(
+                      child: Icon(Icons.keyboard_arrow_down,
+                          // color: themeChange.darkTheme
+                          //     ? Colors.white
+                          //     : Colors.black45
+                      )
+                  ),
+                  items: selectedcountry.map((String item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B),
+                                fontSize: 14)));
+                  }).toList(),
+
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalueCity=null;
+                      dropdownvalue = newValue!;
+                      con.choosedDocId = newValue;
+                      con.isUAE.value=dropdownvalue=='UAE'?true:false;
+                    });
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+
+            Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Text('Select Your City',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 14,
+                        color: Styles.whitecustomlable))),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              width: Responsive.isMobile(context)
+                  ? MediaQuery.of(context).size.width / 1
+                  : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
+              height: MediaQuery.of(context).size.height / 15,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: const Color(0XffB7C5C7), width: 1.5),
+                  borderRadius:
+                  const BorderRadius.all(Radius.circular(3))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButton(
+                  underline: const SizedBox(),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  value: dropdownvalueCity,
+                  hint: Text('Select Your City',
+                      style: TextStyle(
+                          color: Styles.whitecustomlable, fontSize: 14)),
+                  icon: InkWell(
+                      child: Icon(Icons.keyboard_arrow_down,
+                        // color: themeChange.darkTheme
+                        //     ? Colors.white
+                        //     : Colors.black45
+                      )
+                  ),
+                  items: con.isUAE.value
+                      ? uaecities.map((String item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B),
+                                fontSize: 14)));
+                  }).toList()
+                      : philipinecity.map((String item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B),
+                                fontSize: 14)));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalueCity = newValue!;
+                      con.choosedDocId = newValue;
+                    });
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+
+
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,

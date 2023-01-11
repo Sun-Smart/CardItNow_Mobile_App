@@ -51,7 +51,6 @@ class AuthCon extends GetxController with BaseController {
   //weight
   var selectedHeightUnits = "CM".obs;
   var selectedHeight = 50.0.obs;
-
   //current diet
   var dietType = "Vegetarian".obs;
 
@@ -240,6 +239,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
+      GetStorage().write('username', firstName.toString());
       Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
       Fluttertoast.showToast(msg: data.toString());
     } else {
@@ -331,11 +331,12 @@ class AuthCon extends GetxController with BaseController {
                 "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
             body)
         .catchError(handleError);
-    if (response == null) return;
+    if (response == null) return Get.to(ProfileInformation());
     var data = json.decode(response);
     print("--------------------------------$data");
     if (data == 'Success') {
       Get.to(ProfileInformation());
+      Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
       print("---------failed");
