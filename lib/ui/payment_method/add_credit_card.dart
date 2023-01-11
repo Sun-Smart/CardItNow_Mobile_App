@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters
 
+import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AddCreditCardPage extends StatefulWidget {
@@ -102,6 +105,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
               TextFormField(
                   keyboardType: TextInputType.number,
                   controller: creditCardController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(16),
+                    CardNumberFormatter(),
+                  ],
                   decoration: InputDecoration(
                       labelText: '4XXX 5XXX 7XXX 3XXX',
                       filled: true,
@@ -275,22 +283,19 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           fontSize: 13,
                           fontWeight: FontWeight.bold))),
               SizedBox(height: 30),
-              Center(
-                  child: Text(
-                      '${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}')),
-              Center(
-                  child: Text(
-                      '${_cardDetails?.cardHolderName == null ? '' : _cardDetails?.cardHolderName}')),
-              Center(
-                  child: Text(
-                      '${_cardDetails?.expiryDate == null ? '' : _cardDetails?.expiryDate}')),
+              Text(
+                  '${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}'),
+              Text(
+                  '${_cardDetails?.cardHolderName == null ? '' : _cardDetails?.cardHolderName}'),
+              Text(
+                  '${_cardDetails?.expiryDate == null ? '' : _cardDetails?.expiryDate}'),
             ],
           ),
         ),
       ),
       bottomNavigationBar: AuthButton(
           onTap: () {
-            print('Button Tapped');
+            Get.to(const ManualCard());
           },
           text: 'Verify and Proceed',
           decoration: BoxDecoration(color: HexColor('#CEE812'))),
@@ -311,9 +316,15 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     fontSize: 16)),
             SizedBox(height: 10),
             SizedBox(
-              width: 170,
+              width: 150,
               child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(4),
+                  CardMonthFormatter()
+                ],
                 controller: validityController,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     labelText: '09/24',
                     filled: true,
@@ -363,9 +374,17 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     fontSize: 16)),
             SizedBox(height: 10),
             SizedBox(
-              width: 170,
+              width: 150,
               child: TextField(
+                obscuringCharacter: '*',
+                obscureText: true,
+                keyboardType: TextInputType.number,
                 controller: cvvController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(3),
+                  CvvNumberFormatter()
+                ],
                 decoration: InputDecoration(
                     labelText: 'XXX',
                     filled: true,
@@ -407,5 +426,86 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         ),
       ],
     );
+  }
+}
+
+class CardNumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue previousValue, TextEditingValue nextValue) {
+    var inputText = nextValue.text;
+
+    if (nextValue.selection.baseOffset == 0) {
+      return nextValue;
+    }
+
+    var bufferString = StringBuffer();
+    for (int i = 0; i < inputText.length; i++) {
+      bufferString.write(inputText[i]);
+      var nonZeroIndexValue = i + 1;
+      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
+        bufferString.write(' ');
+      }
+    }
+
+    var string = bufferString.toString();
+    return nextValue.copyWith(
+      text: string,
+      selection: TextSelection.collapsed(
+        offset: string.length,
+      ),
+    );
+  }
+}
+
+class CardMonthFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var newText = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = StringBuffer();
+    for (int i = 0; i < newText.length; i++) {
+      buffer.write(newText[i]);
+      var nonZoneIndex = i + 1;
+      if (nonZoneIndex % 2 == 0 && nonZoneIndex != newText.length) {
+        buffer.write('/');
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(
+        text: string,
+        selection: TextSelection.collapsed(offset: string.length));
+  }
+}
+
+class CvvNumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var newText = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var buffer = StringBuffer();
+    for (int i = 0; i < newText.length; i++) {
+      buffer.write(newText[i]);
+      var nonZoneIndex = i + 1;
+      if (nonZoneIndex % 3 == 0 && nonZoneIndex != newText.length) {
+        buffer.write('*');
+      }
+    }
+
+    var string = buffer.toString();
+    return newValue.copyWith(
+        text: string,
+        selection: TextSelection.collapsed(offset: string.length));
   }
 }

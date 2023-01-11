@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,43 +23,28 @@ class _LoansState extends State<Loans> {
         child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
             child: AppBar(
+              backgroundColor: Colors.transparent,
               elevation: 0,
-              leadingWidth: 30,
+              leadingWidth: 5,
               centerTitle: false,
-              title: Text(
-                'Easy Installment',
-                style: TextStyle(
-                    // color: Styles.whitecolortext,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
+              title: Text('Easy Installment',
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
               actions: <Widget>[
                 Padding(
-                    padding: EdgeInsets.only(right: 10.0, top: 10),
+                    padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
                     child: GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        'assets/search.png',
-                        fit: BoxFit.contain,
-                        width: 25,
-                        height: 22,
-                      ),
-                    )),
-                const SizedBox(
-                  width: 10,
-                ),
+                        onTap: () {},
+                        child: Image.asset('assets/search.png',
+                            fit: BoxFit.contain, width: 25, height: 22))),
                 Padding(
-                    padding: EdgeInsets.only(right: 10.0, top: 10),
+                    padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
                     child: GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        'assets/notification.png',
-                        fit: BoxFit.contain,
-                        width: 25,
-                        height: 22,
-                        // color: Styles.whitecolortext,
-                      ),
-                    )),
+                        onTap: () {},
+                        child: Image.asset('assets/notification.png',
+                            fit: BoxFit.contain, width: 25, height: 22))),
               ],
             )),
       ),
@@ -74,6 +61,7 @@ class _LoansState extends State<Loans> {
       )),
     ));
   }
+
 //git commit
   Widget topBanner() {
     return Container(
@@ -171,9 +159,7 @@ class _LoansState extends State<Loans> {
               ],
             ),
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Color(0Xff81898A))),

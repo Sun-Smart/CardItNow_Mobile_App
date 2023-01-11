@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:cardit/ui/landingscreens/loans_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,7 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                 'Payment Transfer to the payee within 3 \nworking days'),
             SizedBox(height: 20),
             selectCard(context, () {
-              print('2 Tapped');
+              Get.to(const Loans());
             }, 'Easy Payment Plan',
                 'Payment Transfer to the payee within 5 \nworking days'),
             SizedBox(height: 20),
