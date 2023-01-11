@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -81,7 +82,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             children: [
                               RichText(
                                   text: TextSpan(
-                                      text: 'Hello!',
+                                      text: '${GetStorage().read('username')}',
                                       style: const TextStyle(
                                           color: Color(0xff036D7A),
                                           fontSize: 16,

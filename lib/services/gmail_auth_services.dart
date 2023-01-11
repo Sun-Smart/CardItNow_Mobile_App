@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -49,6 +50,7 @@ class AuthService {
     print(details.user!.email);
     con.googleMail = details.user!.email!;
     con.registerAPI(details.user!.email);
+    GetStorage().write('username', details.user!.displayName);
   }
 
   // 3. Sign Out()
