@@ -40,20 +40,20 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
             SizedBox(height: 30),
             selectCard(context, () {
               Get.to(const MakePaymentPage());
-            }, Icons.arrow_upward_rounded, 'Make Payments',
+            }, 'assets/card/up_arrow.png', 'Make Payments',
                 'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
             SizedBox(height: 20),
             selectCard(context, () {
               Get.to(const ReceivePaymentPage());
-            }, Icons.arrow_downward_rounded, 'Receive Payments',
-                'Receive Payment via Carditnow and track \nyour finances.'),
+            }, 'assets/card/up_arrow.png', 'Receive Payments',
+                'Receive Payment via Carditnow and track \nyour finances.')
           ],
         ),
       ),
     );
   }
 
-  Widget selectCard(BuildContext context, Function()? onTap, IconData icon,
+  Widget selectCard(BuildContext context, Function()? onTap, String image,
       String title, String body) {
     return InkWell(
       onTap: onTap,
@@ -68,13 +68,7 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: HexColor('#CEE812')),
-                  child: Icon(icon)),
+              Image.asset(image, width: 40, height: 40),
               SizedBox(height: 10),
               Text(title,
                   style: TextStyle(

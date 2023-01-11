@@ -20,7 +20,6 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final bankNameController = new TextEditingController();
   final addNickController = new TextEditingController();
 
-
   late FocusNode _focusNode;
   String cardNumber = '';
   bool showBack = false;
@@ -52,7 +51,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
 
   Future<void> scanCard() async {
     final CardDetails? cardDetails =
-    await CardScanner.scanCard(scanOptions: scanOptions);
+        await CardScanner.scanCard(scanOptions: scanOptions);
     if (!mounted || cardDetails == null) return;
     setState(() {
       _cardDetails = cardDetails;
@@ -67,7 +66,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
           backgroundColor: Colors.transparent,
           actions: [
             Row(children: [
-              Icon(Icons.document_scanner_outlined),
+              Image.asset('assets/card/scan.png', width: 18, height: 18),
               TextButton(
                   onPressed: () {
                     scanCard();
@@ -101,16 +100,15 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       fontSize: 16)),
               SizedBox(height: 10),
               TextFormField(
-                keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.number,
                   controller: creditCardController,
                   decoration: InputDecoration(
                       labelText: '4XXX 5XXX 7XXX 3XXX',
                       filled: true,
                       fillColor: Colors.white,
-                      floatingLabelBehavior:
-                      FloatingLabelBehavior.never,
-                      helperStyle: const TextStyle(
-                          fontFamily: 'Sora', fontSize: 14),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      helperStyle:
+                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Sora',
@@ -119,25 +117,22 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           vertical: 15, horizontal: 15),
                       focusColor: Colors.grey.shade300,
                       border: const OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           gapPadding: 7,
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorStyle: const TextStyle(
                           fontFamily: 'Sora',
                           fontSize: 13,
@@ -158,10 +153,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       labelText: 'Enter your name',
                       filled: true,
                       fillColor: Colors.white,
-                      floatingLabelBehavior:
-                      FloatingLabelBehavior.never,
-                      helperStyle: const TextStyle(
-                          fontFamily: 'Sora', fontSize: 14),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      helperStyle:
+                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Sora',
@@ -170,25 +164,22 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           vertical: 15, horizontal: 15),
                       focusColor: Colors.grey.shade300,
                       border: const OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           gapPadding: 7,
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorStyle: const TextStyle(
                           fontFamily: 'Sora',
                           fontSize: 13,
@@ -207,10 +198,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       labelText: 'Enter your bank name',
                       filled: true,
                       fillColor: Colors.white,
-                      floatingLabelBehavior:
-                      FloatingLabelBehavior.never,
-                      helperStyle: const TextStyle(
-                          fontFamily: 'Sora', fontSize: 14),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      helperStyle:
+                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Sora',
@@ -219,31 +209,28 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           vertical: 15, horizontal: 15),
                       focusColor: Colors.grey.shade300,
                       border: const OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           gapPadding: 7,
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorStyle: const TextStyle(
                           fontFamily: 'Sora',
                           fontSize: 13,
                           fontWeight: FontWeight.bold))),
               SizedBox(height: 10),
-              Text('Nick Name',
+              Text('Add Nick Name',
                   style: TextStyle(
                       color: HexColor('#041316'),
                       fontFamily: 'Sora',
@@ -256,10 +243,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       labelText: 'Add nickname for your card',
                       filled: true,
                       fillColor: Colors.white,
-                      floatingLabelBehavior:
-                      FloatingLabelBehavior.never,
-                      helperStyle: const TextStyle(
-                          fontFamily: 'Sora', fontSize: 14),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      helperStyle:
+                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
                       hintStyle: const TextStyle(
                           fontSize: 12,
                           fontFamily: 'Sora',
@@ -268,45 +254,50 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           vertical: 15, horizontal: 15),
                       focusColor: Colors.grey.shade300,
                       border: const OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0)),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0)),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           gapPadding: 7,
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                          const BorderSide(color: Colors.grey)),
+                          borderSide: const BorderSide(color: Colors.grey)),
                       errorStyle: const TextStyle(
                           fontFamily: 'Sora',
                           fontSize: 13,
                           fontWeight: FontWeight.bold))),
               SizedBox(height: 30),
-              Center(child: Text('${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}')),
-              Center(child: Text('${_cardDetails?.cardHolderName == null ? '' : _cardDetails?.cardHolderName}')),
-              Center(child: Text('${_cardDetails?.expiryDate == null ? '' : _cardDetails?.expiryDate}')),
+              Center(
+                  child: Text(
+                      '${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}')),
+              Center(
+                  child: Text(
+                      '${_cardDetails?.cardHolderName == null ? '' : _cardDetails?.cardHolderName}')),
+              Center(
+                  child: Text(
+                      '${_cardDetails?.expiryDate == null ? '' : _cardDetails?.expiryDate}')),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: AuthButton(onTap: (){
-        print('Button Tapped');
-      }, text: 'Verify and Proceed', decoration: BoxDecoration(
-        color:HexColor('#CEE812'))),
+      bottomNavigationBar: AuthButton(
+          onTap: () {
+            print('Button Tapped');
+          },
+          text: 'Verify and Proceed',
+          decoration: BoxDecoration(color: HexColor('#CEE812'))),
     );
   }
 
-  Widget customField(){
+  Widget customField() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -320,17 +311,16 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     fontSize: 16)),
             SizedBox(height: 10),
             SizedBox(
-              width: 150,
+              width: 170,
               child: TextField(
                 controller: validityController,
                 decoration: InputDecoration(
                     labelText: '09/24',
                     filled: true,
                     fillColor: Colors.white,
-                    floatingLabelBehavior:
-                    FloatingLabelBehavior.never,
-                    helperStyle: const TextStyle(
-                        fontFamily: 'Sora', fontSize: 14),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    helperStyle:
+                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
                     hintStyle: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Sora',
@@ -339,25 +329,22 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                         vertical: 15, horizontal: 15),
                     focusColor: Colors.grey.shade300,
                     border: const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.grey)),
+                        borderSide: BorderSide(color: Colors.grey)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: Colors.grey, width: 1.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: Colors.grey, width: 1.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
                         gapPadding: 7,
-                        borderSide:
-                        const BorderSide(color: Colors.grey)),
+                        borderSide: const BorderSide(color: Colors.grey)),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                        const BorderSide(color: Colors.grey)),
+                        borderSide: const BorderSide(color: Colors.grey)),
                     errorStyle: const TextStyle(
                         fontFamily: 'Sora',
                         fontSize: 13,
@@ -376,17 +363,16 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     fontSize: 16)),
             SizedBox(height: 10),
             SizedBox(
-              width: 150,
+              width: 170,
               child: TextField(
                 controller: cvvController,
                 decoration: InputDecoration(
                     labelText: 'XXX',
                     filled: true,
                     fillColor: Colors.white,
-                    floatingLabelBehavior:
-                    FloatingLabelBehavior.never,
-                    helperStyle: const TextStyle(
-                        fontFamily: 'Sora', fontSize: 14),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    helperStyle:
+                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
                     hintStyle: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Sora',
@@ -395,25 +381,22 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                         vertical: 15, horizontal: 15),
                     focusColor: Colors.grey.shade300,
                     border: const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.grey)),
+                        borderSide: BorderSide(color: Colors.grey)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: Colors.grey, width: 1.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: Colors.grey, width: 1.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
                         gapPadding: 7,
-                        borderSide:
-                        const BorderSide(color: Colors.grey)),
+                        borderSide: const BorderSide(color: Colors.grey)),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                        const BorderSide(color: Colors.grey)),
+                        borderSide: const BorderSide(color: Colors.grey)),
                     errorStyle: const TextStyle(
                         fontFamily: 'Sora',
                         fontSize: 13,
@@ -425,5 +408,4 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       ],
     );
   }
-
 }

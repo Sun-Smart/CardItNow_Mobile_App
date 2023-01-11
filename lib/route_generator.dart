@@ -31,9 +31,9 @@ import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
+import 'ui/payment_method/choose_payment_method.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
-import 'ui/splash_screen/splash_screen.dart';
 import 'ui/startingscreen/home_screen.dart';
 
 class RouteGenerator {
@@ -42,7 +42,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         // const SplashScreens()
-        return MaterialPageRoute(builder: (_) => const SplashScreens());
+        return MaterialPageRoute(builder: (_) => const ChoosePaymentPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

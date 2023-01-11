@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
 import 'dart:developer';
@@ -173,7 +173,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
-      ;
       con.uploadimg = base64.encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
     } else {
@@ -471,22 +470,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
-            onTap: () async {
-              opendoc();
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.camera_alt_outlined,
-                ),
-                // Image.asset("assets/uplodicon.png", width: 32),
-                const SizedBox(height: 5),
-                const Text('Scan your Document'),
-              ],
-            ),
-          ));
+              onTap: () async {
+                opendoc();
+              },
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.camera_alt_outlined),
+                    // Image.asset("assets/uplodicon.png", width: 32),
+                    const SizedBox(height: 5),
+                    const Text('Scan your Document'),
+                  ])));
     } else {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -498,9 +493,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 openCamera();
               },
-              child: Image.file(
-                imagedoc2!,
-              )));
+              child: Image.file(imagedoc2!)));
     }
   }
 
