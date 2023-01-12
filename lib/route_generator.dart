@@ -20,9 +20,7 @@ import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/landingscreens/add_card_screen.dart';
 import 'ui/landingscreens/dashbord_screen.dart';
-import 'ui/landingscreens/manula_card_screen.dart';
 import 'ui/landingscreens/payments_details_screen.dart';
 import 'ui/landingscreens/payments_screen.dart';
 import 'ui/landingscreens/profile_screen.dart';
@@ -32,9 +30,10 @@ import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
+import 'ui/payment_method/choose_payment_method.dart';
+import 'ui/payment_method/manula_card_screen.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
-import 'ui/splash_screen/splash_screen.dart';
 import 'ui/startingscreen/home_screen.dart';
 
 class RouteGenerator {
@@ -43,7 +42,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         // const SplashScreens()
-        return MaterialPageRoute(builder: (_) => const SplashScreens());
+        return MaterialPageRoute(builder: (_) => const ChoosePaymentPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':
@@ -86,8 +85,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const UserDetails());
       case '/settings':
         return MaterialPageRoute(builder: (_) => const Settings());
-      case '/addCard':
-        return MaterialPageRoute(builder: (_) => const AddCard());
       case '/scanCard':
         return MaterialPageRoute(builder: (_) => const ScanCard());
       case '/manualCard':
