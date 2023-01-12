@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.3"
+  extended_masked_text:
+    dependency: "direct main"
+    description:
+      name: extended_masked_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.1"
   facebook_auth_desktop:
     dependency: transitive
     description:
@@ -492,6 +499,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.3"
+  mask_text_input_formatter:
+    dependency: "direct main"
+    description:
+      name: mask_text_input_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.0"
   matcher:
     dependency: transitive
     description:

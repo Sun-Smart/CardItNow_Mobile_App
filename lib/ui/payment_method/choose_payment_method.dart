@@ -45,7 +45,7 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
             SizedBox(height: 20),
             selectCard(context, () {
               Get.to(const ReceivePaymentPage());
-            }, 'assets/card/up_arrow.png', 'Receive Payments',
+            }, 'assets/banner/down_arrow.png', 'Receive Payments',
                 'Receive Payment via Carditnow and track \nyour finances.')
           ],
         ),

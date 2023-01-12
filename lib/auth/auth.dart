@@ -51,7 +51,7 @@ class AuthCon extends GetxController with BaseController {
   var gender = 1.obs;
 
   //credit card get
-  var creditCardGet = [];
+  var creditCardGet = {}.obs;
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -335,7 +335,7 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().crediCardPost +
-                "?cardNumber=$cardNumber&validity=$validity&cvv=$cvv&cardName=$cardName&bankName=$bankName&nickName=$nickName",
+                "?cardnumber=$cardNumber&expirydate=$validity&cvv=$cvv&cardname=$cardName&bankname=$bankName&nickName=$nickName",
             body)
         .catchError(handleError);
     print(response);
@@ -353,12 +353,12 @@ class AuthCon extends GetxController with BaseController {
   //get credit card details
   void creditCardgetAPI() async {
     var response =
-        await BaseClient().get(API().creditCardGet).catchError(handleError);
+        await BaseClient().get(API().creditCardGetLink).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    creditCardGet = data;
+    creditCardGet.value = data['customerpaymode'];
     print('Credit Card Api Get Method' +
-        creditCardGet.length.toString() +
+        creditCardGet.toString() +
         'Credit Card Api Get Method');
   }
 

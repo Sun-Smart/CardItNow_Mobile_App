@@ -3,12 +3,14 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'card_input_formatter_class.dart';
+import 'manula_card_screen.dart';
 
 class AddCreditCardPage extends StatefulWidget {
   const AddCreditCardPage({Key? key}) : super(key: key);
@@ -20,6 +22,9 @@ class AddCreditCardPage extends StatefulWidget {
 class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final creditCardController = new TextEditingController();
   final validityController = new TextEditingController();
+  var controller = new MaskedTextController(
+    mask: '0 0 0 0',
+  );
   final cvvController = new TextEditingController();
   final nameOnCardController = new TextEditingController();
   final bankNameController = new TextEditingController();
@@ -31,6 +36,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   late FocusNode _focusNode;
   String cardNumber = '';
   bool showBack = false;
+
+  var changeNumber = '';
 
   @override
   void initState() {
@@ -119,15 +126,20 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 TextFormField(
                     keyboardType: TextInputType.number,
                     controller: creditCardController,
+                    maxLength: 16,
                     validator: (value) {
                       if (creditCardController.text.isEmpty) {
                         return 'Enter Card Number';
                       } else {}
                     },
+                    onChanged: (v) {
+                      changeNumber = v;
+                      print(changeNumber);
+                    },
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(16),
-                      CardNumberFormatter(),
+
+                      // CardNumberFormatter(),
                     ],
                     decoration: InputDecoration(
                         labelText: '4XXX 5XXX 7XXX 3XXX',
@@ -460,20 +472,58 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         ),
       ),
       bottomNavigationBar: AuthButton(
-          onTap: () {
-            if (formKey.currentState!.validate()) {
-              con.creditCardPostAPI(
-                  creditCardController.text,
-                  validityController.text,
-                  cvvController.text,
-                  nameOnCardController.text,
-                  bankNameController.text,
-                  addNickController.text);
-            }
-            // Get.to(const ManualCard());
-          },
-          text: 'Verify and Proceed',
-          decoration: BoxDecoration(color: HexColor('#CEE812'))),
+        onTap: () {
+          // if (formKey.currentState!.validate()) {
+          //   con.creditCardPostAPI(
+          //       creditCardController.text,
+          //       validityController.text,
+          //       cvvController.text,
+          //       nameOnCardController.text,
+          //       bankNameController.text,
+          //       addNickController.text);
+          // }
+          con.creditCardgetAPI();
+          Get.to(const ManualCard());
+        },
+        text: 'Verify and Proceed',
+        decoration: BoxDecoration(
+          color: HexColor('#CEE812'),
+        ),
+      ),
+    );
+  }
+
+  void onchangefield() {}
+}
+
+class CardNumberFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue previousValue,
+    TextEditingValue nextValue,
+  ) {
+    var inputText = nextValue.text;
+
+    if (nextValue.selection.baseOffset == 0) {
+      return nextValue;
+    }
+
+    var bufferString = StringBuffer();
+    for (int i = 0; i < inputText.length; i++) {
+      bufferString.write(inputText[i]);
+      var nonZeroIndexValue = i + 1;
+      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
+        // bufferString.write(' ');
+        bufferString.write('x');
+      }
+    }
+
+    var string = bufferString.toString();
+    return nextValue.copyWith(
+      text: string,
+      selection: TextSelection.collapsed(
+        offset: string.length,
+      ),
     );
   }
 }

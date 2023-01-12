@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
-import 'package:awesome_card/awesome_card.dart';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
@@ -47,9 +46,11 @@ class _ManualCardState extends State<ManualCard> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              // con.termscond.toString()
-              customCardDetails(con.creditCardGet[0], con.creditCardGet[1],
-                  con.creditCardGet[2], con.creditCardGet[3]),
+              Obx(() => CustomeCardData(
+                  bankName: con.creditCardGet['bankname'],
+                  cardNumber: con.creditCardGet['cardnumber'],
+                  nameHolder: con.creditCardGet['cardname'],
+                  validity: con.creditCardGet['expirydate'])),
               SizedBox(height: 100),
               Text('Great ! You Are ready with your \nCredit card',
                   textAlign: TextAlign.center,
@@ -81,25 +82,20 @@ class _ManualCardState extends State<ManualCard> {
       ),
     );
   }
+}
 
-  Widget creditCardData(
-      String cardNumber, String expiryDate, String cardHolderName) {
-    return CreditCard(
-        cardNumber: cardNumber,
-        cardExpiry: expiryDate,
-        cardHolderName: cardHolderName,
-        bankName: 'Axis Bank',
-        showBackSide: false,
-        frontBackground: CardBackgrounds.black,
-        backBackground: CardBackgrounds.white,
-        showShadow: true,
-        mask: getCardTypeMask(
-            cardType: CardType.rupay,
-            cardNumber: AutofillHints.creditCardFamilyName));
-  }
+class CustomeCardData extends StatelessWidget {
+  final String bankName, cardNumber, nameHolder, validity;
+  const CustomeCardData(
+      {Key? key,
+      required this.bankName,
+      required this.cardNumber,
+      required this.nameHolder,
+      required this.validity})
+      : super(key: key);
 
-  Widget customCardDetails(
-      String bankName, String nameHolder, String cardNumber, String expDate) {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 230,
@@ -108,31 +104,25 @@ class _ManualCardState extends State<ManualCard> {
       child: Stack(
         children: [
           Positioned(
-            left: 15,
-            top: 35,
-            child: Text(
-              bankName,
-              style: TextStyle(
-                  color: Colors.white, fontSize: 16, fontFamily: 'Sora'),
-            ),
-          ),
+              left: 20,
+              top: 35,
+              child: Text(bankName,
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 16, fontFamily: 'Sora'))),
           Positioned(
-            left: 22,
-            bottom: 100,
-            child: Text(
-              nameHolder,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  fontFamily: 'Sora'),
-            ),
-          ),
+              left: 25,
+              bottom: 100,
+              child: Text(nameHolder,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      fontFamily: 'Sora'))),
           Positioned(
             right: 25,
             bottom: 100,
             child: Text(
-              cardNumber,
+              'xxxx xxxx xxxx ${cardNumber.substring(12, 16)}',
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -141,10 +131,10 @@ class _ManualCardState extends State<ManualCard> {
             ),
           ),
           Positioned(
-            left: 55,
-            bottom: 35,
+            left: 57,
+            bottom: 28,
             child: Text(
-              expDate,
+              '${validity.substring(0, 10)}',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -154,8 +144,8 @@ class _ManualCardState extends State<ManualCard> {
           ),
           Positioned(
             right: 35,
-            bottom: 35,
-            child: Image.asset('assets/card/visa.png', width: 30, height: 20),
+            bottom: 28,
+            child: Image.asset('assets/card/visa.png', width: 35, height: 20),
           ),
         ],
       ),

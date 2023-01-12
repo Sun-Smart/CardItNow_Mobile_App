@@ -46,5 +46,5 @@ class API {
   //creditcard
   String crediCardPost =
       'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
-  String creditCardGet = 'carditnowapi/customerpaymode'; //card Get Data
+  String creditCardGetLink = 'customerpaymode/58'; //card Get Data
 }
