@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:cardit/ui/register/select_avatar_screen.dart';
@@ -829,9 +831,8 @@ class _UserDetailsState extends State<UserDetails> {
   void _showPicker(context) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-        ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         backgroundColor: Colors.white,
         context: context,
         builder: (BuildContext bc) {
@@ -843,10 +844,8 @@ class _UserDetailsState extends State<UserDetails> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Pick image from",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    const Text("Pick image from",
+                        style: TextStyle(fontSize: 16)),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -870,12 +869,8 @@ class _UserDetailsState extends State<UserDetails> {
                                     },
                                     child: Image.asset("assets/gallery.jpg",
                                         height: 50)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text(
-                                  "Gallery",
-                                )
+                                const SizedBox(height: 5),
+                                const Text("Gallery")
                               ],
                             )),
                         SizedBox(
@@ -898,9 +893,7 @@ class _UserDetailsState extends State<UserDetails> {
                                     },
                                     child: Image.asset("assets/camera_new.png",
                                         height: 50)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 const Text(
                                   "Camera",
                                 )
