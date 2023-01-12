@@ -18,7 +18,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
+import '../ui/register/register_loading_screen.dart';
 import '../ui/register/register_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/twofactor.dart';
@@ -196,7 +198,7 @@ class AuthCon extends GetxController with BaseController {
       var storedEmail = GetStorage().read('token');
       print(
           '***************** OTP Token    &&&&   ${storedEmail}    &&&&      ************************');
-      Get.to(() => Password());
+      Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -250,7 +252,8 @@ class AuthCon extends GetxController with BaseController {
     print('Pass' + data);
     if (data == 'Success') {
       GetStorage().write('username', firstName.toString());
-      Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      Get.to(() =>  Twofactor());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -274,7 +277,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print('pass-------------------' + data);
     if (data == "Success") {
-      Get.to(termsandconditions());
+      Get.to(VerifyUserId());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -379,7 +382,8 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print("--------------------------------$data");
     if (data == 'Success') {
-      Get.to(ProfileInformation());
+      Get.to(Registerloading());
+     await Get.to(AvatarPageView());
       Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
