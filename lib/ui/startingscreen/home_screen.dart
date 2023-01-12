@@ -1179,7 +1179,7 @@ SizedBox(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset("assets/reg.png",
+                        Image.asset("assets/phones1.png",
                           width: 180,height: 180,
                         ),
                       ],
@@ -1230,7 +1230,302 @@ SizedBox(
 
                     Container(
                       margin: EdgeInsets.only(left: 50),
-                      child: Text("Dont Worry we will ask you few questions and that all ",
+                      child: Text("Onboard payee by adding his/her bank details and wait for a few minutes till we verify your Payee",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ),
+
+
+
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset("assets/phone2.png",
+                          width: 180,height: 180,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.all(25),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0XFFCEE812),
+
+                          ),
+                          child: Center(child: Text("2")),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Verify Your Bank ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text("Details ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(left: 50),
+                      child: Text("Verify your bank details and upload 3-month pay slips for loan verification.",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ),
+
+
+
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset("assets/phone3.png",
+                          width: 180,height: 180,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.all(25),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0XFFCEE812),
+
+                          ),
+                          child: Center(child: Text("3")),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Choose From The",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text("Lenders ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(left: 50),
+                      child: Text("Carditnow will show you the list of lenders from whom you can choose to go ahead with.",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ),
+
+
+
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset("assets/phone4.png",
+                          width: 180,height: 180,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.all(25),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0XFFCEE812),
+
+                          ),
+                          child: Center(child: Text("4")),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Pay to your Payees",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text("Anytime ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(left: 50),
+                      child: Text("Overview of your payment details and Swipe to Pay. Congratulations! You have completed the payment.",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
+                    ),
+
+
+
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              Container(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset("assets/phone5.png",
+                          width: 180,height: 180,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.all(25),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0XFFCEE812),
+
+                          ),
+                          child: Center(child: Text("5")),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Congratulations ! you have ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Text("completed a  payment ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+
+
+                          ],
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(left: 50),
+                      child: Text("Congratulations! You have completed the payment.",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
