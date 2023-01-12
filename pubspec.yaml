@@ -65,6 +65,7 @@ dependencies:
   firebase_core: ^2.4.1
   pinput: 1.2.2
   syncfusion_flutter_pdfviewer: ^20.4.43
+  cunning_document_scanner: ^1.1.2
 
 
 dev_dependencies:

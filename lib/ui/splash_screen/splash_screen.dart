@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -39,19 +41,12 @@ class StartState extends State<SplashScreens> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 SvgPicture.asset('assets/lodaingimg.svg',
                     width: 230, height: 65),
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 Text("${"MAKE  YOUR  LIFE  EASY"}",
-                style: TextStyle(
-                  fontSize: 15, color: Colors.white,
-                  fontFamily: 'sora'
-                ),
-                ),
-
+                    style: TextStyle(
+                        fontSize: 15, color: Colors.white, fontFamily: 'sora')),
               ],
             ),
           )),
