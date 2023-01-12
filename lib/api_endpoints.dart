@@ -42,4 +42,9 @@ class API {
   String showAvatorMaster = "avatarmaster"; // Avator Images Get Api
   String uploadAvator = "avatarmaster/UploadSelfi";
   String uploadProcessDocument = "customermaster/ProcessDocument";
+
+  //creditcard
+  String crediCardPost =
+      'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
+  String creditCardGet = 'carditnowapi/customerpaymode'; //card Get Data
 }

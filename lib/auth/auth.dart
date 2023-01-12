@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/ui/register/password.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
@@ -30,19 +31,27 @@ class AuthCon extends GetxController with BaseController {
     termsconditions();
     showAvatorMaster();
     geoaccess();
+    creditCardgetAPI();
     super.onInit();
   }
 
   File? image;
   var isUAE = false.obs;
+
   // terms and conditions
   var termscond = '';
+
   // avatar
   var avatarImageList = [];
+
   // geoaccess
   var geoacclist;
+
   // gender
   var gender = 1.obs;
+
+  //credit card get
+  var creditCardGet = [];
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -51,6 +60,7 @@ class AuthCon extends GetxController with BaseController {
   //weight
   var selectedHeightUnits = "CM".obs;
   var selectedHeight = 50.0.obs;
+
   //current diet
   var dietType = "Vegetarian".obs;
 
@@ -316,6 +326,40 @@ class AuthCon extends GetxController with BaseController {
         Fluttertoast.showToast(msg: data.toString());
       }
     }
+  }
+
+  //upload credit card details
+  void creditCardPostAPI(
+      cardNumber, validity, cvv, cardName, bankName, nickName) async {
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().crediCardPost +
+                "?cardNumber=$cardNumber&validity=$validity&cvv=$cvv&cardName=$cardName&bankName=$bankName&nickName=$nickName",
+            body)
+        .catchError(handleError);
+    print(response);
+    print(body);
+    if (response == null) return;
+    var data = json.decode(response);
+    print('check' + data);
+    if (data == "Success") {
+      Get.to(const ManualCard());
+    } else {
+      Fluttertoast.showToast(msg: "Something wrong");
+    }
+  }
+
+  //get credit card details
+  void creditCardgetAPI() async {
+    var response =
+        await BaseClient().get(API().creditCardGet).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    creditCardGet = data;
+    print('Credit Card Api Get Method' +
+        creditCardGet.length.toString() +
+        'Credit Card Api Get Method');
   }
 
   void uploadDocx(

@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters
 
-import 'package:cardit/ui/payment_method/manula_card_screen.dart';
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'card_input_formatter_class.dart';
 
 class AddCreditCardPage extends StatefulWidget {
   const AddCreditCardPage({Key? key}) : super(key: key);
@@ -22,6 +24,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final nameOnCardController = new TextEditingController();
   final bankNameController = new TextEditingController();
   final addNickController = new TextEditingController();
+
+  final AuthCon con = Get.find();
+  final formKey = GlobalKey<FormState>();
 
   late FocusNode _focusNode;
   String cardNumber = '';
@@ -50,7 +55,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       scanExpiryDate: true,
       scanCardHolderName: true,
       considerPastDatesInExpiryDateScan: true,
-      validCardsToScanBeforeFinishingScan: 5);
+      cardScannerTimeOut: 5);
 
   Future<void> scanCard() async {
     final CardDetails? cardDetails =
@@ -59,6 +64,13 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
     setState(() {
       _cardDetails = cardDetails;
     });
+
+    print(
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardNumber != creditCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
+    print(
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardHolderName != nameOnCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
+    print(
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.expiryDate != validityController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
   }
 
   @override
@@ -85,427 +97,383 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Add credit card',
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.bold,
-                      color: HexColor('#004751'))),
-              SizedBox(height: 20),
-              Text('Card Number',
-                  style: TextStyle(
-                      color: HexColor('#041316'),
-                      fontFamily: 'Sora',
-                      fontSize: 16)),
-              SizedBox(height: 10),
-              TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: creditCardController,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(16),
-                    CardNumberFormatter(),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Add credit card',
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('#004751'))),
+                SizedBox(height: 20),
+                Text('Card Number',
+                    style: TextStyle(
+                        color: HexColor('#041316'),
+                        fontFamily: 'Sora',
+                        fontSize: 16)),
+                SizedBox(height: 10),
+                TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: creditCardController,
+                    validator: (value) {
+                      if (creditCardController.text.isEmpty) {
+                        return 'Enter Card Number';
+                      } else {}
+                    },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(16),
+                      CardNumberFormatter(),
+                    ],
+                    decoration: InputDecoration(
+                        labelText: '4XXX 5XXX 7XXX 3XXX',
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Validity',
+                            style: TextStyle(
+                                color: HexColor('#041316'),
+                                fontFamily: 'Sora',
+                                fontSize: 16)),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          width: 150,
+                          child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(4),
+                              CardMonthFormatter()
+                            ],
+                            validator: (value) {
+                              if (validityController.text.isEmpty) {
+                                return 'Enter Validity';
+                              } else {}
+                            },
+                            controller: validityController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                labelText: '09/24',
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('CVV',
+                            style: TextStyle(
+                                color: HexColor('#041316'),
+                                fontFamily: 'Sora',
+                                fontSize: 16)),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          width: 150,
+                          child: TextFormField(
+                            obscuringCharacter: '*',
+                            obscureText: true,
+                            keyboardType: TextInputType.number,
+                            controller: cvvController,
+                            validator: (value) {
+                              if (cvvController.text.isEmpty) {
+                                return 'Enter CVV';
+                              } else {}
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(3)
+                            ],
+                            decoration: InputDecoration(
+                                labelText: 'XXX',
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                  decoration: InputDecoration(
-                      labelText: '4XXX 5XXX 7XXX 3XXX',
-                      filled: true,
-                      fillColor: Colors.white,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold))),
-              SizedBox(height: 10),
-              customField(),
-              SizedBox(height: 10),
-              Text('Name On Card',
-                  style: TextStyle(
-                      color: HexColor('#041316'),
-                      fontFamily: 'Sora',
-                      fontSize: 16)),
-              SizedBox(height: 10),
-              TextFormField(
-                  controller: nameOnCardController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      labelText: 'Enter your name',
-                      filled: true,
-                      fillColor: Colors.white,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold))),
-              SizedBox(height: 10),
-              Text('Bank Name',
-                  style: TextStyle(
-                      color: HexColor('#041316'),
-                      fontFamily: 'Sora',
-                      fontSize: 16)),
-              SizedBox(height: 10),
-              TextFormField(
-                  controller: bankNameController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                      labelText: 'Enter your bank name',
-                      filled: true,
-                      fillColor: Colors.white,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold))),
-              SizedBox(height: 10),
-              Text('Add Nick Name',
-                  style: TextStyle(
-                      color: HexColor('#041316'),
-                      fontFamily: 'Sora',
-                      fontSize: 16)),
-              SizedBox(height: 10),
-              TextFormField(
-                  keyboardType: TextInputType.name,
-                  controller: addNickController,
-                  decoration: InputDecoration(
-                      labelText: 'Add nickname for your card',
-                      filled: true,
-                      fillColor: Colors.white,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.normal),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold))),
-              SizedBox(height: 30),
-              Text(
-                  '${_cardDetails?.cardNumber == null ? '' : _cardDetails?.cardNumber}'),
-              Text(
-                  '${_cardDetails?.cardHolderName == null ? '' : _cardDetails?.cardHolderName}'),
-              Text(
-                  '${_cardDetails?.expiryDate == null ? '' : _cardDetails?.expiryDate}'),
-            ],
+                ),
+                SizedBox(height: 10),
+                Text('Name On Card',
+                    style: TextStyle(
+                        color: HexColor('#041316'),
+                        fontFamily: 'Sora',
+                        fontSize: 16)),
+                SizedBox(height: 10),
+                TextFormField(
+                    controller: nameOnCardController,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (nameOnCardController.text.isEmpty) {
+                        return 'Enter Card Holder Name';
+                      } else {}
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Enter your name',
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 10),
+                Text('Bank Name',
+                    style: TextStyle(
+                        color: HexColor('#041316'),
+                        fontFamily: 'Sora',
+                        fontSize: 16)),
+                SizedBox(height: 10),
+                TextFormField(
+                    controller: bankNameController,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (bankNameController.text.isEmpty) {
+                        return 'Enter Bank Name';
+                      } else {}
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Enter your bank name',
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 10),
+                Text('Add Nick Name',
+                    style: TextStyle(
+                        color: HexColor('#041316'),
+                        fontFamily: 'Sora',
+                        fontSize: 16)),
+                SizedBox(height: 10),
+                TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: addNickController,
+                    validator: (value) {
+                      if (addNickController.text.isEmpty) {
+                        return 'Enter Nick Name';
+                      } else {}
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Add nickname for your card',
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
       ),
       bottomNavigationBar: AuthButton(
           onTap: () {
-            Get.to(const ManualCard());
+            if (formKey.currentState!.validate()) {
+              con.creditCardPostAPI(
+                  creditCardController.text,
+                  validityController.text,
+                  cvvController.text,
+                  nameOnCardController.text,
+                  bankNameController.text,
+                  addNickController.text);
+            }
+            // Get.to(const ManualCard());
           },
           text: 'Verify and Proceed',
           decoration: BoxDecoration(color: HexColor('#CEE812'))),
     );
-  }
-
-  Widget customField() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Validity',
-                style: TextStyle(
-                    color: HexColor('#041316'),
-                    fontFamily: 'Sora',
-                    fontSize: 16)),
-            SizedBox(height: 10),
-            SizedBox(
-              width: 150,
-              child: TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(4),
-                  CardMonthFormatter()
-                ],
-                controller: validityController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: '09/24',
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle:
-                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    focusColor: Colors.grey.shade300,
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        gapPadding: 7,
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorStyle: const TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold)),
-              ),
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('CVV',
-                style: TextStyle(
-                    color: HexColor('#041316'),
-                    fontFamily: 'Sora',
-                    fontSize: 16)),
-            SizedBox(height: 10),
-            SizedBox(
-              width: 150,
-              child: TextField(
-                obscuringCharacter: '*',
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                controller: cvvController,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(3),
-                  CvvNumberFormatter()
-                ],
-                decoration: InputDecoration(
-                    labelText: 'XXX',
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle:
-                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    focusColor: Colors.grey.shade300,
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        gapPadding: 7,
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorStyle: const TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold)),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class CardNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue previousValue, TextEditingValue nextValue) {
-    var inputText = nextValue.text;
-
-    if (nextValue.selection.baseOffset == 0) {
-      return nextValue;
-    }
-
-    var bufferString = StringBuffer();
-    for (int i = 0; i < inputText.length; i++) {
-      bufferString.write(inputText[i]);
-      var nonZeroIndexValue = i + 1;
-      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
-        bufferString.write(' ');
-      }
-    }
-
-    var string = bufferString.toString();
-    return nextValue.copyWith(
-      text: string,
-      selection: TextSelection.collapsed(
-        offset: string.length,
-      ),
-    );
-  }
-}
-
-class CardMonthFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    var newText = newValue.text;
-
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-
-    var buffer = StringBuffer();
-    for (int i = 0; i < newText.length; i++) {
-      buffer.write(newText[i]);
-      var nonZoneIndex = i + 1;
-      if (nonZoneIndex % 2 == 0 && nonZoneIndex != newText.length) {
-        buffer.write('/');
-      }
-    }
-
-    var string = buffer.toString();
-    return newValue.copyWith(
-        text: string,
-        selection: TextSelection.collapsed(offset: string.length));
-  }
-}
-
-class CvvNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    var newText = newValue.text;
-
-    if (newValue.selection.baseOffset == 0) {
-      return newValue;
-    }
-
-    var buffer = StringBuffer();
-    for (int i = 0; i < newText.length; i++) {
-      buffer.write(newText[i]);
-      var nonZoneIndex = i + 1;
-      if (nonZoneIndex % 3 == 0 && nonZoneIndex != newText.length) {
-        buffer.write('*');
-      }
-    }
-
-    var string = buffer.toString();
-    return newValue.copyWith(
-        text: string,
-        selection: TextSelection.collapsed(offset: string.length));
   }
 }
