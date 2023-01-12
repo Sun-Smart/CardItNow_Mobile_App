@@ -49,7 +49,7 @@ class AuthCon extends GetxController with BaseController {
   var selectedWeight = 50.0.obs;
 
   //weight
-  var selectedHeightUnits = "CM".obs;
+  var drawercountry = "CM".obs;
   var selectedHeight = 50.0.obs;
   //current diet
   var dietType = "Vegetarian".obs;

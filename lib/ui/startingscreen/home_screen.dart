@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
+import '../register/drawer/drawerscreen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,6 +29,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      drawer: Column(
+
+        children: [
+          Container(
+              height: 500,
+
+              width: MediaQuery.of(context).size.width / 1,
+              child: drawer()),
+        ],
+      ),
       backgroundColor: themeChange.darkTheme
           ? const Color(0XFF000000)
           : const Color(0XFFffffff),
@@ -36,8 +47,15 @@ class _HomeState extends State<Home> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
+            iconTheme: IconThemeData(color: Colors.green),
             elevation: 0,
-            leading: SvgPicture.asset('assets/sortingleft.svg', width: 16),
+            leading:Builder( builder: (context) =>
+            GestureDetector(
+              onTap: (){
+                Scaffold.of(context).openDrawer();
+              },
+
+                child: SvgPicture.asset('assets/sortingleft.svg', width: 16)),),
             actions: [
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
@@ -92,11 +110,11 @@ class _HomeState extends State<Home> {
           children: [
             topBanner(),
             buildTitle(),
-            buildButton(),
+
           ],
         ),
       ),
-      bottomNavigationBar: _buildCart(),
+      bottomNavigationBar: buildButton(),
     );
   }
 
@@ -244,6 +262,389 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 40,
+              ),
+
+              Text("Why CarditNow?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Styles.whitecolortext,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)),
+        SizedBox(
+          height: 10,
+        ),
+
+              Text("Why Choose Us.",
+                  textAlign: TextAlign.center,
+    style: TextStyle(
+    fontSize: 15,
+    fontFamily: 'Sora',
+
+    color: Color.fromRGBO(4, 19, 22, 0.75))),
+
+              SizedBox(
+                height: 20,
+              ),
+
+       Container(
+
+         // height: 360 ,
+         // width: MediaQuery.of(context).size.width / 1,
+
+         decoration: BoxDecoration(
+           borderRadius: BorderRadius.circular(20),
+           border: Border.all(
+             width: 1,color: Colors.grey,)
+               
+         ),
+         child: Container(
+           margin: EdgeInsets.all(25),
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Row(
+                 children: [
+                   Container(
+                     // margin: EdgeInsets.all(25),
+                     height: 100,
+                     width: 100,
+                     decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(20),
+                        color: Color(0XFFCEE812),
+
+                     ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/paymentmethod.png")
+                        ],
+                      ),
+                   )
+                 ],
+               ),
+               SizedBox(
+                 height: 20,
+               ),
+               Row(
+                 children: [
+                   Text("Make And Recieve",
+                       style: TextStyle(
+                           color: Color(0XFF004751),
+                           fontSize: 22,
+                           fontWeight: FontWeight.bold)),
+                 ],
+               ),
+               SizedBox(
+                 height: 5,
+               ),
+               Row(
+                 children: [
+                   Text("Payment Digitally",
+                       style: TextStyle(
+                           color: Color(0XFF004751),
+                           fontSize: 22,
+                           fontWeight: FontWeight.bold)),
+                 ],
+               ),
+               SizedBox(
+                 height: 10,
+               ),
+               Text("Live life to the fullest! You can pay for your living expenses using your credit card and bank account. you can also receive payment digitally at no costs or integration and eliminate cash collections",
+                   textAlign: TextAlign.justify,
+                   style: TextStyle(
+                       fontSize: 15,
+                       fontFamily: 'Sora',
+                       fontWeight: FontWeight.bold,
+
+                       color: Color.fromRGBO(4, 19, 22, 0.75))),
+
+
+
+             ],
+           ),
+         ),
+       ),
+              SizedBox(
+                height: 20,
+              ),
+
+              Container(
+
+                // height: 350 ,
+                // width: MediaQuery.of(context).size.width / 1,
+
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      width: 1,color: Colors.grey,)
+
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            // margin: EdgeInsets.all(25),
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0XFFCEE812),
+
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/sheild.png")
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text("Track and Manage",
+                              style: TextStyle(
+                                  color: Color(0XFF004751),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text("Expenses",
+                              style: TextStyle(
+                                  color: Color(0XFF004751),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Enjoy the digital experienc managing your expenses with interactive dashboards in real time. You can now avoid the missing important payments with a help of Carditnow Scheduler ",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+
+                              color: Color.fromRGBO(4, 19, 22, 0.75))),
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      width: 1,color: Colors.grey,)
+
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(25),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            // margin: EdgeInsets.all(25),
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0XFFCEE812),
+
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/mobshopping.png")
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text("Easy Payment Plan",
+                              style: TextStyle(
+                                  color: Color(0XFF004751),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Simplify your living expenses with flexible payments. Fast and easy online approvals.",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+
+                              color: Color.fromRGBO(4, 19, 22, 0.75))),
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+              ),
+
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("What can i pay for using Carditnow?",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: Styles.whitecolortext,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Text("with Carditnow, you can pay",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.bold,
+
+                            color: Color.fromRGBO(4, 19, 22, 0.75))),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset("assets/rent.png"),
+                            Text("Rent",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0XFF004751)
+
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset("assets/invoices.png"),
+                                Text("Invoices",style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0XFF004751)
+
+                                ),)
+                              ],
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Image.asset("assets/build.png"),
+                                    Text("Condo Fees",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0XFF004751)
+
+                                    ),)
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Image.asset("assets/mail.png"),
+                                    Text("Taxes",style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0XFF004751)
+
+                                    ),)
+                                  ],
+                                )
+                              ],
+                            ),
+
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Center(
+                      child: Container(
+
+                        height: 40,
+                        width: 240,
+
+                        decoration: BoxDecoration(
+                            color: Colors.white30,
+                            borderRadius: BorderRadius.circular(30)
+
+                        ),
+                        child: Center(
+                          child: Text("And Many More...",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,fontSize: 20,
+                                color: Color(0XFF004751)
+
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+
+
+
             ]));
   }
 
@@ -261,7 +662,7 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
-          child: const Text("Swipe to start...",
+          child: const Text("Get Started",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
                   fontSize: 16,

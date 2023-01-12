@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../responsive/responsive.dart';
 import '../../widgets/auth_button.dart';
 import '../register/register_screen.dart';
+import '../startingscreen/home_screen.dart';
 
 class splash2 extends StatefulWidget {
   const splash2({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _splash2State extends State<splash2> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 0,
                 ),
                 Container(
                   width: Responsive.isMobile(context)
@@ -113,27 +114,34 @@ class _splash2State extends State<splash2> {
                                 });
                               },
                               child: Container(
-                                margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
+                                margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
+
                                 child: Card(
                                   elevation: 0,
                                   color: type == country[index]['type']
                                       ? HexColor('#CEE812')
-                                      : Colors.transparent,
+                                      : Colors.white12,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Center(
                                       child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Column(
+                                          Row(
+
+
                                             children: [
                                               const SizedBox(height: 10),
-                                              Image.asset(country[index]['img']!,
-                                                  width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
+                                              Center(
+                                                child: Image.asset(country[index]['img']!,
+                                                    width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
+                                              ),
                                               const SizedBox(height: 10),
+                                              const SizedBox(width: 20),
                                               Text(country[index]['type']!,
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 16)),
+                                                      fontWeight: FontWeight.bold,color: Colors.lightGreen,
+                                                      fontSize: 20)),
                                               const SizedBox(height: 10),
                                             ],
                                           ),
@@ -194,10 +202,10 @@ class _splash2State extends State<splash2> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     onTap: () {
-                      Get.to(Register());
+                      Get.to(Home());
                     },
                     text: "Next",
-                  )
+                  ),
               ],
             ),
           )),
