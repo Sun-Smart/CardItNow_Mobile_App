@@ -9,6 +9,7 @@ import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final AuthCon con = Get.find();
   final formKey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
+  final middlenamecontroller = TextEditingController();
+  final nicknamecontroller = TextEditingController();
   final cityNameController = TextEditingController();
   final stateNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -38,10 +41,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   String? dropdownvalue;
   String? dropdownvalueCity;
+  String? dropdownintrest;
   var selectedcountry = ['UAE', 'Philipines'];
   var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
   var uaecities = ['Dubai', 'Abudhabi', 'Sharjah', 'Fujariah'];
   var uaeData = ['UAE'];
+  var interests =["Racing","Riding","Gaming"];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +79,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     return Container(
       padding: const EdgeInsets.all(15),
       child: Text(
-        'HI ! Tell About Your Self',
+        'Hey ${GetStorage().read('username')}! Tell About Your Self',
         style: TextStyle(
           fontSize: 28,
           fontFamily: 'Sora',
@@ -110,6 +115,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
+
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'First Name',
@@ -123,30 +129,86 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
+                // border: const OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.grey)),
+                // focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // focusedErrorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     gapPadding: 7,
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorStyle: const TextStyle(
+                //     fontFamily: 'Sora',
+                //     fontSize: 13,
+                //     fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
+
+            // const SizedBox(height: 10),
+
+            MyCustomInputBox(
+              enabled: true,
+              label: "Middle Name ",
+              controller: middlenamecontroller,
+              obsecureText: false,
+              inputHint: "Your Middle Name",
+              textInputType: TextInputType.text,
+              validator: (value) {
+                if (middlenamecontroller.text.isEmpty) {
+                  return "Please Enter middle Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+              inputDecoration: InputDecoration(
+
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Middle Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                // border: const OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.grey)),
+                // focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // focusedErrorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     gapPadding: 7,
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorStyle: const TextStyle(
+                //     fontFamily: 'Sora',
+                //     fontSize: 13,
+                //     fontWeight: FontWeight.bold),
+              ),
+            ),
+
             MyCustomInputBox(
               enabled: true,
               label: "Last Name ",
@@ -369,10 +431,119 @@ class _ProfileInformationState extends State<ProfileInformation> {
             //         fontWeight: FontWeight.bold),
             //   ),
             // ),
+
+            MyCustomInputBox(
+              enabled: true,
+              label: "Email id ",
+              controller: con.emailController,
+              obsecureText: false,
+              inputHint: "Your First Name",
+              textInputType: TextInputType.text,
+              validator: (value) {
+                if (con.emailController.text.isEmpty) {
+                  return "Please Enter EmailId...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+              inputDecoration: InputDecoration(
+
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'First Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+
+
+            MyCustomInputBox(
+              enabled: true,
+              label: "What Should we Called you ",
+              controller: nicknamecontroller,
+              obsecureText: false,
+              inputHint: "Enter Your nick name",
+              textInputType: TextInputType.text,
+              validator: (value) {
+                if (nicknamecontroller.text.isEmpty) {
+                  return "Please Enter Nick Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+              inputDecoration: InputDecoration(
+
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Enter Your Nick Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Required Number",
+              label: "Phone Number",
               controller: requiredNoController,
               obsecureText: false,
               textInputType: TextInputType.phone,
@@ -602,6 +773,67 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+
+            Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                child: Text('Select Your Interests',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 14,
+                        color: Styles.whitecustomlable))),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              width: Responsive.isMobile(context)
+                  ? MediaQuery.of(context).size.width / 1
+                  : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
+              height: MediaQuery.of(context).size.height / 15,
+              decoration: BoxDecoration(
+                  border:
+                  Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(3))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButton(
+                  underline: const SizedBox(),
+                  dropdownColor: Colors.white,
+                  isExpanded: true,
+                  value: dropdownintrest,
+                  hint: Text('Select Your Interests',
+                      style: TextStyle(
+                          color: Styles.whitecustomlable, fontSize: 14)),
+                  icon: InkWell(
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        // color: themeChange.darkTheme
+                        //     ? Colors.white
+                        //     : Colors.black45
+                      )),
+                  items: interests.map((String item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      // dropdownvalueCity = null;
+                      dropdownintrest = newValue!;
+                      // con.choosedDocId = newValue;
+                      // con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
+                    });
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+
             const SizedBox(height: 10),
             Container(
                 margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -812,7 +1044,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
           // } else {
           //   Fluttertoast.showToast(msg: "Data Save Successfully...");
           //}
-          Get.to(const AvatarPageView());
+          // Get.to(const AvatarPageView());
           if (formKey.currentState!.validate()) {
             if (issueDateController.text == expiredDateController.text) {
               Fluttertoast.showToast(
@@ -833,8 +1065,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               );
               // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
             }
-          } else {
-            Fluttertoast.showToast(msg: "Data Save Successfully...");
           }
         },
         text: "Next");

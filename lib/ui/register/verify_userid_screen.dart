@@ -9,6 +9,7 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
+import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:file_picker/file_picker.dart';
@@ -216,7 +217,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ),
                 ),
                 onTap: () {
-                  Get.to(const ProfileInformation());
+                  Get.to(const AvatarPageView());
                 },
               ),
             ),

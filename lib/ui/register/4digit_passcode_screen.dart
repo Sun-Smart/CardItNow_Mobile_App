@@ -103,7 +103,7 @@ class _PasscodeState extends State<Passcode> {
                     child: PinPut(
                         controller: otpCon,
                         onChanged: (o) {
-                          if (o.length == 4) {
+                          if (o.length == 6) {
                             FocusScope.of(context)
                                 .requestFocus(new FocusNode());
                           }
@@ -121,7 +121,7 @@ class _PasscodeState extends State<Passcode> {
                         submittedFieldDecoration: _pinPutDecoration.copyWith(
                             borderRadius: BorderRadius.circular(0)),
                         selectedFieldDecoration: _pinPutDecoration,
-                        fieldsCount: 4),
+                        fieldsCount: 6),
                   ),
                 ])));
   }

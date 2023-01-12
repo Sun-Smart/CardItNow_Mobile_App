@@ -20,7 +20,7 @@ import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
 bool isChecked = false;
-bool isChecked1 = false;
+bool isChecked1 = true;
 bool isLoggedIn = false;
 Map userObj = {};
 
@@ -268,7 +268,7 @@ class _RegisterState extends State<Register> {
                                     showAlertDialog(context);
                                   },
                                   child: Text(
-                                    ' Terms & Conditions.',
+                                    ' Privacy Clause',
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: themeChange.darkTheme
@@ -322,7 +322,7 @@ class _RegisterState extends State<Register> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   if (isChecked1) {
-                                                    isChecked1 = false;
+                                                    isChecked1 = true;
                                                   } else {
                                                     isChecked1 = true;
                                                   }
