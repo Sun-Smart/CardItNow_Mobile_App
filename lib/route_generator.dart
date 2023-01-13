@@ -15,9 +15,7 @@ import 'package:cardit/ui/onboard_screen/onboard_recipient_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
-import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
-import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +30,10 @@ import 'ui/landingscreens/user_details_screen.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
-import 'ui/payment_method/choose_payment_method.dart';
 import 'ui/payment_method/manula_card_screen.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
+import 'ui/splash_screen/splash_screen.dart';
 import 'ui/startingscreen/home_screen.dart';
 
 class RouteGenerator {
