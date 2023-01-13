@@ -153,19 +153,16 @@ class BaseClient {
       {isMultiPart = false, file, isDev = false}) async {
     var productionUrl = Uri.parse(API().baseURL + endPoint);
     var devUrl = Uri.parse(API().localUrl + endPoint);
-    // var payload = json.encode(payloadObj);\
+    var payload = json.encode(payloadObj);
     // print(uri);
     var uri = isDev ? devUrl : productionUrl;
     print(uri.toString() + "url");
     try {
-      var normalReq = http.post(uri,
-          headers: <String, String>{
-            'accept': 'application/json',
-            // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJeUxURXlMVEkySURBME9qQXdPakE0TGpZd01qWXpOQzB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxMi8yNi8yMDIyIDM6MzI6MjMgUE0iLCJleHAiOjE2NzIyMjg5NDMsImlzcyI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly8xMDguNjAuMjE5LjQ0OjYzOTM5LyJ9.d0FA5lAJ8zC6uPF9mRr6Z2IGIQa_f65dW9ETfdqH0ZU'
-          },
-          body: payloadObj);
-      var multiPartReq = http.MultipartRequest('POST', uri);
       if (isMultiPart) {
+        print('comess');
+
+        var multiPartReq = http.MultipartRequest('POST', uri);
+
         print('yesss');
         multiPartReq.headers.addAll({"Content-type": "multipart/form-data"});
         multiPartReq.files.add(file);
@@ -178,9 +175,18 @@ class BaseClient {
         print(response.statusCode.toString() + "body");
         // return _processResponse(result);
       } else {
-        var response =
-            await normalReq.timeout(const Duration(seconds: TIME_OUT_DURATION));
-        print(response.body + "body");
+        print('heloo');
+        var response = await http
+            .post(uri,
+                headers: <String, String>{
+                  'Content-Type': 'application/json',
+                  'Authorization':
+                      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEV5SURBM09qSXlPakV5TGpNd05UazVNeTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzEyLzIwMjMgNToyMjoxMiBBTSIsImV4cCI6MTY3MzcwOTczMiwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.qQ9jfpIeASelmuzpO9KjP2lQlW6O83eyZMpkzcnv9wM'
+                },
+                body: payload)
+            .timeout(const Duration(seconds: TIME_OUT_DURATION));
+        print(response.statusCode.toString() + "body");
+        print('comess');
         return _processResponse(response);
       }
     } on SocketException {
