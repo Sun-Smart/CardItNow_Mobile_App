@@ -12,6 +12,7 @@ import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
+import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,8 @@ class VerifyUserId extends StatefulWidget {
 class _VerifyUserIdState extends State<VerifyUserId> {
   final formKey = GlobalKey<FormState>();
   final phoneNumberController = TextEditingController();
+
+  List<String> _pictures = [];
 
   File? imageFile;
   File? imageFile1;
@@ -472,7 +475,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                opendoc();
+                onPressed();
               },
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -492,7 +495,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                openCamera();
+                onPressed();
               },
               child: Image.file(imagedoc2!)));
     }
@@ -511,7 +514,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              openGallery();
+              // openGallery();
+              print('kkkk');
+              onPressed();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -520,6 +525,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                 Image.asset("assets/uplodicon.png", width: 32),
                 const SizedBox(height: 5),
                 const Text('Image should not be more than 2 mb'),
+                for (var picture in _pictures) Image.file(File(picture))
               ],
             ),
           ));
@@ -574,6 +580,21 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       //       },
       //       child: Text(_platformFile!.name),
       //     ));
+    }
+  }
+
+  //Document Scan
+  void onPressed() async {
+    List<String> pictures;
+    try {
+      pictures = await CunningDocumentScanner.getPictures() ?? [];
+      if (!mounted) return;
+      setState(() {
+        _pictures = pictures;
+        imagedoc2=File(_pictures[0]);
+      });
+    } catch (exception) {
+      print('Image Not Pic');
     }
   }
 
