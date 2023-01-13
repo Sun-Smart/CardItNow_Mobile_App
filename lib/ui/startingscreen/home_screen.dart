@@ -110,6 +110,7 @@ class _HomeState extends State<Home> {
             topBanner(),
             buildTitle(),
             buildContainer(),
+            buildSystemImage(),
             buildAbout(),
             buildLetGetStarted(),
           ],
@@ -1452,56 +1453,63 @@ class _HomeState extends State<Home> {
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Color(0XFF004751),
-      child: Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('We Keep your Information and Transactions Safe and Secure',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-            SizedBox(height: 20),
-            Text('Security is our Core and Number one priority',
-                style: TextStyle(
-                    fontSize: 14, fontFamily: 'Sora', color: Colors.white)),
-            SizedBox(height: 20),
-            Text(
-                'We maintain strict compliance of all guidelines, \nrequirements, directives and conditions issued \nby Bangko Sentral ng Pilipinas as well as Financial \ninstitution partners. All funds will always be held securely \nwith Financial institution partners.',
-                style: TextStyle(
-                    fontSize: 12, fontFamily: 'Sora', color: Colors.white)),
-            SizedBox(height: 20),
-            Text(
-                ' We also take additional measures to evaluate the risk \nacross all our platforms and have constant back up and \nfirewalls in place to keep your data safe at all times.',
-                style: TextStyle(
-                    fontSize: 12, fontFamily: 'Sora', color: Colors.white)),
-            SizedBox(height: 30),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: HexColor('#CEE812')),
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                onPressed: () {},
-                child: Text('Sign Up to Carditnow',
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    'We Keep your Information and Transactions Safe and Secure',
                     style: TextStyle(
-                      color: Color(0XFF004751),
-                      fontSize: 16,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
+                        fontSize: 24,
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                SizedBox(height: 20),
+                Text('Security is our Core and Number one priority',
+                    style: TextStyle(
+                        fontSize: 14, fontFamily: 'Sora', color: Colors.white)),
+                SizedBox(height: 20),
+                Text(
+                    'We maintain strict compliance of all guidelines, \nrequirements, directives and conditions issued \nby Bangko Sentral ng Pilipinas as well as Financial \ninstitution partners. All funds will always be held securely \nwith Financial institution partners.',
+                    style: TextStyle(
+                        fontSize: 12, fontFamily: 'Sora', color: Colors.white)),
+                SizedBox(height: 20),
+                Text(
+                    ' We also take additional measures to evaluate the risk \nacross all our platforms and have constant back up and \nfirewalls in place to keep your data safe at all times.',
+                    style: TextStyle(
+                        fontSize: 12, fontFamily: 'Sora', color: Colors.white)),
+                SizedBox(height: 30),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: HexColor('#CEE812')),
+                  child: MaterialButton(
+                    minWidth: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(20),
+                    onPressed: () {},
+                    child: Text('Sign Up to Carditnow',
+                        style: TextStyle(
+                          color: Color(0XFF004751),
+                          fontSize: 16,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 30),
-            Center(child: Image.asset('assets/bottom_image.png')),
-            SizedBox(height: 30),
-          ],
-        ),
+          ),
+          Image.asset('assets/mobile.png'),
+        ],
       ),
     );
+  }
+
+  Widget buildSystemImage() {
+    return Image.asset('assets/system.png');
   }
 
   Widget buildAbout() {
@@ -1513,8 +1521,6 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: Image.asset('assets/system_image.png')),
-            SizedBox(height: 30),
             Text('About Us',
                 style: TextStyle(
                     fontSize: 24,
@@ -1536,14 +1542,7 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                     fontSize: 12, fontFamily: 'Sora', color: Colors.black)),
             SizedBox(height: 50),
-            Text('Get in touch with \nus!',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Sora',
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold)),
-            SizedBox(height: 50),
-            Center(child: Image.asset('assets/untitled.png')),
+            Image.asset('assets/getintouch.png'),
             SizedBox(height: 30),
             Text('Your Name',
                 style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
@@ -1668,118 +1667,125 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildLetGetStarted() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      color: Color(0XFF004751),
-      child: Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Align(
-                alignment: Alignment.center,
-                child: Text('Are you ready?',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Sora',
-                        color: Colors.white))),
-            SizedBox(height: 20),
-            Align(
-              alignment: Alignment.center,
-              child: Text('Let’s get started',
-                  style: TextStyle(
-                      fontSize: 24, fontFamily: 'Sora', color: Colors.white)),
-            ),
-            SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: HexColor('#CEE812')),
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                onPressed: () {},
-                child: Text('Get Started',
-                    style: TextStyle(
-                      color: Color(0XFF004751),
-                      fontSize: 16,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      children: [
+        Image.asset('assets/city.png'),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Color(0XFF004751),
+          child: Container(
+            margin: EdgeInsets.all(20),
+            child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Align(
+                    alignment: Alignment.center,
+                    child: Text('Are you ready?',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            color: Colors.white))),
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text('Let’s get started',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'Sora',
+                          color: Colors.white)),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: HexColor('#CEE812')),
+                  child: MaterialButton(
+                    minWidth: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(20),
+                    onPressed: () {},
+                    child: Text('Get Started',
+                        style: TextStyle(
+                          color: Color(0XFF004751),
+                          fontSize: 16,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Home',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
-                    Text('How it Works?',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white)),
-                    SizedBox(height: 10),
-                    Text('Pricing',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white)),
-                    SizedBox(height: 10),
-                    Text('Split Expenses',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white))
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Home',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text('How it Works?',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Pricing',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Split Expenses',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white))
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Refer a Friend',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('About Us',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Contact us',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 20),
+                      ],
+                    )
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Refer a Friend',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white)),
-                    SizedBox(height: 10),
-                    Text('About Us',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white)),
-                    SizedBox(height: 10),
-                    Text('Contact us',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 12,
-                            color: Colors.white)),
-                    SizedBox(height: 20),
-                  ],
-                )
+                SizedBox(height: 30),
+                Center(
+                  child: Text(
+                    'Copyright © 2020. Carditnow. All rights reserved.',
+                    style: TextStyle(
+                      fontFamily: 'Sora',
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 50),
               ],
             ),
-            SizedBox(height: 30),
-            Center(
-              child: Text(
-                'Copyright © 2020. Carditnow. All rights reserved.',
-                style: TextStyle(
-                  fontFamily: 'Sora',
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            SizedBox(height: 50),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 
