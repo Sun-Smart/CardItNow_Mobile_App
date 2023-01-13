@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import, unnecessary_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
+import 'dart:io';
+
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -99,9 +101,24 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage('userDetails.photoURL')),
+              Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: const Color(0xff036D7A)),
+                child: GetStorage()
+                    .read("avatarpic")
+                    .toString()
+                    .contains('assets')
+                    ? Image.asset(GetStorage().read("avatarpic"),
+                    fit: BoxFit.cover, height: 43, width: 43)
+                    : Image.file(File(GetStorage().read("avatarpic")),
+                    fit: BoxFit.fill, height: 43, width: 43),
+              ),
+              // CircleAvatar(
+              //     radius: 50,
+              //     backgroundImage: ,),
               const SizedBox(height: 5),
               Text('${GetStorage().read('username')}',
                   textAlign: TextAlign.left,

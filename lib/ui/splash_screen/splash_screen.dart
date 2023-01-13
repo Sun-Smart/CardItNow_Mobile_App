@@ -23,7 +23,7 @@ class StartState extends State<SplashScreens> {
   }
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 2500), () {});
+    await Future.delayed(const Duration(milliseconds: 14500), () {});
     if (GetStorage().read('token') == null) {
       Get.toNamed('/splash2');
     } else {
