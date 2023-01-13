@@ -9,6 +9,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/theme_notifier.dart';
+import '../payment_method/choose_payment_method.dart';
 
 class termsandconditions extends StatefulWidget {
   const termsandconditions({Key? key}) : super(key: key);
@@ -110,9 +111,11 @@ class _termsandconditionsState extends State<termsandconditions> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (GetStorage().read('token') == null) {
-            Get.toNamed('/home');
+            // Get.toNamed('/home');
+            Get.to(ChoosePaymentPage());
           } else {
-            Get.toNamed('/dashbordScreen');
+            Get.to(ChoosePaymentPage());
+            // Get.toNamed('/ChoosePaymentPage');
           }
         },
         text: "Done");

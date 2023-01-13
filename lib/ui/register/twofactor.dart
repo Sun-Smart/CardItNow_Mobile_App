@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,7 +50,7 @@ class _TwofactorState extends State<Twofactor> {
                   ),
                 ),
                 onTap: () {
-                  Get.to(const AvatarPageView());
+                  Get.to(const termsandconditions());
                 },
               ),
             ),
@@ -176,10 +177,10 @@ class _TwofactorState extends State<Twofactor> {
     return AuthButton(
       onTap: () {
         if (pass == true) {
-          Get.to(AvatarPageView());
+          Get.to(termsandconditions());
         } else {
           Fluttertoast.showToast(msg: "You have not set Your Biometrics");
-          Get.to(AvatarPageView());
+          Get.to(termsandconditions());
         }
       },
       text: "Enable",

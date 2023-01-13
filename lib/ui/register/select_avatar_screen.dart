@@ -6,11 +6,13 @@ import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -58,6 +60,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
       log(fileInBase64);
       ;
       con.uploadimg = base64.encode(fileInBytes);
+      type=imageGallery.path;
+      GetStorage().write('avatarpic', type);
       print('******************* BASE 64 SOURCE *******************');
     } else {
       if (kDebugMode) {
@@ -148,7 +152,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                 Container(
                                   child: InkWell(
                                     onTap: () {
-                                      type == avatars[index];
+
+                                      type = avatars[index];
+
+
                                       var avatorDatas = avatars[index];
                                       imagePickerAvator(avatorDatas, () {
                                         // con.avatorSelfi(avatorDatas);
@@ -223,6 +230,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                         color: HexColor('#CEE812'),
                         borderRadius: BorderRadius.circular(5)),
                     onTap: () {
+                      print('dhamu'+type);
+                      GetStorage().read("avatarpic");
                       Get.to(const ProfileInformation());
                     },
                     text: "Next",
@@ -271,7 +280,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
     );
   }
 
-  Future<bool> imagePickerCamera(File imagePath) async {
+  void imagePickerCamera(File imagePath) async {
     bool exitApp = await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -309,7 +318,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 MaterialButton(
                     color: HexColor('#CEE812'),
                     onPressed: () {
-                      print(imagePath);
+                      print('llll');
+                      // GetStorage().write("avatarpic", type);
                       Get.back();
                       // Get.to(() => Passcode());
                       // Navigator.pop(context);
@@ -327,7 +337,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
         );
       },
     );
-    return exitApp ?? false;
   }
 
   //Avator Image Picker
@@ -371,7 +380,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                             fontSize: 16))),
                 MaterialButton(
                     color: HexColor('#CEE812'),
-                    onPressed: onTap,
+                    onPressed: (){
+                      GetStorage().write("avatarpic", type);
+                      Get.back();
+                    },
                     child: Text('SAVE',
                         style: TextStyle(
                             fontFamily: 'Sora',
