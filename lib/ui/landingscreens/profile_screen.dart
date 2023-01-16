@@ -14,6 +14,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../register/drawer/drawerscreen.dart';
 import 'dashbord_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -207,6 +208,7 @@ class _ProfileState extends State<Profile> {
                 onTap: () {
                   GetStorage().remove('token');
                   Get.offAndToNamed('/home');
+                  items.clear();
                 },
                 text: "Yes"),
             AuthButton(

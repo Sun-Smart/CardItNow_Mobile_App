@@ -1,7 +1,18 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+var drawerselection ='';
+var items =[
+  "Home",
+  "How it Works?",
+  "Pricing",
+  "Split Expensed",
+  "Refer a friend",
+  "About us",
+  "Contact us"
+];
 class drawer extends StatefulWidget {
   const drawer({Key? key}) : super(key: key);
 
@@ -10,19 +21,19 @@ class drawer extends StatefulWidget {
 }
 
 class _drawerState extends State<drawer> {
-  final AuthCon auth = Get.put(AuthCon());
+
+  // final ItemScrollController itemScrollController = ItemScrollController();
+  // final ItemPositionsListener itemPositionsListener =
+  // ItemPositionsListener.create();
+
+
   bool isselected = false;
 
-  var type ='';
-  var items =[
-    "Home",
-    "How it Works?",
-    "Pricing",
-    "Split Expensed",
-    "Refer a friend",
-    "About us",
-    "Contact us"
-  ];
+
+
+
+
+  final AuthCon con = Get.put(AuthCon());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +50,7 @@ class _drawerState extends State<drawer> {
                   GestureDetector(
                     onTap: (){
 
-                      auth.drawercountry.value = "CM";
+                      con.drawercountry.value = "CM";
                       setState(() {});
                     },
                       child: Text("Philipines",
@@ -47,7 +58,7 @@ class _drawerState extends State<drawer> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color:   auth.drawercountry.value == "CM"
+                          color:   con.drawercountry.value == "CM"
                               ? Color(0XFF004751)
                               : Colors.grey,
                         ),
@@ -67,14 +78,14 @@ class _drawerState extends State<drawer> {
                   GestureDetector(
                       onTap: (){
 
-                        auth.drawercountry.value = "Ds";
+                        con.drawercountry.value = "Ds";
                         setState(() {});
                       },
                       child: Text("UAE",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color:   auth.drawercountry.value == "Ds"
+                          color:   con.drawercountry.value == "Ds"
                               ? Color(0XFF004751)
                               : Colors.grey,
                         ),
@@ -84,7 +95,7 @@ class _drawerState extends State<drawer> {
               SizedBox(
                 height: 10,
               ),
-              auth.drawercountry.value == "CM"?
+              con.drawercountry.value == "CM"?
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -95,8 +106,15 @@ class _drawerState extends State<drawer> {
                     return InkWell(
                       onTap: () {
                         setState(() {
+                            print(items[index] );
+                          con.itemScrollController.scrollTo(
+                              index: drawerselection.length,
+                              duration: Duration(seconds: 1),
+                              curve: Curves.easeInOutCubic);
 
-                          type = items[index];
+                          drawerselection = items[index];
+                          Navigator.pop(context);
+
                         });
                       },
                       child: Column(
@@ -109,7 +127,7 @@ class _drawerState extends State<drawer> {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Sora',
                                   fontSize: 16,
-                                  color: type == items[index]
+                                  color: drawerselection == items[index]
                               ? Color(0XFF004751)
                                 : Colors.black,
 

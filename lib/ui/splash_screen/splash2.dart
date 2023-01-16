@@ -202,7 +202,7 @@ class _splash2State extends State<splash2> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     onTap: () {
-                      Get.to(Home());
+                      Get.to(Register());
                     },
                     text: "Next",
                   ),
