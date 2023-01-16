@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'card_input_formatter_class.dart';
-import 'manula_card_screen.dart';
 
 class AddCreditCardPage extends StatefulWidget {
   const AddCreditCardPage({Key? key}) : super(key: key);
@@ -474,55 +473,20 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       bottomNavigationBar: AuthButton(
         onTap: () {
           // if (formKey.currentState!.validate()) {
-          //   con.creditCardPostAPI(
-          //       creditCardController.text,
-          //       validityController.text,
-          //       cvvController.text,
-          //       nameOnCardController.text,
-          //       bankNameController.text,
-          //       addNickController.text);
-          // }
-          con.creditCardgetAPI();
-          Get.to(const ManualCard());
+          con.creditCardPostAPI(
+              creditCardController.text,
+              validityController.text,
+              cvvController.text,
+              nameOnCardController.text,
+              bankNameController.text,
+              addNickController.text);
+          // Get.to(const ManualCard());
+          // Get.to(const ManualCard());
         },
         text: 'Verify and Proceed',
         decoration: BoxDecoration(
           color: HexColor('#CEE812'),
         ),
-      ),
-    );
-  }
-
-  void onchangefield() {}
-}
-
-class CardNumberFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue previousValue,
-    TextEditingValue nextValue,
-  ) {
-    var inputText = nextValue.text;
-
-    if (nextValue.selection.baseOffset == 0) {
-      return nextValue;
-    }
-
-    var bufferString = StringBuffer();
-    for (int i = 0; i < inputText.length; i++) {
-      bufferString.write(inputText[i]);
-      var nonZeroIndexValue = i + 1;
-      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
-        // bufferString.write(' ');
-        bufferString.write('x');
-      }
-    }
-
-    var string = bufferString.toString();
-    return nextValue.copyWith(
-      text: string,
-      selection: TextSelection.collapsed(
-        offset: string.length,
       ),
     );
   }

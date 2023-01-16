@@ -6,8 +6,6 @@ import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/payment_method/manula_card_screen.dart';
-import 'package:cardit/ui/register/password.dart';
-import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,7 +20,6 @@ import '../base_client.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
-import '../ui/register/register_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
@@ -257,7 +254,7 @@ class AuthCon extends GetxController with BaseController {
     if (data == 'Success') {
       GetStorage().write('username', firstName.toString());
       // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      Get.to(() =>  Twofactor());
+      Get.to(() => Twofactor());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -338,12 +335,26 @@ class AuthCon extends GetxController with BaseController {
   //upload credit card details
   void creditCardPostAPI(
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
-    var body = {};
+    DateTime datetime = DateTime.now();
+    String dateStr = datetime.toString();
+    var body = {
+      "customerid": 57,
+      "uid": 0,
+      "uiddesc": 0,
+      "payid": null,
+      "cardnumber": cardNumber,
+      "cardname": cardName,
+      "expirydate": validity,
+      "bankname": bankName,
+      "ibannumber": " ",
+      "status": "A",
+      "createdby": 57,
+      "createddate": dateStr,
+      "updatedby": 0,
+      "updateddate": dateStr
+    };
     var response = await BaseClient()
-        .post(
-            API().crediCardPost +
-                "?cardnumber=$cardNumber&expirydate=$validity&cvv=$cvv&cardname=$cardName&bankname=$bankName&nickName=$nickName",
-            body)
+        .post(API().crediCardPost, body)
         .catchError(handleError);
     print(response);
     print(body);
@@ -351,6 +362,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print('check' + data);
     if (data == "Success") {
+      Fluttertoast.showToast(msg: 'Data Added Successfully.....');
       Get.to(const ManualCard());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
@@ -387,7 +399,7 @@ class AuthCon extends GetxController with BaseController {
     print("--------------------------------$data");
     if (data == 'Success') {
       Get.to(Registerloading());
-     await Get.to(AvatarPageView());
+      await Get.to(AvatarPageView());
       Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
