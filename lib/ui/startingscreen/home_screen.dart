@@ -21,6 +21,10 @@ import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../register/drawer/drawerscreen.dart';
 
+// ItemScrollController itemScrollController = ItemScrollController();
+// ItemPositionsListener itemPositionsListener =
+// ItemPositionsListener.create();
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -29,17 +33,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  ItemScrollController? itemScrollController;
+  ItemPositionsListener? itemPositionsListener;
+@override
+  void initState() {
+    itemScrollController = ItemScrollController();
+    itemPositionsListener =
+  ItemPositionsListener.create();
+
+
+    super.initState();
+  }
   @override
+
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final AuthCon con=Get.find();
     return Scaffold(
       drawer: Column(
         children: [
           Container(
               height: 500,
               width: MediaQuery.of(context).size.width / 1,
-              child: drawer()),
+              child: drawer(controller:itemScrollController!,)),
         ],
       ),
       backgroundColor: themeChange.darkTheme
@@ -105,9 +120,10 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: ScrollablePositionedList.builder(
-          itemScrollController: con.itemScrollController,
-          itemPositionsListener: con.itemPositionsListener,
-          itemCount: items.length,
+          itemScrollController: itemScrollController,
+          itemPositionsListener: itemPositionsListener,
+          itemCount: 9,
+          initialScrollIndex: 0,
           itemBuilder: (context, index) {
             return index == 0
                 ? Container(
@@ -135,7 +151,8 @@ class _HomeState extends State<Home> {
             buildsystemimage():
             index == 7?
             buildabout():
-            buildgetstarted();
+            index == 8?
+            buildgetstarted():buildgetstarted();
 
 
 

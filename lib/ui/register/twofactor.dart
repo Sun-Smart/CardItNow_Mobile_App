@@ -5,6 +5,7 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,8 +131,7 @@ class _TwofactorState extends State<Twofactor> {
                         child: Image.asset('assets/face id.png'),
                         onTap: () async {
                           try {
-                            var pref = await SharedPreferences.getInstance();
-                            pref.setBool('pass', true);
+
 
                             pass = await auth.authenticate(
                                 localizedReason:
@@ -176,11 +176,12 @@ class _TwofactorState extends State<Twofactor> {
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
-        if (pass == true) {
+        if (pass = true) {
+          GetStorage().write("biovalues", pass);
           Get.to(termsandconditions());
         } else {
           Fluttertoast.showToast(msg: "You have not set Your Biometrics");
-          Get.to(termsandconditions());
+          // Get.to(termsandconditions());
         }
       },
       text: "Enable",

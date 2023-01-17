@@ -180,6 +180,7 @@ class BaseClient {
             .post(uri,
                 headers: <String, String>{
                   'Content-Type': 'application/json',
+                  'Accept':'application/json',
                   'Authorization':
                       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEV5SURBM09qSXlPakV5TGpNd05UazVNeTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzEyLzIwMjMgNToyMjoxMiBBTSIsImV4cCI6MTY3MzcwOTczMiwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.qQ9jfpIeASelmuzpO9KjP2lQlW6O83eyZMpkzcnv9wM'
                 },

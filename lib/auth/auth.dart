@@ -28,6 +28,9 @@ import 'init.dart';
 class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
+
+
+
     termsconditions();
     showAvatorMaster();
     geoaccess();
@@ -86,14 +89,15 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
-  final ItemScrollController itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+  //  ItemScrollController itemScrollController = ItemScrollController();
+  //  ItemPositionsListener itemPositionsListener =
+  // ItemPositionsListener.create();
   var otp = ''.obs;
   var token = ''.obs;
 
   //Get Storage
   final box = GetStorage();
+
 
   //otp
   final TextEditingController otpCon = TextEditingController();

@@ -1,4 +1,5 @@
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -14,7 +15,8 @@ var items =[
   "Contact us"
 ];
 class drawer extends StatefulWidget {
-  const drawer({Key? key}) : super(key: key);
+  final ItemScrollController controller;
+  const drawer({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<drawer> createState() => _drawerState();
@@ -107,13 +109,14 @@ class _drawerState extends State<drawer> {
                       onTap: () {
                         setState(() {
                             print(items[index] );
-                          con.itemScrollController.scrollTo(
-                              index: drawerselection.length,
+
+                            widget.controller.scrollTo(
+                              index:index==0?0:index+1,
                               duration: Duration(seconds: 1),
                               curve: Curves.easeInOutCubic);
 
                           drawerselection = items[index];
-                          Navigator.pop(context);
+                         Get.back();
 
                         });
                       },

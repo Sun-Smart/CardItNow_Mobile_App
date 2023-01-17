@@ -200,14 +200,15 @@ class _LoginState extends State<Login> {
                   MyCustomInputBox(
                     enabled: true,
                     controller: _passwordController,
-                    label: 'Password',
-                    textInputType: TextInputType.text,
+                    maxLength: 6,
+                    label: 'Passcode',
+                    textInputType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     obsecureText: true,
                     validator: (value) {
                       if (_passwordController.text.isEmpty ||
                           _passwordController.text.length < 6) {
-                        return "Password should be greater than 6 characters";
+                        return "passcode should be greater than 6 characters";
                       } else {
                         return null;
                       }
@@ -215,7 +216,8 @@ class _LoginState extends State<Login> {
                     inputDecoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'Enter Password',
+                      hintText: 'Enter Passcode',
+
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       helperStyle:
                           const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -337,7 +339,9 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-                      } else {
+                      }
+
+                      else {
                         con.loginAPI(
                             _emailController.text, _passwordController.text,_isChecked);
                       }
