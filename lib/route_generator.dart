@@ -1,17 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/onboard_recipient_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/select_documents_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/landingscreens/choose_LPG_screen.dart';
-import 'package:cardit/ui/landingscreens/dashboard_payment_screen.dart';
 import 'package:cardit/ui/landingscreens/loans-payment_screen.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
-import 'package:cardit/ui/landingscreens/select_documents_screen.dart';
-import 'package:cardit/ui/landingscreens/select_recipient_screen.dart';
 import 'package:cardit/ui/loan_screen/loan_amount.dart';
 import 'package:cardit/ui/loan_screen/payment_overview.dart';
 import 'package:cardit/ui/loan_screen/payment_successful.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
-import 'package:cardit/ui/onboard_screen/onboard_recipient_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
@@ -45,7 +45,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => SplashScreens());
+        return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

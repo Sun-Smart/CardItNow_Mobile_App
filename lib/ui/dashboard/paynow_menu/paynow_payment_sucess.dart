@@ -37,8 +37,8 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Get.to( const PaymentLoading());
-                 // Navigator.pop(context);
+                  // Get.to( const PaymentLoading());
+                 Navigator.pop(context);
                 },
                 icon: const Icon(Icons.close),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,

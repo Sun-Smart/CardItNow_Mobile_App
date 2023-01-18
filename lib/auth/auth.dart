@@ -119,7 +119,7 @@ class AuthCon extends GetxController with BaseController {
 
       // print("--------${_prefs.getString("save_token")}");
     } else {
-      GetStorage().remove("save_token");
+      // GetStorage().remove("save_token");
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       await _prefs.clear();
       print("--------${_prefs.getString("save_token")}");
@@ -128,6 +128,7 @@ class AuthCon extends GetxController with BaseController {
     hideLoading();
     print("response " + data.toString());
     if (data["token"].toString().isNotEmpty) {
+      GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
       // token.value = userData["token"];
       // if (!resend) {
@@ -345,14 +346,14 @@ class AuthCon extends GetxController with BaseController {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
     var body = {
-      "customerid": 57,
+      "customerid": 55,
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber,
-      "cardname": cardName,
-      "expirydate": validity,
-      "bankname": bankName,
+      "cardnumber": 9876543212345678,
+      "cardname": "Prakash P",
+      "expirydate": "12/12",
+      "bankname": "Canara Bank",
       "ibannumber": " ",
       "status": "A",
       "createdby": 57,

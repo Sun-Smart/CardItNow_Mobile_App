@@ -206,6 +206,7 @@ class _LoginState extends State<Login> {
                     textInputType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     obsecureText: true,
+
                     validator: (value) {
                       if (_passwordController.text.isEmpty ||
                           _passwordController.text.length < 6) {
@@ -318,7 +319,7 @@ class _LoginState extends State<Login> {
                                     .pushNamed('/updatepasswordcode');
                               },
                               child: Text(
-                                'Forgot Password?',
+                                'Forgot Passcode?',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: themeChange.darkTheme

@@ -2,8 +2,11 @@
 
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../widgets/auth_button.dart';
@@ -20,6 +23,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final formKey = GlobalKey<FormState>();
   final _phonenumberController = TextEditingController();
   final _otpController = TextEditingController();
+  final AuthCon con = Get.find();
   bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -130,9 +134,16 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/updatepassword',
-        );
+        if(_otpController.text.isEmpty){
+          Fluttertoast.showToast(msg: "Enter your password");
+        }
+        else{
+          con.registerAPI(con.emailController.text.toString());
+        }
+        
+        // Navigator.of(context).pushNamed(
+        //   '/updatepassword',
+        // );
         if (formKey.currentState!.validate()) {}
       },
       text: "Next",
