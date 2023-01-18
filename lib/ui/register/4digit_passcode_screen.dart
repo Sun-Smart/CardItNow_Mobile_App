@@ -80,7 +80,7 @@ class _PasscodeState extends State<Passcode> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Set 4 Digit \n Passcode ',
+        'Set 6 Digit \n Passcode ',
         style: TextStyle(
             fontSize: 28,
             color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
@@ -118,10 +118,13 @@ class _PasscodeState extends State<Passcode> {
                             border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.circular(0)),
                         keyboardType: TextInputType.number,
+
                         submittedFieldDecoration: _pinPutDecoration.copyWith(
                             borderRadius: BorderRadius.circular(0)),
                         selectedFieldDecoration: _pinPutDecoration,
-                        fieldsCount: 6),
+                        fieldsCount: 6,
+
+                    ),
                   ),
                 ])));
   }
@@ -132,9 +135,13 @@ class _PasscodeState extends State<Passcode> {
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
         if (otpCon.text.isEmpty) {
-          Fluttertoast.showToast(msg: 'Enter Your 4 Digit Passcode');
-        } else {
-          con.pinsetapi(con.emailController.text, otpCon.text);
+          Fluttertoast.showToast(msg: 'Enter Your 6 Digit Passcode');
+        }
+        else if(otpCon.text.length>6){
+          Fluttertoast.showToast(msg: 'Enter Your 6 Digit Passcode');
+        }
+        else {
+          con.pinsetapi(con.emailController.text.trim(), otpCon.text);
         }
       },
       text: "Next",
