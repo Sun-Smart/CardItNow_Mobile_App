@@ -103,19 +103,21 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+    GetStorage().write('token', data);
+    var result = GetStorage().read('token');
+    print('++++++++++++++++++++ json Token +++++++++++++++++++${result}');
+    //Remember Me Check box Tapped
     if (ischecked_checkbox == true) {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      await _prefs.setString("save_token", data["token"].toString());
-
-      print("--------${_prefs.getString("save_token")}");
+      GetStorage().write('token', data);
+      var result = GetStorage().read('token');
+      print('++++++++++++++++++++ json Check Box +++++++++++++++++++${result}');
     } else {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      await _prefs.clear();
-      print("--------${_prefs.getString("save_token")}");
+      GetStorage().write('token', data);
+      var result = GetStorage().read('token');
+      print('++++++++++++++++++++ json Check Box +++++++++++++++++++${result}');
     }
-
     hideLoading();
-    print("response " + data.toString());
+    print("response Data Token Here " + data.toString());
     if (data["token"].toString().isNotEmpty) {
       Get.to(DashbordScreen());
       // token.value = userData["token"];
@@ -152,18 +154,12 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(
-          API().register + '?email=' + email,
-          body,
-        )
+        .post(API().register + '?email=' + email, body)
         .catchError(handleError);
     if (response == null) return;
-    //Get.to(VerifyUserId());
     var data = json.decode(response);
-
     hideLoading();
     print('check' + data);
-
     if (data == "Success") {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
@@ -224,19 +220,8 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //profile Infomation
-  void profileInformatrion(
-    email,
-    firstName,
-    lastName,
-    city,
-    state,
-    requiredno,
-    dateofbrith,
-    issuedate,
-    expirydate,
-    address,
-    postalcode,
-  ) async {
+  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
+      dateofbrith, issuedate, expirydate, address, postalcode) async {
     var body = {};
     var response = await BaseClient()
         .post(
@@ -333,8 +318,10 @@ class AuthCon extends GetxController with BaseController {
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
+    var result = GetStorage().read('token');
+    print(result);
     var body = {
-      "customerid": 57,
+      "customerid": 33,
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
@@ -342,9 +329,9 @@ class AuthCon extends GetxController with BaseController {
       "cardname": cardName,
       "expirydate": validity,
       "bankname": bankName,
-      "ibannumber": " ",
+      "ibannumber": nickName,
       "status": "A",
-      "createdby": 57,
+      "createdby": 16,
       "createddate": dateStr,
       "updatedby": 0,
       "updateddate": dateStr
@@ -352,14 +339,12 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(API().crediCardPost, body)
         .catchError(handleError);
-    print(response);
-    print(body);
     if (response == null) return;
     var data = json.decode(response);
     print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      Get.to(const ManualCard());
+      Get.to(() => const ManualCard());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -377,10 +362,7 @@ class AuthCon extends GetxController with BaseController {
         'Credit Card Api Get Method');
   }
 
-  void uploadDocx(
-    email,
-    docid,
-  ) async {
+  void uploadDocx(email, docid) async {
     var body = {};
     log(uploadimg + "DD");
     print(uploadimg + "BB");

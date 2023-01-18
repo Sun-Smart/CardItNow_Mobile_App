@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, constant_identifier_names, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors
+// ignore_for_file: sort_child_properties_last, constant_identifier_names, avoid_print, prefer_interpolation_to_compose_strings, prefer_const_constructors, unnecessary_brace_in_string_interps
 
 import 'dart:async';
 import 'dart:convert';
@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'api_endpoints.dart';
@@ -134,7 +135,7 @@ class BaseClient {
       var response = await http.get(uri, headers: <String, String>{
         'accept': 'application/json',
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEV5SURBM09qSXlPakV5TGpNd05UazVNeTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzEyLzIwMjMgNToyMjoxMiBBTSIsImV4cCI6MTY3MzcwOTczMiwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.qQ9jfpIeASelmuzpO9KjP2lQlW6O83eyZMpkzcnv9wM'
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEUySURJeU9qTTJPakl3TGpBd01USTNOaTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzE2LzIwMjMgODozNjoyMCBQTSIsImV4cCI6MTY3NDExMDE4MCwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.IRcjzsiRuM6AxOiqO8oHRvMIRsCu0ATHCrYGHVDJBts'
       }).timeout(const Duration(seconds: TIME_OUT_DURATION));
       print(response.statusCode);
       print(response.body);
@@ -153,16 +154,18 @@ class BaseClient {
       {isMultiPart = false, file, isDev = false}) async {
     var productionUrl = Uri.parse(API().baseURL + endPoint);
     var devUrl = Uri.parse(API().localUrl + endPoint);
+    //Get Token Here
+    var token = await GetStorage().read('token');
     var payload = json.encode(payloadObj);
+
+    // print('tokenn' + token);
     // print(uri);
     var uri = isDev ? devUrl : productionUrl;
     print(uri.toString() + "url");
     try {
       if (isMultiPart) {
         print('comess');
-
         var multiPartReq = http.MultipartRequest('POST', uri);
-
         print('yesss');
         multiPartReq.headers.addAll({"Content-type": "multipart/form-data"});
         multiPartReq.files.add(file);
@@ -175,13 +178,14 @@ class BaseClient {
         print(response.statusCode.toString() + "body");
         // return _processResponse(result);
       } else {
-        print('heloo');
+        // print('sssss' + token + 'dsds');
         var response = await http
             .post(uri,
                 headers: <String, String>{
                   'Content-Type': 'application/json',
                   'Authorization':
-                      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEV5SURBM09qSXlPakV5TGpNd05UazVNeTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzEyLzIwMjMgNToyMjoxMiBBTSIsImV4cCI6MTY3MzcwOTczMiwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.qQ9jfpIeASelmuzpO9KjP2lQlW6O83eyZMpkzcnv9wM'
+                      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEUySURJeU9qTTJPakl3TGpBd01USTNOaTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzE2LzIwMjMgODozNjoyMCBQTSIsImV4cCI6MTY3NDExMDE4MCwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.IRcjzsiRuM6AxOiqO8oHRvMIRsCu0ATHCrYGHVDJBts',
+                  'Accept': 'application/json',
                 },
                 body: payload)
             .timeout(const Duration(seconds: TIME_OUT_DURATION));
@@ -194,6 +198,9 @@ class BaseClient {
     } on TimeoutException {
       throw ApiNotRespondingException(
           'API not responded in time', uri.toString());
+    } catch (e) {
+      print('catchhh');
+      print(e.toString());
     }
   }
 
@@ -205,11 +212,9 @@ class BaseClient {
       case 200:
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
-
       case 201:
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
-
       case 400:
         throw BadRequestException(
             utf8.decode(response.bodyBytes), response.request!.url.toString());

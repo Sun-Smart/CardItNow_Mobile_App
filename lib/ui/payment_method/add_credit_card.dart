@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters, sort_child_properties_last
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -21,9 +22,7 @@ class AddCreditCardPage extends StatefulWidget {
 class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final creditCardController = new TextEditingController();
   final validityController = new TextEditingController();
-  var controller = new MaskedTextController(
-    mask: '0 0 0 0',
-  );
+  var controller = new MaskedTextController(mask: '0 0 0 0');
   final cvvController = new TextEditingController();
   final nameOnCardController = new TextEditingController();
   final bankNameController = new TextEditingController();
@@ -72,11 +71,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
     });
 
     print(
-        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardNumber != creditCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardNumber == creditCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
     print(
-        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardHolderName != nameOnCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.cardHolderName == nameOnCardController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
     print(
-        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.expiryDate != validityController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
+        ' %%%%%%%%%%%%%%%%%%%%%%%%    ${_cardDetails?.expiryDate == validityController.text}     %%%%%%%%%%%%%%%%%%%%%%%% ');
   }
 
   @override
@@ -109,7 +108,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Add credit card',
+                Text('Add Credit Card',
                     style: TextStyle(
                         fontSize: 28,
                         fontFamily: 'Sora',
@@ -122,59 +121,68 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                         fontFamily: 'Sora',
                         fontSize: 16)),
                 SizedBox(height: 10),
-                TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: creditCardController,
-                    maxLength: 16,
-                    validator: (value) {
-                      if (creditCardController.text.isEmpty) {
-                        return 'Enter Card Number';
-                      } else {}
-                    },
-                    onChanged: (v) {
-                      changeNumber = v;
-                      print(changeNumber);
-                    },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-
-                      // CardNumberFormatter(),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 0),
+                    borderRadius: BorderRadius.circular(5)),
+                  child: Stack(
+                    children: [
+                      TextFormField(
+                          keyboardType: TextInputType.number,
+                          controller: creditCardController,
+                          validator: (value) {
+                            if (creditCardController.text.isEmpty) {
+                              return 'Enter Card Number';
+                            } else {}
+                          },
+                          onChanged: (v) {
+                            changeNumber = v;
+                            print(changeNumber);
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(16),
+                            CardNumberFormatter(),
+                          ],
+                          decoration: InputDecoration(
+                              labelText: '4XXX 5XXX 7XXX 3XXX',
+                              filled: true,
+                              fillColor: Colors.white,
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              helperStyle:
+                              const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.normal),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide: const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold))),
+                      Positioned(child: Image.asset('assets/visa.png', width: 40, height: 35), right: 10,top: 5)
                     ],
-                    decoration: InputDecoration(
-                        labelText: '4XXX 5XXX 7XXX 3XXX',
-                        filled: true,
-                        fillColor: Colors.white,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        helperStyle:
-                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                        hintStyle: const TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Sora',
-                            fontWeight: FontWeight.normal),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
-                        focusColor: Colors.grey.shade300,
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 1.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 1.0)),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            gapPadding: 7,
-                            borderSide: const BorderSide(color: Colors.grey)),
-                        errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: Colors.grey)),
-                        errorStyle: const TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold))),
+                  ),
+                ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -473,15 +481,15 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       bottomNavigationBar: AuthButton(
         onTap: () {
           // if (formKey.currentState!.validate()) {
-          con.creditCardPostAPI(
-              creditCardController.text,
-              validityController.text,
-              cvvController.text,
-              nameOnCardController.text,
-              bankNameController.text,
-              addNickController.text);
-          // Get.to(const ManualCard());
-          // Get.to(const ManualCard());
+          //   con.creditCardPostAPI(
+          //       creditCardController.text,
+          //       validityController.text,
+          //       cvvController.text,
+          //       nameOnCardController.text,
+          //       bankNameController.text,
+          //       addNickController.text);
+          // }
+          Get.to(() => ManualCard());
         },
         text: 'Verify and Proceed',
         decoration: BoxDecoration(

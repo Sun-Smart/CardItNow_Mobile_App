@@ -17,6 +17,7 @@ class ManualCard extends StatefulWidget {
 
 class _ManualCardState extends State<ManualCard> {
   final AuthCon con = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +48,10 @@ class _ManualCardState extends State<ManualCard> {
           child: Column(
             children: [
               Obx(() => CustomeCardData(
-                  bankName: con.creditCardGet['bankname'],
-                  cardNumber: con.creditCardGet['cardnumber'],
-                  nameHolder: con.creditCardGet['cardname'],
-                  validity: con.creditCardGet['expirydate'])),
+                  bankName: con.creditCardGet['bankname'].toString(),
+                  cardNumber: con.creditCardGet['cardnumber'].toString(),
+                  nameHolder: con.creditCardGet['cardname'].toString(),
+                  validity: con.creditCardGet['expirydate'].toString())),
               SizedBox(height: 100),
               Text('Great ! You Are ready with your \nCredit card',
                   textAlign: TextAlign.center,
@@ -86,6 +87,7 @@ class _ManualCardState extends State<ManualCard> {
 
 class CustomeCardData extends StatelessWidget {
   final String bankName, cardNumber, nameHolder, validity;
+
   const CustomeCardData(
       {Key? key,
       required this.bankName,

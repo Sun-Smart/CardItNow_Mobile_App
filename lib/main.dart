@@ -60,14 +60,13 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<DarkThemeProvider>(
         builder: (BuildContext context, value, Widget? child) {
           return GetMaterialApp(
-            navigatorKey: navigatorKey,
-            title: 'Card-it',
-            debugShowCheckedModeBanner: false,
-            //theme: themeProvider.getTheme,
-            theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            initialRoute: "/",
-            onGenerateRoute: RouteGenerator.generateRoute,
-          );
+              navigatorKey: navigatorKey,
+              title: 'Card-it',
+              debugShowCheckedModeBanner: false,
+              //theme: themeProvider.getTheme,
+              theme: Styles.themeData(themeChangeProvider.darkTheme, context),
+              initialRoute: "/",
+              onGenerateRoute: RouteGenerator.generateRoute);
         },
       ),
     );

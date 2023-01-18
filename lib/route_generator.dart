@@ -54,14 +54,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':
         return MaterialPageRoute(builder: (_) => const Passcode());
-      // case '/verifyemail':
-      //   return MaterialPageRoute(builder: (_) => const VerifyEmail());
       case '/updatepasswordcode':
         return MaterialPageRoute(builder: (_) => const UpdatePasswordCode());
       case '/updatepassword':
         return MaterialPageRoute(builder: (_) => const UpdatePassword());
-      // case '/verifyuserid':
-      //   return MaterialPageRoute(builder: (_) => const VerifyUserId());
       case '/dashbordScreen':
         return MaterialPageRoute(builder: (_) => const DashbordScreen());
       case '/registerloading':
