@@ -12,7 +12,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
@@ -28,9 +27,6 @@ import 'init.dart';
 class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
-
-
-
     termsconditions();
     showAvatorMaster();
     geoaccess();
@@ -89,15 +85,11 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
-  //  ItemScrollController itemScrollController = ItemScrollController();
-  //  ItemPositionsListener itemPositionsListener =
-  // ItemPositionsListener.create();
   var otp = ''.obs;
   var token = ''.obs;
 
   //Get Storage
   final box = GetStorage();
-
 
   //otp
   final TextEditingController otpCon = TextEditingController();
@@ -329,20 +321,35 @@ class AuthCon extends GetxController with BaseController {
     var result = GetStorage().read('token');
     print(result);
     var body = {
-      "customerid": 33,
+      // "customerid": 30,
+      // "uid": 0,
+      // "uiddesc": 0,
+      // "payid": null,
+      // "cardnumber": cardNumber,
+      // "cardname": cardName,
+      // "expirydate": validity,
+      // "bankname": bankName,
+      // "ibannumber": "nickName",
+      // "status": "A",
+      // "createdby": 16,
+      // "createddate": dateStr,
+      // "updatedby": 0,
+      // "updateddate": dateStr
+
+      "customerid": 91,
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber,
-      "cardname": cardName,
-      "expirydate": validity,
-      "bankname": bankName,
-      "ibannumber": nickName,
+      "cardnumber": 9834267890987654,
+      "cardname": "Prakash P",
+      "expirydate": "12/12",
+      "bankname": "Canara Bank",
+      "ibannumber": "",
       "status": "A",
       "createdby": 16,
-      "createddate": dateStr,
+      "createddate": "2023-01-17 15:19:38.089075",
       "updatedby": 0,
-      "updateddate": dateStr
+      "updateddate": "2023-01-17 15:19:38.089075"
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)

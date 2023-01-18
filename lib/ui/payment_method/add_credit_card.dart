@@ -489,7 +489,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
           //       bankNameController.text,
           //       addNickController.text);
           // }
-          Get.to(() => ManualCard());
+           Get.to(() => ManualCard());
         },
         text: 'Verify and Proceed',
         decoration: BoxDecoration(

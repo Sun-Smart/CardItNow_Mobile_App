@@ -17,14 +17,7 @@ class AuthService {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, snapshot) {
-        // if (snapshot.hasData) {
-        //   //Get.to(DashbordScreen());
-        //   return DashbordScreen();
-        // } else {
-        //Get.to(SplashScreens());
         return SplashScreens();
-        // }
-        // return Container();
       },
     );
   }

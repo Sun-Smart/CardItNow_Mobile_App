@@ -106,13 +106,13 @@ class CustomeCardData extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-              left: 20,
+              left: 32,
               top: 35,
               child: Text(bankName,
                   style: TextStyle(
                       color: Colors.white, fontSize: 16, fontFamily: 'Sora'))),
           Positioned(
-              left: 25,
+              left: 32,
               bottom: 100,
               child: Text(nameHolder,
                   style: TextStyle(
@@ -133,8 +133,8 @@ class CustomeCardData extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 57,
-            bottom: 28,
+            left: 65,
+            bottom: 27,
             child: Text(
               '${validity.substring(0, 10)}',
               style: TextStyle(
