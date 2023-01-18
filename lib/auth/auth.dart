@@ -29,8 +29,6 @@ class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
 
-
-
     termsconditions();
     showAvatorMaster();
     geoaccess();
@@ -81,6 +79,7 @@ class AuthCon extends GetxController with BaseController {
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
   var uploadimg = '';
+  var uploaddoc ='';
   String choosedDocId = '';
 
   var googleMail = '';
@@ -98,7 +97,6 @@ class AuthCon extends GetxController with BaseController {
   //Get Storage
   final box = GetStorage();
 
-
   //otp
   final TextEditingController otpCon = TextEditingController();
 
@@ -109,14 +107,19 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .get("Token?email=$email&Password=$password")
         .catchError(handleError);
+    print(email);
+    print(password);
     if (response == null) return;
     var data = json.decode(response);
     if (ischecked_checkbox == true) {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      await _prefs.setString("save_token", data["token"].toString());
+      GetStorage().write("save_token", data["token"].toString());
+      print("tokendata"+data);
+      // SharedPreferences _prefs = await SharedPreferences.getInstance();
+      // await _prefs.setString("save_token", data["token"].toString());
 
-      print("--------${_prefs.getString("save_token")}");
+      // print("--------${_prefs.getString("save_token")}");
     } else {
+      GetStorage().remove("save_token");
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       await _prefs.clear();
       print("--------${_prefs.getString("save_token")}");
@@ -273,15 +276,15 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().pinset +
-                '?email= ${googleMail == '' ? email : googleMail}' +
-                '&pin=' +
-                pin,
+                '?email=${googleMail==''?email : googleMail}' +
+                '&pin=' +pin,
             body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     print('pass-------------------' + data);
     if (data == "Success") {
+      Fluttertoast.showToast(msg: data.toString());
       Get.to(VerifyUserId());
     } else {
       Fluttertoast.showToast(msg: data.toString());

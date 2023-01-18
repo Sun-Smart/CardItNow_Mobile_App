@@ -6,6 +6,7 @@ import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
+import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -352,7 +353,7 @@ class _LoginState extends State<Login> {
                   InkWell(
                     onTap: () async {
                       // Navigator.of(context).pushNamed('/selectcountry');
-                      Get.to(const Selectcountry());
+                      Get.to(const splash2());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
