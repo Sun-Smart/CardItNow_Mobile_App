@@ -16,10 +16,12 @@ import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'demo_pro.dart';
 import 'ui/landingscreens/dashbord_screen.dart';
 import 'ui/landingscreens/payments_details_screen.dart';
 import 'ui/landingscreens/payments_screen.dart';
@@ -43,7 +45,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => ChoosePaymentPage());
+        return MaterialPageRoute(builder: (_) => SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

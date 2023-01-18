@@ -28,7 +28,7 @@ class StartState extends State<SplashScreens> {
     // } else {
     //   Get.toNamed('/dashbordScreen');
     // }
-    Get.toNamed('/splash2');
+    Get.toNamed('/home');
   }
 
   @override

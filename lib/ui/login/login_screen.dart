@@ -1,11 +1,10 @@
-// ignore_for_file: unnecessary_import, prefer_const_constructors, avoid_unnecessary_containers
-
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -201,14 +200,15 @@ class _LoginState extends State<Login> {
                   MyCustomInputBox(
                     enabled: true,
                     controller: _passwordController,
-                    label: 'Password',
-                    textInputType: TextInputType.text,
+                    maxLength: 6,
+                    label: 'Passcode',
+                    textInputType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     obsecureText: true,
                     validator: (value) {
                       if (_passwordController.text.isEmpty ||
                           _passwordController.text.length < 6) {
-                        return "Password should be greater than 6 characters";
+                        return "passcode should be greater than 6 characters";
                       } else {
                         return null;
                       }
@@ -216,7 +216,8 @@ class _LoginState extends State<Login> {
                     inputDecoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'Enter Password',
+                      hintText: 'Enter Passcode',
+
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       helperStyle:
                           const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -280,10 +281,11 @@ class _LoginState extends State<Login> {
                                           value: _isChecked,
                                           onChanged: (value) {
                                             setState(() {
-                                              print(
-                                                  "ischecked---------${_isChecked}");
-                                              _isChecked = !_isChecked;
+                                                print("ischecked---------${_isChecked}");
+                                               _isChecked=!_isChecked;
+                                             
                                             });
+                                           
                                           },
                                         ),
                                       )),
@@ -326,8 +328,9 @@ class _LoginState extends State<Login> {
                           ])),
                   AuthButton(
                     decoration: BoxDecoration(
-                        color: HexColor('#CEE812'),
-                        borderRadius: BorderRadius.circular(5)),
+                      color: HexColor('#CEE812'),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     onTap: () {
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(const Passcode());
@@ -336,9 +339,11 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-                      } else {
-                        con.loginAPI(_emailController.text,
-                            _passwordController.text, _isChecked);
+                      }
+
+                      else {
+                        con.loginAPI(
+                            _emailController.text, _passwordController.text,_isChecked);
                       }
                     },
                     text: "Login",
@@ -393,9 +398,17 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset("assets/google.png", width: 40),
-          const SizedBox(width: 20),
-          Image.asset(width: 40, 'assets/fb.png'),
+          Image.asset(
+            "assets/google.png",
+            width: 40,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Image.asset(
+            width: 40,
+            'assets/fb.png',
+          ),
         ]));
   }
 }

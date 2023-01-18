@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -14,6 +15,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../register/drawer/drawerscreen.dart';
 import 'dashbord_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -24,6 +26,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final AuthCon con = Get.put(AuthCon());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,8 +208,10 @@ class _ProfileState extends State<Profile> {
                     color: HexColor('#90BA06'),
                     borderRadius: BorderRadius.circular(5)),
                 onTap: () {
+
                   GetStorage().remove('token');
                   Get.offAndToNamed('/home');
+
                 },
                 text: "Yes"),
             AuthButton(
