@@ -39,11 +39,15 @@ class API {
   String updateDietPlan = "mealPlan/status_update";
 
   //avator
-  String showAvatorMaster = "avatarmaster";
+  String showAvatorMaster = "avatarmaster"; // Avator Images Get Api
   String uploadAvator = "avatarmaster/UploadSelfi";
   String uploadProcessDocument = "customermaster/ProcessDocument";
 
   //creditcard
-  String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/93';
+  String crediCardPost =
+      'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
+  String creditCardGetLink = 'customerpaymode/60'; //card Get Data
+
+  //onboard Payeee
+  String onboardPayeePost='PayerPayeePrivate';
 }

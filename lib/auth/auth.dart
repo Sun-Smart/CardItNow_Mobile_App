@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -12,11 +10,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
@@ -28,7 +26,6 @@ import 'init.dart';
 class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
-
     termsconditions();
     showAvatorMaster();
     geoaccess();
@@ -79,7 +76,6 @@ class AuthCon extends GetxController with BaseController {
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
   var uploadimg = '';
-  var uploaddoc ='';
   String choosedDocId = '';
 
   var googleMail = '';
@@ -88,9 +84,6 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
-  //  ItemScrollController itemScrollController = ItemScrollController();
-  //  ItemPositionsListener itemPositionsListener =
-  // ItemPositionsListener.create();
   var otp = ''.obs;
   var token = ''.obs;
 
@@ -107,19 +100,14 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .get("Token?email=$email&Password=$password")
         .catchError(handleError);
-    print(email);
-    print(password);
     if (response == null) return;
     var data = json.decode(response);
     if (ischecked_checkbox == true) {
-      GetStorage().write("save_token", data["token"].toString());
-      print("tokendata"+data);
-      // SharedPreferences _prefs = await SharedPreferences.getInstance();
-      // await _prefs.setString("save_token", data["token"].toString());
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      await _prefs.setString("save_token", data["token"].toString());
 
-      // print("--------${_prefs.getString("save_token")}");
+      print("--------${_prefs.getString("save_token")}");
     } else {
-      GetStorage().remove("save_token");
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       await _prefs.clear();
       print("--------${_prefs.getString("save_token")}");
@@ -276,15 +264,15 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().pinset +
-                '?email=${googleMail==''?email : googleMail}' +
-                '&pin=' +pin,
+                '?email= ${googleMail == '' ? email : googleMail}' +
+                '&pin=' +
+                pin,
             body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     print('pass-------------------' + data);
     if (data == "Success") {
-      Fluttertoast.showToast(msg: data.toString());
       Get.to(VerifyUserId());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -432,40 +420,43 @@ class AuthCon extends GetxController with BaseController {
     // print('check' + data);
   }
 
-  void updateGoalAPI() async {
-    // showLoading();
-    List<String> fitGoalList = [];
-    if (manageWeight.value) {
-      fitGoalList.add("1");
-    }
-    if (increaseEnergy.value) {
-      fitGoalList.add("2");
-    }
-    if (inceaseMuscleMass.value) {
-      fitGoalList.add("3");
-    }
-    if (newExcercise.value) {
-      fitGoalList.add("4");
-    }
-    if (workoutWithoutOutSide.value) {
-      fitGoalList.add("5");
-    }
-    if (fitEveryDay.value) {
-      fitGoalList.add("6");
-    }
+//onboard payee
+  void onboardPayee(
+    //custmrid,
+  firstName,
+  email,
+  businessRegnumber,
+  phonenumber,
+  bank,
+  accountnumber,
+  swiftcode) async {
     var body = {
-      'fitness_goals[]': fitGoalList,
-    };
-    var response =
-        await BaseClient().post(API().updateGoal, body).catchError(handleError);
+    "customerid":"17",
+    "firstname": firstName,
+    "email":email,
+    "businessregnumber":businessRegnumber,
+    "mobile": phonenumber,
+    "bankname":  bank,
+    "accountnumber":  accountnumber,
+    "swiftcode": swiftcode,
+};
+    var response = await BaseClient()
+        .post(
+            API().onboardPayeePost,
+              
+            body)
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-
-    // hideLoading();
-    if (data['status']) {
-      Fluttertoast.showToast(msg: data['message']);
+    print('Pass' + data);
+    if (data == 'Success') {
+       Get.to(PaymentLoading());
+      // GetStorage().write('username', firstName.toString());
+      // // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      // Get.to(() => Twofactor());
+      Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: data['message']);
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 }
