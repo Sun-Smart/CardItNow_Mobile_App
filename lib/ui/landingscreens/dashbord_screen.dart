@@ -74,14 +74,20 @@ class DashbordScreenState extends State<DashbordScreen>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               color: const Color(0xff036D7A)),
-                          child: GetStorage()
+                          child:
+                          GetStorage()
+                        .read("avatarpic")==null?
+                          Container():
+
+                          GetStorage()
                                   .read("avatarpic")
                                   .toString()
                                   .contains('assets')
                               ? Image.asset(GetStorage().read("avatarpic"),
                                   fit: BoxFit.cover, height: 43, width: 43)
                               : Image.file(File(GetStorage().read("avatarpic")),
-                                  fit: BoxFit.cover, height: 43, width: 43)),
+                                  fit: BoxFit.cover, height: 43, width: 43)
+                      ),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.all(20.0),

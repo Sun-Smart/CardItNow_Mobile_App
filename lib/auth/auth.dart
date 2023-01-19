@@ -5,13 +5,17 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
+import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
+import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,6 +92,7 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
+  final forgotemailController = TextEditingController();
   //  ItemScrollController itemScrollController = ItemScrollController();
   //  ItemPositionsListener itemPositionsListener =
   // ItemPositionsListener.create();
@@ -113,20 +118,31 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     if (ischecked_checkbox == true) {
       GetStorage().write("save_token", data["token"].toString());
-      print("tokendata"+data);
+
       // SharedPreferences _prefs = await SharedPreferences.getInstance();
       // await _prefs.setString("save_token", data["token"].toString());
 
       // print("--------${_prefs.getString("save_token")}");
     } else {
       // GetStorage().remove("save_token");
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      await _prefs.clear();
-      print("--------${_prefs.getString("save_token")}");
+      // SharedPreferences _prefs = await SharedPreferences.getInstance();
+      // await _prefs.clear();
+      // print("--------${_prefs.getString("save_token")}");
     }
 
     hideLoading();
+
+    String token = data.toString();
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    print("Chocoboy"+payload.toString());
     print("response " + data.toString());
+    GetStorage().write("savedtoken", data.toString());
+
+    GetStorage().write("getuserid", payload["userid"].toString());
+    print("useridcheck"+payload["userid"].toString());
+    var getuserid = payload["userid"].toString();
+
+
     if (data["token"].toString().isNotEmpty) {
       GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
@@ -219,8 +235,7 @@ class AuthCon extends GetxController with BaseController {
     var body = {};
     var response = await BaseClient()
         .post(
-            API().password +
-                '?email= ${googleMail == '' ? email : googleMail}' +
+            API().password +'?email=${googleMail == ''?email : googleMail}' +
                 '&password=' +
                 password,
             body)
@@ -229,7 +244,9 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print('pass' + data);
     if (data == "Success") {
-      Get.to(VerifyUserId());
+      Get.to(Login());
+      Fluttertoast.showToast(msg: data.toString());
+
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -345,17 +362,20 @@ class AuthCon extends GetxController with BaseController {
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
+    var userid= GetStorage().read("getuserid");
+    print("checkuser"+userid.toString());
+
     var body = {
-      "customerid": 55,
+      "customerid":  GetStorage().read("getuserid"),
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": 9876543212345678,
-      "cardname": "Prakash P",
-      "expirydate": "12/12",
-      "bankname": "Canara Bank",
+      "cardnumber": cardNumber,
+      "cardname": cardName,
+      "expirydate": validity,
+      "bankname": bankName,
       "ibannumber": " ",
-      "status": "A",
+      "status": nickName,
       "createdby": 57,
       "createddate": dateStr,
       "updatedby": 0,
@@ -469,4 +489,62 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data['message']);
     }
   }
+
+  //forgotpasswordotp
+  void forgotpasswordotp(email) async {
+    showLoading();
+    var body = {};
+    var response = await BaseClient()
+        .post(
+      API().register + '?email=' + email,
+      body,
+    )
+        .catchError(handleError);
+    if (response == null) return;
+    //Get.to(VerifyUserId());
+    var data = json.decode(response);
+
+    hideLoading();
+    print('check' + data);
+
+    if (data == "Success") {
+      Get.to(UpdatePasswordCode());
+      // token.value = userData["token"];
+      // if (!resend) {
+      // Get.to(OtpScreenView());
+      // }
+    } else {
+      Fluttertoast.showToast(msg: "Something wrong");
+    }
+  }
+
+  //forgototpverify
+
+  void forgototpverify(email, otp) async {
+    showLoading();
+    var body = {};
+    var response = await BaseClient()
+        .post(
+        API().verifyotp +
+            '?email=${googleMail == '' ? email : googleMail}&otp=' +
+            otp,
+        body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    hideLoading();
+    print('check' + data);
+    if (data == "Success") {
+      GetStorage().write('token', email);
+      var storedEmail = GetStorage().read('token');
+      print('***************** OTP Token  &&&& ${storedEmail} &&&&  ************************');
+      Get.to(() => UpdatePassword());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+
+
 }

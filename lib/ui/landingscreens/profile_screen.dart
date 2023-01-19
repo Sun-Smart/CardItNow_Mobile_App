@@ -110,14 +110,19 @@ class _ProfileState extends State<Profile> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: const Color(0xff036D7A)),
-                child: GetStorage()
+                child:
+
+                GetStorage()
+                    .read("avatarpic")==null?
+                Container():
+                GetStorage()
                     .read("avatarpic")
                     .toString()
                     .contains('assets')
                     ? Image.asset(GetStorage().read("avatarpic"),
                     fit: BoxFit.cover, height: 43, width: 43)
                     : Image.file(File(GetStorage().read("avatarpic")),
-                    fit: BoxFit.fill, height: 43, width: 43),
+                    fit: BoxFit.cover, height: 43, width: 43)
               ),
               // CircleAvatar(
               //     radius: 50,
@@ -210,6 +215,8 @@ class _ProfileState extends State<Profile> {
                 onTap: () {
 
                   GetStorage().remove('token');
+                  GetStorage().remove('save_token');
+
                   Get.offAndToNamed('/home');
 
                 },

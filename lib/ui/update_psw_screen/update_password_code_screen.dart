@@ -21,7 +21,7 @@ class UpdatePasswordCode extends StatefulWidget {
 
 class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final formKey = GlobalKey<FormState>();
-  final _phonenumberController = TextEditingController();
+  final phonenumberController = TextEditingController();
   final _otpController = TextEditingController();
   final AuthCon con = Get.find();
   bool _isChecked = false;
@@ -94,7 +94,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
               MyCustomInputBox(
                 enabled: true,
                 label: "Email Verification Code",
-                controller: _phonenumberController,
+                controller: phonenumberController,
                 inputDecoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -134,11 +134,11 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        if(_otpController.text.isEmpty){
-          Fluttertoast.showToast(msg: "Enter your password");
+        if(phonenumberController.text.isEmpty){
+          Fluttertoast.showToast(msg: "Enter your otp");
         }
         else{
-          con.registerAPI(con.emailController.text.toString());
+          con.forgototpverify(con.emailController.text, phonenumberController.text);
         }
         
         // Navigator.of(context).pushNamed(

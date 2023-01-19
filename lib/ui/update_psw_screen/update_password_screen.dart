@@ -2,8 +2,12 @@
 
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/register/password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../widgets/auth_button.dart';
@@ -18,9 +22,10 @@ class UpdatePassword extends StatefulWidget {
 
 class _UpdatePasswordState extends State<UpdatePassword> {
   final formKey = GlobalKey<FormState>();
-  final _phonenumberController = TextEditingController();
-  final _otpController = TextEditingController();
+  final newpassword = TextEditingController();
+  final updatepassword = TextEditingController();
   bool _isChecked = false;
+  final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,10 +94,13 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             child: Column(children: [
               MyCustomInputBox(
                 enabled: true,
-                controller: _otpController,
-                label: 'New Password',
+                controller: newpassword,
+                maxLength: 6,
+                label: 'New Passcode',
                 inputHint: 'Enter a strong password',
                 obsecureText: true,
+                keyboardType: TextInputType.number,
+                textInputType: TextInputType.number,
                 inputDecoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -104,8 +112,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         fontWeight: FontWeight.normal,
                         color: Color.fromRGBO(65, 61, 75, 0.6))),
                 validator: (value) {
-                  if (_otpController.text.isEmpty ||
-                      _otpController.text.length < 6) {
+                  if (newpassword.text.isEmpty ||
+                      newpassword.text.length < 6) {
                     return "Password should be greater than 6 characters";
                   } else {
                     return null;
@@ -114,9 +122,12 @@ class _UpdatePasswordState extends State<UpdatePassword> {
               ),
               MyCustomInputBox(
                 enabled: true,
-                controller: _otpController,
-                label: 'Confirm Password',
+                maxLength: 6,
+                controller: updatepassword,
+                label: 'Confirm Passcode',
                 inputHint: 'Confirm Password',
+                keyboardType: TextInputType.number,
+                textInputType: TextInputType.number,
                 obsecureText: true,
                 inputDecoration: const InputDecoration(
                     filled: true,
@@ -129,8 +140,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                         fontWeight: FontWeight.normal,
                         color: Color.fromRGBO(65, 61, 75, 0.6))),
                 validator: (value) {
-                  if (_otpController.text.isEmpty ||
-                      _otpController.text.length < 6) {
+                  if (updatepassword.text.isEmpty ||
+                      updatepassword.text.length < 6) {
                     return "Password should be greater than 6 characters";
                   } else {
                     return null;
@@ -147,7 +158,18 @@ class _UpdatePasswordState extends State<UpdatePassword> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        if (formKey.currentState!.validate()) {}
+       if(newpassword.text.isEmpty){
+         Fluttertoast.showToast(msg: "Enter your New Password");
+       }
+       else if(updatepassword.text.isEmpty){
+         Fluttertoast.showToast(msg: "Enter Confirm Password");
+       }
+       else if(newpassword.text!=updatepassword.text){
+         Fluttertoast.showToast(msg: "Password Mismatched");
+       }
+       else{
+         con.passwordapi(con.emailController.text, newpassword.text);
+       }
       },
       text: "Save Password",
     );

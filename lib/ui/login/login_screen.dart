@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
@@ -7,6 +8,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/ui/update_psw_screen/update_email_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -315,8 +318,7 @@ class _LoginState extends State<Login> {
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('/updatepasswordcode');
+                               Get.offAll(()=>UpdateEmailScreen());
                               },
                               child: Text(
                                 'Forgot Passcode?',
@@ -346,6 +348,7 @@ class _LoginState extends State<Login> {
                       else {
                         con.loginAPI(
                             _emailController.text, _passwordController.text,_isChecked);
+
                       }
                     },
                     text: "Login",
