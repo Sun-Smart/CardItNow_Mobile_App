@@ -44,6 +44,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Uint8List? bytes;
   String? img64;
   List<String> images = [];
+
   //  Future<void> openGallery() async {
   //   var picker = ImagePicker();
   //   final imageGallery = await picker.pickImage(source: ImageSource.gallery);
@@ -163,6 +164,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       }
     }
   }
+
   //
 
   //Camera to Byte64
@@ -190,6 +192,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   String? dropdownvalue;
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -453,9 +456,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 openCamera();
               },
-              child: Image.file(
-                imageFile1!,
-              )));
+              child: Image.file(imageFile1!)));
     }
   }
 
@@ -497,11 +498,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 onPressed();
               },
-              child: Image.file(imagedoc2!)));
+              child: Image.file(imagedoc2!,fit: BoxFit.fill,)));
     }
   }
 
-  //
   //Upload Your Document
   Widget displayImage() {
     if (_platformFile == null) {
@@ -592,10 +592,19 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       setState(() {
         _pictures = pictures;
         imagedoc2=File(_pictures[0]);
+
       });
     } catch (exception) {
       print('Image Not Pic');
     }
+
+    List<int> fileInBytes = await imagedoc2!.readAsBytes();
+    String fileInBase64 = base64Encode(fileInBytes);
+    print('******************* BASE 64 SOURCE *******************');
+    log(fileInBase64);
+    con.uploaddoc = base64.encode(fileInBytes);
+    print('******************* BASE 64 SOURCE *******************');
+
   }
 
   Widget bulildbutton() {

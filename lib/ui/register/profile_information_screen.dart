@@ -13,7 +13,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../themes/styles.dart';
 
 class ProfileInformation extends StatefulWidget {
