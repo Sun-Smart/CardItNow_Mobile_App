@@ -183,7 +183,7 @@ class BaseClient {
             .post(uri,
                 headers: <String, String>{
                   'Content-Type': 'application/json',
-                  'Accept':'application/json',
+                  'Accept': 'application/json',
                   'Authorization':
                   // GetStorage().read('save_token'),
                   // GetStorage().read("savedtoken"),

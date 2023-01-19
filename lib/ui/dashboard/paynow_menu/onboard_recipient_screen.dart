@@ -1,4 +1,6 @@
+import 'package:cardit/auth/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -30,6 +32,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
     super.initState();
   }
 
+  final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -232,7 +235,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                               fontFamily: 'Sora',
                               fontSize: 14,
                               color: HexColor('#505050')))),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   Container(
                     margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 1.1,
@@ -291,7 +294,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   MyCustomInputBox(
                     enabled: true,
                     textInputType: TextInputType.text,
@@ -372,8 +375,35 @@ class _onboardRecipientState extends State<onboardRecipient> {
   Widget bulildbutton() {
     return AuthButton(
       onTap: () {
-        Get.to(PaymentLoading());
-        // Navigator.of(context).pushNamed('/chooseLPG');
+        if (formKey.currentState!.validate()) {
+          if (_holdernameController.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter the  Payee's Name");
+          } else if (_emailController.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter the  Email");
+          } else if (_phonenumberController.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter the  Phone Number");
+          } else if (dropdownvalue!.isEmpty) {
+            Fluttertoast.showToast(msg: "Select the bank");
+          } else if (_accountnumberController.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter the  account number");
+          } else if (_swiftcodeController.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter the  Swift code");
+          } else {
+            con.onboardPayee(
+              // "4",
+              _holdernameController.text.trim(),
+              _emailController.text.trim(),
+              _businessController.text.trim(),
+              _phonenumberController.text.trim(),
+              dropdownvalue,
+              _accountnumberController.text.trim(),
+              _swiftcodeController.text.trim(),
+            );
+            // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+          }
+        }
+        // Get.to(PaymentLoading());
+        // // Navigator.of(context).pushNamed('/chooseLPG');
         // if (formKey.currentState!.validate()) {}
       },
       text: "Add and Proceed",

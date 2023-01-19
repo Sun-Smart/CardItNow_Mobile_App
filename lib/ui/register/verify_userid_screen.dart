@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -153,7 +154,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
-
+      ;
       con.uploadimg = base64.encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
     } else {
@@ -496,7 +497,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 onPressed();
               },
-              child: Image.file(imagedoc2!,fit: BoxFit.fill,)));
+              child: Image.file(imagedoc2!)));
     }
   }
 
@@ -587,26 +588,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     List<String> pictures;
     try {
       pictures = await CunningDocumentScanner.getPictures() ?? [];
-
       if (!mounted) return;
-
-
       setState(() {
         _pictures = pictures;
         imagedoc2=File(_pictures[0]);
-
       });
     } catch (exception) {
       print('Image Not Pic');
     }
-
-    List<int> fileInBytes = await imagedoc2!.readAsBytes();
-    String fileInBase64 = base64Encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-    log(fileInBase64);
-    con.uploaddoc = base64.encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-
   }
 
   Widget bulildbutton() {
