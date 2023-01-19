@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, unused_field, prefer_final_fields, avoid_unnecessary_containers
 
 import 'dart:ui';
 
@@ -21,32 +21,30 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final _phonenumberController = TextEditingController();
   final _otpController = TextEditingController();
   bool _isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0XFFffffff),
-      bottomNavigationBar: bulildbutton(),
-      body: Container(
-          // color: Color(0XFFffffff),
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: EdgeInsets.only(top: 20, bottom: 30),
-                margin: EdgeInsets.only(top: 40),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildToptitle(),
-                      buildtitle(),
-                    ])),
-            bulidForm(),
-            SizedBox(height: 10),
-          ],
-        ),
-      )),
-    );
+        bottomNavigationBar: bulildbutton(),
+        body: Container(
+            child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 30),
+                  margin: EdgeInsets.only(top: 40),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildToptitle(),
+                        buildtitle(),
+                      ])),
+              bulidForm(),
+              SizedBox(height: 10),
+            ],
+          ),
+        )));
   }
 
   Widget buildToptitle() {
@@ -55,11 +53,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-              size: 30,
-            ),
+            icon: const Icon(Icons.arrow_back, color: Colors.black, size: 30),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -72,10 +66,9 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Forgot \n Password',
+        'Forgot \nPassword',
         style: TextStyle(
           fontSize: 28,
-          // color: Styles.whitecustomlable,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -88,23 +81,41 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
             key: formKey,
             child: Stack(children: [
               MyCustomInputBox(
-                enabled: true,
-                label: "Email Verification Code",
-                controller: _phonenumberController,
-                inputDecoration: const InputDecoration(
+                  enabled: true,
+                  label: "Email Verification Code",
+                  controller: _phonenumberController,
+                  inputDecoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
+                    hintText: 'Enter OTP',
                     floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle: TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                        color: Color.fromRGBO(65, 61, 75, 0.6))),
-                obsecureText: false,
-                inputHint: 'Enter code',
-                validator: (value) {},
-              ),
+                    helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                    hintStyle: const TextStyle(
+                        fontSize: 12, fontFamily: 'Sora', fontWeight: FontWeight.normal),
+                    contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    focusColor: Colors.grey.shade300,
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        gapPadding: 7,
+                        borderSide: const BorderSide(color: Colors.grey)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(color: Colors.grey)),
+                    errorStyle: const TextStyle(
+                        fontFamily: 'Sora', fontSize: 13, fontWeight: FontWeight.bold),
+                  ),
+                  obsecureText: false,
+                  inputHint: 'Enter code',
+                  validator: (value) {}),
               Positioned(
                   right: 20,
                   top: 40,

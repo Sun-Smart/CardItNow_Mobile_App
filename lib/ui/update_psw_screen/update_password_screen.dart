@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unused_field, prefer_final_fields
 
 import 'dart:ui';
 
@@ -24,10 +24,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0XFFffffff),
       bottomNavigationBar: bulildbutton(),
       body: Container(
-          // color: Color(0XFFffffff),
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +70,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
-        'Forgot \n Password',
+        'Forgot \nPassword',
         style: TextStyle(
           fontSize: 28,
           // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
@@ -93,16 +91,35 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                 label: 'New Password',
                 inputHint: 'Enter a strong password',
                 obsecureText: true,
-                inputDecoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle: TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                        color: Color.fromRGBO(65, 61, 75, 0.6))),
+                inputDecoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Enter New Password',
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  hintStyle: const TextStyle(
+                      fontSize: 12, fontFamily: 'Sora', fontWeight: FontWeight.normal),
+                  contentPadding:
+                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  focusColor: Colors.grey.shade300,
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                  focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      gapPadding: 7,
+                      borderSide: const BorderSide(color: Colors.grey)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey)),
+                  errorStyle: const TextStyle(
+                      fontFamily: 'Sora', fontSize: 13, fontWeight: FontWeight.bold),
+                ),
                 validator: (value) {
                   if (_otpController.text.isEmpty ||
                       _otpController.text.length < 6) {
@@ -118,16 +135,35 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                 label: 'Confirm Password',
                 inputHint: 'Confirm Password',
                 obsecureText: true,
-                inputDecoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle: TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                        color: Color.fromRGBO(65, 61, 75, 0.6))),
+                inputDecoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Enter Conform Password',
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  hintStyle: const TextStyle(
+                      fontSize: 12, fontFamily: 'Sora', fontWeight: FontWeight.normal),
+                  contentPadding:
+                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  focusColor: Colors.grey.shade300,
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey, width: 1.0)),
+                  focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      gapPadding: 7,
+                      borderSide: const BorderSide(color: Colors.grey)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.grey)),
+                  errorStyle: const TextStyle(
+                      fontFamily: 'Sora', fontSize: 13, fontWeight: FontWeight.bold),
+                ),
                 validator: (value) {
                   if (_otpController.text.isEmpty ||
                       _otpController.text.length < 6) {

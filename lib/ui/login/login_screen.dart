@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unused_field
+
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
@@ -7,6 +9,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/ui/update_psw_screen/update_email_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +33,7 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
   bool _isChecked = false;
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -143,115 +147,132 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyCustomInputBox(
-                    enabled: true,
-                    label: "Email",
-                    obsecureText: false,
-                    textInputType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    controller: _emailController,
-                    validator: (value) {
-                      if (_emailController.text.isEmpty) {
-                        return "Please Enter The Email";
-                      } else if (!_emailController.text.contains("@") ||
-                          !_emailController.text.endsWith('.com')) {
-                        return "Please Enter The valid Email";
-                      } else {
-                        return null;
-                      }
-                    },
-                    inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter your email',
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
+                      enabled: true,
+                      label: "Email",
+                      obsecureText: false,
+                      textInputType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      controller: _emailController,
+                      validator: (value) {
+                        if (_emailController.text.isEmpty) {
+                          return "Please Enter The Email";
+                        } else if (!_emailController.text.contains("@") ||
+                            !_emailController.text.endsWith('.com')) {
+                          return "Please Enter The valid Email";
+                        } else {
+                          return null;
+                        }
+                      },
+                      inputDecoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Enter your email',
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          helperStyle:
+                              const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                          hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 15),
+                          focusColor: Colors.grey.shade300,
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 1.0)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 1.0)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              gapPadding: 7,
+                              borderSide: const BorderSide(color: Colors.grey)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(color: Colors.grey)),
+                          errorStyle: const TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold))),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: Text('Password',
+                            style: TextStyle(fontFamily: 'Sora', fontSize: 14)),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  MyCustomInputBox(
-                    enabled: true,
-                    controller: _passwordController,
-                    maxLength: 6,
-                    label: 'Passcode',
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    obsecureText: true,
-                    validator: (value) {
-                      if (_passwordController.text.isEmpty ||
-                          _passwordController.text.length < 6) {
-                        return "passcode should be greater than 6 characters";
-                      } else {
-                        return null;
-                      }
-                    },
-                    inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter Passcode',
-
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(6)
+                            ],
+                            obscureText: _isObscure,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter password";
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: 'Enter New Password',
+                                suffixIcon: IconButton(
+                                  icon: Icon(_isObscure
+                                      ? Icons.visibility_off
+                                      : Icons.visibility),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscure = !_isObscure;
+                                    });
+                                  },
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold))),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    ],
                   ),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
@@ -282,56 +303,47 @@ class _LoginState extends State<Login> {
                                           value: _isChecked,
                                           onChanged: (value) {
                                             setState(() {
-                                                print("ischecked---------${_isChecked}");
-                                               _isChecked=!_isChecked;
-                                             
+                                              print(
+                                                  "ischecked---------${_isChecked}");
+                                              _isChecked = !_isChecked;
                                             });
-                                           
                                           },
                                         ),
                                       )),
                                   SizedBox(width: 10.0),
                                   Text("Remember Me",
                                       style: TextStyle(
-                                        fontFamily: 'Sora',
-                                        color: themeChange.darkTheme
-                                            ? Colors.white
-                                            : Color(0xff646464),
-                                        fontSize: 14,
-                                      ))
+                                          fontFamily: 'Sora',
+                                          color: themeChange.darkTheme
+                                              ? Colors.white
+                                              : Color(0xff646464),
+                                          fontSize: 14))
                                 ])),
                             SizedBox(
-                              width: Responsive.isMobile(context)
-                                  ? 0
-                                  : MediaQuery.of(context).size.width / 14,
-                            ),
+                                width: Responsive.isMobile(context)
+                                    ? 0
+                                    : MediaQuery.of(context).size.width / 14),
                             TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(
-                                    fontSize: 14,
-                                    color: themeChange.darkTheme
-                                        ? Colors.white
-                                        : HexColor('#004751')),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('/updatepasswordcode');
-                              },
-                              child: Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: themeChange.darkTheme
-                                        ? Colors.white
-                                        : HexColor('#004751')),
-                              ),
-                            ),
+                                style: TextButton.styleFrom(
+                                    textStyle: TextStyle(
+                                        fontSize: 14,
+                                        color: themeChange.darkTheme
+                                            ? Colors.white
+                                            : HexColor('#004751'))),
+                                onPressed: () {
+                                  Get.to(() => UpdateEmailScreen());
+                                },
+                                child: Text('Forgot Password?',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: themeChange.darkTheme
+                                            ? Colors.white
+                                            : HexColor('#004751'))))
                           ])),
                   AuthButton(
                     decoration: BoxDecoration(
-                      color: HexColor('#CEE812'),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                        color: HexColor('#CEE812'),
+                        borderRadius: BorderRadius.circular(5)),
                     onTap: () {
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(const Passcode());
@@ -340,11 +352,9 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-                      }
-
-                      else {
-                        con.loginAPI(
-                            _emailController.text, _passwordController.text,_isChecked);
+                      } else {
+                        con.loginAPI(_emailController.text,
+                            _passwordController.text, _isChecked);
                       }
                     },
                     text: "Login",
@@ -399,17 +409,9 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset(
-            "assets/google.png",
-            width: 40,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Image.asset(
-            width: 40,
-            'assets/fb.png',
-          ),
+          Image.asset("assets/google.png", width: 40),
+          const SizedBox(width: 20),
+          Image.asset(width: 40, 'assets/fb.png'),
         ]));
   }
 }

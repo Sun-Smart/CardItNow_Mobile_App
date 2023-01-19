@@ -16,9 +16,7 @@ class _RecipientTypeState extends State<RecipientType> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: const BackButton(
-          color: Colors.black,
-        ),
+        leading: const BackButton(color: Colors.black),
         centerTitle: true,
         title: const Text("Select Type of Seller",
             style: TextStyle(
@@ -29,13 +27,16 @@ class _RecipientTypeState extends State<RecipientType> {
             )),
       ),
       body: Column(
-      
         children: [
-          
-            const SizedBox(height: 20,),
-            individualrecipient(),
-        const SizedBox(height: 20,),
-        registeredrecipient()],
+          const SizedBox(
+            height: 20,
+          ),
+          individualrecipient(),
+          const SizedBox(
+            height: 20,
+          ),
+          registeredrecipient()
+        ],
       ),
     );
   }
@@ -46,26 +47,22 @@ class _RecipientTypeState extends State<RecipientType> {
         child: Container(
           width: MediaQuery.of(context).size.width / 1.1,
           height: MediaQuery.of(context).size.height / 8,
-          decoration:
-              BoxDecoration(
-                
-                border: Border.all(
-                  width: 2,
-                  color: const Color(0xFFE5E5E5)),
-              ),
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: const Color(0xFFE5E5E5)),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       "Individual Recipient",
                       style: TextStyle(
                           color: HexColor('#004751'),
                           fontFamily: "Sora",
                           fontSize: 15,
-                           fontStyle: FontStyle.normal,
+                          fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -73,7 +70,6 @@ class _RecipientTypeState extends State<RecipientType> {
                 SizedBox(height: 10),
                 Row(
                   children: const [
-                    
                     Flexible(
                       child: Text(
                         "Pay to Recipient like Landloards , Tution Teachers etc.",
@@ -92,36 +88,32 @@ class _RecipientTypeState extends State<RecipientType> {
           ),
         ),
       ),
-   onTap: (){
-     
-   }, );
+      onTap: () {},
+    );
   }
+
   Widget registeredrecipient() {
     return InkWell(
       child: Center(
         child: Container(
           width: MediaQuery.of(context).size.width / 1.1,
           height: MediaQuery.of(context).size.height / 8,
-          decoration:
-              BoxDecoration(
-                
-                border: Border.all(
-                  width: 2,
-                  color: const Color(0xFFE5E5E5)),
-              ),
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: const Color(0xFFE5E5E5)),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Row(
-                  children:  [
+                  children: [
                     Text(
                       "Registered Recipient",
                       style: TextStyle(
                           color: HexColor('#004751'),
                           fontFamily: "Sora",
                           fontSize: 15,
-                           fontStyle: FontStyle.normal,
+                          fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -129,7 +121,6 @@ class _RecipientTypeState extends State<RecipientType> {
                 SizedBox(height: 10),
                 Row(
                   children: const [
-                    
                     Flexible(
                       child: Text(
                         "Pay to Recipient like Fasion Stores, Grocery Stores etc.",
@@ -150,6 +141,4 @@ class _RecipientTypeState extends State<RecipientType> {
       ),
     );
   }
-
-
 }

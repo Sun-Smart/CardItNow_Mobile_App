@@ -1,6 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:cardit/ui/landingscreens/choose_LPG_screen.dart';
+import 'package:cardit/ui/lgu/choose_lgu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/theme_notifier.dart';
@@ -54,6 +59,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   //DataDashboard ?myData;
 
   DataDashboard? myData;
+
   @override
   void initState() {
     myData = DataDashboard.fromJson(PaymentDashboard.mdata);
@@ -67,25 +73,21 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         child: Scaffold(
       //bottomNavigationBar: BottomNavBarWidget(1),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-            child: AppBar(
-              leading: BackButton(
-                color: themeChange.darkTheme ? Colors.white : Colors.black,
-              ),
-              centerTitle: true,
-              title: Text(
-                'Payment',
-                style: TextStyle(
-                    color: themeChange.darkTheme
-                        ? Colors.white
-                        : Color(0Xff1B1B1B),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
-      ),
+          preferredSize: const Size.fromHeight(70.0),
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+              child: AppBar(
+                  leading: BackButton(
+                      color:
+                          themeChange.darkTheme ? Colors.white : Colors.black),
+                  centerTitle: true,
+                  title: Text('Payment',
+                      style: TextStyle(
+                          color: themeChange.darkTheme
+                              ? Colors.white
+                              : Color(0Xff1B1B1B),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold))))),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,31 +111,29 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         height: 80,
         color: themeChange.darkTheme ? Colors.black : Colors.white,
         child: Center(
-          child: TextField(
-            onTap: () {},
-            decoration: InputDecoration(
-              hintText: 'Enter email or phone number to search',
-              hintStyle: TextStyle(
-                color: themeChange.darkTheme ? Colors.white : Colors.black,
-                fontSize: 14,
-              ),
-              suffixIcon: Icon(
-                Icons.search,
-                color: themeChange.darkTheme ? Colors.white : Color(0xff292929),
-                size: 20,
-              ),
-              contentPadding: EdgeInsets.all(10.0),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(4.0)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(4.0)),
-              ),
-            ),
-          ),
-        ));
+            child: TextField(
+                onTap: () {},
+                decoration: InputDecoration(
+                    hintText: 'Enter email or phone number to search',
+                    hintStyle: TextStyle(
+                        color:
+                            themeChange.darkTheme ? Colors.white : Colors.black,
+                        fontSize: 14),
+                    suffixIcon: Icon(Icons.search,
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : Color(0xff292929),
+                        size: 20),
+                    contentPadding: EdgeInsets.all(10.0),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(4.0)))))));
   }
 
   Widget buildRecipients() {
@@ -187,19 +187,13 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color(0XFFCEE812),
-              ),
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0XFFCEE812)),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: const Icon(
-                    Icons.add,
-                    color: Color(0xff292929),
-                    size: 30,
-                  ))),
-          SizedBox(
-            height: 10,
-          ),
+                  child: const Icon(Icons.add,
+                      color: Color(0xff292929), size: 30))),
+          SizedBox(height: 10),
           Text('Add',
               style: TextStyle(
                   color:
@@ -210,24 +204,19 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       ),
     ));
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-      child: Wrap(
-        children: items,
-      ),
-    );
+        margin: EdgeInsets.fromLTRB(20, 0, 0, 0), child: Wrap(children: items));
   }
 
   Widget _buildtitle1() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Text('My Recipients',
-          style: TextStyle(
-              color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
-              fontSize: 14,
-              fontWeight: FontWeight.bold)),
-    );
+        alignment: Alignment.centerLeft,
+        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        child: Text('My Recipients',
+            style: TextStyle(
+                color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
+                fontSize: 14,
+                fontWeight: FontWeight.bold)));
   }
 
   Widget _buildtitle2() {
@@ -270,14 +259,11 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
           InkWell(
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(18.0),
-                child: Image.asset(
-                  partners.url,
-                  fit: BoxFit.cover,
-                  width: 38,
-                  height: 38,
-                )),
+                child: Image.asset(partners.url,
+                    fit: BoxFit.cover, width: 38, height: 38)),
             onTap: () {
-              Navigator.of(context).pushNamed('/selectdocuments');
+              Get.to(()=> ChooseLGUScreen());
+              // Navigator.of(context).pushNamed('/selectdocuments');
             },
           ),
           //commit
