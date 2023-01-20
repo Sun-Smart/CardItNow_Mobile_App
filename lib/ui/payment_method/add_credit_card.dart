@@ -482,12 +482,12 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         onTap: () {
           if (formKey.currentState!.validate()) {
             con.creditCardPostAPI(
-                creditCardController.text,
-                validityController.text,
-                cvvController.text,
-                nameOnCardController.text,
-                bankNameController.text,
-                addNickController.text);
+                creditCardController.text.toString(),
+                validityController.text.toString(),
+                cvvController.text.toString(),
+                nameOnCardController.text.toString(),
+                bankNameController.text.toString(),
+                addNickController.text.toString());
           }
           // Get.to(() => ManualCard());
         },

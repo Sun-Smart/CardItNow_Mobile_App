@@ -27,12 +27,14 @@ class _onboardRecipientState extends State<onboardRecipient> {
   final _swiftcodeController = TextEditingController();
   var item = ['Indin Bank', 'Axis Bank', 'ICIC Bank', 'IDBI Bank'];
   String? dropdownvalue;
+
   @override
   void initState() {
     super.initState();
   }
 
   final AuthCon con = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -389,16 +391,16 @@ class _onboardRecipientState extends State<onboardRecipient> {
           } else if (_swiftcodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter the  Swift code");
           } else {
-            con.onboardPayee(
-              // "4",
-              _holdernameController.text.trim(),
-              _emailController.text.trim(),
-              _businessController.text.trim(),
-              _phonenumberController.text.trim(),
-              dropdownvalue,
-              _accountnumberController.text.trim(),
-              _swiftcodeController.text.trim(),
-            );
+            // con.onboardPayee(
+            //   // "4",
+            //   _holdernameController.text.trim(),
+            //   _emailController.text.trim(),
+            //   _businessController.text.trim(),
+            //   _phonenumberController.text.trim(),
+            //   dropdownvalue,
+            //   _accountnumberController.text.trim(),
+            //   _swiftcodeController.text.trim()
+            // );
             // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
         }
