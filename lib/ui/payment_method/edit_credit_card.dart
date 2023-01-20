@@ -23,16 +23,16 @@ class _EditCardState extends State<EditCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: Icon(Icons.arrow_back_outlined, size: 25, color: Colors.black),
-        centerTitle: true,
-        title: Text('Manage Cards',
-            style: TextStyle(
-                fontFamily: 'Sora',
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.bold)),
-      ),
+          backgroundColor: Colors.transparent,
+          leading:
+              Icon(Icons.arrow_back_outlined, size: 25, color: Colors.black),
+          centerTitle: true,
+          title: Text('Manage Cards',
+              style: TextStyle(
+                  fontFamily: 'Sora',
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold))),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(

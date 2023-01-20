@@ -48,11 +48,7 @@ class _ManualCardState extends State<ManualCard> {
           child: Column(
             children: [
               Obx(() =>
-            CustomeCardData(
-            bankName: con.creditCardGet['bankname'].toString(),
-          cardNumber: con.creditCardGet['cardnumber'].toString(),
-          nameHolder: con.creditCardGet['cardname'].toString(),
-          validity: con.creditCardGet['expirydate'].toString())==null?Container():
+
                   CustomeCardData(
                   bankName: con.creditCardGet['bankname'].toString(),
                   cardNumber: con.creditCardGet['cardnumber'].toString(),

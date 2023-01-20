@@ -132,15 +132,16 @@ class _PasscodeState extends State<Passcode> {
                 otpCon.text[4] == otpCon.text[5]) {
               Fluttertoast.showToast(msg: 'Error Same Number');
             }
+            else {
+              // Fluttertoast.showToast(msg: 'Correct');
+              con.pinsetapi(con.emailController.text.trim(), otpCon.text);
+            }
           }
         } catch (e) {
           Fluttertoast.showToast(msg: 'Error Same Number $e');
         }
 
-        // else {
-        //   Fluttertoast.showToast(msg: 'Correct');
-        //   //con.pinsetapi(con.emailController.text.trim(), otpCon.text);
-        // }
+
       },
       text: "Next",
     );
