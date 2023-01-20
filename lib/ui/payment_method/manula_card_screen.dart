@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, prefer_if_null_operators, unnecessary_null_comparison, unnecessary_new
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
@@ -47,21 +47,14 @@ class _ManualCardState extends State<ManualCard> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              //getList(),
-              Obx(() => CustomeCardData(
-                          bankName: con.creditCardGet['bankname'].toString(),
-                          cardNumber:
-                              con.creditCardGet['cardnumber'].toString(),
-                          nameHolder: con.creditCardGet['cardname'].toString(),
-                          validity:
-                              con.creditCardGet['expirydate'].toString()) ==
-                      null
-                  ? Container()
-                  : CustomeCardData(
-                      bankName: con.creditCardGet['bankname'].toString(),
-                      cardNumber: con.creditCardGet['cardnumber'].toString(),
-                      nameHolder: con.creditCardGet['cardname'].toString(),
-                      validity: con.creditCardGet['expirydate'].toString())),
+              Obx(() =>
+
+                  CustomeCardData(
+                  bankName: con.creditCardGet['bankname'].toString(),
+                  cardNumber: con.creditCardGet['cardnumber'].toString(),
+                  nameHolder: con.creditCardGet['cardname'].toString(),
+                  validity: con.creditCardGet['expirydate'].toString())
+              ),
               SizedBox(height: 100),
               Text('Great ! You Are ready with your \nCredit card',
                   textAlign: TextAlign.center,
@@ -92,20 +85,6 @@ class _ManualCardState extends State<ManualCard> {
         text: "Let's Start Payments",
       ),
     );
-  }
-
-  Widget getList() {
-    List<String> list = con.creditCardGet['bankname'];
-    ListView myList = new ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return CustomeCardData(
-              bankName: con.creditCardGet['bankname'],
-              cardNumber: con.creditCardGet['cardnumber'],
-              nameHolder: con.creditCardGet['cardname'],
-              validity: con.creditCardGet['expirydate']);
-        });
-    return myList;
   }
 }
 

@@ -145,6 +145,7 @@ class AuthCon extends GetxController with BaseController {
     if (data["token"].toString().isNotEmpty) {
       GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
+
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
@@ -414,9 +415,9 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return Get.to(ProfileInformation());
     var data = json.decode(response);
     print("--------------------------------$data");
-    if (data == 'Success') {
       Get.to(Registerloading());
       await Get.to(AvatarPageView());
+      if (data == 'Success') {
       Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
