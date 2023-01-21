@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "988064158191",
+    "project_id": "cardit-9542f",
+    "storage_bucket": "cardit-9542f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988064158191:android:69d8258eb76d254e7ba61a",
+        "android_client_info": {
+          "package_name": "com.example.cardit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988064158191-uua98m8n75cdd6uqr3f4t92juoig3bk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cardit",
+            "certificate_hash": "f294c9b50b65f5876902a1d60b13cb51fd61b3fc"
+          }
+        },
+        {
+          "client_id": "988064158191-jduk6pn7dl3lgbpjs29eqp95lt61s8dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp6LqZkmCLdJdsT4dGYceK_HmSESic6uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988064158191-jduk6pn7dl3lgbpjs29eqp95lt61s8dv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,244 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+
+import 'package:cardit/widgets/auth_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class EnterYourCredential extends StatefulWidget {
+  const EnterYourCredential({Key? key}) : super(key: key);
+
+  @override
+  State<EnterYourCredential> createState() => _EnterYourCredentialState();
+}
+
+class _EnterYourCredentialState extends State<EnterYourCredential> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool? checkValue = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(Icons.close, size: 30, color: Colors.black)),
+          centerTitle: true),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.all(40.0),
+              height: 600.0,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xffDDDDDD),
+                        blurRadius: 6.0,
+                        spreadRadius: 5.0,
+                        offset: Offset(0.0, 0.0))
+                  ]),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(Icons.arrow_back)),
+                        SizedBox(width: 30),
+                        Text('Brankas',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26))
+                      ],
+                    ),
+                    Divider(color: Colors.grey),
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Enter your credentials',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          Text('We do not store or share your credentials.'),
+                          SizedBox(height: 30),
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 90,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Username',
+                                        style: TextStyle(
+                                            fontFamily: 'Sora',
+                                            fontSize: 16,
+                                            color: Colors.grey)),
+                                    TextFormField(
+                                        controller: userNameController,
+                                        keyboardType:
+                                            TextInputType.emailAddress),
+                                  ],
+                                ),
+                              )),
+                          SizedBox(height: 30),
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 90,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Password',
+                                        style: TextStyle(
+                                            fontFamily: 'Sora',
+                                            fontSize: 16,
+                                            color: Colors.grey)),
+                                    TextFormField(
+                                        controller: passwordController,
+                                        obscureText: true,
+                                        keyboardType: TextInputType.text),
+                                  ],
+                                ),
+                              )),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Transform.scale(
+                                  scale: 1.5,
+                                  child: Checkbox(
+                                      value: checkValue,
+                                      onChanged: (bool? newValue) {
+                                        setState(() {
+                                          checkValue = newValue!;
+                                        });
+                                      })),
+                              Text('Remember me on this device',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontFamily: 'Sora')),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          MaterialButton(
+                              onPressed: () {
+                                if (checkValue == true) {
+                                  _popupScreen();
+                                } else {
+                                  Fluttertoast.showToast(msg: "Cancel");
+                                }
+                              },
+                              height: 50,
+                              color: Colors.black,
+                              minWidth: MediaQuery.of(context).size.width,
+                              child: Text('Login',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white))),
+                          SizedBox(height: 30),
+                          Align(
+                              alignment: Alignment.center,
+                              child: Text('RESET PASSWORD',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.grey))),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Text('Secure Banking Connection by',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey)),
+            SizedBox(height: 20),
+            Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Divider(color: Colors.grey)),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<bool> _popupScreen() async {
+    bool exitApp = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Stack(
+            children: <Widget>[
+              Positioned(
+                right: 40,
+                left: 40,
+                top: 20,
+                bottom: 40,
+                child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(Icons.person_search_rounded,
+                        size: 50, color: Colors.black)),
+              ),
+              Positioned(
+                top: 20,
+                child: Column(
+                  children: [
+                    Text(
+                      'Remember me on this device',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    return exitApp ?? false;
+  }
+}
