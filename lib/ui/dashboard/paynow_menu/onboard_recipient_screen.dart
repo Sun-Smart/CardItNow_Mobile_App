@@ -434,6 +434,16 @@ class _onboardRecipientState extends State<onboardRecipient> {
               widget.uploadoc
 
             );
+            // con.onboardPayee(
+            //   // "4",
+            //   _holdernameController.text.trim(),
+            //   _emailController.text.trim(),
+            //   _businessController.text.trim(),
+            //   _phonenumberController.text.trim(),
+            //   dropdownvalue,
+            //   _accountnumberController.text.trim(),
+            //   _swiftcodeController.text.trim(),
+            // );
             // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
         }

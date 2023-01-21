@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print
+
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
@@ -7,6 +10,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/ui/update_psw_screen/update_email_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -111,22 +116,20 @@ class _LoginState extends State<Login> {
                 : CrossAxisAlignment.center,
             children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-            child: Text('We’ve \nMissed you!',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: themeChange.darkTheme
-                        ? Colors.white
-                        : Color(0XFF004751),
-                    fontSize: 28,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.bold)),
-          ),
+              padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+              child: Text('We’ve \nMissed you!',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: themeChange.darkTheme
+                          ? Colors.white
+                          : Color(0XFF004751),
+                      fontSize: 28,
+                      fontFamily: 'Sora',
+                      fontWeight: FontWeight.bold))),
           SizedBox(
-            width: Responsive.isMobile(context)
-                ? 0
-                : MediaQuery.of(context).size.width / 14,
-          ),
+              width: Responsive.isMobile(context)
+                  ? 0
+                  : MediaQuery.of(context).size.width / 14),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
               child: Image.asset("assets/userimg.png", width: 100)),
@@ -215,43 +218,40 @@ class _LoginState extends State<Login> {
                       }
                     },
                     inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter Passcode',
-
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Passcode',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold)),
                   ),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
@@ -282,11 +282,10 @@ class _LoginState extends State<Login> {
                                           value: _isChecked,
                                           onChanged: (value) {
                                             setState(() {
-                                                print("ischecked---------${_isChecked}");
-                                               _isChecked=!_isChecked;
-                                             
+                                              print(
+                                                  "ischecked---------${_isChecked}");
+                                              _isChecked = !_isChecked;
                                             });
-                                           
                                           },
                                         ),
                                       )),
@@ -314,11 +313,10 @@ class _LoginState extends State<Login> {
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('/updatepasswordcode');
+                                Get.offAll(() => UpdateEmailScreen());
                               },
                               child: Text(
-                                'Forgot Password?',
+                                'Forgot Passcode?',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: themeChange.darkTheme
@@ -340,11 +338,9 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-                      }
-
-                      else {
-                        con.loginAPI(
-                            _emailController.text, _passwordController.text,_isChecked);
+                      } else {
+                        con.loginAPI(_emailController.text,
+                            _passwordController.text, _isChecked);
                       }
                     },
                     text: "Login",
@@ -399,17 +395,9 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset(
-            "assets/google.png",
-            width: 40,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Image.asset(
-            width: 40,
-            'assets/fb.png',
-          ),
+          Image.asset("assets/google.png", width: 40),
+          const SizedBox(width: 20),
+          Image.asset(width: 40, 'assets/fb.png'),
         ]));
   }
 }

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class SplashScreens extends StatefulWidget {
@@ -23,12 +24,12 @@ class StartState extends State<SplashScreens> {
 
   _navigation() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {});
-    // if (GetStorage().read('token') == null) {
-    //   Get.toNamed('/splash2');
-    // } else {
-    //   Get.toNamed('/dashbordScreen');
-    // }
-    Get.toNamed('/home');
+    if (GetStorage().read('save_token') == null) {
+      Get.toNamed('/home');
+    } else {
+      Get.toNamed('/dashbordScreen');
+    }
+    // Get.toNamed('/home');
   }
 
   @override

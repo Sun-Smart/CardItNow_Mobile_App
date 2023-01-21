@@ -1,9 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/ui/bank_transection/transection_summery_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/onboard_recipient_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/select_documents_screen.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/landingscreens/choose_LPG_screen.dart';
 
 import 'package:cardit/ui/landingscreens/loans-payment_screen.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
+
 
 import 'package:cardit/ui/loan_screen/loan_amount.dart';
 import 'package:cardit/ui/loan_screen/payment_overview.dart';
@@ -48,7 +54,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => SplashScreens());
+        return MaterialPageRoute(builder: (_) => ChoosePaymentPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

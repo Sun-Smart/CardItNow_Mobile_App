@@ -2,8 +2,11 @@
 
 import 'dart:ui';
 
+import 'package:cardit/auth/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../widgets/auth_button.dart';
@@ -18,8 +21,9 @@ class UpdatePasswordCode extends StatefulWidget {
 
 class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final formKey = GlobalKey<FormState>();
-  final _phonenumberController = TextEditingController();
+  final phonenumberController = TextEditingController();
   final _otpController = TextEditingController();
+  final AuthCon con = Get.find();
   bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
               MyCustomInputBox(
                 enabled: true,
                 label: "Email Verification Code",
-                controller: _phonenumberController,
+                controller: phonenumberController,
                 inputDecoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -130,9 +134,16 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/updatepassword',
-        );
+        if(phonenumberController.text.isEmpty){
+          Fluttertoast.showToast(msg: "Enter your otp");
+        }
+        else{
+          con.forgototpverify(con.emailController.text, phonenumberController.text);
+        }
+        
+        // Navigator.of(context).pushNamed(
+        //   '/updatepassword',
+        // );
         if (formKey.currentState!.validate()) {}
       },
       text: "Next",

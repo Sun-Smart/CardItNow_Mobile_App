@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -44,6 +46,7 @@ class DashbordScreenState extends State<DashbordScreen>
   ];
   var item = ['Monthly', 'weekly'];
   String? dropdownvalue;
+
   @override
   void initState() {
     super.initState();
@@ -74,8 +77,20 @@ class DashbordScreenState extends State<DashbordScreen>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               color: const Color(0xff036D7A)),
-                          child: Image.asset('assets/profile.png',
-                              fit: BoxFit.cover, height: 43, width: 43)),
+                          child:
+                          GetStorage()
+                        .read("avatarpic")==null?
+                          Container():
+
+                          GetStorage()
+                                  .read("avatarpic")
+                                  .toString()
+                                  .contains('assets')
+                              ? Image.asset(GetStorage().read("avatarpic"),
+                                  fit: BoxFit.cover, height: 43, width: 43)
+                              : Image.file(File(GetStorage().read("avatarpic")),
+                                  fit: BoxFit.cover, height: 43, width: 43)
+                      ),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.all(20.0),
@@ -112,14 +127,9 @@ class DashbordScreenState extends State<DashbordScreen>
                 Padding(
                     padding: const EdgeInsets.only(right: 10.0, top: 10),
                     child: GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        'assets/notification.png',
-                        fit: BoxFit.contain,
-                        width: 25,
-                        height: 25,
-                      ),
-                    )),
+                        onTap: () {},
+                        child: Image.asset('assets/notification.png',
+                            fit: BoxFit.contain, width: 25, height: 25))),
               ],
             ),
           ),
@@ -208,22 +218,20 @@ class DashbordScreenState extends State<DashbordScreen>
         children: [
           Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
-                color: const Color(0XFFffffff),
-              ),
+                  borderRadius: BorderRadius.circular(4),
+                  border:
+                      Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                  color: const Color(0XFFffffff)),
               margin: const EdgeInsets.all(15),
               child: InkWell(
                 highlightColor: const Color(0XFFffffff),
                 focusColor: const Color(0XFFffffff),
-                splashColor: Colors.green, // splash color
+                splashColor: Colors.green,
+                // splash color
                 onTap: () {
-                  setState(() {
-                    Get.to(PaymentDashboard()); 
-                  });
-                 
-                 // Navigator.of(context).pushNamed('/payment_dashboard');
-                }, // button pressed
+                  Navigator.of(context).pushNamed('/payment_dashboard');
+                },
+                // button pressed
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Row(
@@ -232,14 +240,12 @@ class DashbordScreenState extends State<DashbordScreen>
                         const SizedBox(width: 5),
                         Image.asset("assets/paynow.png", width: 32),
                         const SizedBox(width: 15),
-                        Text(
-                          "Pay Now",
-                          style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.black
-                                  : const Color(0XFF413D4B),
-                              fontSize: 14),
-                        ),
+                        Text("Pay Now",
+                            style: TextStyle(
+                                color: themeChange.darkTheme
+                                    ? Colors.black
+                                    : const Color(0XFF413D4B),
+                                fontSize: 14)),
                         //text
                       ],
                     )),
@@ -254,8 +260,10 @@ class DashbordScreenState extends State<DashbordScreen>
               child: InkWell(
                 highlightColor: const Color(0XFFffffff),
                 focusColor: const Color(0XFFffffff),
-                splashColor: Colors.green, // splash color
-                onTap: () {}, // button pressed
+                splashColor: Colors.green,
+                // splash color
+                onTap: () {},
+                // button pressed
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Row(
