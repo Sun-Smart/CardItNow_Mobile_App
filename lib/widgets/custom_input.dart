@@ -13,6 +13,7 @@ class MyCustomInputBox extends StatefulWidget {
   final Widget? prefixIcon;
   final bool? enabled;
   final int? maxLength;
+  final  inputFormatters;
 
   final TextInputType? keyboardType;
   final Widget? Function(String?)? onChanged;
@@ -21,9 +22,10 @@ class MyCustomInputBox extends StatefulWidget {
   final TextEditingController controller;
   final int? maxLines;
 
-  const MyCustomInputBox(
+   MyCustomInputBox(
       {Key? key,
       this.textInputType,
+      this.inputFormatters,
       this.textInputAction,
       required this.controller,
       required this.enabled,
@@ -80,6 +82,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
           // height: MediaQuery.of(context).size.height * 0.070,
 
           child: TextFormField(
+            inputFormatters: widget.inputFormatters,
             maxLength: widget.maxLength,
             keyboardType: widget.keyboardType,
             onChanged: widget.onChanged,

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cardit/ui/dashboard/paynow_menu/amountpay.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/manula_card_screen.dart';
@@ -21,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
@@ -36,6 +38,10 @@ class AuthCon extends GetxController with BaseController {
     showAvatorMaster();
     geoaccess();
     creditCardgetAPI();
+    banklistget();
+    paymentpurposeget();
+    documenttypeget();
+
     super.onInit();
   }
 
@@ -47,6 +53,10 @@ class AuthCon extends GetxController with BaseController {
 
   // avatar
   var avatarImageList = [];
+  var banklist = [];
+  var paymentpurposelist = [];
+  var documenttypelist = [];
+  var invoicejson = {};
 
   // geoaccess
   var geoacclist;
@@ -81,6 +91,7 @@ class AuthCon extends GetxController with BaseController {
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
+  var doc64 = '';
   var uploadimg = '';
   var uploaddoc = '';
   String choosedDocId = '';
@@ -253,13 +264,24 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //profile Infomation
-  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
-      dateofbrith, issuedate, expirydate, address, postalcode) async {
+  void profileInformatrion(
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    // issuedate,
+    //expirydate,
+    address,
+    postalcode,
+  ) async {
     var body = {};
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate",
+                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -443,44 +465,104 @@ class AuthCon extends GetxController with BaseController {
     // print('check' + data);
   }
 
-  void updateGoalAPI() async {
-    // showLoading();
-    List<String> fitGoalList = [];
-    if (manageWeight.value) {
-      fitGoalList.add("1");
-    }
-    if (increaseEnergy.value) {
-      fitGoalList.add("2");
-    }
-    if (inceaseMuscleMass.value) {
-      fitGoalList.add("3");
-    }
-    if (newExcercise.value) {
-      fitGoalList.add("4");
-    }
-    if (workoutWithoutOutSide.value) {
-      fitGoalList.add("5");
-    }
-    if (fitEveryDay.value) {
-      fitGoalList.add("6");
-    }
+//onboard payee
+  void onboardPayee(
+    //custmrid,
+    firstName,
+    email,
+    businessRegnumber,
+    phonenumber,
+    bank,
+    accountnumber,
+    swiftcode,
+    doctypedropdown,
+    doc,
+  ) async {
     var body = {
-      'fitness_goals[]': fitGoalList,
+      "customerid": "17",
+      "firstname": firstName,
+      "email": email,
+      "businessregnumber": businessRegnumber,
+      "mobile": phonenumber,
+      "bankname": bank,
+      "accountnumber": accountnumber,
+      "swiftcode": swiftcode,
+      "documnettype": doctypedropdown,
+      "documnet": doc
     };
-    var response =
-        await BaseClient().post(API().updateGoal, body).catchError(handleError);
+    var response = await BaseClient()
+        .post(API().onboardPayeePost, body)
+        .catchError(handleError);
+    print("---data-----$body");
     if (response == null) return;
     var data = json.decode(response);
-
-    // hideLoading();
-    if (data['status']) {
-      Fluttertoast.showToast(msg: data['message']);
+    print('Pass' + data);
+    if (data == 'Success') {
+      //  print("--------$data");
+      Get.to(PaymentLoading());
+      // GetStorage().write('username', firstName.toString());
+      // // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      // Get.to(() => Twofactor());
+      Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: data['message']);
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
-  //forgotpasswordotp
+//get method
+  void banklistget() async {
+    var response =
+        await BaseClient().get(API().banklistdropdown).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    banklist = data;
+
+    print("-----data-------$banklist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void paymentpurposeget() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    paymentpurposelist = data;
+
+    print("-----data-------$paymentpurposelist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void documenttypeget() async {
+    var response = await BaseClient()
+        .get(API().documenttypedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    documenttypelist = data;
+
+    print("-----data-------$documenttypelist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void invoicegetmethod() async {
+    var body = {};
+    var response =
+        await BaseClient().post(API().invoiceget, body).catchError(handleError);
+    print("response" + response);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    // Get.to(AmountPay());
+    invoicejson = data;
+    Fluttertoast.showToast(msg: data.toString());
+
+    // invoicejson = data;
+
+    print("invoice" + invoicejson.toString());
+    // termscond = data[0]['termdetails'];
+  }
+   //forgotpasswordotp
   void forgotpasswordotp(email) async {
     showLoading();
     var body = {};

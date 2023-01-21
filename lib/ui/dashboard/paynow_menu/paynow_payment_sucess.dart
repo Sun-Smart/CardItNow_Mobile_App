@@ -1,4 +1,7 @@
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/amountpay.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
   void initState() {
     super.initState();
   }
-
+final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -37,8 +40,8 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  // Get.to( const PaymentLoading());
-                 Navigator.pop(context);
+                 // Get.to( const PaymentLoading());
+                 // Navigator.pop(context);
                 },
                 icon: const Icon(Icons.close),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -287,6 +290,10 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
+       // showAlertDialog(context);
+        
+         con.invoicegetmethod();
+          Get.to(AmountPay());
       //  Navigator.of(context).pushNamed('/loanamount')
             // showAlertDialog(context);
             
