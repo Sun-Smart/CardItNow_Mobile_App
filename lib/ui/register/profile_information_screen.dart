@@ -595,71 +595,71 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ),
 
             const SizedBox(height: 10),
-            MyCustomInputBox(
-              enabled: true,
-              label: "Issue Date",
-              keyboardType: TextInputType.none,
-              controller: issueDateController,
-              obsecureText: false,
-              validator: (value) {
-                if (issueDateController.text.isEmpty) {
-                  return "Please Select Issue Date...";
-                } else {
-                  return null;
-                }
-              },
-              inputDecoration: InputDecoration(
-                suffixIcon: GestureDetector(
-                  onTap: () async {
-                    DateTime date = DateTime(1900);
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    date = (await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2100)))!;
-                    issueDateController.text =
-                        DateFormat("yyyy-MM-dd").format(date);
-                  },
-                  child: Icon(Icons.date_range, color: Colors.black),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'YYYY-MM-DD',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.normal,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            // const SizedBox(height: 10),
+            // MyCustomInputBox(
+            //   enabled: true,
+            //   label: "Issue Date",
+            //   keyboardType: TextInputType.none,
+            //   controller: issueDateController,
+            //   obsecureText: false,
+            //   validator: (value) {
+            //     if (issueDateController.text.isEmpty) {
+            //       return "Please Select Issue Date...";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   inputDecoration: InputDecoration(
+            //     suffixIcon: GestureDetector(
+            //       onTap: () async {
+            //         DateTime date = DateTime(1900);
+            //         FocusScope.of(context).requestFocus(new FocusNode());
+            //         date = (await showDatePicker(
+            //             context: context,
+            //             initialDate: DateTime.now(),
+            //             firstDate: DateTime(1900),
+            //             lastDate: DateTime(2100)))!;
+            //         issueDateController.text =
+            //             DateFormat("yyyy-MM-dd").format(date);
+            //       },
+            //       child: Icon(Icons.date_range, color: Colors.black),
+            //     ),
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'YYYY-MM-DD',
+            //     floatingLabelBehavior: FloatingLabelBehavior.never,
+            //     helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+            //     hintStyle: const TextStyle(
+            //       fontSize: 12,
+            //       fontFamily: 'Sora',
+            //       fontWeight: FontWeight.normal,
+            //     ),
+            //     contentPadding:
+            //         const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            //     focusColor: Colors.grey.shade300,
+            //     border: const OutlineInputBorder(
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide:
+            //             const BorderSide(color: Colors.grey, width: 1.0)),
+            //     focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         gapPadding: 7,
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(4),
+            //         borderSide: const BorderSide(color: Colors.grey)),
+            //     errorStyle: const TextStyle(
+            //         fontFamily: 'Sora',
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // // const SizedBox(height: 10),
             // MyCustomInputBox(
             //   enabled: true,
             //   label: "Expired Date",
@@ -1045,11 +1045,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
           //   Fluttertoast.showToast(msg: "Data Save Successfully...");
           //}
           // Get.to(const AvatarPageView());
-          if (formKey.currentState!.validate()) {
-            if (issueDateController.text == expiredDateController.text) {
-              Fluttertoast.showToast(
-                  msg: "Issue date and Expiry date is same...");
-            } else {
+        //  if (formKey.currentState!.validate()){}
+          // {
+            // if (issueDateController.text == expiredDateController.text) {
+            //   Fluttertoast.showToast(
+            //       msg: "Issue date and Expiry date is same...");
+           // } 
+           // else {
               con.profileInformatrion(
                 con.emailController.text,
                 firstNameController.text,
@@ -1058,15 +1060,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 stateNameController.text,
                 requiredNoController.text,
                 dateOfBrithController.text,
-                issueDateController.text,
-                expiredDateController.text,
+                //issueDateController.text,
+                //expiredDateController.text,
                 addressController.text,
                 postalCodeController.text,
               );
               // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-            }
-          }
-        },
+            },
+       //   },
+        
         text: "Next");
   }
 }

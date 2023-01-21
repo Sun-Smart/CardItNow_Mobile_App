@@ -4,14 +4,18 @@ import 'dart:math';
 
 import 'package:cardit/ui/register/pdfView.dart';
 import 'package:cardit/widgets/auth_button.dart';
+import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../auth/auth.dart';
+import '../../../responsive/responsive.dart';
 import '../../../themes/styles.dart';
+import 'onboard_recipient_screen.dart';
 
 class SelectDocuments extends StatefulWidget {
   const SelectDocuments({super.key});
@@ -21,14 +25,30 @@ class SelectDocuments extends StatefulWidget {
 }
 
 class _SelectDocumentsState extends State<SelectDocuments> {
-  var documents = [
-    'Tenancy Contracts',
-    'Tution Fees',
-  ];
   String? dropdowndocx;
 
   File? _file;
+  File? imagedoc2;
   PlatformFile? _platformFile;
+  List<String> _pictures = [];
+  void onPressed() async {
+    List<String> pictures;
+    try {
+      pictures = await CunningDocumentScanner.getPictures() ?? [];
+      if (!mounted) return;
+      setState(() {
+        _pictures = pictures;
+        imagedoc2 = File(_pictures[0]);
+         print("---ssss----$imagedoc2");
+        List<int> fileBytes = imagedoc2!.readAsBytesSync();
+        con.doc64 = base64.encode(fileBytes);
+        print("-----64-----${con.doc64}");
+      });
+    } catch (exception) {
+      print('Image Not Pic');
+    }
+  }
+
   Widget open_document() {
     if (_platformFile == null) {
       return Container(
@@ -40,8 +60,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: GestureDetector(
             onTap: () async {
-             // openGallery();
-            showAlertDialog(context);
+              ///showAlertDialog(context);
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +121,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
         List<int> fileBytes = _file!.readAsBytesSync();
         con.regDoc = base64.encode(fileBytes);
         print("-----64-----${con.regDoc}");
-    
       });
     }
   }
@@ -151,14 +169,17 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               fontWeight: FontWeight.w600,
             )),
       ),
-      body: Column(
-        children: [
-          selectdocuments(),
-          const SizedBox(
-            height: 20,
-          ),
-        uploaddocuments()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            selectdocuments(),
+            const SizedBox(
+              height: 20,
+            ),
+           
+             uploaddocuments()
+          ],
+        ),
       ),
     );
   }
@@ -218,15 +239,15 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               ),
             ),
             validator: (value) => value == null ? 'field required' : null,
-            items: documents.map((String documents) {
+            items: con.documenttypelist.map((item) {
               return DropdownMenuItem(
-                value: documents,
-                child: Text(documents,
+                value: item["documnettype"].toString(),
+                child: Text(item["documnettype"].toString(),
                     style: const TextStyle(
                         color: Color(0Xff413D4B), fontSize: 13)),
               );
             }).toList(),
-            onChanged: (String? newValue) {
+            onChanged: (newValue) {
               setState(() {
                 dropdowndocx = newValue!;
               });
@@ -258,8 +279,9 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           const SizedBox(
             height: 15,
           ),
+           displayImagedoc(),
           //  showAlertDialog(context),
-           open_document(),
+          //open_document(),
         ],
       ),
     );
@@ -276,7 +298,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
-              
               },
               icon: const Icon(Icons.close),
               color: Styles.whitecolortext,
@@ -315,8 +336,8 @@ class _SelectDocumentsState extends State<SelectDocuments> {
                 splashColor: Colors.green, // splash color
                 onTap: () {
                   setState(() {
-                      Navigator.pop(context);
-                  openGallery();
+                    Navigator.pop(context);
+                    openGallery();
                   });
                 }, // button pressed
                 child: Padding(
@@ -363,7 +384,12 @@ class _SelectDocumentsState extends State<SelectDocuments> {
                 highlightColor: Color(0XFFffffff),
                 focusColor: Color(0XFFffffff),
                 splashColor: Colors.green, // splash color
-                onTap: () {}, // button pressed
+                onTap: () {
+                  setState(() {
+                    onPressed();
+                    // displayImagedoc();
+                  });
+                }, // button pressed
                 child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -412,13 +438,71 @@ class _SelectDocumentsState extends State<SelectDocuments> {
     );
   }
 
+  Widget displayImagedoc() {
+    if (imagedoc2 == null) {
+      return Container(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
+          height: 160,
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              borderRadius: const BorderRadius.all(Radius.circular(3))),
+          child: InkWell(
+              onTap: () async {
+                onPressed();
+              },
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.camera_alt_outlined),
+                    // Image.asset("assets/uplodicon.png", width: 32),
+                     SizedBox(height: 5),
+                     Text('Scan your Document'),
+                  ])));
+    } else {
+      return Container(
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: MediaQuery.of(context).size.width / 1,
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              borderRadius: const BorderRadius.all(Radius.circular(3))),
+          child: InkWell(
+            onTap: () async {
+              onPressed();
+            },
+            child: Image.file(
+              imagedoc2!,
+              fit: BoxFit.fill,
+            ),
+          ));
+    }
+  }
+
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/onboardrecipient',
-        );
-        // if (formKey.currentState.validate()) {}
+        if(dropdowndocx==null){
+          Fluttertoast.showToast(msg: "Enter Your Document Type");
+        }
+        else if(imagedoc2==null){
+           Fluttertoast.showToast(msg: "Choose Your Document");
+        }
+        else{
+           Get.to(onboardRecipient(
+          documenttype: dropdowndocx.toString(),
+          uploadoc: con.doc64,
+        ));
+        }
+       
+        // Navigator.of(context).pushNamed(
+        //   '/onboardrecipient',
+        // );
+        // // if (formKey.currentState.validate()) {}
       },
       text: "Add and Proceed",
       decoration: BoxDecoration(
