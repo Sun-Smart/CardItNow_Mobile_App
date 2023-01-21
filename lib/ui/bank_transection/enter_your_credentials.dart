@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
+import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'loading_screen.dart';
 
 class EnterYourCredential extends StatefulWidget {
   const EnterYourCredential({Key? key}) : super(key: key);
@@ -36,9 +39,8 @@ class _EnterYourCredentialState extends State<EnterYourCredential> {
           children: [
             SizedBox(height: 20),
             Container(
-              margin: const EdgeInsets.all(40.0),
+              margin: const EdgeInsets.all(20.0),
               height: 600.0,
-              width: double.infinity,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -158,7 +160,7 @@ class _EnterYourCredentialState extends State<EnterYourCredential> {
                                 if (checkValue == true) {
                                   _popupScreen();
                                 } else {
-                                  Fluttertoast.showToast(msg: "Cancel");
+                                  Get.to(() => LoadingPage());
                                 }
                               },
                               height: 50,
@@ -208,34 +210,73 @@ class _EnterYourCredentialState extends State<EnterYourCredential> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Stack(
+          icon: Center(child: Icon(Icons.person_search_rounded, size: 50)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Positioned(
-                right: 40,
-                left: 40,
-                top: 20,
-                bottom: 40,
-                child: InkResponse(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Icon(Icons.person_search_rounded,
-                        size: 50, color: Colors.black)),
-              ),
-              Positioned(
-                top: 20,
-                child: Column(
-                  children: [
-                    Text(
-                      'Remember me on this device',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    )
-                  ],
-                ),
-              ),
+              Center(
+                  child: Text('Remember me on this device',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.bold))),
+              SizedBox(height: 20),
+              Text(
+                  'Automatically log in to your selected bank for future transactions on this device. Your login credentials will be encrypted and saved on your mobile device/browser.',
+                  style: TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  textAlign: TextAlign.center),
+              SizedBox(height: 20),
+              Text(
+                  'To forget your account on this device, simply change your password or clear your browser’s cache.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, fontFamily: 'Sora'))
             ],
           ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 40,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        side:
+                            BorderSide(color: Color.fromRGBO(0, 160, 227, 1))),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    padding: EdgeInsets.all(10.0),
+                    color: Colors.white,
+                    textColor: Color.fromRGBO(0, 160, 227, 1),
+                    child: Text("Cancel",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            color: Colors.black)),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 40,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.to(() => LoadingPage());
+                    },
+                    child: Text('Continue',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            color: Colors.black)),
+                    color: HexColor('#CEE812'),
+                  ),
+                ),
+              ],
+            )
+          ],
         );
       },
     );
