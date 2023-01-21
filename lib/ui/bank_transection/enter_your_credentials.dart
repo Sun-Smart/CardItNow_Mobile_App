@@ -2,6 +2,7 @@
 
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
+import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';

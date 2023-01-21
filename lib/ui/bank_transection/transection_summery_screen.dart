@@ -20,10 +20,10 @@ class _TransectionSummeryScreenState extends State<TransectionSummeryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.close, size: 30, color: Colors.black))),
+        leading: IconButton(onPressed: (){
+          Get.back();
+        }, icon: Icon(Icons.close, size: 30, color: Colors.black)),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cardit/ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../widgets/auth_button.dart';
@@ -161,7 +163,10 @@ class _YourTaxDetailsState extends State<YourTaxDetails> {
           decoration: BoxDecoration(
               color: HexColor('#CEE812'),
               borderRadius: BorderRadius.circular(5)),
-          onTap: () {},
+          onTap: () {
+
+           Get.to(()=>OverviewPayment());
+          },
           text: "Agree and Proceed"),
     );
   }

@@ -35,6 +35,7 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
   bool _isChecked = false;
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -200,59 +201,78 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  MyCustomInputBox(
-                    enabled: true,
-                    controller: _passwordController,
-                    maxLength: 6,
-                    label: 'Passcode',
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    obsecureText: true,
-                    validator: (value) {
-                      if (_passwordController.text.isEmpty ||
-                          _passwordController.text.length < 6) {
-                        return "passcode should be greater than 6 characters";
-                      } else {
-                        return null;
-                      }
-                    },
-                    inputDecoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Enter Passcode',
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        helperStyle:
-                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                        hintStyle: const TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Sora',
-                            fontWeight: FontWeight.normal),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
-                        focusColor: Colors.grey.shade300,
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 1.0)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 1.0)),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            gapPadding: 7,
-                            borderSide: const BorderSide(color: Colors.grey)),
-                        errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: Colors.grey)),
-                        errorStyle: const TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold)),
-                  ),
+                  Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Password', style: TextStyle(fontSize: 15)),
+                          SizedBox(height: 5),
+                          TextFormField(
+                              obscureText: isVisible,
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter password";
+                                } else if (value.length < 6) {
+                                  return 'Must be more than 6 charater';
+                                }
+                              },
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(6)
+                              ],
+                              decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  suffixIcon: IconButton(
+                                    icon: Icon(isVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility, color: Colors.grey),
+                                    onPressed: () {
+                                      setState(() {
+                                        isVisible = !isVisible;
+                                      });
+                                    },
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.normal),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold))),
+                        ],
+                      )),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
                       child: Row(

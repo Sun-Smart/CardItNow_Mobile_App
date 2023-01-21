@@ -1,6 +1,8 @@
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/bank_transection/transection_summery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 
@@ -14,7 +16,9 @@ class OverviewPayment extends StatefulWidget {
 
 class _OverviewPaymentState extends State<OverviewPayment> {
   bool isChecked = false;
+  // bool selectdbank =false;
     String _selectedGender = 'VISA - **** **** 8756';
+    String selectbank = 'Pay via through bank';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -311,6 +315,28 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w400
                 ),),
               ),
+
+      ListTile(
+
+        leading: Radio<String>(
+
+          activeColor:HexColor('#036D7A'),
+          value: 'Master Card - **** **** 2265',
+          groupValue: _selectedGender,
+          onChanged: (value) {
+            setState(() {
+              _selectedGender = value!;
+              Get.offAll(()=>TransectionSummeryScreen());
+            });
+          },
+        ),
+        title:  Text('Pay via through bank',
+          style: TextStyle(
+              color: HexColor('#2C3A4B'),
+              fontSize: 14,
+              fontWeight: FontWeight.w400
+          ),),
+      ),
 
     ],
   );
