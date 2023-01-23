@@ -44,7 +44,7 @@ class _AuthButtonState extends State<AuthButton> {
             widget.text,
             style: TextStyle(
               fontFamily: 'ProductSans',
-              fontSize: 14,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: HexColor('#004751'),
             ),

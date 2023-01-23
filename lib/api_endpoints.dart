@@ -2,6 +2,7 @@ class API {
   // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+
   // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
@@ -11,6 +12,7 @@ class API {
 
   //Terms acceptance
   String terms = "customertermsacceptance/fulllist";
+
   // String termsmaster ="termsmaster";
   //terms and condition api
   String termsmaster = "termsCondition/TermsList";
@@ -45,5 +47,8 @@ class API {
 
   //creditcard
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/93';
+  String creditCardGetLink = 'customerpaymode/';
+
+  //Tas Details Get Api
+  String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
 }

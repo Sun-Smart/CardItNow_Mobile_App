@@ -32,10 +32,10 @@ import 'init.dart';
 class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
-
     termsconditions();
     showAvatorMaster();
     geoaccess();
+    taxDetailsGetApi();
     creditCardgetAPI();
     super.onInit();
   }
@@ -83,16 +83,20 @@ class AuthCon extends GetxController with BaseController {
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
   var uploadimg = '';
-  var uploaddoc ='';
+  var uploaddoc = '';
   String choosedDocId = '';
 
   var googleMail = '';
+
+  //your Details
+  var Owner = {}.obs;
 
   // login
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
   final forgotemailController = TextEditingController();
+
   //  ItemScrollController itemScrollController = ItemScrollController();
   //  ItemPositionsListener itemPositionsListener =
   // ItemPositionsListener.create();
@@ -134,14 +138,13 @@ class AuthCon extends GetxController with BaseController {
 
     String token = data.toString();
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    print("Chocoboy"+payload.toString());
+    print("Chocoboy" + payload.toString());
     print("response " + data.toString());
     GetStorage().write("savedtoken", data.toString());
 
     GetStorage().write("getuserid", payload["userid"].toString());
-    print("useridcheck"+payload["userid"].toString());
+    print("useridcheck" + payload["userid"].toString());
     var getuserid = payload["userid"].toString();
-
 
     if (data["token"].toString().isNotEmpty) {
       GetStorage().write("save_token", data["token"].toString());
@@ -236,7 +239,8 @@ class AuthCon extends GetxController with BaseController {
     var body = {};
     var response = await BaseClient()
         .post(
-            API().password +'?email=${googleMail == ''?email : googleMail}' +
+            API().password +
+                '?email=${googleMail == '' ? email : googleMail}' +
                 '&password=' +
                 password,
             body)
@@ -247,26 +251,14 @@ class AuthCon extends GetxController with BaseController {
     if (data == "Success") {
       Get.to(Login());
       Fluttertoast.showToast(msg: data.toString());
-
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
   }
 
   //profile Infomation
-  void profileInformatrion(
-    email,
-    firstName,
-    lastName,
-    city,
-    state,
-    requiredno,
-    dateofbrith,
-    issuedate,
-    expirydate,
-    address,
-    postalcode,
-  ) async {
+  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
+      dateofbrith, issuedate, expirydate, address, postalcode) async {
     var body = {};
     var response = await BaseClient()
         .post(
@@ -295,8 +287,9 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().pinset +
-                '?email=${googleMail==''?email : googleMail}' +
-                '&pin=' +pin,
+                '?email=${googleMail == '' ? email : googleMail}' +
+                '&pin=' +
+                pin,
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -334,10 +327,8 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     print(avator);
     var body = {};
-
     if (image != null) {
       var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
-
       var response = await BaseClient()
           .post(API().uploadAvator, body,
               isMultiPart: true, file: file, isDev: true)
@@ -363,11 +354,10 @@ class AuthCon extends GetxController with BaseController {
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
-    var userid= GetStorage().read("getuserid");
-    print("checkuser"+userid.toString());
-
+    var userid = GetStorage().read("getuserid");
+    print("checkuser" + userid.toString());
     var body = {
-      "customerid":  GetStorage().read("getuserid"),
+      "customerid": userid,
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
@@ -377,9 +367,9 @@ class AuthCon extends GetxController with BaseController {
       "bankname": bankName,
       "ibannumber": " ",
       "status": nickName,
-      "createdby": 57,
+      "createdby": userid,
       "createddate": dateStr,
-      "updatedby": 0,
+      "updatedby": userid,
       "updateddate": dateStr
     };
     var response = await BaseClient()
@@ -400,8 +390,10 @@ class AuthCon extends GetxController with BaseController {
 
   //get credit card details
   void creditCardgetAPI() async {
-    var response =
-        await BaseClient().get(API().creditCardGetLink).catchError(handleError);
+    var userid = GetStorage().read("getuserid");
+    var response = await BaseClient()
+        .get(API().creditCardGetLink + userid)
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     creditCardGet.value = data['customerpaymode'];
@@ -410,10 +402,7 @@ class AuthCon extends GetxController with BaseController {
         'Credit Card Api Get Method');
   }
 
-  void uploadDocx(
-    email,
-    docid,
-  ) async {
+  void uploadDocx(email, docid) async {
     var body = {};
     log(uploadimg + "DD");
     print(uploadimg + "BB");
@@ -426,9 +415,9 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return Get.to(ProfileInformation());
     var data = json.decode(response);
     print("--------------------------------$data");
-      Get.to(Registerloading());
-      await Get.to(AvatarPageView());
-      if (data == 'Success') {
+    Get.to(Registerloading());
+    await Get.to(AvatarPageView());
+    if (data == 'Success') {
       Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
@@ -497,9 +486,9 @@ class AuthCon extends GetxController with BaseController {
     var body = {};
     var response = await BaseClient()
         .post(
-      API().register + '?email=' + email,
-      body,
-    )
+          API().register + '?email=' + email,
+          body,
+        )
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
@@ -520,16 +509,15 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //forgototpverify
-
   void forgototpverify(email, otp) async {
     showLoading();
     var body = {};
     var response = await BaseClient()
         .post(
-        API().verifyotp +
-            '?email=${googleMail == '' ? email : googleMail}&otp=' +
-            otp,
-        body)
+            API().verifyotp +
+                '?email=${googleMail == '' ? email : googleMail}&otp=' +
+                otp,
+            body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -538,7 +526,8 @@ class AuthCon extends GetxController with BaseController {
     if (data == "Success") {
       GetStorage().write('token', email);
       var storedEmail = GetStorage().read('token');
-      print('***************** OTP Token  &&&& ${storedEmail} &&&&  ************************');
+      print(
+          '***************** OTP Token  &&&& ${storedEmail} &&&&  ************************');
       Get.to(() => UpdatePassword());
       Fluttertoast.showToast(msg: data.toString());
     } else {
@@ -546,6 +535,13 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-
-
+  void taxDetailsGetApi() async {
+    var response = await BaseClient()
+        .get(API().taxDetailsGetApiData)
+        .catchError(handleError);
+    if (response == null) return;
+    var valueMap = jsonDecode(response);
+    var data = json.decode(valueMap);
+    Owner.value = data;
+  }
 }

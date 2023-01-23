@@ -29,6 +29,7 @@ import 'ui/landingscreens/profile_screen.dart';
 import 'ui/landingscreens/scan_card_screen.dart';
 import 'ui/landingscreens/settings_screen.dart';
 import 'ui/landingscreens/user_details_screen.dart';
+import 'ui/lgu/your_tax_details.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
@@ -45,7 +46,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => const SplashScreens());
+        return MaterialPageRoute(builder: (_) => const ChoosePaymentPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':
