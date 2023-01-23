@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print
+
 import 'dart:io';
 import 'dart:ui';
 
@@ -33,6 +35,7 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
   bool _isChecked = false;
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -114,22 +117,20 @@ class _LoginState extends State<Login> {
                 : CrossAxisAlignment.center,
             children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-            child: Text('We’ve \nMissed you!',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: themeChange.darkTheme
-                        ? Colors.white
-                        : Color(0XFF004751),
-                    fontSize: 28,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.bold)),
-          ),
+              padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+              child: Text('We’ve \nMissed you!',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: themeChange.darkTheme
+                          ? Colors.white
+                          : Color(0XFF004751),
+                      fontSize: 28,
+                      fontFamily: 'Sora',
+                      fontWeight: FontWeight.bold))),
           SizedBox(
-            width: Responsive.isMobile(context)
-                ? 0
-                : MediaQuery.of(context).size.width / 14,
-          ),
+              width: Responsive.isMobile(context)
+                  ? 0
+                  : MediaQuery.of(context).size.width / 14),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
               child: Image.asset("assets/userimg.png", width: 100)),
@@ -200,63 +201,78 @@ class _LoginState extends State<Login> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  MyCustomInputBox(
-                    enabled: true,
-                    controller: _passwordController,
-                    maxLength: 6,
-                    label: 'Passcode',
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    obsecureText: true,
-
-                    validator: (value) {
-                      if (_passwordController.text.isEmpty ||
-                          _passwordController.text.length < 6) {
-                        return "passcode should be greater than 6 characters";
-                      } else {
-                        return null;
-                      }
-                    },
-                    inputDecoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter Passcode',
-
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Password', style: TextStyle(fontSize: 15)),
+                          SizedBox(height: 5),
+                          TextFormField(
+                              obscureText: isVisible,
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter password";
+                                } else if (value.length < 6) {
+                                  return 'Must be more than 6 charater';
+                                }
+                              },
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(6)
+                              ],
+                              decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  suffixIcon: IconButton(
+                                    icon: Icon(isVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility, color: Colors.grey),
+                                    onPressed: () {
+                                      setState(() {
+                                        isVisible = !isVisible;
+                                      });
+                                    },
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.normal),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold))),
+                        ],
+                      )),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 5, 15, 0),
                       child: Row(
@@ -286,11 +302,10 @@ class _LoginState extends State<Login> {
                                           value: _isChecked,
                                           onChanged: (value) {
                                             setState(() {
-                                                print("ischecked---------${_isChecked}");
-                                               _isChecked=!_isChecked;
-                                             
+                                              print(
+                                                  "ischecked---------${_isChecked}");
+                                              _isChecked = !_isChecked;
                                             });
-                                           
                                           },
                                         ),
                                       )),
@@ -318,7 +333,7 @@ class _LoginState extends State<Login> {
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                               Get.offAll(()=>UpdateEmailScreen());
+                                Get.offAll(() => UpdateEmailScreen());
                               },
                               child: Text(
                                 'Forgot Passcode?',
@@ -343,12 +358,9 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
-                      }
-
-                      else {
-                        con.loginAPI(
-                            _emailController.text, _passwordController.text,_isChecked);
-
+                      } else {
+                        con.loginAPI(_emailController.text,
+                            _passwordController.text, _isChecked);
                       }
                     },
                     text: "Login",
@@ -403,17 +415,9 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset(
-            "assets/google.png",
-            width: 40,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Image.asset(
-            width: 40,
-            'assets/fb.png',
-          ),
+          Image.asset("assets/google.png", width: 40),
+          const SizedBox(width: 20),
+          Image.asset(width: 40, 'assets/fb.png'),
         ]));
   }
 }

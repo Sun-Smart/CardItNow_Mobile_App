@@ -30,8 +30,7 @@ class _PaymentOverviewState extends State<PaymentOverview> {
               title: Text(
                 'Payment Overview',
                 style: TextStyle(
-                    color: 
-                         Color(0Xff1B1B1B),
+                    color: Color(0Xff1B1B1B),
                     fontSize: 20,
                     fontWeight: FontWeight.w700),
               ),
@@ -40,16 +39,14 @@ class _PaymentOverviewState extends State<PaymentOverview> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            bulildcard(),
-            bulildPaymentsDetails()
-            ],
+          children: [bulildcard(), bulildPaymentsDetails()],
         ),
       ),
     ));
   }
-   Widget bulildcard() {
-  //  final themeChange = Provider.of<DarkThemeProvider>(context);
+
+  Widget bulildcard() {
+    //  final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: Column(
@@ -58,42 +55,38 @@ class _PaymentOverviewState extends State<PaymentOverview> {
           Text(
             'Apply for Loan',
             style: TextStyle(
-                color:
-            
-                   Color.fromARGB(255, 140, 140, 140),
+                color: Color.fromARGB(255, 140, 140, 140),
                 fontSize: 15,
                 fontWeight: FontWeight.w600),
           ),
           ListTile(
-            contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-            leading:  ClipOval(
-            child: Image.asset("assets/user-img.png",
-            fit: BoxFit.cover,
-            width: 45.0,
-            height: 45.0,
-            )
-            ),
-            title: Text(
-              'Angelo',
-              style: TextStyle(
-                  color:
-                      //themeChange.darkTheme ? Colors.white :
-                       Color(0Xff000000),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600),
-            ),
-            subtitle: Text(
-              'MID - 23344565',
-              style: TextStyle(
-                  color:  Color.fromARGB(255, 140, 140, 140),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
-            ),
-          )
+              contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
+              leading: ClipOval(
+                  child: Image.asset(
+                "assets/user-img.png",
+                fit: BoxFit.cover,
+                width: 45.0,
+                height: 45.0,
+              )),
+              title: Text(
+                'Angelo',
+                style: TextStyle(
+                    color:
+                        //themeChange.darkTheme ? Colors.white :
+                        Color(0Xff000000),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text('MID - 23344565',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 140, 140, 140),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700)))
         ],
       ),
     );
   }
+
   Widget bulildPaymentsDetails() {
     return Container(
       width: MediaQuery.of(context).size.width / 1,
@@ -144,14 +137,14 @@ class _PaymentOverviewState extends State<PaymentOverview> {
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
-             Text(
+            Text(
               '+',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
-             Text(
+            Text(
               '₱ 120',
               style: TextStyle(
                   color: Colors.white,
@@ -170,7 +163,6 @@ class _PaymentOverviewState extends State<PaymentOverview> {
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
-       
         SizedBox(
           height: 30,
         ),
@@ -197,7 +189,7 @@ class _PaymentOverviewState extends State<PaymentOverview> {
       ]),
     );
   }
- 
+
   Widget buildButton() {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -222,5 +214,4 @@ class _PaymentOverviewState extends State<PaymentOverview> {
           }),
     );
   }
-
-  }
+}

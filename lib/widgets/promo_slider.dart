@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, avoid_print
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class TopPromoSlider extends StatefulWidget {
   final List<String> data = [
@@ -12,7 +14,7 @@ class TopPromoSlider extends StatefulWidget {
     'assets/banner/banner1.png',
     'assets/banner/banner1.png',
     'assets/banner/banner1.png',
-    'assets/banner/banner1.png'
+    'assets/banner/banner1.png',
   ];
 
   TopPromoSlider({Key? key}) : super(key: key);
@@ -24,6 +26,7 @@ class TopPromoSlider extends StatefulWidget {
 class _TopPromoSliderState extends State<TopPromoSlider> {
   final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
+
   int _currentsliderindex = 0;
 
   @override
@@ -31,7 +34,7 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
     return Column(
       children: [
         con.creditCardGet == null
-            ? Text("welcome")
+            ? CustomeCardData()
             : Column(
                 children: [
                   CarouselSlider.builder(
@@ -75,7 +78,7 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                     }).toList(),
                   )
                 ],
-              )
+              ),
       ],
     );
   }
@@ -84,11 +87,36 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
     return Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-        //padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-        child: Image.asset(
-          item,
-          height: double.infinity,
-          fit: BoxFit.cover,
-        ));
+        child: Image.asset(item, height: double.infinity, fit: BoxFit.cover));
+  }
+}
+
+class CustomeCardData extends StatelessWidget {
+  const CustomeCardData({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 230,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/banner/empty_card.png'))),
+      child: Stack(
+        children: [
+          Positioned(
+              top: 100,
+              left: 135,
+              child: MaterialButton(
+                  color: HexColor('#CEE812'),
+                  minWidth: 90,
+                  onPressed: () {
+                    Get.to(() => AddCreditCardPage());
+                  },
+                  child: Text('Add Card',
+                      style: TextStyle(fontSize: 18, fontFamily: 'Sora'))))
+        ],
+      ),
+    );
   }
 }

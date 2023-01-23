@@ -602,7 +602,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     String fileInBase64 = base64Encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
     log(fileInBase64);
-    con.uploaddoc = base64.encode(fileInBytes);
+  //  con.uploaddoc = base64.encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
 
   }
