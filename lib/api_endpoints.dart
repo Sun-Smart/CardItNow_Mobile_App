@@ -1,9 +1,3 @@
-
-
-// ignore_for_file: unnecessary_brace_in_string_interps
-
-import 'package:cardit/auth/auth.dart';
-
 class API {
   // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
@@ -52,17 +46,22 @@ class API {
   String uploadProcessDocument = "customermaster/ProcessDocument";
 
   //creditcard
-  String documenttypedropdown = "common/Getdocumenttype";
-  String banklistdropdown = "common/GetBankList";
-  String Paymentpurposedropdown = "common/GetpurposeList";
-
+  // String crediCardPost =
+  //     'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
+  // String creditCardGetLink = 'customerpaymode/60'; //card Get Data
+  //get method-document type
+  String documenttypedropdown="common/Getdocumenttype";
+  String banklistdropdown="common/GetBankList";
+  String Paymentpurposedropdown ="common/GetpurposeList";
   //dummy json for invoice and amunt
-  String invoiceget = "PayerPayeePrivate/GetRawResult";
+  String invoiceget="PayerPayeePrivate/GetRawResult";
+
 
   //onboard Payeee
-  String onboardPayeePost = 'PayerPayeePrivate';
+  String onboardPayeePost='PayerPayeePrivate';
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/${userIDToken}';
+  String creditCardGetLink = 'customerpaymode/';
+
+  //Tas Details Get Api
+  String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
 }
-
-
