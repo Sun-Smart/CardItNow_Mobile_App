@@ -1,7 +1,14 @@
+
+
+// ignore_for_file: unnecessary_brace_in_string_interps
+
+import 'package:cardit/auth/auth.dart';
+
 class API {
   // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+
   // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
@@ -11,6 +18,7 @@ class API {
 
   //Terms acceptance
   String terms = "customertermsacceptance/fulllist";
+
   // String termsmaster ="termsmaster";
   //terms and condition api
   String termsmaster = "termsCondition/TermsList";
@@ -44,19 +52,17 @@ class API {
   String uploadProcessDocument = "customermaster/ProcessDocument";
 
   //creditcard
-  // String crediCardPost =
-  //     'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
-  // String creditCardGetLink = 'customerpaymode/60'; //card Get Data
-  //get method-document type
-  String documenttypedropdown="common/Getdocumenttype";
-  String banklistdropdown="common/GetBankList";
-  String Paymentpurposedropdown ="common/GetpurposeList";
-  //dummy json for invoice and amunt
-  String invoiceget="PayerPayeePrivate/GetRawResult";
+  String documenttypedropdown = "common/Getdocumenttype";
+  String banklistdropdown = "common/GetBankList";
+  String Paymentpurposedropdown = "common/GetpurposeList";
 
+  //dummy json for invoice and amunt
+  String invoiceget = "PayerPayeePrivate/GetRawResult";
 
   //onboard Payeee
-  String onboardPayeePost='PayerPayeePrivate';
+  String onboardPayeePost = 'PayerPayeePrivate';
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/93';
+  String creditCardGetLink = 'customerpaymode/${userIDToken}';
 }
+
+

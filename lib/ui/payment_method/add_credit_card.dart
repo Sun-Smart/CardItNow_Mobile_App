@@ -480,16 +480,17 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       ),
       bottomNavigationBar: AuthButton(
         onTap: () {
-          if (formKey.currentState!.validate()) {
-            con.creditCardPostAPI(
-                creditCardController.text.toString(),
-                validityController.text.toString(),
-                cvvController.text.toString(),
-                nameOnCardController.text.toString(),
-                bankNameController.text.toString(),
-                addNickController.text.toString());
-          }
-          // Get.to(() => ManualCard());
+          // if (formKey.currentState!.validate()) {
+          //   con.creditCardPostAPI(
+          //       creditCardController.text.toString(),
+          //       validityController.text.toString(),
+          //       cvvController.text.toString(),
+          //       nameOnCardController.text.toString(),
+          //       bankNameController.text.toString(),
+          //       addNickController.text.toString());
+          // }
+          //  Get.to(() => ManualCard());
+          Get.back();
         },
         text: 'Verify and Proceed',
         decoration: BoxDecoration(
