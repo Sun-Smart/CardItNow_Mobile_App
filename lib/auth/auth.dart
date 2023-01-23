@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cardit/ui/dashboard/paynow_menu/amountpay.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/manula_card_screen.dart';
@@ -17,11 +16,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+
 import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
@@ -41,6 +41,7 @@ class AuthCon extends GetxController with BaseController {
     banklistget();
     paymentpurposeget();
     documenttypeget();
+    invoicegetmethod();
 
     super.onInit();
   }
@@ -437,9 +438,9 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return Get.to(ProfileInformation());
     var data = json.decode(response);
     print("--------------------------------$data");
-      Get.to(Registerloading());
-      await Get.to(AvatarPageView());
-      if (data == 'Success') {
+    Get.to(Registerloading());
+    await Get.to(AvatarPageView());
+    if (data == 'Success') {
       Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
@@ -546,23 +547,22 @@ class AuthCon extends GetxController with BaseController {
   }
 
   void invoicegetmethod() async {
-    var body = {};
     var response =
-        await BaseClient().post(API().invoiceget, body).catchError(handleError);
+        await BaseClient().get(API().invoiceget).catchError(handleError);
     print("response" + response);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = jsonDecode(response);
+    var data1=json.decode(data);
+
+    print("-----data" + data);
 
     // Get.to(AmountPay());
-    invoicejson = data;
-    Fluttertoast.showToast(msg: data.toString());
-
-    // invoicejson = data;
-
-    print("invoice" + invoicejson.toString());
-    // termscond = data[0]['termdetails'];
+    invoicejson = data1;
+    print("------inovice----${invoicejson["Rent"]}");
+   // Fluttertoast.showToast(msg: data.toString());
   }
-   //forgotpasswordotp
+
+  //forgotpasswordotp
   void forgotpasswordotp(email) async {
     showLoading();
     var body = {};
