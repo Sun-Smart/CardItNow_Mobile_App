@@ -47,14 +47,12 @@ class _ManualCardState extends State<ManualCard> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              Obx(() =>
-
-                  CustomeCardData(
-                  bankName: con.creditCardGet['bankname'].toString(),
-                  cardNumber: con.creditCardGet['cardnumber'].toString(),
-                  nameHolder: con.creditCardGet['cardname'].toString(),
-                  validity: con.creditCardGet['expirydate'].toString())
-              ),
+              // Obx(() => CustomeCardData(
+              //     bankName: con.creditCardGet['bankname'].toString(),
+              //     cardNumber: con.creditCardGet['cardnumber'].toString(),
+              //     nameHolder: con.creditCardGet['cardname'].toString(),
+              //     validity: con.creditCardGet['expirydate'].toString())),
+              Image.asset('assets/banner/banner1.png'),
               SizedBox(height: 100),
               Text('Great ! You Are ready with your \nCredit card',
                   textAlign: TextAlign.center,
