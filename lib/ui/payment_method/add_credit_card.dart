@@ -123,11 +123,12 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 SizedBox(height: 10),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0),
-                    borderRadius: BorderRadius.circular(5)),
+                      border: Border.all(color: Colors.transparent, width: 0),
+                      borderRadius: BorderRadius.circular(5)),
                   child: Stack(
                     children: [
                       TextFormField(
+                          maxLength: 16,
                           keyboardType: TextInputType.number,
                           controller: creditCardController,
                           validator: (value) {
@@ -139,18 +140,19 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             changeNumber = v;
                             print(changeNumber);
                           },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(16),
-                            CardNumberFormatter(),
-                          ],
+                          // inputFormatters: [
+                          //   // FilteringTextInputFormatter.digitsOnly,
+                          //   // LengthLimitingTextInputFormatter(16),
+                          //   // CardNumberFormatter(),
+                          // ],
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
                               filled: true,
                               fillColor: Colors.white,
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                              helperStyle:
-                              const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
                               hintStyle: const TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Sora',
@@ -171,15 +173,21 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                               focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   gapPadding: 7,
-                                  borderSide: const BorderSide(color: Colors.grey)),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(color: Colors.grey)),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
                               errorStyle: const TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      Positioned(child: Image.asset('assets/visa.png', width: 40, height: 35), right: 10,top: 5)
+                      Positioned(
+                          child: Image.asset('assets/visa.png',
+                              width: 40, height: 35),
+                          right: 10,
+                          top: 5)
                     ],
                   ),
                 ),
@@ -482,14 +490,13 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         onTap: () {
           if (formKey.currentState!.validate()) {
             con.creditCardPostAPI(
-                creditCardController.text.toString(),
-                validityController.text.toString(),
-                cvvController.text.toString(),
-                nameOnCardController.text.toString(),
-                bankNameController.text.toString(),
-                addNickController.text.toString());
+                creditCardController.text,
+                validityController.text,
+                cvvController.text,
+                nameOnCardController.text,
+                bankNameController.text,
+                addNickController.text);
           }
-          // Get.to(() => ManualCard());
         },
         text: 'Verify and Proceed',
         decoration: BoxDecoration(
