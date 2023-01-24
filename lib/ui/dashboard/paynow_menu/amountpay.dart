@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, prefer_const_constructors
+
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_purpose.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -19,6 +21,7 @@ class _AmountPayState extends State<AmountPay> {
   String? dropdownvalue;
   TextEditingController _controller = TextEditingController();
   final AuthCon con = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +85,7 @@ class _AmountPayState extends State<AmountPay> {
                   SizedBox(
                     height: 5,
                   ),
-                  Text(con.invoicejson["Amount"].toString())
+                  Text('con.invoicejson["Amount"].toString()')
                   // Text(
                   //   (int.parse("Invoice No. ${con.invoicejson["Amount"]}")
                   //       .toString()),
@@ -94,7 +97,6 @@ class _AmountPayState extends State<AmountPay> {
                   //       fontWeight: FontWeight.w400,
                   //       fontFamily: "Sora"),
                   // ),
-                  
                 ],
               )
             ],
@@ -128,15 +130,13 @@ class _AmountPayState extends State<AmountPay> {
                   style: TextStyle(fontSize: 40),
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              SizedBox(width: 10),
               Flexible(
                 child: Container(
                     margin: EdgeInsets.only(right: 30),
                     // color: Colors.green,
                     child: Text(
-                      con.invoicejson["Amount"].toString(),
+                      'con.invoicejson["Amount"].toString()',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 40),
                     )

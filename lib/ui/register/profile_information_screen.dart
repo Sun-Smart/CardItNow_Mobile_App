@@ -45,7 +45,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
   var uaecities = ['Dubai', 'Abudhabi', 'Sharjah', 'Fujariah'];
   var uaeData = ['UAE'];
-  var interests =["Racing","Riding","Gaming"];
+  var interests = ["Racing", "Riding", "Gaming"];
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'First Name',
@@ -170,7 +169,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Middle Name',
@@ -182,7 +180,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 // border: const OutlineInputBorder(
                 //     borderSide: BorderSide(color: Colors.grey)),
@@ -447,7 +445,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'First Name',
@@ -459,18 +456,18 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     gapPadding: 7,
@@ -484,7 +481,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-
 
             MyCustomInputBox(
               enabled: true,
@@ -502,7 +498,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Enter Your Nick Name',
@@ -514,7 +509,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
@@ -789,12 +784,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
                   : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+                      ? MediaQuery.of(context).size.width / 4.5
+                      : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
                   border:
-                  Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                      Border.all(color: const Color(0XffB7C5C7), width: 1.5),
                   borderRadius: const BorderRadius.all(Radius.circular(3))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -808,11 +803,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
                       child: Icon(
-                        Icons.keyboard_arrow_down,
-                        // color: themeChange.darkTheme
-                        //     ? Colors.white
-                        //     : Colors.black45
-                      )),
+                    Icons.keyboard_arrow_down,
+                    // color: themeChange.darkTheme
+                    //     ? Colors.white
+                    //     : Colors.black45
+                  )),
                   items: interests.map((String item) {
                     return DropdownMenuItem(
                         value: item,
@@ -1044,30 +1039,30 @@ class _ProfileInformationState extends State<ProfileInformation> {
           //   Fluttertoast.showToast(msg: "Data Save Successfully...");
           //}
           // Get.to(const AvatarPageView());
-        //  if (formKey.currentState!.validate()){}
+          //  if (formKey.currentState!.validate()){}
           // {
-            // if (issueDateController.text == expiredDateController.text) {
-            //   Fluttertoast.showToast(
-            //       msg: "Issue date and Expiry date is same...");
-           // } 
-           // else {
-              con.profileInformatrion(
-                con.emailController.text,
-                firstNameController.text,
-                lastNameController.text,
-                cityNameController.text,
-                stateNameController.text,
-                requiredNoController.text,
-                dateOfBrithController.text,
-                //issueDateController.text,
-                //expiredDateController.text,
-                addressController.text,
-                postalCodeController.text,
-              );
-              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-            },
-       //   },
-        
+          // if (issueDateController.text == expiredDateController.text) {
+          //   Fluttertoast.showToast(
+          //       msg: "Issue date and Expiry date is same...");
+          // }
+          // else {
+          //    con.profileInformatrion(
+          //      con.emailController.text,
+          //      firstNameController.text,
+          //      lastNameController.text,
+          //      cityNameController.text,
+          //      stateNameController.text,
+          //      requiredNoController.text,
+          //      dateOfBrithController.text,
+          //      //issueDateController.text,
+          //      //expiredDateController.text,
+          //      addressController.text,
+          //      postalCodeController.text,
+          //    );
+          // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+        },
+        //   },
+
         text: "Next");
   }
 }

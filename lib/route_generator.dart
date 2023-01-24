@@ -107,8 +107,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RecipientType());
       case '/selectdocuments':
         return MaterialPageRoute(builder: (_) => SelectDocuments());
-      case '/onboardrecipient':
-        return MaterialPageRoute(builder: (_) => onboardRecipient());
+      // case '/onboardrecipient':
+      //   return MaterialPageRoute(builder: (_) => onboardRecipient());
       case '/chooseLPG':
         return MaterialPageRoute(builder: (_) => ChooseLPG());
 
