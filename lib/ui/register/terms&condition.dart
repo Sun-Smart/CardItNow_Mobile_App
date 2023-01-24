@@ -111,11 +111,9 @@ class _termsandconditionsState extends State<termsandconditions> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (GetStorage().read('token') == null) {
-            // Get.toNamed('/home');
             Get.to(ChoosePaymentPage());
           } else {
             Get.to(ChoosePaymentPage());
-            // Get.toNamed('/ChoosePaymentPage');
           }
         },
         text: "Done");

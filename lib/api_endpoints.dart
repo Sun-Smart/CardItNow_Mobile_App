@@ -46,6 +46,19 @@ class API {
   String uploadProcessDocument = "customermaster/ProcessDocument";
 
   //creditcard
+  // String crediCardPost =
+  //     'customerpaymode/SaveCutomerCardDeatils'; //card Post Data
+  // String creditCardGetLink = 'customerpaymode/60'; //card Get Data
+  //get method-document type
+  String documenttypedropdown="common/Getdocumenttype";
+  String banklistdropdown="common/GetBankList";
+  String Paymentpurposedropdown ="common/GetpurposeList";
+  //dummy json for invoice and amunt
+  String invoiceget="PayerPayeePrivate/GetRawResult";
+
+
+  //onboard Payeee
+  String onboardPayeePost='PayerPayeePrivate';
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
   String creditCardGetLink = 'customerpaymode/';
 

@@ -2,12 +2,14 @@
 
 import 'dart:io';
 
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,7 @@ import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
 
-final userDetails = FirebaseAuth.instance.currentUser;
+//final userDetails = FirebaseAuth.instance.currentUser;
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({Key? key}) : super(key: key);

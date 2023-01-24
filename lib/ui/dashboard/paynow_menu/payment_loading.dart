@@ -27,7 +27,7 @@ class _PaymentLoadingState extends State<PaymentLoading> {
   }
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 3000), () {
+    await Future.delayed(const Duration(milliseconds: 2000), () {
       Get.to( const PaynowSucessScreen());
     });
   }

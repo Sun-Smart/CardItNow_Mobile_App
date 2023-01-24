@@ -1,5 +1,6 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -10,7 +11,9 @@ import '../../../widgets/custom_input.dart';
 import 'payment_loading.dart';
 
 class onboardRecipient extends StatefulWidget {
-  const onboardRecipient({Key? key}) : super(key: key);
+  String documenttype;
+  String uploadoc;
+   onboardRecipient({Key? key,required this.documenttype,required this.uploadoc}) : super(key: key);
 
   @override
   State<onboardRecipient> createState() => _onboardRecipientState();
@@ -25,7 +28,10 @@ class _onboardRecipientState extends State<onboardRecipient> {
   final _selectbankController = TextEditingController();
   final _accountnumberController = TextEditingController();
   final _swiftcodeController = TextEditingController();
-  var item = ['Indin Bank', 'Axis Bank', 'ICIC Bank', 'IDBI Bank'];
+     final 
+     nameRegExp = new RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+     static final RegExp numberRegExp = RegExp(r'\d');
+  // var item = ['Indin Bank', 'Axis Bank', 'ICIC Bank', 'IDBI Bank'];
   String? dropdownvalue;
   @override
   void initState() {
@@ -76,6 +82,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // ignore: unnecessary_brace_in_string_interps
                   MyCustomInputBox(
                     label: "Payee’s Name",
                     controller: _holdernameController,
@@ -83,18 +90,23 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     inputHint: 'Enter Name',
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.next,
+            
                     validator: (value) {
                       if (_holdernameController.text.isEmpty) {
-                        return "Please Enter The Holder Name";
+                        return " Enter The Payee's Name";
                       } else {
                         return null;
                       }
                     },
+                    inputFormatters: <TextInputFormatter>[
+                     FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
+                   ],
                     inputDecoration: const InputDecoration(
+
                         border: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
-                        hintText: "Enter Name",
+                        hintText: "Enter Payee's Name",
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
@@ -123,10 +135,10 @@ class _onboardRecipientState extends State<onboardRecipient> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (_emailController.text.isEmpty) {
-                          return "Please Enter The Email";
+                          return " Enter The Email";
                         } else if (!_emailController.text.contains("@") ||
                             !_emailController.text.endsWith('.com')) {
-                          return "Please Enter The valid Email";
+                          return " Enter The valid Email";
                         } else {
                           return null;
                         }
@@ -153,25 +165,29 @@ class _onboardRecipientState extends State<onboardRecipient> {
                               fontWeight: FontWeight.w400,
                               color: Color.fromRGBO(65, 61, 75, 0.6)))),
                   MyCustomInputBox(
+                   // keyboardType: TextInputType.number,
                     enabled: true,
                     label: "Business Reg Number",
                     controller: _businessController,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     obsecureText: false,
-                    inputHint: 'Enter your account Number',
-                    validator: (value) {
+                    inputHint: 'Enter your Business Reg Number',
+                   validator: (value) {
                       if (_businessController.text.isEmpty) {
-                        return "Please Enter Number";
+                        return " Enter The Reg Number";
                       } else {
                         return null;
                       }
                     },
+                    inputFormatters: <TextInputFormatter>[
+                     FilteringTextInputFormatter.digitsOnly
+                   ],
                     inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
-                        hintText: "Enter your account number",
+                        hintText: "Enter your Business Reg Number",
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
@@ -198,13 +214,16 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     controller: _phonenumberController,
                     obsecureText: false,
                     inputHint: 'Enter your Phone number',
-                    validator: (value) {
+                   validator: (value) {
                       if (_phonenumberController.text.isEmpty) {
-                        return "Please Enter Phone number";
+                        return " Enter The Phone number";
                       } else {
                         return null;
                       }
                     },
+                    inputFormatters: <TextInputFormatter>[
+                     FilteringTextInputFormatter.digitsOnly
+                   ],
                     inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
@@ -275,19 +294,25 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             color: Colors.black45,
                           ),
                         ),
-                        validator: (value) =>
-                            value == null ? 'Field  is required' : null,
-                        items: item.map((String item) {
+                         validator: (value) {
+                      if (dropdownvalue==null) {
+                        return " Enter your Bank name";
+                      } else {
+                        return null;
+                      }
+                    },
+                        items: con.banklist.map((item) {
                           return DropdownMenuItem(
-                            value: item,
-                            child: Text(item,
+                            value: item["bankname"].toString(),
+                            child: Text(item["bankname"].toString(),
                                 style: const TextStyle(
                                     color: Color(0Xff413D4B), fontSize: 14)),
                           );
                         }).toList(),
-                        onChanged: (String? newValue) {
+                        onChanged: (newValue) {
                           setState(() {
                             dropdownvalue = newValue!;
+                            print("----dropdown------$dropdownvalue");
                           });
                         },
                         style: const TextStyle(color: Colors.black),
@@ -303,13 +328,17 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     controller: _accountnumberController,
                     obsecureText: false,
                     inputHint: 'Enter your Account Number',
-                    validator: (value) {
+                 
+                     validator: (value) {
                       if (_accountnumberController.text.isEmpty) {
-                        return "Please Enter Account Number";
+                        return " Enter your account number";
                       } else {
                         return null;
                       }
                     },
+                    inputFormatters: <TextInputFormatter>[
+                     FilteringTextInputFormatter.digitsOnly
+                   ],
                     inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
@@ -342,16 +371,19 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     inputHint: 'Enter swift code of your Bank',
                     validator: (value) {
                       if (_swiftcodeController.text.isEmpty) {
-                        return "Please Enter Account Number";
+                        return " Enter swift code of your bank";
                       } else {
                         return null;
                       }
                     },
+                    inputFormatters: <TextInputFormatter>[
+                     FilteringTextInputFormatter.digitsOnly
+                   ],
                     inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
-                        hintText: "Enter your  Account  number",
+                        hintText: "Enter swift code of your Bank",
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(width: 2, color: Color(0xFFE5E5E5))),
@@ -389,6 +421,19 @@ class _onboardRecipientState extends State<onboardRecipient> {
           } else if (_swiftcodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter the  Swift code");
           } else {
+            con.onboardPayee(
+              // "4",
+              _holdernameController.text.trim(),
+              _emailController.text.trim(),
+              _businessController.text.trim(),
+              _phonenumberController.text.trim(),
+              dropdownvalue,
+              _accountnumberController.text.trim(),
+              _swiftcodeController.text.trim(),
+              widget.documenttype,
+              widget.uploadoc
+
+            );
             // con.onboardPayee(
             //   // "4",
             //   _holdernameController.text.trim(),
@@ -402,7 +447,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
             // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
         }
-        // Get.to(PaymentLoading());
+      //   Get.to(PaymentLoading());
         // // Navigator.of(context).pushNamed('/chooseLPG');
         // if (formKey.currentState!.validate()) {}
       },

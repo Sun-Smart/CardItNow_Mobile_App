@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'dart:developer';
@@ -16,11 +16,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+
+import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
@@ -35,8 +37,12 @@ class AuthCon extends GetxController with BaseController {
     termsconditions();
     showAvatorMaster();
     geoaccess();
-    taxDetailsGetApi();
     creditCardgetAPI();
+    banklistget();
+    paymentpurposeget();
+    documenttypeget();
+    invoicegetmethod();
+
     super.onInit();
   }
 
@@ -48,6 +54,10 @@ class AuthCon extends GetxController with BaseController {
 
   // avatar
   var avatarImageList = [];
+  var banklist = [];
+  var paymentpurposelist = [];
+  var documenttypelist = [];
+  var invoicejson = {};
 
   // geoaccess
   var geoacclist;
@@ -82,14 +92,12 @@ class AuthCon extends GetxController with BaseController {
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
+  var doc64 = '';
   var uploadimg = '';
   var uploaddoc = '';
   String choosedDocId = '';
 
   var googleMail = '';
-
-  //your Details
-  var Owner = {}.obs;
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -120,9 +128,9 @@ class AuthCon extends GetxController with BaseController {
     print(password);
     if (response == null) return;
     var data = json.decode(response);
+    GetStorage().write("save_token", data["token"].toString());
     if (ischecked_checkbox == true) {
       GetStorage().write("save_token", data["token"].toString());
-
       // SharedPreferences _prefs = await SharedPreferences.getInstance();
       // await _prefs.setString("save_token", data["token"].toString());
 
@@ -136,28 +144,26 @@ class AuthCon extends GetxController with BaseController {
 
     hideLoading();
 
+    String token = data.toString();
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    print("Chocoboy" + payload.toString());
+    print("response " + data.toString());
+    GetStorage().write("savedtoken", data.toString());
 
-print('hey'+data["token"].toString());
-    if (data["token"]!=null) {
-      String token = data.toString();
-      Map<String, dynamic> payload = Jwt.parseJwt(token);
-      print("Chocoboy" + payload.toString());
-      print("response " + data.toString());
-      GetStorage().write("savedtoken", data.toString());
+    GetStorage().write("getuserid", payload["userid"].toString());
+    print("useridcheck" + payload["userid"].toString());
+    var getuserid = payload["userid"].toString();
 
-      GetStorage().write("getuserid", payload["userid"].toString());
-      print("useridcheck" + payload["userid"].toString());
-      var getuserid = payload["userid"].toString();
+    if (data["token"].toString().isNotEmpty) {
       GetStorage().write("save_token", data["token"].toString());
-      Get.to(()=>DashbordScreen());
+      Get.to(DashbordScreen());
 
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
-      hideLoading();
-      Fluttertoast.showToast(msg: data['message']);
+      Fluttertoast.showToast(msg: "Check Your Login Credentials");
     }
   }
 
@@ -183,7 +189,6 @@ print('hey'+data["token"].toString());
 
   //regsterApi
   void registerAPI(email) async {
-    print("hellosss");
     showLoading();
     var body = {};
     var response = await BaseClient()
@@ -260,17 +265,29 @@ print('hey'+data["token"].toString());
   }
 
   //profile Infomation
-  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
-      dateofbrith, issuedate, expirydate, address, postalcode) async {
+  void profileInformatrion(
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    // issuedate,
+    //expirydate,
+    address,
+    postalcode,
+  ) async {
     var body = {};
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate",
+                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
             body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+    print(response);
     print('Pass' + data);
     if (data == 'Success') {
       GetStorage().write('username', firstName.toString());
@@ -330,8 +347,10 @@ print('hey'+data["token"].toString());
     showLoading();
     print(avator);
     var body = {};
+
     if (image != null) {
       var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
+
       var response = await BaseClient()
           .post(API().uploadAvator, body,
               isMultiPart: true, file: file, isDev: true)
@@ -353,39 +372,39 @@ print('hey'+data["token"].toString());
   }
 
   //upload credit card details
-  void creditCardPostAPI(String cardNumber, String validity, String cvv,
-      String cardName, String bankName, String nickName) async {
+  void creditCardPostAPI(
+      cardNumber, validity, cvv, cardName, bankName, nickName) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
     var userid = GetStorage().read("getuserid");
     print("checkuser" + userid.toString());
     var body = {
-      "customerid": userid,
+      "customerid": GetStorage().read("getuserid"),
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber.trim(),
-      "cardname": cardName.trim(),
-      "expirydate": validity.trim(),
-      "bankname": bankName.trim(),
-      "ibannumber": " ",
-      "status": nickName.trim(),
-      "createdby": userid.trim(),
-      "createddate": dateStr.trim(),
-      "updatedby": userid,
-      "updateddate": dateStr.trim()
+      "cardnumber": cardNumber,
+      "cardname": cardName,
+      "expirydate": validity,
+      "bankname": bankName,
+      "ibannumber": "",
+      "status": nickName,
+      "createdby": 16,
+      "createddate": dateStr,
+      "updatedby": 0,
+      "updateddate": dateStr
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)
         .catchError(handleError);
-    print(response);
-    print(body);
+    print(response.toString());
+    print(body.toString());
     if (response == null) return;
     var data = json.decode(response);
     print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      Get.back();
+      Get.to(const ManualCard());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -393,10 +412,8 @@ print('hey'+data["token"].toString());
 
   //get credit card details
   void creditCardgetAPI() async {
-    var userid = GetStorage().read("getuserid");
-    var response = await BaseClient()
-        .get(API().creditCardGetLink + userid)
-        .catchError(handleError);
+    var response =
+        await BaseClient().get(API().creditCardGetLink).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     creditCardGet.value = data['customerpaymode'];
@@ -405,7 +422,10 @@ print('hey'+data["token"].toString());
         'Credit Card Api Get Method');
   }
 
-  void uploadDocx(email, docid) async {
+  void uploadDocx(
+    email,
+    docid,
+  ) async {
     var body = {};
     log(uploadimg + "DD");
     print(uploadimg + "BB");
@@ -446,41 +466,100 @@ print('hey'+data["token"].toString());
     // print('check' + data);
   }
 
-  void updateGoalAPI() async {
-    // showLoading();
-    List<String> fitGoalList = [];
-    if (manageWeight.value) {
-      fitGoalList.add("1");
-    }
-    if (increaseEnergy.value) {
-      fitGoalList.add("2");
-    }
-    if (inceaseMuscleMass.value) {
-      fitGoalList.add("3");
-    }
-    if (newExcercise.value) {
-      fitGoalList.add("4");
-    }
-    if (workoutWithoutOutSide.value) {
-      fitGoalList.add("5");
-    }
-    if (fitEveryDay.value) {
-      fitGoalList.add("6");
-    }
+//onboard payee
+  void onboardPayee(
+    //custmrid,
+    firstName,
+    email,
+    businessRegnumber,
+    phonenumber,
+    bank,
+    accountnumber,
+    swiftcode,
+    doctypedropdown,
+    doc,
+  ) async {
     var body = {
-      'fitness_goals[]': fitGoalList,
+      "customerid": "17",
+      "firstname": firstName,
+      "email": email,
+      "businessregnumber": businessRegnumber,
+      "mobile": phonenumber,
+      "bankname": bank,
+      "accountnumber": accountnumber,
+      "swiftcode": swiftcode,
+      "documnettype": doctypedropdown,
+      "documnet": doc
     };
-    var response =
-        await BaseClient().post(API().updateGoal, body).catchError(handleError);
+    var response = await BaseClient()
+        .post(API().onboardPayeePost, body)
+        .catchError(handleError);
+    print("---data-----$body");
     if (response == null) return;
     var data = json.decode(response);
-
-    // hideLoading();
-    if (data['status']) {
-      Fluttertoast.showToast(msg: data['message']);
+    print('Pass' + data);
+    if (data == 'Success') {
+      //  print("--------$data");
+      Get.to(PaymentLoading());
+      // GetStorage().write('username', firstName.toString());
+      // // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      // Get.to(() => Twofactor());
+      Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: data['message']);
+      Fluttertoast.showToast(msg: data.toString());
     }
+  }
+
+//get method
+  void banklistget() async {
+    var response =
+        await BaseClient().get(API().banklistdropdown).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    banklist = data;
+
+    print("-----data-------$banklist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void paymentpurposeget() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    paymentpurposelist = data;
+
+    print("-----data-------$paymentpurposelist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void documenttypeget() async {
+    var response = await BaseClient()
+        .get(API().documenttypedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    documenttypelist = data;
+
+    print("-----data-------$documenttypelist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void invoicegetmethod() async {
+    var response =
+        await BaseClient().get(API().invoiceget).catchError(handleError);
+    print("response" + response);
+    if (response == null) return;
+    var data = jsonDecode(response);
+    var data1=json.decode(data);
+
+    print("-----data" + data);
+
+    // Get.to(AmountPay());
+    invoicejson = data1;
+    print("------inovice----${invoicejson["Rent"]}");
+   // Fluttertoast.showToast(msg: data.toString());
   }
 
   //forgotpasswordotp
@@ -512,6 +591,7 @@ print('hey'+data["token"].toString());
   }
 
   //forgototpverify
+
   void forgototpverify(email, otp) async {
     showLoading();
     var body = {};
@@ -536,15 +616,5 @@ print('hey'+data["token"].toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
-  }
-
-  void taxDetailsGetApi() async {
-    var response = await BaseClient()
-        .get(API().taxDetailsGetApiData)
-        .catchError(handleError);
-    if (response == null) return;
-    var valueMap = jsonDecode(response);
-    var data = json.decode(valueMap);
-    Owner.value = data;
   }
 }

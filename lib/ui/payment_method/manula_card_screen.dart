@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, avoid_unnecessary_containers, unnecessary_null_comparison
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
@@ -41,24 +41,39 @@ class _ManualCardState extends State<ManualCard> {
                         fontSize: 14))),
             const SizedBox(width: 20),
           ]),
-      body: con.creditCardGet == null
-          ? Obx(() => Container(
-              child: Text('Add Your Credit Card',
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              // Obx(() => CustomeCardData(
+              //     bankName: con.creditCardGet['bankname'].toString(),
+              //     cardNumber: con.creditCardGet['cardnumber'].toString(),
+              //     nameHolder: con.creditCardGet['cardname'].toString(),
+              //     validity: con.creditCardGet['expirydate'].toString())),
+              Image.asset('assets/banner/banner1.png'),
+              SizedBox(height: 100),
+              Text('Great ! You Are ready with your \nCredit card',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      fontFamily: 'Sora'))))
-          : Obx(() => ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount:
-              con.creditCardGet.length,
-              itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: CustomeCardData(
-                      bankName:   con.creditCardGet['bankname'] ?? '',
-                      cardNumber: con.creditCardGet['cardnumber'] ?? '',
-                      nameHolder: con.creditCardGet['cardname'] ?? '',
-                      validity:   con.creditCardGet['expirydate'] ?? '')))),
+                      color: HexColor('#004751'))),
+              SizedBox(height: 10),
+              Text(
+                  'We have verified your Credit Card and Details. \nYou are good to go with payments now.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey)),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: AuthButton(
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
@@ -92,13 +107,13 @@ class CustomeCardData extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-              left: 40,
+              left: 32,
               top: 35,
               child: Text(bankName,
                   style: TextStyle(
                       color: Colors.white, fontSize: 16, fontFamily: 'Sora'))),
           Positioned(
-              left: 40,
+              left: 32,
               bottom: 100,
               child: Text(nameHolder,
                   style: TextStyle(
@@ -107,23 +122,29 @@ class CustomeCardData extends StatelessWidget {
                       fontSize: 14,
                       fontFamily: 'Sora'))),
           Positioned(
-              right: 35,
-              bottom: 100,
-              child: Text(cardNumber,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      fontFamily: 'Sora'))),
+            right: 25,
+            bottom: 100,
+            child: Text(
+              'xxxx xxxx xxxx ${cardNumber.substring(12, 16)}',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  fontFamily: 'Sora'),
+            ),
+          ),
           Positioned(
-              left: 70,
-              bottom: 26,
-              child: Text('${validity.substring(5, 10)}',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      fontFamily: 'Sora'))),
+            left: 65,
+            bottom: 27,
+            child: Text(
+              '${validity.substring(0, 10)}',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  fontFamily: 'Sora'),
+            ),
+          ),
           Positioned(
             right: 35,
             bottom: 28,

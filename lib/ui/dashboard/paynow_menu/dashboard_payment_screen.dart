@@ -1,13 +1,16 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/lgu/choose_lgu_screen.dart';
 import 'package:cardit/ui/model_screen/dashboard_screen.dart';
 import 'package:cardit/ui/model_screen/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/tgrid.dart';
-
 
 class PaymentDashboard extends StatefulWidget {
   const PaymentDashboard({super.key});
@@ -55,6 +58,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   //DataDashboard ?myData;
 
   DataDashboard? myData;
+
   @override
   void initState() {
     myData = DataDashboard.fromJson(PaymentDashboard.mdata);
@@ -92,7 +96,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          //  _buildScarch(),
+            //  _buildScarch(),
             _buildtitle1(),
             buildRecipients(),
             _buildtitle2(),
@@ -206,7 +210,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
               style: TextStyle(
                   color:
                       themeChange.darkTheme ? Colors.white : Color(0XFF000000),
-                       fontFamily: "Sora",
+                  fontFamily: "Sora",
                   fontSize: 12,
                   fontWeight: FontWeight.w400))
         ]),
@@ -241,7 +245,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Text('Carditnow Partners',
           style: TextStyle(
-             fontFamily: "Sora",
+              fontFamily: "Sora",
               color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
               fontSize: 14,
               fontWeight: FontWeight.w400)),
@@ -282,7 +286,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                   height: 38,
                 )),
             onTap: () {
-             
+              Get.to(() => ChooseLGUScreen());
             },
           ),
           //commit
