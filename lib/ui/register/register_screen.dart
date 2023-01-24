@@ -278,85 +278,85 @@ class _RegisterState extends State<Register> {
                                 ),
                               ]),
                           //2 factor begin
-                          Row(
-                              mainAxisAlignment: Responsive.isMobile(context)
-                                  ? MainAxisAlignment.start
-                                  : MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            Responsive.isMobile(context)
-                                                ? MainAxisAlignment.start
-                                                : MainAxisAlignment.start,
-                                        children: [
-                                      SizedBox(
-                                        width: Responsive.isMobile(context)
-                                            ? 0
-                                            : Responsive.isDesktop(context)
-                                                ? MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.7
-                                                : MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.6,
-                                      ),
-                                      SizedBox(
-                                          height: 20.0,
-                                          width: 24.0,
-                                          child: Theme(
-                                            data: ThemeData(
-                                                unselectedWidgetColor: themeChange
-                                                        .darkTheme
-                                                    ? Colors.white
-                                                    : Color(
-                                                        0xff004751) // Your color
-                                                ),
-                                            child: Checkbox(
-                                              activeColor: themeChange.darkTheme
-                                                  ? Colors.white
-                                                  : Color(0xff004751),
-                                              value: isChecked1,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  if (isChecked1) {
-                                                    isChecked1 = true;
-                                                  } else {
-                                                    isChecked1 = true;
-                                                  }
-                                                });
-                                              },
-                                            ),
-                                          )),
-                                      // SizedBox(width: 10.0),
-                                      // Text("I agree to the ",
-                                      //     style: TextStyle(
-                                      //       color: themeChange.darkTheme
-                                      //           ? Colors.white
-                                      //           : Color(0xff646464),
-                                      //       fontSize: 14,
-                                      //     ))
-                                    ])),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: HexColor('#004751'))),
-                                  onPressed: () {
-                                    showAlertDialog(context);
-                                  },
-                                  child: Text(
-                                    ' Enable 2 Factor Authentication',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: themeChange.darkTheme
-                                            ? Colors.white
-                                            : HexColor('#004751')),
-                                  ),
-                                ),
-                              ]),
+                          // Row(
+                          //     mainAxisAlignment: Responsive.isMobile(context)
+                          //         ? MainAxisAlignment.start
+                          //         : MainAxisAlignment.start,
+                          //     children: [
+                          //       Container(
+                          //           child: Row(
+                          //               mainAxisAlignment:
+                          //                   Responsive.isMobile(context)
+                          //                       ? MainAxisAlignment.start
+                          //                       : MainAxisAlignment.start,
+                          //               children: [
+                          //             SizedBox(
+                          //               width: Responsive.isMobile(context)
+                          //                   ? 0
+                          //                   : Responsive.isDesktop(context)
+                          //                       ? MediaQuery.of(context)
+                          //                               .size
+                          //                               .width /
+                          //                           2.7
+                          //                       : MediaQuery.of(context)
+                          //                               .size
+                          //                               .width /
+                          //                           3.6,
+                          //             ),
+                          //             SizedBox(
+                          //                 height: 20.0,
+                          //                 width: 24.0,
+                          //                 child: Theme(
+                          //                   data: ThemeData(
+                          //                       unselectedWidgetColor: themeChange
+                          //                               .darkTheme
+                          //                           ? Colors.white
+                          //                           : Color(
+                          //                               0xff004751) // Your color
+                          //                       ),
+                          //                   child: Checkbox(
+                          //                     activeColor: themeChange.darkTheme
+                          //                         ? Colors.white
+                          //                         : Color(0xff004751),
+                          //                     value: isChecked1,
+                          //                     onChanged: (value) {
+                          //                       setState(() {
+                          //                         if (isChecked1) {
+                          //                           isChecked1 = true;
+                          //                         } else {
+                          //                           isChecked1 = true;
+                          //                         }
+                          //                       });
+                          //                     },
+                          //                   ),
+                          //                 )),
+                          //             // SizedBox(width: 10.0),
+                          //             // Text("I agree to the ",
+                          //             //     style: TextStyle(
+                          //             //       color: themeChange.darkTheme
+                          //             //           ? Colors.white
+                          //             //           : Color(0xff646464),
+                          //             //       fontSize: 14,
+                          //             //     ))
+                          //           ])),
+                          //       TextButton(
+                          //         style: TextButton.styleFrom(
+                          //             textStyle: TextStyle(
+                          //                 fontSize: 14,
+                          //                 color: HexColor('#004751'))),
+                          //         onPressed: () {
+                          //           showAlertDialog(context);
+                          //         },
+                          //         child: Text(
+                          //           ' Enable 2 Factor Authentication',
+                          //           style: TextStyle(
+                          //               fontSize: 14,
+                          //               color: themeChange.darkTheme
+                          //                   ? Colors.white
+                          //                   : HexColor('#004751')),
+                          //         ),
+                          //       ),
+                          //     ]),
                           //2 factor
                         ],
                       )),

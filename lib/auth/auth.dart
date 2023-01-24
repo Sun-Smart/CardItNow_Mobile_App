@@ -16,10 +16,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+
 import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
@@ -39,6 +41,7 @@ class AuthCon extends GetxController with BaseController {
     banklistget();
     paymentpurposeget();
     documenttypeget();
+    invoicegetmethod();
 
     super.onInit();
   }
@@ -519,24 +522,25 @@ class AuthCon extends GetxController with BaseController {
   }
 
   void invoicegetmethod() async {
-    var body = {};
     var response =
-        await BaseClient().post(API().invoiceget, body).catchError(handleError);
+        await BaseClient().get(API().invoiceget).catchError(handleError);
     print("response" + response);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = jsonDecode(response);
+    var data1=json.decode(data);
+
+    print("-----data" + data);
 
     // Get.to(AmountPay());
-    invoicejson = data;
-    Fluttertoast.showToast(msg: data.toString());
-
-    // invoicejson = data;
+    invoicejson = data1;
+    print("------inovice----${invoicejson["Rent"]}");
+   // Fluttertoast.showToast(msg: data.toString());
+  }
 
     print("invoice" + invoicejson.toString());
     // termscond = data[0]['termdetails'];
   }
-
-  //forgotpasswordotp
+   //forgotpasswordotp
   void forgotpasswordotp(email) async {
     showLoading();
     var body = {};

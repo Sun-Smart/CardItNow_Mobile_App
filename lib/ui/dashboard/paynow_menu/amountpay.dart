@@ -82,7 +82,7 @@ class _AmountPayState extends State<AmountPay> {
                   SizedBox(
                     height: 5,
                   ),
-                  Text(con.invoicejson["Amount"].toString())
+                  //  Text(con.invoicejson["Rent"].toString())
                   // Text(
                   //   (int.parse("Invoice No. ${con.invoicejson["Amount"]}")
                   //       .toString()),
@@ -94,7 +94,6 @@ class _AmountPayState extends State<AmountPay> {
                   //       fontWeight: FontWeight.w400,
                   //       fontFamily: "Sora"),
                   // ),
-                  
                 ],
               )
             ],
@@ -136,7 +135,7 @@ class _AmountPayState extends State<AmountPay> {
                     margin: EdgeInsets.only(right: 30),
                     // color: Colors.green,
                     child: Text(
-                      con.invoicejson["Amount"].toString(),
+                      con.invoicejson["Rent"],
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 40),
                     )
