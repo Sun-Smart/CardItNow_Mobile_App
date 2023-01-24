@@ -123,13 +123,14 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 SizedBox(height: 10),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0),
+                    border: Border.all(color: Colors.transparent, width: 0),
                     borderRadius: BorderRadius.circular(5)),
                   child: Stack(
                     children: [
                       TextFormField(
                           keyboardType: TextInputType.number,
                           controller: creditCardController,
+                          maxLength: 16,
                           validator: (value) {
                             if (creditCardController.text.isEmpty) {
                               return 'Enter Card Number';
@@ -139,11 +140,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             changeNumber = v;
                             print(changeNumber);
                           },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(16),
-                            CardNumberFormatter(),
-                          ],
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.digitsOnly,
+                          //   LengthLimitingTextInputFormatter(16),
+                          //   CardNumberFormatter(),
+                          // ],
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
                               filled: true,

@@ -136,26 +136,28 @@ class AuthCon extends GetxController with BaseController {
 
     hideLoading();
 
-    String token = data.toString();
-    Map<String, dynamic> payload = Jwt.parseJwt(token);
-    print("Chocoboy" + payload.toString());
-    print("response " + data.toString());
-    GetStorage().write("savedtoken", data.toString());
 
-    GetStorage().write("getuserid", payload["userid"].toString());
-    print("useridcheck" + payload["userid"].toString());
-    var getuserid = payload["userid"].toString();
+print('hey'+data["token"].toString());
+    if (data["token"]!=null) {
+      String token = data.toString();
+      Map<String, dynamic> payload = Jwt.parseJwt(token);
+      print("Chocoboy" + payload.toString());
+      print("response " + data.toString());
+      GetStorage().write("savedtoken", data.toString());
 
-    if (data["token"].toString().isNotEmpty) {
+      GetStorage().write("getuserid", payload["userid"].toString());
+      print("useridcheck" + payload["userid"].toString());
+      var getuserid = payload["userid"].toString();
       GetStorage().write("save_token", data["token"].toString());
-      Get.to(DashbordScreen());
+      Get.to(()=>DashbordScreen());
 
       // token.value = userData["token"];
       // if (!resend) {
       //   // Get.to(OtpScreenView());
       // }
     } else {
-      Fluttertoast.showToast(msg: "Check Your Login Credentials");
+      hideLoading();
+      Fluttertoast.showToast(msg: data['message']);
     }
   }
 
@@ -181,6 +183,7 @@ class AuthCon extends GetxController with BaseController {
 
   //regsterApi
   void registerAPI(email) async {
+    print("hellosss");
     showLoading();
     var body = {};
     var response = await BaseClient()
@@ -350,8 +353,8 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //upload credit card details
-  void creditCardPostAPI(
-      cardNumber, validity, cvv, cardName, bankName, nickName) async {
+  void creditCardPostAPI(String cardNumber, String validity, String cvv,
+      String cardName, String bankName, String nickName) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
     var userid = GetStorage().read("getuserid");
@@ -361,16 +364,16 @@ class AuthCon extends GetxController with BaseController {
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber,
-      "cardname": cardName,
-      "expirydate": validity,
-      "bankname": bankName,
+      "cardnumber": cardNumber.trim(),
+      "cardname": cardName.trim(),
+      "expirydate": validity.trim(),
+      "bankname": bankName.trim(),
       "ibannumber": " ",
-      "status": nickName,
-      "createdby": userid,
-      "createddate": dateStr,
+      "status": nickName.trim(),
+      "createdby": userid.trim(),
+      "createddate": dateStr.trim(),
       "updatedby": userid,
-      "updateddate": dateStr
+      "updateddate": dateStr.trim()
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)
@@ -382,7 +385,7 @@ class AuthCon extends GetxController with BaseController {
     print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      Get.to(const ManualCard());
+      Get.back();
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }

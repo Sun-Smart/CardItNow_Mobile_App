@@ -46,7 +46,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => const ChoosePaymentPage());
+        return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

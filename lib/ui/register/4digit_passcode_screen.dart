@@ -32,6 +32,7 @@ class _PasscodeState extends State<Passcode> {
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController otpCon = TextEditingController();
+  final TextEditingController confirmotp = TextEditingController();
   final AuthCon con = Get.find();
 
   @override
@@ -100,9 +101,63 @@ class _PasscodeState extends State<Passcode> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
+                    padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+
+                    child: Row(
+                      children: [
+                        Text("New Passcode",
+                          style: TextStyle(
+                              fontSize: 18,fontWeight: FontWeight.bold
+                          ),
+                        )
+                      ],
+                    ),
+
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: otpCon,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(6)
+                          ],
+                          followingFieldDecoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(0)),
+                          keyboardType: TextInputType.number,
+                          submittedFieldDecoration: _pinPutDecoration.copyWith(
+                              borderRadius: BorderRadius.circular(0)),
+                          selectedFieldDecoration: _pinPutDecoration,
+                          fieldsCount: 6)),
+
+                  SizedBox(
+                    height: 30,
+                  ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  
+                  child: Row(
+                    children: [
+                      Text("Confirm Passcode",
+                      style: TextStyle(
+                        fontSize: 18,fontWeight: FontWeight.bold
+                      ),
+                      )
+                    ],
+                  ),
+                  
+                ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                      child: PinPut(
+                          controller: confirmotp,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -123,26 +178,37 @@ class _PasscodeState extends State<Passcode> {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
-        try {
-          if (otpCon.text.isEmpty) {
+
+          if (otpCon.text.isEmpty && confirmotp.text.isEmpty) {
             Fluttertoast.showToast(msg: 'Enter your 6 digit passcode');
-          } else {
-            if (otpCon.text[0] == otpCon.text[1] &&
-                otpCon.text[2] == otpCon.text[3] &&
-                otpCon.text[4] == otpCon.text[5]) {
-              Fluttertoast.showToast(msg: 'Error Same Number');
-            }
+          }
+          else if(otpCon.text.contains("1""2""3""4""5""6")){
+            Fluttertoast.showToast(msg: "Please Choose Different Numbers");
+          }
+          else if(otpCon.text.contains("1""2""3""4""5""6")){
+          Fluttertoast.showToast(msg: "Please Choose Different Numbers");
+          }
+          else if(otpCon.text[0] == otpCon.text[1] &&
+                  otpCon.text[2] == otpCon.text[3] &&
+                 otpCon.text[4] == otpCon.text[5])
+          {Fluttertoast.showToast(msg: "same number not allowed");}
+          else if(
+
+          confirmotp.text[0] == confirmotp.text[1] &&
+    confirmotp.text[2] == confirmotp.text[3] &&
+    confirmotp.text[4] == confirmotp.text[5]
+          ){
+            Fluttertoast.showToast(msg: "same number not allowed");
+    }
+          else if(otpCon.text!=confirmotp.text){
+            Fluttertoast.showToast(msg: "Passcode Mismatched");
+    }
             else {
               // Fluttertoast.showToast(msg: 'Correct');
               con.pinsetapi(con.emailController.text.trim(), otpCon.text);
             }
-          }
-        } catch (e) {
-          Fluttertoast.showToast(msg: 'Error Same Number $e');
-        }
+          },
 
-
-      },
       text: "Next",
     );
   }
