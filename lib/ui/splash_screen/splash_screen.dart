@@ -54,7 +54,7 @@ class StartState extends State<SplashScreens> {
   _bioAuth()async{
     if(GetStorage().read('bioAuth').toString()=='true'){
       try {
-
+//kkkk
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please authenticate',
             options: const AuthenticationOptions(biometricOnly: false));
