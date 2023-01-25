@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import 'otp_screen.dart';
 
 class LoadingPage extends StatefulWidget {
@@ -15,11 +13,10 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () async {
-      Get.to(()=> FundTransferOTP());
+      Get.to(() => FundTransferOTP());
     });
     super.initState();
   }

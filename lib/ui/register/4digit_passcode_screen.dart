@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import, avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, unnecessary_new, unrelated_type_equality_checks
+// ignore_for_file: unnecessary_import, avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, unnecessary_new, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
 
@@ -102,21 +102,14 @@ class _PasscodeState extends State<Passcode> {
                 children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-
                     child: Row(
                       children: [
                         Text("New Passcode",
-                          style: TextStyle(
-                              fontSize: 18,fontWeight: FontWeight.bold
-                          ),
-                        )
+                            style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     ),
-
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Container(
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
@@ -133,24 +126,20 @@ class _PasscodeState extends State<Passcode> {
                               borderRadius: BorderRadius.circular(0)),
                           selectedFieldDecoration: _pinPutDecoration,
                           fieldsCount: 6)),
-
-                  SizedBox(
-                    height: 30,
+                  SizedBox(height: 30),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Confirm Passcode",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                  
-                  child: Row(
-                    children: [
-                      Text("Confirm Passcode",
-                      style: TextStyle(
-                        fontSize: 18,fontWeight: FontWeight.bold
-                      ),
-                      )
-                    ],
-                  ),
-                  
-                ),
                   SizedBox(
                     height: 10,
                   ),
@@ -169,7 +158,7 @@ class _PasscodeState extends State<Passcode> {
                           submittedFieldDecoration: _pinPutDecoration.copyWith(
                               borderRadius: BorderRadius.circular(0)),
                           selectedFieldDecoration: _pinPutDecoration,
-                          fieldsCount: 6))
+                          fieldsCount: 6)),
                 ])));
   }
 
@@ -178,37 +167,25 @@ class _PasscodeState extends State<Passcode> {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
-
-          if (otpCon.text.isEmpty && confirmotp.text.isEmpty) {
-            Fluttertoast.showToast(msg: 'Enter your 6 digit passcode');
-          }
-          else if(otpCon.text.contains("1""2""3""4""5""6")){
-            Fluttertoast.showToast(msg: "Please Choose Different Numbers");
-          }
-          else if(otpCon.text.contains("1""2""3""4""5""6")){
-          Fluttertoast.showToast(msg: "Please Choose Different Numbers");
-          }
-          else if(otpCon.text[0] == otpCon.text[1] &&
-                  otpCon.text[2] == otpCon.text[3] &&
-                 otpCon.text[4] == otpCon.text[5])
-          {Fluttertoast.showToast(msg: "same number not allowed");}
-          else if(
-
-          confirmotp.text[0] == confirmotp.text[1] &&
-    confirmotp.text[2] == confirmotp.text[3] &&
-    confirmotp.text[4] == confirmotp.text[5]
-          ){
-            Fluttertoast.showToast(msg: "same number not allowed");
-    }
-          else if(otpCon.text!=confirmotp.text){
-            Fluttertoast.showToast(msg: "Passcode Mismatched");
-    }
-            else {
-              // Fluttertoast.showToast(msg: 'Correct');
-              con.pinsetapi(con.emailController.text.trim(), otpCon.text);
-            }
-          },
-
+        if (otpCon.text.isEmpty && confirmotp.text.isEmpty) {
+          Fluttertoast.showToast(msg: 'Enter your 6 digit passcode');
+        } else if (otpCon.text.contains("1" "2" "3" "4" "5" "6")) {
+          Fluttertoast.showToast(msg: "Loose Passcode");
+        } else if (otpCon.text[0] == otpCon.text[1] &&
+            otpCon.text[2] == otpCon.text[3] &&
+            otpCon.text[4] == otpCon.text[5]) {
+          Fluttertoast.showToast(msg: 'Error Same Number');
+        } else if (confirmotp.text[0] == confirmotp.text[1] &&
+            confirmotp.text[2] == confirmotp.text[3] &&
+            confirmotp.text[4] == confirmotp.text[5]) {
+          Fluttertoast.showToast(msg: 'Error Same Number');
+        } else if (otpCon.text != confirmotp.text) {
+          Fluttertoast.showToast(msg: "Passcode has Mismatched");
+        } else {
+          // Fluttertoast.showToast(msg: 'Correct');
+          con.pinsetapi(con.emailController.text.trim(), otpCon.text);
+        }
+      },
       text: "Next",
     );
   }

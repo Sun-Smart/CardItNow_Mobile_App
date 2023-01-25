@@ -130,14 +130,17 @@ class BaseClient {
   //GET
   Future<dynamic> get(String endPoint) async {
     var uri = Uri.parse(API().baseURL + endPoint);
-    var userToken = GetStorage().read("save_token");
+    var tokens = GetStorage().read("save_token");
     print(uri.toString());
     try {
       var response = await http.get(uri, headers: <String, String>{
         'Accept': 'application/json',
         'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $userToken',
+        'Authorization':
+        'Bearer $tokens',
+
+
+        // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEUySURJeU9qTTJPakl3TGpBd01USTNOaTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzE2LzIwMjMgODozNjoyMCBQTSIsImV4cCI6MTY3NDExMDE4MCwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.IRcjzsiRuM6AxOiqO8oHRvMIRsCu0ATHCrYGHVDJBts'
       }).timeout(const Duration(seconds: TIME_OUT_DURATION));
       print(response.statusCode);
       print(response.body);
@@ -161,8 +164,10 @@ class BaseClient {
     //Get Token Here
     // var token = await GetStorage().read('token');
     var payload = json.encode(payloadObj);
-    var userToken = GetStorage().read("save_token")??"";
-    print('Login User Id and Toke Here' + userToken + 'Login User Id and Toke Here');
+    var tokens = GetStorage().read("save_token");
+
+    // print('tokenn' + token);
+    // print(uri);
     var uri = isDev ? devUrl : productionUrl;
     print(uri.toString() + "url");
     try {
@@ -183,13 +188,16 @@ class BaseClient {
       } else {
         print("djdjdjd");
         // print('sssss' + token + 'dsds');
+        // print('Token Here' + userToken + 'Token Here');
         var response = await http
             .post(uri,
                 headers: <String, String>{
                   'Content-Type': 'application/json',
                   'Accept': 'application/json',
-                  'Authorization': 'Bearer $userToken',
-                  // 'Accept': 'application/json',
+                  'Authorization':
+                  'Bearer $tokens',
+                  // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEUySURJeU9qTTJPakl3TGpBd01USTNOaTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzE2LzIwMjMgODozNjoyMCBQTSIsImV4cCI6MTY3NDExMDE4MCwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.IRcjzsiRuM6AxOiqO8oHRvMIRsCu0ATHCrYGHVDJBts',
+                  'Accept': 'application/json',
                 },
                 body: payload)
             .timeout(const Duration(seconds: TIME_OUT_DURATION));
