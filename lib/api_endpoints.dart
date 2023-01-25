@@ -60,7 +60,7 @@ class API {
   //onboard Payeee
   String onboardPayeePost='PayerPayeePrivate';
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/';
+  String creditCardGetLink = 'customerpaymode/GetCustomerCardList?id=';
 
   //Tas Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';

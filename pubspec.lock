@@ -730,6 +730,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
+  s10s_card_scanner:
+    dependency: "direct main"
+    description:
+      name: s10s_card_scanner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   scrollable_positioned_list:
     dependency: "direct main"
     description:

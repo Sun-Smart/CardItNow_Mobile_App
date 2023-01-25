@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -19,6 +20,7 @@ import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
+import '../register/4digit_passcode_screen.dart';
 
 //final userDetails = FirebaseAuth.instance.currentUser;
 
@@ -49,8 +51,13 @@ class DashbordScreenState extends State<DashbordScreen>
 
   @override
   void initState() {
+    if (GetStorage().read('save_token') != null) {
+      // _bioAuth();
+    }
     super.initState();
   }
+
+  final LocalAuthentication auth = LocalAuthentication();
 
   @override
   Widget build(BuildContext context) {
@@ -213,39 +220,40 @@ class DashbordScreenState extends State<DashbordScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border:
-                      Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
-                  color: const Color(0XFFffffff)),
-              margin: const EdgeInsets.all(15),
-              child: InkWell(
-                highlightColor: const Color(0XFFffffff),
-                focusColor: const Color(0XFFffffff),
-                splashColor: Colors.green,
-                // splash color
-                onTap: () {
-                  Navigator.of(context).pushNamed('/payment_dashboard');
-                },
-                // button pressed
-                child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const SizedBox(width: 5),
-                        Image.asset("assets/paynow.png", width: 32),
-                        const SizedBox(width: 15),
-                        Text("Pay Now",
-                            style: TextStyle(
-                                color: themeChange.darkTheme
-                                    ? Colors.black
-                                    : const Color(0XFF413D4B),
-                                fontSize: 14)),
-                        //text
-                      ],
-                    )),
-              )),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                color: const Color(0XFFffffff)),
+            margin: const EdgeInsets.all(15),
+            child: InkWell(
+              highlightColor: const Color(0XFFffffff),
+              focusColor: const Color(0XFFffffff),
+              splashColor: Colors.green,
+              // splash color
+              onTap: () {
+                Navigator.of(context).pushNamed('/payment_dashboard');
+              },
+              // button pressed
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(width: 5),
+                    Image.asset("assets/paynow.png", width: 32),
+                    const SizedBox(width: 15),
+                    Text("Pay Now",
+                        style: TextStyle(
+                            color: themeChange.darkTheme
+                                ? Colors.black
+                                : const Color(0XFF413D4B),
+                            fontSize: 14)),
+                    //text
+                  ],
+                ),
+              ),
+            ),
+          ),
           Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),

@@ -3,6 +3,7 @@
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,6 +22,8 @@ class Twofactor extends StatefulWidget {
 
 class _TwofactorState extends State<Twofactor> {
   final LocalAuthentication auth = LocalAuthentication();
+
+
   bool pass = false;
   String msg = "You are not authorized.";
 
@@ -102,26 +105,8 @@ class _TwofactorState extends State<Twofactor> {
                     children: [
                       InkWell(
                         child: Image.asset('assets/touch  id 1.png'),
-                        onTap: () async {
-                          try {
-                            var pref = await SharedPreferences.getInstance();
-                            pref.setBool('pass', true);
+                        onTap: ()  async{
 
-                            bool pass = await auth.authenticate(
-                                localizedReason:
-                                    'Authenticate with pattern/pin/passcode',
-                                options: const AuthenticationOptions(
-                                    biometricOnly: false, stickyAuth: true));
-
-                            if (pass) {
-                              msg = "Biometric Successfully setted";
-                              setState(() {});
-                            }
-                          } catch (e) {
-                            print("ss" + e.toString());
-                            msg =
-                                "Error while opening fingerprint/face scanner";
-                          }
                         },
                       ),
                       SizedBox(
@@ -131,13 +116,15 @@ class _TwofactorState extends State<Twofactor> {
                         child: Image.asset('assets/face id.png'),
                         onTap: () async {
                           try {
-
+                            // _authenticate();
 
                             pass = await auth.authenticate(
                                 localizedReason:
                                     'Authenticate with pattern/pin/passcode',
                                 options: const AuthenticationOptions(
-                                    biometricOnly: false, stickyAuth: true));
+                                    biometricOnly: true, stickyAuth: false,
+                                useErrorDialogs: true
+                                ));
 
                             if (pass) {
                               msg = "Biometric Successfully setted";
@@ -170,17 +157,22 @@ class _TwofactorState extends State<Twofactor> {
                   )
                 ]),
               )
+
             ]))));
+
+
+
+
   }
 
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
         if (pass = true) {
-          GetStorage().write("biovalues", pass);
+          GetStorage().write("bioAuth", true);
           Get.to(termsandconditions());
         } else {
-          Fluttertoast.showToast(msg: "You have not set Your Biometrics");
+          Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
           // Get.to(termsandconditions());
         }
       },
@@ -191,4 +183,11 @@ class _TwofactorState extends State<Twofactor> {
       ),
     );
   }
+
+
+
 }
+
+
+
+

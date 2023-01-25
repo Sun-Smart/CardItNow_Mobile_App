@@ -55,16 +55,17 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                               padEnds: false,
                               onPageChanged: (index, reason) {
                                 setState(() {
-                                  _currentsliderindex = index;
+                                  con.creditCardGet.length = index;
                                 });
                               }),
                           itemBuilder:
                               (BuildContext context, int index, int pageViewIndex) {
-                            return CustomeCardData(
-                                bankName: con.creditCardGet['bankname'] ?? '',
-                                cardNumber: con.creditCardGet['cardnumber'] ?? '',
-                                nameHolder: con.creditCardGet['cardname'] ?? '',
-                                validity: con.creditCardGet['expirydate'] ?? '');
+                            return
+                              CustomeCardData(
+                                bankName: con.creditCardGet[index]['bankname'] ?? '',
+                                cardNumber: con.creditCardGet[index]['cardnumber'] ?? '',
+                                nameHolder: con.creditCardGet[index]['cardname'] ?? '',
+                                validity: con.creditCardGet[index]['expirydate'] ?? '');
                           }), ),
 
                   Padding(

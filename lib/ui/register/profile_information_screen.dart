@@ -14,6 +14,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../themes/styles.dart';
+import 'register_screen.dart';
+import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
   var uaecities = ['Dubai', 'Abudhabi', 'Sharjah', 'Fujariah'];
   var uaeData = ['UAE'];
-  var interests =["Racing","Riding","Gaming"];
+  var interests = ["Racing", "Riding", "Gaming"];
 
   @override
   Widget build(BuildContext context) {
@@ -77,15 +79,26 @@ class _ProfileInformationState extends State<ProfileInformation> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
-      child: Text(
-        'Hey ${GetStorage().read('username')}! Tell About Your Self',
+      child: GetStorage().read('username') == null
+          ? Text('Hey! Please Tell About Your Self!',
         style: TextStyle(
-          fontSize: 28,
-          fontFamily: 'Sora',
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+        fontSize: 28,
+        fontFamily: 'Sora',
+        color:
+        themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+        fontWeight: FontWeight.bold,
       ),
+      )
+          : Text(
+              'Hey ${GetStorage().read('username')}! Tell About Your Self',
+              style: TextStyle(
+                fontSize: 28,
+                fontFamily: 'Sora',
+                color:
+                    themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 
@@ -114,7 +127,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'First Name',
@@ -170,7 +182,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Middle Name',
@@ -182,7 +193,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 // border: const OutlineInputBorder(
                 //     borderSide: BorderSide(color: Colors.grey)),
@@ -447,7 +458,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'First Name',
@@ -459,18 +469,18 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     gapPadding: 7,
@@ -484,7 +494,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-
 
             MyCustomInputBox(
               enabled: true,
@@ -502,7 +511,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Enter Your Nick Name',
@@ -514,7 +522,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
@@ -543,6 +551,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             MyCustomInputBox(
               enabled: true,
               label: "Phone Number",
+              maxLength: 10,
               controller: requiredNoController,
               obsecureText: false,
               textInputType: TextInputType.phone,
@@ -789,12 +798,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
                   : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+                      ? MediaQuery.of(context).size.width / 4.5
+                      : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
                   border:
-                  Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                      Border.all(color: const Color(0XffB7C5C7), width: 1.5),
                   borderRadius: const BorderRadius.all(Radius.circular(3))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -808,11 +817,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
                       child: Icon(
-                        Icons.keyboard_arrow_down,
-                        // color: themeChange.darkTheme
-                        //     ? Colors.white
-                        //     : Colors.black45
-                      )),
+                    Icons.keyboard_arrow_down,
+                    // color: themeChange.darkTheme
+                    //     ? Colors.white
+                    //     : Colors.black45
+                  )),
                   items: interests.map((String item) {
                     return DropdownMenuItem(
                         value: item,
@@ -1020,37 +1029,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          // if (formKey.currentState!.validate()) {
-          // con.profileInformatrion(
-          //     firstNameController.text,
-          //     lastNameController.text,
-          //     cityNameController.text,
-          //     stateNameController.text,
-          //     'stateNameController.text',
-          //     dateOfBrithController.text,
-          //     issueDateController.text,
-          //     expiredDateController.text,
-          //     addressController.text,
-          //     postalCodeController.text,
-          //     "null",
-          //     "null");
-          //   if (issueDateController.text == expiredDateController.text) {
-          //     Fluttertoast.showToast(
-          //         msg: "Issue date and Expiry date is same...");
-          //   } else {
-          //     Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-          //   }
-          // } else {
-          //   Fluttertoast.showToast(msg: "Data Save Successfully...");
-          //}
-          // Get.to(const AvatarPageView());
-        //  if (formKey.currentState!.validate()){}
-          // {
-            // if (issueDateController.text == expiredDateController.text) {
-            //   Fluttertoast.showToast(
-            //       msg: "Issue date and Expiry date is same...");
-           // } 
-           // else {
+
+            if (dateOfBrithController.text.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "Enter your birth date");
+            } else {
               con.profileInformatrion(
                 con.emailController.text,
                 firstNameController.text,
@@ -1059,15 +1042,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 stateNameController.text,
                 requiredNoController.text,
                 dateOfBrithController.text,
-                //issueDateController.text,
-                //expiredDateController.text,
+                // issueDateController.text,
+                // expiredDateController.text,
                 addressController.text,
                 postalCodeController.text,
               );
               // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-            },
-       //   },
-        
+            }
+          },
+
         text: "Next");
   }
 }

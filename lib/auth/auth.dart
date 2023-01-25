@@ -42,7 +42,6 @@ class AuthCon extends GetxController with BaseController {
     paymentpurposeget();
     documenttypeget();
     invoicegetmethod();
-
     super.onInit();
   }
 
@@ -66,7 +65,7 @@ class AuthCon extends GetxController with BaseController {
   var gender = 1.obs;
 
   //credit card get
-  var creditCardGet = {}.obs;
+  var creditCardGet = [].obs;
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -274,7 +273,7 @@ class AuthCon extends GetxController with BaseController {
     requiredno,
     dateofbrith,
     // issuedate,
-    //expirydate,
+    // expirydate,
     address,
     postalcode,
   ) async {
@@ -412,14 +411,16 @@ class AuthCon extends GetxController with BaseController {
 
   //get credit card details
   void creditCardgetAPI() async {
+    var userid = GetStorage().read("getuserid");
     var response =
-        await BaseClient().get(API().creditCardGetLink).catchError(handleError);
+        await BaseClient().get(API().creditCardGetLink + userid).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    creditCardGet.value = data['customerpaymode'];
-    print('Credit Card Api Get Method' +
-        creditCardGet.toString() +
-        'Credit Card Api Get Method');
+    creditCardGet.value = data;
+    print(creditCardGet.toString());
+    // print('Credit Card Api Get Method' +
+    //     creditCardGet.toString() +
+    //     'Credit Card Api Get Method');
   }
 
   void uploadDocx(
@@ -552,14 +553,14 @@ class AuthCon extends GetxController with BaseController {
     print("response" + response);
     if (response == null) return;
     var data = jsonDecode(response);
-    var data1=json.decode(data);
+    var data1 = json.decode(data);
 
     print("-----data" + data);
 
     // Get.to(AmountPay());
     invoicejson = data1;
     print("------inovice----${invoicejson["Rent"]}");
-   // Fluttertoast.showToast(msg: data.toString());
+    // Fluttertoast.showToast(msg: data.toString());
   }
 
   //forgotpasswordotp
@@ -612,6 +613,40 @@ class AuthCon extends GetxController with BaseController {
       print(
           '***************** OTP Token  &&&& ${storedEmail} &&&&  ************************');
       Get.to(() => UpdatePassword());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  void socialmedia(
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    // issuedate,
+    //expirydate,
+    address,
+    postalcode,
+  ) async {
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().updateProfileInformation +
+                "?email=${googleMail == '' ? email : googleMail}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
+            body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    print(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      GetStorage().write('username', firstName.toString());
+      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
