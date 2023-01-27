@@ -247,6 +247,7 @@ class _RegisterState extends State<Register> {
                                                 setState(() {
                                                   if (isChecked) {
                                                     isChecked = false;
+
                                                   } else {
                                                     isChecked = true;
                                                     // showAlertDialog(context);
@@ -365,10 +366,10 @@ class _RegisterState extends State<Register> {
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         // Get.to(VerifyEmail());
-                      } else if (isChecked = false) {
+                      } else if (isChecked == false) {
                         Fluttertoast.showToast(msg: "Please Accept Terms and conditions");
                       }
-                      else if (isChecked == true) {}
+
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(VerifyEmail(value: widget.value));
                       // } else if (isChecked == false) {
@@ -377,7 +378,9 @@ class _RegisterState extends State<Register> {
                       // }
                       if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
-                      } else {
+                      }
+                      else if(isChecked == false){Fluttertoast.showToast(msg: "Please Accept Terms and conditions");}
+                      else {
                         con.registerAPI(con.emailController.text.toString());
                       }
                     },
@@ -457,10 +460,14 @@ class _RegisterState extends State<Register> {
                     print(userObj.toString()+'ffff');
                   });
                   if (isLoggedIn == true) {
-                    // con.registerAPI(userData['email']);
+                    con.emailController.text =userData["email"];
+                    // con.socialmedia( userData["name"],
+                    //     userData["email"],
+                    //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
+                    con.registerAPI(userData['email']);
                     GetStorage().write('username', userData['name']
                     );
-                    Get.offAll(DashbordScreen());
+                    // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }
@@ -540,7 +547,9 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
+
             Navigator.pop(context);
+
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),

@@ -41,9 +41,12 @@ class AuthService {
     // Once signed in, return the UserCredential
     var details = await FirebaseAuth.instance.signInWithCredential(credential);
     print(details.user!.email);
-    con.googleMail = details.user!.email!;
-    // con.registerAPI(details.user!.email);
-    con.socialmedia(details.user!.email, details.user!.displayName, details.user!.photoURL, "", "", "", "", "", "");
+
+    con.emailController.text = details.user!.email!;
+
+    // con.googleMail = details.user!.email!;
+    con.registerAPI(details.user!.email);
+    // con.socialmedia(details.user!.email, details.user!.displayName, details.user!.photoURL, "", "", "", "", "", "");
     GetStorage().write('username', details.user!.displayName);
     GetStorage().write('useremail', details.user!.email);
     GetStorage().write('avatarpic', details.user!.photoURL);

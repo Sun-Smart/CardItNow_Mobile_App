@@ -3,6 +3,7 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../../themes/styles.dart';
+import 'register_screen.dart';
+import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -47,10 +49,14 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var uaeData = ['UAE'];
   var interests = ["Racing", "Riding", "Gaming"];
 
-  assignvalues() {
-    // firstNameController.text=con.profileinfo["firstname"];
-  }
+  assignvalues(){
+    if(con.profileinfo != {}){
+      // firstNameController.text=con.profileinfo["firstname"];
+      // lastNameController.text=con.profileinfo["lastname"];
+      // dateOfBrithController.text=con.profileinfo[""]
+    }
 
+  }
   @override
   void initState() {
     assignvalues();
@@ -87,17 +93,18 @@ class _ProfileInformationState extends State<ProfileInformation> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
-      child: GetStorage().read('username') == null
-          ? Text(
-              'Hey! Please Tell About Your Self!',
-              style: TextStyle(
-                fontSize: 28,
-                fontFamily: 'Sora',
-                color:
-                    themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-                fontWeight: FontWeight.bold,
-              ),
-            )
+      child:
+      
+      GetStorage().read('username') == null
+          ? Text('Hey! Please Tell About Your Self!',
+        style: TextStyle(
+        fontSize: 28,
+        fontFamily: 'Sora',
+        color:
+        themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+        fontWeight: FontWeight.bold,
+      ),
+      )
           : Text(
               'Hey ${GetStorage().read('username')}! Tell About Your Self',
               style: TextStyle(
@@ -1038,10 +1045,39 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (dateOfBrithController.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your birth date");
-          } else {
-            con.profileInformatrion(
+
+            if (firstNameController.text.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "Enter your First name");
+            }
+            else if(lastNameController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your last name");
+            }
+            else if(dateOfBrithController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your Date of birth");
+            }
+            else if(dateOfBrithController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your Date of birth");
+            }
+            else if(addressController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your address");
+            }
+            else if(requiredNoController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your mobile no");
+            }
+            else if(postalCodeController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your postalcode");
+            }
+
+
+            else {
+              con.profileInformatrion(
                 con.emailController.text,
                 firstNameController.text,
                 lastNameController.text,
@@ -1049,13 +1085,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 stateNameController.text,
                 requiredNoController.text,
                 dateOfBrithController.text,
-                issueDateController.text,
-                expiredDateController.text,
+                // issueDateController.text,
+                // expiredDateController.text,
                 addressController.text,
-                postalCodeController.text);
-            // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-          }
-        },
+                postalCodeController.text,
+              );
+              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+            }
+          },
+
         text: "Next");
   }
 }
