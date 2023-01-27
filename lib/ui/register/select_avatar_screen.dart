@@ -46,7 +46,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
   ];
   final AuthCon con = Get.find();
 
-
   Future<void> openCamera() async {
     var picker = ImagePicker();
     final imageGallery = await picker.pickImage(source: ImageSource.camera);
@@ -60,7 +59,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
       log(fileInBase64);
       ;
       con.uploadimg = base64.encode(fileInBytes);
-      type=imageGallery.path;
+      type = imageGallery.path;
       GetStorage().write('avatarpic', type);
       print('******************* BASE 64 SOURCE *******************');
     } else {
@@ -130,32 +129,30 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       child: GridView.builder(
                           itemCount: avatars.length,
                           // itemCount: con.avatarImageList.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: Responsive.isMobile(context)
-                                  ? 3
-                                  : Responsive.isDesktop(context)
-                                      ? 6
-                                      : 4,
-                              crossAxisSpacing: Responsive.isMobile(context)
-                                  ? 1
-                                  : Responsive.isDesktop(context)
-                                      ? 4
-                                      : 2,
-                              childAspectRatio: Responsive.isMobile(context)
-                                  ? 1
-                                  : Responsive.isDesktop(context)
-                                      ? 2
-                                      : 2),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: Responsive.isMobile(context)
+                                      ? 3
+                                      : Responsive.isDesktop(context)
+                                          ? 6
+                                          : 4,
+                                  crossAxisSpacing: Responsive.isMobile(context)
+                                      ? 1
+                                      : Responsive.isDesktop(context)
+                                          ? 4
+                                          : 2,
+                                  childAspectRatio: Responsive.isMobile(context)
+                                      ? 1
+                                      : Responsive.isDesktop(context)
+                                          ? 2
+                                          : 2),
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
                                 Container(
                                   child: InkWell(
                                     onTap: () {
-
                                       type = avatars[index];
-
-
                                       var avatorDatas = avatars[index];
                                       imagePickerAvator(avatorDatas, () {
                                         // con.avatorSelfi(avatorDatas);
@@ -176,7 +173,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                               BorderRadius.circular(15.0)),
                                       child: Container(
                                         child: Image.asset(avatars[index]),
-
                                         // Image.network(
                                         //     con.avatarImageList[index]['aurl']),
                                         // child: Image.network(con.avatarImage),
@@ -214,23 +210,22 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       ],
                     ),
                   ),
-                    Container(
-                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-    child: Text('',
-    style: TextStyle(
-    fontFamily: 'Sora',
-    fontSize: 14,
-    color: Styles.whitecustomlable))),
-    const SizedBox(height: 20),
-    displayImageSelfie(),
-    const SizedBox(height: 20),
-
+                  Container(
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Styles.whitecustomlable))),
+                  const SizedBox(height: 20),
+                  displayImageSelfie(),
+                  const SizedBox(height: 20),
                   AuthButton(
                     decoration: BoxDecoration(
                         color: HexColor('#CEE812'),
                         borderRadius: BorderRadius.circular(5)),
                     onTap: () {
-                      print('dhamu'+type);
+                      print('dhamu' + type);
                       GetStorage().read("avatarpic");
                       Get.to(const ProfileInformation());
                     },
@@ -380,7 +375,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                             fontSize: 16))),
                 MaterialButton(
                     color: HexColor('#CEE812'),
-                    onPressed: (){
+                    onPressed: () {
                       GetStorage().write("avatarpic", type);
                       Get.back();
                     },
@@ -406,8 +401,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
-              ? MediaQuery.of(context).size.width / 4.5
-              : MediaQuery.of(context).size.width / 2.5,
+                  ? MediaQuery.of(context).size.width / 4.5
+                  : MediaQuery.of(context).size.width / 2.5,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),

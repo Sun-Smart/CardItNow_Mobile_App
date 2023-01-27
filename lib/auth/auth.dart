@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/manula_card_screen.dart';
@@ -38,6 +39,7 @@ class AuthCon extends GetxController with BaseController {
     termsconditions();
     showAvatorMaster();
     geoaccess();
+    taxDetailsGetApi();
     creditCardgetAPI();
     banklistget();
     paymentpurposeget();
@@ -59,6 +61,9 @@ class AuthCon extends GetxController with BaseController {
   var paymentpurposelist = [];
   var documenttypelist = [];
   var invoicejson = {};
+
+  // avatar
+  var avatarImageList = [];
 
   // geoaccess
   var geoacclist;
@@ -105,6 +110,8 @@ class AuthCon extends GetxController with BaseController {
   var googleMail = '';
   var facebook = '';
 
+
+
   // login
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
@@ -138,6 +145,7 @@ class AuthCon extends GetxController with BaseController {
     print(result);
     if (ischecked_checkbox == true) {
       GetStorage().write("save_token", data["token"].toString());
+
       // SharedPreferences _prefs = await SharedPreferences.getInstance();
       // await _prefs.setString("save_token", data["token"].toString());
 
@@ -258,7 +266,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = response;
+    var data = json.decode(response);
     print('pass' + data);
     if (data == "Success") {
       Get.to(Login());
@@ -375,6 +383,26 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  //Set Card Default Post Method
+  void setCardDefaultPost(payId) async {
+    var userid = GetStorage().read("getuserid");
+    print("checkuser" + userid.toString());
+    var body = {"customerid": userid, "payid": payId};
+    var response = await BaseClient()
+        .post(API().setDefaultCard, body)
+        .catchError(handleError);
+    print(response);
+    print(body);
+    if (response == null) return;
+    var data = json.decode(response);
+    if (data == "Success") {
+      creditCardgetAPI();
+      Fluttertoast.showToast(msg: 'Card Activate Successfully...');
+    } else {
+      Fluttertoast.showToast(msg: "Something wrong...");
+    }
+  }
+
   //upload credit card details
   void creditCardPostAPI(
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
@@ -383,32 +411,33 @@ class AuthCon extends GetxController with BaseController {
     var userid = GetStorage().read("getuserid");
     print("checkuser" + userid.toString());
     var body = {
-      "customerid": GetStorage().read("getuserid"),
+      "customerid": userid,
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber,
-      "cardname": cardName,
-      "expirydate": validity,
-      "bankname": bankName,
-      "ibannumber": "",
-      "status": nickName,
-      "createdby": 16,
+      "cardnumber": cardNumber.toString(),
+      "cardname": cardName.toString(),
+      "expirydate": validity.toString(),
+      "bankname": bankName.toString(),
+      "ibannumber": " ",
+      "status": nickName.toString(),
+      "createdby": userid,
       "createddate": dateStr,
-      "updatedby": 0,
+      "updatedby": userid,
       "updateddate": dateStr
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)
         .catchError(handleError);
-    print(response.toString());
-    print(body.toString());
+    print(response);
+    print(body);
     if (response == null) return;
     var data = json.decode(response);
     print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      Get.to(const ManualCard());
+      creditCardgetAPI();
+      Get.back();
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -418,15 +447,16 @@ class AuthCon extends GetxController with BaseController {
   //get credit card details
   void creditCardgetAPI() async {
     var userid = GetStorage().read("getuserid");
-    var response =
-    await BaseClient().get(API().creditCardGetLink + userid).catchError(handleError);
+    var response = await BaseClient()
+        .get(API().creditCardGetLink + userid)
+        .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+    print(data);
     creditCardGet.value = data;
-    print(creditCardGet.toString());
-    // print('Credit Card Api Get Method' +
-    //     creditCardGet.toString() +
-    //     'Credit Card Api Get Method');
+    print('Credit Card Api Get Method' +
+        creditCardGet.toString() +
+        'Credit Card Api Get Method');
   }
 
   void uploadDocx(email, docid) async {
@@ -638,7 +668,7 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                "?email=${emailController.text}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
+                "?email=${googleMail == '' ? email : googleMail}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -686,6 +716,16 @@ class AuthCon extends GetxController with BaseController {
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
+  }
+
+  void taxDetailsGetApi() async {
+    var response = await BaseClient()
+        .get(API().taxDetailsGetApiData)
+        .catchError(handleError);
+    if (response == null) return;
+    var valueMap = jsonDecode(response);
+    var data = json.decode(valueMap);
+    Owner.value = data;
   }
 
 

@@ -1,8 +1,8 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names
 
 class API {
-  // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
-  String baseURL = "https://demo.herbie.ai/carditnowapi/carditnowapi/";
+  //String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
+  String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
 
   // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
@@ -52,7 +52,10 @@ class API {
   String banklistdropdown = "common/GetBankList";
   String Paymentpurposedropdown = "common/GetpurposeList";
 
-  //dummy json for invoice and amunt
+  //set default card
+  String setDefaultCard = "customerpaymode/setCardDefault";
+
+  //dummy json for invoice and amount
   String invoiceget = "PayerPayeePrivate/GetRawResult";
 
   //onboard Payeee
@@ -60,10 +63,6 @@ class API {
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
   String creditCardGetLink = 'customerpaymode/GetCustomerCardList?id=';
 
-  //Tax Details Get Api
+  //Tas Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
-
-  //processocr
-
-  String processocr = 'customerdetail/ProcessOCR';
 }
