@@ -14,6 +14,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../themes/styles.dart';
+import 'register_screen.dart';
+import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -47,6 +49,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var uaeData = ['UAE'];
   var interests = ["Racing", "Riding", "Gaming"];
 
+  assignvalues(){
+    // firstNameController.text=con.profileinfo["firstname"];
+  }
+  @override
+  void initState() {
+    assignvalues();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -77,15 +88,26 @@ class _ProfileInformationState extends State<ProfileInformation> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
-      child: Text(
-        'Hey ${GetStorage().read('username')}! Tell About Your Self',
+      child: GetStorage().read('username') == null
+          ? Text('Hey! Please Tell About Your Self!',
         style: TextStyle(
-          fontSize: 28,
-          fontFamily: 'Sora',
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+        fontSize: 28,
+        fontFamily: 'Sora',
+        color:
+        themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+        fontWeight: FontWeight.bold,
       ),
+      )
+          : Text(
+              'Hey ${GetStorage().read('username')}! Tell About Your Self',
+              style: TextStyle(
+                fontSize: 28,
+                fontFamily: 'Sora',
+                color:
+                    themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 
@@ -538,6 +560,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             MyCustomInputBox(
               enabled: true,
               label: "Phone Number",
+              maxLength: 10,
               controller: requiredNoController,
               obsecureText: false,
               textInputType: TextInputType.phone,
@@ -1015,54 +1038,28 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          // if (formKey.currentState!.validate()) {
-          // con.profileInformatrion(
-          //     firstNameController.text,
-          //     lastNameController.text,
-          //     cityNameController.text,
-          //     stateNameController.text,
-          //     'stateNameController.text',
-          //     dateOfBrithController.text,
-          //     issueDateController.text,
-          //     expiredDateController.text,
-          //     addressController.text,
-          //     postalCodeController.text,
-          //     "null",
-          //     "null");
-          //   if (issueDateController.text == expiredDateController.text) {
-          //     Fluttertoast.showToast(
-          //         msg: "Issue date and Expiry date is same...");
-          //   } else {
-          //     Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-          //   }
-          // } else {
-          //   Fluttertoast.showToast(msg: "Data Save Successfully...");
-          //}
-          // Get.to(const AvatarPageView());
-          //    if (formKey.currentState!.validate()){}
-          //   {
-          //   if (issueDateController.text == expiredDateController.text) {
-          //     Fluttertoast.showToast(
-          //         msg: "Issue date and Expiry date is same...");
-          //   }
-          //   else {
-          //      con.profileInformatrion(
-          //        con.emailController.text,
-          //        firstNameController.text,
-          //        lastNameController.text,
-          //        cityNameController.text,
-          //        stateNameController.text,
-          //        requiredNoController.text,
-          //        dateOfBrithController.text,
-          //        issueDateController.text,
-          //        expiredDateController.text,
-          //        addressController.text,
-          //        postalCodeController.text,
-          //      );
-          //   // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-          // },
-          //   },
-        },
+
+            if (dateOfBrithController.text.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "Enter your birth date");
+            } else {
+              con.profileInformatrion(
+                con.emailController.text,
+                firstNameController.text,
+                lastNameController.text,
+                cityNameController.text,
+                stateNameController.text,
+                requiredNoController.text,
+                dateOfBrithController.text,
+                // issueDateController.text,
+                // expiredDateController.text,
+                addressController.text,
+                postalCodeController.text,
+              );
+              // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+            }
+          },
+
         text: "Next");
   }
 }

@@ -24,7 +24,8 @@ class _RegisterloadingState extends State<Registerloading> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                   topBanner(),
-                  buildtitle(),
+                      buildtitle1(),
+                  // buildtitle(),
                 ]))));
   }
 
@@ -86,3 +87,41 @@ class _RegisterloadingState extends State<Registerloading> {
         ));
   }
 }
+
+Widget buildtitle1() {
+
+  return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.all(35),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Take a Few Minutes to Relax !',
+            style: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Sora',
+              color: Styles.whitecolortext,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'We are verifying your ID and Details. We will notify you once done',
+            style: TextStyle(
+              fontSize: 12,
+              fontFamily: 'Sora',
+              color:  Color.fromRGBO(4, 19, 22, 0.6),
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Image.asset("assets/loading.gif",
+            height: 220,
+            //color: Colors.blueGrey,
+          ),
+        ],
+      ));}

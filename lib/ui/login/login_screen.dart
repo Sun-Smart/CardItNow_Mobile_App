@@ -207,14 +207,14 @@ class _LoginState extends State<Login> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Password', style: TextStyle(fontSize: 15)),
+                          Text('Passcode', style: TextStyle(fontSize: 15)),
                           SizedBox(height: 5),
                           TextFormField(
                               obscureText: isVisible,
                               controller: _passwordController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter password";
+                                  return "Please enter passcode";
                                 } else if (value.length < 6) {
                                   return 'Must be more than 6 charater';
                                 }
