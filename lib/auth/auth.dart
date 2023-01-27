@@ -576,7 +576,7 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
-    var data = json.decode(response);
+    var data = response;
 
     hideLoading();
     print('check' + data);
@@ -605,7 +605,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     hideLoading();
     print('check' + data);
     if (data == "Success") {
