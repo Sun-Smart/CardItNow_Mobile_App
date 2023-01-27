@@ -194,7 +194,7 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(API().register + '?email=' + email, body)
+        .post(API().register + '?email=' + emailController.text, body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -258,12 +258,12 @@ class AuthCon extends GetxController with BaseController {
 
   //profile Infomation
   void profileInformatrion(email, firstName, lastName, city, state, requiredno,
-      dateofbrith, issuedate, expirydate, address, postalcode) async {
+      dateofbrith, address, postalcode) async {
     var body = {};
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate",
+                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&id",
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -378,8 +378,7 @@ class AuthCon extends GetxController with BaseController {
     state,
     requiredno,
     dateofbrith,
-    // issuedate,
-    //expirydate,
+
     address,
     postalcode,
   ) async {

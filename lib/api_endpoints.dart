@@ -65,7 +65,7 @@ class API {
 
   //Tas Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
-  String processocr = 'customerdetail/ProcessOCR';
+
 
 
 }
