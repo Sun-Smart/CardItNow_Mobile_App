@@ -144,7 +144,7 @@ class CustomeCardData extends StatelessWidget {
             height: 230,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/banner/card 1.png'))),
+                    image: AssetImage('assets/banner/card_01.png'))),
             child: Padding(
                 padding: EdgeInsets.all(30),
                 child: Column(
@@ -155,9 +155,66 @@ class CustomeCardData extends StatelessWidget {
                             style: TextStyle(
                                 fontFamily: 'Sora',
                                 color: Colors.white,
-                                fontSize: 14)),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
                       ],
                     ),
+                    SizedBox(height: 40),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Name',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(nameHolder,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                            Text(cardNumber,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xffC9E313),
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Row(
+                        children: [
+                          Text('Exp',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                          SizedBox(width: 10),
+                          Text(validity.substring(5, 10),
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ],
+                      ),
+                    )
                   ],
                 ))),
         Padding(
@@ -172,7 +229,11 @@ class CustomeCardData extends StatelessWidget {
                 print('Customer user id ${customerId}');
                 print('Card Default status ${cardDefault}');
               },
-              child: Text(cardDefault == 1 ? 'Activated' : 'Set as default'),
+              child: Text(cardDefault == '1' ? 'Activated' : 'Set as default',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
         ),

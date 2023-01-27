@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 import 'dart:developer';
@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
-import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
@@ -17,13 +16,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
-
-import '../ui/dashboard/paynow_menu/payment_loading.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
@@ -33,7 +29,9 @@ import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
-  var profileinfo={}.obs;
+  var profileinfo = {}.obs;
+  var scandocs = '';
+
   @override
   void onInit() {
     termsconditions();
@@ -43,9 +41,7 @@ class AuthCon extends GetxController with BaseController {
     creditCardgetAPI();
     banklistget();
     paymentpurposeget();
-    documenttypeget();
     invoicegetmethod();
-
     super.onInit();
   }
 
@@ -54,15 +50,14 @@ class AuthCon extends GetxController with BaseController {
 
   // terms and conditions
   var termscond = '';
-
-  // avatar
-  var avatarImageList = [];
+  var doc64 = '';
   var banklist = [];
   var paymentpurposelist = [];
   var documenttypelist = [];
   var invoicejson = {};
 
-
+  // avatar
+  var avatarImageList = [];
 
   // geoaccess
   var geoacclist;
@@ -84,9 +79,6 @@ class AuthCon extends GetxController with BaseController {
   //current diet
   var dietType = "Vegetarian".obs;
 
-  //Tax Details
-  var Owner = {}.obs;
-
   //fitness level
   var isBeginner = true.obs;
   var isIntermediate = false.obs;
@@ -100,16 +92,14 @@ class AuthCon extends GetxController with BaseController {
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
   var regDoc = '';
-  var doc64 = '';
   var uploadimg = '';
-  var scandocs = '';
   var uploaddoc = '';
   String choosedDocId = '';
 
   var googleMail = '';
-  var facebook = '';
 
-
+  //your Details
+  var Owner = {}.obs;
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -140,8 +130,6 @@ class AuthCon extends GetxController with BaseController {
     print(password);
     if (response == null) return;
     var data = json.decode(response);
-    var result = GetStorage().write("save_token", data["token"].toString());
-    print(result);
     if (ischecked_checkbox == true) {
       GetStorage().write("save_token", data["token"].toString());
 
@@ -167,7 +155,7 @@ class AuthCon extends GetxController with BaseController {
     GetStorage().write("getuserid", payload["userid"].toString());
     print("useridcheck" + payload["userid"].toString());
     var getuserid = payload["userid"].toString();
-    print(getuserid);
+
     if (data["token"].toString().isNotEmpty) {
       GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
@@ -206,21 +194,14 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(API().register + '?email=' + emailController.text, body)
+        .post(API().register + '?email=' + email, body)
         .catchError(handleError);
     if (response == null) return;
-    //Get.to(VerifyUserId());
     var data = json.decode(response);
-
     hideLoading();
     print('check' + data);
-
     if (data == "Success") {
       Get.to(VerifyEmail());
-      // token.value = userData["token"];
-      // if (!resend) {
-      // Get.to(OtpScreenView());
-      // }
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -233,12 +214,12 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().verifyotp +
-                '?email=${emailController.text}&otp=' +
+                '?email=${googleMail == '' ? email : googleMail}&otp=' +
                 otp,
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = jsonDecode(response);
+    var data = json.decode(response);
     hideLoading();
     print('check' + data);
     if (data == "Success") {
@@ -276,29 +257,17 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //profile Infomation
-  void profileInformatrion(
-    email,
-    firstName,
-    lastName,
-    city,
-    state,
-    requiredno,
-    dateofbrith,
-    // issuedate,
-    // expirydate,
-    address,
-    postalcode,
-  ) async {
+  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
+      dateofbrith, issuedate, expirydate, address, postalcode) async {
     var body = {};
     var response = await BaseClient()
         .post(
             API().updateProfileInformation +
-                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
+                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&idissuedate=$issuedate",
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = jsonDecode(response);
-    print(response);
+    var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
       GetStorage().write('username', firstName.toString());
@@ -324,7 +293,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = jsonDecode(response);
+    var data = json.decode(response);
     print('pass-------------------' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: data.toString());
@@ -358,10 +327,8 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     print(avator);
     var body = {};
-
     if (image != null) {
       var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
-
       var response = await BaseClient()
           .post(API().uploadAvator, body,
               isMultiPart: true, file: file, isDev: true)
@@ -394,11 +361,77 @@ class AuthCon extends GetxController with BaseController {
     print(body);
     if (response == null) return;
     var data = json.decode(response);
-    if (data == "Success") {
+    if (data == "Sucess") {
       creditCardgetAPI();
       Fluttertoast.showToast(msg: 'Card Activate Successfully...');
     } else {
       Fluttertoast.showToast(msg: "Something wrong...");
+    }
+  }
+
+  //Social Media
+  void socialmedia(
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    // issuedate,
+    //expirydate,
+    address,
+    postalcode,
+  ) async {
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().updateProfileInformation +
+                "?email=${googleMail == '' ? email : googleMail}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
+            body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = response;
+    print(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      GetStorage().write('username', firstName.toString());
+      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      Get.to(() => Passcode());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  void taxDetailsgetApi() async {
+    var responce = await BaseClient()
+        .get(API().taxDetailsGetApiData)
+        .catchError(handleError);
+    if (responce == null) return;
+    var valueMap = jsonDecode(responce);
+    var data = json.decode(valueMap);
+    Owner.value = data;
+  }
+
+  //processocr
+
+  void ocrdocument() async {
+    var body = {"livestockphoto": scandocs};
+    var response =
+        await BaseClient().post(API().processocr, body).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    // print('Pass' + data);
+    // log(data);
+    // buildtitle1();
+
+    if (data != null) {
+      profileinfo = data;
+      await Get.to(AvatarPageView());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
@@ -418,8 +451,8 @@ class AuthCon extends GetxController with BaseController {
       "cardname": cardName.toString(),
       "expirydate": validity.toString(),
       "bankname": bankName.toString(),
-      "ibannumber": " ",
-      "status": nickName.toString(),
+      "ibannumber": nickName.toString(),
+      "status": "",
       "createdby": userid,
       "createddate": dateStr,
       "updatedby": userid,
@@ -441,7 +474,6 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: "Something wrong");
     }
   }
-
 
   //get credit card details
   void creditCardgetAPI() async {
@@ -465,34 +497,21 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().uploadProcessDocument +
-                "?email=$email&documenttype=$choosedDocId&document=$scandocs&documentid=$docid&selfi=$uploadimg",
+                "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
             body)
         .catchError(handleError);
-    if (response == null) return;
+    if (response == null) return Get.to(ProfileInformation());
     var data = json.decode(response);
     print("--------------------------------$data");
-
+    Get.to(Registerloading());
+    await Get.to(AvatarPageView());
     if (data == 'Success') {
-
-      Fluttertoast.showToast(msg: data.toString());
-      Get.to(Registerloading());
-      await Get.to(AvatarPageView());
+      Fluttertoast.showToast(msg: "Data Saved");
       print("successsssssss");
     } else {
-      Fluttertoast.showToast(msg: data.toString());
       print("---------failed");
     }
   }
-
-  //profile info
-  // void profileinfo()async {
-  //    showLoading();
-
-  //   var response = await BaseClient().post(API()., ).catchError(handleError);
-  //   if (response == null) return;
-  //   var data = json.decode(response);
-  //    hideLoading();
-  // }
 
   void geoaccess() async {
     var response = await BaseClient().get(API().terms).catchError(handleError);
@@ -502,18 +521,46 @@ class AuthCon extends GetxController with BaseController {
     // print('check' + data);
   }
 
-//onboard payee
-  void onboardPayee(
-      //custmrid,
-      firstName,
-      email,
-      businessRegnumber,
-      phonenumber,
-      bank,
-      accountnumber,
-      swiftcode,
-      doctypedropdown,
-      doc) async {
+  void updateGoalAPI() async {
+    // showLoading();
+    List<String> fitGoalList = [];
+    if (manageWeight.value) {
+      fitGoalList.add("1");
+    }
+    if (increaseEnergy.value) {
+      fitGoalList.add("2");
+    }
+    if (inceaseMuscleMass.value) {
+      fitGoalList.add("3");
+    }
+    if (newExcercise.value) {
+      fitGoalList.add("4");
+    }
+    if (workoutWithoutOutSide.value) {
+      fitGoalList.add("5");
+    }
+    if (fitEveryDay.value) {
+      fitGoalList.add("6");
+    }
+    var body = {
+      'fitness_goals[]': fitGoalList,
+    };
+    var response =
+        await BaseClient().post(API().updateGoal, body).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    // hideLoading();
+    if (data['status']) {
+      Fluttertoast.showToast(msg: data['message']);
+    } else {
+      Fluttertoast.showToast(msg: data['message']);
+    }
+  }
+
+  //onboard payee
+  void onboardPayee(firstName, email, businessRegnumber, phonenumber, bank,
+      accountnumber, swiftcode, doctypedropdown, doc) async {
     var body = {
       "customerid": "17",
       "firstname": firstName,
@@ -569,32 +616,18 @@ class AuthCon extends GetxController with BaseController {
     // termscond = data[0]['termdetails'];
   }
 
-  void documenttypeget() async {
-    var response = await BaseClient()
-        .get(API().documenttypedropdown)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-    documenttypelist = data;
-
-    print("-----data-------$documenttypelist");
-    // termscond = data[0]['termdetails'];
-  }
-
   void invoicegetmethod() async {
     var response =
         await BaseClient().get(API().invoiceget).catchError(handleError);
     print("response" + response);
     if (response == null) return;
     var data = jsonDecode(response);
-    var data1=json.decode(data);
-
+    var data1 = json.decode(data);
     print("-----data" + data);
-
     // Get.to(AmountPay());
     invoicejson = data1;
     print("------inovice----${invoicejson["Rent"]}");
-   // Fluttertoast.showToast(msg: data.toString());
+    // Fluttertoast.showToast(msg: data.toString());
   }
 
   //forgotpasswordotp
@@ -602,7 +635,10 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(API().register + '?email=' + email, body)
+        .post(
+          API().register + '?email=' + email,
+          body,
+        )
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
@@ -623,14 +659,13 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //forgototpverify
-
   void forgototpverify(email, otp) async {
     showLoading();
     var body = {};
     var response = await BaseClient()
         .post(
             API().verifyotp +
-                '?email=${googleMail == '' ?email : googleMail}&otp=' +
+                '?email=${googleMail == '' ? email : googleMail}&otp=' +
                 otp,
             body)
         .catchError(handleError);
@@ -650,73 +685,6 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-  void socialmedia(
-    email,
-    firstName,
-    lastName,
-    city,
-    state,
-    requiredno,
-    dateofbrith,
-    // issuedate,
-    //expirydate,
-    address,
-    postalcode,
-  ) async {
-    var body = {};
-    var response = await BaseClient()
-        .post(
-            API().updateProfileInformation +
-                "?email=${googleMail == '' ? email : {emailController.text}}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
-            body)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = response;
-    print(response);
-    print('Pass' + data);
-    if (data == 'Success') {
-      GetStorage().write('username', firstName.toString());
-      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      Get.to(() => Passcode());
-      Fluttertoast.showToast(msg: data.toString());
-    } else {
-      Fluttertoast.showToast(msg: data.toString());
-    }
-  }
-
-  void taxDetailsgetApi() async {
-    var responce = await BaseClient().get(API().taxDetailsGetApiData).catchError(handleError);
-    if(responce == null) return;
-    var valueMap = jsonDecode(responce);
-    var data = json.decode(valueMap);
-    Owner.value = data;
-  }
-
-  //processocr
-
-  void ocrdocument() async {
-    var body = {
-      "livestockphoto": scandocs,
-    };
-    var response = await BaseClient()
-        .post(API().processocr, body)
-        .catchError(handleError);
-
-    if (response == null) return;
-    var data = json.decode(response);
-    // print('Pass' + data);
-    // log(data);
-    // buildtitle1();
-
-    if (data != null) {
-       profileinfo = data;
-      await Get.to(AvatarPageView());
-      Fluttertoast.showToast(msg: data.toString());
-    } else {
-      Fluttertoast.showToast(msg: data.toString());
-    }
-  }
-
   void taxDetailsGetApi() async {
     var response = await BaseClient()
         .get(API().taxDetailsGetApiData)
@@ -726,6 +694,4 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(valueMap);
     Owner.value = data;
   }
-
-
 }
