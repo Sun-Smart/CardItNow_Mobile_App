@@ -103,6 +103,7 @@ class AuthCon extends GetxController with BaseController {
   String choosedDocId = '';
 
   var googleMail = '';
+  var facebook = '';
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -257,7 +258,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     print('pass' + data);
     if (data == "Success") {
       Get.to(Login());

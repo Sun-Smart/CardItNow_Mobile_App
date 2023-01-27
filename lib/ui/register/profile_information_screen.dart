@@ -50,7 +50,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var interests = ["Racing", "Riding", "Gaming"];
 
   assignvalues(){
-    // firstNameController.text=con.profileinfo["firstname"];
+    if(con.profileinfo != {}){
+      // firstNameController.text=con.profileinfo["firstname"];
+      // lastNameController.text=con.profileinfo["lastname"];
+      // dateOfBrithController.text=con.profileinfo[""]
+    }
+
   }
   @override
   void initState() {
@@ -88,7 +93,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.all(15),
-      child: GetStorage().read('username') == null
+      child:
+      
+      GetStorage().read('username') == null
           ? Text('Hey! Please Tell About Your Self!',
         style: TextStyle(
         fontSize: 28,
@@ -1039,10 +1046,37 @@ class _ProfileInformationState extends State<ProfileInformation> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
 
-            if (dateOfBrithController.text.isEmpty) {
+            if (firstNameController.text.isEmpty) {
               Fluttertoast.showToast(
-                  msg: "Enter your birth date");
-            } else {
+                  msg: "Enter your First name");
+            }
+            else if(lastNameController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your last name");
+            }
+            else if(dateOfBrithController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your Date of birth");
+            }
+            else if(dateOfBrithController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your Date of birth");
+            }
+            else if(addressController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your address");
+            }
+            else if(requiredNoController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your mobile no");
+            }
+            else if(postalCodeController.text.isEmpty){
+              Fluttertoast.showToast(
+                  msg: "Enter your postalcode");
+            }
+
+
+            else {
               con.profileInformatrion(
                 con.emailController.text,
                 firstNameController.text,

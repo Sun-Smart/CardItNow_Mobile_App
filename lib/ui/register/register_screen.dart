@@ -247,6 +247,7 @@ class _RegisterState extends State<Register> {
                                                 setState(() {
                                                   if (isChecked) {
                                                     isChecked = false;
+
                                                   } else {
                                                     isChecked = true;
                                                     // showAlertDialog(context);
@@ -365,10 +366,10 @@ class _RegisterState extends State<Register> {
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         // Get.to(VerifyEmail());
-                      } else if (isChecked = false) {
+                      } else if (isChecked == false) {
                         Fluttertoast.showToast(msg: "Please Accept Terms and conditions");
                       }
-                      else if (isChecked == true) {}
+
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(VerifyEmail(value: widget.value));
                       // } else if (isChecked == false) {
@@ -377,7 +378,9 @@ class _RegisterState extends State<Register> {
                       // }
                       if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
-                      } else {
+                      }
+                      else if(isChecked == false){Fluttertoast.showToast(msg: "Please Accept Terms and conditions");}
+                      else {
                         con.registerAPI(con.emailController.text.toString());
                       }
                     },
@@ -540,7 +543,9 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
+            isChecked=true;
             Navigator.pop(context);
+
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),
