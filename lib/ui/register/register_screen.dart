@@ -461,10 +461,10 @@ class _RegisterState extends State<Register> {
                   });
                   if (isLoggedIn == true) {
                     con.emailController.text =userData["email"];
-                    con.socialmedia( userData["name"],
-                        userData["email"],
-                        userData["picture"]["data"]["url"], "", "", "", "", "", "");
-                    // con.registerAPI(userData['email']);
+                    // con.socialmedia( userData["name"],
+                    //     userData["email"],
+                    //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
+                    con.registerAPI(userData['email']);
                     GetStorage().write('username', userData['name']
                     );
                     // Get.offAll(DashbordScreen());

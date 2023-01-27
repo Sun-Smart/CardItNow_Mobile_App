@@ -16,6 +16,7 @@ import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => const VerifyUserId());
+        return MaterialPageRoute(builder: (_) => const SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

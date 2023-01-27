@@ -206,16 +206,16 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(API().register + '?email=' + email, body)
+        .post(API().register + '?email=' + emailController.text, body)
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
-    // var data = json.decode(response);
+    var data = json.decode(response);
 
     hideLoading();
-    // print('check' + data);
+    print('check' + data);
 
-    if (response == "Success") {
+    if (data == "Success") {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
@@ -233,12 +233,12 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().verifyotp +
-                '?email=${googleMail == '' ? email : googleMail}&otp=' +
+                '?email=${emailController.text}&otp=' +
                 otp,
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = response;
+    var data = jsonDecode(response);
     hideLoading();
     print('check' + data);
     if (data == "Success") {
@@ -297,7 +297,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = response;
+    var data = jsonDecode(response);
     print(response);
     print('Pass' + data);
     if (data == 'Success') {
@@ -324,7 +324,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = response;
+    var data = jsonDecode(response);
     print('pass-------------------' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: data.toString());
