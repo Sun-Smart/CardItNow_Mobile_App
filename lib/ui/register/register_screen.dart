@@ -460,10 +460,14 @@ class _RegisterState extends State<Register> {
                     print(userObj.toString()+'ffff');
                   });
                   if (isLoggedIn == true) {
+                    con.emailController.text =userData["email"];
+                    con.socialmedia( userData["name"],
+                        userData["email"],
+                        userData["picture"]["data"]["url"], "", "", "", "", "", "");
                     // con.registerAPI(userData['email']);
                     GetStorage().write('username', userData['name']
                     );
-                    Get.offAll(DashbordScreen());
+                    // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }
@@ -543,7 +547,7 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
-            isChecked=true;
+
             Navigator.pop(context);
 
           }, // button pressed
