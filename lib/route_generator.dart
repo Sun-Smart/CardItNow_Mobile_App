@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
-import 'package:cardit/ui/dashboard/paynow_menu/onboard_recipient_screen.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/select_documents_screen.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/landingscreens/choose_LPG_screen.dart';
@@ -15,13 +14,12 @@ import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
+import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
-import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'demo_pro.dart';
 import 'ui/landingscreens/dashbord_screen.dart';
 import 'ui/landingscreens/payments_details_screen.dart';
 import 'ui/landingscreens/payments_screen.dart';
@@ -29,11 +27,9 @@ import 'ui/landingscreens/profile_screen.dart';
 import 'ui/landingscreens/scan_card_screen.dart';
 import 'ui/landingscreens/settings_screen.dart';
 import 'ui/landingscreens/user_details_screen.dart';
-import 'ui/lgu/your_tax_details.dart';
 import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
-import 'ui/payment_method/choose_payment_method.dart';
 import 'ui/payment_method/manula_card_screen.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
@@ -46,7 +42,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => const ChoosePaymentPage());
+        return MaterialPageRoute(builder: (_) => const VerifyUserId());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

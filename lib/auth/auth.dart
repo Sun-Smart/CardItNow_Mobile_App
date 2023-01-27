@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
-import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
@@ -16,7 +16,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
@@ -37,6 +36,9 @@ class AuthCon extends GetxController with BaseController {
     geoaccess();
     taxDetailsGetApi();
     creditCardgetAPI();
+    banklistget();
+    paymentpurposeget();
+    invoicegetmethod();
     super.onInit();
   }
 
@@ -45,6 +47,11 @@ class AuthCon extends GetxController with BaseController {
 
   // terms and conditions
   var termscond = '';
+  var doc64 = '';
+  var banklist = [];
+  var paymentpurposelist = [];
+  var documenttypelist = [];
+  var invoicejson = {};
 
   // avatar
   var avatarImageList = [];
@@ -56,7 +63,7 @@ class AuthCon extends GetxController with BaseController {
   var gender = 1.obs;
 
   //credit card get
-  var creditCardGet = {}.obs;
+  var creditCardGet = [].obs;
 
   //weight
   var selectedUnits = "LBS".obs;
@@ -184,24 +191,14 @@ class AuthCon extends GetxController with BaseController {
     showLoading();
     var body = {};
     var response = await BaseClient()
-        .post(
-          API().register + '?email=' + email,
-          body,
-        )
+        .post(API().register + '?email=' + email, body)
         .catchError(handleError);
     if (response == null) return;
-    //Get.to(VerifyUserId());
     var data = json.decode(response);
-
     hideLoading();
     print('check' + data);
-
     if (data == "Success") {
       Get.to(VerifyEmail());
-      // token.value = userData["token"];
-      // if (!resend) {
-      // Get.to(OtpScreenView());
-      // }
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -349,6 +346,26 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  //Set Card Default Post Method
+  void setCardDefaultPost(payId) async {
+    var userid = GetStorage().read("getuserid");
+    print("checkuser" + userid.toString());
+    var body = {"customerid": userid, "payid": payId};
+    var response = await BaseClient()
+        .post(API().setDefaultCard, body)
+        .catchError(handleError);
+    print(response);
+    print(body);
+    if (response == null) return;
+    var data = json.decode(response);
+    if (data == "Success") {
+      creditCardgetAPI();
+      Fluttertoast.showToast(msg: 'Card Activate Successfully...');
+    } else {
+      Fluttertoast.showToast(msg: "Something wrong...");
+    }
+  }
+
   //upload credit card details
   void creditCardPostAPI(
       cardNumber, validity, cvv, cardName, bankName, nickName) async {
@@ -361,12 +378,12 @@ class AuthCon extends GetxController with BaseController {
       "uid": 0,
       "uiddesc": 0,
       "payid": null,
-      "cardnumber": cardNumber,
-      "cardname": cardName,
-      "expirydate": validity,
-      "bankname": bankName,
+      "cardnumber": cardNumber.toString(),
+      "cardname": cardName.toString(),
+      "expirydate": validity.toString(),
+      "bankname": bankName.toString(),
       "ibannumber": " ",
-      "status": nickName,
+      "status": nickName.toString(),
       "createdby": userid,
       "createddate": dateStr,
       "updatedby": userid,
@@ -382,7 +399,8 @@ class AuthCon extends GetxController with BaseController {
     print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      Get.to(const ManualCard());
+      creditCardgetAPI();
+      Get.back();
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -396,7 +414,8 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    creditCardGet.value = data['customerpaymode'];
+    print(data);
+    creditCardGet.value = data;
     print('Credit Card Api Get Method' +
         creditCardGet.toString() +
         'Credit Card Api Get Method');
@@ -424,16 +443,6 @@ class AuthCon extends GetxController with BaseController {
       print("---------failed");
     }
   }
-
-  //profile info
-  // void profileinfo()async {
-  //    showLoading();
-
-  //   var response = await BaseClient().post(API()., ).catchError(handleError);
-  //   if (response == null) return;
-  //   var data = json.decode(response);
-  //    hideLoading();
-  // }
 
   void geoaccess() async {
     var response = await BaseClient().get(API().terms).catchError(handleError);
@@ -478,6 +487,78 @@ class AuthCon extends GetxController with BaseController {
     } else {
       Fluttertoast.showToast(msg: data['message']);
     }
+  }
+
+  //onboard payee
+  void onboardPayee(firstName, email, businessRegnumber, phonenumber, bank,
+      accountnumber, swiftcode, doctypedropdown, doc) async {
+    var body = {
+      "customerid": "17",
+      "firstname": firstName,
+      "email": email,
+      "businessregnumber": businessRegnumber,
+      "mobile": phonenumber,
+      "bankname": bank,
+      "accountnumber": accountnumber,
+      "swiftcode": swiftcode,
+      "documnettype": doctypedropdown,
+      "documnet": doc
+    };
+    var response = await BaseClient()
+        .post(API().onboardPayeePost, body)
+        .catchError(handleError);
+    print("---data-----$body");
+    if (response == null) return;
+    var data = json.decode(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      //  print("--------$data");
+      Get.to(PaymentLoading());
+      // GetStorage().write('username', firstName.toString());
+      // // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      // Get.to(() => Twofactor());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+//get method
+  void banklistget() async {
+    var response =
+        await BaseClient().get(API().banklistdropdown).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    banklist = data;
+
+    print("-----data-------$banklist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void paymentpurposeget() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    paymentpurposelist = data;
+
+    print("-----data-------$paymentpurposelist");
+    // termscond = data[0]['termdetails'];
+  }
+
+  void invoicegetmethod() async {
+    var response =
+        await BaseClient().get(API().invoiceget).catchError(handleError);
+    print("response" + response);
+    if (response == null) return;
+    var data = jsonDecode(response);
+    var data1 = json.decode(data);
+    print("-----data" + data);
+    // Get.to(AmountPay());
+    invoicejson = data1;
+    print("------inovice----${invoicejson["Rent"]}");
+    // Fluttertoast.showToast(msg: data.toString());
   }
 
   //forgotpasswordotp

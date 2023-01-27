@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, sort_child_properties_last, avoid_print, unnecessary_null_comparison, library_private_types_in_public_api, unnecessary_import, non_constant_identifier_names
 
 import 'dart:io';
 
-import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
+import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +32,7 @@ class DashbordScreen extends StatefulWidget {
 class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
   final CarouselController _controller = CarouselController();
-
+  final AuthCon con = Get.find();
   int _currentsliderindex = 0;
   List<_SalesData> data = [
     _SalesData('Jan', 35, const Color(0XffEDEDED)),
@@ -49,7 +49,14 @@ class DashbordScreenState extends State<DashbordScreen>
 
   @override
   void initState() {
+    con.creditCardgetAPI();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    con.creditCardgetAPI();
+    super.didChangeDependencies();
   }
 
   @override
@@ -77,20 +84,19 @@ class DashbordScreenState extends State<DashbordScreen>
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               color: const Color(0xff036D7A)),
-                          child:
-                          GetStorage()
-                        .read("avatarpic")==null?
-                          Container():
-
-                          GetStorage()
-                                  .read("avatarpic")
-                                  .toString()
-                                  .contains('assets')
-                              ? Image.asset(GetStorage().read("avatarpic"),
-                                  fit: BoxFit.cover, height: 43, width: 43)
-                              : Image.file(File(GetStorage().read("avatarpic")),
-                                  fit: BoxFit.cover, height: 43, width: 43)
-                      ),
+                          child: GetStorage().read("avatarpic") == null
+                              ? Container()
+                              : GetStorage()
+                                      .read("avatarpic")
+                                      .toString()
+                                      .contains('assets')
+                                  ? Image.asset(GetStorage().read("avatarpic"),
+                                      fit: BoxFit.cover, height: 43, width: 43)
+                                  : Image.file(
+                                      File(GetStorage().read("avatarpic")),
+                                      fit: BoxFit.cover,
+                                      height: 43,
+                                      width: 43)),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.all(20.0),
@@ -130,6 +136,16 @@ class DashbordScreenState extends State<DashbordScreen>
                         onTap: () {},
                         child: Image.asset('assets/notification.png',
                             fit: BoxFit.contain, width: 25, height: 25))),
+                Padding(
+                    padding: const EdgeInsets.only(right: 10.0, top: 10),
+                    child: GestureDetector(
+                        onTap: () {},
+                        child: IconButton(
+                            onPressed: () {
+                              _logoutPressed();
+                            },
+                            icon: Icon(Icons.power_settings_new,
+                                color: Colors.black)))),
               ],
             ),
           ),
@@ -137,18 +153,95 @@ class DashbordScreenState extends State<DashbordScreen>
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Slider(),
+              con.creditCardGet.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Container(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: HexColor('#004751'), width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Align(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: HexColor('#CEE812'),
+                                  child: CircleAvatar(
+                                      child: IconButton(
+                                          onPressed: () {
+                                            Get.to(() => AddCreditCardPage());
+                                          },
+                                          icon: Icon(Icons.add,
+                                              color: HexColor('#004751'))),
+                                      backgroundColor: Colors.white,
+                                      radius: 28)),
+                              SizedBox(height: 10),
+                              Text('Add Card',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora', fontSize: 16)),
+                            ],
+                          ))))
+                  : Slider(),
               buildPaySchedule(),
-              buildPayCharttitle(),
-              buildPayChart(),
-              buildTranstitle(),
-              _buildBusinesscard(),
-              const SizedBox(
-                height: 20,
-              )
+              // buildPayCharttitle(),
+              //buildPayChart(),
+              //buildTranstitle(),
+              //_buildBusinesscard(),
+              const SizedBox(height: 20)
             ],
           ))),
     );
+  }
+
+  //Logout Tapped
+  Future<bool> _logoutPressed() async {
+    bool exitApp = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 10,
+          title: const Text('Really...',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+          content: const Text('Do you want to Logout the app?',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MaterialButton(
+                  color: HexColor('#90BA06'),
+                  child: Text('Yes'),
+                  onPressed: () {
+                    GetStorage().remove('token');
+                    GetStorage().remove('save_token');
+                    Get.offAndToNamed('/home');
+                  },
+                ),
+                MaterialButton(
+                  color: HexColor('#90BA06'),
+                  child: Text('No'),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+    return exitApp ?? false;
   }
 
   //Back Press
@@ -195,16 +288,11 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   Widget Slider() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    //final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      padding: const EdgeInsets.only(top: 10),
       decoration: const BoxDecoration(
-        //color: themeChange.darkTheme ? Colors.black : Colors.white,
-        image: DecorationImage(
-          image: AssetImage("assets/dashbordpg.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
+          image: DecorationImage(
+              image: AssetImage("assets/dashbordpg.png"), fit: BoxFit.cover)),
       child: TopPromoSlider(),
     );
   }
@@ -227,7 +315,6 @@ class DashbordScreenState extends State<DashbordScreen>
                 highlightColor: const Color(0XFFffffff),
                 focusColor: const Color(0XFFffffff),
                 splashColor: Colors.green,
-                // splash color
                 onTap: () {
                   Navigator.of(context).pushNamed('/payment_dashboard');
                 },
@@ -274,9 +361,8 @@ class DashbordScreenState extends State<DashbordScreen>
                         ),
                         Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: const Color(0xffC9E313),
-                            ),
+                                borderRadius: BorderRadius.circular(2),
+                                color: const Color(0xffC9E313)),
                             padding: const EdgeInsets.all(4),
                             child: Image.asset(
                               "assets/calander.png",

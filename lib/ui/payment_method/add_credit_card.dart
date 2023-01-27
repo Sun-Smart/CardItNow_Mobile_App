@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters, sort_child_properties_last
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters, sort_child_properties_last, unrelated_type_equality_checks
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/payment_method/manula_card_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -82,22 +81,21 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.transparent,
-          actions: [
-            Row(children: [
-              Image.asset('assets/card/scan.png', width: 18, height: 18),
-              TextButton(
-                  onPressed: () {
-                    scanCard();
-                  },
-                  child: Text('Scan Card',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: Colors.black)))
-            ])
-          ]),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        actions: [
+          Row(children: [
+            Image.asset('assets/card/scan.png', width: 18, height: 18),
+            TextButton(
+                onPressed: () {
+                  scanCard();
+                },
+                child: Text('Scan Card',
+                    style: TextStyle(
+                        fontFamily: 'Sora', fontSize: 14, color: Colors.black)))
+          ])
+        ],
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
@@ -123,8 +121,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 SizedBox(height: 10),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0),
-                    borderRadius: BorderRadius.circular(5)),
+                      border: Border.all(color: Colors.grey, width: 0),
+                      borderRadius: BorderRadius.circular(5)),
                   child: Stack(
                     children: [
                       TextFormField(
@@ -142,15 +140,15 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(16),
-                            CardNumberFormatter(),
                           ],
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
                               filled: true,
                               fillColor: Colors.white,
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                              helperStyle:
-                              const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
                               hintStyle: const TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Sora',
@@ -171,15 +169,21 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                               focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   gapPadding: 7,
-                                  borderSide: const BorderSide(color: Colors.grey)),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
                               errorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(color: Colors.grey)),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
                               errorStyle: const TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      Positioned(child: Image.asset('assets/visa.png', width: 40, height: 35), right: 10,top: 5)
+                      Positioned(
+                          child: Image.asset('assets/visa.png',
+                              width: 40, height: 35),
+                          right: 10,
+                          top: 5)
                     ],
                   ),
                 ),
@@ -479,24 +483,19 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
         ),
       ),
       bottomNavigationBar: AuthButton(
-        onTap: () {
-          // if (formKey.currentState!.validate()) {
-          //   con.creditCardPostAPI(
-          //       creditCardController.text.toString(),
-          //       validityController.text.toString(),
-          //       cvvController.text.toString(),
-          //       nameOnCardController.text.toString(),
-          //       bankNameController.text.toString(),
-          //       addNickController.text.toString());
-          // }
-          //  Get.to(() => ManualCard());
-          Get.back();
-        },
-        text: 'Verify and Proceed',
-        decoration: BoxDecoration(
-          color: HexColor('#CEE812'),
-        ),
-      ),
+          onTap: () {
+            if (formKey.currentState!.validate()) {
+              con.creditCardPostAPI(
+                  creditCardController.text.toString(),
+                  validityController.text.toString(),
+                  cvvController.text.toString(),
+                  nameOnCardController.text.toString(),
+                  bankNameController.text.toString(),
+                  addNickController.text.toString());
+            }
+          },
+          text: 'Verify and Proceed',
+          decoration: BoxDecoration(color: HexColor('#CEE812'))),
     );
   }
 }

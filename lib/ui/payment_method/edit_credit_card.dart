@@ -39,11 +39,11 @@ class _EditCardState extends State<EditCard> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              Obx(() => CustomeCardData(
-                  bankName: con.creditCardGet['bankname'].toString(),
-                  cardNumber: con.creditCardGet['cardnumber'].toString(),
-                  nameHolder: con.creditCardGet['cardname'].toString(),
-                  validity: con.creditCardGet['expirydate'].toString())),
+              // Obx(() => CustomeCardData(
+              //     bankName: con.creditCardGet['bankname'].toString(),
+              //     cardNumber: con.creditCardGet['cardnumber'].toString(),
+              //     nameHolder: con.creditCardGet['cardname'].toString(),
+              //     validity: con.creditCardGet['expirydate'].toString())),
               SizedBox(height: 20),
             ],
           ),
@@ -140,11 +140,11 @@ class CustomeCardData extends StatelessWidget {
                   style: TextStyle(
                       fontFamily: 'Sora', fontSize: 14, color: Colors.black)),
               onTap: () {
-                Get.to(SelectDefaultCard(
-                    bankName: con.creditCardGet['bankname'].toString(),
-                    cardNumber: con.creditCardGet['cardnumber'].toString(),
-                    cardHolderName: con.creditCardGet['cardname'].toString(),
-                    expDate: con.creditCardGet['expirydate'].toString()));
+                // Get.to(SelectDefaultCard(
+                //     bankName: con.creditCardGet['bankname'].toString(),
+                //     cardNumber: con.creditCardGet['cardnumber'].toString(),
+                //     cardHolderName: con.creditCardGet['cardname'].toString(),
+                //     expDate: con.creditCardGet['expirydate'].toString()));
               },
             ),
           ],

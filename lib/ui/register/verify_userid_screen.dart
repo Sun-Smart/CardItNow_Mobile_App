@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unnecessary_brace_in_string_interps, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
@@ -8,7 +8,6 @@ import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -44,25 +43,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Uint8List? bytes;
   String? img64;
   List<String> images = [];
-
-  //  Future<void> openGallery() async {
-  //   var picker = ImagePicker();
-  //   final imageGallery = await picker.pickImage(source: ImageSource.gallery);
-  //   if (imageGallery!.path.isEmpty == false) {
-  //     setState(() {
-  //       imageFile = File(imageGallery!.path);
-  //     });
-  //     List<int> fileInBytes = await imageFile!.readAsBytes();
-  //     String fileInBase64 = base64Encode(fileInBytes);
-  //     print('******************* BASE 64 SOURCE *******************');
-  //     log(fileInBase64);
-  //     print('******************* BASE 64 SOURCE *******************');
-  //   } else {
-  //     if (kDebugMode) {
-  //       print('Null');
-  //     }
-  //   }
-  // }
 
   //Image to Byte64
   File? _file;
@@ -109,41 +89,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     );
   }
 
-  // Future<void> openGallery() async {
-
-  //   print("iiiiiiiiii");
-  //   final result = await FilePicker.platform.pickFiles(
-  //     allowMultiple: false,
-  //     allowedExtensions: ['pdf', 'doc'],
-  //     type: FileType.custom,
-  //   );
-  //   final bytes = File(result!.files.first.path!).readAsBytesSync();
-
-  //   String file64 = base64Encode(bytes);
-  //   print("-----------------$file64");
-  //   setState(() {
-  //    var  file_pdf =result.files.first.path;
-  //    print("iuytrewqwerty${file_pdf}");
-  //   });
-  //   // var picker = ImagePicker();
-  //   //final imageGallery = await picker.pickImage(source: ImageSource.gallery);
-  //   // if (result!.files.first.path == false) {
-  //   //   print("iutytyfgg---------------${result!.files.first.path}");
-  //   //   setState(() {
-  //   //     imageFile = File(result!.files.first.path!);
-  //   //     print("--pathhhhh---${imageFile}");
-  //   //   });
-  //   // List<int> fileInBytes = await result!.files.first.path.readAsBytes();
-  //   // String fileInBase64 = base64Encode(int.parse.files.first.path));
-  //   // print('******************* BASE 64 SOURCE *******************');
-  //   // log(fileInBase64);
-  //   // print('******************* BASE 64 SOURCE *******************');
-  //   // } else {
-  //   //   if (kDebugMode) {
-  //   //     print('Null');
-  //   //  }
-  // }
-//doc to 64
   Future<void> openCamera() async {
     var picker = ImagePicker();
     final imageGallery = await picker.pickImage(source: ImageSource.camera);
@@ -155,7 +100,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       String fileInBase64 = base64Encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
       log(fileInBase64);
-      ;
       con.uploadimg = base64.encode(fileInBytes);
       print('******************* BASE 64 SOURCE *******************');
     } else {
@@ -464,29 +408,31 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget displayImagedoc() {
     if (imagedoc2 == null) {
       return Container(
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: Responsive.isMobile(context)
-              ? MediaQuery.of(context).size.width / 1
-              : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
-          height: 160,
-          decoration: BoxDecoration(
-              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-              borderRadius: const BorderRadius.all(Radius.circular(3))),
-          child: InkWell(
-              onTap: () async {
-                onPressed();
-              },
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.camera_alt_outlined),
-                    // Image.asset("assets/uplodicon.png", width: 32),
-                    const SizedBox(height: 5),
-                    const Text('Scan your Document'),
-                  ])));
+        margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        width: Responsive.isMobile(context)
+            ? MediaQuery.of(context).size.width / 1
+            : Responsive.isDesktop(context)
+                ? MediaQuery.of(context).size.width / 4.5
+                : MediaQuery.of(context).size.width / 2.5,
+        height: 160,
+        decoration: BoxDecoration(
+            border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+            borderRadius: const BorderRadius.all(Radius.circular(3))),
+        child: InkWell(
+          onTap: () async {
+            _showPicker(context);
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(Icons.camera_alt_outlined),
+              const SizedBox(height: 5),
+              const Text('Scan your Document'),
+            ],
+          ),
+        ),
+      );
     } else {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -496,9 +442,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                onPressed();
+                _showPicker(context);
               },
-              child: Image.file(imagedoc2!,fit: BoxFit.fill,)));
+              child: Image.file(
+                imagedoc2!,
+                fit: BoxFit.fill,
+              )));
     }
   }
 
@@ -531,10 +480,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           ));
     } else {
       return InkWell(
-        // onTap: () {
-        //  _launchInBrowser(Uri(path: _file.toString() ));
-
-        // },
         child: Center(
           child: Container(
             height: MediaQuery.of(context).size.height / 10,
@@ -551,13 +496,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(children: [
-                      // Image.asset(
-                      //   "assets/pdf_image.png",
-                      //   width: 25,
-                      // ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       openFie(),
                     ]),
                   ),
@@ -567,19 +506,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           ),
         ),
       );
-
-      //  Container(
-      //     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-      //     width: MediaQuery.of(context).size.width / 1,
-      //     decoration: BoxDecoration(
-      //         border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-      //         borderRadius: const BorderRadius.all(Radius.circular(3))),
-      //     child: InkWell(
-      //       onTap: () async {
-      //         openGallery();
-      //       },
-      //       child: Text(_platformFile!.name),
-      //     ));
     }
   }
 
@@ -591,20 +517,37 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       if (!mounted) return;
       setState(() {
         _pictures = pictures;
-        imagedoc2=File(_pictures[0]);
-
+        imagedoc2 = File(_pictures[0]);
       });
     } catch (exception) {
       print('Image Not Pic');
     }
-
     List<int> fileInBytes = await imagedoc2!.readAsBytes();
     String fileInBase64 = base64Encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
     log(fileInBase64);
-  //  con.uploaddoc = base64.encode(fileInBytes);
+    //  con.uploaddoc = base64.encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
+  }
 
+  //Gallery Image
+  Future<void> openGalleryImage() async {
+    var picker = ImagePicker();
+    final imageGallery = await picker.pickImage(source: ImageSource.gallery);
+    if (imageGallery!.path.isEmpty == false) {
+      setState(() {
+        imagedoc2 = File(imageGallery!.path);
+      });
+      List<int> fileInBytes = await imagedoc2!.readAsBytes();
+      String fileInBase64 = base64Encode(fileInBytes);
+      print('******************* BASE 64 SOURCE *******************');
+      log(fileInBase64);
+      print('******************* BASE 64 SOURCE *******************');
+    } else {
+      if (kDebugMode) {
+        print('Null');
+      }
+    }
   }
 
   Widget bulildbutton() {
@@ -618,24 +561,74 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             );
           } else {
             Fluttertoast.showToast(msg: "Data Saved");
-
             con.uploadDocx(
                 con.emailController.text, phoneNumberController.text);
           }
-          // setState(() {
-          //   con.uploadDocx(
-          //       con.emailController.text.toString(),
-          //       // int.parse(indexes.toString()),
-          //       1,
-          //       "wwerftghyjhgfdsdf",
-          //       int.parse(phoneNumberController.text.toString()),
-          //       'hiii');
-          // });
-
-          // if (formKey.currentState!.validate()) {
-          //   Navigator.of(context).pushNamed('/profileInformation');
-          // }
         },
         text: "Next");
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        backgroundColor: Colors.white,
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+                padding: const EdgeInsets.only(top: 10),
+                height: 130,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Pick image from",
+                        style: TextStyle(fontSize: 16)),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      openGalleryImage();
+                                      Get.back();
+                                    },
+                                    child: Image.asset("assets/gallery.jpg",
+                                        height: 50)),
+                                const SizedBox(height: 5),
+                                const Text("Gallery")
+                              ],
+                            )),
+                        SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      onPressed();
+                                      Get.back();
+                                    },
+                                    child: Image.asset("assets/camera_new.png",
+                                        height: 50)),
+                                const SizedBox(height: 5),
+                                const Text("Scan")
+                              ],
+                            )),
+                      ],
+                    ),
+                  ],
+                )),
+          );
+        });
   }
 }

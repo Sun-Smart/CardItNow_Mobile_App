@@ -1039,30 +1039,30 @@ class _ProfileInformationState extends State<ProfileInformation> {
           //   Fluttertoast.showToast(msg: "Data Save Successfully...");
           //}
           // Get.to(const AvatarPageView());
-          //  if (formKey.currentState!.validate()){}
-          // {
-          // if (issueDateController.text == expiredDateController.text) {
-          //   Fluttertoast.showToast(
-          //       msg: "Issue date and Expiry date is same...");
-          // }
-          // else {
-          //    con.profileInformatrion(
-          //      con.emailController.text,
-          //      firstNameController.text,
-          //      lastNameController.text,
-          //      cityNameController.text,
-          //      stateNameController.text,
-          //      requiredNoController.text,
-          //      dateOfBrithController.text,
-          //      //issueDateController.text,
-          //      //expiredDateController.text,
-          //      addressController.text,
-          //      postalCodeController.text,
-          //    );
-          // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+          //    if (formKey.currentState!.validate()){}
+          //   {
+          //   if (issueDateController.text == expiredDateController.text) {
+          //     Fluttertoast.showToast(
+          //         msg: "Issue date and Expiry date is same...");
+          //   }
+          //   else {
+          //      con.profileInformatrion(
+          //        con.emailController.text,
+          //        firstNameController.text,
+          //        lastNameController.text,
+          //        cityNameController.text,
+          //        stateNameController.text,
+          //        requiredNoController.text,
+          //        dateOfBrithController.text,
+          //        issueDateController.text,
+          //        expiredDateController.text,
+          //        addressController.text,
+          //        postalCodeController.text,
+          //      );
+          //   // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+          // },
+          //   },
         },
-        //   },
-
         text: "Next");
   }
 }
