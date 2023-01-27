@@ -46,7 +46,7 @@ class AuthService {
     con.socialmedia(details.user!.email, details.user!.displayName, details.user!.photoURL, "", "", "", "", "", "");
     GetStorage().write('username', details.user!.displayName);
     GetStorage().write('useremail', details.user!.email);
-    GetStorage().write('userphoto', details.user!.photoURL);
+    GetStorage().write('avatarpic', details.user!.photoURL);
   }
 
   // 3. Sign Out()

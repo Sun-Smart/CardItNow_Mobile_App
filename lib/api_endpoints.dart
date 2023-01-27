@@ -2,7 +2,7 @@
 
 class API {
   // String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
-  String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+  String baseURL = "https://demo.herbie.ai/carditnowapi/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
 
   // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
@@ -62,4 +62,8 @@ class API {
 
   //Tax Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
+
+  //processocr
+
+  String processocr = 'customerdetail/ProcessOCR';
 }

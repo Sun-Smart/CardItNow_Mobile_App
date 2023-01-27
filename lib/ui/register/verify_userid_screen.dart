@@ -599,9 +599,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
 
     List<int> fileInBytes = await imagedoc2!.readAsBytes();
-    String fileInBase64 = base64Encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-    log(fileInBase64);
+    con.scandocs = base64Encode(fileInBytes);
+    // var convertedfile = fileInBase64convert;
+    log(con.scandocs.toString());
+    print(con.scandocs);
+    // print(convertedfile.toString());
+
+    // print('******************* BASE 64 SOURCE *******************');
+    // log(fileInBase64convert);
+    // print("maa"+fileInBase64convert.toString());
   //  con.uploaddoc = base64.encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
 
@@ -617,10 +623,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               msg: 'Enter ${dropdownvalue} Number',
             );
           } else {
-            Fluttertoast.showToast(msg: "Data Saved");
-
-            con.uploadDocx(
-                con.emailController.text, phoneNumberController.text);
+            // Fluttertoast.showToast(msg: "Data Saved");
+                  con.ocrdocument();
+            // con.uploadDocx(
+            //     con.emailController.text, phoneNumberController.text);
           }
           // setState(() {
           //   con.uploadDocx(

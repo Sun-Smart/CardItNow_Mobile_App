@@ -32,6 +32,7 @@ import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
+  var profileinfo={}.obs;
   @override
   void onInit() {
     termsconditions();
@@ -97,6 +98,7 @@ class AuthCon extends GetxController with BaseController {
   var regDoc = '';
   var doc64 = '';
   var uploadimg = '';
+  var scandocs = '';
   var uploaddoc = '';
   String choosedDocId = '';
 
@@ -200,12 +202,12 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     //Get.to(VerifyUserId());
-    var data = json.decode(response);
+    // var data = json.decode(response);
 
     hideLoading();
-    print('check' + data);
+    // print('check' + data);
 
-    if (data == "Success") {
+    if (response == "Success") {
       Get.to(VerifyEmail());
       // token.value = userData["token"];
       // if (!resend) {
@@ -228,7 +230,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     hideLoading();
     print('check' + data);
     if (data == "Success") {
@@ -287,7 +289,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     print(response);
     print('Pass' + data);
     if (data == 'Success') {
@@ -314,7 +316,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     print('pass-------------------' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: data.toString());
@@ -433,18 +435,21 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().uploadProcessDocument +
-                "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
+                "?email=$email&documenttype=$choosedDocId&document=$scandocs&documentid=$docid&selfi=$uploadimg",
             body)
         .catchError(handleError);
-    if (response == null) return Get.to(ProfileInformation());
+    if (response == null) return;
     var data = json.decode(response);
     print("--------------------------------$data");
-    Get.to(Registerloading());
-    await Get.to(AvatarPageView());
+
     if (data == 'Success') {
-      Fluttertoast.showToast(msg: "Data Saved");
+
+      Fluttertoast.showToast(msg: data.toString());
+      Get.to(Registerloading());
+      await Get.to(AvatarPageView());
       print("successsssssss");
     } else {
+      Fluttertoast.showToast(msg: data.toString());
       print("---------failed");
     }
   }
@@ -636,7 +641,7 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+    var data = response;
     print(response);
     print('Pass' + data);
     if (data == 'Success') {
@@ -656,4 +661,31 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(valueMap);
     Owner.value = data;
   }
+
+  //processocr
+
+  void ocrdocument() async {
+    var body = {
+      "livestockphoto": scandocs,
+    };
+    var response = await BaseClient()
+        .post(API().processocr, body)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    // print('Pass' + data);
+    // log(data);
+    // buildtitle1();
+
+    if (data != null) {
+       profileinfo = data;
+      await Get.to(AvatarPageView());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+
 }

@@ -49,6 +49,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var uaeData = ['UAE'];
   var interests = ["Racing", "Riding", "Gaming"];
 
+  assignvalues(){
+    // firstNameController.text=con.profileinfo["firstname"];
+  }
+  @override
+  void initState() {
+    assignvalues();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);

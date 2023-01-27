@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class UnAuthorizedException extends AppException {
 }
 
 class BaseClient {
-  static const int TIME_OUT_DURATION = 20;
+  static const int TIME_OUT_DURATION = 30;
 
   //GET
   Future<dynamic> get(String endPoint) async {
@@ -165,7 +166,7 @@ class BaseClient {
     // var token = await GetStorage().read('token');
     var payload = json.encode(payloadObj);
     var tokens = GetStorage().read("save_token");
-
+print(payload);
     // print('tokenn' + token);
     // print(uri);
     var uri = isDev ? devUrl : productionUrl;
@@ -193,11 +194,9 @@ class BaseClient {
             .post(uri,
                 headers: <String, String>{
                   'Content-Type': 'application/json',
-                  'Accept': 'application/json',
-                  'Authorization':
-                  'Bearer $tokens',
-                  // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJOVHN5TURJekxUQXhMVEUySURJeU9qTTJPakl3TGpBd01USTNOaTB3Tmc9PSIsImNvZGUiOiIiLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcmlkIjoiNSIsInVzZXJ0eXBlIjoiNiIsImVtcGxveWVlaWQiOiIiLCJ1c2Vycm9sZWlkIjoiNiIsInJvbGUiOiIiLCJicmFuY2hpZCI6IiIsImJyYW5jaGlkZGVzYyI6IiIsImZpbnllYXJpZCI6IiIsImZpbnllYXJkZXNjIjoiIiwiY3VycmVuY3kiOiIiLCJlbWFpbCI6WyJteUBjYXJkaXRub3cuY29tIiwibXlAY2FyZGl0bm93LmNvbSJdLCJ1c2Vyc291cmNlIjoiIiwibGFuZ3VhZ2UiOiJlbiIsImRlZmF1bHRwYWdlIjoiIiwiY291bnRyeWNvZGUiOiIiLCJsYXlvdXRwYWdlIjoiIiwidGhlbWUiOiIiLCJsb2dpbmRhdGUiOiIxLzE2LzIwMjMgODozNjoyMCBQTSIsImV4cCI6MTY3NDExMDE4MCwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.IRcjzsiRuM6AxOiqO8oHRvMIRsCu0ATHCrYGHVDJBts',
-                  'Accept': 'application/json',
+                  'Authorization': tokens==null?'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55aWQiOiIxIiwicGtjb2wiOiJPRFU3TWpBeU15MHdNUzB5TkNBd01Ub3pOam8xTVM0d01USTFMVEEyIiwiY29kZSI6IiIsInVzZXJuYW1lIjoiIiwidXNlcmlkIjoiODUiLCJ1c2VydHlwZSI6IjYiLCJlbXBsb3llZWlkIjoiIiwidXNlcnJvbGVpZCI6IjYiLCJyb2xlIjoiIiwiYnJhbmNoaWQiOiIiLCJicmFuY2hpZGRlc2MiOiIiLCJmaW55ZWFyaWQiOiIiLCJmaW55ZWFyZGVzYyI6IiIsImN1cnJlbmN5IjoiIiwiZW1haWwiOlsiaXRzbWVnYXJ1ZGFuMDZAZ21haWwuY29tIiwiaXRzbWVnYXJ1ZGFuMDZAZ21haWwuY29tIl0sInVzZXJzb3VyY2UiOiIiLCJsYW5ndWFnZSI6ImVuIiwiZGVmYXVsdHBhZ2UiOiIiLCJjb3VudHJ5Y29kZSI6IiIsImxheW91dHBhZ2UiOiIiLCJ0aGVtZSI6IiIsImxvZ2luZGF0ZSI6IjEvMjMvMjAyMyAxMTozNjo1MSBQTSIsImV4cCI6MTY3NDcyNTgxMSwiaXNzIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIiwiYXVkIjoiaHR0cDovLzEwOC42MC4yMTkuNDQ6NjM5MzkvIn0.sFBDibVuXoQPfsLiPtAl21mNMJb6iDtOANYMR1oLOxA':
+                    'Bearer $tokens',
+                  "Accept-Encoding":"gzip, deflate, br"
                 },
                 body: payload)
             .timeout(const Duration(seconds: TIME_OUT_DURATION));
