@@ -32,7 +32,7 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                   options: CarouselOptions(
                       autoPlay: true,
                       viewportFraction: 1,
-                      aspectRatio: 1.4,
+                      aspectRatio: 1.5,
                       enlargeCenterPage: false,
                       padEnds: false,
                       onPageChanged: (index, reason) {
@@ -43,6 +43,11 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                   itemBuilder:
                       (BuildContext context, int index, int pageViewIndex) {
                     return Obx(() => CustomeCardData(
+                        id: con.creditCardGet[index]['payid'].toString(),
+                        customerId:
+                            con.creditCardGet[index]['customerid'].toString(),
+                        cardDefault:
+                            con.creditCardGet[index]['carddefault'].toString(),
                         bankName:
                             con.creditCardGet[index]['bankname'].toString(),
                         cardNumber:
@@ -79,67 +84,108 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
 }
 
 class CustomeCardData extends StatelessWidget {
-  final String bankName, cardNumber, nameHolder, validity;
+  final String bankName,
+      cardNumber,
+      nameHolder,
+      validity,
+      id,
+      customerId,
+      cardDefault;
 
   const CustomeCardData(
       {Key? key,
+      required this.cardDefault,
       required this.bankName,
       required this.cardNumber,
       required this.nameHolder,
-      required this.validity})
+      required this.validity,
+      required this.id,
+      required this.customerId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AuthCon con = Get.find();
     return Column(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width,
-          height: 230,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/banner/card 1.png'),
-                  fit: BoxFit.contain)),
-          child: Stack(
-            children: [
-              Positioned(
-                  left: 40,
-                  top: 30,
-                  child: Text(bankName,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Sora'))),
-              Positioned(
-                  left: 40,
-                  bottom: 95,
-                  child: Text(nameHolder,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          fontFamily: 'Sora'))),
-              Positioned(
-                  right: 30,
-                  bottom: 95,
-                  child: Text(cardNumber,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          fontFamily: 'Sora'))),
-              Positioned(
-                  left: 75,
-                  bottom: 26,
-                  child: Text('${validity.substring(5, 10)}',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          fontFamily: 'Sora'))),
-            ],
-          ),
-        ),
+            width: MediaQuery.of(context).size.width,
+            height: 230,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/banner/card_01.png'))),
+            child: Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(bankName,
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ],
+                    ),
+                    SizedBox(height: 40),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Name',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(nameHolder,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                            Text(cardNumber,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xffC9E313),
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Row(
+                        children: [
+                          Text('Exp',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                          SizedBox(width: 10),
+                          Text(validity.substring(5, 10),
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ],
+                      ),
+                    )
+                  ],
+                ))),
       ],
     );
   }

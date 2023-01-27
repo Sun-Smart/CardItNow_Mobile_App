@@ -54,12 +54,6 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   @override
-  void didChangeDependencies() {
-    con.creditCardgetAPI();
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return WillPopScope(
@@ -150,51 +144,54 @@ class DashbordScreenState extends State<DashbordScreen>
             ),
           ),
           body: SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              con.creditCardGet.isEmpty
-                  ? Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Container(
-                          height: 200,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                  color: HexColor('#004751'), width: 2),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Align(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: HexColor('#CEE812'),
-                                  child: CircleAvatar(
-                                      child: IconButton(
-                                          onPressed: () {
-                                            Get.to(() => AddCreditCardPage());
-                                          },
-                                          icon: Icon(Icons.add,
-                                              color: HexColor('#004751'))),
-                                      backgroundColor: Colors.white,
-                                      radius: 28)),
-                              SizedBox(height: 10),
-                              Text('Add Card',
-                                  style: TextStyle(
-                                      fontFamily: 'Sora', fontSize: 16)),
-                            ],
-                          ))))
-                  : Slider(),
-              buildPaySchedule(),
-              // buildPayCharttitle(),
-              //buildPayChart(),
-              //buildTranstitle(),
-              //_buildBusinesscard(),
-              const SizedBox(height: 20)
-            ],
-          ))),
+              child: Obx(() => Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      con.creditCardGet.isEmpty
+                          ? Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: HexColor('#004751'), width: 2),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Align(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircleAvatar(
+                                          radius: 30,
+                                          backgroundColor: HexColor('#CEE812'),
+                                          child: CircleAvatar(
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    Get.to(() =>
+                                                        AddCreditCardPage());
+                                                  },
+                                                  icon: Icon(Icons.add,
+                                                      color:
+                                                          HexColor('#004751'))),
+                                              backgroundColor: Colors.white,
+                                              radius: 28)),
+                                      SizedBox(height: 10),
+                                      Text('Add Card',
+                                          style: TextStyle(
+                                              fontFamily: 'Sora',
+                                              fontSize: 16)),
+                                    ],
+                                  ))))
+                          : Slider(),
+                      buildPaySchedule(),
+                      // buildPayCharttitle(),
+                      //buildPayChart(),
+                      //buildTranstitle(),
+                      //_buildBusinesscard(),
+                      const SizedBox(height: 20)
+                    ],
+                  )))),
     );
   }
 
@@ -356,9 +353,7 @@ class DashbordScreenState extends State<DashbordScreen>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(2),
@@ -587,18 +582,10 @@ class DashbordScreenState extends State<DashbordScreen>
             Row(
               children: [
                 states
-                    ? Image.asset(
-                        "assets/paymentsuccess.png",
-                        width: 32,
-                      )
-                    : Image.asset(
-                        "assets/paymentsuccess.png",
-                        width: 32,
-                        color: const Color(0XffFF9D00),
-                      ),
-                const SizedBox(
-                  width: 5,
-                ),
+                    ? Image.asset("assets/paymentsuccess.png", width: 32)
+                    : Image.asset("assets/paymentsuccess.png",
+                        width: 32, color: const Color(0XffFF9D00)),
+                const SizedBox(width: 5),
                 Text(states ? 'Transaction Success' : 'Confirmation Pending',
                     style: TextStyle(
                         color: states

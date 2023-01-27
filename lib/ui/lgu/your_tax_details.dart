@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class YourTaxDetails extends StatefulWidget {
 
 class _YourTaxDetailsState extends State<YourTaxDetails> {
   TextEditingController paymentController = TextEditingController();
+  final AuthCon con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _YourTaxDetailsState extends State<YourTaxDetails> {
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               SizedBox(height: 10),
-              Text('Rita Ganes',
+              Text(con.Owner['Owner'],
                   style: TextStyle(
                       fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
               SizedBox(height: 20),
@@ -55,7 +57,7 @@ class _YourTaxDetailsState extends State<YourTaxDetails> {
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               SizedBox(height: 10),
-              Text('34 Data, Quezon City, 1113 Metro Manila, Philippines',
+              Text(con.Owner['Address'],
                   style: TextStyle(
                       fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
               SizedBox(height: 20),
@@ -164,8 +166,7 @@ class _YourTaxDetailsState extends State<YourTaxDetails> {
               color: HexColor('#CEE812'),
               borderRadius: BorderRadius.circular(5)),
           onTap: () {
-
-           Get.to(()=>OverviewPayment());
+            Get.to(() => OverviewPayment());
           },
           text: "Agree and Proceed"),
     );

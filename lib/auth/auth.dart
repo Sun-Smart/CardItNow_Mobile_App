@@ -29,6 +29,9 @@ import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
+  var profileinfo = {}.obs;
+  var scandocs = '';
+
   @override
   void onInit() {
     termsconditions();
@@ -358,11 +361,77 @@ class AuthCon extends GetxController with BaseController {
     print(body);
     if (response == null) return;
     var data = json.decode(response);
-    if (data == "Success") {
+    if (data == "Sucess") {
       creditCardgetAPI();
       Fluttertoast.showToast(msg: 'Card Activate Successfully...');
     } else {
       Fluttertoast.showToast(msg: "Something wrong...");
+    }
+  }
+
+  //Social Media
+  void socialmedia(
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    requiredno,
+    dateofbrith,
+    // issuedate,
+    //expirydate,
+    address,
+    postalcode,
+  ) async {
+    var body = {};
+    var response = await BaseClient()
+        .post(
+            API().updateProfileInformation +
+                "?email=${googleMail == '' ? email : googleMail}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
+            body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = response;
+    print(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      GetStorage().write('username', firstName.toString());
+      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
+      Get.to(() => Passcode());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  void taxDetailsgetApi() async {
+    var responce = await BaseClient()
+        .get(API().taxDetailsGetApiData)
+        .catchError(handleError);
+    if (responce == null) return;
+    var valueMap = jsonDecode(responce);
+    var data = json.decode(valueMap);
+    Owner.value = data;
+  }
+
+  //processocr
+
+  void ocrdocument() async {
+    var body = {"livestockphoto": scandocs};
+    var response =
+        await BaseClient().post(API().processocr, body).catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    // print('Pass' + data);
+    // log(data);
+    // buildtitle1();
+
+    if (data != null) {
+      profileinfo = data;
+      await Get.to(AvatarPageView());
+      Fluttertoast.showToast(msg: data.toString());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
@@ -382,8 +451,8 @@ class AuthCon extends GetxController with BaseController {
       "cardname": cardName.toString(),
       "expirydate": validity.toString(),
       "bankname": bankName.toString(),
-      "ibannumber": " ",
-      "status": nickName.toString(),
+      "ibannumber": nickName.toString(),
+      "status": "",
       "createdby": userid,
       "createddate": dateStr,
       "updatedby": userid,
