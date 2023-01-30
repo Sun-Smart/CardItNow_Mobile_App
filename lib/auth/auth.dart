@@ -123,7 +123,7 @@ class AuthCon extends GetxController with BaseController {
     hideLoading();
     GetStorage().write("savedtoken", data.toString());
 
-    if (data["token"].toString().isNotEmpty) {
+    if (data["token"].toString()!="null") {
       String token = data.toString();
       Map<String, dynamic> payload = Jwt.parseJwt(token);
       print("Chocoboy" + payload.toString());
