@@ -53,7 +53,7 @@ class AuthCon extends GetxController with BaseController {
   var doc64 = '';
   var banklist = [];
   var paymentpurposelist = [];
-  var documenttypelist = [];
+
   var invoicejson = {};
 
   // avatar
@@ -70,7 +70,7 @@ class AuthCon extends GetxController with BaseController {
 
   var drawercountry = "CM".obs;
 
-
+  var documenttypelist = [];
   RxBool newExcercise = false.obs;
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
@@ -83,6 +83,8 @@ class AuthCon extends GetxController with BaseController {
 
   //your Details
   var Owner = {}.obs;
+
+
 
   // login
   final TextEditingController userNameCon = TextEditingController();
@@ -328,7 +330,6 @@ class AuthCon extends GetxController with BaseController {
     state,
     requiredno,
     dateofbrith,
-
     address,
     postalcode,
   ) async {
@@ -608,4 +609,21 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(valueMap);
     Owner.value = data;
   }
+
+//documenttype get
+  void documenttypeget() async {
+    var response = await BaseClient()
+        .get(API().documenttypedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    documenttypelist = data;
+
+
+  }
+
 }
+
+
+
+

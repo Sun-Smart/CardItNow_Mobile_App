@@ -640,7 +640,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
               ),
             ),
 
-            const SizedBox(height: 10),
             // MyCustomInputBox(
             //   enabled: true,
             //   label: "Issue Date",
@@ -769,7 +768,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             //         fontWeight: FontWeight.bold),
             //   ),
             // ),
-            const SizedBox(height: 10),
+
             MyCustomInputBox(
               enabled: true,
               label: "Address *",
