@@ -51,9 +51,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   assignvalues(){
     if(con.profileinfo != {}){
-      // firstNameController.text=con.profileinfo["firstname"];
-      // lastNameController.text=con.profileinfo["lastname"];
+      firstNameController.text=con.profileinfo["firstname"];
+      lastNameController.text=con.profileinfo["lastname"];
       // dateOfBrithController.text=con.profileinfo[""]
+    }else{
+
     }
 
   }
