@@ -63,7 +63,7 @@ class StartState extends State<SplashScreens> {
         }
       } catch (e) {
         print(e.toString());
-
+        Get.toNamed('/home');
       }
     }else{
       Get.offAll(()=>DashbordScreen());
@@ -79,7 +79,6 @@ class StartState extends State<SplashScreens> {
       Get.toNamed('/home');
     } else {
       _bioAuth();
-
     }
     // Get.toNamed('/home');
   }

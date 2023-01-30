@@ -121,7 +121,7 @@ class AuthCon extends GetxController with BaseController {
 
     }
     hideLoading();
-    GetStorage().write("savedtoken", data.toString());
+
 
     if (data["token"].toString()!="null") {
       String token = data.toString();
