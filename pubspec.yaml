@@ -73,6 +73,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   loading_animation_widget: ^1.2.0+4
   s10s_card_scanner: ^0.1.0
+  image_cropper: ^3.0.0
 
 dev_dependencies:
   flutter_test:

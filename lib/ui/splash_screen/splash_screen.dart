@@ -57,7 +57,7 @@ class StartState extends State<SplashScreens> {
 //kkkk
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please authenticate',
-            options: const AuthenticationOptions(biometricOnly: false));
+            options: const AuthenticationOptions(biometricOnly: true));
         if(didAuthenticate){
           Get.offAll(()=>DashbordScreen());
         }
