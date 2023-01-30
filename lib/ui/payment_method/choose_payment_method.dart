@@ -22,7 +22,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
           foregroundColor: Colors.black,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+              },
               icon: Icon(Icons.arrow_back,
                   size: 25, color: HexColor('#004751')))),
       body: Padding(

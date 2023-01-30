@@ -69,7 +69,7 @@ class _termsandconditionsState extends State<termsandconditions> {
                 Text("1.Clause",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                        fontSize: 18,
                         color: Colors.black)),
                 SizedBox(height: 15),
                 Padding(
@@ -77,7 +77,7 @@ class _termsandconditionsState extends State<termsandconditions> {
                     child: Text(con.termscond.toString(),
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 14,
                             color: Colors.black87,
                             fontFamily: 'sora'))),
                 SizedBox(height: 20),

@@ -9,6 +9,7 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
@@ -22,6 +23,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import '../login/login_screen.dart';
 import 'pdfView.dart';
 
 class VerifyUserId extends StatefulWidget {
@@ -137,54 +139,67 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
 
+  Future<bool> _willPopCallback() async {
+    // await showDialog or Show add banners or whatever
+    // then
+    Get.offAll(Home());
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Scaffold(
-        bottomNavigationBar: bulildbutton(),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: BackButton(
-            color: themeChange.darkTheme ? Colors.white : Colors.black,
-          ),
-          actions: [
-            Center(
-              child: GestureDetector(
-                child: Container(
-                  height: 30,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: HexColor('#CEE812'), width: 3),
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Center(
-                    child: Text(
-                      "Skip",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: HexColor('#004751'),
-                          fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+        child: Scaffold(
+          bottomNavigationBar: bulildbutton(),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: BackButton(
+              color: themeChange.darkTheme ? Colors.white : Colors.black,
+            onPressed: (){
+              Get.offAll(Home());
+            },
+            ),
+            actions: [
+              Center(
+                child: GestureDetector(
+                  child: Container(
+                    height: 30,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: HexColor('#CEE812'), width: 3),
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Center(
+                      child: Text(
+                        "Skip",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: HexColor('#004751'),
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
+                  onTap: () {
+                    Get.to(const AvatarPageView());
+                  },
                 ),
-                onTap: () {
-                  Get.to(const AvatarPageView());
-                },
               ),
-            ),
-            const SizedBox(width: 20),
-          ],
-        ),
-        body: Container(
-            //color: Color(0XFFffffff),
-            child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: Responsive.isMobile(context)
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                    children: [
-              buildtitle(),
-              bulidForm(),
-            ]))));
+              const SizedBox(width: 20),
+            ],
+          ),
+          body: Container(
+              //color: Color(0XFFffffff),
+              child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: Responsive.isMobile(context)
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
+                      children: [
+                buildtitle(),
+                bulidForm(),
+              ])))),
+    );
   }
 
   Widget buildtitle() {

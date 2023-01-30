@@ -214,6 +214,7 @@ class _ProfileState extends State<Profile> {
                     borderRadius: BorderRadius.circular(5)),
                 onTap: () {
                   GetStorage().remove('token');
+
                   GetStorage().remove('save_token');
                   Get.offAndToNamed('/home');
                 },

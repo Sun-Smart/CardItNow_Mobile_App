@@ -67,7 +67,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: BackButton(
@@ -82,6 +81,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             children: [
               buildtitle(),
               buildForm(),
+              bulildbutton()
             ],
           ),
         ),
@@ -129,7 +129,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
           children: [
             MyCustomInputBox(
               enabled: true,
-              label: "First Name ",
+              label: "First Name *",
               controller: firstNameController,
               obsecureText: false,
               inputHint: "Your First Name",
@@ -237,7 +237,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
             MyCustomInputBox(
               enabled: true,
-              label: "Last Name ",
+              label: "Last Name *",
               controller: lastNameController,
               obsecureText: false,
               inputHint: "Your Last Name",
@@ -291,7 +291,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             MyCustomInputBox(
               enabled: true,
               keyboardType: TextInputType.none,
-              label: "Date Of Brith",
+              label: "Date Of Brith *",
               controller: dateOfBrithController,
               obsecureText: false,
               validator: (value) {
@@ -304,15 +304,37 @@ class _ProfileInformationState extends State<ProfileInformation> {
               inputDecoration: InputDecoration(
                 suffixIcon: GestureDetector(
                   onTap: () async {
-                    DateTime date = DateTime(1900);
+                    DateTime? date = DateTime(1900);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     date = (await showDatePicker(
+                        builder: (context, child) {
+    return Theme(
+    data: Theme.of(context)
+        .copyWith(
+    colorScheme:
+    ColorScheme.light(
+    primary:HexColor('#CEE812'),
+    ),
+
+    textButtonTheme:
+    TextButtonThemeData(
+    style: TextButton
+        .styleFrom(
+    primary: HexColor('#CEE812'), // button text color
+    ),
+    ),
+    ),
+    child: child!,
+    );
+    },
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: DateTime(DateTime.now().year-18),
                         firstDate: DateTime(1900),
-                        lastDate: DateTime(2100)))!;
-                    dateOfBrithController.text =
-                        DateFormat("yyyy-MM-dd").format(date);
+                        lastDate: DateTime(DateTime.now().year-18)));
+                    if(date!= null) {
+                      dateOfBrithController.text =
+                    DateFormat("yyyy-MM-dd").format(date);
+                  }
                   },
                   child: Icon(Icons.date_range, color: Colors.black),
                 ),
@@ -460,7 +482,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
             MyCustomInputBox(
               enabled: true,
-              label: "Email id ",
+              label: "Email ID *",
               controller: con.emailController,
               obsecureText: false,
               inputHint: "Your First Name",
@@ -566,7 +588,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Phone Number",
+              label: "Phone Number *",
               maxLength: 10,
               controller: requiredNoController,
               obsecureText: false,
@@ -750,7 +772,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Address",
+              label: "Address *",
               controller: addressController,
               obsecureText: false,
               validator: (value) {
@@ -986,7 +1008,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Postal Code",
+              label: "Postal Code *",
               validator: (value) {
                 if (postalCodeController.text.isEmpty) {
                   return "Please Enter Postal Code...";

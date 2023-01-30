@@ -38,7 +38,7 @@ class _PasscodeState extends State<Passcode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
+      bottomSheet: bulildbutton(),
       body: Container(
           child: SingleChildScrollView(
         child: Column(
@@ -159,6 +159,55 @@ class _PasscodeState extends State<Passcode> {
                               borderRadius: BorderRadius.circular(0)),
                           selectedFieldDecoration: _pinPutDecoration,
                           fieldsCount: 6)),
+                  SizedBox(height: 20),
+                  Container(
+                    // width: size.width/2,
+                    margin: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text("note"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          children: [
+                            Text("1. passcode only contains numbers only."),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text("2. passcode should not be contains same digits."),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text("3. passcode should not be contains continues digits"),
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            Text("   (ex:123456)."),
+                          ],
+                        ),
+
+
+                      ],
+                    ),
+
+
+                  ),
                 ])));
   }
 

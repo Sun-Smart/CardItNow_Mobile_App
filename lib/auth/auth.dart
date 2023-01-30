@@ -63,31 +63,14 @@ class AuthCon extends GetxController with BaseController {
   var geoacclist;
 
   // gender
-  var gender = 1.obs;
+
 
   //credit card get
   var creditCardGet = [].obs;
 
-  //weight
-  var selectedUnits = "LBS".obs;
-  var selectedWeight = 50.0.obs;
-
-  //weight
   var drawercountry = "CM".obs;
-  var selectedHeight = 50.0.obs;
 
-  //current diet
-  var dietType = "Vegetarian".obs;
 
-  //fitness level
-  var isBeginner = true.obs;
-  var isIntermediate = false.obs;
-  var isAdvanced = false.obs;
-
-  //goals
-  var manageWeight = false.obs;
-  var increaseEnergy = false.obs;
-  var inceaseMuscleMass = false.obs;
   RxBool newExcercise = false.obs;
   RxBool workoutWithoutOutSide = false.obs;
   RxBool fitEveryDay = false.obs;
@@ -132,62 +115,28 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     if (ischecked_checkbox == true) {
       GetStorage().write("save_token", data["token"].toString());
-
-      // SharedPreferences _prefs = await SharedPreferences.getInstance();
-      // await _prefs.setString("save_token", data["token"].toString());
-
-      // print("--------${_prefs.getString("save_token")}");
     } else {
-      // GetStorage().remove("save_token");
-      // SharedPreferences _prefs = await SharedPreferences.getInstance();
-      // await _prefs.clear();
-      // print("--------${_prefs.getString("save_token")}");
+
     }
-
     hideLoading();
-
-    String token = data.toString();
-    Map<String, dynamic> payload = Jwt.parseJwt(token);
-    print("Chocoboy" + payload.toString());
-    print("response " + data.toString());
     GetStorage().write("savedtoken", data.toString());
 
-    GetStorage().write("getuserid", payload["userid"].toString());
-    print("useridcheck" + payload["userid"].toString());
-    var getuserid = payload["userid"].toString();
-
     if (data["token"].toString().isNotEmpty) {
+      String token = data.toString();
+      Map<String, dynamic> payload = Jwt.parseJwt(token);
+      print("Chocoboy" + payload.toString());
+      print("response " + data.toString());
+      GetStorage().write("getuserid", payload["userid"].toString());
+      print("useridcheck" + payload["userid"].toString());
+      var getuserid = payload["userid"].toString();
       GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
 
-      // token.value = userData["token"];
-      // if (!resend) {
-      //   // Get.to(OtpScreenView());
-      // }
     } else {
       Fluttertoast.showToast(msg: "Check Your Login Credentials");
     }
   }
 
-  //loginOtp
-  void loginOTP() async {
-    if (otp.value == otpCon.text) {
-      otp = ''.obs;
-      if (1 == 0) {
-        InitCon acon = InitCon();
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        var result = prefs.setString('token', token.value);
-        print(
-            '**********************  login OTP  ${result}   **********************');
-        acon.getLoginDetails();
-        // Get.offAll(BottomNav());
-      } else {
-        // Get.to(AvatarPageView());
-      }
-    } else {
-      Fluttertoast.showToast(msg: "OTP Mismatch");
-    }
-  }
 
   //regsterApi
   void registerAPI(email) async {
@@ -199,13 +148,14 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-    print('check' + data);
+
     if (data == "Success") {
       Get.to(VerifyEmail());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
   }
+
 
   //verifyotp
   void verify(email, otp) async {
@@ -520,42 +470,7 @@ class AuthCon extends GetxController with BaseController {
     // print('check' + data);
   }
 
-  void updateGoalAPI() async {
-    // showLoading();
-    List<String> fitGoalList = [];
-    if (manageWeight.value) {
-      fitGoalList.add("1");
-    }
-    if (increaseEnergy.value) {
-      fitGoalList.add("2");
-    }
-    if (inceaseMuscleMass.value) {
-      fitGoalList.add("3");
-    }
-    if (newExcercise.value) {
-      fitGoalList.add("4");
-    }
-    if (workoutWithoutOutSide.value) {
-      fitGoalList.add("5");
-    }
-    if (fitEveryDay.value) {
-      fitGoalList.add("6");
-    }
-    var body = {
-      'fitness_goals[]': fitGoalList,
-    };
-    var response =
-        await BaseClient().post(API().updateGoal, body).catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
 
-    // hideLoading();
-    if (data['status']) {
-      Fluttertoast.showToast(msg: data['message']);
-    } else {
-      Fluttertoast.showToast(msg: data['message']);
-    }
-  }
 
   //onboard payee
   void onboardPayee(firstName, email, businessRegnumber, phonenumber, bank,

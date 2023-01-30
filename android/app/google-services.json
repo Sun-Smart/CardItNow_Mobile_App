@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "988064158191-uua98m8n75cdd6uqr3f4t92juoig3bk2.apps.googleusercontent.com",
+          "client_id": "988064158191-jsr38688oueltdnof44986it0bbhs3gt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cardit",
             "certificate_hash": "f294c9b50b65f5876902a1d60b13cb51fd61b3fc"
+          }
+        },
+        {
+          "client_id": "988064158191-op4ua04da3b6r22r0lfe2fvmflkcbfrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cardit",
+            "certificate_hash": "1be24ace61b19aa33ed438889e65f690a48677cb"
           }
         },
         {

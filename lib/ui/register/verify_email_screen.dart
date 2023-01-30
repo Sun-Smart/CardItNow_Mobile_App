@@ -69,7 +69,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
           ],
         ),
       )),
-      bottomNavigationBar: bulildbutton(),
+      bottomSheet: bulildbutton(),
     );
   }
 

@@ -32,7 +32,7 @@ class StartState extends State<SplashScreens> {
     try {
       authenticated = await auth.authenticate(
         options: AuthenticationOptions(
-            biometricOnly: false, stickyAuth: true),
+            biometricOnly: true, stickyAuth: true),
         localizedReason: "Authenticate to use app",
 
       );

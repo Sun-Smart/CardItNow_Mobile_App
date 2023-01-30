@@ -57,6 +57,8 @@ class API {
 
   //dummy json for invoice and amount
   String invoiceget = "PayerPayeePrivate/GetRawResult";
+
+  //ocr
   String processocr = 'customerdetail/ProcessOCR';
   //onboard Payeee
   String onboardPayeePost = 'PayerPayeePrivate';
