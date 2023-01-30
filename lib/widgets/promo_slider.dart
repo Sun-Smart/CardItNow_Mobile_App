@@ -33,7 +33,7 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                       autoPlay: true,
                       viewportFraction: 1,
                       aspectRatio: 1.5,
-                      enlargeCenterPage: false,
+                      enlargeCenterPage: true,
                       padEnds: false,
                       onPageChanged: (index, reason) {
                         setState(() {
