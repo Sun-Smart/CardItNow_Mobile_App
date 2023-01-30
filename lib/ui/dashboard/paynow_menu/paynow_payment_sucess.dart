@@ -1,8 +1,8 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/amountpay.dart';
-import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
-import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +11,6 @@ import 'package:provider/provider.dart';
 
 import '../../../themes/styles.dart';
 import '../../../widgets/auth_button.dart';
-
-
 
 class PaynowSucessScreen extends StatefulWidget {
   const PaynowSucessScreen({Key? key}) : super(key: key);
@@ -26,7 +24,9 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
   void initState() {
     super.initState();
   }
-final AuthCon con = Get.find();
+
+  final AuthCon con = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -40,8 +40,8 @@ final AuthCon con = Get.find();
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                 // Get.to( const PaymentLoading());
-                 // Navigator.pop(context);
+                  // Get.to( const PaymentLoading());
+                  // Navigator.pop(context);
                 },
                 icon: const Icon(Icons.close),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -188,8 +188,10 @@ final AuthCon con = Get.find();
               child: InkWell(
                 highlightColor: Color(0XFFffffff),
                 focusColor: Color(0XFFffffff),
-                splashColor: Colors.green, // splash color
-                onTap: () {}, // button pressed
+                splashColor: Colors.green,
+                // splash color
+                onTap: () {},
+                // button pressed
                 child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -233,8 +235,10 @@ final AuthCon con = Get.find();
               child: InkWell(
                 highlightColor: Color(0XFFffffff),
                 focusColor: Color(0XFFffffff),
-                splashColor: Colors.green, // splash color
-                onTap: () {}, // button pressed
+                splashColor: Colors.green,
+                // splash color
+                onTap: () {},
+                // button pressed
                 child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -286,17 +290,13 @@ final AuthCon con = Get.find();
   Widget bulildbutton() {
     return AuthButton(
       decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
+          color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
-       // showAlertDialog(context);
-        
-         con.invoicegetmethod();
-          Get.to(AmountPay());
-      //  Navigator.of(context).pushNamed('/loanamount')
-            // showAlertDialog(context);
-            
+        // showAlertDialog(context);
+        con.invoicegetmethod();
+        Get.to(AmountPay());
+        //  Navigator.of(context).pushNamed('/loanamount')
+        // showAlertDialog(context);
       },
       text: "Start New Payment",
     );

@@ -140,11 +140,9 @@ class _splash2State extends State<splash2> {
                                               const SizedBox(width: 20),
                                               Text(country[index]['type']!,
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-
-                                                      color:
-                                                      type == country[index]['type']?
-                                                      HexColor('#004751'):Colors.lightGreen,
+                                                      fontWeight: FontWeight.bold,color:
+                                                  type == country[index]['type']?
+                                                  HexColor('#004751'):Colors.lightGreen,
                                                       fontSize: 20)),
                                               const SizedBox(height: 10),
                                             ],

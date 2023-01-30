@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -110,10 +111,10 @@ class _termsandconditionsState extends State<termsandconditions> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (GetStorage().read('token') == null) {
-            Get.to(ChoosePaymentPage());
+          if (GetStorage().read('save_token') == null) {
+            Get.to(congratesscreen());
           } else {
-            Get.to(ChoosePaymentPage());
+            Get.to(congratesscreen());
           }
         },
         text: "Done");

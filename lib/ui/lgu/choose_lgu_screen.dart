@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../themes/Themes.dart';
+import '../../widgets/custom_dropdown.dart';
 import 'your_tax_details.dart';
 
 class ChooseLGUScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class ChooseLGUScreen extends StatefulWidget {
 class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   String? dropdownvalue;
   String? dropdownvalueCity;
-  var selectedcountry = ['Batac'];
+  var selectedcountry = ['Batac','Helo','hiiii','hobby'];
 
   List<String> _pictures = [];
   final AuthCon con = Get.find();
@@ -41,6 +42,7 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   //Image to Byte64
   File? _file;
   PlatformFile? _platformFile;
+  final countryCon = TextEditingController();
 
   openGallery() async {
     final file = await FilePicker.platform
@@ -81,6 +83,27 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
                           fontSize: 16,
                           color: Colors.black))),
               const SizedBox(height: 10),
+              // CustomDropdown.search(
+              //     borderRadius: BorderRadius.zero,
+              //     borderSide: BorderSide(color: Colors.grey),
+              //     hintText: 'Select job role',
+              //     listItemStyle: TextStyle(color: Colors.black),
+              //     selectedStyle:
+              //     TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
+              //     items: selectedcountry,
+              //     controller: countryCon,
+              //     onChanged: (v) {
+              //       print(v);
+              //
+              //       // var ins =
+              //       // dummy.indexWhere((element) => element.containsValue(v));
+              //       // print(dummy[ins]['id']);
+              //     },
+              //   ),
+              // SizedBox(
+              //   height: 20,
+              // ),
+
               Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(

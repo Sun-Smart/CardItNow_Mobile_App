@@ -1,11 +1,15 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class LvScrollView extends StatelessWidget {
   LvScrollView({super.key});
+
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +31,10 @@ class LvScrollView extends StatelessWidget {
             return index == 0
                 ? Lv2()
                 : index == 1
-                ? Lv1()
-                : index == 2
-                ? Lv3()
-                : Lv3();
+                    ? Lv1()
+                    : index == 2
+                        ? Lv3()
+                        : Lv3();
           }),
     );
   }

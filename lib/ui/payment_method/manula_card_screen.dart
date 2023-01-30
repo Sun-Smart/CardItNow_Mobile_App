@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unnecessary_null_comparison, avoid_unnecessary_containers, avoid_print, unrelated_type_equality_checks, unnecessary_brace_in_string_interps
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,14 @@ class ManualCard extends StatefulWidget {
 
 class _ManualCardState extends State<ManualCard> {
   final AuthCon con = Get.find();
+
+  @override
+  void initState() {
+    setState(() {
+      con.creditCardgetAPI();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,44 +48,65 @@ class _ManualCardState extends State<ManualCard> {
                         fontSize: 14))),
             const SizedBox(width: 20),
           ]),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              // Obx(() => CustomeCardData(
-              //     bankName: con.creditCardGet['bankname'].toString(),
-              //     cardNumber: con.creditCardGet['cardnumber'].toString(),
-              //     nameHolder: con.creditCardGet['cardname'].toString(),
-              //     validity: con.creditCardGet['expirydate'].toString())),
-              Image.asset('assets/banner/banner1.png'),
-              SizedBox(height: 100),
-              Text('Great ! You Are ready with your \nCredit card',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: HexColor('#004751'))),
-              SizedBox(height: 10),
-              Text(
-                  'We have verified your Credit Card and Details. \nYou are good to go with payments now.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey)),
-            ],
-          ),
-        ),
-      ),
+      body: Obx(() => con.creditCardGet.isEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                    child: Text('Add Your Credit Card',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontFamily: 'Sora',
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 30),
+                Center(
+                    child: Text('Great ! You Are ready with your \nCredit card',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#004751')))),
+                SizedBox(height: 10),
+                Center(
+                    child: Text(
+                        'We have verified your Credit Card and Details. \nYou are good to go with payments now.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey))),
+              ],
+            )
+          : ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: con.creditCardGet.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Obx(() => CustomeCardData(
+                        cardDefault:
+                            con.creditCardGet[index]['carddefault'].toString(),
+                        customerId:
+                            con.creditCardGet[index]['customerid'].toString(),
+                        id: con.creditCardGet[index]['payid'].toString(),
+                        bankName:
+                            con.creditCardGet[index]['bankname'].toString(),
+                        cardNumber:
+                            con.creditCardGet[index]['cardnumber'].toString(),
+                        nameHolder:
+                            con.creditCardGet[index]['cardname'].toString(),
+                        validity: con.creditCardGet[index]['expirydate']
+                            .toString())));
+              },
+            )),
       bottomNavigationBar: AuthButton(
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Get.to(const DashbordScreen());
+          //  Get.to(const DashbordScreen());
         },
         text: "Let's Start Payments",
       ),
@@ -87,71 +115,129 @@ class _ManualCardState extends State<ManualCard> {
 }
 
 class CustomeCardData extends StatelessWidget {
-  final String bankName, cardNumber, nameHolder, validity;
+  final String bankName,
+      cardNumber,
+      nameHolder,
+      validity,
+      id,
+      customerId,
+      cardDefault;
 
   const CustomeCardData(
       {Key? key,
+      required this.cardDefault,
       required this.bankName,
       required this.cardNumber,
       required this.nameHolder,
-      required this.validity})
+      required this.validity,
+      required this.id,
+      required this.customerId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 230,
-      decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/card/card.png'))),
-      child: Stack(
-        children: [
-          Positioned(
-              left: 32,
-              top: 35,
-              child: Text(bankName,
+    final AuthCon con = Get.find();
+    return Column(
+      children: [
+        Container(
+            width: MediaQuery.of(context).size.width,
+            height: 230,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/banner/card_01.png'))),
+            child: Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(bankName,
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ],
+                    ),
+                    SizedBox(height: 40),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Name',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(nameHolder,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                            Text(cardNumber,
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16)),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Color(0xffC9E313),
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Row(
+                        children: [
+                          Text('Exp',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                          SizedBox(width: 10),
+                          Text(validity.substring(5, 10),
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14)),
+                        ],
+                      ),
+                    )
+                  ],
+                ))),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: MaterialButton(
+              color: HexColor('#CEE812'),
+              onPressed: () {
+                con.setCardDefaultPost(id);
+                print('Pay id ${id}');
+                print('Customer user id ${customerId}');
+                print('Card Default status ${cardDefault}');
+              },
+              child: Text(cardDefault == '1' ? 'Activated' : 'Set as default',
                   style: TextStyle(
-                      color: Colors.white, fontSize: 16, fontFamily: 'Sora'))),
-          Positioned(
-              left: 32,
-              bottom: 100,
-              child: Text(nameHolder,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Sora',
                       fontSize: 14,
-                      fontFamily: 'Sora'))),
-          Positioned(
-            right: 25,
-            bottom: 100,
-            child: Text(
-              'xxxx xxxx xxxx ${cardNumber.substring(12, 16)}',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  fontFamily: 'Sora'),
+                      fontWeight: FontWeight.bold)),
             ),
           ),
-          Positioned(
-            left: 65,
-            bottom: 27,
-            child: Text(
-              '${validity.substring(0, 10)}',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  fontFamily: 'Sora'),
-            ),
-          ),
-          Positioned(
-            right: 35,
-            bottom: 28,
-            child: Image.asset('assets/card/visa.png', width: 35, height: 20),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

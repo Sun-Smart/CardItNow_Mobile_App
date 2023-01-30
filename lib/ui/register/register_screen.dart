@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -246,6 +247,7 @@ class _RegisterState extends State<Register> {
                                                 setState(() {
                                                   if (isChecked) {
                                                     isChecked = false;
+
                                                   } else {
                                                     isChecked = true;
                                                     // showAlertDialog(context);
@@ -278,85 +280,85 @@ class _RegisterState extends State<Register> {
                                 ),
                               ]),
                           //2 factor begin
-                          Row(
-                              mainAxisAlignment: Responsive.isMobile(context)
-                                  ? MainAxisAlignment.start
-                                  : MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            Responsive.isMobile(context)
-                                                ? MainAxisAlignment.start
-                                                : MainAxisAlignment.start,
-                                        children: [
-                                      SizedBox(
-                                        width: Responsive.isMobile(context)
-                                            ? 0
-                                            : Responsive.isDesktop(context)
-                                                ? MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.7
-                                                : MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.6,
-                                      ),
-                                      SizedBox(
-                                          height: 20.0,
-                                          width: 24.0,
-                                          child: Theme(
-                                            data: ThemeData(
-                                                unselectedWidgetColor: themeChange
-                                                        .darkTheme
-                                                    ? Colors.white
-                                                    : Color(
-                                                        0xff004751) // Your color
-                                                ),
-                                            child: Checkbox(
-                                              activeColor: themeChange.darkTheme
-                                                  ? Colors.white
-                                                  : Color(0xff004751),
-                                              value: isChecked1,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  if (isChecked1) {
-                                                    isChecked1 = true;
-                                                  } else {
-                                                    isChecked1 = true;
-                                                  }
-                                                });
-                                              },
-                                            ),
-                                          )),
-                                      // SizedBox(width: 10.0),
-                                      // Text("I agree to the ",
-                                      //     style: TextStyle(
-                                      //       color: themeChange.darkTheme
-                                      //           ? Colors.white
-                                      //           : Color(0xff646464),
-                                      //       fontSize: 14,
-                                      //     ))
-                                    ])),
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                          fontSize: 14,
-                                          color: HexColor('#004751'))),
-                                  onPressed: () {
-                                    showAlertDialog(context);
-                                  },
-                                  child: Text(
-                                    ' Enable 2 Factor Authentication',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: themeChange.darkTheme
-                                            ? Colors.white
-                                            : HexColor('#004751')),
-                                  ),
-                                ),
-                              ]),
+                          // Row(
+                          //     mainAxisAlignment: Responsive.isMobile(context)
+                          //         ? MainAxisAlignment.start
+                          //         : MainAxisAlignment.start,
+                          //     children: [
+                          //       Container(
+                          //           child: Row(
+                          //               mainAxisAlignment:
+                          //                   Responsive.isMobile(context)
+                          //                       ? MainAxisAlignment.start
+                          //                       : MainAxisAlignment.start,
+                          //               children: [
+                          //             SizedBox(
+                          //               width: Responsive.isMobile(context)
+                          //                   ? 0
+                          //                   : Responsive.isDesktop(context)
+                          //                       ? MediaQuery.of(context)
+                          //                               .size
+                          //                               .width /
+                          //                           2.7
+                          //                       : MediaQuery.of(context)
+                          //                               .size
+                          //                               .width /
+                          //                           3.6,
+                          //             ),
+                          //             SizedBox(
+                          //                 height: 20.0,
+                          //                 width: 24.0,
+                          //                 child: Theme(
+                          //                   data: ThemeData(
+                          //                       unselectedWidgetColor: themeChange
+                          //                               .darkTheme
+                          //                           ? Colors.white
+                          //                           : Color(
+                          //                               0xff004751) // Your color
+                          //                       ),
+                          //                   child: Checkbox(
+                          //                     activeColor: themeChange.darkTheme
+                          //                         ? Colors.white
+                          //                         : Color(0xff004751),
+                          //                     value: isChecked1,
+                          //                     onChanged: (value) {
+                          //                       setState(() {
+                          //                         if (isChecked1) {
+                          //                           isChecked1 = true;
+                          //                         } else {
+                          //                           isChecked1 = true;
+                          //                         }
+                          //                       });
+                          //                     },
+                          //                   ),
+                          //                 )),
+                          //             // SizedBox(width: 10.0),
+                          //             // Text("I agree to the ",
+                          //             //     style: TextStyle(
+                          //             //       color: themeChange.darkTheme
+                          //             //           ? Colors.white
+                          //             //           : Color(0xff646464),
+                          //             //       fontSize: 14,
+                          //             //     ))
+                          //           ])),
+                          //       TextButton(
+                          //         style: TextButton.styleFrom(
+                          //             textStyle: TextStyle(
+                          //                 fontSize: 14,
+                          //                 color: HexColor('#004751'))),
+                          //         onPressed: () {
+                          //           showAlertDialog(context);
+                          //         },
+                          //         child: Text(
+                          //           ' Enable 2 Factor Authentication',
+                          //           style: TextStyle(
+                          //               fontSize: 14,
+                          //               color: themeChange.darkTheme
+                          //                   ? Colors.white
+                          //                   : HexColor('#004751')),
+                          //         ),
+                          //       ),
+                          //     ]),
                           //2 factor
                         ],
                       )),
@@ -365,7 +367,9 @@ class _RegisterState extends State<Register> {
                       if (formKey.currentState!.validate()) {
                         // Get.to(VerifyEmail());
                       } else if (isChecked == false) {
-                      } else if (isChecked == true) {}
+                        Fluttertoast.showToast(msg: "Please Accept Terms and conditions");
+                      }
+
                       // if (formKey.currentState!.validate()) {
                       //   Get.to(VerifyEmail(value: widget.value));
                       // } else if (isChecked == false) {
@@ -374,7 +378,9 @@ class _RegisterState extends State<Register> {
                       // }
                       if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
-                      } else {
+                      }
+                      else if(isChecked == false){Fluttertoast.showToast(msg: "Please Accept Terms and conditions");}
+                      else {
                         con.registerAPI(con.emailController.text.toString());
                       }
                     },
@@ -444,7 +450,7 @@ class _RegisterState extends State<Register> {
             highlightColor: Color(0XFFffffff),
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
-            onTap: () {
+            onTap: () async{
               FacebookAuth.instance.login(
                   permissions: ["public_profile", "email"]).then((value) {
                 FacebookAuth.instance.getUserData().then((userData) {
@@ -453,9 +459,14 @@ class _RegisterState extends State<Register> {
                     userObj = userData;
                     print(userObj.toString()+'ffff');
                   });
-                  if (isLoggedIn = true) {
+                  if (isLoggedIn == true) {
+                    con.emailController.text =userData["email"];
+                    // con.socialmedia( userData["name"],
+                    //     userData["email"],
+                    //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
                     con.registerAPI(userData['email']);
-                    GetStorage().write('username', userData['name']);
+                    GetStorage().write('username', userData['name']
+                    );
                     // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
@@ -536,7 +547,9 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
+
             Navigator.pop(context);
+
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),
