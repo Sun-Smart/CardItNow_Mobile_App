@@ -11,11 +11,10 @@ class cardsapi extends GetxController with BaseController {
 
   @override
   void onInit() {
-
     creditCardgetAPI();
-
     super.onInit();
   }
+
   final emailController = TextEditingController();
 
   var banklist = [];
@@ -34,13 +33,10 @@ class cardsapi extends GetxController with BaseController {
 
   void setCardDefaultPost(payId) async {
     var userid = GetStorage().read("getuserid");
-    print("checkuser" + userid.toString());
     var body = {"customerid": userid, "payid": payId};
     var response = await BaseClient()
         .post(API().setDefaultCard, body)
         .catchError(handleError);
-    print(response);
-    print(body);
     if (response == null) return;
     var data = json.decode(response);
     if (data == "Sucess") {
@@ -57,7 +53,6 @@ class cardsapi extends GetxController with BaseController {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
     var userid = GetStorage().read("getuserid");
-    print("checkuser" + userid.toString());
     var body = {
       "customerid": userid,
       "uid": 0,
@@ -77,11 +72,8 @@ class cardsapi extends GetxController with BaseController {
     var response = await BaseClient()
         .post(API().crediCardPost, body)
         .catchError(handleError);
-    print(response);
-    print(body);
     if (response == null) return;
     var data = json.decode(response);
-    print('check' + data);
     if (data == "Success") {
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
       creditCardgetAPI();
@@ -99,11 +91,7 @@ class cardsapi extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    print(data);
     creditCardGet.value = data;
-    print('Credit Card Api Get Method' +
-        creditCardGet.toString() +
-        'Credit Card Api Get Method');
   }
 
 
