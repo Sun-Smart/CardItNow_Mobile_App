@@ -12,21 +12,30 @@ class Registerloading extends StatefulWidget {
   State<Registerloading> createState() => _RegisterloadingState();
 }
 
+Future<bool> _willPopCallback() async {
+  // await showDialog or Show add banners or whatever
+  // then
+  return Future.value(false);
+}
+
 class _RegisterloadingState extends State<Registerloading> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            //color: Color(0XFFffffff),
-            child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  topBanner(),
-                      buildtitle1(),
-                  // buildtitle(),
-                ]))));
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: Scaffold(
+          body: Container(
+              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              //color: Color(0XFFffffff),
+              child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    topBanner(),
+                        buildtitle1(),
+                    // buildtitle(),
+                  ])))),
+    );
   }
 
   Widget topBanner() {
