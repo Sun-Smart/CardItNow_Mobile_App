@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/loginapi.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -34,6 +35,8 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
+  final loginauth logincon = Get.find();
+
   bool _isChecked = false;
   bool isVisible = true;
 
@@ -359,7 +362,7 @@ class _LoginState extends State<Login> {
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
                       } else {
-                        con.loginAPI(_emailController.text,
+                        logincon.loginAPI(_emailController.text,
                             _passwordController.text, _isChecked);
                       }
                     },

@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -26,6 +27,7 @@ Future main() async {
   HttpOverrides.global = new MyHttpOverrides();
   runApp(const MyApp());
   Get.put(AuthCon());
+  Get.put(cardsapi());
 }
 
 class MyApp extends StatefulWidget {

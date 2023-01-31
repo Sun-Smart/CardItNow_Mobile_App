@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters, sort_child_properties_last, unrelated_type_equality_checks
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -28,6 +29,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final addNickController = new TextEditingController();
 
   final AuthCon con = Get.find();
+  final cardsapi cardcons = Get.find();
   final formKey = GlobalKey<FormState>();
 
   late FocusNode _focusNode;
@@ -485,7 +487,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       bottomNavigationBar: AuthButton(
           onTap: () {
             if (formKey.currentState!.validate()) {
-              con.creditCardPostAPI(
+              cardcons.creditCardPostAPI(
                   creditCardController.text.toString(),
                   validityController.text.toString(),
                   cvvController.text.toString(),

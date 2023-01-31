@@ -38,10 +38,10 @@ class AuthCon extends GetxController with BaseController {
     showAvatorMaster();
     geoaccess();
     taxDetailsGetApi();
-    creditCardgetAPI();
     banklistget();
     paymentpurposeget();
     invoicegetmethod();
+    countryselection();
     super.onInit();
   }
 
@@ -62,11 +62,6 @@ class AuthCon extends GetxController with BaseController {
   // geoaccess
   var geoacclist;
 
-  // gender
-
-
-  //credit card get
-  var creditCardGet = [].obs;
 
   var drawercountry = "CM".obs;
 
@@ -78,12 +73,11 @@ class AuthCon extends GetxController with BaseController {
   var uploadimg = '';
   var uploaddoc = '';
   String choosedDocId = '';
-
   var googleMail = '';
-
   //your Details
   var Owner = {}.obs;
-
+//choose country
+  var pickcountry = [];
 
 
   // login
@@ -104,41 +98,6 @@ class AuthCon extends GetxController with BaseController {
   //otp
   final TextEditingController otpCon = TextEditingController();
 
-  //loginApi
-  void loginAPI(email, password, bool ischecked_checkbox) async {
-    print("working");
-    showLoading();
-    var response = await BaseClient()
-        .get("Token?email=$email&Password=$password")
-        .catchError(handleError);
-    print(email);
-    print(password);
-    if (response == null) return;
-    var data = json.decode(response);
-    if (ischecked_checkbox == true) {
-      GetStorage().write("save_token", data["token"].toString());
-    } else {
-
-    }
-    hideLoading();
-
-
-    if (data["token"].toString()!="null") {
-      String token = data.toString();
-      Map<String, dynamic> payload = Jwt.parseJwt(token);
-      print("Chocoboy" + payload.toString());
-      print("response " + data.toString());
-      GetStorage().write("getuserid", payload["userid"].toString());
-      print("useridcheck" + payload["userid"].toString());
-      var getuserid = payload["userid"].toString();
-      GetStorage().write("save_token", data["token"].toString());
-      Get.to(DashbordScreen());
-
-    } else {
-      Fluttertoast.showToast(msg: "Check Your Login Credentials");
-    }
-  }
-
 
   //regsterApi
   void registerAPI(email) async {
@@ -150,11 +109,11 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-
     if (data == "Success") {
       Get.to(VerifyEmail());
+      Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: "Something wrong");
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
@@ -302,57 +261,7 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //Set Card Default Post Method
-  void setCardDefaultPost(payId) async {
-    var userid = GetStorage().read("getuserid");
-    print("checkuser" + userid.toString());
-    var body = {"customerid": userid, "payid": payId};
-    var response = await BaseClient()
-        .post(API().setDefaultCard, body)
-        .catchError(handleError);
-    print(response);
-    print(body);
-    if (response == null) return;
-    var data = json.decode(response);
-    if (data == "Sucess") {
-      creditCardgetAPI();
-      Fluttertoast.showToast(msg: 'Card Activate Successfully...');
-    } else {
-      Fluttertoast.showToast(msg: "Something wrong...");
-    }
-  }
 
-  //Social Media
-  void socialmedia(
-    email,
-    firstName,
-    lastName,
-    city,
-    state,
-    requiredno,
-    dateofbrith,
-    address,
-    postalcode,
-  ) async {
-    var body = {};
-    var response = await BaseClient()
-        .post(
-            API().updateProfileInformation +
-                "?email=${googleMail == '' ? email : googleMail}&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode",
-            body)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = response;
-    print(response);
-    print('Pass' + data);
-    if (data == 'Success') {
-      GetStorage().write('username', firstName.toString());
-      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      Get.to(() => Passcode());
-      Fluttertoast.showToast(msg: data.toString());
-    } else {
-      Fluttertoast.showToast(msg: data.toString());
-    }
-  }
 
   void taxDetailsgetApi() async {
     var responce = await BaseClient()
@@ -385,60 +294,7 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-  //upload credit card details
-  void creditCardPostAPI(
-      cardNumber, validity, cvv, cardName, bankName, nickName) async {
-    DateTime datetime = DateTime.now();
-    String dateStr = datetime.toString();
-    var userid = GetStorage().read("getuserid");
-    print("checkuser" + userid.toString());
-    var body = {
-      "customerid": userid,
-      "uid": 0,
-      "uiddesc": 0,
-      "payid": null,
-      "cardnumber": cardNumber.toString(),
-      "cardname": cardName.toString(),
-      "expirydate": validity.toString(),
-      "bankname": bankName.toString(),
-      "ibannumber": nickName.toString(),
-      "status": "",
-      "createdby": userid,
-      "createddate": dateStr,
-      "updatedby": userid,
-      "updateddate": dateStr
-    };
-    var response = await BaseClient()
-        .post(API().crediCardPost, body)
-        .catchError(handleError);
-    print(response);
-    print(body);
-    if (response == null) return;
-    var data = json.decode(response);
-    print('check' + data);
-    if (data == "Success") {
-      Fluttertoast.showToast(msg: 'Data Added Successfully.....');
-      creditCardgetAPI();
-      Get.back();
-    } else {
-      Fluttertoast.showToast(msg: "Something wrong");
-    }
-  }
 
-  //get credit card details
-  void creditCardgetAPI() async {
-    var userid = GetStorage().read("getuserid");
-    var response = await BaseClient()
-        .get(API().creditCardGetLink + userid)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-    print(data);
-    creditCardGet.value = data;
-    print('Credit Card Api Get Method' +
-        creditCardGet.toString() +
-        'Credit Card Api Get Method');
-  }
 
   void uploadDocx(email, docid) async {
     var body = {};
@@ -618,8 +474,21 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     documenttypelist = data;
+  }
 
+  //city country selctions api
 
+  void countryselection() async {
+    var response =
+    await BaseClient().get(API().countryselect).catchError(handleError);
+    if (response == null) return;
+    var data = jsonDecode(response);
+    print("chocosandyDS" + data);
+    // var data1 = json.decode(data);
+
+    // Get.to(AmountPay());
+    pickcountry = data;
+    print("Chocosandy"+pickcountry.toString());
   }
 
 }

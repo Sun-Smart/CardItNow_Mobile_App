@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -33,6 +34,7 @@ class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
   final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
+  final cardsapi cardcons = Get.find();
   int _currentsliderindex = 0;
   List<_SalesData> data = [
     _SalesData('Jan', 35, const Color(0XffEDEDED)),
@@ -49,7 +51,7 @@ class DashbordScreenState extends State<DashbordScreen>
 
   @override
   void initState() {
-    con.creditCardgetAPI();
+    cardcons.creditCardgetAPI();
     super.initState();
   }
 
@@ -147,7 +149,7 @@ class DashbordScreenState extends State<DashbordScreen>
               child: Obx(() => Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      con.creditCardGet.isEmpty
+                      cardcons.creditCardGet.isEmpty
                           ? Padding(
                               padding: EdgeInsets.all(10),
                               child: Container(

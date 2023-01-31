@@ -67,10 +67,12 @@ Widget bulildbutton() {
       onTap: () {
   if (GetStorage().read('save_token') == null) {
     // Fluttertoast.showToast(msg: "Your token is null");
-    Get.to(()=>ChoosePaymentPage());
+    Get.to(Login());
+    // Get.to(()=>ChoosePaymentPage());
 
   } else {
-    Get.to(()=>ChoosePaymentPage());
+    Get.to(Login());
+    // Get.to(()=>ChoosePaymentPage());
   }
 
       },

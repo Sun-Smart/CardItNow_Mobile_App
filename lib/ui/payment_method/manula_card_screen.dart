@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../auth/cardapi.dart';
+
 class ManualCard extends StatefulWidget {
   const ManualCard({Key? key}) : super(key: key);
 
@@ -16,11 +18,12 @@ class ManualCard extends StatefulWidget {
 
 class _ManualCardState extends State<ManualCard> {
   final AuthCon con = Get.find();
+  final cardsapi cardcons = Get.find();
 
   @override
   void initState() {
     setState(() {
-      con.creditCardgetAPI();
+      cardcons.creditCardgetAPI();
     });
     super.initState();
   }
@@ -48,7 +51,7 @@ class _ManualCardState extends State<ManualCard> {
                         fontSize: 14))),
             const SizedBox(width: 20),
           ]),
-      body: Obx(() => con.creditCardGet.isEmpty
+      body: Obx(() => cardcons.creditCardGet.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -82,23 +85,23 @@ class _ManualCardState extends State<ManualCard> {
             )
           : ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemCount: con.creditCardGet.length,
+              itemCount: cardcons.creditCardGet.length,
               itemBuilder: (context, index) {
                 return Padding(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: Obx(() => CustomeCardData(
                         cardDefault:
-                            con.creditCardGet[index]['carddefault'].toString(),
+                        cardcons.creditCardGet[index]['carddefault'].toString(),
                         customerId:
-                            con.creditCardGet[index]['customerid'].toString(),
-                        id: con.creditCardGet[index]['payid'].toString(),
+                        cardcons.creditCardGet[index]['customerid'].toString(),
+                        id: cardcons.creditCardGet[index]['payid'].toString(),
                         bankName:
-                            con.creditCardGet[index]['bankname'].toString(),
+                        cardcons.creditCardGet[index]['bankname'].toString(),
                         cardNumber:
-                            con.creditCardGet[index]['cardnumber'].toString(),
+                        cardcons.creditCardGet[index]['cardnumber'].toString(),
                         nameHolder:
-                            con.creditCardGet[index]['cardname'].toString(),
-                        validity: con.creditCardGet[index]['expirydate']
+                        cardcons.creditCardGet[index]['cardname'].toString(),
+                        validity: cardcons.creditCardGet[index]['expirydate']
                             .toString())));
               },
             )),
@@ -136,6 +139,7 @@ class CustomeCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardsapi cardcons =Get.find();
     final AuthCon con = Get.find();
     return Column(
       children: [
@@ -224,7 +228,7 @@ class CustomeCardData extends StatelessWidget {
             child: MaterialButton(
               color: HexColor('#CEE812'),
               onPressed: () {
-                con.setCardDefaultPost(id);
+                cardcons.setCardDefaultPost(id);
                 print('Pay id ${id}');
                 print('Customer user id ${customerId}');
                 print('Card Default status ${cardDefault}');

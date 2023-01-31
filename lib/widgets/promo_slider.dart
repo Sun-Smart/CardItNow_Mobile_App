@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, avoid_print, unnecessary_string_interpolations, prefer_const_constructors_in_immutables
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/cardapi.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class TopPromoSlider extends StatefulWidget {
 class _TopPromoSliderState extends State<TopPromoSlider> {
   final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
+  final cardsapi cardcons = Get.find();
 
   int _currentsliderindex = 0;
 
@@ -27,7 +29,7 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
             Padding(
               padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: CarouselSlider.builder(
-                  itemCount: con.creditCardGet.length,
+                  itemCount: cardcons.creditCardGet.length,
                   carouselController: _controller,
                   options: CarouselOptions(
                       autoPlay: true,
@@ -43,24 +45,24 @@ class _TopPromoSliderState extends State<TopPromoSlider> {
                   itemBuilder:
                       (BuildContext context, int index, int pageViewIndex) {
                     return Obx(() => CustomeCardData(
-                        id: con.creditCardGet[index]['payid'].toString(),
+                        id: cardcons.creditCardGet[index]['payid'].toString(),
                         customerId:
-                            con.creditCardGet[index]['customerid'].toString(),
+                        cardcons.creditCardGet[index]['customerid'].toString(),
                         cardDefault:
-                            con.creditCardGet[index]['carddefault'].toString(),
+                        cardcons.creditCardGet[index]['carddefault'].toString(),
                         bankName:
-                            con.creditCardGet[index]['bankname'].toString(),
+                        cardcons.creditCardGet[index]['bankname'].toString(),
                         cardNumber:
-                            con.creditCardGet[index]['cardnumber'].toString(),
+                        cardcons.creditCardGet[index]['cardnumber'].toString(),
                         nameHolder:
-                            con.creditCardGet[index]['cardname'].toString(),
+                        cardcons.creditCardGet[index]['cardname'].toString(),
                         validity:
-                            con.creditCardGet[index]['expirydate'].toString()));
+                        cardcons.creditCardGet[index]['expirydate'].toString()));
                   }),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: con.creditCardGet.asMap().entries.map((entry) {
+              children: cardcons.creditCardGet.asMap().entries.map((entry) {
                 return GestureDetector(
                     onTap: () => _controller.animateToPage(entry.key),
                     child: Container(
