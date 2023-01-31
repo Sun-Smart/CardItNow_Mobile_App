@@ -447,12 +447,8 @@ class AuthCon extends GetxController with BaseController {
     await BaseClient().get(API().countryselect).catchError(handleError);
     if (response == null) return;
     var data = jsonDecode(response);
-    print("chocosandyDS" + data);
-    // var data1 = json.decode(data);
-
-    // Get.to(AmountPay());
     pickcountry = data;
-    print("Chocosandy"+pickcountry.toString());
+  
   }
 
 }
