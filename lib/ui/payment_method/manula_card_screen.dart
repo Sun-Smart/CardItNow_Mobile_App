@@ -18,7 +18,7 @@ class ManualCard extends StatefulWidget {
 
 class _ManualCardState extends State<ManualCard> {
   final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.find();
+  final cardsapi cardcons = Get.put(cardsapi());
 
   @override
   void initState() {
@@ -139,7 +139,7 @@ class CustomeCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardsapi cardcons =Get.find();
+    final cardsapi cardcons =Get.put(cardsapi());
     final AuthCon con = Get.find();
     return Column(
       children: [

@@ -29,7 +29,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final addNickController = new TextEditingController();
 
   final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.find();
+  final cardsapi cardcons = Get.put(cardsapi());
   final formKey = GlobalKey<FormState>();
 
   late FocusNode _focusNode;

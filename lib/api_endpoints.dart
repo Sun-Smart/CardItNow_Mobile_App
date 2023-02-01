@@ -70,4 +70,6 @@ class API {
   //countryselection
   String countryselect = 'geographymaster/fulllist';
 
+  String cityselect = 'citymaster/geoid/';
+
 }

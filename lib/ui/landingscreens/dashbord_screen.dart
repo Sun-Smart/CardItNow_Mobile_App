@@ -34,7 +34,7 @@ class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
   final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.find();
+  final cardsapi cardcons =  Get.put(cardsapi());
   int _currentsliderindex = 0;
   List<_SalesData> data = [
     _SalesData('Jan', 35, const Color(0XffEDEDED)),

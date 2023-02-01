@@ -142,6 +142,7 @@ class BaseClient {
       print(response.statusCode);
       print(response.body);
       print(response);
+
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());

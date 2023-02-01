@@ -38,6 +38,7 @@ class AuthCon extends GetxController with BaseController {
     showAvatorMaster();
     geoaccess();
     countryselection();
+
     if(GetStorage().read('save_token').toString() != "null"){
       taxDetailsGetApi();
       banklistget();
@@ -80,6 +81,8 @@ class AuthCon extends GetxController with BaseController {
   var Owner = {}.obs;
 //choose country
   var pickcountry = [];
+  RxList pickcity = [].obs;
+
 
 
   // login
@@ -100,7 +103,8 @@ class AuthCon extends GetxController with BaseController {
   //otp
   final TextEditingController otpCon = TextEditingController();
 
-
+  dynamic dropdownvalue;
+  dynamic dropdownvalueCity;
   //regsterApi
   void registerAPI(email) async {
     showLoading();
@@ -469,7 +473,17 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = jsonDecode(response);
     pickcountry = data;
+  }
 
+  cityselection(
+      String countryid
+      ) async {
+    dropdownvalueCity = null;
+    var response =
+    await BaseClient().get(API().cityselect+countryid).catchError(handleError);
+    if (response == null) return;
+    var data = jsonDecode(response);
+    pickcity.value = data;
   }
 
 }

@@ -29,7 +29,7 @@ Future main() async {
   runApp(const MyApp());
   Get.put(AuthCon());
   // Get.put(loginauth());
-  Get.put(cardsapi());
+  // Get.put(cardsapi());
 }
 
 class MyApp extends StatefulWidget {

@@ -40,8 +40,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final addressController = TextEditingController();
   final postalCodeController = TextEditingController();
 
-  String? dropdownvalue;
-  String? dropdownvalueCity;
+ 
   String? dropdownintrest;
   var selectedcountry = ['UAE', 'Philipines'];
   var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
@@ -908,7 +907,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: dropdownvalue,
+                  value: con.dropdownvalue,
                   hint: Text('Select Your Country',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
@@ -919,20 +918,22 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     //     ? Colors.white
                     //     : Colors.black45
                   )),
-                  items: selectedcountry.map((String item) {
+                  items: con.pickcountry.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
-                        child: Text(item,
+                        child: Text(item["geoname"],
                             style: const TextStyle(
                                 color: Color(0Xff413D4B), fontSize: 14)));
                   }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalueCity = null;
-                      dropdownvalue = newValue!;
-                      con.choosedDocId = newValue;
-                      con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
-                    });
+                  onChanged: (dynamic newValue) {
+
+                      con.dropdownvalue = newValue!;
+                      con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                          setState(() {
+                          con.pickcity;
+                          });
+                      });
+
                   },
                   style: const TextStyle(color: Colors.black),
                 ),
@@ -969,36 +970,25 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: dropdownvalueCity,
-                  hint: Text('Select Your City',
+                  value: con.dropdownvalueCity,
+                  hint: Text('Select Your city',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
                       child: Icon(
-                    Icons.keyboard_arrow_down,
-                    // color: themeChange.darkTheme
-                    //     ? Colors.white
-                    //     : Colors.black45
-                  )),
-                  items: con.isUAE.value
-                      ? uaecities.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList()
-                      : philipinecity.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList(),
-                  onChanged: (String? newValue) {
+                        Icons.keyboard_arrow_down,
+
+                      )),
+                  items: con.pickcity.map((dynamic item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item["cityname"],
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (dynamic newValue) {
                     setState(() {
-                      dropdownvalueCity = newValue!;
-                      con.choosedDocId = newValue;
+                      con.dropdownvalueCity = newValue!;
                     });
                   },
                   style: const TextStyle(color: Colors.black),
