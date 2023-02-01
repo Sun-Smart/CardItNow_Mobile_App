@@ -457,17 +457,20 @@ class _RegisterState extends State<Register> {
                   setState(() {
                     isLoggedIn = true;
                     userObj = userData;
-                    print(userObj.toString()+'ffff');
                   });
                   if (isLoggedIn == true) {
-                    con.emailController.text =userData["email"];
-                    // con.socialmedia( userData["name"],
-                    //     userData["email"],
-                    //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
-                    con.registerAPI(userData['email']);
+                    con.emailController.text = userData["email"];
+                    print(userData.toString());
+                    var userDatas = {
+                      "email": userData["email"].toString(),
+                      "firstname": userData['name'].toString(),
+                      "lastname": "",
+                      "socialid": userData['id'].toString(),
+                      "mediatype": "Facebook"
+                    };
+                  con.registerSignAPI(userDatas);
                     GetStorage().write('username', userData['name']
                     );
-                    // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }
@@ -509,7 +512,6 @@ class _RegisterState extends State<Register> {
             onTap: () async {
               //Gmail Auth
               AuthService().signinWithGoogle();
-              print(AuthService().signinWithGoogle());
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),

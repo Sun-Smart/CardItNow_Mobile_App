@@ -119,6 +119,27 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  //regsterApi
+  void registerSignAPI(var body) async {
+    showLoading();
+    print(body.toString());
+    var response = await BaseClient()
+        .post(API().registerSign, body)
+        .catchError(handleError);
+    hideLoading();
+    if (response == null) return;
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+    print(data.toString());
+    if (data["status"] == "success") {
+      Get.to(Passcode());
+      Fluttertoast.showToast(msg: data["message"].toString());
+    } else {
+      Fluttertoast.showToast(msg: data["message"].toString());
+    }
+  }
+
+
   //verifyotp
   void verify(email, otp) async {
     showLoading();

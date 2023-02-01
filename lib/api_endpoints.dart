@@ -9,6 +9,7 @@ class API {
   String logIn = "member/login";
   String register = "customermaster/SendOTP";
   String verifyotp = "verifyotp/Verify";
+  String registerSign = "common/SaveSocialMedia";
 
   //Terms acceptance
   String terms = "customertermsacceptance/fulllist";
