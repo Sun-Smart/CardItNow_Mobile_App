@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import '../base_client.dart';
+import '../ui/register/verify_userid_screen.dart';
 
 class loginauth extends GetxController with BaseController {
 
@@ -36,8 +37,11 @@ class loginauth extends GetxController with BaseController {
       print(payload);
       GetStorage().write("getuserid", payload["userid"].toString());
       GetStorage().write("save_token", data["token"].toString());
-      Get.to(DashbordScreen());
-
+      if(payload["status"] == "A"){
+        Get.to(DashbordScreen());
+      } else{
+        Get.to(VerifyUserId());
+      }
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }

@@ -114,6 +114,7 @@ class _PasscodeState extends State<Passcode> {
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: otpCon,
+                          obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -147,6 +148,7 @@ class _PasscodeState extends State<Passcode> {
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: confirmotp,
+                          obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)

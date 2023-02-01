@@ -198,8 +198,8 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   //Logout Tapped
-  Future<bool> _logoutPressed() async {
-    bool exitApp = await showDialog(
+_logoutPressed() async {
+   await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -240,7 +240,6 @@ class DashbordScreenState extends State<DashbordScreen>
         );
       },
     );
-    return exitApp ?? false;
   }
 
   //Back Press
