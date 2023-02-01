@@ -23,6 +23,7 @@ import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'ui/landingscreens/changepaymethod.dart';
 import 'ui/landingscreens/dashbord_screen.dart';
 import 'ui/landingscreens/payments_details_screen.dart';
 import 'ui/landingscreens/payments_screen.dart';

@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
-  final loginauth logincon = Get.find();
+  final loginauth logincon = Get.put(loginauth());
 
   bool _isChecked = false;
   bool isVisible = true;

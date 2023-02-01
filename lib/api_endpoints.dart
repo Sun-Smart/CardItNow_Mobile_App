@@ -1,11 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 class API {
-  //String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
+
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
-
-  // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
   String logIn = "member/login";
@@ -70,7 +68,5 @@ class API {
 
   //countryselection
   String countryselect = 'geographymaster/fulllist';
-
-
 
 }

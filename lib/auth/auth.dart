@@ -448,7 +448,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = jsonDecode(response);
     pickcountry = data;
-  
+
   }
 
 }
