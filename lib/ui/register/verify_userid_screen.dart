@@ -22,7 +22,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../login/login_screen.dart';
 import 'pdfView.dart';
@@ -50,7 +49,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   //Image to Byte64
   File? _file;
   PlatformFile? _platformFile;
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   var indexes;
 
   openGallery() async {
@@ -152,24 +150,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           context: context,
         ),
       ],
+
     );
 
-    setState(() {
 
-      Get.back();
-
-
-      // var name;
-    });
     imagedoc2 = File(croppedFile!.path.toString());
     // ImagePickerController.text = croppedFile.path;
     print(imagedoc2!.path);
     List<int> fileInBytes = await imagedoc2!.readAsBytes();
     String fileInBase64 = base64Encode(fileInBytes);
+    con.scandocs = base64.encode(fileInBytes);
     print('******************* BASE 64 SOURCE *******************');
     log(fileInBase64);
-    // onPressed();
-    // profile_pic();
   }
 
 
@@ -638,8 +630,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             );
           } else {
             con.ocrdocument();
-            // Fluttertoast.showToast(msg: "Data Saved");
-
           }
         },
         text: "Next");

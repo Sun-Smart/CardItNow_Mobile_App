@@ -5,8 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/register/pdfView.dart';
+
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,11 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import '../../themes/Themes.dart';
-import '../../widgets/custom_dropdown.dart';
 import 'your_tax_details.dart';
 
 class ChooseLGUScreen extends StatefulWidget {

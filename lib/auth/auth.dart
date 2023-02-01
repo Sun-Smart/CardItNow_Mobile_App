@@ -273,14 +273,16 @@ class AuthCon extends GetxController with BaseController {
 
   //processocr
   void ocrdocument() async {
+    Get.to(Registerloading());
     var body = {"livestockphoto": scandocs};
     var response =
         await BaseClient().post(API().processocr, body).catchError(handleError);
+    Get.back();
     if (response == null) return;
     var data = json.decode(response);
     if (data != null) {
-      profileinfo = data;
-      await Get.to(AvatarPageView());
+      profileinfo.value = data;
+       Get.to(AvatarPageView());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());

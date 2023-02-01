@@ -52,7 +52,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     if(con.profileinfo != {}){
       firstNameController.text=con.profileinfo["firstname"] ?? "";
       lastNameController.text=con.profileinfo["lastname"] ?? "";
-      // dateOfBrithController.text=con.profileinfo[""]
+      dateOfBrithController.text=con.profileinfo["dob"] ?? "";
     }else{
 
     }
@@ -110,7 +110,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
       ),
       )
           : Text(
-              'Hey ${GetStorage().read('username')}! Tell About Your Self',
+              'Hey ${firstNameController.text}! Tell About Your Self',
               style: TextStyle(
                 fontSize: 28,
                 fontFamily: 'Sora',
@@ -601,7 +601,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               inputHint: "Your Required Number",
               validator: (value) {
                 if (requiredNoController.text.isEmpty) {
-                  return "Please Enter Required Number...";
+                  return "";
                 } else {
                   return null;
                 }

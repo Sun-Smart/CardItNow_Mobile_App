@@ -33,6 +33,7 @@ class loginauth extends GetxController with BaseController {
       AuthCon auth = AuthCon();
       String token = data.toString();
       Map<String, dynamic> payload = Jwt.parseJwt(token);
+      print(payload);
       GetStorage().write("getuserid", payload["userid"].toString());
       GetStorage().write("save_token", data["token"].toString());
       Get.to(DashbordScreen());
