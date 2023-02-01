@@ -90,10 +90,10 @@ class _splash2State extends State<splash2> {
                       ? MediaQuery.of(context).size.width / 4.3
                       : MediaQuery.of(context).size.width / 2.5,
                   child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: ScrollPhysics(),
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(10),
-                      itemCount: country.length,
+                      itemCount: con.pickcountry.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
                         return
@@ -102,15 +102,7 @@ class _splash2State extends State<splash2> {
                               hoverColor: Colors.transparent,
                               onTap: () {
                                 setState(() {
-                                  type = country[index]['type']!;
-                                  print(type);
-                                  if(type=='UAE'){
-                                    con.isUAE.value=true;
-                                  }else{
-                                    con.isUAE.value=false;
-
-                                  }
-
+                                  con.dropdownvalue = con.pickcountry[index];
                                 });
                               },
                               child: Container(
@@ -118,8 +110,8 @@ class _splash2State extends State<splash2> {
 
                                 child: Card(
                                   elevation: 0,
-                                  color: type == country[index]['type']
-                                      ? HexColor('#CEE812')
+                                  color: con.dropdownvalue != null && (con.pickcountry[index]["geoid"] == con.dropdownvalue["geoid"])
+                                    ? HexColor('#CEE812')
                                       : Colors.white12,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
@@ -133,15 +125,15 @@ class _splash2State extends State<splash2> {
                                             children: [
                                               const SizedBox(height: 10),
                                               Center(
-                                                child: Image.asset(country[index]['img']!,
+                                                child: Image.asset(country[0]['img']!,
                                                     width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
                                               ),
                                               const SizedBox(height: 10),
                                               const SizedBox(width: 20),
-                                              Text(country[index]['type']!,
+                                              Text(con.pickcountry[index]['geoname'],
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,color:
-                                                  type == country[index]['type']?
+                                                  con.dropdownvalue != null && (con.pickcountry[index]["geoid"] ==  con.dropdownvalue["geoid"])?
                                                   HexColor('#004751'):Colors.lightGreen,
                                                       fontSize: 20)),
                                               const SizedBox(height: 10),
@@ -157,48 +149,8 @@ class _splash2State extends State<splash2> {
                       }),
                 ),
                 const Spacer(),
-                if (type != '')
-                //   Container(
-                //     width: Responsive.isMobile(context)
-                //         ? MediaQuery.of(context).size.width / 1
-                //         : Responsive.isDesktop(context)
-                //             ? MediaQuery.of(context).size.width / 4.3
-                //             : MediaQuery.of(context).size.width / 2.5,
-                //     child: Padding(
-                //       padding: const EdgeInsets.symmetric(horizontal: 10),
-                //       child: Row(
-                //         mainAxisAlignment: Responsive.isMobile(context)
-                //             ? MainAxisAlignment.center
-                //             : MainAxisAlignment.center,
-                //         children: [
-                //           SizedBox(
-                //             height: 55,
-                //             child: ElevatedButton(
-                //             style: ElevatedButton.styleFrom(
-                //                 backgroundColor: HexColor('#CEE812'),
-                //                 textStyle: const TextStyle(
-                //                     fontSize: 18, fontWeight: FontWeight.bold)),
-                //             onPressed: () {
-                //               Get.to(Register());
-
-
-                //             },
-                //             child: Text(
-                //               "CONFIRM",
-                //               style: TextStyle(
-                //                 fontFamily: 'ProductSans',
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold,
-                //                 color: HexColor('#004751'),
-                //               ),
-                //             )),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // //const SizedBox(height: 30),
-                  AuthButton(
+                if (con.dropdownvalue != null)
+                AuthButton(
                     decoration: BoxDecoration(
                       color: HexColor('#CEE812'),
                       borderRadius: BorderRadius.circular(5),

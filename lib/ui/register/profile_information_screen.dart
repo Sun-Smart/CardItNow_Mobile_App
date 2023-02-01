@@ -61,6 +61,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
   @override
   void initState() {
     assignvalues();
+    if(con.dropdownvalue!=null){
+      con.cityselection(con.dropdownvalue["geoid"].toString());
+    }
     super.initState();
   }
 
