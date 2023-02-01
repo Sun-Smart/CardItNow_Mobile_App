@@ -72,4 +72,6 @@ class API {
 
   String cityselect = 'citymaster/geoid/';
 
+  String newtoken = 'customermaster/customerauthendication';
+
 }

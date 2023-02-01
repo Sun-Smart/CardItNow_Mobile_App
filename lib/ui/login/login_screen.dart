@@ -213,7 +213,6 @@ class _LoginState extends State<Login> {
                           Text('Passcode', style: TextStyle(fontSize: 15)),
                           SizedBox(height: 5),
                           TextFormField(
-
                               obscureText: isVisible,
                               controller: _passwordController,
                               keyboardType: TextInputType.phone,

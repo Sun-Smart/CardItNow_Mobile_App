@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
+import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
@@ -159,7 +160,8 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     hideLoading();
     if (data == "Success") {
-      GetStorage().write('save_token', email);
+     // GetStorage().write("save_token", email);
+     print("hhheedds"+email.toString());
       Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
@@ -283,7 +285,7 @@ class AuthCon extends GetxController with BaseController {
     if (data != null) {
       profileinfo.value = data;
        Get.to(AvatarPageView());
-      Fluttertoast.showToast(msg: data.toString());
+      // Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -487,6 +489,28 @@ class AuthCon extends GetxController with BaseController {
     var data = jsonDecode(response);
     pickcity.value = data;
   }
+
+
+  //cardstoken
+
+  void cardsget(customerid) async {
+    var body = {
+    "customerid": customerid
+    };
+    var response = await BaseClient()
+        .post(API().newtoken, body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    print('Pass' + data);
+    if (data == 'Success') {
+      Get.to(ChoosePaymentPage());
+
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
 
 }
 

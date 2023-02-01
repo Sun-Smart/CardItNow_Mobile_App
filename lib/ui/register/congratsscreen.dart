@@ -65,13 +65,15 @@ Widget bulildbutton() {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
+
+
   if (GetStorage().read('save_token') == null) {
     // Fluttertoast.showToast(msg: "Your token is null");
-    Get.to(Login());
+    Get.to(ChoosePaymentPage());
     // Get.to(()=>ChoosePaymentPage());
 
   } else {
-    Get.to(Login());
+    Get.to(ChoosePaymentPage());
     // Get.to(()=>ChoosePaymentPage());
   }
 

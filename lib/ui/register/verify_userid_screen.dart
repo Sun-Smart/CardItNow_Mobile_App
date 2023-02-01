@@ -128,6 +128,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   File? _image;
   Future<Null> _cropImage(String? imagespath) async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
+      compressQuality: 100,
       sourcePath: imagespath.toString(),
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
@@ -152,7 +153,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       ],
 
     );
+    setState(() {
 
+    });
 
     imagedoc2 = File(croppedFile!.path.toString());
     // ImagePickerController.text = croppedFile.path;
