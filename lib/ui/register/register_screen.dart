@@ -549,8 +549,11 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
+            setState(() {
+              Navigator.pop(context);
+              isChecked = true;
+            });
 
-            Navigator.pop(context);
 
           }, // button pressed
           child: const Padding(
