@@ -22,6 +22,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -37,10 +38,14 @@ class _LoginState extends State<Login> {
   final AuthCon con = Get.find();
   final loginauth logincon = Get.put(loginauth());
 
-  bool _isChecked = false;
+  bool isremember = false;
   bool isVisible = true;
 
   @override
+  void initState() {
+    super.initState();
+  _loadUserEmailPassword();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Styles.colorBackgroundBlock,
@@ -303,14 +308,8 @@ class _LoginState extends State<Login> {
                                           activeColor: themeChange.darkTheme
                                               ? Colors.white
                                               : Color(0xff004751),
-                                          value: _isChecked,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              print(
-                                                  "ischecked---------${_isChecked}");
-                                              _isChecked = !_isChecked;
-                                            });
-                                          },
+                                          value: isremember,
+                                            onChanged: _handleRemeberme
                                         ),
                                       )),
                                   SizedBox(width: 10.0),
@@ -364,7 +363,7 @@ class _LoginState extends State<Login> {
                         Fluttertoast.showToast(msg: "Enter Your Password");
                       } else {
                         logincon.loginAPI(_emailController.text,
-                            _passwordController.text, _isChecked);
+                            _passwordController.text, isremember);
                       }
                     },
                     text: "Login",
@@ -424,4 +423,48 @@ class _LoginState extends State<Login> {
           Image.asset(width: 40, 'assets/fb.png'),
         ]));
   }
+
+  //rememberme functionality
+
+  void _handleRemeberme(bool? value) {
+    print("Handle Rember Me");
+    isremember = value!;
+  if(isremember==true){
+    GetStorage().write('email', _emailController.text);
+    GetStorage().write("password", _passwordController.text);
+  }else{
+    GetStorage().remove("email");
+    GetStorage().remove("password");
+  }
+    GetStorage().write("remember_me", value);
+
+
+
+    setState(() {
+      isremember = value;
+    });
+  }
+//end
+
+  void _loadUserEmailPassword() async {
+    print("Load Email");
+    // try {
+
+    var email =  GetStorage().read("email") ?? "";
+    var password =  GetStorage().read("password") ?? "";
+    var remember =  GetStorage().read("remember_me") ?? false;
+
+      if (remember) {
+        _emailController.text = email ?? "";
+        _passwordController.text = password ?? "";
+        setState(() {
+          isremember = true;
+        });
+
+      }
+    // } catch (e) {
+    //   print(e);
+    // }
+  }
+
 }

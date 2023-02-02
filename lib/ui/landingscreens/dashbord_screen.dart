@@ -222,7 +222,6 @@ _logoutPressed() async {
                   color: HexColor('#90BA06'),
                   child: Text('Yes'),
                   onPressed: () {
-                    GetStorage().remove('token');
                     GetStorage().remove('save_token');
                     Get.offAndToNamed('/home');
                   },
