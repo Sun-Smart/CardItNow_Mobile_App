@@ -8,7 +8,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:local_auth/local_auth.dart';
+
+import '../../auth/auth.dart';
+import '../../main.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -18,6 +22,8 @@ class SplashScreens extends StatefulWidget {
 }
 
 class StartState extends State<SplashScreens> {
+  AuthCon authcon = AuthCon();
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +65,7 @@ class StartState extends State<SplashScreens> {
             localizedReason: 'Please authenticate',
             options: const AuthenticationOptions(biometricOnly: true));
         if(didAuthenticate){
+          await authcon.getLoginToken();
           Get.offAll(()=>DashbordScreen());
         }
       } catch (e) {

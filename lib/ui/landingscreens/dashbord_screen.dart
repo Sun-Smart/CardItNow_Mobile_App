@@ -16,6 +16,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../main.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
@@ -101,7 +102,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             children: [
                               RichText(
                                   text: TextSpan(
-                                      text: '${GetStorage().read('username')}',
+                                      text: '${MyApp.logindetails['username']}',
                                       style: const TextStyle(
                                           color: Color(0xff036D7A),
                                           fontSize: 16,
