@@ -44,6 +44,7 @@ class AuthCon extends GetxController with BaseController {
     if(GetStorage().read('save_token').toString() != "null"){
       taxDetailsGetApi();
       banklistget();
+      documenttypeget();
       paymentpurposeget();
       invoicegetmethod();
     }
@@ -357,11 +358,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
-      //  print("--------$data");
       Get.to(PaymentLoading());
-      // GetStorage().write('username', firstName.toString());
-      // // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      // Get.to(() => Twofactor());
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());

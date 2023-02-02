@@ -295,8 +295,6 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
         // showAlertDialog(context);
         con.invoicegetmethod();
         Get.to(AmountPay());
-        //  Navigator.of(context).pushNamed('/loanamount')
-        // showAlertDialog(context);
       },
       text: "Start New Payment",
     );

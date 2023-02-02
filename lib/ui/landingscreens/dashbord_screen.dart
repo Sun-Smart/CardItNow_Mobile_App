@@ -100,6 +100,7 @@ class DashbordScreenState extends State<DashbordScreen>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if(MyApp.logindetails != null)
                               RichText(
                                   text: TextSpan(
                                       text: '${MyApp.logindetails['username']}',

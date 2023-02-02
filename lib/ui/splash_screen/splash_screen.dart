@@ -73,6 +73,7 @@ class StartState extends State<SplashScreens> {
         Get.toNamed('/home');
       }
     }else{
+      await authcon.getLoginToken();
       Get.offAll(()=>DashbordScreen());
     }
 

@@ -116,6 +116,7 @@ class DialogHelper {
       },
     );
     Get.dialog(
+        barrierDismissible: false,
       Dialog(
         child: Container(
           decoration: BoxDecoration(

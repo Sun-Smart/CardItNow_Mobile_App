@@ -84,7 +84,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                 children: [
                   // ignore: unnecessary_brace_in_string_interps
                   MyCustomInputBox(
-                    label: "Payee’s Name",
+                    label: "Payee’s Name *",
                     controller: _holdernameController,
                     obsecureText: false,
                     inputHint: 'Enter Name',
@@ -127,7 +127,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   ),
                   MyCustomInputBox(
                       enabled: true,
-                      label: "Payee’s Email ",
+                      label: "Payee’s Email *",
                       controller: _emailController,
                       obsecureText: false,
                       inputHint: 'Enter your account number',
@@ -167,7 +167,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   MyCustomInputBox(
                    // keyboardType: TextInputType.number,
                     enabled: true,
-                    label: "Business Reg Number",
+                    label: "Business Reg Number *",
                     controller: _businessController,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.next,
@@ -207,7 +207,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   ),
                   //command
                   MyCustomInputBox(
-                    label: "Phone Number",
+                    label: "Phone Number *",
                     enabled: true,
                     textInputType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
@@ -249,7 +249,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   Container(
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Select Bank',
+                      child: Text('Select Bank *',
                           style: TextStyle(
                               fontFamily: 'Sora',
                               fontSize: 14,
@@ -324,7 +324,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     enabled: true,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.next,
-                    label: "Account Number",
+                    label: "Account Number *",
                     controller: _accountnumberController,
                     obsecureText: false,
                     inputHint: 'Enter your Account Number',
@@ -363,7 +363,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   ),
                   MyCustomInputBox(
                     enabled: true,
-                    label: "Enter Swift Code",
+                    label: "Enter Swift Code *",
                     controller: _swiftcodeController,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.done,
@@ -422,7 +422,6 @@ class _onboardRecipientState extends State<onboardRecipient> {
             Fluttertoast.showToast(msg: "Enter the  Swift code");
           } else {
             con.onboardPayee(
-              // "4",
               _holdernameController.text.trim(),
               _emailController.text.trim(),
               _businessController.text.trim(),
@@ -432,24 +431,9 @@ class _onboardRecipientState extends State<onboardRecipient> {
               _swiftcodeController.text.trim(),
               widget.documenttype,
               widget.uploadoc
-//document
             );
-            // con.onboardPayee(
-            //   // "4",
-            //   _holdernameController.text.trim(),
-            //   _emailController.text.trim(),
-            //   _businessController.text.trim(),
-            //   _phonenumberController.text.trim(),
-            //   dropdownvalue,
-            //   _accountnumberController.text.trim(),
-            //   _swiftcodeController.text.trim(),
-            // );
-            // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
         }
-      //   Get.to(PaymentLoading());
-        // // Navigator.of(context).pushNamed('/chooseLPG');
-        // if (formKey.currentState!.validate()) {}
       },
       text: "Add and Proceed",
       decoration: BoxDecoration(
