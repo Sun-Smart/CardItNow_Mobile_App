@@ -35,7 +35,7 @@ Future main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
+  static var logindetails;
   @override
   State<MyApp> createState() => MyAppState();
 }

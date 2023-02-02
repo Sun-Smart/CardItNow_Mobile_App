@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_endpoints.dart';
 import '../base_client.dart';
+import '../main.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
@@ -106,6 +107,13 @@ class AuthCon extends GetxController with BaseController {
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
+
+  getLoginToken(){
+    var token = GetStorage().read('save_token');
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    print(payload);
+    MyApp.logindetails = payload;
+  }
   //regsterApi
   void registerAPI(email) async {
     showLoading();
