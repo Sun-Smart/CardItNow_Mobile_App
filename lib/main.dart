@@ -16,6 +16,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'auth/auth.dart';
+import 'base_client.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Size size = WidgetsBinding.instance.window.physicalSize /
@@ -36,17 +37,42 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     getCurrentAppTheme();
+    _initializeTimer();
   }
+
+  void _initializeTimer() {
+    if (_timer != null) {
+      _timer?.cancel();
+    }
+    _timer = Timer(const Duration(minutes: 5), _logOutUser);
+  }
+
+  void _logOutUser() {
+    if(GetStorage().read("save_token").toString() != 'null'){
+      _timer?.cancel();
+      _timer = null;
+      print("Time OUT");
+      DialogHelper.showContinueDialog();
+    }
+  // Popping all routes and pushing welcome screen
+   // _navigatorKey.currentState?.pushNamedAndRemoveUntil('welcome', (_) => false);
+  }
+
+  void _handleUserInteraction([_]) {
+    _initializeTimer();
+  }
+
 
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
@@ -62,14 +88,19 @@ class _MyAppState extends State<MyApp> {
       },
       child: Consumer<DarkThemeProvider>(
         builder: (BuildContext context, value, Widget? child) {
-          return GetMaterialApp(
-              navigatorKey: navigatorKey,
-              title: 'Card-it',
-              debugShowCheckedModeBanner: false,
-              //theme: themeProvider.getTheme,
-              theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-              initialRoute: "/",
-              onGenerateRoute: RouteGenerator.generateRoute);
+          return GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: _handleUserInteraction,
+            onPanDown: _handleUserInteraction,
+            child: GetMaterialApp(
+                navigatorKey: navigatorKey,
+                title: 'Card-it',
+                debugShowCheckedModeBanner: false,
+                //theme: themeProvider.getTheme,
+                theme: Styles.themeData(themeChangeProvider.darkTheme, context),
+                initialRoute: "/",
+                onGenerateRoute: RouteGenerator.generateRoute),
+          );
         },
       ),
     );

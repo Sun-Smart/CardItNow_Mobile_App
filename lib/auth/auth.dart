@@ -293,12 +293,17 @@ class AuthCon extends GetxController with BaseController {
 
 
   void uploadDocx(email, docid) async {
-    var body = {};
     Get.to(Registerloading());
+    var body = {
+      'email': email.toString(),
+      'documenttype': choosedDocId.toString(),
+      'document':regDoc.toString(),
+      'documentid': docid.toString(),
+      'selfi': uploadimg.toString()
+    };
     var response = await BaseClient()
         .post(
-            API().uploadProcessDocument +
-                "?email=$email&documenttype=$choosedDocId&document=$regDoc&documentid=$docid&selfi=$uploadimg",
+            API().uploadProcessDocument,
             body)
         .catchError(handleError);
     Get.back();
