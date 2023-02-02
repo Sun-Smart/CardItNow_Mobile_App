@@ -74,7 +74,7 @@ class StartState extends State<SplashScreens> {
 
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 2500), () {});
+    await Future.delayed(const Duration(milliseconds: 8500), () {});
     if (GetStorage().read('save_token') == null) {
       Get.toNamed('/home');
     } else {
@@ -93,12 +93,17 @@ class StartState extends State<SplashScreens> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset('assets/lodaingimg.svg',
-                    width: 230, height: 65),
+                Image.asset(
+                "assets/giflogo.gif",
+                  // height: 220,
+                  //color: Colors.blueGrey,
+                ),
+                // SvgPicture.asset('assets/lodaingimg.svg',
+                //     width: 230, height: 65),
                 SizedBox(height: 30),
-                Text("${"MAKE  YOUR  LIFE  EASY"}",
-                    style: TextStyle(
-                        fontSize: 15, color: Colors.white, fontFamily: 'sora')),
+                // Text("${"MAKE  YOUR  LIFE  EASY"}",
+                //     style: TextStyle(
+                //         fontSize: 15, color: Colors.white, fontFamily: 'sora')),
               ],
             ),
           )),

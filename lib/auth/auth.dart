@@ -144,7 +144,6 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-
   //verifyotp
   void verify(email, otp) async {
     showLoading();
@@ -165,7 +164,7 @@ class AuthCon extends GetxController with BaseController {
       Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: data.toString());
+      Fluttertoast.showToast(msg: "Invalid OTP");
     }
   }
 

@@ -152,21 +152,22 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                 Container(
                                   child: InkWell(
                                     onTap: () {
-                                      type = avatars[index];
-                                      var avatorDatas = avatars[index];
-                                      imagePickerAvator(avatorDatas, () {
-                                        // con.avatorSelfi(avatorDatas);
+                                      setState(() {
+
+                                        type = avatars[index];
+                                        GetStorage().write("avatarpic", type);
+                                        print(type);
+
                                       });
 
-                                      print(con.avatarImageList.toString());
+                                      // print(con.avatarImageList.toString());
                                     },
                                     child: Card(
-                                      // color: type == con.avatarImageList.length
-                                      //     ? HexColor('#CEE812')
-                                      //     : Colors.white,
-                                      color: type == avatars.length
+
+                                      color: type ==avatars[index]
                                           ? HexColor('#CEE812')
                                           : Colors.white,
+
                                       elevation: 4,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:

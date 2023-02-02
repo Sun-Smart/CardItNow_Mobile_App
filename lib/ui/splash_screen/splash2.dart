@@ -120,8 +120,6 @@ class _splash2State extends State<splash2> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Row(
-
-
                                             children: [
                                               const SizedBox(height: 10),
                                               Center(
