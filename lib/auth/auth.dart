@@ -481,8 +481,9 @@ class AuthCon extends GetxController with BaseController {
         .get(API().documenttypedropdown)
         .catchError(handleError);
     if (response == null) return;
+    documenttypelist.clear();
     var data = json.decode(response);
-    documenttypelist = data;
+    documenttypelist.addAll(data);
   }
 
   //city country selctions api

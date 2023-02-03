@@ -218,7 +218,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             controller: validityController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                                labelText: '09/24',
+                                labelText: 'mm/yy',
                                 filled: true,
                                 fillColor: Colors.white,
                                 floatingLabelBehavior:
