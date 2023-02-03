@@ -69,13 +69,15 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                               height: MediaQuery.of(context).size.height / 3)),
                     ),
                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                            buildtoptitle(),
-                            SizedBox(height: 30,),
+                        buildtoptitle(),
+                        SizedBox(
+                          height: 30,
+                        ),
                         Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text('What Would you like \nto do?',
                                 style: TextStyle(
@@ -91,7 +93,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                             SizedBox(height: 20),
                             selectcardweb(context, () {
                               Get.to(const ReceivePaymentPage());
-                            }, 'assets/banner/down_arrow.png', 'Receive Payments',
+                            },
+                                'assets/banner/down_arrow.png',
+                                'Receive Payments',
                                 'Receive Payment via Carditnow and track \nyour finances.')
                           ],
                         ),
@@ -109,41 +113,42 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                             width: MediaQuery.of(context).size.width / 1.5,
                             height: MediaQuery.of(context).size.height / 3)),
                   ),
-                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                            buildtoptitle(),
-                            SizedBox(height: 20,),
-                           Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                           crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                           
-                            Text('What Would you like \nto do?',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.bold,
-                                    color: HexColor('#004751'))),
-                            SizedBox(height: 30),
-                            selectcardweb(context, () {
-                              Get.to(const MakePaymentPage());
-                            }, 'assets/card/up_arrow.png', 'Make Payments',
-                                'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
-                            SizedBox(height: 20),
-                            selectcardweb(context, () {
-                              Get.to(const ReceivePaymentPage());
-                            }, 'assets/banner/down_arrow.png', 'Receive Payments',
-                                'Receive Payment via Carditnow and track \nyour finances.')
-                      ],
-                    ),
-                         ],
-                       ),
-               
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildtoptitle(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('What Would you like \nto do?',
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751'))),
+                          SizedBox(height: 30),
+                          selectcardweb(context, () {
+                            Get.to(const MakePaymentPage());
+                          }, 'assets/card/up_arrow.png', 'Make Payments',
+                              'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
+                          SizedBox(height: 20),
+                          selectcardweb(context, () {
+                            Get.to(const ReceivePaymentPage());
+                          }, 'assets/banner/down_arrow.png', 'Receive Payments',
+                              'Receive Payment via Carditnow and track \nyour finances.')
+                        ],
+                      ),
+                    ],
+                  ),
                 ]),
     );
   }
- Widget buildtoptitle() {
+
+  Widget buildtoptitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -160,11 +165,14 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
           Container()
         ]);
   }
+
   Widget selectcardweb(BuildContext context, Function()? onTap, String image,
       String title, String body) {
     return Container(
-    //  color: Colors.black,
-              width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width / 1.5:MediaQuery.of(context).size.width / 1.5,
+      //  color: Colors.black,
+      width: Responsive.isDesktop(context)
+          ? MediaQuery.of(context).size.width / 1.5
+          : MediaQuery.of(context).size.width / 1.5,
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,7 +182,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
             onTap: onTap,
             child: Container(
               //height: MediaQuery.of(context).size.height / 2 ,
-              width:Responsive.isDesktop(context) ? MediaQuery.of(context).size.width / 4: MediaQuery.of(context).size.width / 2,
+              width: Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: Colors.grey, width: 2)),
@@ -194,7 +204,7 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                             color: HexColor('#004751'))),
                     SizedBox(height: 10),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(body,
                             style: TextStyle(

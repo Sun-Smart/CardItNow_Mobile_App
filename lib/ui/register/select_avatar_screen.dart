@@ -274,7 +274,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       ),
                     ),
                   ])
-                : Row(children: [
+                :Row(children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 3,
                       height: MediaQuery.of(context).size.width / 1,
@@ -320,16 +320,21 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                 Container(
                                                   child: InkWell(
                                                     onTap: () {
-                                                      setState(() {
+                                                     setState(() {
 
-                                                        type = avatars[index];
-                                                        GetStorage().write("avatarpic", type);
-                                                        print(type);
+                                                type = avatars[index];
+                                                GetStorage().write("avatarpic", type);
+                                                print(type);
 
-                                                      });
+                                              });
+
+                                                      print(con.avatarImageList
+                                                          .toString());
                                                     },
                                                     child: Card(
-
+                                                      // color: type == con.avatarImageList.length
+                                                      //     ? HexColor('#CEE812')
+                                                      //     : Colors.white,
                                                       color: type ==
                                                               avatars[index]
                                                           ? HexColor('#CEE812')
@@ -358,9 +363,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                     margin: EdgeInsets.only(left: 25),
                                     child: Row(
                                       mainAxisAlignment:
-                                          Responsive.isMobile(context)
-                                              ? MainAxisAlignment.start
-                                              : MainAxisAlignment.center,
+                                         MainAxisAlignment.center,
                                       children: [
                                         InkWell(
                                             onTap: () {
@@ -452,7 +455,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                               // color: type == con.avatarImageList.length
                               //     ? HexColor('#CEE812')
                               //     : Colors.white,
-                              color: type == avatars.length
+                              color: type == avatars[index]
                                   ? HexColor('#CEE812')
                                   : Colors.white,
                               elevation: 4,
