@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/login/login_screen.dart';
-import 'package:cardit/ui/register/congratsscreen.dart';
 
 import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
@@ -209,7 +208,7 @@ class _HomeState extends State<Home> {
                                                             ? buildgetstartedweb()
                                                             : buildgetstarted());
           }),
-      bottomNavigationBar: Responsive.isMobile(context) ? bulildbutton() : null,
+      bottomNavigationBar: Responsive.isMobile(context) ? buildButton() : null,
     );
   }
 
