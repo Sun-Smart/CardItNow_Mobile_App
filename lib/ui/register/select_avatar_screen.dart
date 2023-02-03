@@ -161,16 +161,14 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                           child: InkWell(
                                             onTap: () {
                                               setState(() {
-
                                                 type = avatars[index];
-                                                GetStorage().write("avatarpic", type);
+                                                GetStorage()
+                                                    .write("avatarpic", type);
                                                 print(type);
-
                                               });
-
                                             },
                                             child: Card(
-                                              color: type ==avatars[index]
+                                              color: type == avatars[index]
                                                   ? HexColor('#CEE812')
                                                   : Colors.white,
                                               elevation: 4,
@@ -253,8 +251,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       color: Color(0XFF004751),
                       child: Center(
                           child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              height: MediaQuery.of(context).size.height / 3)),
                     ),
                     Container(
                       width: size.width / 1.5,
@@ -274,7 +272,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       ),
                     ),
                   ])
-                : Row(children: [
+                :  Row(children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 3,
                       height: MediaQuery.of(context).size.width / 1,
@@ -316,44 +314,39 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return Column(
-                                              children: [
-                                                Container(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-
-                                                        type = avatars[index];
-                                                        GetStorage().write("avatarpic", type);
-                                                        print(type);
-
-                                                      });
-                                                    },
-                                                    child: Card(
-
-                                                      color: type ==
-                                                              avatars.length
-                                                          ? HexColor('#CEE812')
-                                                          : Colors.white,
-                                                      elevation: 4,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0)),
-                                                      child: Container(
-                                                        child: Image.asset(
-                                                            avatars[index]),
-                                                        // Image.network(
-                                                        //     con.avatarImageList[index]['aurl']),
-                                                        // child: Image.network(con.avatarImage),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          })),
+                                      children: [
+                                        Container(
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                type = avatars[index];
+                                                GetStorage()
+                                                    .write("avatarpic", type);
+                                                print(type);
+                                              });
+                                            },
+                                            child: Card(
+                                              color: type == avatars[index]
+                                                  ? HexColor('#CEE812')
+                                                  : Colors.white,
+                                              elevation: 4,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0)),
+                                              child: Container(
+                                                child:
+                                                    Image.asset(avatars[index]),
+                                                // Image.network(
+                                                //     con.avatarImageList[index]['aurl']),
+                                                // child: Image.network(con.avatarImage),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  })),
                                   Container(
                                     margin: EdgeInsets.only(left: 25),
                                     child: Row(
@@ -441,18 +434,16 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-
                                 type = avatars[index];
                                 GetStorage().write("avatarpic", type);
                                 print(type);
-
                               });
                             },
                             child: Card(
                               // color: type == con.avatarImageList.length
                               //     ? HexColor('#CEE812')
                               //     : Colors.white,
-                              color: type == avatars.length
+                              color: type == avatars[index]
                                   ? HexColor('#CEE812')
                                   : Colors.white,
                               elevation: 4,
@@ -478,7 +469,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
             style: TextStyle(color: Styles.whitecustomlable, fontSize: 15),
           ),
           SizedBox(
-
             width: 10,
           ),
           Column(
@@ -706,8 +696,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 MaterialButton(
                     color: HexColor('#CEE812'),
                     onPressed: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .pop(false);
+                      Navigator.of(context, rootNavigator: true).pop(false);
                     },
                     child: Text('CANCEL',
                         style: TextStyle(
@@ -719,8 +708,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     color: HexColor('#CEE812'),
                     onPressed: () {
                       GetStorage().write("avatarpic", type);
-                      Navigator.of(context, rootNavigator: true)
-                          .pop(true);
+                      Navigator.of(context, rootNavigator: true).pop(true);
                     },
                     child: Text('SAVE',
                         style: TextStyle(

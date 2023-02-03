@@ -74,11 +74,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar: Responsive.isMobile(context)? AppBar(
           backgroundColor: Colors.transparent,
           leading: BackButton(
-              color: themeChange.darkTheme ? Colors.white : Colors.black)),
-      body: Container(
+              color: themeChange.darkTheme ? Colors.white : Colors.black)):null,
+      body: Responsive.isMobile(context)?Container(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -92,7 +92,76 @@ class _ProfileInformationState extends State<ProfileInformation> {
             ],
           ),
         ),
-      ),
+      ): Responsive.isDesktop(context)
+              ? Row(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                  ),
+                  Container(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildToptitle(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              buildtitle(),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 30,
+                              ),
+                              buildformweb(),
+                              //  buildtitle(),
+                            ],
+                          ),
+                        ],
+                        //  buildToptitle(),
+                      ),
+                    ),
+                  )
+                ])
+              : Row(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildToptitle(),
+                          buildtitle(),
+                          buildForm(),
+                          buttontab()
+                        ],
+                      ),
+                    ),
+                  )
+                ]),
     );
   }
 
@@ -261,7 +330,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   ],
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -362,23 +431,43 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             },
                             decoration: InputDecoration(
                               hoverColor: Colors.transparent,
-                              suffixIcon: GestureDetector(
-                                onTap: () async {
-                                  DateTime date = DateTime(1900);
-                                  FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
-                                  date = (await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime(2100)))!;
-                                  dateOfBrithController.text =
-                                      DateFormat("yyyy-MM-dd").format(date);
-                                },
-                                child:
-                                    Icon(Icons.date_range, color: Colors.black),
-                              ),
-                              filled: true,
+                             suffixIcon: GestureDetector(
+                  onTap: () async {
+                    DateTime? date = DateTime(1900);
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    date = (await showDatePicker(
+                        builder: (context, child) {
+    return Theme(
+    data: Theme.of(context)
+        .copyWith(
+    colorScheme:
+    ColorScheme.light(
+    primary:HexColor('#CEE812'),
+    ),
+
+    textButtonTheme:
+    TextButtonThemeData(
+    style: TextButton
+        .styleFrom(
+    primary: HexColor('#CEE812'), // button text color
+    ),
+    ),
+    ),
+    child: child!,
+    );
+    },
+                        context: context,
+                        initialDate: DateTime(DateTime.now().year-18),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(DateTime.now().year-18)));
+                    if(date!= null) {
+                      dateOfBrithController.text =
+                    DateFormat("yyyy-MM-dd").format(date);
+                  }
+                  },
+                  child: Icon(Icons.date_range, color: Colors.black),
+                ),
+               filled: true,
                               fillColor: Colors.white,
                               hintText: 'YYYY-MM-DD',
                               floatingLabelBehavior:
@@ -424,7 +513,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   ],
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -572,6 +661,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -685,29 +775,28 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                   style: TextStyle(
                                       color: Styles.whitecustomlable,
                                       fontSize: 14)),
-                              icon: InkWell(
+                              icon: GestureDetector(
                                   child: Icon(
                                 Icons.keyboard_arrow_down,
                                 // color: themeChange.darkTheme
                                 //     ? Colors.white
                                 //     : Colors.black45
                               )),
-                              items: interests.map((String item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item,
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  // dropdownvalueCity = null;
-                                  dropdownintrest = newValue!;
-                                  // con.choosedDocId = newValue;
-                                  // con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
-                                });
-                              },
+                                items: interests.map((String item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      // dropdownvalueCity = null;
+                      dropdownintrest = newValue!;
+                      // con.choosedDocId = newValue;
+                      // con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
+                    });
+                  },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
@@ -716,6 +805,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
+              
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -796,13 +886,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: Responsive.isMobile(context)
-                              ? MediaQuery.of(context).size.width / 1
-                              : Responsive.isDesktop(context)
-                              ? MediaQuery.of(context).size.width / 4.5
-                              : MediaQuery.of(context).size.width / 2.5,
-                          height: MediaQuery.of(context).size.height / 15,
+                          width: MediaQuery.of(context).size.width / 4,
+                          height: MediaQuery.of(context).size.height / 13,
                           decoration: BoxDecoration(
                               border:
                               Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -817,7 +902,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               hint: Text('Select Your Country',
                                   style: TextStyle(
                                       color: Styles.whitecustomlable, fontSize: 14)),
-                              icon: InkWell(
+                              icon: GestureDetector(
                                   child: Icon(
                                     Icons.keyboard_arrow_down,
                                     // color: themeChange.darkTheme
@@ -825,22 +910,22 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                     //     : Colors.black45
                                   )),
                               items: con.pickcountry.map((dynamic item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item["geoname"],
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B), fontSize: 14)));
-                              }).toList(),
-                              onChanged: (dynamic newValue) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item["geoname"],
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (dynamic newValue) {
 
-                                con.dropdownvalue = newValue!;
-                                con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
-                                  setState(() {
-                                    con.pickcity;
-                                  });
-                                });
+                      con.dropdownvalue = newValue!;
+                      con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                          setState(() {
+                          con.pickcity;
+                          });
+                      });
 
-                              },
+                  },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
@@ -863,13 +948,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: Responsive.isMobile(context)
-                              ? MediaQuery.of(context).size.width / 1
-                              : Responsive.isDesktop(context)
-                              ? MediaQuery.of(context).size.width / 4.5
-                              : MediaQuery.of(context).size.width / 2.5,
-                          height: MediaQuery.of(context).size.height / 15,
+                           width: MediaQuery.of(context).size.width / 4,
+                          height: MediaQuery.of(context).size.height / 13,
                           decoration: BoxDecoration(
                               border:
                               Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -889,18 +969,18 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                     Icons.keyboard_arrow_down,
 
                                   )),
-                              items: con.pickcity.map((dynamic item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item["cityname"],
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B), fontSize: 14)));
-                              }).toList(),
-                              onChanged: (dynamic newValue) {
-                                setState(() {
-                                  con.dropdownvalueCity = newValue!;
-                                });
-                              },
+                               items: con.pickcity.map((dynamic item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item["cityname"],
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (dynamic newValue) {
+                    setState(() {
+                      con.dropdownvalueCity = newValue!;
+                    });
+                  },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
@@ -1846,8 +1926,7 @@ Widget buttontab(){
                       ),
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
-                  : Responsive.isDesktop(context)
-                      ? MediaQuery.of(context).size.width / 4.5
+                  
                       : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
@@ -1983,8 +2062,7 @@ Widget buttontab(){
                       ),
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
-                  : Responsive.isDesktop(context)
-                      ? MediaQuery.of(context).size.width / 4.5
+                 
                       : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(

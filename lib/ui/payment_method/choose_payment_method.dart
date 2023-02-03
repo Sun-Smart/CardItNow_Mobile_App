@@ -66,28 +66,28 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                               width: MediaQuery.of(context).size.width / 1.5,
                               height: MediaQuery.of(context).size.height / 3)),
                     ),
-                     Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('What Would you like \nto do?',
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'Sora',
-                          fontWeight: FontWeight.bold,
-                          color: HexColor('#004751'))),
-                  SizedBox(height: 30),
-                  selectcardweb(context, () {
-                    Get.to(const MakePaymentPage());
-                  }, 'assets/card/up_arrow.png', 'Make Payments',
-                      'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
-                  SizedBox(height: 20),
-                  selectcardweb(context, () {
-                    Get.to(const ReceivePaymentPage());
-                  }, 'assets/banner/down_arrow.png', 'Receive Payments',
-                      'Receive Payment via Carditnow and track \nyour finances.')
-                ],
-              ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('What Would you like \nto do?',
+                            style: TextStyle(
+                                fontSize: 28,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                                color: HexColor('#004751'))),
+                        SizedBox(height: 30),
+                        selectcardweb(context, () {
+                          Get.to(const MakePaymentPage());
+                        }, 'assets/card/up_arrow.png', 'Make Payments',
+                            'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
+                        SizedBox(height: 20),
+                        selectcardweb(context, () {
+                          Get.to(const ReceivePaymentPage());
+                        }, 'assets/banner/down_arrow.png', 'Receive Payments',
+                            'Receive Payment via Carditnow and track \nyour finances.')
+                      ],
+                    ),
                   ],
                 )
               : Row(children: [
@@ -103,23 +103,26 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                 ]),
     );
   }
+
   Widget selectcardweb(BuildContext context, Function()? onTap, String image,
-      String title, String body){
-     return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width/4,
+      String title, String body) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            //height: MediaQuery.of(context).size.height / 2 ,
+            width: MediaQuery.of(context).size.width / 4,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(color: Colors.grey, width: 2)),
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(image, width: 40, height: 40),
                   SizedBox(height: 10),
@@ -140,10 +143,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
-
   }
 
   Widget selectCard(BuildContext context, Function()? onTap, String image,
