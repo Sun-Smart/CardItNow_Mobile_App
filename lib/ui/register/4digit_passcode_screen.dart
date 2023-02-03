@@ -39,7 +39,7 @@ class _PasscodeState extends State<Passcode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar:
+        bottomSheet:
             Responsive.isMobile(context) ? bulildbutton() : null,
         body: Responsive.isMobile(context)
             ? Container(
@@ -265,6 +265,7 @@ class _PasscodeState extends State<Passcode> {
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: otpCon,
+                          obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -298,6 +299,7 @@ class _PasscodeState extends State<Passcode> {
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: confirmotp,
+                          obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -310,6 +312,55 @@ class _PasscodeState extends State<Passcode> {
                               borderRadius: BorderRadius.circular(0)),
                           selectedFieldDecoration: _pinPutDecoration,
                           fieldsCount: 6)),
+                  SizedBox(height: 20),
+                  Container(
+                    // width: size.width/2,
+                    margin: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text("note"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          children: [
+                            Text("1. passcode only contains numbers only."),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text("2. passcode should not be contains same digits."),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text("3. passcode should not be contains continues digits"),
+                          ],
+                        ),
+
+                        Row(
+                          children: [
+                            Text("   (ex:123456)."),
+                          ],
+                        ),
+
+
+                      ],
+                    ),
+
+
+                  ),
                 ])));
   }
 

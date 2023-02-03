@@ -159,7 +159,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ],
                 ),
 
-      bottomNavigationBar: Responsive.isMobile(context) ? bulildbutton() : null,
+      bottomSheet: Responsive.isMobile(context) ? bulildbutton() : null,
     );
   }
 

@@ -1,16 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 class API {
-  //String baseURL = "https://localhost:5001/carditnowapi/customermaster/";
+
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
-
-  // String baseUrls = "http://demo.herbie.ai/CardItNowAPI/carditnowapi/Token?";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
   String logIn = "member/login";
   String register = "customermaster/SendOTP";
   String verifyotp = "verifyotp/Verify";
+  String registerSign = "common/SaveSocialMedia";
 
   //Terms acceptance
   String terms = "customertermsacceptance/fulllist";
@@ -57,6 +56,8 @@ class API {
 
   //dummy json for invoice and amount
   String invoiceget = "PayerPayeePrivate/GetRawResult";
+
+  //ocr
   String processocr = 'customerdetail/ProcessOCR';
   //onboard Payeee
   String onboardPayeePost = 'PayerPayeePrivate';
@@ -66,6 +67,11 @@ class API {
   //Tas Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
 
+  //countryselection
+  String countryselect = 'geographymaster/fulllist';
 
+  String cityselect = 'citymaster/geoid/';
+
+  String newtoken = 'customermaster/customerauthendication';
 
 }

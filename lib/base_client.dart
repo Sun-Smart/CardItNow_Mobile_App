@@ -4,10 +4,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 
 import 'api_endpoints.dart';
@@ -94,6 +96,94 @@ class DialogHelper {
   static void hideLoading() {
     if (Get.isDialogOpen ?? true) Get.back();
   }
+
+  //show error dialog
+  static void showContinueDialog() {
+    Timer  _timerCou;
+    var _timerCount = 60.obs;
+    const oneSec =  Duration(seconds: 1);
+    _timerCou =  Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_timerCount.value == 0) {
+            timer.cancel();
+            GetStorage().remove('save_token');
+            if (Get.isDialogOpen ?? true) Get.back();
+            Get.offAll(Home());
+        } else {
+            _timerCount.value--;
+        }
+      },
+    );
+    Get.dialog(
+        barrierDismissible: false,
+      Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(30)),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Your Session is going to end. Do You want to Continue (or) Close",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sora')),
+                // Txt(
+                //   text: title,
+                //   weight: FontWeight.bold,
+                //   color: Get.theme.primaryColor,
+                // ),
+                Obx(() =>
+                Text("${_timerCount.value}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'sora'))),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          GetStorage().remove('save_token');
+                          if (Get.isDialogOpen ?? true) Get.back();
+                          _timerCou.cancel();
+                          Get.offAll(Home());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(HexColor('#CEE812')),
+                        ),
+                        child: const Text(
+                          'Close',
+                          style: TextStyle(color: Color(0XFF004751)),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          if (Get.isDialogOpen ?? true) Get.back();
+                          _timerCou.cancel();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(HexColor('#CEE812')),
+                        ),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(color: Color(0XFF004751)),
+                        )),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+    );
+  }
+
 }
 
 class AppException implements Exception {
@@ -142,6 +232,7 @@ class BaseClient {
       print(response.statusCode);
       print(response.body);
       print(response);
+
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());

@@ -41,8 +41,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final addressController = TextEditingController();
   final postalCodeController = TextEditingController();
 
-  String? dropdownvalue;
-  String? dropdownvalueCity;
+ 
   String? dropdownintrest;
   var selectedcountry = ['UAE', 'Philipines'];
   var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
@@ -50,17 +49,25 @@ class _ProfileInformationState extends State<ProfileInformation> {
   var uaeData = ['UAE'];
   var interests = ["Racing", "Riding", "Gaming"];
 
-  assignvalues() {
-    if (con.profileinfo != {}) {
-      // firstNameController.text=con.profileinfo["firstname"];
-      // lastNameController.text=con.profileinfo["lastname"];
-      // dateOfBrithController.text=con.profileinfo[""]
+  assignvalues(){
+    if(con.profileinfo != {}){
+      setState(() {
+        firstNameController.text=con.profileinfo["firstname"] ?? "";
+        lastNameController.text=con.profileinfo["lastname"] ?? "";
+        dateOfBrithController.text=con.profileinfo["dob"] ?? "";
+      });
+
+    }else{
+
     }
   }
 
   @override
   void initState() {
     assignvalues();
+    if(con.dropdownvalue!=null){
+      con.cityselection(con.dropdownvalue["geoid"].toString());
+    }
     super.initState();
   }
 
@@ -68,98 +75,25 @@ class _ProfileInformationState extends State<ProfileInformation> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      bottomNavigationBar: Responsive.isMobile(context) ? bulildbutton() :null ,
-      appBar: Responsive.isMobile(context)
-          ? AppBar(
-              backgroundColor: Colors.transparent,
-              leading: BackButton(
-                  color: themeChange.darkTheme ? Colors.white : Colors.black))
-          : null,
-      body: Responsive.isMobile(context)
-          ? Container(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: Responsive.isMobile(context)
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.center,
-                  children: [
-                    buildtitle(),
-                    buildForm(),
-                  ],
-                ),
-              ),
-            )
-          : Responsive.isDesktop(context)
-              ? Row(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
-                  ),
-                  Container(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildToptitle(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buildtitle(),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 30,
-                              ),
-                              buildformweb(),
-                              //  buildtitle(),
-                            ],
-                          ),
-                        ],
-                        //  buildToptitle(),
-                      ),
-                    ),
-                  )
-                ])
-              : Row(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildToptitle(),
-                          buildtitle(),
-                          buildForm(),
-                          buttontab()
-                        ],
-                      ),
-                    ),
-                  )
-                ]),
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: BackButton(
+              color: themeChange.darkTheme ? Colors.white : Colors.black)),
+      body: Container(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: Responsive.isMobile(context)
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
+            children: [
+              buildtitle(),
+              buildForm(),
+              bulildbutton()
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -199,8 +133,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               ),
             )
           : Text(
-              'Hey ${GetStorage().read('username')}! Tell About Your Self',
-              textAlign: TextAlign.justify,
+              'Hey ${firstNameController.text}! Tell About Your Self',
               style: TextStyle(
                 fontSize: 28,
                 fontFamily: 'Sora',
@@ -1212,7 +1145,7 @@ Widget buttontab(){
           children: [
             MyCustomInputBox(
               enabled: true,
-              label: "First Name ",
+              label: "First Name *",
               controller: firstNameController,
               obsecureText: false,
               inputHint: "Your First Name",
@@ -1320,7 +1253,7 @@ Widget buttontab(){
 
             MyCustomInputBox(
               enabled: true,
-              label: "Last Name ",
+              label: "Last Name *",
               controller: lastNameController,
               obsecureText: false,
               inputHint: "Your Last Name",
@@ -1374,7 +1307,7 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               keyboardType: TextInputType.none,
-              label: "Date Of Brith",
+              label: "Date Of Brith *",
               controller: dateOfBrithController,
               obsecureText: false,
               validator: (value) {
@@ -1387,15 +1320,37 @@ Widget buttontab(){
               inputDecoration: InputDecoration(
                 suffixIcon: GestureDetector(
                   onTap: () async {
-                    DateTime date = DateTime(1900);
+                    DateTime? date = DateTime(1900);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     date = (await showDatePicker(
+                        builder: (context, child) {
+    return Theme(
+    data: Theme.of(context)
+        .copyWith(
+    colorScheme:
+    ColorScheme.light(
+    primary:HexColor('#CEE812'),
+    ),
+
+    textButtonTheme:
+    TextButtonThemeData(
+    style: TextButton
+        .styleFrom(
+    primary: HexColor('#CEE812'), // button text color
+    ),
+    ),
+    ),
+    child: child!,
+    );
+    },
                         context: context,
-                        initialDate: DateTime.now(),
+                        initialDate: DateTime(DateTime.now().year-18),
                         firstDate: DateTime(1900),
-                        lastDate: DateTime(2100)))!;
-                    dateOfBrithController.text =
-                        DateFormat("yyyy-MM-dd").format(date);
+                        lastDate: DateTime(DateTime.now().year-18)));
+                    if(date!= null) {
+                      dateOfBrithController.text =
+                    DateFormat("yyyy-MM-dd").format(date);
+                  }
                   },
                   child: Icon(Icons.date_range, color: Colors.black),
                 ),
@@ -1543,7 +1498,7 @@ Widget buttontab(){
 
             MyCustomInputBox(
               enabled: true,
-              label: "Email id ",
+              label: "Email ID *",
               controller: con.emailController,
               obsecureText: false,
               inputHint: "Your First Name",
@@ -1649,7 +1604,7 @@ Widget buttontab(){
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Phone Number",
+              label: "Phone Number *",
               maxLength: 10,
               controller: requiredNoController,
               obsecureText: false,
@@ -1658,7 +1613,7 @@ Widget buttontab(){
               inputHint: "Your Required Number",
               validator: (value) {
                 if (requiredNoController.text.isEmpty) {
-                  return "Please Enter Required Number...";
+                  return "";
                 } else {
                   return null;
                 }
@@ -1701,7 +1656,7 @@ Widget buttontab(){
               ),
             ),
 
-            //const SizedBox(height: 10),
+            const SizedBox(height: 10),
             // MyCustomInputBox(
             //   enabled: true,
             //   label: "Issue Date",
@@ -1830,10 +1785,10 @@ Widget buttontab(){
             //         fontWeight: FontWeight.bold),
             //   ),
             // ),
-            // const SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Address",
+              label: "Address *",
               controller: addressController,
               obsecureText: false,
               validator: (value) {
@@ -1985,7 +1940,7 @@ Widget buttontab(){
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: dropdownvalue,
+                  value: con.dropdownvalue,
                   hint: Text('Select Your Country',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
@@ -1996,20 +1951,22 @@ Widget buttontab(){
                     //     ? Colors.white
                     //     : Colors.black45
                   )),
-                  items: selectedcountry.map((String item) {
+                  items: con.pickcountry.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
-                        child: Text(item,
+                        child: Text(item["geoname"],
                             style: const TextStyle(
                                 color: Color(0Xff413D4B), fontSize: 14)));
                   }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalueCity = null;
-                      dropdownvalue = newValue!;
-                      con.choosedDocId = newValue;
-                      con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
-                    });
+                  onChanged: (dynamic newValue) {
+
+                      con.dropdownvalue = newValue!;
+                      con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                          setState(() {
+                          con.pickcity;
+                          });
+                      });
+
                   },
                   style: const TextStyle(color: Colors.black),
                 ),
@@ -2054,36 +2011,25 @@ Widget buttontab(){
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: dropdownvalueCity,
-                  hint: Text('Select Your City',
+                  value: con.dropdownvalueCity,
+                  hint: Text('Select Your city',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
                       child: Icon(
-                    Icons.keyboard_arrow_down,
-                    // color: themeChange.darkTheme
-                    //     ? Colors.white
-                    //     : Colors.black45
-                  )),
-                  items: con.isUAE.value
-                      ? uaecities.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList()
-                      : philipinecity.map((String item) {
-                          return DropdownMenuItem(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)));
-                        }).toList(),
-                  onChanged: (String? newValue) {
+                        Icons.keyboard_arrow_down,
+
+                      )),
+                  items: con.pickcity.map((dynamic item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item["cityname"],
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (dynamic newValue) {
                     setState(() {
-                      dropdownvalueCity = newValue!;
-                      con.choosedDocId = newValue;
+                      con.dropdownvalueCity = newValue!;
                     });
                   },
                   style: const TextStyle(color: Colors.black),
@@ -2094,7 +2040,7 @@ Widget buttontab(){
             const SizedBox(height: 10),
             MyCustomInputBox(
               enabled: true,
-              label: "Postal Code",
+              label: "Postal Code *",
               validator: (value) {
                 if (postalCodeController.text.isEmpty) {
                   return "Please Enter Postal Code...";

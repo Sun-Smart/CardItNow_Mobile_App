@@ -213,7 +213,7 @@ class _ProfileState extends State<Profile> {
                     color: HexColor('#90BA06'),
                     borderRadius: BorderRadius.circular(5)),
                 onTap: () {
-                  GetStorage().remove('token');
+
                   GetStorage().remove('save_token');
                   Get.offAndToNamed('/home');
                 },

@@ -855,16 +855,20 @@ class _RegisterState extends State<Register> {
                   setState(() {
                     isLoggedIn = true;
                     userObj = userData;
-                    print(userObj.toString() + 'ffff');
                   });
                   if (isLoggedIn == true) {
                     con.emailController.text = userData["email"];
-                    // con.socialmedia( userData["name"],
-                    //     userData["email"],
-                    //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
-                    con.registerAPI(userData['email']);
-                    GetStorage().write('username', userData['name']);
-                    // Get.offAll(DashbordScreen());
+                    print(userData.toString());
+                    var userDatas = {
+                      "email": userData["email"].toString(),
+                      "firstname": userData['name'].toString(),
+                      "lastname": "",
+                      "socialid": userData['id'].toString(),
+                      "mediatype": "Facebook"
+                    };
+                  con.registerSignAPI(userDatas);
+                    GetStorage().write('username', userData['name']
+                    );
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
                   }
@@ -905,8 +909,7 @@ class _RegisterState extends State<Register> {
             splashColor: Colors.green, // splash color
             onTap: () async {
               //Gmail Auth
-              //AuthService().signinWithGoogle();
-              //print(AuthService().signinWithGoogle());
+              AuthService().signinWithGoogle();
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
@@ -944,7 +947,12 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
-            Navigator.pop(context);
+            setState(() {
+              Navigator.pop(context);
+              isChecked = true;
+            });
+
+
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unnecessary_new, avoid_unnecessary_containers, prefer_if_null_operators, non_constant_identifier_names, avoid_renaming_method_parameters, sort_child_properties_last, unrelated_type_equality_checks
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -28,6 +29,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final addNickController = new TextEditingController();
 
   final AuthCon con = Get.find();
+  final cardsapi cardcons = Get.put(cardsapi());
   final formKey = GlobalKey<FormState>();
 
   late FocusNode _focusNode;
@@ -260,67 +262,67 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('CVV',
-                            style: TextStyle(
-                                color: HexColor('#041316'),
-                                fontFamily: 'Sora',
-                                fontSize: 16)),
-                        SizedBox(height: 10),
+                        // Text('CVV',
+                        //     style: TextStyle(
+                        //         color: HexColor('#041316'),
+                        //         fontFamily: 'Sora',
+                        //         fontSize: 16)),
+                        // SizedBox(height: 10),
                         SizedBox(
                           width: 150,
-                          child: TextFormField(
-                            obscuringCharacter: '*',
-                            obscureText: true,
-                            keyboardType: TextInputType.number,
-                            controller: cvvController,
-                            validator: (value) {
-                              if (cvvController.text.isEmpty) {
-                                return 'Enter CVV';
-                              } else {}
-                            },
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(3)
-                            ],
-                            decoration: InputDecoration(
-                                labelText: 'XXX',
-                                filled: true,
-                                fillColor: Colors.white,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.normal),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold)),
-                          ),
+                          // child: TextFormField(
+                          //   obscuringCharacter: '*',
+                          //   obscureText: true,
+                          //   keyboardType: TextInputType.number,
+                          //   controller: cvvController,
+                          //   validator: (value) {
+                          //     if (cvvController.text.isEmpty) {
+                          //       return 'Enter CVV';
+                          //     } else {}
+                          //   },
+                          //   inputFormatters: [
+                          //     FilteringTextInputFormatter.digitsOnly,
+                          //     LengthLimitingTextInputFormatter(3)
+                          //   ],
+                          //   decoration: InputDecoration(
+                          //       labelText: 'XXX',
+                          //       filled: true,
+                          //       fillColor: Colors.white,
+                          //       floatingLabelBehavior:
+                          //           FloatingLabelBehavior.never,
+                          //       helperStyle: const TextStyle(
+                          //           fontFamily: 'Sora', fontSize: 14),
+                          //       hintStyle: const TextStyle(
+                          //           fontSize: 12,
+                          //           fontFamily: 'Sora',
+                          //           fontWeight: FontWeight.normal),
+                          //       contentPadding: const EdgeInsets.symmetric(
+                          //           vertical: 15, horizontal: 15),
+                          //       focusColor: Colors.grey.shade300,
+                          //       border: const OutlineInputBorder(
+                          //           borderSide: BorderSide(color: Colors.grey)),
+                          //       focusedBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(4),
+                          //           borderSide: const BorderSide(
+                          //               color: Colors.grey, width: 1.0)),
+                          //       enabledBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(4),
+                          //           borderSide: const BorderSide(
+                          //               color: Colors.grey, width: 1.0)),
+                          //       focusedErrorBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(4),
+                          //           gapPadding: 7,
+                          //           borderSide:
+                          //               const BorderSide(color: Colors.grey)),
+                          //       errorBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(4),
+                          //           borderSide:
+                          //               const BorderSide(color: Colors.grey)),
+                          //       errorStyle: const TextStyle(
+                          //           fontFamily: 'Sora',
+                          //           fontSize: 13,
+                          //           fontWeight: FontWeight.bold)),
+                          // ),
                         ),
                       ],
                     ),
@@ -485,7 +487,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       bottomNavigationBar: AuthButton(
           onTap: () {
             if (formKey.currentState!.validate()) {
-              con.creditCardPostAPI(
+              cardcons.creditCardPostAPI(
                   creditCardController.text.toString(),
                   validityController.text.toString(),
                   cvvController.text.toString(),

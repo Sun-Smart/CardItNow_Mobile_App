@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/loginapi.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -21,6 +22,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -34,10 +36,16 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthCon con = Get.find();
-  bool _isChecked = false;
+  final loginauth logincon = Get.put(loginauth());
+
+  bool isremember = false;
   bool isVisible = true;
 
   @override
+  void initState() {
+    super.initState();
+  _loadUserEmailPassword();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Styles.colorBackgroundBlock,
@@ -616,6 +624,7 @@ Widget buildformweb(){
                           TextFormField(
                               obscureText: isVisible,
                               controller: _passwordController,
+                              keyboardType: TextInputType.phone,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please enter passcode";
@@ -705,14 +714,8 @@ Widget buildformweb(){
                                           activeColor: themeChange.darkTheme
                                               ? Colors.white
                                               : Color(0xff004751),
-                                          value: _isChecked,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              print(
-                                                  "ischecked---------${_isChecked}");
-                                              _isChecked = !_isChecked;
-                                            });
-                                          },
+                                          value: isremember,
+                                            onChanged: _handleRemeberme
                                         ),
                                       )),
                                   SizedBox(width: 10.0),
@@ -765,8 +768,8 @@ Widget buildformweb(){
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
                       } else {
-                        con.loginAPI(_emailController.text,
-                            _passwordController.text, _isChecked);
+                        logincon.loginAPI(_emailController.text,
+                            _passwordController.text, isremember);
                       }
                     },
                     text: "Login",
@@ -836,4 +839,48 @@ Widget buildformweb(){
           Image.asset(width: 40, 'assets/fb.png'),
         ]));
   }
+
+  //rememberme functionality
+
+  void _handleRemeberme(bool? value) {
+    print("Handle Rember Me");
+    isremember = value!;
+  if(isremember==true){
+    GetStorage().write('email', _emailController.text);
+    GetStorage().write("password", _passwordController.text);
+  }else{
+    GetStorage().remove("email");
+    GetStorage().remove("password");
+  }
+    GetStorage().write("remember_me", value);
+
+
+
+    setState(() {
+      isremember = value;
+    });
+  }
+//end
+
+  void _loadUserEmailPassword() async {
+    print("Load Email");
+    // try {
+
+    var email =  GetStorage().read("email") ?? "";
+    var password =  GetStorage().read("password") ?? "";
+    var remember =  GetStorage().read("remember_me") ?? false;
+
+      if (remember) {
+        _emailController.text = email ?? "";
+        _passwordController.text = password ?? "";
+        setState(() {
+          isremember = true;
+        });
+
+      }
+    // } catch (e) {
+    //   print(e);
+    // }
+  }
+
 }

@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,6 +16,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../main.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
@@ -33,6 +35,7 @@ class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
   final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
+  final cardsapi cardcons =  Get.put(cardsapi());
   int _currentsliderindex = 0;
   List<_SalesData> data = [
     _SalesData('Jan', 35, const Color(0XffEDEDED)),
@@ -49,7 +52,7 @@ class DashbordScreenState extends State<DashbordScreen>
 
   @override
   void initState() {
-    con.creditCardgetAPI();
+    cardcons.creditCardgetAPI();
     super.initState();
   }
 
@@ -97,9 +100,10 @@ class DashbordScreenState extends State<DashbordScreen>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if(MyApp.logindetails != null)
                               RichText(
                                   text: TextSpan(
-                                      text: '${GetStorage().read('username')}',
+                                      text: '${MyApp.logindetails['username']}',
                                       style: const TextStyle(
                                           color: Color(0xff036D7A),
                                           fontSize: 16,
@@ -147,7 +151,7 @@ class DashbordScreenState extends State<DashbordScreen>
               child: Obx(() => Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      con.creditCardGet.isEmpty
+                      cardcons.creditCardGet.isEmpty
                           ? Padding(
                               padding: EdgeInsets.all(10),
                               child: Container(
@@ -196,8 +200,8 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   //Logout Tapped
-  Future<bool> _logoutPressed() async {
-    bool exitApp = await showDialog(
+_logoutPressed() async {
+   await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -220,7 +224,6 @@ class DashbordScreenState extends State<DashbordScreen>
                   color: HexColor('#90BA06'),
                   child: Text('Yes'),
                   onPressed: () {
-                    GetStorage().remove('token');
                     GetStorage().remove('save_token');
                     Get.offAndToNamed('/home');
                   },
@@ -238,7 +241,6 @@ class DashbordScreenState extends State<DashbordScreen>
         );
       },
     );
-    return exitApp ?? false;
   }
 
   //Back Press

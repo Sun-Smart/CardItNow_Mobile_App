@@ -715,7 +715,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 MaterialButton(
                     color: HexColor('#CEE812'),
                     onPressed: () {
-                      Get.back();
+                      Navigator.of(context, rootNavigator: true)
+                          .pop(false);
                     },
                     child: Text('CANCEL',
                         style: TextStyle(
@@ -727,7 +728,8 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     color: HexColor('#CEE812'),
                     onPressed: () {
                       GetStorage().write("avatarpic", type);
-                      Get.back();
+                      Navigator.of(context, rootNavigator: true)
+                          .pop(true);
                     },
                     child: Text('SAVE',
                         style: TextStyle(
@@ -741,7 +743,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
         );
       },
     );
-    return exitApp ?? false;
+    return exitApp;
   }
 
   Widget displayImageSelfie() {

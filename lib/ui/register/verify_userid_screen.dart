@@ -9,6 +9,7 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
@@ -18,10 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import '../login/login_screen.dart';
 import 'pdfView.dart';
 
 class VerifyUserId extends StatefulWidget {
@@ -47,7 +49,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   //Image to Byte64
   File? _file;
   PlatformFile? _platformFile;
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
   var indexes;
 
   openGallery() async {
@@ -109,6 +110,64 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
   }
 
+  //cropimage functions
+
+  Future getImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(
+      source: source,
+      imageQuality: 100,
+    );
+    if (image == null) return;
+    // final imageTemporary = File(image.path);
+    await _cropImage(image.path);
+  }
+
+
+  CroppedFile? _croppedFile;
+
+  File? _image;
+  Future<Null> _cropImage(String? imagespath) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      compressQuality: 100,
+      sourcePath: imagespath.toString(),
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Crop Your Image',
+            toolbarColor: Colors.transparent,
+            toolbarWidgetColor: Colors.black,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+        WebUiSettings(
+          context: context,
+        ),
+      ],
+
+    );
+    setState(() {
+
+    });
+
+    imagedoc2 = File(croppedFile!.path.toString());
+    // ImagePickerController.text = croppedFile.path;
+    print(imagedoc2!.path);
+    List<int> fileInBytes = await imagedoc2!.readAsBytes();
+    String fileInBase64 = base64Encode(fileInBytes);
+    con.scandocs = base64.encode(fileInBytes);
+    print('******************* BASE 64 SOURCE *******************');
+    log(fileInBase64);
+  }
+
+
   //
 
   //Camera to Byte64
@@ -137,11 +196,18 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
 
+  Future<bool> _willPopCallback() async {
+    // await showDialog or Show add banners or whatever
+    // then
+    Get.offAll(Home());
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-        bottomNavigationBar:
+        bottomSheet:
             Responsive.isMobile(context) ? bulildbutton() : null,
         appBar: Responsive.isMobile(context)
             ? AppBar(
@@ -770,7 +836,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             );
           } else {
             con.ocrdocument();
-            // Fluttertoast.showToast(msg: "Data Saved");
           }
         },
         text: "Next");
@@ -806,7 +871,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               children: [
                                 InkWell(
                                     onTap: () async {
-                                      openGalleryImage();
+                                      getImage(
+                                          ImageSource
+                                              .gallery);
+                                      // openGalleryImage();
                                       Get.back();
                                     },
                                     child: Image.asset("assets/gallery.jpg",
@@ -823,7 +891,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               children: [
                                 InkWell(
                                     onTap: () async {
-                                      onPressed();
+                                      getImage(
+                                          ImageSource
+                                              .camera);
+                                      // onPressed();
                                       Get.back();
                                     },
                                     child: Image.asset("assets/camera_new.png",

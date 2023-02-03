@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'changepaymethod.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -182,7 +185,29 @@ class SettingsState extends State<Settings> {
                               color: Color(0XFFF000000),
                               fontSize: 12,
                             ),
-                          )
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(()=>changepaymethod());
+                            },
+                            child: Text("Change Payment Method",
+                            style: TextStyle(
+                              fontSize: 16
+                            ),
+                            ),
+                          ),
+                          Text(
+                            "change your payment details",
+                            style: TextStyle(
+                              color: Color(0XFFF000000),
+                              fontSize: 12,
+                            ),
+                          ),
                         ],
                       ),
                       // Switch(

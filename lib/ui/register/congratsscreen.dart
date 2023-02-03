@@ -2,9 +2,12 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../payment_method/choose_payment_method.dart';
 
 
 class congratesscreen extends StatefulWidget {
@@ -106,10 +109,6 @@ class _congratesscreenState extends State<congratesscreen> {
       bottomNavigationBar:  Responsive.isMobile(context)?bulildbutton():Responsive.isDesktop(context)?null: bulildbutton(),
     );
   }
-
-
-
-
 }
 
 Widget bulildbutton() {
@@ -117,15 +116,19 @@ Widget bulildbutton() {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
+
+
   if (GetStorage().read('save_token') == null) {
-  Get.to(()=>Login());
+    // Fluttertoast.showToast(msg: "Your token is null");
+    Get.to(ChoosePaymentPage());
+    // Get.to(()=>ChoosePaymentPage());
+
   } else {
-    Get.to(()=>Login());
+    Get.to(ChoosePaymentPage());
+    // Get.to(()=>ChoosePaymentPage());
   }
-
-
 
       },
 
-      text: "Click to Login");
+      text: "Click to Make your payment");
 }

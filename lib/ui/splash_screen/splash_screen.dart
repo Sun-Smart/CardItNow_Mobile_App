@@ -8,7 +8,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:local_auth/local_auth.dart';
+
+import '../../auth/auth.dart';
+import '../../main.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -18,6 +22,8 @@ class SplashScreens extends StatefulWidget {
 }
 
 class StartState extends State<SplashScreens> {
+  AuthCon authcon = AuthCon();
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +38,7 @@ class StartState extends State<SplashScreens> {
     try {
       authenticated = await auth.authenticate(
         options: AuthenticationOptions(
-            biometricOnly: false, stickyAuth: true),
+            biometricOnly: true, stickyAuth: true),
         localizedReason: "Authenticate to use app",
 
       );
@@ -57,15 +63,17 @@ class StartState extends State<SplashScreens> {
 //kkkk
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please authenticate',
-            options: const AuthenticationOptions(biometricOnly: false));
+            options: const AuthenticationOptions(biometricOnly: true));
         if(didAuthenticate){
+          await authcon.getLoginToken();
           Get.offAll(()=>DashbordScreen());
         }
       } catch (e) {
         print(e.toString());
-
+        Get.toNamed('/home');
       }
     }else{
+      await authcon.getLoginToken();
       Get.offAll(()=>DashbordScreen());
     }
 
@@ -74,12 +82,11 @@ class StartState extends State<SplashScreens> {
 
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 2500), () {});
+    await Future.delayed(const Duration(milliseconds: 8500), () {});
     if (GetStorage().read('save_token') == null) {
       Get.toNamed('/home');
     } else {
       _bioAuth();
-
     }
     // Get.toNamed('/home');
   }
@@ -94,12 +101,17 @@ class StartState extends State<SplashScreens> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset('assets/lodaingimg.svg',
-                    width: 230, height: 65),
+                Image.asset(
+                "assets/giflogo.gif",
+                  // height: 220,
+                  //color: Colors.blueGrey,
+                ),
+                // SvgPicture.asset('assets/lodaingimg.svg',
+                //     width: 230, height: 65),
                 SizedBox(height: 30),
-                Text("${"MAKE  YOUR  LIFE  EASY"}",
-                    style: TextStyle(
-                        fontSize: 15, color: Colors.white, fontFamily: 'sora')),
+                // Text("${"MAKE  YOUR  LIFE  EASY"}",
+                //     style: TextStyle(
+                //         fontSize: 15, color: Colors.white, fontFamily: 'sora')),
               ],
             ),
           )),

@@ -64,7 +64,6 @@ dependencies:
   firebase_auth: ^4.2.5
   firebase_core: ^2.4.1
   pinput: 1.2.2
-  syncfusion_flutter_pdfviewer: ^20.4.43
   cunning_document_scanner: ^1.1.2
   extended_masked_text: ^2.3.1
   mask_text_input_formatter: ^2.4.0
@@ -73,6 +72,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   loading_animation_widget: ^1.2.0+4
   s10s_card_scanner: ^0.1.0
+  image_cropper: ^3.0.0
 
 dev_dependencies:
   flutter_test:
