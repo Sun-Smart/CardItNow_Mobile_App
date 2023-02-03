@@ -2,6 +2,7 @@
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/auth/cardapi.dart';
+import 'package:cardit/const/common/fourDigitsplit.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -143,6 +144,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(16),
+                            CustomInputFormatter()
                           ],
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
@@ -182,11 +184,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      Positioned(
-                          child: Image.asset('assets/visa.png',
-                              width: 40, height: 35),
-                          right: 10,
-                          top: 5)
+                      // Positioned(
+                      //     child: Image.asset('assets/visa.png',
+                      //         width: 40, height: 35),
+                      //     right: 10,
+                      //     top: 5)
                     ],
                   ),
                 ),
