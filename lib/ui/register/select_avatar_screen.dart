@@ -6,6 +6,8 @@ import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -161,6 +163,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                               setState(() {
 
                                                 type = avatars[index];
+                                                GetStorage().write("avatarpic", type);
                                                 print(type);
 
                                               });
@@ -320,7 +323,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                       setState(() {
 
                                                         type = avatars[index];
-
+                                                        GetStorage().write("avatarpic", type);
                                                         print(type);
 
                                                       });
@@ -438,13 +441,18 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
+
                                 type = avatars[index];
+                                GetStorage().write("avatarpic", type);
                                 print(type);
 
                               });
                             },
                             child: Card(
-                              color: type == avatars[index]
+                              // color: type == con.avatarImageList.length
+                              //     ? HexColor('#CEE812')
+                              //     : Colors.white,
+                              color: type == avatars.length
                                   ? HexColor('#CEE812')
                                   : Colors.white,
                               elevation: 4,

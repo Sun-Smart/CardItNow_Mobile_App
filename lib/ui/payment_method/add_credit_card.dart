@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../const/common/fourDigitsplit.dart';
+import '../../responsive/responsive.dart';
 import 'card_input_formatter_class.dart';
 
 class AddCreditCardPage extends StatefulWidget {
@@ -143,7 +143,6 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(16),
-                            CustomInputFormatter()
                           ],
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
@@ -183,11 +182,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      // Positioned(
-                      //     child: Image.asset('assets/visa.png',
-                      //         width: 40, height: 35),
-                      //     right: 10,
-                      //     top: 5)
+                      Positioned(
+                          child: Image.asset('assets/visa.png',
+                              width: 40, height: 35),
+                          right: 10,
+                          top: 5)
                     ],
                   ),
                 ),
@@ -208,8 +207,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           width: 150,
                           child: TextFormField(
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(5),
                               FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(4),
                               CardMonthFormatter()
                             ],
                             validator: (value) {

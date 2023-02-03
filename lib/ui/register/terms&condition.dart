@@ -59,12 +59,14 @@ class _termsandconditionsState extends State<termsandconditions> {
                         color: Color(0XFF004751),
                         child: Center(
                             child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                height:
+                                    MediaQuery.of(context).size.height / 3)),
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width / 1.5,
-                          padding: EdgeInsets.only(top: 20, bottom: 0),
+                          height: MediaQuery.of(context).size.height / 1,
+                          //padding: EdgeInsets.only(top: 20, bottom: 0),
                           // margin: EdgeInsets.only(top: 40),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,24 +76,43 @@ class _termsandconditionsState extends State<termsandconditions> {
                                 bulidForm(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    AuthButton(
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (GetStorage().read('save_token') ==
+                                            null) {
+                                          Get.to(congratesscreen());
+                                        } else {
+                                          Get.to(congratesscreen());
+                                        }
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 20),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                4,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.07,
                                         decoration: BoxDecoration(
                                             color: HexColor('#CEE812'),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        onTap: () {
-                                          if (GetStorage()
-                                                  .read('save_token') ==
-                                              null) {
-                                            Get.to(congratesscreen());
-                                          } else {
-                                            Get.to(congratesscreen());
-                                          }
-                                        },
-                                        text: "Done"),
+                                        child: Center(
+                                          child: Text(
+                                            " Done",
+                                            style: TextStyle(
+                                              fontFamily: 'ProductSans',
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor('#004751'),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ])),
@@ -105,8 +126,9 @@ class _termsandconditionsState extends State<termsandconditions> {
                         color: Color(0XFF004751),
                         child: Center(
                             child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                height:
+                                    MediaQuery.of(context).size.height / 3)),
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width / 1.5,
@@ -163,9 +185,9 @@ class _termsandconditionsState extends State<termsandconditions> {
         child: Container(
             margin: EdgeInsets.all(15),
             height:
-                //  Responsive.isMobile(context)
-                MediaQuery.of(context).size.height / 1,
-            // : MediaQuery.of(context).size.height / 2,
+                  Responsive.isMobile(context)?
+                MediaQuery.of(context).size.height / 1
+             : MediaQuery.of(context).size.height / 2,
             width:
                 // Responsive.isMobile(context)
                 MediaQuery.of(context).size.width / 1,
@@ -192,7 +214,6 @@ class _termsandconditionsState extends State<termsandconditions> {
                             fontSize: 14,
                             color: Colors.black87,
                             fontFamily: 'sora'))),
-                SizedBox(height: 20),
               ],
             );
         }),

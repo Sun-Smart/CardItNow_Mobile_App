@@ -10,6 +10,7 @@ import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,8 +24,10 @@ Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  if(!kIsWeb){
+WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  }
   await GetStorage.init();
   HttpOverrides.global = new MyHttpOverrides();
   runApp(const MyApp());
