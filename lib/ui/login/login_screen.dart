@@ -434,17 +434,11 @@ Widget buildformweb(){
                                                     0xff004751) // Your color
                                             ),
                                         child: Checkbox(
-                                          activeColor: themeChange.darkTheme
-                                              ? Colors.white
-                                              : Color(0xff004751),
-                                          value: isremember,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              print(
-                                                  "ischecked---------${isremember}");
-                                              isremember = !isremember;
-                                            });
-                                          },
+                                            activeColor: themeChange.darkTheme
+                                                ? Colors.white
+                                                : Color(0xff004751),
+                                            value: isremember,
+                                            onChanged: _handleRemeberme
                                         ),
                                       )),
                                   SizedBox(width: 10.0),
