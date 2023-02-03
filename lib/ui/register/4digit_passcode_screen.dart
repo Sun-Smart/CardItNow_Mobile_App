@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,27 +39,82 @@ class _PasscodeState extends State<Passcode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
-      body: Container(
-          child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: EdgeInsets.only(top: 20, bottom: 30),
-                margin: EdgeInsets.only(top: 40),
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? bulildbutton() : null,
+        body: Responsive.isMobile(context)
+            ? Container(
+                child: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildToptitle(),
-                      buildtitle(),
-                    ])),
-            bulidForm(),
-            SizedBox(height: 30)
-          ],
-        ),
-      )),
-    );
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(top: 20, bottom: 30),
+                        margin: EdgeInsets.only(top: 40),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildToptitle(),
+                              buildtitle(),
+                            ])),
+                    bulidForm(),
+                    SizedBox(height: 30)
+                  ],
+                ),
+              ))
+            : Responsive.isDesktop(context)
+                ? Row(children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            buildToptitle(),
+                            buildtitle(),
+                            SizedBox(height: 50),
+                            buildformweb(),
+                            SizedBox(height: 30),
+                            bulildbutton(),
+                            SizedBox(height: 30)
+                          ]),
+                    ),
+                  ])
+                : Row(children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.width / 1,
+                          color: Color(0XFF004751),
+                          child: Center(
+                              child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  buildToptitle(),
+                                  buildtitle(),
+                                  SizedBox(height: 50),
+                                  buildformweb(),
+                                  SizedBox(height: 30),
+                                  bulildbutton(),
+                                  SizedBox(height: 30)
+                                ])),
+                      ],
+                    )
+                  ]));
   }
 
   Widget buildToptitle() {
@@ -90,7 +146,102 @@ class _PasscodeState extends State<Passcode> {
                     themeChange.darkTheme ? Colors.white : HexColor('#004751'),
                 fontWeight: FontWeight.bold)));
   }
-
+//for web and tablet..........
+  Widget buildformweb() {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Container(
+        child: Form(
+            key: formKey,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: Responsive.isDesktop(context)
+                        ? EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 5.2)
+                        : EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 6.6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("New Passcode",
+                            style: TextStyle(fontWeight: FontWeight.bold))
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                      margin: Responsive.isDesktop(context)
+                          ? EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height / 2.5,
+                              right: MediaQuery.of(context).size.height / 2.5)
+                          : EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height / 6,
+                              right: MediaQuery.of(context).size.height / 6),
+                      // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                      child: PinPut(
+                          controller: otpCon,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(6)
+                          ],
+                          followingFieldDecoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(0)),
+                          keyboardType: TextInputType.number,
+                          submittedFieldDecoration: _pinPutDecoration.copyWith(
+                              borderRadius: BorderRadius.circular(0)),
+                          selectedFieldDecoration: _pinPutDecoration,
+                          fieldsCount: 6)),
+                  SizedBox(height: 30),
+                  Container(
+                    padding: Responsive.isDesktop(context)
+                        ? EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 5.2)
+                        : EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width / 6.6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Confirm Passcode",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                      margin: Responsive.isDesktop(context)
+                          ? EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height / 2.5,
+                              right: MediaQuery.of(context).size.height / 2.5)
+                          : EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height / 6,
+                              right: MediaQuery.of(context).size.height / 6),
+                      // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                      child: PinPut(
+                          controller: confirmotp,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(6)
+                          ],
+                          followingFieldDecoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius: BorderRadius.circular(0)),
+                          keyboardType: TextInputType.number,
+                          submittedFieldDecoration: _pinPutDecoration.copyWith(
+                              borderRadius: BorderRadius.circular(0)),
+                          selectedFieldDecoration: _pinPutDecoration,
+                          fieldsCount: 6)),
+                ])));
+  }
+//for  mobile.......
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(

@@ -72,171 +72,521 @@ class _AvatarPageViewState extends State<AvatarPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back)),
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
-        actions: [
-          Center(
-            child: GestureDetector(
-              child: Container(
-                  height: 30,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: HexColor('#CEE812'), width: 3),
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Center(
-                      child: Text("Skip",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: HexColor('#004751'),
-                              fontWeight: FontWeight.bold)))),
-              onTap: () {
-                Get.to(const ProfileInformation());
-              },
-            ),
-          ),
-          const SizedBox(width: 20),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.all(5),
-              child: Row(
-                children: [
-                  Text("Select Your Avatar",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: HexColor('#413D4B'))),
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Container(
-                      // color: Colors.blue,
-                      height: size.height / 1.5,
-                      width: size.width / 1,
-                      child: GridView.builder(
-                          itemCount: avatars.length,
-                          // itemCount: con.avatarImageList.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: Responsive.isMobile(context)
-                                      ? 3
-                                      : Responsive.isDesktop(context)
-                                          ? 6
-                                          : 4,
-                                  crossAxisSpacing: Responsive.isMobile(context)
-                                      ? 1
-                                      : Responsive.isDesktop(context)
-                                          ? 4
-                                          : 2,
-                                  childAspectRatio: Responsive.isMobile(context)
-                                      ? 1
-                                      : Responsive.isDesktop(context)
-                                          ? 2
-                                          : 2),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  child: InkWell(
-                                    onTap: () {
-                                      type = avatars[index];
-                                      var avatorDatas = avatars[index];
-                                      imagePickerAvator(avatorDatas, () {
-                                        // con.avatorSelfi(avatorDatas);
-                                      });
-
-                                      print(con.avatarImageList.toString());
-                                    },
-                                    child: Card(
-                                      // color: type == con.avatarImageList.length
-                                      //     ? HexColor('#CEE812')
-                                      //     : Colors.white,
-                                      color: type == avatars.length
-                                          ? HexColor('#CEE812')
-                                          : Colors.white,
-                                      elevation: 4,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      child: Container(
-                                        child: Image.asset(avatars[index]),
-                                        // Image.network(
-                                        //     con.avatarImageList[index]['aurl']),
-                                        // child: Image.network(con.avatarImage),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          })),
-                  Container(
-                    margin: EdgeInsets.only(left: 25),
-                    child: Row(
-                      mainAxisAlignment: Responsive.isMobile(context)
-                          ? MainAxisAlignment.start
-                          : MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              // imagePicker();
-                            },
-                            child: Row(children: [
-                              Text("Upload ",
+        appBar: Responsive.isMobile(context)
+            ? AppBar(
+                automaticallyImplyLeading: false,
+                leading: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.arrow_back)),
+                iconTheme: IconThemeData(color: Colors.black),
+                backgroundColor: Colors.transparent,
+                actions: [
+                  Center(
+                    child: GestureDetector(
+                      child: Container(
+                          height: 30,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: HexColor('#CEE812'), width: 3),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                              child: Text("Skip",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontFamily: 'Sofa',
-                                      fontSize: 18,
-                                      color: HexColor('#004751'))),
-                              Text("Selfie",
-                                  style: TextStyle(
-                                      fontFamily: 'Sofa',
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: HexColor('#004751')))
-                            ]))
-                      ],
+                                      color: HexColor('#004751'),
+                                      fontWeight: FontWeight.bold)))),
+                      onTap: () {
+                        Get.to(const ProfileInformation());
+                      },
                     ),
                   ),
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
-                  const SizedBox(height: 20),
-                  displayImageSelfie(),
-                  const SizedBox(height: 20),
-                  AuthButton(
-                    decoration: BoxDecoration(
-                        color: HexColor('#CEE812'),
-                        borderRadius: BorderRadius.circular(5)),
-                    onTap: () {
-                      print('dhamu' + type);
-                      GetStorage().read("avatarpic");
-                      Get.to(const ProfileInformation());
-                    },
-                    text: "Next",
-                  ),
+                  const SizedBox(width: 20),
                 ],
+              )
+            : null,
+        body: Responsive.isMobile(context)
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: Row(
+                        children: [
+                          Text("Select Your Avatar",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: HexColor('#413D4B'))),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          Container(
+                              // color: Colors.blue,
+                              height: size.height / 1.5,
+                              width: size.width / 1,
+                              child: GridView.builder(
+                                  itemCount: avatars.length,
+                                  // itemCount: con.avatarImageList.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: Responsive.isMobile(
+                                                  context)
+                                              ? 3
+                                              : Responsive.isDesktop(context)
+                                                  ? 6
+                                                  : 4,
+                                          crossAxisSpacing: Responsive.isMobile(
+                                                  context)
+                                              ? 1
+                                              : Responsive.isDesktop(context)
+                                                  ? 4
+                                                  : 2,
+                                          childAspectRatio: Responsive.isMobile(
+                                                  context)
+                                              ? 1
+                                              : Responsive.isDesktop(context)
+                                                  ? 2
+                                                  : 2),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        Container(
+                                          child: InkWell(
+                                            onTap: () {
+                                              type = avatars[index];
+                                              var avatorDatas = avatars[index];
+                                              imagePickerAvator(avatorDatas,
+                                                  () {
+                                                // con.avatorSelfi(avatorDatas);
+                                              });
+
+                                              print(con.avatarImageList
+                                                  .toString());
+                                            },
+                                            child: Card(
+                                              // color: type == con.avatarImageList.length
+                                              //     ? HexColor('#CEE812')
+                                              //     : Colors.white,
+                                              color: type == avatars.length
+                                                  ? HexColor('#CEE812')
+                                                  : Colors.white,
+                                              elevation: 4,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0)),
+                                              child: Container(
+                                                child:
+                                                    Image.asset(avatars[index]),
+                                                // Image.network(
+                                                //     con.avatarImageList[index]['aurl']),
+                                                // child: Image.network(con.avatarImage),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  })),
+                          Container(
+                            margin: EdgeInsets.only(left: 25),
+                            child: Row(
+                              mainAxisAlignment: Responsive.isMobile(context)
+                                  ? MainAxisAlignment.start
+                                  : MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      // imagePicker();
+                                    },
+                                    child: Row(children: [
+                                      Text("Upload ",
+                                          style: TextStyle(
+                                              fontFamily: 'Sofa',
+                                              fontSize: 18,
+                                              color: HexColor('#004751'))),
+                                      Text("Selfie",
+                                          style: TextStyle(
+                                              fontFamily: 'Sofa',
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: HexColor('#004751')))
+                                    ]))
+                              ],
+                            ),
+                          ),
+                          Container(
+                              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                              child: Text('',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 14,
+                                      color: Styles.whitecustomlable))),
+                          const SizedBox(height: 20),
+                          displayImageSelfie(),
+                          const SizedBox(height: 20),
+                          AuthButton(
+                            decoration: BoxDecoration(
+                                color: HexColor('#CEE812'),
+                                borderRadius: BorderRadius.circular(5)),
+                            onTap: () {
+                              print('dhamu' + type);
+                              GetStorage().read("avatarpic");
+                              Get.to(const ProfileInformation());
+                            },
+                            text: "Next",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Responsive.isDesktop(context)
+                ? Row(children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                    ),
+                    Container(
+                      width: size.width / 1.5,
+                      child: Column(
+                        children: [
+                          buildToptitle(),
+                          Text("Select Your Avatar",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  color: HexColor('#413D4B'))),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          buildavatarweb()
+                        ],
+                      ),
+                    ),
+                  ])
+                : Row(children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                    ),
+                    Container(
+                      width: size.width / 1.5,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            buildToptitle(),
+                            Text("Select Your Avatar",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: HexColor('#413D4B'))),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                      // color: Colors.blue,
+                                      height: size.height / 1.5,
+                                      width: size.width / 1,
+                                      child: GridView.builder(
+                                          itemCount: avatars.length,
+                                          // itemCount: con.avatarImageList.length,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 3,
+                                                  crossAxisSpacing: 1,
+                                                  childAspectRatio: 1),
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Column(
+                                              children: [
+                                                Container(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      type = avatars[index];
+                                                      var avatorDatas =
+                                                          avatars[index];
+                                                      imagePickerAvator(
+                                                          avatorDatas, () {
+                                                        // con.avatorSelfi(avatorDatas);
+                                                      });
+
+                                                      print(con.avatarImageList
+                                                          .toString());
+                                                    },
+                                                    child: Card(
+                                                      // color: type == con.avatarImageList.length
+                                                      //     ? HexColor('#CEE812')
+                                                      //     : Colors.white,
+                                                      color: type ==
+                                                              avatars.length
+                                                          ? HexColor('#CEE812')
+                                                          : Colors.white,
+                                                      elevation: 4,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15.0)),
+                                                      child: Container(
+                                                        child: Image.asset(
+                                                            avatars[index]),
+                                                        // Image.network(
+                                                        //     con.avatarImageList[index]['aurl']),
+                                                        // child: Image.network(con.avatarImage),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          })),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 25),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          Responsive.isMobile(context)
+                                              ? MainAxisAlignment.start
+                                              : MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              // imagePicker();
+                                            },
+                                            child: Row(children: [
+                                              Text("Upload ",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Sofa',
+                                                      fontSize: 18,
+                                                      color:
+                                                          HexColor('#004751'))),
+                                              Text("Selfie",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Sofa',
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          HexColor('#004751')))
+                                            ]))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                      margin: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: Text('',
+                                          style: TextStyle(
+                                              fontFamily: 'Sora',
+                                              fontSize: 14,
+                                              color: Styles.whitecustomlable))),
+                                  const SizedBox(height: 20),
+                                  displayImageSelfie(),
+                                  const SizedBox(height: 20),
+                                  AuthButton(
+                                    decoration: BoxDecoration(
+                                        color: HexColor('#CEE812'),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    onTap: () {
+                                      print('dhamu' + type);
+                                      GetStorage().read("avatarpic");
+                                      Get.to(const ProfileInformation());
+                                    },
+                                    text: "Next",
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ]));
+  }
+
+  Widget buildavatarweb() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 1.5,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              // color: Colors.blue,
+              height: size.height / 1.5,
+              width: size.width / 4,
+              child: GridView.builder(
+                  itemCount: avatars.length,
+                  // itemCount: con.avatarImageList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Responsive.isDesktop(context) ? 3 : 3,
+                      crossAxisSpacing: Responsive.isDesktop(context) ? 2 : 2,
+                      childAspectRatio: Responsive.isDesktop(context) ? 1 : 1),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              type = avatars[index];
+                              var avatorDatas = avatars[index];
+                              imagePickerAvator(avatorDatas, () {
+                                // con.avatorSelfi(avatorDatas);
+                              });
+
+                              print(con.avatarImageList.toString());
+                            },
+                            child: Card(
+                              // color: type == con.avatarImageList.length
+                              //     ? HexColor('#CEE812')
+                              //     : Colors.white,
+                              color: type == avatars.length
+                                  ? HexColor('#CEE812')
+                                  : Colors.white,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              child: Container(
+                                child: Image.asset(avatars[index]),
+                                // Image.network(
+                                //     con.avatarImageList[index]['aurl']),
+                                // child: Image.network(con.avatarImage),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  })),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            "Or",
+            style: TextStyle(color: Styles.whitecustomlable, fontSize: 15),
+          ),
+          SizedBox(
+
+            width: 10,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                // margin: EdgeInsets.only(left: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          // imagePicker();
+                        },
+                        child: Row(children: [
+                          Text("Upload ",
+                              style: TextStyle(
+                                  fontFamily: 'Sofa',
+                                  fontSize: 18,
+                                  color: HexColor('#004751'))),
+                          Text("Selfie",
+                              style: TextStyle(
+                                  fontFamily: 'Sofa',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751')))
+                        ])),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        child: Text('',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 14,
+                                color: Styles.whitecustomlable))),
+                    const SizedBox(height: 10),
+                    displayImageSelfie(),
+                    const SizedBox(height: 20),
+                    AuthButton(
+                      decoration: BoxDecoration(
+                          color: HexColor('#CEE812'),
+                          borderRadius: BorderRadius.circular(5)),
+                      onTap: () {
+                        print('dhamu' + type);
+                        GetStorage().read("avatarpic");
+                        Get.to(const ProfileInformation());
+                      },
+                      text: "Next",
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget buildToptitle() {
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+          mainAxisAlignment: Responsive.isMobile(context)
+              ? MainAxisAlignment.start
+              : Responsive.isDesktop(context)
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              hoverColor: Colors.transparent,
+              icon: Icon(Icons.arrow_back, size: 30),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                height: 30,
+                width: 80,
+                decoration: BoxDecoration(
+                    border: Border.all(color: HexColor('#CEE812'), width: 3),
+                    borderRadius: BorderRadius.circular(30)),
+                child: Center(
+                  child: Text(
+                    "Skip",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: HexColor('#004751'),
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              onTap: () {
+                Get.to(ProfileInformation());
+              },
+            ),
+          ]),
     );
   }
 

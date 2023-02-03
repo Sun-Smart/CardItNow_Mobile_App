@@ -18,6 +18,7 @@ import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/landingscreens/dashbord_screen.dart';
@@ -43,7 +44,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-        return MaterialPageRoute(builder: (_) => const SplashScreens());
+       return MaterialPageRoute(builder: (_) =>  kIsWeb ? Home() :SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

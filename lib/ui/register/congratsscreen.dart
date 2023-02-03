@@ -1,3 +1,4 @@
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class _congratesscreenState extends State<congratesscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor('#004751'),
-        body: Center(
+        body: Responsive.isMobile(context)? 
+        Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -51,8 +53,57 @@ class _congratesscreenState extends State<congratesscreen> {
                   fontSize: 13, color: Colors.white, fontFamily: 'sora')),
             ],
           ),
-        ),
-      bottomNavigationBar: bulildbutton(),
+        ):   Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+
+                  borderRadius: BorderRadius.circular(100)
+                ),
+                child: Center(
+                  child:  Image.asset('assets/congrats.png',
+                      width: 230, height: 150),
+                ),
+
+              ),
+
+              SizedBox(height: 30),
+              Text("Hey Congrats ${GetStorage().read('username')} !",
+                  style: TextStyle(
+                      fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
+                  fontWeight: FontWeight.bold
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              Text("We are very happy to onboard you.",
+                  style: TextStyle(
+                  fontSize: 13, color: Colors.white, fontFamily: 'sora')),
+                  AuthButton(
+      decoration: BoxDecoration(
+          color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
+      onTap: () {
+  if (GetStorage().read('save_token') == null) {
+  Get.to(()=>Login());
+  } else {
+    Get.to(()=>Login());
+  }
+
+
+
+      },
+
+      text: "Click to Login")
+            ],
+          ),
+        )
+    ,
+      bottomNavigationBar:  Responsive.isMobile(context)?bulildbutton():Responsive.isDesktop(context)?null: bulildbutton(),
     );
   }
 

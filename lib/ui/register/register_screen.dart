@@ -42,45 +42,156 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                color: Styles.colorBackgroundBlock,
+        body: Responsive.isMobile(context)
+            ? SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: Responsive.isMobile(context)
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                        // padding: EdgeInsets.only(top: 20, bottom: 30),
-                        margin: EdgeInsets.only(top: 40),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/loginbg.png"),
-                            fit: Responsive.isMobile(context)
-                                ? BoxFit.cover
-                                : BoxFit.fill,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      color: Styles.colorBackgroundBlock,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              // padding: EdgeInsets.only(top: 20, bottom: 30),
+                              margin: EdgeInsets.only(top: 40),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/loginbg.png"),
+                                    fit: BoxFit.cover),
+                              ),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    buildToptitle(),
+                                    buildtitle(),
+                                  ])),
+                          buildbutton(),
+                          bulidForm(),
+                          SizedBox(
+                            height: 30,
                           ),
-                        ),
+                        ],
+                      )),
+                ],
+              ))
+            : Responsive.isDesktop(context)
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                            
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3)),
+                      ),
+                      Container(
                         child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              buildToptitle(),
-                              buildtitle(),
-                            ])),
-                    buildbutton(),
-                    bulidForm(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                )),
-          ],
-        ),
-      ),
-    );
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                color: Styles.colorBackgroundBlock,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        // padding: EdgeInsets.only(top: 20, bottom: 30),
+                                        // margin: EdgeInsets.only(top: 40),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/loginbg.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  // buildToptitle(),
+                                                  buildtitle()
+                                                ],
+                                              ),
+                                            ])),
+                                    buildbutton(),
+                                     buildormweb(),
+
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
+                      ),
+                    SizedBox( width: 20,)
+                    ],
+                  )
+                
+                : Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                      ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                color: Styles.colorBackgroundBlock,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        // padding: EdgeInsets.only(top: 20, bottom: 30),
+                                        // margin: EdgeInsets.only(top: 40),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/loginbg.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  // buildToptitle(),
+                                                  buildtitle()
+                                                ],
+                                              ),
+                                            ])),
+                                    buildbutton(),
+                                   buildormweb(),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ));
   }
 
   Widget buildToptitle() {
@@ -104,7 +215,8 @@ class _RegisterState extends State<Register> {
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-        padding: EdgeInsets.all(15),
+        padding:
+            Responsive.isMobile(context) ? EdgeInsets.all(15) : EdgeInsets.zero,
         child: Row(
             mainAxisAlignment: Responsive.isMobile(context)
                 ? MainAxisAlignment.spaceBetween
@@ -134,17 +246,218 @@ class _RegisterState extends State<Register> {
               Image.asset("assets/userimg.png", width: 107),
             ]));
   }
+  Widget buildormweb(){
+        final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Container(
+        child: Form(
+            key: formKey,
+            child:Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: Responsive.isDesktop(context)
+            ? MediaQuery.of(context).size.width / 4.5
+            : MediaQuery.of(context).size.width / 2.5, 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Use your Email"),
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          enabled: true,
+                          //label: "Use your Email ",
+                          keyboardType: TextInputType.emailAddress,
+                          controller: con.emailController,
+                          textInputAction: TextInputAction.next,
+                          obscureText: false,
+                         // inputHint: 'Enter your email',
+                          validator: (value) {
+                            if (con.emailController.text.isEmpty) {
+                              return "Please Enter The Email";
+                            } else if (!con.emailController.text.contains("@")
+                                //     ||
+                                //     !emailController.text.endsWith('.com')||
+                                // !emailController.text.endsWith('.co.in')
+                                ) {
+                              return "Please Enter The valid Email";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            hoverColor: Colors.transparent,
+                            fillColor: Colors.white,
+                            hintText: 'Enter your email',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            helperStyle:
+                                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                            hintStyle: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.normal,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15),
+                            focusColor: Colors.grey.shade300,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                gapPadding: 7,
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                         Container(
+                    //alignment: Alignment.bottomLeft,
+                      child:
+                       Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.start,
+                          children: [
+                        Theme(
+                          data: ThemeData(
+                              unselectedWidgetColor:
+                                  themeChange.darkTheme
+                                      ? Colors.white
+                                      : Color(0xff004751)),
+                          child: Checkbox(
+                            activeColor: themeChange.darkTheme
+                                ? Colors.white
+                                : Color(0xff004751),
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                if (isChecked) {
+                                  isChecked = false;
+                                } else {
+                                  isChecked = true;
+                                  // showAlertDialog(context);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 10.0),
+                        Text("I agree to the",
+                            style: TextStyle(
+                              color: themeChange.darkTheme
+                                  ? Colors.white
+                                  : Color(0xff646464),
+                              fontSize: 14,
+                            )),
+                            InkWell(
+                    onTap: () {
+                      showAlertDialog(context);
+                    },
+                    child: Text(
+                      ' Privacy Clause',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: themeChange.darkTheme
+                              ? Colors.white
+                              : HexColor('#004751')),
+                    ),
+                  ),
+                      ])),
+                  
+                      ],
+                    ),
+                  ),
+                 
+                  AuthButton(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        // Get.to(VerifyEmail());
+                      } else if (isChecked == false) {
+                        Fluttertoast.showToast(
+                            msg: "Please Accept Terms and conditions");
+                      }
 
+                      if (con.emailController.text.isEmpty) {
+                        Fluttertoast.showToast(msg: 'Enter your Email Id');
+                      } else if (isChecked == false) {
+                        Fluttertoast.showToast(
+                            msg: "Please Accept Terms and conditions");
+                      } else {
+                        con.registerAPI(con.emailController.text.toString());
+                      }
+                    },
+                    // text: isChecked == false
+                    //     ? 'Accept Terms & Condition'
+                    text: "Register",
+                    decoration: BoxDecoration(
+                        color:
+                            // isChecked == false
+                            //     ? HexColor('#E9F9B2')
+                            HexColor('#CEE812'),
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  const SizedBox(height: 10),
+                  InkWell(
+                    onTap: () async {
+                      Navigator.of(context).pushNamed('/login');
+                    },
+                    child: RichText(
+                      textAlign: TextAlign.end,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Already have an account? ",
+                            style: TextStyle(
+                              fontFamily: 'Product Sans',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: themeChange.darkTheme
+                                  ? Colors.white
+                                  : Colors.grey,
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' Login',
+                            style: TextStyle(
+                              fontFamily: 'Product Sans',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: themeChange.darkTheme
+                                  ? Colors.white
+                                  : Color(0xff004751),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ])));
+  }
+//for desktop and tablet
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Form(
             key: formKey,
-            child: Column(
+            child:Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MyCustomInputBox(
+                  Responsive.isMobile(context)? MyCustomInputBox(
                     enabled: true,
                     label: "Use your Email ",
                     keyboardType: TextInputType.emailAddress,
@@ -167,6 +480,7 @@ class _RegisterState extends State<Register> {
                     },
                     inputDecoration: InputDecoration(
                       filled: true,
+                      hoverColor: Colors.transparent,
                       fillColor: Colors.white,
                       hintText: 'Enter your email',
                       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -202,30 +516,113 @@ class _RegisterState extends State<Register> {
                           fontSize: 13,
                           fontWeight: FontWeight.bold),
                     ),
+                  ):Container(
+                    width: Responsive.isDesktop(context)
+            ? MediaQuery.of(context).size.width / 4.5
+            : MediaQuery.of(context).size.width / 2.5, 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Use your Email"),
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          enabled: true,
+                          //label: "Use your Email ",
+                          keyboardType: TextInputType.emailAddress,
+                          controller: con.emailController,
+                          textInputAction: TextInputAction.next,
+                          obscureText: false,
+                         // inputHint: 'Enter your email',
+                          validator: (value) {
+                            if (con.emailController.text.isEmpty) {
+                              return "Please Enter The Email";
+                            } else if (!con.emailController.text.contains("@")
+                                //     ||
+                                //     !emailController.text.endsWith('.com')||
+                                // !emailController.text.endsWith('.co.in')
+                                ) {
+                              return "Please Enter The valid Email";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            hoverColor: Colors.transparent,
+                            fillColor: Colors.white,
+                            hintText: 'Enter your email',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            helperStyle:
+                                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                            hintStyle: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.normal,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15),
+                            focusColor: Colors.grey.shade300,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                gapPadding: 7,
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                       mainAxisAlignment: Responsive.isMobile(context)
+                                  ? MainAxisAlignment.start
+                                  : Responsive.isDesktop(context)
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.start,
                         children: [
                           Row(
                               mainAxisAlignment: Responsive.isMobile(context)
                                   ? MainAxisAlignment.start
-                                  : MainAxisAlignment.start,
+                                  : Responsive.isDesktop(context)
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                    width: Responsive.isMobile(context)
-                                        ? 0
-                                        : Responsive.isDesktop(context)
-                                            ? MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2.7
-                                            : MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3.6),
+                                // sizedbox is for screen size 
+                                // SizedBox(
+                                //     width: Responsive.isMobile(context)
+                                //         ? 0
+                                //         : Responsive.isDesktop(context)
+                                //             ? MediaQuery.of(context)
+                                //                     .size
+                                //                     .width /
+                                //                 2.4
+                                //             : MediaQuery.of(context)
+                                //                     .size
+                                //                     .width /
+                                //                 3.6),
                                 Container(
-                                    child: Row(
+                                  //alignment: Alignment.bottomLeft,
+                                    child:
+                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
@@ -247,7 +644,6 @@ class _RegisterState extends State<Register> {
                                                 setState(() {
                                                   if (isChecked) {
                                                     isChecked = false;
-
                                                   } else {
                                                     isChecked = true;
                                                     // showAlertDialog(context);
@@ -367,7 +763,8 @@ class _RegisterState extends State<Register> {
                       if (formKey.currentState!.validate()) {
                         // Get.to(VerifyEmail());
                       } else if (isChecked == false) {
-                        Fluttertoast.showToast(msg: "Please Accept Terms and conditions");
+                        Fluttertoast.showToast(
+                            msg: "Please Accept Terms and conditions");
                       }
 
                       // if (formKey.currentState!.validate()) {
@@ -378,9 +775,10 @@ class _RegisterState extends State<Register> {
                       // }
                       if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
-                      }
-                      else if(isChecked == false){Fluttertoast.showToast(msg: "Please Accept Terms and conditions");}
-                      else {
+                      } else if (isChecked == false) {
+                        Fluttertoast.showToast(
+                            msg: "Please Accept Terms and conditions");
+                      } else {
                         con.registerAPI(con.emailController.text.toString());
                       }
                     },
@@ -450,23 +848,22 @@ class _RegisterState extends State<Register> {
             highlightColor: Color(0XFFffffff),
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
-            onTap: () async{
+            onTap: () async {
               FacebookAuth.instance.login(
                   permissions: ["public_profile", "email"]).then((value) {
                 FacebookAuth.instance.getUserData().then((userData) {
                   setState(() {
                     isLoggedIn = true;
                     userObj = userData;
-                    print(userObj.toString()+'ffff');
+                    print(userObj.toString() + 'ffff');
                   });
                   if (isLoggedIn == true) {
-                    con.emailController.text =userData["email"];
+                    con.emailController.text = userData["email"];
                     // con.socialmedia( userData["name"],
                     //     userData["email"],
                     //     userData["picture"]["data"]["url"], "", "", "", "", "", "");
                     con.registerAPI(userData['email']);
-                    GetStorage().write('username', userData['name']
-                    );
+                    GetStorage().write('username', userData['name']);
                     // Get.offAll(DashbordScreen());
                   } else {
                     Fluttertoast.showToast(msg: "Check Your Facebook Account");
@@ -508,8 +905,8 @@ class _RegisterState extends State<Register> {
             splashColor: Colors.green, // splash color
             onTap: () async {
               //Gmail Auth
-              AuthService().signinWithGoogle();
-              print(AuthService().signinWithGoogle());
+              //AuthService().signinWithGoogle();
+              //print(AuthService().signinWithGoogle());
             }, // button pressed
             child: Padding(
                 padding: EdgeInsets.all(10),
@@ -547,9 +944,7 @@ class _RegisterState extends State<Register> {
           focusColor: Color(0XFF004751),
           splashColor: Colors.green, // splash color
           onTap: () {
-
             Navigator.pop(context);
-
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),

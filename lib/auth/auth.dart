@@ -10,6 +10,7 @@ import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
+import '../ui/register/terms&condition.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
 import 'init.dart';
@@ -272,7 +274,11 @@ class AuthCon extends GetxController with BaseController {
     if (data == 'Success') {
       GetStorage().write('username', firstName.toString());
       // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      Get.to(() => Twofactor());
+      if(kIsWeb){
+ Get.to(() => termsandconditions());
+      } else{
+         Get.to(() => Twofactor());
+      }
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());

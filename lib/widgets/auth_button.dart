@@ -31,7 +31,7 @@ class _AuthButtonState extends State<AuthButton> {
   @override
   Widget build(BuildContext context) {
     var scrWidth = MediaQuery.of(context).size.width;
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

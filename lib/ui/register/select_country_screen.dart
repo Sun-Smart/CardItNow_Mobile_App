@@ -8,10 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-
-
-
-
 class Selectcountry extends StatefulWidget {
   const Selectcountry({Key? key}) : super(key: key);
 
@@ -20,35 +16,31 @@ class Selectcountry extends StatefulWidget {
 }
 
 class _SelectcountryState extends State<Selectcountry> {
-
   var type = '';
 
-  var country=[
-    {
-      "img":'assets/newlogo.png',
-      "type":'Philippines'
-    },
-    {
-      "img":'assets/newuae.png',
-      "type":'UAE'
-    },
+  var country = [
+    {"img": 'assets/newlogo.png', "type": 'Philippines'},
+    {"img": 'assets/newuae.png', "type": 'UAE'},
   ];
-  final AuthCon con=Get.find();
+  final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: Column(
         crossAxisAlignment: Responsive.isMobile(context)
             ? CrossAxisAlignment.start
-            : CrossAxisAlignment.center,
+            : Responsive.isDesktop(context)
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.center,
         children: [
           Container(
               // color: Styles.colorBackgroundBlock,
               child: Column(
                   crossAxisAlignment: Responsive.isMobile(context)
                       ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.center,
+                      : Responsive.isDesktop(context)
+                          ? CrossAxisAlignment.center
+                          : CrossAxisAlignment.center,
                   children: [
                 Container(
                     padding: EdgeInsets.only(top: 0, bottom: 30),
@@ -58,7 +50,9 @@ class _SelectcountryState extends State<Selectcountry> {
                             image: AssetImage("assets/loginbg.png"),
                             fit: Responsive.isMobile(context)
                                 ? BoxFit.cover
-                                : BoxFit.fill)),
+                                : Responsive.isDesktop(context)
+                                    ? BoxFit.fill
+                                    : BoxFit.fill)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -74,7 +68,9 @@ class _SelectcountryState extends State<Selectcountry> {
             child: Row(
               mainAxisAlignment: Responsive.isMobile(context)
                   ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
+                  : Responsive.isDesktop(context)
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.center,
               children: [
                 Text("Select Your Country",
                     style: TextStyle(
@@ -92,118 +88,109 @@ class _SelectcountryState extends State<Selectcountry> {
                 ? MediaQuery.of(context).size.width / 1
                 : Responsive.isDesktop(context)
                     ? MediaQuery.of(context).size.width / 4.3
-                    : MediaQuery.of(context).size.width / 2.5,
+                    : MediaQuery.of(context).size.width / 2,
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
+                
                 padding: const EdgeInsets.all(10),
                 itemCount: country.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  return 
-                  SingleChildScrollView(
-                    child: InkWell(
-                      hoverColor: Colors.transparent,
-                      onTap: () {
-                        setState(() {
-                          type = country[index]['type']!;
-                          print(type);
-                          if(type=='UAE'){
-                            con.isUAE.value=true;
-                          }else{
-                            con.isUAE.value=false;
-                  
-                          }
-                  
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                        child: Card(
-                          elevation: 0,
-                          color: type == country[index]['type']
-                              ? HexColor('#CEE812')
-                              : Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                              child: Column(
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Image.asset(country[index]['img']!,
-                                      width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
-                                  const SizedBox(height: 10),
-                                  Text(country[index]['type']!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
-                                  const SizedBox(height: 10),
-                                ],
-                              ),
-                            ],
-                          )),
-                        ),
-                        
+                  return InkWell(
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        type = country[index]['type']!;
+                        print(type);
+                        if (type == 'UAE') {
+                          con.isUAE.value = true;
+                        } else {
+                          con.isUAE.value = false;
+                        }
+                      });
+                    },
+                    child: Card(
+                      elevation: 0,
+                      color: type == country[index]['type']
+                          ? HexColor('#CEE812')
+                          : Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const SizedBox(width: 30,),
+                          Image.asset(country[index]['img']!,
+                              width: Responsive.isMobile(context)
+                                  ? 100
+                                  : 50,
+                              height: Responsive.isMobile(context)
+                                  ? 100
+                                  : 50),
+                          const SizedBox(height: 10,width: 10),
+                          Text(country[index]['type']!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16)),
+                          const SizedBox(height: 10),
+                        ],
                       ),
                     ),
                   );
                 }),
           ),
-          const Spacer(),
+          // const Spacer(),
           if (type != '')
-          //   Container(
-          //     width: Responsive.isMobile(context)
-          //         ? MediaQuery.of(context).size.width / 1
-          //         : Responsive.isDesktop(context)
-          //             ? MediaQuery.of(context).size.width / 4.3
-          //             : MediaQuery.of(context).size.width / 2.5,
-          //     child: Padding(
-          //       padding: const EdgeInsets.symmetric(horizontal: 10),
-          //       child: Row(
-          //         mainAxisAlignment: Responsive.isMobile(context)
-          //             ? MainAxisAlignment.center
-          //             : MainAxisAlignment.center,
-          //         children: [
-          //           SizedBox(
-          //             height: 55,
-          //             child: ElevatedButton(
-          //             style: ElevatedButton.styleFrom(
-          //                 backgroundColor: HexColor('#CEE812'),
-          //                 textStyle: const TextStyle(
-          //                     fontSize: 18, fontWeight: FontWeight.bold)),
-          //             onPressed: () {
-          //               Get.to(Register());
+            //   Container(
+            //     width: Responsive.isMobile(context)
+            //         ? MediaQuery.of(context).size.width / 1
+            //         : Responsive.isDesktop(context)
+            //             ? MediaQuery.of(context).size.width / 4.3
+            //             : MediaQuery.of(context).size.width / 2.5,
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 10),
+            //       child: Row(
+            //         mainAxisAlignment: Responsive.isMobile(context)
+            //             ? MainAxisAlignment.center
+            //             : MainAxisAlignment.center,
+            //         children: [
+            //           SizedBox(
+            //             height: 55,
+            //             child: ElevatedButton(
+            //             style: ElevatedButton.styleFrom(
+            //                 backgroundColor: HexColor('#CEE812'),
+            //                 textStyle: const TextStyle(
+            //                     fontSize: 18, fontWeight: FontWeight.bold)),
+            //             onPressed: () {
+            //               Get.to(Register());
 
-
-          //             },
-          //             child: Text(
-          //               "CONFIRM",
-          //               style: TextStyle(
-          //                 fontFamily: 'ProductSans',
-          //                 fontSize: 14,
-          //                 fontWeight: FontWeight.bold,
-          //                 color: HexColor('#004751'),
-          //               ),
-          //             )),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // //const SizedBox(height: 30),
-        AuthButton(
-      decoration: BoxDecoration(
-        color: HexColor('#CEE812'),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      onTap: () {
-        Get.to(Register());
-      },
-      text: "Next",
-    )
-     ],
+            //             },
+            //             child: Text(
+            //               "CONFIRM",
+            //               style: TextStyle(
+            //                 fontFamily: 'ProductSans',
+            //                 fontSize: 14,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: HexColor('#004751'),
+            //               ),
+            //             )),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // //const SizedBox(height: 30),
+            AuthButton(
+              decoration: BoxDecoration(
+                color: HexColor('#CEE812'),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              onTap: () {
+                Get.to(Register());
+              },
+              text: "Next",
+            )
+        ],
       ),
     );
   }
@@ -213,7 +200,9 @@ class _SelectcountryState extends State<Selectcountry> {
     return Row(
         mainAxisAlignment: Responsive.isMobile(context)
             ? MainAxisAlignment.spaceBetween
-            : MainAxisAlignment.center,
+            : Responsive.isDesktop(context)
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.center,
         children: [
           IconButton(
             icon: const Icon(Icons.close, size: 30),
@@ -232,7 +221,9 @@ class _SelectcountryState extends State<Selectcountry> {
         child: Row(
             mainAxisAlignment: Responsive.isMobile(context)
                 ? MainAxisAlignment.spaceBetween
-                : MainAxisAlignment.center,
+                : Responsive.isDesktop(context)
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.center,
             children: [
               Row(
                 children: [

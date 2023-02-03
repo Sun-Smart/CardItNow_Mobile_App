@@ -131,7 +131,7 @@ class _splash2State extends State<splash2> {
 
 
                                             children: [
-                                              const SizedBox(height: 10),
+                                              const SizedBox(height: 10,width:10),
                                               Center(
                                                 child: Image.asset(country[index]['img']!,
                                                     width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),

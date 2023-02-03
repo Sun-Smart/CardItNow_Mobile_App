@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../payment_method/choose_payment_method.dart';
 
@@ -25,28 +26,133 @@ class _termsandconditionsState extends State<termsandconditions> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: bulildbutton(),
-        body: Container(
-            height: MediaQuery.of(context).size.height / 0.8,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(top: 20, bottom: 0),
-                      // margin: EdgeInsets.only(top: 40),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildToptitle(),
-                            buildtitle(),
-                          ])),
-                  bulidForm(),
-                  SizedBox(height: 30)
-                ],
-              ),
-            )),
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? bulildbutton() : null,
+        body: Responsive.isMobile(context)
+            ? Container(
+                height: MediaQuery.of(context).size.height / 0.8,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(top: 20, bottom: 0),
+                          // margin: EdgeInsets.only(top: 40),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildToptitle(),
+                                buildtitle(),
+                              ])),
+                      bulidForm(),
+                      SizedBox(height: 30)
+                    ],
+                  ),
+                ))
+            : Responsive.isDesktop(context)
+                ? Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          padding: EdgeInsets.only(top: 20, bottom: 0),
+                          // margin: EdgeInsets.only(top: 40),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildToptitle(),
+                                buildtitle(),
+                                bulidForm(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: [
+                                    AuthButton(
+                                        decoration: BoxDecoration(
+                                            color: HexColor('#CEE812'),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        onTap: () {
+                                          if (GetStorage()
+                                                  .read('save_token') ==
+                                              null) {
+                                            Get.to(congratesscreen());
+                                          } else {
+                                            Get.to(congratesscreen());
+                                          }
+                                        },
+                                        text: "Done"),
+                                  ],
+                                ),
+                              ])),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          //eight: MediaQuery.of(context).size.height / 0.8,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    padding:
+                                        EdgeInsets.only(top: 20, bottom: 0),
+                                    // margin: EdgeInsets.only(top: 40),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          buildToptitle(),
+                                          buildtitle(),
+                                        ])),
+                                bulidForm(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    AuthButton(
+                                        decoration: BoxDecoration(
+                                            color: HexColor('#CEE812'),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        onTap: () {
+                                          if (GetStorage().read('save_token') ==
+                                              null) {
+                                            Get.to(congratesscreen());
+                                          } else {
+                                            Get.to(congratesscreen());
+                                          }
+                                        },
+                                        text: "Done"),
+                                  ],
+                                ),
+                                SizedBox(height: 30)
+                              ],
+                            ),
+                          ))
+                    ],
+                  ),
       ),
     );
   }
@@ -56,8 +162,14 @@ class _termsandconditionsState extends State<termsandconditions> {
     return SingleChildScrollView(
         child: Container(
             margin: EdgeInsets.all(15),
-            height: MediaQuery.of(context).size.height / 1,
-            width: MediaQuery.of(context).size.width / 1,
+            height:
+                //  Responsive.isMobile(context)
+                MediaQuery.of(context).size.height / 1,
+            // : MediaQuery.of(context).size.height / 2,
+            width:
+                // Responsive.isMobile(context)
+                MediaQuery.of(context).size.width / 1,
+            // : MediaQuery.of(context).size.width / 2,
             child:
                 // ListView.builder(
                 //     itemCount:1,
@@ -124,13 +236,20 @@ class _termsandconditionsState extends State<termsandconditions> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
-      child: Text(
-        'Terms & Conditions',
-        style: TextStyle(
-          fontSize: 28,
-          color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+      child: Row(
+        mainAxisAlignment: Responsive.isMobile(context)
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.center,
+        children: [
+          Text(
+            'Terms & Conditions',
+            style: TextStyle(
+              fontSize: 28,
+              color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

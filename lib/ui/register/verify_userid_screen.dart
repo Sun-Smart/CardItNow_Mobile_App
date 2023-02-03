@@ -141,50 +141,152 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-        bottomNavigationBar: bulildbutton(),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: BackButton(
-            color: themeChange.darkTheme ? Colors.white : Colors.black,
-          ),
-          actions: [
-            Center(
-              child: GestureDetector(
-                child: Container(
-                  height: 30,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: HexColor('#CEE812'), width: 3),
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Center(
-                    child: Text(
-                      "Skip",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: HexColor('#004751'),
-                          fontWeight: FontWeight.bold),
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? bulildbutton() : null,
+        appBar: Responsive.isMobile(context)
+            ? AppBar(
+                backgroundColor: Colors.transparent,
+                leading: BackButton(
+                  color: themeChange.darkTheme ? Colors.white : Colors.black,
+                ),
+                actions: [
+                  Center(
+                    child: GestureDetector(
+                      child: Container(
+                        height: 30,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: HexColor('#CEE812'), width: 3),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: Text(
+                            "Skip",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: HexColor('#004751'),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Get.to(const AvatarPageView());
+                      },
                     ),
                   ),
+                  const SizedBox(width: 20),
+                ],
+              )
+            : null,
+        body: Responsive.isMobile(context)
+            ? Container(
+                //color: Color(0XFFffffff),
+                child: SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                    buildtitle(),
+                    bulidForm(),
+                  ])))
+            : Responsive.isDesktop(context)
+                ? Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          //color: Color(0XFFffffff),
+                          child: SingleChildScrollView(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  buildToptitle(),
+                                  buildtitle(),
+                                  bulidForm(),
+                                  bulildbutton()
+                                ]),
+                          ))
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        color: Color(0XFF004751),
+                        child: Center(
+                            child: Image.asset("assets/applogo-02.png",
+                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                              )),
+                      ),
+                      Container(
+                         width: MediaQuery.of(context).size.width / 1.5,
+                          //color: Color(0XFFffffff),
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            buildToptitle(),
+                            buildtitle(),
+                            bulidForm(),
+                            bulildbutton()
+                          ])))
+                    ],
+                  ));
+  }
+
+  Widget buildToptitle() {
+    // final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Row(
+        mainAxisAlignment: Responsive.isMobile(context)
+            ? MainAxisAlignment.start
+            : Responsive.isDesktop(context)
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.spaceBetween,
+      
+        children: [
+          IconButton(
+            hoverColor: Colors.transparent,
+            icon: Icon(Icons.close, size: 30),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+      
+          GestureDetector(
+            child: Container(
+              height: 30,
+              width: 80,
+              decoration: BoxDecoration(
+                  border: Border.all(color: HexColor('#CEE812'), width: 3),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Center(
+                child: Text(
+                  "Skip",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: HexColor('#004751'), fontWeight: FontWeight.bold),
                 ),
-                onTap: () {
-                  Get.to(const AvatarPageView());
-                },
               ),
             ),
-            const SizedBox(width: 20),
-          ],
-        ),
-        body: Container(
-            //color: Color(0XFFffffff),
-            child: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: Responsive.isMobile(context)
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                    children: [
-              buildtitle(),
-              bulidForm(),
-            ]))));
+            onTap: () {
+              Get.to(const AvatarPageView());
+            },
+          ),
+        ]);
   }
 
   Widget buildtitle() {
@@ -217,13 +319,23 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     ? MainAxisAlignment.start
                     : MainAxisAlignment.center,
                 children: [
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Select ID',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isMobile(context)
+                            ? 0
+                            :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
+                            MediaQuery.of(context).size.width / 9,
+                      ),
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Text('Select ID',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  color: Styles.whitecustomlable))),
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -234,6 +346,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                             : MediaQuery.of(context).size.width / 2.5,
                     height: MediaQuery.of(context).size.height / 15,
                     decoration: BoxDecoration(
+                      
                         border: Border.all(
                             color: const Color(0XffB7C5C7), width: 1.5),
                         borderRadius:
@@ -241,6 +354,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton(
+                        
                         underline: const SizedBox(),
                         dropdownColor: Colors.white,
                         isExpanded: true,
@@ -248,7 +362,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         hint: Text('Select Document',
                             style: TextStyle(
                                 color: Styles.whitecustomlable, fontSize: 14)),
-                        icon: InkWell(
+                        icon: GestureDetector(
                             child: Icon(Icons.keyboard_arrow_down,
                                 color: themeChange.darkTheme
                                     ? Colors.white
@@ -256,6 +370,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         items: con.isUAE.value
                             ? uaeData.map((String item) {
                                 return DropdownMenuItem(
+                                  
                                     value: item,
                                     child: Text(item,
                                         style: const TextStyle(
@@ -281,20 +396,27 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Container(
-                  //   margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  //   child: Text(
-                  //     'Upload your ID',
-                  //     style: TextStyle(
-                  //         fontFamily: 'Sora',
-                  //         fontSize: 14,
-                  //         color: Styles.whitecustomlable),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isMobile(context)
+                            ? 0
+                            :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
+                            MediaQuery.of(context).size.width / 9,
+                      ),
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Text('Upload your ID',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  color: Styles.whitecustomlable))),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
                   displayImagedoc(),
                   const SizedBox(height: 20),
-                  MyCustomInputBox(
+                 Responsive.isMobile(context)? MyCustomInputBox(
                       enabled: true,
                       label: "Enter ID Number ",
                       controller: phoneNumberController,
@@ -346,15 +468,102 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         } else {
                           return "Enter ${dropdownvalue.toString()} Number";
                         }
-                      }),
-                  const SizedBox(height: 20),
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Upload your Selfie',
+                      }):Column(
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width:
+                                   Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 4.8:
+                                 MediaQuery.of(context).size.width / 8  ),
+                                    Text(
+                          "Enter ID Number ",
                           style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              color: Styles.whitecustomlable))),
+                               fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  color: Styles.whitecustomlable),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                              
+                              Container(
+                            width: Responsive.isDesktop(context)
+            ? MediaQuery.of(context).size.width / 4.5
+            : MediaQuery.of(context).size.width / 2.5,
+                          child: TextFormField(
+                            enabled: true,
+                                             // label: "Enter ID Number ",
+                          controller: phoneNumberController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hoverColor: Colors.transparent,
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: dropdownvalue == null
+                                ? "Select Document"
+                                : 'Enter ${dropdownvalue} Number',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            helperStyle:
+                                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                            hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15),
+                            focusColor: Colors.grey.shade300,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                gapPadding: 7,
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(color: Colors.grey)),
+                            errorStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold),
+                          ),
+                                            
+                          validator: (value) {
+                            if (dropdownvalue == null) {
+                              return "Enter Your Document Type";
+                            } else {
+                              return "Enter ${dropdownvalue.toString()} Number";
+                            }}
+                          ),
+                              ),
+                        ],
+                      ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isMobile(context)
+                            ? 0
+                            :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
+                            MediaQuery.of(context).size.width / 9,
+                      ),
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Text('Upload your Selfie',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  color: Styles.whitecustomlable))),
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   displayImageSelfie(),
                   const SizedBox(height: 20),
@@ -562,7 +771,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           } else {
             con.ocrdocument();
             // Fluttertoast.showToast(msg: "Data Saved");
-
           }
         },
         text: "Next");

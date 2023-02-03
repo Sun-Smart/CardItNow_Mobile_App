@@ -40,6 +40,7 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
+        elevation: 0,
         backgroundColor: Colors.white,
           child: Column(
             children: [
@@ -105,7 +106,7 @@ class _drawerState extends State<drawer> {
                   itemCount: items.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return InkWell(
+                    return GestureDetector(
                       onTap: () {
                         setState(() {
                             print(items[index] );

@@ -122,6 +122,10 @@ flutter:
     - family: CustomIcon
       fonts:
         - asset: assets/fonts/CustomIcon.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+        
   # fonts:
   #   - family: Schyler
   #     fonts:

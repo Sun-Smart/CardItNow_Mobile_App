@@ -13,7 +13,7 @@ class MyCustomInputBox extends StatefulWidget {
   final Widget? prefixIcon;
   final bool? enabled;
   final int? maxLength;
-  final  inputFormatters;
+  final inputFormatters;
 
   final TextInputType? keyboardType;
   final Widget? Function(String?)? onChanged;
@@ -22,7 +22,7 @@ class MyCustomInputBox extends StatefulWidget {
   final TextEditingController controller;
   final int? maxLines;
 
-   MyCustomInputBox(
+  MyCustomInputBox(
       {Key? key,
       this.textInputType,
       this.inputFormatters,
@@ -56,21 +56,38 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: Responsive.isMobile(context)
+          ? CrossAxisAlignment.start
+          : Responsive.isDesktop(context)
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.center,
+      mainAxisAlignment: Responsive.isMobile(context)
+          ? MainAxisAlignment.start
+          : Responsive.isDesktop(context)
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.center,
       children: [
         Align(
           alignment: Responsive.isMobile(context)
               ? Alignment.centerLeft
-              : Alignment.center,
+              : Responsive.isDesktop(context)
+                  ? Alignment.centerLeft
+                  : Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 16, bottom: 0),
+            padding: Responsive.isMobile(context)
+                ? EdgeInsets.only(left: 16, bottom: 0)
+                : Responsive.isDesktop(context)
+                    ? EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width / 6.5)
+                    : EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 7),
             child: Text(
               widget.label ?? "",
               style: TextStyle(fontFamily: 'Sora', fontSize: 14),
             ),
           ),
         ),
-        const SizedBox(height: 18),
+         SizedBox(height:Responsive.isMobile(context)?18: 10),
         Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
           alignment: Alignment.bottomCenter,
