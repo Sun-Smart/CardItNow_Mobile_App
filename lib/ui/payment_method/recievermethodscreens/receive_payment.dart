@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:cardit/ui/payment_method/recievermethodscreens/bankaccounts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../themes/theme_notifier.dart';
+
 
 class ReceivePaymentPage extends StatefulWidget {
   const ReceivePaymentPage({Key? key}) : super(key: key);
@@ -33,7 +34,9 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
                     fontWeight: FontWeight.bold,
                     color: HexColor('#004751'))),
             SizedBox(height: 30),
-            selectCard(context, () {}, Icons.house_outlined, 'Bank Account'),
+            selectCard(context, () {
+              Get.to(()=>Bankaccounts());
+            }, Icons.house_outlined, 'Bank Account'),
             SizedBox(height: 20),
             selectCard(context, () {
               print('2 Tapped');
