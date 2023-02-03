@@ -35,6 +35,7 @@ class loginauth extends GetxController with BaseController {
       AuthCon auth = AuthCon();
       GetStorage().write("save_token", data["token"].toString());
       await auth.getLoginToken();
+      auth.onInit();
       GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
       if(MyApp.logindetails["status"] == "A"){
         Get.to(DashbordScreen());
