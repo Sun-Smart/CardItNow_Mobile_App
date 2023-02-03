@@ -3,7 +3,6 @@
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -797,50 +796,50 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: MediaQuery.of(context).size.width / 4,
-                          height: MediaQuery.of(context).size.height / 13,
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          width: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.width / 1
+                              : Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.5
+                              : MediaQuery.of(context).size.width / 2.5,
+                          height: MediaQuery.of(context).size.height / 15,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 1),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                          ),
-
+                              border:
+                              Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius: const BorderRadius.all(Radius.circular(3))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: DropdownButton(
                               underline: const SizedBox(),
                               dropdownColor: Colors.white,
                               isExpanded: true,
-                              value: dropdownvalue,
+                              value: con.dropdownvalue,
                               hint: Text('Select Your Country',
                                   style: TextStyle(
-                                      color: Styles.whitecustomlable,
-                                      fontSize: 14)),
+                                      color: Styles.whitecustomlable, fontSize: 14)),
                               icon: InkWell(
                                   child: Icon(
-                                Icons.keyboard_arrow_down,
-                                // color: themeChange.darkTheme
-                                //     ? Colors.white
-                                //     : Colors.black45
-                              )),
-                              items: selectedcountry.map((String item) {
+                                    Icons.keyboard_arrow_down,
+                                    // color: themeChange.darkTheme
+                                    //     ? Colors.white
+                                    //     : Colors.black45
+                                  )),
+                              items: con.pickcountry.map((dynamic item) {
                                 return DropdownMenuItem(
                                     value: item,
-                                    child: Text(item,
+                                    child: Text(item["geoname"],
                                         style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
+                                            color: Color(0Xff413D4B), fontSize: 14)));
                               }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropdownvalueCity = null;
-                                  dropdownvalue = newValue!;
-                                  con.choosedDocId = newValue;
-                                  con.isUAE.value =
-                                      dropdownvalue == 'UAE' ? true : false;
+                              onChanged: (dynamic newValue) {
+
+                                con.dropdownvalue = newValue!;
+                                con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                                  setState(() {
+                                    con.pickcity;
+                                  });
                                 });
+
                               },
                               style: const TextStyle(color: Colors.black),
                             ),
@@ -864,55 +863,42 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: MediaQuery.of(context).size.width / 4,
-                          height: MediaQuery.of(context).size.height / 13,
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          width: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.width / 1
+                              : Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.5
+                              : MediaQuery.of(context).size.width / 2.5,
+                          height: MediaQuery.of(context).size.height / 15,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 1),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                          ),
-
+                              border:
+                              Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius: const BorderRadius.all(Radius.circular(3))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: DropdownButton(
                               underline: const SizedBox(),
                               dropdownColor: Colors.white,
                               isExpanded: true,
-                              value: dropdownvalueCity,
-                              hint: Text('Select Your City',
+                              value: con.dropdownvalueCity,
+                              hint: Text('Select Your city',
                                   style: TextStyle(
-                                      color: Styles.whitecustomlable,
-                                      fontSize: 14)),
+                                      color: Styles.whitecustomlable, fontSize: 14)),
                               icon: InkWell(
                                   child: Icon(
-                                Icons.keyboard_arrow_down,
-                                // color: themeChange.darkTheme
-                                //     ? Colors.white
-                                //     : Colors.black45
-                              )),
-                              items: con.isUAE.value
-                                  ? uaecities.map((String item) {
-                                      return DropdownMenuItem(
-                                          value: item,
-                                          child: Text(item,
-                                              style: const TextStyle(
-                                                  color: Color(0Xff413D4B),
-                                                  fontSize: 14)));
-                                    }).toList()
-                                  : philipinecity.map((String item) {
-                                      return DropdownMenuItem(
-                                          value: item,
-                                          child: Text(item,
-                                              style: const TextStyle(
-                                                  color: Color(0Xff413D4B),
-                                                  fontSize: 14)));
-                                    }).toList(),
-                              onChanged: (String? newValue) {
+                                    Icons.keyboard_arrow_down,
+
+                                  )),
+                              items: con.pickcity.map((dynamic item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item["cityname"],
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B), fontSize: 14)));
+                              }).toList(),
+                              onChanged: (dynamic newValue) {
                                 setState(() {
-                                  dropdownvalueCity = newValue!;
-                                  con.choosedDocId = newValue;
+                                  con.dropdownvalueCity = newValue!;
                                 });
                               },
                               style: const TextStyle(color: Colors.black),

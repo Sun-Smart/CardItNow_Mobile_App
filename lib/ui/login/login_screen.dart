@@ -437,12 +437,12 @@ Widget buildformweb(){
                                           activeColor: themeChange.darkTheme
                                               ? Colors.white
                                               : Color(0xff004751),
-                                          value: _isChecked,
+                                          value: isremember,
                                           onChanged: (value) {
                                             setState(() {
                                               print(
-                                                  "ischecked---------${_isChecked}");
-                                              _isChecked = !_isChecked;
+                                                  "ischecked---------${isremember}");
+                                              isremember = !isremember;
                                             });
                                           },
                                         ),
@@ -497,8 +497,8 @@ Widget buildformweb(){
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Password");
                       } else {
-                        con.loginAPI(_emailController.text,
-                            _passwordController.text, _isChecked);
+                        logincon.loginAPI(_emailController.text,
+                            _passwordController.text, isremember);
                       }
                     },
                     text: "Login",
