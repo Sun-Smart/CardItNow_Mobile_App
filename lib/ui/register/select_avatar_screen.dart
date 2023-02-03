@@ -331,7 +331,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                     child: Card(
 
                                                       color: type ==
-                                                              avatars.length
+                                                              avatars[index]
                                                           ? HexColor('#CEE812')
                                                           : Colors.white,
                                                       elevation: 4,

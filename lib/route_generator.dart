@@ -36,6 +36,7 @@ import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
 import 'ui/payment_method/manula_card_screen.dart';
+import 'ui/payment_method/recievermethodscreens/bankaccounts.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
 import 'ui/splash_screen/splash_screen.dart';
@@ -48,7 +49,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-       return MaterialPageRoute(builder: (_) =>  kIsWeb ? Home() :SplashScreens());
+       return MaterialPageRoute(builder: (_) =>  kIsWeb ? Home() :Bankaccounts());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':

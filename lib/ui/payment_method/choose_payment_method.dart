@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/payment_method/receive_payment.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/receive_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
