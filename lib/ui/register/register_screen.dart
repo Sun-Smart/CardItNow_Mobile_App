@@ -968,11 +968,42 @@ class _RegisterState extends State<Register> {
     AlertDialog alert = AlertDialog(
       title: Text("Terms and Conditions."),
       content: Container(
-          width: Responsive.isMobile(context)
-              ? 300
-              : MediaQuery.of(context).size.width / 5,
-          child: Text(con.termscond,
-              style: TextStyle(fontSize: 13, color: Styles.whitecolortext))),
+        margin: EdgeInsets.all(5),
+        height:
+        //  Responsive.isMobile(context)
+        MediaQuery.of(context).size.height / 1,
+        // : MediaQuery.of(context).size.height / 2,
+        width:
+        // Responsive.isMobile(context)
+        MediaQuery.of(context).size.width / 1,
+        // : MediaQuery.of(context).size.width / 2,
+        child:
+        ListView.builder(
+            itemCount: con.termscond.length,
+            itemBuilder: (BuildContext context, int index) {
+              return
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Text(con.termscond[index][],
+                    //     style: TextStyle(
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 18,
+                    //         color: Colors.black)),
+                    // SizedBox(height: 15),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(con.termscond[index]["termdetails"].toString(),
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                                fontFamily: 'sora'))),
+                    SizedBox(height: 20),
+                  ],
+                );
+            }),
+      ),
       actions: [okButton],
     );
 

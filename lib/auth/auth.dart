@@ -57,7 +57,7 @@ class AuthCon extends GetxController with BaseController {
   var isUAE = false.obs;
 
   // terms and conditions
-  var termscond = '';
+  var termscond = [];
   var doc64 = '';
   var banklist = [];
   var paymentpurposelist = [];
@@ -252,11 +252,12 @@ class AuthCon extends GetxController with BaseController {
 
   //terms and condition
   void termsconditions() async {
+
     var response =
         await BaseClient().get(API().termsmaster).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    termscond = data[0]['termdetails'];
+    termscond = data;
   }
 
   //show Avator Master

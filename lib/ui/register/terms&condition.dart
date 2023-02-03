@@ -171,22 +171,22 @@ class _termsandconditionsState extends State<termsandconditions> {
                 MediaQuery.of(context).size.width / 1,
             // : MediaQuery.of(context).size.width / 2,
             child:
-                // ListView.builder(
-                //     itemCount:1,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       return
+                ListView.builder(
+                    itemCount: con.termscond.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return
                 Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("1.Clause",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.black)),
-                SizedBox(height: 15),
+                // Text(con.termscond[index][],
+                //     style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 18,
+                //         color: Colors.black)),
+                // SizedBox(height: 15),
                 Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Text(con.termscond.toString(),
+                    child: Text(con.termscond[index]["termdetails"].toString(),
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                             fontSize: 14,
@@ -194,9 +194,9 @@ class _termsandconditionsState extends State<termsandconditions> {
                             fontFamily: 'sora'))),
                 SizedBox(height: 20),
               ],
-            ))
-        // }),
-        // ),
+            );
+        }),
+        ),
         );
   }
 

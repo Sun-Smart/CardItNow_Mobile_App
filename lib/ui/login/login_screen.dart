@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/auth/loginapi.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
@@ -17,6 +18,7 @@ import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -818,9 +820,43 @@ Widget buildformweb(){
         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset("assets/google.png", width: 40),
+
+              GestureDetector(
+                  onTap: (){
+                    AuthService().signinWithGoogle();
+                  },
+                  child: Image.asset("assets/google.png", width: 40)),
           const SizedBox(width: 20),
-          Image.asset(width: 40, 'assets/fb.png'),
+          GestureDetector(
+              onTap: (){
+
+    FacebookAuth.instance.login(
+    permissions: ["public_profile", "email"]).then((value) {
+    FacebookAuth.instance.getUserData().then((userData) {
+    setState(() {
+    isLoggedIn = true;
+    userObj = userData;
+    });
+    if (isLoggedIn == true) {
+    con.emailController.text = userData["email"];
+    print(userData.toString());
+    var userDatas = {
+    "email": userData["email"].toString(),
+    "firstname": userData['name'].toString(),
+    "lastname": "",
+    "socialid": userData['id'].toString(),
+    "mediatype": "Facebook"
+    };
+    con.registerSignAPI(userDatas);
+    GetStorage().write('username', userData['name']
+    );
+    } else {
+    Fluttertoast.showToast(msg: "Check Your Facebook Account");
+    }
+    });
+    });
+              },
+              child: Image.asset(width: 40, 'assets/fb.png')),
         ]));
   }
    Widget buildCartweb() {
