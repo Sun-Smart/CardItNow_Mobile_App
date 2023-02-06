@@ -1,18 +1,15 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../auth/auth.dart';
-import '../../main.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -29,57 +26,51 @@ class StartState extends State<SplashScreens> {
     super.initState();
     _navigation();
   }
-  bool _authorizedOrNot=false ;
-  final LocalAuthentication auth = LocalAuthentication();
 
+  bool _authorizedOrNot = false;
+  final LocalAuthentication auth = LocalAuthentication();
 
   Future<void> _authenticateMe() async {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-        options: AuthenticationOptions(
-            biometricOnly: true, stickyAuth: true),
+        options: AuthenticationOptions(biometricOnly: true, stickyAuth: true),
         localizedReason: "Authenticate to use app",
-
       );
-      print(authenticated.toString()+'sss');
+      print(authenticated.toString() + 'sss');
     } catch (e) {
       print(e);
     }
     if (!mounted) return;
     setState(() {
       _authorizedOrNot = authenticated ? true : false;
-      if(_authorizedOrNot){
+      if (_authorizedOrNot) {
         auth.stopAuthentication();
-
       }
-      print(_authorizedOrNot.toString()+'ggg');
-
+      print(_authorizedOrNot.toString() + 'ggg');
     });
   }
-  _bioAuth()async{
-    if(GetStorage().read('bioAuth').toString()=='true'){
+
+  _bioAuth() async {
+    if (GetStorage().read('bioAuth').toString() == 'true') {
       try {
 //kkkk
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please authenticate',
             options: const AuthenticationOptions(biometricOnly: true));
-        if(didAuthenticate){
+        if (didAuthenticate) {
           await authcon.getLoginToken();
-          Get.offAll(()=>DashbordScreen());
+          Get.offAll(() => DashbordScreen());
         }
       } catch (e) {
         print(e.toString());
         Get.toNamed('/home');
       }
-    }else{
+    } else {
       await authcon.getLoginToken();
-      Get.offAll(()=>DashbordScreen());
+      Get.offAll(() => DashbordScreen());
     }
-
   }
-
-
 
   _navigation() async {
     await Future.delayed(const Duration(milliseconds: 8500), () {});
@@ -102,7 +93,7 @@ class StartState extends State<SplashScreens> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                "assets/giflogo.gif",
+                  "assets/giflogo.gif",
                   // height: 220,
                   //color: Colors.blueGrey,
                 ),

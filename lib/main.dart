@@ -2,9 +2,7 @@
 
 import 'dart:async';
 import 'dart:io';
-
-import 'package:cardit/auth/cardapi.dart';
-import 'package:cardit/auth/loginapi.dart';
+import 'dart:html' as html;
 import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -52,6 +50,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
     getCurrentAppTheme();
     _initializeTimer();
+    findCookies();
   }
 
   void _initializeTimer() {
@@ -80,6 +79,20 @@ class MyAppState extends State<MyApp> {
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
         await themeChangeProvider.darkThemePreference.getTheme();
+  }
+
+  void findCookies(){
+    if(kIsWeb){
+      try {
+        var jsWindow = html.window.navigator.cookieEnabled;
+        print(jsWindow);
+        if(jsWindow ?? false) {
+          print("cookies enabled");
+        }
+      } catch (err) {
+        print("cookies disabled");
+      }
+    }
   }
 
   // This widget is the root of your application.

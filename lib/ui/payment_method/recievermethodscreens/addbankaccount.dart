@@ -1,15 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/payment_method/recievermethodscreens/letsstartpage.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../themes/styles.dart';
-
 
 class Addbankaccount extends StatefulWidget {
   const Addbankaccount({Key? key}) : super(key: key);
@@ -28,15 +27,15 @@ class _AddbankaccountState extends State<Addbankaccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           leading: BackButton(
-            onPressed: (){
+            onPressed: () {
               Get.back();
             },
           ),
-          foregroundColor: Colors.black, backgroundColor: Colors.transparent),
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.transparent),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -50,18 +49,15 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.bold,
                       color: HexColor('#004751'))),
-
               SizedBox(
                 height: 30,
               ),
-
-
               Container(
                   margin: Responsive.isMobile(context)
                       ? EdgeInsets.fromLTRB(15, 0, 15, 0)
                       : EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width / 7.5,
-                  ),
+                          left: MediaQuery.of(context).size.width / 7.5,
+                        ),
                   child: Text('Select Bank',
                       style: TextStyle(
                           fontFamily: 'Sora',
@@ -74,17 +70,17 @@ class _AddbankaccountState extends State<Addbankaccount> {
                 margin: Responsive.isMobile(context)
                     ? EdgeInsets.fromLTRB(15, 0, 15, 0)
                     : EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 7.5,
-                ),
+                        left: MediaQuery.of(context).size.width / 7.5,
+                      ),
                 width: Responsive.isMobile(context)
                     ? MediaQuery.of(context).size.width / 1
                     : Responsive.isDesktop(context)
-                    ? MediaQuery.of(context).size.width / 4.5
-                    : MediaQuery.of(context).size.width / 2.5,
+                        ? MediaQuery.of(context).size.width / 4.5
+                        : MediaQuery.of(context).size.width / 2.5,
                 height: MediaQuery.of(context).size.height / 15,
                 decoration: BoxDecoration(
                     border:
-                    Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+                        Border.all(color: const Color(0XffB7C5C7), width: 1.5),
                     borderRadius: const BorderRadius.all(Radius.circular(3))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -96,15 +92,14 @@ class _AddbankaccountState extends State<Addbankaccount> {
                     value: businesstype,
                     hint: Text('Select Your Business type',
                         style: TextStyle(
-                            color: Styles.whitecustomlable,
-                            fontSize: 14)),
+                            color: Styles.whitecustomlable, fontSize: 14)),
                     icon: GestureDetector(
                         child: Icon(
-                          Icons.keyboard_arrow_down,
-                          // color: themeChange.darkTheme
-                          //     ? Colors.white
-                          //     : Colors.black45
-                        )),
+                      Icons.keyboard_arrow_down,
+                      // color: themeChange.darkTheme
+                      //     ? Colors.white
+                      //     : Colors.black45
+                    )),
                     items: choosebank.map((String item) {
                       return DropdownMenuItem(
                           value: item,
@@ -120,20 +115,15 @@ class _AddbankaccountState extends State<Addbankaccount> {
                     style: const TextStyle(color: Colors.black),
                   ),
                 ),
-
-
-              ) ,
+              ),
               SizedBox(
                 height: 30,
               ),
-
               MyCustomInputBox(
                 enabled: true,
                 label: "Account Number *",
-
                 controller: accno,
                 obsecureText: false,
-
                 textInputAction: TextInputAction.next,
                 inputHint: "Enter Your Account Number",
                 validator: (value) {
@@ -148,25 +138,26 @@ class _AddbankaccountState extends State<Addbankaccount> {
                   fillColor: Colors.white,
                   hintText: 'Enter Account No',
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-                  helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  helperStyle:
+                      const TextStyle(fontFamily: 'Sora', fontSize: 14),
                   hintStyle: const TextStyle(
                     fontSize: 12,
                     fontFamily: 'Sora',
                     fontWeight: FontWeight.normal,
                   ),
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   focusColor: Colors.grey.shade300,
                   border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       gapPadding: 7,
@@ -180,18 +171,14 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-
               SizedBox(
                 height: 30,
               ),
-
               MyCustomInputBox(
                 enabled: true,
                 label: "Enter Your Swift Code *",
-
                 controller: branchaddress,
                 obsecureText: false,
-
                 textInputAction: TextInputAction.next,
                 inputHint: "Enter Your Swift Code Of Your Bank",
                 validator: (value) {
@@ -206,25 +193,26 @@ class _AddbankaccountState extends State<Addbankaccount> {
                   fillColor: Colors.white,
                   hintText: 'Enter Swiftcode No',
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-                  helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  helperStyle:
+                      const TextStyle(fontFamily: 'Sora', fontSize: 14),
                   hintStyle: const TextStyle(
                     fontSize: 12,
                     fontFamily: 'Sora',
                     fontWeight: FontWeight.normal,
                   ),
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   focusColor: Colors.grey.shade300,
                   border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       gapPadding: 7,
@@ -238,18 +226,14 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-
               SizedBox(
                 height: 30,
               ),
-
               MyCustomInputBox(
                 enabled: true,
                 label: "Enter Branch Address *",
-
                 controller: swiftcodeno,
                 obsecureText: false,
-
                 textInputAction: TextInputAction.next,
                 inputHint: "Enter Your Bank Branch Address",
                 validator: (value) {
@@ -264,25 +248,26 @@ class _AddbankaccountState extends State<Addbankaccount> {
                   fillColor: Colors.white,
                   hintText: 'Enter Branch Address',
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-                  helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  helperStyle:
+                      const TextStyle(fontFamily: 'Sora', fontSize: 14),
                   hintStyle: const TextStyle(
                     fontSize: 12,
                     fontFamily: 'Sora',
                     fontWeight: FontWeight.normal,
                   ),
                   contentPadding:
-                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   focusColor: Colors.grey.shade300,
                   border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       borderSide:
-                      const BorderSide(color: Colors.grey, width: 1.0)),
+                          const BorderSide(color: Colors.grey, width: 1.0)),
                   focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
                       gapPadding: 7,
@@ -296,14 +281,11 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-
-
             ],
           ),
         ),
       ),
       bottomNavigationBar: bulildbutton(),
-
     );
   }
 
@@ -312,24 +294,19 @@ class _AddbankaccountState extends State<Addbankaccount> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (businesstype==null) {
-            Fluttertoast.showToast(msg: "Enter your Bank");
-          } else if (accno.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your Account No");
-          }
-          else if(swiftcodeno.text.isEmpty){
-            Fluttertoast.showToast(msg: "Enter your Swiftcode No");
-          }
-          else if (swiftcodeno.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your Branch Address");
-          } else {
-            Get.to(()=>Registerloading());
-            Get.to(()=>Letsstartpage());
-
-
-
-
-          }
+          // if (businesstype == null) {
+          //   Fluttertoast.showToast(msg: "Enter your Bank");
+          // } else if (accno.text.isEmpty) {
+          //   Fluttertoast.showToast(msg: "Enter your Account No");
+          // } else if (swiftcodeno.text.isEmpty) {
+          //   Fluttertoast.showToast(msg: "Enter your Swiftcode No");
+          // } else if (swiftcodeno.text.isEmpty) {
+          //   Fluttertoast.showToast(msg: "Enter your Branch Address");
+          // } else {
+          //   Get.to(() => Registerloading());
+          //   Get.to(() => Letsstartpage());
+          // }
+          Get.to(() => Registerloading());
         },
         text: "Verify and Proceed");
   }
