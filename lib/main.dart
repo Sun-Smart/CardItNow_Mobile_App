@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_new, avoid_print
 
 import 'dart:async';
+import 'dart:html';
 import 'dart:io';
 import 'dart:html' as html;
 import 'package:cardit/route_generator.dart';
@@ -82,16 +83,21 @@ class MyAppState extends State<MyApp> {
   }
 
   void findCookies(){
+   
     if(kIsWeb){
       try {
+       
         var jsWindow = html.window.navigator.cookieEnabled;
         print(jsWindow);
         if(jsWindow ?? false) {
           print("cookies enabled");
+        } else{
+          print("cookies disabled");
         }
       } catch (err) {
         print("cookies disabled");
       }
+      
     }
   }
 

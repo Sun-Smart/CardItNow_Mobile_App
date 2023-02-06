@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/widgets/drawer_web.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -38,7 +40,7 @@ class loginauth extends GetxController with BaseController {
       auth.onInit();
       GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
       if(MyApp.logindetails["status"] == "A"){
-        Get.to(DashbordScreen());
+        Get.to(kIsWeb?DrawerWeb():DashbordScreen());
       } else{
         Get.to(VerifyUserId());
       }
