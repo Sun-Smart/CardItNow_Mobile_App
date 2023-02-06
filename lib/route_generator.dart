@@ -49,7 +49,7 @@ class RouteGenerator {
       case '/':
         // const SplashScreens()
         //const ChoosePaymentPage()
-       return MaterialPageRoute(builder: (_) =>  kIsWeb ? Home() :Bankaccounts());
+       return MaterialPageRoute(builder: (_) =>  kIsWeb ? Home() :SplashScreens());
       case '/login':
         return MaterialPageRoute(builder: (_) => const Login());
       case '/home':
