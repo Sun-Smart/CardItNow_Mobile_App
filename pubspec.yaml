@@ -72,6 +72,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   s10s_card_scanner: ^0.1.0
   image_cropper: ^3.0.0
+  js: ^0.6.5
 
 dev_dependencies:
   flutter_test:
