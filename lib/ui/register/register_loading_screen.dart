@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:cardit/ui/payment_method/recievermethodscreens/letsstartpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/styles.dart';
@@ -20,6 +24,12 @@ Future<bool> _willPopCallback() async {
 
 class _RegisterloadingState extends State<Registerloading> {
   @override
+  void initState() {
+    _navigation();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _willPopCallback,
@@ -32,7 +42,7 @@ class _RegisterloadingState extends State<Registerloading> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                     topBanner(),
-                        buildtitle1(),
+                    buildtitle1(),
                     // buildtitle(),
                   ])))),
     );
@@ -97,8 +107,12 @@ class _RegisterloadingState extends State<Registerloading> {
   }
 }
 
-Widget buildtitle1() {
+_navigation() async {
+  await Future.delayed(const Duration(milliseconds: 3000), () {});
+  Get.to(() => Letsstartpage());
+}
 
+Widget buildtitle1() {
   return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.all(35),
@@ -115,22 +129,22 @@ Widget buildtitle1() {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           Text(
             'We are verifying your ID and Details. We will notify you once done',
             style: TextStyle(
               fontSize: 12,
               fontFamily: 'Sora',
-              color:  Color.fromRGBO(4, 19, 22, 0.6),
+              color: Color.fromRGBO(4, 19, 22, 0.6),
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-          Image.asset("assets/loading.gif",
+          Image.asset(
+            "assets/loading.gif",
             height: 220,
             //color: Colors.blueGrey,
           ),
         ],
-      ));}
+      ));
+}

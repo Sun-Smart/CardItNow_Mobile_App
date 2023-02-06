@@ -69,9 +69,8 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
-
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           elevation: 2,
