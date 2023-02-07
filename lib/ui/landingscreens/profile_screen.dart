@@ -120,20 +120,30 @@ class _ProfileState extends State<Profile> {
                     ),
                     usertab == '/userdetails'
                         ? Container(
-                           // decoration: BoxDecoration(color: Colors.blueGrey),
+                            // decoration: BoxDecoration(color: Colors.blueGrey),
                             width: MediaQuery.of(context).size.width / 2,
                             child: UserDetails())
                         : usertab == '/manualCard'
                             ? Container(
-                                 decoration: BoxDecoration(color: Colors.blue),
-                              width:Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 2
-                                : MediaQuery.of(context).size.width / 2.2, child: ManualCard())
+                                // decoration: BoxDecoration(color: Colors.blue),
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: ManualCard())
                             : usertab == '/settings'
-                                ? Settings()
+                                ? Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    child: Settings())
                                 : usertab == '/settings'
-                                    ? Settings()
-                                    : UserDetails()
+                                    ? Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: Settings())
+                                    : Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: UserDetails())
                   ])
                 : Row(children: [
                     Container(
@@ -177,22 +187,29 @@ class _ProfileState extends State<Profile> {
                     ),
                     usertab == '/userdetails'
                         ? Container(
-                         
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 2
-                                : MediaQuery.of(context).size.width / 2.2,
+                            width: MediaQuery.of(context).size.width / 2.2,
                             child: UserDetails())
                         : usertab == '/manualCard'
                             ? Container(
-                                 decoration: BoxDecoration(color: Colors.blue),
-                              width:Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 2
-                                : MediaQuery.of(context).size.width / 2.2, child: ManualCard())
+                                // decoration: BoxDecoration(color: Colors.blue),
+                                width: MediaQuery.of(context).size.width / 2.2,
+                                child: ManualCard())
                             : usertab == '/settings'
-                                ? Settings()
+                                ? Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.2,
+                                    child: Settings())
                                 : usertab == '/settings'
-                                    ? Settings()
-                                    : UserDetails()
+                                    ? Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.2,
+                                        child: Settings())
+                                    : Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.2,
+                                        child: UserDetails())
                   ]));
   }
 
@@ -314,7 +331,7 @@ class _ProfileState extends State<Profile> {
     return ListTile(
         hoverColor: Colors.transparent,
         onTap: () {
-          if (Responsive.isDesktop(context)) {
+          if (Responsive.isDesktop(context) ||Responsive.isTablet(context)) {
             setState(() {
               usertab = link;
             });

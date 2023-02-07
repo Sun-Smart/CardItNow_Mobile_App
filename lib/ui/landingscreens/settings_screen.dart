@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../responsive/responsive.dart';
 import 'changepaymethod.dart';
 
 class Settings extends StatefulWidget {
@@ -33,20 +34,29 @@ class SettingsState extends State<Settings> {
             leadingWidth: 50,
             titleSpacing: 0.0,
             backgroundColor: Colors.white,
-            title: const Padding(
+            title:  Padding(
                 padding: EdgeInsets.only(top: 0.0),
-                child: Text(
+                child:Responsive.isMobile(context)?  Text(
                   "Settings",
                   style: TextStyle(
                       color: Color(0XFF1B1B1B),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
+                ):Center(
+                  child: Text(
+                    "Settings",
+                    style: TextStyle(
+                        color: Color(0XFF1B1B1B),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 )),
           ),
         ),
-        body: SingleChildScrollView(
+        body: Responsive.isMobile(context)? 
+        SingleChildScrollView(
             child: Container(
-                margin: EdgeInsets.all(20),
+               // margin: EdgeInsets.all(20),
                 child: Column(children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,7 +230,191 @@ class SettingsState extends State<Settings> {
                       // ),
                     ],
                   ),
-                ]))));
+                ]))): SingleChildScrollView(
+            child: Container(
+             width: Responsive.isDesktop(context)
+                                    ? MediaQuery.of(context).size.width / 2
+                                    : MediaQuery.of(context).size.width / 1.5,
+                //margin: EdgeInsets.all(20),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15,right: 15),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              SizedBox(height: 30,),
+                            Text(
+                              "Notification",
+                              style: TextStyle(
+                                color: Color(0XFF000000),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Turn Notification on and off",
+                              style: TextStyle(
+                                color: Color(0XFFF000000),
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        Switch(
+                          value: isSwitched,
+                          onChanged: (value) {
+                            setState(() {
+                              isSwitched = value;
+                              print(isSwitched);
+                            });
+                          },
+                          activeTrackColor: Colors.lightGreenAccent,
+                          activeColor: Colors.green,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Change Login Pin",
+                              style: TextStyle(
+                                color: Color(0XFF000000),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Update Your Login Pin",
+                              style: TextStyle(
+                                color: Color(0XFFF000000),
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        InkWell(
+                          onTap: (() {}),
+                          child: Text(
+                            "Change",
+                            style: TextStyle(
+                                color: Color(0XFF026C7A),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Check for Updates",
+                              style: TextStyle(
+                                color: Color(0XFF000000),
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Get Updated with latest version",
+                              style: TextStyle(
+                                color: Color(0XFFF000000),
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        InkWell(
+                          onTap: (() {}),
+                          child: Text(
+                            "Check",
+                            style: TextStyle(
+                              color: Color(0XFF026C7A),
+                              fontSize: 16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Dark Mode",
+                              style: TextStyle(
+                                // color: themeChange.darkTheme
+                                //     ? Colors.white
+                                //     : Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Turn Dark Mode on and off",
+                              style: TextStyle(
+                                color: Color(0XFFF000000),
+                                fontSize: 12,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                
+                
+                            GestureDetector(
+                              onTap: (){
+                                Get.to(()=>changepaymethod());
+                              },
+                              child: Text("Change Payment Method",
+                              style: TextStyle(
+                                fontSize: 16
+                              ),
+                              ),
+                            ),
+                            Text(
+                              "change your payment details",
+                              style: TextStyle(
+                                color: Color(0XFFF000000),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Switch(
+                        //   // value: themeChange.darkTheme,
+                        //   onChanged: (value) {
+                        //     themeChange.darkTheme = value;
+                        //   },
+                        //   activeTrackColor: Colors.lightGreenAccent,
+                        //   activeColor: Colors.green,
+                        // ),
+                      ],
+                    ),
+                  ]),
+                ))));
   }
 
   /* Widget buildCard(BuildContext context) {

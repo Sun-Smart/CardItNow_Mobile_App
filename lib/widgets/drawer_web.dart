@@ -120,10 +120,12 @@ class _DrawerWebState extends State<DrawerWeb> {
             width:MediaQuery.of(context).size.width / 1.25,
                height: MediaQuery.of(context).size.height / 1,
                decoration: BoxDecoration(
-                color: Colors.green
+                //color: Colors.green
                ),
            
-            child: _screens[_selectedindex])
+            child: 
+            _screens[_selectedindex]),
+          
       ],
     ): Responsive.isMobile(context)?Container():
     Row(
