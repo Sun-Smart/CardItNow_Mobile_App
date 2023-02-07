@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/auth/cardapi.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -62,7 +63,7 @@ class DashbordScreenState extends State<DashbordScreen>
     return WillPopScope(
       onWillPop: _onBackButtonPressed,
       child: Scaffold(
-          bottomNavigationBar: const BottomNavBarWidget(0),
+          bottomNavigationBar: Responsive.isMobile(context)? BottomNavBarWidget(0):null,
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(70.0),
             child: AppBar(
