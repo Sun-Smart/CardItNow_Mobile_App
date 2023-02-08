@@ -1,3 +1,4 @@
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
+      bottomNavigationBar:Responsive.isMobile(context)? bulildbutton():null,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
