@@ -39,7 +39,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
       setState(() {
         _pictures = pictures;
         imagedoc2 = File(_pictures[0]);
-         print("---ssss----$imagedoc2");
+        print("---ssss----$imagedoc2");
         List<int> fileBytes = imagedoc2!.readAsBytesSync();
         con.doc64 = base64.encode(fileBytes);
         print("-----64-----${con.doc64}");
@@ -154,38 +154,81 @@ class _SelectDocumentsState extends State<SelectDocuments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: buildbutton(),
-      appBar: AppBar(
-        elevation: 0,
-        leading: const BackButton(
-          color: Colors.black,
-        ),
-        centerTitle: true,
-        title: const Text("Select Documents",
-            style: TextStyle(
-              color: Color(0xFF413D4B),
-              fontSize: 14,
-              fontFamily: "Sora",
-              fontWeight: FontWeight.w600,
-            )),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            selectdocuments(),
-            const SizedBox(
-              height: 20,
-            ),
-           
-             uploaddocuments()
-          ],
-        ),
-      ),
-    );
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? buildbutton() : null,
+        appBar: Responsive.isMobile(context)
+            ? AppBar(
+                elevation: 0,
+                leading: const BackButton(
+                  color: Colors.black,
+                ),
+                centerTitle: true,
+                title: const Text("Select Documents",
+                    style: TextStyle(
+                      color: Color(0xFF413D4B),
+                      fontSize: 14,
+                      fontFamily: "Sora",
+                      fontWeight: FontWeight.w600,
+                    )),
+              )
+            : null,
+        body: Responsive.isMobile(context)
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    selectdocuments(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    uploaddocuments()
+                  ],
+                ),
+              )
+            : Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.height / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/applogo-02.png",
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            height: MediaQuery.of(context).size.height / 3)),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    height: MediaQuery.of(context).size.height / 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                     Row(
+                       children: [
+                         const   BackButton(
+                  color: Colors.black,
+                ),
+                       ],
+                     ),
+               const Text("Select Documents",
+                    style: TextStyle(
+                      color: Color(0xFF413D4B),
+                      fontSize: 17,
+                      fontFamily: "Sora",
+                      fontWeight: FontWeight.w600,
+                    )),
+                        selectdocuments(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        uploaddocuments()
+                      ],
+                    ),
+                  )
+                ],
+              ));
   }
 
   Widget selectdocuments() {
-    return Column(
+    return Responsive.isMobile(context)? Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -256,11 +299,149 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           ),
         ),
       ],
+    ):Responsive.isDesktop(context)?Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 50,),
+        Row(
+          children: [
+            SizedBox(width: MediaQuery.of(context).size.width/4.8),
+            Text('Choose Documents',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: HexColor('#000000'))),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Container(
+         // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: MediaQuery.of(context).size.width / 4,
+          child: DropdownButtonFormField(
+            focusColor: Colors.transparent,
+            decoration: const InputDecoration(
+              hoverColor: Colors.transparent,
+              contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
+            ),
+            // underline:Container(),
+            //  validator: (value)=>value==null?'field required':null,
+            dropdownColor: Colors.white,
+            isExpanded: true,
+            value: dropdowndocx,
+            hint: const Text(
+              'Select Documents',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Sora',
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(65, 61, 75, 0.6),
+              ),
+            ),
+            icon: GestureDetector(
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.black45,
+              ),
+            ),
+            validator: (value) => value == null ? 'field required' : null,
+            items: con.documenttypelist.map((item) {
+              return DropdownMenuItem(
+                value: item["documnettype"].toString(),
+                child: Text(item["documnettype"].toString(),
+                    style: const TextStyle(
+                        color: Color(0Xff413D4B), fontSize: 13)),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                dropdowndocx = newValue!;
+              });
+            },
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    ):Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 50,),
+        Row(
+          children: [
+            SizedBox(width: MediaQuery.of(context).size.width/10),
+            Text('Choose Documents',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: HexColor('#000000'))),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Container(
+         // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          width: MediaQuery.of(context).size.width / 2,
+          child: DropdownButtonFormField(
+            focusColor: Colors.transparent,
+            decoration: const InputDecoration(
+              hoverColor: Colors.transparent,
+              contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
+            ),
+            // underline:Container(),
+            //  validator: (value)=>value==null?'field required':null,
+            dropdownColor: Colors.white,
+            isExpanded: true,
+            value: dropdowndocx,
+            hint: const Text(
+              'Select Documents',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Sora',
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(65, 61, 75, 0.6),
+              ),
+            ),
+            icon: GestureDetector(
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.black45,
+              ),
+            ),
+            validator: (value) => value == null ? 'field required' : null,
+            items: con.documenttypelist.map((item) {
+              return DropdownMenuItem(
+                value: item["documnettype"].toString(),
+                child: Text(item["documnettype"].toString(),
+                    style: const TextStyle(
+                        color: Color(0Xff413D4B), fontSize: 13)),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                dropdowndocx = newValue!;
+              });
+            },
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
     );
   }
 
   Widget uploaddocuments() {
-    return Padding(
+    return  Responsive.isMobile(context)?Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
@@ -279,12 +460,125 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           const SizedBox(
             height: 15,
           ),
-           displayImagedoc(),
+          displayImagedoc(),
           //  showAlertDialog(context),
           //open_document(),
         ],
       ),
-    );
+    ):Responsive.isDesktop(context)?Column(
+        children: [
+          Row(
+            children: [
+               SizedBox(width: MediaQuery.of(context).size.width/4.8),
+              Text('Upload Documents',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: HexColor('#000000'))),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          displayImagedoc(),
+          SizedBox(
+            height: 25,
+          ),
+           GestureDetector(
+      onTap: () {
+        if (dropdowndocx == null) {
+          Fluttertoast.showToast(msg: "Enter Your Document Type");
+        } else if (imagedoc2 == null) {
+          Fluttertoast.showToast(msg: "Choose Your Document");
+        } else {
+          Get.to(onboardRecipient(
+            documenttype: dropdowndocx.toString(),
+            uploadoc: con.doc64,
+          ));
+        }},
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        width: 
+             MediaQuery.of(context).size.width / 4,
+                
+        height: MediaQuery.of(context).size.height * 0.07,
+        decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
+        child: Center(
+          child: Text(
+            "Add And Proceed",
+            style: TextStyle(
+              fontFamily: 'ProductSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: HexColor('#004751'),
+            ),
+          ),
+        ),
+      ),
+    )
+ 
+        ],
+      ):Column(
+        children: [
+          Row(
+            children: [
+               SizedBox(width: MediaQuery.of(context).size.width/10),
+              Text('Upload Documents',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: HexColor('#000000'))),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          displayImagedoc(),
+          SizedBox(
+            height: 25,
+          ),
+           GestureDetector(
+      onTap: () {
+        if (dropdowndocx == null) {
+          Fluttertoast.showToast(msg: "Enter Your Document Type");
+        } else if (imagedoc2 == null) {
+          Fluttertoast.showToast(msg: "Choose Your Document");
+        } else {
+          Get.to(onboardRecipient(
+            documenttype: dropdowndocx.toString(),
+            uploadoc: con.doc64,
+          ));
+        }},
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        width: 
+                 MediaQuery.of(context).size.width / 2.5,
+        height: MediaQuery.of(context).size.height * 0.07,
+        decoration: BoxDecoration(
+        color: HexColor('#CEE812'),
+        borderRadius: BorderRadius.circular(5),
+      ),
+        child: Center(
+          child: Text(
+            "Add And Proceed",
+            style: TextStyle(
+              fontFamily: 'ProductSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: HexColor('#004751'),
+            ),
+          ),
+        ),
+      ),
+    )
+ 
+        ],
+      );
   }
 
   showAlertDialog(BuildContext context) {
@@ -445,11 +739,11 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.5
-                  : MediaQuery.of(context).size.width / 2.5,
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2,
           height: 160,
           decoration: BoxDecoration(
-              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
@@ -461,15 +755,19 @@ class _SelectDocumentsState extends State<SelectDocuments> {
                   children: [
                     Icon(Icons.camera_alt_outlined),
                     // Image.asset("assets/uplodicon.png", width: 32),
-                     SizedBox(height: 5),
-                     Text('Scan your Document'),
+                    SizedBox(height: 5),
+                    Text('Scan your Document'),
                   ])));
     } else {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+         width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width / 1
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
-              border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+              border: Border.all(color: const Color(0XffB7C5C7), width: 1),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
@@ -486,19 +784,17 @@ class _SelectDocumentsState extends State<SelectDocuments> {
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
-        if(dropdowndocx==null){
+        if (dropdowndocx == null) {
           Fluttertoast.showToast(msg: "Enter Your Document Type");
+        } else if (imagedoc2 == null) {
+          Fluttertoast.showToast(msg: "Choose Your Document");
+        } else {
+          Get.to(onboardRecipient(
+            documenttype: dropdowndocx.toString(),
+            uploadoc: con.doc64,
+          ));
         }
-        else if(imagedoc2==null){
-           Fluttertoast.showToast(msg: "Choose Your Document");
-        }
-        else{
-           Get.to(onboardRecipient(
-          documenttype: dropdowndocx.toString(),
-          uploadoc: con.doc64,
-        ));
-        }
-       
+
         // Navigator.of(context).pushNamed(
         //   '/onboardrecipient',
         // );

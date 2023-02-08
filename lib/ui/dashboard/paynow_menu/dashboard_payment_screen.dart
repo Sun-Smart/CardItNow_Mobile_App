@@ -114,11 +114,11 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
               children: [
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:const  [
+                  children: [
                     BackButton(
                 color: Colors.black,
               ),
-              SizedBox(width: 250,),
+              SizedBox(width:Responsive.isDesktop(context)? 250:100,),
               Text(
                 'Payment',
                 style: TextStyle(
