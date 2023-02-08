@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -56,7 +57,7 @@ class DashbordScreenState extends State<DashbordScreen>
     cardcons.creditCardgetAPI();
     super.initState();
   }
-
+ var dashboard = '/payment_dashboard';
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -64,7 +65,7 @@ class DashbordScreenState extends State<DashbordScreen>
       onWillPop: _onBackButtonPressed,
       child: Scaffold(
           bottomNavigationBar: Responsive.isMobile(context)? BottomNavBarWidget(0):null,
-          appBar: PreferredSize(
+          appBar:  Responsive.isMobile(context)?PreferredSize(
             preferredSize: const Size.fromHeight(70.0),
             child: AppBar(
               elevation: 0,
@@ -147,8 +148,9 @@ class DashbordScreenState extends State<DashbordScreen>
                                 color: Colors.black)))),
               ],
             ),
-          ),
-          body: SingleChildScrollView(
+          ):null,
+          body: Responsive.isMobile(context)?
+          SingleChildScrollView(
               child: Obx(() => Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -196,7 +198,152 @@ class DashbordScreenState extends State<DashbordScreen>
                       //_buildBusinesscard(),
                       const SizedBox(height: 20)
                     ],
-                  )))),
+                  ))): 
+                  Row(
+                    children: [
+                      Obx(() => Container(
+                          width: MediaQuery.of(context).size.width / 3.5,
+                              height: MediaQuery.of(context).size.width / 1,
+                              decoration: BoxDecoration(
+                               color: Colors.grey.withOpacity(0.1)
+                              ),
+                        child: Column(
+                                 // crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: const Color(0xff036D7A)),
+                          child: GetStorage().read("avatarpic") == null
+                              ? Container()
+                              : GetStorage()
+                                      .read("avatarpic")
+                                      .toString()
+                                      .contains('assets')
+                                  ? Image.asset(GetStorage().read("avatarpic"),
+                                      fit: BoxFit.cover, height: 43, width: 43)
+                                  : Image.file(
+                                      File(GetStorage().read("avatarpic")),
+                                      fit: BoxFit.cover,
+                                      height: 43,
+                                      width: 43)),
+                      Container(
+                         // alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if(MyApp.logindetails != null)
+                              RichText(
+                                  text: TextSpan(
+                                      text: '${MyApp.logindetails['username']}',
+                                      style: const TextStyle(
+                                          color: Color(0xff036D7A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                      /*defining default style is optional */
+                                      children: <TextSpan>[
+                                    TextSpan(
+                                        text: '',
+                                        style: const TextStyle(
+                                            color: Color(0xffC9E313),
+                                            fontSize: 18))
+                                  ])),
+                              const Text(
+                                'Welcome !',
+                                style: TextStyle(
+                                    color: Color(0xffA49EA5),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                          ),
+// SizedBox(width: MediaQuery.of(context).size.width/8,),
+                            
+//                               Padding(
+//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
+//                     child: GestureDetector(
+//                         onTap: () {},
+//                         child: Image.asset('assets/notification.png',
+//                             fit: BoxFit.contain, width: 25, height: 25))),
+//                 Padding(
+//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
+//                     child: GestureDetector(
+//                         onTap: () {},
+//                         child: IconButton(
+//                           hoverColor: Colors.transparent,
+//                             onPressed: () {
+//                               _logoutPressed();
+//                             },
+                            
+//                             icon: Icon(Icons.power_settings_new,
+//                                 color: Colors.black)))),
+                    ],
+                 ),
+                        
+            
+                        
+                                    cardcons.creditCardGet.isEmpty
+                                        ? Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                    height: 200,
+                                                    width: MediaQuery.of(context).size.width/4,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: HexColor('#004751'), width: 2),
+                                                        borderRadius: BorderRadius.circular(10)),
+                                                    child: Align(
+                                                        child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        CircleAvatar(
+                                                            radius: 30,
+                                                            backgroundColor: HexColor('#CEE812'),
+                                                            child: CircleAvatar(
+                                                                child: IconButton(
+                                                                    onPressed: () {
+                                                                      Get.to(() =>
+                                                                          AddCreditCardPage());
+                                                                    },
+                                                                    icon: Icon(Icons.add,
+                                                                        color:
+                                                                            HexColor('#004751'))),
+                                                                backgroundColor: Colors.white,
+                                                                radius: 28)),
+                                                        SizedBox(height: 10),
+                                                        Text('Add Card',
+                                                            style: TextStyle(
+                                                                fontFamily: 'Sora',
+                                                                fontSize: 16)),
+                                                      ],
+                                                    ))),
+                                              ],
+                                            ))
+                                        : Slider(),
+                                   payscheduleweb(),
+                                    // buildPayCharttitle(),
+                                    //buildPayChart(),
+                                    //buildTranstitle(),
+                                    //_buildBusinesscard(),
+                                    const SizedBox(height: 20)
+                                  ],
+                                ),
+                      )),
+
+                    dashboard=='/payment_dashboard'?Container(
+                       width: MediaQuery.of(context).size.width / 2.2,
+                      child: PaymentDashboard()):Container()
+                    ],
+                  )),
     );
   }
 
@@ -295,6 +442,103 @@ _logoutPressed() async {
               image: AssetImage("assets/dashbordpg.png"), fit: BoxFit.cover)),
       child: TopPromoSlider(),
     );
+  }
+  Widget payscheduleweb(){
+     final themeChange = Provider.of<DarkThemeProvider>(context);
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border:
+                      Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                  color: const Color(0XFFffffff)),
+              margin: const EdgeInsets.all(15),
+              child: InkWell(
+                highlightColor: const Color(0XFFffffff),
+                focusColor: const Color(0XFFffffff),
+                splashColor: Colors.green,
+                onTap: () {
+                  if(dashboard=='/payment_dashboard'){
+                    setState(() {
+                      dashboard;
+                    });
+                  }
+                  // setState(() {
+                  //     if(dashboard=='/payment_dashboard'){
+
+                  //     }else{}
+                  // });
+                  
+                  // Navigator.of(context).pushNamed('/payment_dashboard');
+                },
+                // button pressed
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const SizedBox(width: 5),
+                        Image.asset("assets/paynow.png", width: 32),
+                        const SizedBox(width: 15),
+                        Text("Pay Now",
+                            style: TextStyle(
+                                color: themeChange.darkTheme
+                                    ? Colors.black
+                                    : const Color(0XFF413D4B),
+                                fontSize: 14)),
+                        //text
+                      ],
+                    )),
+              )),
+          Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: const Color(0XFFB7C5C7), width: 1.5),
+                color: const Color(0XFFffffff),
+              ),
+              margin: const EdgeInsets.all(15),
+              child: InkWell(
+                highlightColor: const Color(0XFFffffff),
+                focusColor: const Color(0XFFffffff),
+                splashColor: Colors.green,
+                // splash color
+                onTap: () {},
+                // button pressed
+                child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const SizedBox(width: 5),
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: const Color(0xffC9E313)),
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(
+                              "assets/calander.png",
+                              width: 20,
+                            )),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        const Text(
+                          "Schedule",
+                          style:
+                              TextStyle(color: Color(0XFF413D4B), fontSize: 14),
+                        ),
+                        // text
+                      ],
+                    )),
+              )),
+        ],
+      ),
+    );
+  
   }
 
   Widget buildPaySchedule() {

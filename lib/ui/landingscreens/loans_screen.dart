@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _LoansState extends State<Loans> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      bottomNavigationBar: BottomNavBarWidget(1),
+      bottomNavigationBar:Responsive.isMobile(context)? BottomNavBarWidget(1):null,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
@@ -48,7 +49,7 @@ class _LoansState extends State<Loans> {
               ],
             )),
       ),
-      body: Container(
+      body: Responsive.isMobile(context)?Container(
           child: SingleChildScrollView(
         child: Column(
           children: [
@@ -56,6 +57,24 @@ class _LoansState extends State<Loans> {
             buildtitle(),
             buildbutton(),
             buildfaq(),
+          ],
+        ),
+      )):Container(
+          child: SingleChildScrollView(
+        child: Row(
+          children: [
+            Container(
+               width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 1,
+              child: Column(
+                children: [
+                  topBanner(),
+                  buildtitle(),
+                  buildbutton(),
+                  buildfaq(),
+                ],
+              ),
+            ),
           ],
         ),
       )),

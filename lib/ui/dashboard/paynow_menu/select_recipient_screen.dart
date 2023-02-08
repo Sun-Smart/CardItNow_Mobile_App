@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../responsive/responsive.dart';
+
 class RecipientType extends StatefulWidget {
   const RecipientType({super.key});
 
@@ -28,7 +30,7 @@ class _RecipientTypeState extends State<RecipientType> {
               fontWeight: FontWeight.w600,
             )),
       ),
-      body: Column(
+      body: Responsive.isMobile(context)?Column(
         children: [
           const SizedBox(
             height: 20,
@@ -39,7 +41,72 @@ class _RecipientTypeState extends State<RecipientType> {
           ),
           registeredrecipient()
         ],
+      ):Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          individualrecipientweb(),
+          const SizedBox(
+            height: 20,
+          ),
+          registeredrecipient()
+        ],
       ),
+    );
+  }
+  Widget individualrecipientweb() {
+    return GestureDetector(
+      
+      child: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width / 4,
+          height: MediaQuery.of(context).size.height / 8,
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: const Color(0xFFE5E5E5)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Individual Payee",
+                      style: TextStyle(
+                          color: HexColor('#004751'),
+                          fontFamily: "Sora",
+                          fontSize: 16,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: const [
+                    Flexible(
+                      child: Text(
+                        "Pay to Recipient like Landloards , Tution Teachers etc.",
+                        style: TextStyle(
+                            fontFamily: "Sora",
+                            fontSize: 14,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w300,
+                            color: Color.fromRGBO(65, 61, 75, 0.5)),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context).pushNamed('/selectdocuments');
+      },
     );
   }
 
