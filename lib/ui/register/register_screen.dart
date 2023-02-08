@@ -43,6 +43,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
           body: Responsive.isMobile(context)
               ? SingleChildScrollView(
                   child: Column(
@@ -119,12 +120,15 @@ class _RegisterState extends State<Register> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       children: <Widget>[
-                                                        SizedBox(width: 20),
+                                                        SizedBox(width: 30),
                                                         Image.asset("assets/fb.png", width: 32),
                                                         SizedBox(width: 15),
                                                         Text("Sign Up using Facebook",
                                                             style:
-                                                            TextStyle(color: Color(0XFF413D4B), fontSize: 14)),
+                                                            TextStyle(
+                                                                color: Color(0XFF413D4B), fontSize: 16,
+                                                                fontFamily: 'sora',fontWeight: FontWeight.bold
+                                                            )),
                                                         // text
                                                       ],
                                                     )),
@@ -206,7 +210,7 @@ class _RegisterState extends State<Register> {
                       SizedBox( width: 20,)
                       ],
                     )
-                  
+
                   : Row(
                       children: [
                         Container(
@@ -320,7 +324,7 @@ class _RegisterState extends State<Register> {
                     ? 0
                     : MediaQuery.of(context).size.width / 14,
               ),
-              Image.asset("assets/regimg.png", width: 107),
+              Image.asset("assets/regnewimg.png", width: 107),
             ]));
   }
   Widget buildormweb(){
@@ -372,7 +376,7 @@ class _RegisterState extends State<Register> {
                             hintText: 'Enter your email',
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             helperStyle:
-                                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                                const TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),
                             hintStyle: const TextStyle(
                               fontSize: 12,
                               fontFamily: 'Sora',
@@ -440,7 +444,7 @@ class _RegisterState extends State<Register> {
                               color: themeChange.darkTheme
                                   ? Colors.white
                                   : Color(0xff646464),
-                              fontSize: 14,
+                              fontSize: 16, fontFamily: 'sora',fontWeight: FontWeight.bold
                             )),
                             InkWell(
                     onTap: () {
@@ -574,13 +578,14 @@ class _RegisterState extends State<Register> {
                       hoverColor: Colors.transparent,
                       fillColor: Colors.white,
                       hintText: 'Enter your email',
+
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                          const TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       hintStyle: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.bold,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 15),
@@ -682,7 +687,7 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 90),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
@@ -750,12 +755,13 @@ class _RegisterState extends State<Register> {
                                           )),
                                       SizedBox(width: 10.0),
 
+
                                       Text("I agree to the ",
                                           style: TextStyle(
                                             color: themeChange.darkTheme
                                                 ? Colors.white
                                                 : Color(0xff646464),
-                                            fontSize: 14,
+                                            fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'sora'
                                           ))
                                     ])),
                                 InkWell(
@@ -767,7 +773,7 @@ class _RegisterState extends State<Register> {
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         decorationThickness: 2,
-                                        fontSize: 14,fontFamily: 'sora',
+                                        fontSize: 16,fontFamily: 'sora',
                                         fontWeight: FontWeight.bold,
                                         color: themeChange.darkTheme
                                             ? Colors.white
@@ -858,7 +864,8 @@ class _RegisterState extends State<Register> {
                           //2 factor
                         ],
                       )),
-                  SizedBox(height: 20),
+
+              //mobileview button
                   AuthButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
@@ -935,8 +942,7 @@ class _RegisterState extends State<Register> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(children: [
 
-
-      const SizedBox(height: 10),
+      // const SizedBox(height: 10),
       Container(
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
@@ -967,7 +973,9 @@ class _RegisterState extends State<Register> {
                     SizedBox(width: 15),
                     Text("Sign Up using Google",
                         style: TextStyle(
-                            color: Color(0XFF413D4B), fontSize: 14)), // text
+                            color: Color(0XFF413D4B), fontSize: 16,
+                        fontFamily: 'sora',fontWeight: FontWeight.bold
+                        )), // text
                   ],
                 )),
           )),
