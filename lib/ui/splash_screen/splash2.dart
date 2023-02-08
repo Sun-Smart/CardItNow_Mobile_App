@@ -24,13 +24,14 @@ class _splash2State extends State<splash2> {
 
   var country=[
     {
-      "img":'assets/phli.png',
-      "type":'Philippines'
-    },
-    {
       "img":'assets/uae.png',
       "type":'UAE'
     },
+    {
+      "img":'assets/phli.png',
+      "type":'Philippines'
+    },
+
   ];
   final AuthCon con=Get.find();
   // void initState() {
@@ -123,7 +124,7 @@ class _splash2State extends State<splash2> {
                                             children: [
                                               const SizedBox(height: 10,width:10),
                                               Center(
-                                                child: Image.asset(country[0]['img']!,
+                                                child: Image.asset(country[index]['img']!,
                                                     width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
                                               ),
                                               const SizedBox(height: 10),

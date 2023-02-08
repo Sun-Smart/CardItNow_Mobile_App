@@ -87,7 +87,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             ),
           ),
         ),
-         SizedBox(height:Responsive.isMobile(context)?18: 10),
+         SizedBox(height:Responsive.isMobile(context)?5: 10),
         Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
           alignment: Alignment.bottomCenter,
@@ -102,6 +102,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             inputFormatters: widget.inputFormatters,
             maxLength: widget.maxLength,
             keyboardType: widget.keyboardType,
+
             onChanged: widget.onChanged,
             obscureText: widget.inputHint == 'Password' ? showpass : false,
             controller: widget.controller,
