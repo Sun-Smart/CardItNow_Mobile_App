@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/lgu/choose_lgu_screen.dart';
 import 'package:cardit/ui/model_screen/dashboard_screen.dart';
 import 'package:cardit/ui/model_screen/user_screen.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../../responsive/responsive.dart';
 import '../../../widgets/tgrid.dart';
 
 class PaymentDashboard extends StatefulWidget {
@@ -65,13 +67,15 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
     super.initState();
   }
 
+  var recepient = '/selecttypeofrecipient';
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return SafeArea(
         child: Scaffold(
       //bottomNavigationBar: BottomNavBarWidget(1),
-      appBar: PreferredSize(
+      appBar:Responsive.isMobile(context)?
+       PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
@@ -91,19 +95,48 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                     fontWeight: FontWeight.w600),
               ),
             )),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //  _buildScarch(),
-            _buildtitle1(),
-            buildRecipients(),
-            _buildtitle2(),
-            _buildPartners(),
-          ],
-        ),
-      ),
+      ):null,
+      body: Responsive.isMobile(context)
+          ? SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //  _buildScarch(),
+                  _buildtitle1(),
+                  buildRecipients(),
+                  _buildtitle2(),
+                  _buildPartners(),
+                ],
+              ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    BackButton(
+                color: Colors.black,
+              ),
+              SizedBox(width:Responsive.isDesktop(context)? 250:100,),
+              Text(
+                'Payment',
+                style: TextStyle(
+                    color: Color(0Xff413D4B),
+                    fontSize: 16,
+                    fontFamily: "Sora",
+                    fontWeight: FontWeight.w600),
+              ),
+                  ],
+                ),
+                SizedBox(height: 50,),
+                //  _buildScarch(),
+                _buildtitle1(),
+                buildRecipients(),
+                _buildtitle2(),
+                _buildPartners(),
+              ],
+            ),
     ));
   }
 
@@ -186,6 +219,12 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       padding: EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
+          // if(recepient=='/selecttypeofrecipient'){
+
+          //   setState(() {
+          //     recepient;
+          //   });
+          // }
           Navigator.of(context).pushNamed('/selecttypeofrecipient');
         },
         child: Column(children: [
@@ -269,14 +308,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
 
   Widget _buildguide(DataUser partners) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(width: 1, color: Color(0xffE5E5E5))),
         child: Column(children: [
-          InkWell(
+          GestureDetector(
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(18.0),
                 child: Image.asset(

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
@@ -42,8 +43,8 @@ class PaymentsState extends State<Payments>
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-        bottomNavigationBar: BottomNavBarWidget(2),
-        appBar: PreferredSize(
+        bottomNavigationBar: Responsive.isMobile(context)?BottomNavBarWidget(2):null,
+        appBar:Responsive.isMobile(context)? PreferredSize(
           preferredSize: Size.fromHeight(70.0),
           child: AppBar(
             elevation: 0,
@@ -115,20 +116,105 @@ class PaymentsState extends State<Payments>
               ),
             ],
           ),
-        ),
-        body: SingleChildScrollView(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            buildPayChart(),
-            buildCard(),
-            buildTranstitle(),
-            _buildBusinesscard(),
-            SizedBox(
-              height: 20,
-            )
-          ],
-        )));
+        ):null,
+        body: Responsive.isMobile(context)
+            ? SingleChildScrollView(
+                child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  buildPayChart(),
+                  buildCard(),
+                  buildTranstitle(),
+                  _buildBusinesscard(),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
+              ))
+            : Container(
+                width: MediaQuery.of(context).size.width / 3,
+                height: MediaQuery.of(context).size.width / 1,
+                child: SingleChildScrollView(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20,right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                                      "Payments",
+                                      style: TextStyle(
+                            color: themeChange.darkTheme
+                                ? Colors.white
+                                : Color(0XFF1B1B1B),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                    margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                                    width: 100,
+                                    height: MediaQuery.of(context).size.height / 15,
+                                    decoration: BoxDecoration(
+                      //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+                      //borderRadius: const BorderRadius.all(Radius.circular(3)))
+                      ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: DropdownButton(
+                      underline: const SizedBox(),
+                      // underline:Container(),
+                      //  validator: (value)=>value==null?'field required':null,
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      value: dropdownvalue,
+                      hint: Text(
+                        'Monthly',
+                        style: TextStyle(
+                            color: themeChange.darkTheme
+                                ? Colors.blue
+                                : Color(0Xff004751),
+                            fontSize: 14),
+                      ),
+                      icon: InkWell(
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: themeChange.darkTheme
+                              ? Colors.blue
+                              : Color(0Xff004751),
+                        ),
+                      ),
+                      items: item.map((String item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item,
+                              style: const TextStyle(
+                                  color: Color(0Xff004751), fontSize: 14)),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                      style: const TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                        ],
+                      ),
+                    ),
+                    buildPayChart(),
+                    buildCard(),
+                    buildTranstitle(),
+                    _buildBusinesscard(),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                )),
+              ));
   }
 
   Widget buildCard() {

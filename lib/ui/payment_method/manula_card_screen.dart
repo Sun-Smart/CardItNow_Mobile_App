@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unnecessary_null_comparison, avoid_unnecessary_containers, avoid_print, unrelated_type_equality_checks, unnecessary_brace_in_string_interps
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,8 @@ class _ManualCardState extends State<ManualCard> {
                         fontSize: 14))),
             const SizedBox(width: 20),
           ]),
-      body: Obx(() => cardcons.creditCardGet.isEmpty
+      body:Responsive.isMobile(context)?
+       Obx(() => cardcons.creditCardGet.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -104,15 +106,95 @@ class _ManualCardState extends State<ManualCard> {
                         validity: cardcons.creditCardGet[index]['expirydate']
                             .toString())));
               },
+            )): Obx(() => cardcons.creditCardGet.isEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                    child: Text('Add Your Credit Card',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontFamily: 'Sora',
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold))),
+                SizedBox(height: 30),
+                Center(
+                    child: Text('Great ! You Are ready with your \nCredit card',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#004751')))),
+                SizedBox(height: 10),
+                Center(
+                    child: Text(
+                        'We have verified your Credit Card and Details. \nYou are good to go with payments now.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey))),
+                            SizedBox(height: 50),
+                            Center(
+                              child: GestureDetector(
+                                  onTap:(){},
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                    width:  Responsive.isDesktop(context)
+                                            ? MediaQuery.of(context).size.width / 4.5
+                                            : MediaQuery.of(context).size.width / 3.5,
+                                    height: MediaQuery.of(context).size.height * 0.07,
+                                     decoration: BoxDecoration(
+                                        color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
+                                    child: Center(
+                                      child: Text(
+                                       "Let's Start Payments",
+                                        style: TextStyle(
+                                          fontFamily: 'ProductSans',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: HexColor('#004751'),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+              
+ 
+          )],
+            )
+          : ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: cardcons.creditCardGet.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Obx(() => CustomeCardData(
+                        cardDefault:
+                        cardcons.creditCardGet[index]['carddefault'].toString(),
+                        customerId:
+                        cardcons.creditCardGet[index]['customerid'].toString(),
+                        id: cardcons.creditCardGet[index]['payid'].toString(),
+                        bankName:
+                        cardcons.creditCardGet[index]['bankname'].toString(),
+                        cardNumber:
+                        cardcons.creditCardGet[index]['cardnumber'].toString(),
+                        nameHolder:
+                        cardcons.creditCardGet[index]['cardname'].toString(),
+                        validity: cardcons.creditCardGet[index]['expirydate']
+                            .toString())));
+              },
             )),
-      bottomNavigationBar: AuthButton(
+      bottomNavigationBar: Responsive.isMobile(context)?AuthButton(
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           //  Get.to(const DashbordScreen());
         },
         text: "Let's Start Payments",
-      ),
+      ):null,
     );
   }
 }

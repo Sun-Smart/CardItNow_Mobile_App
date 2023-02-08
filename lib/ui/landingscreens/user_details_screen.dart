@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
+import '../../responsive/responsive.dart';
 import '../../widgets/custom_input.dart';
 import 'upload_documents_screen.dart';
 
@@ -70,37 +71,71 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           elevation: 2,
           leading: BackButton(
-              // color: themeChange.darkTheme ? Colors.white : Colors.black,
-              ),
-          title: Text(
-            "User Details",
-            style: TextStyle(
-                // color: themeChange.darkTheme
-                //     ? Colors.white
-                //     : const Color(0Xff1B1B1B),
-                fontSize: 24,
-                fontWeight: FontWeight.bold),
+            color: Colors.black,
           ),
-          bottom: const TabBar(
+          title: Responsive.isMobile(context)
+              ? Text(
+                  "User Details",
+                  style: TextStyle(
+                      color: Color(0Xff1B1B1B),
+                      fontSize: Responsive.isMobile(context) ? 24 : 18,
+                      fontWeight: FontWeight.bold),
+                )
+              : Center(
+                  child: Text(
+                    "User Details",
+                    style: TextStyle(
+                        color: Color(0Xff1B1B1B),
+                        fontSize: Responsive.isMobile(context) ? 24 : 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+          bottom: TabBar(
             indicatorColor: Color(0XffCEE812),
             indicatorWeight: 2.5,
-            tabs: [
+            tabs: const [
               Tab(text: "Personal Details"),
               Tab(text: "Upload Document"),
             ],
           ),
         ),
-        body: TabBarView(children: [
-          bulidForm(),
-          UploadDocuments(),
-        ]),
+        body: Responsive.isMobile(context)
+            ? TabBarView(children: [
+                bulidForm(),
+                UploadDocuments(),
+              ])
+            : Responsive.isDesktop(context)
+                ? TabBarView(children: [
+                    buildformweb(),
+                    UploadDocuments(),
+                  ])
+                : TabBarView(children: [
+                    buildformweb(),
+                    UploadDocuments(),
+                  ]),
       ),
     );
+  }
+
+  Widget buildformweb() {
+    return SingleChildScrollView(
+        child: Container(
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          _buildImage(),
+          const SizedBox(height: 20),
+          _buildImageEdit(),
+          const SizedBox(height: 40),
+          _buildFieldweb()
+        ],
+      ),
+    ));
   }
 
   Widget bulidForm() {
@@ -120,7 +155,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   Widget _buildImageEdit() {
-    return InkWell(
+    return GestureDetector(
         onTap: () {
           _showPicker(context);
         },
@@ -181,6 +216,877 @@ class _UserDetailsState extends State<UserDetails> {
               image: DecorationImage(
                   fit: BoxFit.fill, image: FileImage(imgFiles!))));
     }
+  }
+
+  Widget _buildFieldweb() {
+    return Container(
+        child: Form(
+            key: formKey,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 8
+                            : MediaQuery.of(context).size.width / 14,
+                      ),
+                      Text(
+                        "First Name *",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: Responsive.isDesktop(context)
+                        ? MediaQuery.of(context).size.width / 4
+                        : MediaQuery.of(context).size.width / 3,
+                    child: TextFormField(
+                      enabled: true,
+                      //label: "First Name*",
+                      controller: _holdernameController,
+                      obscureText: false,
+                      //inputHint: 'Enter your first name',
+                      validator: (value) {
+                        if (_holdernameController.text.isEmpty) {
+                          return "Please Enter First Name";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter First Name',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 8
+                            : MediaQuery.of(context).size.width / 14,
+                      
+                      ),
+                      Text(
+                        "Middle Name ",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                  width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                    child: TextFormField(
+                      enabled: true,
+                      // label: "Middle Name ",
+                      controller: _middleController,
+                      obscureText: false,
+                      // inputHint: 'Enter your Middle name',
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Middle name',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      validator: (value) {
+                        if (_middleController.text.isEmpty) {
+                          return 'Please Enter Middle Name';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 8
+                            : MediaQuery.of(context).size.width / 14,
+                      
+                      ),
+                      Text(
+                        "Last Name *",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                   width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                    child: TextFormField(
+                      enabled: true,
+                      // label: "Last Name*",
+                      controller: _lastnameController,
+                      obscureText: false,
+                      // inputHint: 'Enter your last name',
+                      validator: (value) {
+                        if (_lastnameController.text.isEmpty) {
+                          return "Please Enter Last Name";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Last name',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                       width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 8
+                            : MediaQuery.of(context).size.width / 14,
+                      
+                      ),
+                      Text(
+                        "Enter Your Email *",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                 width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                    child: TextFormField(
+                      enabled: true,
+                      //label: "Enter Your Email*",
+                      controller: _emailController,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Email',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      validator: (value) {
+                        if (_emailController.text.isEmpty) {
+                          return "Please Enter The Email";
+                        } else if (!_emailController.text.contains("@") ||
+                            !_emailController.text.endsWith('.com')) {
+                          return "Please Enter The valid Email";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                       width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 8
+                            : MediaQuery.of(context).size.width / 14,
+                      
+                      ),
+                      Text(
+                        "Phone Number*",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                    child: TextFormField(
+                      enabled: true,
+                      // label: "Phone Number*",
+                      controller: _phoneController,
+                      obscureText: false,
+                      // inputHint: 'Enter your Phone number',
+                      validator: (value) {
+                        if (_phoneController.text.isEmpty) {
+                          return "Please Enter Phone number";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Phone Number',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                      width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('Choose your Interests',
+                          style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: themeChange.darkTheme
+                            //     ? Colors.white
+                            //     : HexColor('#505050')
+                          ))),
+                  const SizedBox(height: 15),
+                  Container(
+                    // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                      
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1, color: Colors.grey),
+                          )),
+                      // underline:Container(),
+                      //  validator: (value)=>value==null?'field required':null,
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      value: dropdownvalue,
+                      hint: const Text(
+                        'Select your interests',
+                        style:
+                            TextStyle(color: Color(0Xff413D4B), fontSize: 14),
+                      ),
+                      icon: const InkWell(
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
+                      items: item.map((String item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item,
+                              style: const TextStyle(
+                                  color: Color(0Xff413D4B), fontSize: 14)),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                       width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                      alignment: Alignment.centerLeft,
+                      // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('Date of Birth*',
+                          style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            // color: Styles.whitecustomlable,
+                          ))),
+                  const SizedBox(height: 10),
+                  Stack(clipBehavior: Clip.none, children: <Widget>[
+                    // Container(
+                    //     width: MediaQuery.of(context).size.width/4,
+                    //     alignment: Alignment.centerLeft,
+                    //     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    //     child: Text('Date of Birth*',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Sora',
+                    //           fontSize: 14,
+                    //           // color: Styles.whitecustomlable,
+                    //         ))),
+
+                    Container(
+
+                        /// padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        alignment: Alignment.bottomCenter,
+                         width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                        // height: MediaQuery.of(context).size.width / 7,
+                        child: TextFormField(
+                          controller: dateCtl,
+                          decoration: InputDecoration(
+                            hoverColor: Colors.transparent,
+                            filled: true,
+                            fillColor: Colors.white,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.3)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                gapPadding: 5,
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 9, 9))),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 9, 9))),
+                            //labelText: "Date of birth",
+                            hintText: "Choose date",
+                            hintStyle: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.normal,
+                              color: Color.fromRGBO(65, 61, 75, 0.6),
+                            ), // you need this
+                          ),
+                          onTap: () async {
+                            DateTime date = DateTime(1900);
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            date = (await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime(2100)))!;
+                            dateCtl.text =
+                                DateFormat("yyyy-MM-dd").format(date);
+                            // dateCtl.text = date.toIso8601String();
+                          },
+                        )),
+                    Positioned(
+                      bottom: 0,
+                      top: 5,
+                      right: 13,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.calendar_today,
+                          size: 20,
+                          color: Colors.grey,
+                        ),
+                        tooltip: 'start',
+                        onPressed: () async {
+                          DateTime date = DateTime(1900);
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          date = (await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2100)))!;
+                          dateCtl.text = DateFormat("yyyy-MM-dd").format(date);
+                        },
+                      ),
+                    )
+                  ]),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                         width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /8
+                            : MediaQuery.of(context).size.width / 14,
+                      ),
+                      Text(
+                        "Address *",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                    child: TextFormField(
+                      enabled: true,
+                      // label: "Address*",
+                      controller: _addressController,
+                      obscureText: false,
+
+                      validator: (value) {
+                        if (_addressController.text.isEmpty) {
+                          return "Please Enter your Address";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        suffixIcon: const Icon(Icons.calendar_today),
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Address',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                         width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /8
+                            : MediaQuery.of(context).size.width / 14,
+                      ),
+                      Text(
+                        "Country",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    //   margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1, color: Colors.grey)),
+                      ),
+                      // underline:Container(),
+                      //  validator: (value)=>value==null?'field required':null,
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      value: dropdownvalue,
+                      hint: const Text(
+                        'Select your country',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                          color: Color.fromRGBO(65, 61, 75, 0.6),
+                        ),
+                      ),
+                      icon: const InkWell(
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
+                      items: country.map((String country) {
+                        return DropdownMenuItem(
+                          value: country,
+                          child: Text(country,
+                              style: const TextStyle(
+                                  color: Color(0Xff413D4B), fontSize: 14)),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdowncountry = newValue!;
+                        });
+                      },
+
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                         width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /8
+                            : MediaQuery.of(context).size.width / 14,
+                      ),
+                      Text(
+                        "City",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                 
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                     width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                    child: DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                        hoverColor: Colors.transparent,
+                        contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 1, color: Colors.grey)),
+                      ),
+                      // underline:Container(),
+                      //  validator: (value)=>value==null?'field required':null,
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      value: dropdownvalue,
+                      hint: const Text(
+                        'Select your city',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                          color: Color.fromRGBO(65, 61, 75, 0.6),
+                        ),
+                      ),
+                      icon: const InkWell(
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      validator: (value) =>
+                          value == null ? 'field required' : null,
+                      items: city.map((String city) {
+                        return DropdownMenuItem(
+                          value: city,
+                          child: Text(city,
+                              style: const TextStyle(
+                                  color: Color(0Xff413D4B), fontSize: 13)),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdowncity = newValue!;
+                        });
+                      },
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /8
+                            : MediaQuery.of(context).size.width / 14,
+                      ),
+                      Text(
+                        "Postal Code",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width /4
+                            : MediaQuery.of(context).size.width / 3,
+                    child: TextFormField(
+                      enabled: true,
+                      // label: "Postal code",
+                      controller: _postalController,
+                      obscureText: false,
+                      validator: (value) {
+                        if (_postalController.text.isEmpty) {
+                          return "Please Enter Postal Code";
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        hoverColor: Colors.transparent,
+                        fillColor: Colors.white,
+                        hintText: 'Enter Postal Code',
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                            const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Sora',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                ])));
   }
 
   Widget _buildField() {
@@ -956,10 +1862,12 @@ class _UserDetailsState extends State<UserDetails> {
                                       builder: (context) =>
                                           const AvatarPageView()));
                             },
-                            child: const Text(
-                              'Choose Default Avator',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            child: Center(
+                              child: Text(
+                                'Choose Default Avator',
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ))
                     ],
@@ -1004,10 +1912,12 @@ class _UserDetailsState extends State<UserDetails> {
                             onPressed: () {
                               openCamera();
                             },
-                            child: const Text(
-                              'Take Selfi',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            child: Center(
+                              child: Text(
+                                'Take Selfi',
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ))
                     ],
