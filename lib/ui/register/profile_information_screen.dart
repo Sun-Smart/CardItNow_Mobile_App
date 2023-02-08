@@ -100,7 +100,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                                width: MediaQuery.of(context).size.width / 1.5, height: MediaQuery.of(context).size.height / 3
                               )),
                   ),
                   Container(
@@ -304,7 +304,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               }
                             },
                             textInputAction: TextInputAction.next,
-                            
                             decoration: InputDecoration(
                               filled: true,
                               hoverColor: Colors.transparent,

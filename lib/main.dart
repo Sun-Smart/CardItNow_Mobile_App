@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 // import 'dart:html' as html;
+import 'package:cardit/firebase_options.dart';
 import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -25,6 +26,13 @@ Future main() async {
   if(!kIsWeb){
 WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  }else{
+    WidgetsFlutterBinding.ensureInitialized(
+
+    );
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+    );
   }
   await GetStorage.init();
   HttpOverrides.global = new MyHttpOverrides();

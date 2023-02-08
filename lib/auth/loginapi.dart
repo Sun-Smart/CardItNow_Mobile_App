@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +40,8 @@ class loginauth extends GetxController with BaseController {
       auth.onInit();
       GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
       if(MyApp.logindetails["status"] == "A"){
+        // Get.to(DashbordScreen());
+        // Get.to(kIsWeb?DrawerWeb():DashbordScreen());
         MaterialPageRoute(
             builder: (context) =>
                 Responsive.isDesktop(context) ? DrawerWeb() : DashbordScreen());
