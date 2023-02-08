@@ -106,20 +106,24 @@ class _RecipientTypeState extends State<RecipientType> {
                child: Column(
                      crossAxisAlignment: CrossAxisAlignment.center,
                      children: [
+                       
+                         Row(
+                         children: [
+                           const BackButton(
+          color: Colors.black,
+        ),
+                         ],
+                       ),
                        const SizedBox(
                          height: 50,
                        ),
-                       Row(
-                         children: [
-                           const Text("Select Type of Payee",
+                       const Text("Select Type of Payee",
             style: TextStyle(
               color: Color(0xFF413D4B),
               fontSize: 20,
               fontFamily: "Sora",
               fontWeight: FontWeight.w600,
             )),
-                         ],
-                       ),
            const  SizedBox(
                          height: 50,
                        ),
