@@ -43,7 +43,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               ],
             ),
           )),
-      bottomNavigationBar: buildbutton(),
+      bottomSheet: buildbutton(),
     );
   }
 
@@ -128,7 +128,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
        if(con.emailController.text.isEmpty){
          Fluttertoast.showToast(msg: "Enter your Email Id");
        }else{
-         con.forgotpasswordotp(con.emailController.text.toString());
+         con.forgotPasswordOTP(con.emailController.text.toString().trim());
        }
       },
       text: "Next",

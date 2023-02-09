@@ -21,35 +21,30 @@ class UpdatePasswordCode extends StatefulWidget {
 
 class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final formKey = GlobalKey<FormState>();
-  final phonenumberController = TextEditingController();
-  final _otpController = TextEditingController();
+  final otpController = TextEditingController();
   final AuthCon con = Get.find();
-  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0XFFffffff),
       bottomNavigationBar: bulildbutton(),
-      body: Container(
-          // color: Color(0XFFffffff),
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: EdgeInsets.only(top: 20, bottom: 30),
-                margin: EdgeInsets.only(top: 40),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildToptitle(),
-                      buildtitle(),
-                    ])),
-            bulidForm(),
-            SizedBox(height: 10),
-          ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+            padding: EdgeInsets.only(top: 20, bottom: 30),
+            margin: EdgeInsets.only(top: 40),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildToptitle(),
+                  buildtitle(),
+                ])),
+        bulidForm(),
+        SizedBox(height: 10),
+      ],
         ),
-      )),
+      ),
     );
   }
 
@@ -94,7 +89,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
               MyCustomInputBox(
                 enabled: true,
                 label: "Email Verification Code",
-                controller: phonenumberController,
+                controller: otpController,
                 inputDecoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -117,7 +112,9 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                       textStyle:
                           TextStyle(fontSize: 14, color: HexColor('#413D4B')),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      con.forgotPasswordOTP(con.emailController.text);
+                    },
                     child: Text(
                       'Resend',
                       style:
@@ -134,17 +131,12 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        if(phonenumberController.text.isEmpty){
+        if(otpController.text.isEmpty){
           Fluttertoast.showToast(msg: "Enter your otp");
         }
         else{
-          con.forgototpverify(con.emailController.text, phonenumberController.text);
+          con.forgotOTPVerify(con.emailController.text, otpController.text);
         }
-        
-        // Navigator.of(context).pushNamed(
-        //   '/updatepassword',
-        // );
-        if (formKey.currentState!.validate()) {}
       },
       text: "Next",
     );

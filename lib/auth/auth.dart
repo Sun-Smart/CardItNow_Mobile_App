@@ -29,6 +29,7 @@ import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/terms&condition.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
+import '../ui/startingscreen/home_screen.dart';
 import 'init.dart';
 
 class AuthCon extends GetxController with BaseController {
@@ -424,58 +425,71 @@ class AuthCon extends GetxController with BaseController {
     // Fluttertoast.showToast(msg: data.toString());
   }
 
-  //forgotpasswordotp
-  void forgotpasswordotp(email) async {
+  //forgot password
+  void updateForgotPassword(String password) async {
     showLoading();
-    var body = {};
+    var body = {
+      "email": emailController.text,
+      "password": password
+    };
     var response = await BaseClient()
         .post(
-          API().register + '?email=' + email,
-          body,
-        )
+        API().updateForgotPassword,
+        body)
         .catchError(handleError);
-    if (response == null) return;
-    //Get.to(VerifyUserId());
-    var data = json.decode(response);
-
     hideLoading();
-    print('check' + data);
+    if (response == null) return;
+    var data = json.decode(response);
+    print('pass' + data);
+    if (data["status"] == "success") {
+      emailController.clear();
+      Fluttertoast.showToast(msg: data["message"].toString());
+      Get.offAll(Home());
+    } else {
+      Fluttertoast.showToast(msg: data["message"].toString());
+    }
+  }
 
-    if (data == "Success") {
+
+
+  //forgot password otp
+  void forgotPasswordOTP(String email) async {
+    showLoading();
+    var body = {"email": email};
+    var response = await BaseClient()
+        .post(
+      API().forgotSendOTP,
+      body,
+    )
+        .catchError(handleError);
+    hideLoading();
+    if (response == null) return;
+    var data = json.decode(response);
+    print('check' + data);
+    if (data["status"] == "success") {
       Get.to(UpdatePasswordCode());
-      // token.value = userData["token"];
-      // if (!resend) {
-      // Get.to(OtpScreenView());
-      // }
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
   }
 
-  //forgototpverify
-  void forgototpverify(email, otp) async {
+  //forgot otp verify
+  void forgotOTPVerify(String email,String otp) async {
     showLoading();
-    var body = {};
+    var body = {"email": email,  "otp": otp};
     var response = await BaseClient()
         .post(
-            API().verifyotp +
-                '?email=${googleMail == '' ? email : googleMail}&otp=' +
-                otp,
-            body)
+        API().forgotOTPVerify,
+        body)
         .catchError(handleError);
+    hideLoading();
     if (response == null) return;
     var data = json.decode(response);
-    hideLoading();
     print('check' + data);
-    if (data == "Success") {
-      GetStorage().write('token', email);
-      var storedEmail = GetStorage().read('token');
-      print(
-          '***************** OTP Token  &&&& ${storedEmail} &&&&  ************************');
+    if (data["status"] == "success") {
       Get.to(() => UpdatePassword());
-      Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: data.toString());
+      Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
 

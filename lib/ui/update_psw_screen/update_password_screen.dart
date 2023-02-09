@@ -3,7 +3,6 @@
 import 'dart:ui';
 
 import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/register/password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -24,7 +23,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   final formKey = GlobalKey<FormState>();
   final newpassword = TextEditingController();
   final updatepassword = TextEditingController();
-  bool _isChecked = false;
   final AuthCon con = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -168,7 +166,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
          Fluttertoast.showToast(msg: "Password Mismatched");
        }
        else{
-         con.passwordapi(con.emailController.text, newpassword.text);
+         con.updateForgotPassword(newpassword.text);
        }
       },
       text: "Save Password",

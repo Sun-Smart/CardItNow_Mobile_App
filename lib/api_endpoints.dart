@@ -75,4 +75,8 @@ class API {
 
   String newtoken = 'customermaster/customerauthendication';
 
+//forgot password
+  String forgotSendOTP = "common/ForgotPasscode";
+  String forgotOTPVerify = "common/ForgotOTPvalidate";
+  String updateForgotPassword = "common/Changepass";
 }
