@@ -1,5 +1,7 @@
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../widgets/auth_button.dart';
@@ -166,7 +168,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   SizedBox(height: 40),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/dashbordScreen');
+                   Get.to(DrawerWeb());
 
                       // showAlertDialog(context);
                     },
@@ -249,7 +251,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   SizedBox(height: 40),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/dashbordScreen');
+                     Get.to(DrawerWeb());
 
                       // showAlertDialog(context);
                     },
