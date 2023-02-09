@@ -216,7 +216,6 @@ class AuthCon extends GetxController with BaseController {
       "geoid": 0,
       "cityid": 0,
       "postalcode": postalcode,
-
     };
     var response = await BaseClient()
         .post(
@@ -235,7 +234,6 @@ class AuthCon extends GetxController with BaseController {
       }
       Fluttertoast.showToast(msg: data.toString());
     } else {
-
       Fluttertoast.showToast(msg: data.toString());
     }
   }

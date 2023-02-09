@@ -66,7 +66,7 @@ class _splash2State extends State<splash2> {
                 SizedBox(
                   height: 30,
                 ),
-                Text("${"MAKE  YOUR  LIFE  EASY"}",
+                Text("${"Make your life simple"}",
                   style: TextStyle(
                       fontSize: 15, color: Colors.white,
                       fontFamily: 'sora'

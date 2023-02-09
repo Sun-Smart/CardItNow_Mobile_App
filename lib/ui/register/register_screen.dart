@@ -561,17 +561,17 @@ class _RegisterState extends State<Register> {
                     obsecureText: false,
                     inputHint: 'Enter your email',
                     validator: (value) {
-                      if (con.emailController.text.isEmpty) {
-                        return "Please Enter The Email";
-                      } else if (!con.emailController.text.contains("@")
-                          //     ||
-                          //     !emailController.text.endsWith('.com')||
-                          // !emailController.text.endsWith('.co.in')
-                          ) {
-                        return "Please Enter The valid Email";
-                      } else {
-                        return null;
-                      }
+                      // if (con.emailController.text.isEmpty) {
+                      //   return "Please Enter The Email";
+                      // } else if (!con.emailController.text.contains("@")
+                      //     //     ||
+                      //     //     !emailController.text.endsWith('.com')||
+                      //     // !emailController.text.endsWith('.co.in')
+                      //     ) {
+                      //   return "Please Enter The valid Email";
+                      // } else {
+                      //   return null;
+                      // }
                     },
                     inputDecoration: InputDecoration(
                       filled: true,
