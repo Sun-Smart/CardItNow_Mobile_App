@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import '../base_client.dart';
 import '../main.dart';
+import '../responsive/responsive.dart';
 import '../ui/register/verify_userid_screen.dart';
 
 class loginauth extends GetxController with BaseController {
