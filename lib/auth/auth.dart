@@ -122,7 +122,7 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(API().register + '?email=' + emailController.text, body)
         .catchError(handleError);
-    if (response == null) return Get.to(VerifyEmail());
+    if (response == null) return;
     var data = json.decode(response);
     hideLoading();
     if (data=="Success") {
@@ -164,7 +164,7 @@ class AuthCon extends GetxController with BaseController {
                 otp,
             body)
         .catchError(handleError);
-    if (response == null) return Get.to(() => Passcode());
+    if (response == null) return;
 
     var data = json.decode(response);
     hideLoading();
@@ -174,7 +174,7 @@ class AuthCon extends GetxController with BaseController {
       Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
-      Get.to(() => Passcode());
+
       Fluttertoast.showToast(msg: data.toString());
     }
   }
@@ -234,7 +234,7 @@ class AuthCon extends GetxController with BaseController {
       }
       Fluttertoast.showToast(msg: data.toString());
     } else {
-      Get.to(() => Twofactor());
+
       Fluttertoast.showToast(msg: data.toString());
     }
   }

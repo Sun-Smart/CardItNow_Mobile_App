@@ -110,7 +110,8 @@ class RouteGenerator {
       // case '/onboardrecipient':
       //   return MaterialPageRoute(builder: (_) => onboardRecipient());
       case '/chooseLPG':
-        return MaterialPageRoute(builder: (_) => ChooseLPG());
+        return MaterialPageRoute(builder: (_) => ChooseLGU()
+        );
 
 //git push
 
