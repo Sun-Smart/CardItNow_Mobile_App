@@ -1,3 +1,4 @@
+import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -39,84 +40,88 @@ class PaymentsState extends State<Payments>
     super.initState();
   }
 
+  var paymenttab = '/paymentsdetails';
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-        bottomNavigationBar: Responsive.isMobile(context)?BottomNavBarWidget(2):null,
-        appBar:Responsive.isMobile(context)? PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
-          child: AppBar(
-            elevation: 0,
-            centerTitle: false,
-            leadingWidth: 50,
-            titleSpacing: 0.0,
-            //backgroundColor: Colors.white,
-            title: Padding(
-                padding: EdgeInsets.only(top: 0.0),
-                child: Text(
-                  "Payments",
-                  style: TextStyle(
-                      color: themeChange.darkTheme
-                          ? Colors.white
-                          : Color(0XFF1B1B1B),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                )),
-            actions: [
-              Container(
-                margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-                width: MediaQuery.of(context).size.width / 3.6,
-                height: MediaQuery.of(context).size.height / 15,
-                decoration: BoxDecoration(
-                    //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
-                    //borderRadius: const BorderRadius.all(Radius.circular(3)))
-                    ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    // underline:Container(),
-                    //  validator: (value)=>value==null?'field required':null,
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    value: dropdownvalue,
-                    hint: Text(
-                      'Monthly',
-                      style: TextStyle(
-                          color: themeChange.darkTheme
-                              ? Colors.blue
-                              : Color(0Xff004751),
-                          fontSize: 14),
-                    ),
-                    icon: InkWell(
-                      child: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: themeChange.darkTheme
-                            ? Colors.blue
-                            : Color(0Xff004751),
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? BottomNavBarWidget(2) : null,
+        appBar: Responsive.isMobile(context)
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(70.0),
+                child: AppBar(
+                  elevation: 0,
+                  centerTitle: false,
+                  leadingWidth: 50,
+                  titleSpacing: 0.0,
+                  //backgroundColor: Colors.white,
+                  title: Padding(
+                      padding: EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        "Payments",
+                        style: TextStyle(
+                            color: themeChange.darkTheme
+                                ? Colors.white
+                                : Color(0XFF1B1B1B),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  actions: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                      width: MediaQuery.of(context).size.width / 3.6,
+                      height: MediaQuery.of(context).size.height / 15,
+                      decoration: BoxDecoration(
+                          //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+                          //borderRadius: const BorderRadius.all(Radius.circular(3)))
+                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          underline: const SizedBox(),
+                          // underline:Container(),
+                          //  validator: (value)=>value==null?'field required':null,
+                          dropdownColor: Colors.white,
+                          isExpanded: true,
+                          value: dropdownvalue,
+                          hint: Text(
+                            'Monthly',
+                            style: TextStyle(
+                                color: themeChange.darkTheme
+                                    ? Colors.blue
+                                    : Color(0Xff004751),
+                                fontSize: 14),
+                          ),
+                          icon: InkWell(
+                            child: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: themeChange.darkTheme
+                                  ? Colors.blue
+                                  : Color(0Xff004751),
+                            ),
+                          ),
+                          items: item.map((String item) {
+                            return DropdownMenuItem(
+                              value: item,
+                              child: Text(item,
+                                  style: const TextStyle(
+                                      color: Color(0Xff004751), fontSize: 14)),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalue = newValue!;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
-                    items: item.map((String item) {
-                      return DropdownMenuItem(
-                        value: item,
-                        child: Text(item,
-                            style: const TextStyle(
-                                color: Color(0Xff004751), fontSize: 14)),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                    style: const TextStyle(color: Colors.black),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ):null,
+              )
+            : null,
         body: Responsive.isMobile(context)
             ? SingleChildScrollView(
                 child: Column(
@@ -131,89 +136,102 @@ class PaymentsState extends State<Payments>
                   )
                 ],
               ))
-            : Container(
-                width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.width / 1,
-                child: SingleChildScrollView(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                                      "Payments",
-                                      style: TextStyle(
-                            color: themeChange.darkTheme
-                                ? Colors.white
-                                : Color(0XFF1B1B1B),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+            : Row(
+                children: [
+                  Container(
+                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.5:
+                    MediaQuery.of(context).size.width / 2.6,
+                    height: MediaQuery.of(context).size.width / 1,
+                    child: SingleChildScrollView(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Payments",
+                                style: TextStyle(
+                                    color: themeChange.darkTheme
+                                        ? Colors.white
+                                        : Color(0XFF1B1B1B),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                                width: 100,
+                                height: MediaQuery.of(context).size.height / 15,
+                                decoration: BoxDecoration(
+                                    //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
+                                    //borderRadius: const BorderRadius.all(Radius.circular(3)))
                                     ),
-                                    Container(
-                                    margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-                                    width: 100,
-                                    height: MediaQuery.of(context).size.height / 15,
-                                    decoration: BoxDecoration(
-                      //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
-                      //borderRadius: const BorderRadius.all(Radius.circular(3)))
-                      ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: DropdownButton(
-                      underline: const SizedBox(),
-                      // underline:Container(),
-                      //  validator: (value)=>value==null?'field required':null,
-                      dropdownColor: Colors.white,
-                      isExpanded: true,
-                      value: dropdownvalue,
-                      hint: Text(
-                        'Monthly',
-                        style: TextStyle(
-                            color: themeChange.darkTheme
-                                ? Colors.blue
-                                : Color(0Xff004751),
-                            fontSize: 14),
-                      ),
-                      icon: InkWell(
-                        child: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: themeChange.darkTheme
-                              ? Colors.blue
-                              : Color(0Xff004751),
-                        ),
-                      ),
-                      items: item.map((String item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff004751), fontSize: 14)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                      style: const TextStyle(color: Colors.black),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: DropdownButton(
+                                    underline: const SizedBox(),
+                                    // underline:Container(),
+                                    //  validator: (value)=>value==null?'field required':null,
+                                    dropdownColor: Colors.white,
+                                    isExpanded: true,
+                                    value: dropdownvalue,
+                                    hint: Text(
+                                      'Monthly',
+                                      style: TextStyle(
+                                          color: themeChange.darkTheme
+                                              ? Colors.blue
+                                              : Color(0Xff004751),
+                                          fontSize: 14),
+                                    ),
+                                    icon: InkWell(
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: themeChange.darkTheme
+                                            ? Colors.blue
+                                            : Color(0Xff004751),
                                       ),
                                     ),
+                                    items: item.map((String item) {
+                                      return DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item,
+                                            style: const TextStyle(
+                                                color: Color(0Xff004751),
+                                                fontSize: 14)),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownvalue = newValue!;
+                                      });
+                                    },
+                                    style: const TextStyle(color: Colors.black),
                                   ),
-                        ],
-                      ),
-                    ),
-                    buildPayChart(),
-                    buildCard(),
-                    buildTranstitle(),
-                    _buildBusinesscard(),
-                    SizedBox(
-                      height: 20,
-                    )
-                  ],
-                )),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        buildPayChart(),
+                        buildCard(),
+                        buildTranstitle(),
+                        _buildBusinesscard(),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    )),
+                  ),
+                  paymenttab == '/paymentsdetails'
+                      ? Container(
+                          width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.2:
+                          MediaQuery.of(context).size.width / 2.5,
+                          child: PaymentsDetails())
+                      : Container()
+                ],
               ));
   }
 
@@ -460,7 +478,14 @@ class PaymentsState extends State<Payments>
             ],
           )),
       onTap: () {
-        Navigator.of(context).pushNamed('/paymentsdetails');
+        if (paymenttab == '/paymentsdetails') {
+          setState(() {
+            paymenttab;
+          });
+        } else {
+          Navigator.of(context).pushNamed('/paymentsdetails');
+        }
+        //PaymentsDetails()
       },
     );
   }
