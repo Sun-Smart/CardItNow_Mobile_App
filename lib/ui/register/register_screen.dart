@@ -545,15 +545,15 @@ class _RegisterState extends State<Register> {
                     margin: EdgeInsets.only(left: 15),
                     child: Row(
                       children: [
-                        Text("Use your Email",style: TextStyle(
-                            fontFamily: 'sora',fontWeight: FontWeight.bold
-                        ),),
+                        // Text("Use your Email",style: TextStyle(
+                        //     fontFamily: 'sora',fontWeight: FontWeight.bold
+                        // ),),
                       ],
                     ),
                   ),
                   Responsive.isMobile(context)? MyCustomInputBox(
                     enabled: true,
-                    // label: "Use your Email ",
+                    label: "Use your Email ",
 
                     keyboardType: TextInputType.emailAddress,
                     controller: con.emailController,
@@ -769,7 +769,7 @@ class _RegisterState extends State<Register> {
                                     showAlertDialog(context);
                                   },
                                   child: Text(
-                                    'Privacy Clause',
+                                    'Privacy Clause.',
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         decorationThickness: 2,

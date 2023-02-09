@@ -102,7 +102,7 @@ class _termsandconditionsState extends State<termsandconditions> {
                                                 BorderRadius.circular(5)),
                                         child: Center(
                                           child: Text(
-                                            " Done",
+                                            " Accept and Proceed",
                                             style: TextStyle(
                                               fontFamily: 'ProductSans',
                                               fontSize: 18,
@@ -166,7 +166,7 @@ class _termsandconditionsState extends State<termsandconditions> {
                                             Get.to(congratesscreen());
                                           }
                                         },
-                                        text: "Done"),
+                                        text: "Accept and Proceed"),
                                   ],
                                 ),
                                 SizedBox(height: 30)
@@ -250,7 +250,7 @@ class _termsandconditionsState extends State<termsandconditions> {
             Get.to(congratesscreen());
           }
         },
-        text: "Done");
+        text: "Accept and Proceed");
   }
 
   Widget buildtitle() {
@@ -259,15 +259,15 @@ class _termsandconditionsState extends State<termsandconditions> {
       padding: EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: Responsive.isMobile(context)
-            ? MainAxisAlignment.center
+            ? MainAxisAlignment.start
             : MainAxisAlignment.center,
         children: [
           Text(
-            'Terms & Conditions',
+            'Terms of Use',
             style: TextStyle(
               fontSize: 28,
               color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,fontFamily: 'sora'
             ),
           ),
         ],

@@ -14,24 +14,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "988064158191-jsr38688oueltdnof44986it0bbhs3gt.apps.googleusercontent.com",
+          "client_id": "988064158191-aso1sac4edpc0m9ddsro1gucgdueumq3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cardit",
-            "certificate_hash": "f294c9b50b65f5876902a1d60b13cb51fd61b3fc"
+            "certificate_hash": "cf61cbe6811b938095adc78593589951e5569b1f"
           }
-        },
-        {
-          "client_id": "988064158191-op4ua04da3b6r22r0lfe2fvmflkcbfrj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.cardit",
-            "certificate_hash": "1be24ace61b19aa33ed438889e65f690a48677cb"
-          }
-        },
-        {
-          "client_id": "988064158191-jduk6pn7dl3lgbpjs29eqp95lt61s8dv.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -43,7 +31,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "988064158191-jduk6pn7dl3lgbpjs29eqp95lt61s8dv.apps.googleusercontent.com",
+              "client_id": "988064158191-s46lgortsfpvtgop5oa62jsgenec00rr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

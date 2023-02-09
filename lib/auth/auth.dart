@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
@@ -42,7 +41,6 @@ class AuthCon extends GetxController with BaseController {
     showAvatorMaster();
     geoaccess();
     countryselection();
-
     if(GetStorage().read('save_token').toString() != "null"){
       taxDetailsGetApi();
       banklistget();
@@ -124,10 +122,10 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(API().register + '?email=' + emailController.text, body)
         .catchError(handleError);
-    if (response == null) return;
+    if (response == null) return Get.to(VerifyEmail());
     var data = json.decode(response);
     hideLoading();
-    if (data == "Success") {
+    if (data=="Success") {
       Get.to(VerifyEmail());
       Fluttertoast.showToast(msg: data.toString());
     } else {
@@ -166,16 +164,18 @@ class AuthCon extends GetxController with BaseController {
                 otp,
             body)
         .catchError(handleError);
-    if (response == null) return;
+    if (response == null) return Get.to(() => Passcode());
+
     var data = json.decode(response);
     hideLoading();
-    if (data == "Success") {
+    if (data=="Success") {
      // GetStorage().write("save_token", email);
      print("hhheedds"+email.toString());
       Get.to(() => Passcode());
       Fluttertoast.showToast(msg: data.toString());
     } else {
-      Fluttertoast.showToast(msg: "Invalid OTP");
+      Get.to(() => Passcode());
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 
@@ -204,11 +204,22 @@ class AuthCon extends GetxController with BaseController {
   //profile Infomation
   void profileInformatrion(email, firstName, lastName, city, state, requiredno,
       dateofbrith, address, postalcode) async {
-    var body = {};
+    var body = {
+      "email": emailController.text,
+      "firstname": firstName,
+      "lastname": lastName,
+      "nickname": "",
+      "mobile": requiredno,
+      "dateofbirth": dateofbrith,
+      "address": address,
+      "geoid": 0,
+      "cityid": 0,
+      "postalcode": postalcode,
+
+    };
     var response = await BaseClient()
         .post(
-            API().updateProfileInformation +
-                "?email=$email&firstname=$firstName&lastname=$lastName&mobile=$requiredno&dateofbirth=$dateofbrith&address=$address&geoid=1&cityid=2&postalcode=$postalcode&id",
+            API().updateProfileInformation ,
             body)
         .catchError(handleError);
     if (response == null) return;
@@ -223,6 +234,7 @@ class AuthCon extends GetxController with BaseController {
       }
       Fluttertoast.showToast(msg: data.toString());
     } else {
+      Get.to(() => Twofactor());
       Fluttertoast.showToast(msg: data.toString());
     }
   }
@@ -241,12 +253,13 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
-    if (data == "Success") {
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+    if (data["status"] == "success") {
       Get.to(VerifyUserId());
-      Fluttertoast.showToast(msg: data.toString());
+      Fluttertoast.showToast(msg: data["message"].toString());
     } else {
-      Fluttertoast.showToast(msg: data.toString());
+      Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
 
@@ -314,7 +327,7 @@ class AuthCon extends GetxController with BaseController {
     var body = {
       'email': email.toString(),
       'documenttype': choosedDocId.toString(),
-      'document':regDoc.toString(),
+      'document':scandocs.toString(),
       'documentid': docid.toString(),
       'selfi': uploadimg.toString()
     };

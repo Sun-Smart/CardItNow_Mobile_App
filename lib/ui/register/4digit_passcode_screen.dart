@@ -256,7 +256,9 @@ class _PasscodeState extends State<Passcode> {
                     child: Row(
                       children: [
                         Text("New Passcode",
-                            style: TextStyle(fontWeight: FontWeight.bold))
+                            style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'sora',
+                                fontSize: 16,color: HexColor('#004751')
+                            ))
                       ],
                     ),
                   ),
@@ -285,9 +287,9 @@ class _PasscodeState extends State<Passcode> {
                       children: [
                         Text(
                           "Confirm Passcode",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:TextStyle(fontWeight: FontWeight.bold,fontFamily: 'sora',
+                              fontSize: 16,color: HexColor('#004751')
+                          )
                         ),
                       ],
                     ),
@@ -320,7 +322,9 @@ class _PasscodeState extends State<Passcode> {
                       children: [
                         Row(
                           children: [
-                            Text("note"),
+                            Text("note",style: TextStyle(
+                              fontFamily: 'sora',fontSize: 16
+                            ),),
                           ],
                         ),
                         SizedBox(
@@ -329,7 +333,9 @@ class _PasscodeState extends State<Passcode> {
 
                         Row(
                           children: [
-                            Text("1. passcode only contains numbers only."),
+                            Text("1. passcode only contains numbers only.",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
                           ],
                         ),
                         SizedBox(
@@ -337,7 +343,9 @@ class _PasscodeState extends State<Passcode> {
                         ),
                         Row(
                           children: [
-                            Text("2. passcode should not be contains same digits."),
+                            Text("2. passcode should not be contains same digits.",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
                           ],
                         ),
                         SizedBox(
@@ -345,13 +353,17 @@ class _PasscodeState extends State<Passcode> {
                         ),
                         Row(
                           children: [
-                            Text("3. passcode should not be contains continues digits"),
+                            Text("3. passcode should not be contains continues digits",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
                           ],
                         ),
 
                         Row(
                           children: [
-                            Text("   (ex:123456)."),
+                            Text("   (ex:123456).",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
                           ],
                         ),
 

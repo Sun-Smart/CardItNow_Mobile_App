@@ -360,7 +360,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     return Container(
       padding: const EdgeInsets.all(15),
       child: Text(
-        'Verify Your Id',
+        'Let Us Verify You',
         style: TextStyle(
           fontSize: 28,
           fontFamily: 'Sora',
@@ -398,7 +398,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           child: Text('Select ID',
                               style: TextStyle(
                                   fontFamily: 'Sora',
-                                  fontSize: 14,
+                                  fontSize: 14,fontWeight: FontWeight.bold,
                                   color: Styles.whitecustomlable))),
                     ],
                   ),
@@ -425,8 +425,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         dropdownColor: Colors.white,
                         isExpanded: true,
                         value: dropdownvalue,
-                        hint: Text('Select Document',
+                        hint: Text('Choose Your ID',
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
                                 color: Styles.whitecustomlable, fontSize: 14)),
                         icon: GestureDetector(
                             child: Icon(Icons.keyboard_arrow_down,
@@ -472,9 +473,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       ),
                       Container(
                           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Text('Upload your ID',
+                          child: Text('Scan your ID',
                               style: TextStyle(
                                   fontFamily: 'Sora',
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                   color: Styles.whitecustomlable))),
                     ],
@@ -488,6 +490,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       controller: phoneNumberController,
                       obsecureText: false,
                       inputDecoration: InputDecoration(
+                        labelStyle: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
                         hintText: dropdownvalue == null
@@ -499,7 +505,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         hintStyle: const TextStyle(
                             fontSize: 12,
                             fontFamily: 'Sora',
-                            fontWeight: FontWeight.normal),
+                            fontWeight: FontWeight.bold),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 15),
                         focusColor: Colors.grey.shade300,
@@ -613,26 +619,26 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         ],
                       ),
                   const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: Responsive.isMobile(context)
-                            ? 0
-                            :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
-                            MediaQuery.of(context).size.width / 9,
-                      ),
-                      Container(
-                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Text('Upload your Selfie',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable))),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  displayImageSelfie(),
-                  const SizedBox(height: 20),
+                  // Row(
+                  //   children: [
+                  //     SizedBox(
+                  //       width: Responsive.isMobile(context)
+                  //           ? 0
+                  //           :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
+                  //           MediaQuery.of(context).size.width / 9,
+                  //     ),
+                  //     Container(
+                  //         margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  //         child: Text('Upload your Selfie',
+                  //             style: TextStyle(
+                  //                 fontFamily: 'Sora',
+                  //                 fontSize: 14,
+                  //                 color: Styles.whitecustomlable))),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 20),
+                  // displayImageSelfie(),
+                  // const SizedBox(height: 20),
                 ])));
   }
 

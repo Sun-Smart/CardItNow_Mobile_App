@@ -143,7 +143,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                                 "Enter the verification code ",
                                 style: TextStyle(
                                     fontFamily: 'Sora',
-                                    fontSize: 14,
+                                    fontSize: 17,fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
                             ],
@@ -187,13 +187,26 @@ class _VerifyEmailState extends State<VerifyEmail> {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
-      child: Text(
-        'Verify Your Email Id ',
-        style: TextStyle(
-          fontSize: 28,
-          // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          fontWeight: FontWeight.bold,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Verify Your Email',
+            style: TextStyle(
+              fontSize: 32, fontFamily: 'sora',color: HexColor('#004751'),
+              // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            ' Id',
+            style: TextStyle(
+              fontSize: 32, fontFamily: 'sora',color: HexColor('#004751'),
+              // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -278,9 +291,21 @@ class _VerifyEmailState extends State<VerifyEmail> {
         child: Form(
             key: formKey,
             child: Stack(children: [
+              Container(
+                margin: EdgeInsets.only(left: 15),
+                child: Row(
+                  children: [
+                    Text("Enter the Verification Code",style: TextStyle(
+                        fontFamily: 'sora',fontWeight: FontWeight.bold
+                    ),),
+                  ],
+                ),
+              ),
+
+
               MyCustomInputBox(
                 enabled: true,
-                label: "Enter the verification code ",
+                // label: "Enter the verification code ",
                 controller: phonenumberController,
                 keyboardType: TextInputType.number,
                 maxLength: 6,
@@ -295,8 +320,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   helperStyle:
                       const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                  labelStyle: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.bold,
+                  ),
                   hintStyle: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 13,
                     fontFamily: 'Sora',
                     fontWeight: FontWeight.normal,
                   ),
@@ -333,7 +363,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           ? MediaQuery.of(context).size.width / 4.2
                           : MediaQuery.of(context).size.width / 3.2,
                   top: Responsive.isMobile(context)
-                      ? 40
+                      ? 30
                       : Responsive.isDesktop(context)
                           ? 45
                           : 45,
@@ -347,7 +377,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       },
                       child: Text('Resend',
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,fontWeight: FontWeight.bold,
                               color: HexColor('#036D7B'),
                               fontFamily: 'Sora')))),
             ])));
@@ -360,17 +390,12 @@ class _VerifyEmailState extends State<VerifyEmail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
+            // const SizedBox(height: 10),
             Text('We have sent you verification code on',
-                style: TextStyle(fontSize: 14)),
+                style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.normal)),
             Text(
               con.emailController.text,
-              style: TextStyle(
-                  fontSize: 14,
-                  // color: themeChange.darkTheme
-                  //     ? Colors.white
-                  //     : HexColor('#000000'),
-                  fontWeight: FontWeight.bold),
+              style:  TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.bold)
             ),
           ],
         ));

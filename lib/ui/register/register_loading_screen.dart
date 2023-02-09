@@ -4,6 +4,7 @@ import 'package:cardit/ui/payment_method/recievermethodscreens/letsstartpage.dar
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/styles.dart';
@@ -25,7 +26,7 @@ Future<bool> _willPopCallback() async {
 class _RegisterloadingState extends State<Registerloading> {
   @override
   void initState() {
-    _navigation();
+    // _navigation();
     super.initState();
   }
 
@@ -73,10 +74,11 @@ class _RegisterloadingState extends State<Registerloading> {
           children: [
             Text(
               'Take a Few Minutes to Relax !',
+
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Sora',
-                color: Styles.whitecolortext,
+                color: HexColor('#004751'),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -107,10 +109,10 @@ class _RegisterloadingState extends State<Registerloading> {
   }
 }
 
-_navigation() async {
-  await Future.delayed(const Duration(milliseconds: 3000), () {});
-  Get.to(() => Letsstartpage());
-}
+// _navigation() async {
+//   await Future.delayed(const Duration(milliseconds: 3000), () {});
+//   Get.to(() => Letsstartpage());
+// }
 
 Widget buildtitle1() {
   return Container(
@@ -125,7 +127,7 @@ Widget buildtitle1() {
             style: TextStyle(
               fontSize: 18,
               fontFamily: 'Sora',
-              color: Styles.whitecolortext,
+              color: HexColor('#004751'),
               fontWeight: FontWeight.bold,
             ),
           ),

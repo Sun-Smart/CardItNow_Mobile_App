@@ -115,11 +115,11 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       margin: EdgeInsets.all(5),
                       child: Row(
                         children: [
-                          Text("Select Your Avatar",
+                          Text("  Choose Your Avatar",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                  color: HexColor('#413D4B'))),
+                                  fontSize: 25,fontFamily: 'sora',
+                                  color: HexColor('#004751'))),
                         ],
                       ),
                     ),
@@ -191,43 +191,43 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                       ],
                                     );
                                   })),
-                          Container(
-                            margin: EdgeInsets.only(left: 25),
-                            child: Row(
-                              mainAxisAlignment: Responsive.isMobile(context)
-                                  ? MainAxisAlignment.start
-                                  : MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      // imagePicker();
-                                    },
-                                    child: Row(children: [
-                                      Text("Upload ",
-                                          style: TextStyle(
-                                              fontFamily: 'Sofa',
-                                              fontSize: 18,
-                                              color: HexColor('#004751'))),
-                                      Text("Selfie",
-                                          style: TextStyle(
-                                              fontFamily: 'Sofa',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: HexColor('#004751')))
-                                    ]))
-                              ],
-                            ),
-                          ),
-                          Container(
-                              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                              child: Text('',
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 14,
-                                      color: Styles.whitecustomlable))),
-                          const SizedBox(height: 20),
-                          displayImageSelfie(),
-                          const SizedBox(height: 20),
+                          // Container(
+                          //   margin: EdgeInsets.only(left: 25),
+                          //   child: Row(
+                          //     mainAxisAlignment: Responsive.isMobile(context)
+                          //         ? MainAxisAlignment.start
+                          //         : MainAxisAlignment.center,
+                          //     children: [
+                          //       InkWell(
+                          //           onTap: () {
+                          //             // imagePicker();
+                          //           },
+                          //           child: Row(children: [
+                          //             Text("Upload ",
+                          //                 style: TextStyle(
+                          //                     fontFamily: 'Sofa',
+                          //                     fontSize: 18,
+                          //                     color: HexColor('#004751'))),
+                          //             Text("Selfie",
+                          //                 style: TextStyle(
+                          //                     fontFamily: 'Sofa',
+                          //                     fontSize: 18,
+                          //                     fontWeight: FontWeight.bold,
+                          //                     color: HexColor('#004751')))
+                          //           ]))
+                          //     ],
+                          //   ),
+                          // ),
+                          // Container(
+                          //     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          //     child: Text('',
+                          //         style: TextStyle(
+                          //             fontFamily: 'Sora',
+                          //             fontSize: 14,
+                          //             color: Styles.whitecustomlable))),
+                          // const SizedBox(height: 20),
+                          // displayImageSelfie(),
+                          // const SizedBox(height: 20),
                           AuthButton(
                             decoration: BoxDecoration(
                                 color: HexColor('#CEE812'),

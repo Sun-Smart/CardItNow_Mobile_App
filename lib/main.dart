@@ -23,6 +23,7 @@ Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
 
 Future main() async {
+  HttpOverrides.global = MyHttpOverrides();
   if(!kIsWeb){
 WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -35,7 +36,7 @@ WidgetsFlutterBinding.ensureInitialized();
     );
   }
   await GetStorage.init();
-  HttpOverrides.global = new MyHttpOverrides();
+
   runApp(const MyApp());
   Get.put(AuthCon());
   // Get.put(loginauth());
@@ -139,3 +140,4 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+

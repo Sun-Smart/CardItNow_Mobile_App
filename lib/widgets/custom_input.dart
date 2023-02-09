@@ -83,11 +83,11 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
                         left: MediaQuery.of(context).size.width / 7),
             child: Text(
               widget.label ?? "",
-              style: TextStyle(fontFamily: 'Sora', fontSize: 14),
+              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
             ),
           ),
         ),
-         SizedBox(height:Responsive.isMobile(context)?5: 10),
+         SizedBox(height:Responsive.isMobile(context)?10: 10),
         Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
           alignment: Alignment.bottomCenter,

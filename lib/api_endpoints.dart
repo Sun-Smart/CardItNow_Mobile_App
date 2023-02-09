@@ -2,7 +2,8 @@
 
 class API {
 
-  String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+  // String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
+  String baseURL = "https://10.0.2.2:5001/carditnowapi/";
   String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
