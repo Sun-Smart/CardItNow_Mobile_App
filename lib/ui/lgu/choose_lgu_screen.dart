@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../responsive/responsive.dart';
 import 'your_tax_details.dart';
 
 class ChooseLGUScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class ChooseLGUScreen extends StatefulWidget {
 class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   String? dropdownvalue;
   String? dropdownvalueCity;
-  var selectedcountry = ['Batac','Helo','hiiii','hobby'];
+  var selectedcountry = ['Batac', 'Helo', 'hiiii', 'hobby'];
 
   List<String> _pictures = [];
   final AuthCon con = Get.find();
@@ -55,198 +56,681 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          foregroundColor: Colors.black,
-          title: Text('Choose LGU',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold))),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('Select LGU name',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 16,
-                          color: Colors.black))),
-              const SizedBox(height: 10),
-              // CustomDropdown.search(
-              //     borderRadius: BorderRadius.zero,
-              //     borderSide: BorderSide(color: Colors.grey),
-              //     hintText: 'Select job role',
-              //     listItemStyle: TextStyle(color: Colors.black),
-              //     selectedStyle:
-              //     TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
-              //     items: selectedcountry,
-              //     controller: countryCon,
-              //     onChanged: (v) {
-              //       print(v);
-              //
-              //       // var ins =
-              //       // dummy.indexWhere((element) => element.containsValue(v));
-              //       // print(dummy[ins]['id']);
-              //     },
-              //   ),
-              // SizedBox(
-              //   height: 20,
-              // ),
+      appBar: Responsive.isMobile(context)
+          ? AppBar(
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              foregroundColor: Colors.black,
+              title: Text('Choose LGU',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold)))
+          : null,
+      body: Responsive.isMobile(context)
+          ? SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Select LGU name',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                color: Colors.black))),
+                    const SizedBox(height: 10),
+                    // CustomDropdown.search(
+                    //     borderRadius: BorderRadius.zero,
+                    //     borderSide: BorderSide(color: Colors.grey),
+                    //     hintText: 'Select job role',
+                    //     listItemStyle: TextStyle(color: Colors.black),
+                    //     selectedStyle:
+                    //     TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
+                    //     items: selectedcountry,
+                    //     controller: countryCon,
+                    //     onChanged: (v) {
+                    //       print(v);
+                    //
+                    //       // var ins =
+                    //       // dummy.indexWhere((element) => element.containsValue(v));
+                    //       // print(dummy[ins]['id']);
+                    //     },
+                    //   ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
 
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-                    borderRadius: const BorderRadius.all(Radius.circular(3))),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    value: dropdownvalue,
-                    hint: Text('San Nicolas',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                            fontFamily: 'Sora')),
-                    icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
-                    items: selectedcountry.map((String item) {
-                      return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff413D4B), fontSize: 14)));
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalueCity = null;
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                    style: const TextStyle(color: Colors.black),
-                  ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color(0XffB7C5C7), width: 1.5),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(3))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          underline: const SizedBox(),
+                          dropdownColor: Colors.white,
+                          isExpanded: true,
+                          value: dropdownvalue,
+                          hint: Text('San Nicolas',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontFamily: 'Sora')),
+                          icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
+                          items: selectedcountry.map((String item) {
+                            return DropdownMenuItem(
+                                value: item,
+                                child: Text(item,
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B),
+                                        fontSize: 14)));
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalueCity = null;
+                              dropdownvalue = newValue!;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Select Your Province',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                color: Colors.black))),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color(0XffB7C5C7), width: 1.5),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(3))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          underline: const SizedBox(),
+                          dropdownColor: Colors.white,
+                          isExpanded: true,
+                          value: dropdownvalue,
+                          hint: Text('San Nicolas',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontFamily: 'Sora')),
+                          icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
+                          items: selectedcountry.map((String item) {
+                            return DropdownMenuItem(
+                                value: item,
+                                child: Text(item,
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B),
+                                        fontSize: 14)));
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalueCity = null;
+                              dropdownvalue = newValue!;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Select Your Province',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                color: Colors.black))),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color(0XffB7C5C7), width: 1.5),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(3))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          underline: const SizedBox(),
+                          dropdownColor: Colors.white,
+                          isExpanded: true,
+                          value: dropdownvalue,
+                          hint: Text('San Nicolas',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontFamily: 'Sora')),
+                          icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
+                          items: selectedcountry.map((String item) {
+                            return DropdownMenuItem(
+                                value: item,
+                                child: Text(item,
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B),
+                                        fontSize: 14)));
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalueCity = null;
+                              dropdownvalue = newValue!;
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Upload Statement of Account',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                color: Colors.black))),
+                    const SizedBox(height: 10),
+                    displayImageSelfie(),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('Select Your Province',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 16,
-                          color: Colors.black))),
-              const SizedBox(height: 10),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-                    borderRadius: const BorderRadius.all(Radius.circular(3))),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    value: dropdownvalue,
-                    hint: Text('San Nicolas',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                            fontFamily: 'Sora')),
-                    icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
-                    items: selectedcountry.map((String item) {
-                      return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff413D4B), fontSize: 14)));
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalueCity = null;
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                    style: const TextStyle(color: Colors.black),
+            )
+          : Responsive.isDesktop(context)?
+          Row(
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/applogo-02.png",
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            height: MediaQuery.of(context).size.height / 3))),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Choose LGU',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 5.2,
+                              ),
+                              Text('Select LGU name',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                     
+                    
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 5.2,
+                              ),
+                              Text('Select Your Province',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 5.2,
+                              ),
+                              Text('Select Your Province',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 5.2,
+                              ),
+                              Text('Upload Statement of Account',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          displayImageSelfie(),
+                           SizedBox(height: 40),
+                          GestureDetector(
+                         onTap: () {
+                                    Get.to(() => YourTaxDetails());
+                                  },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            width:
+                                     MediaQuery.of(context).size.width / 4,
+                                    
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            decoration: BoxDecoration(
+                                      color: HexColor('#CEE812'),
+                                      borderRadius: BorderRadius.circular(5)),
+                            child: Center(
+                              child: Text(
+                              "Proceed to Confirm",
+                                style: TextStyle(
+                                  fontFamily: 'ProductSans',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('Select Your Province',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 16,
-                          color: Colors.black))),
-              const SizedBox(height: 10),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-                    borderRadius: const BorderRadius.all(Radius.circular(3))),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    underline: const SizedBox(),
-                    dropdownColor: Colors.white,
-                    isExpanded: true,
-                    value: dropdownvalue,
-                    hint: Text('San Nicolas',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                            fontFamily: 'Sora')),
-                    icon: InkWell(child: Icon(Icons.keyboard_arrow_down)),
-                    items: selectedcountry.map((String item) {
-                      return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff413D4B), fontSize: 14)));
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalueCity = null;
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                    style: const TextStyle(color: Colors.black),
+              ],
+            ):    Row(
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/applogo-02.png",
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            height: MediaQuery.of(context).size.height / 3))),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Choose LGU',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              Text('Select LGU name',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                 
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              Text('Select Your Province',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              Text('Select Your Province',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0XffB7C5C7), width: 1.5),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(3))),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: DropdownButton(
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: dropdownvalue,
+                                hint: Text('San Nicolas',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                        fontFamily: 'Sora')),
+                                icon: InkWell(
+                                    child: Icon(Icons.keyboard_arrow_down)),
+                                items: selectedcountry.map((String item) {
+                                  return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,
+                                          style: const TextStyle(
+                                              color: Color(0Xff413D4B),
+                                              fontSize: 14)));
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalueCity = null;
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              Text('Upload Statement of Account',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 16,
+                                      color: Colors.black)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          displayImageSelfie(),
+                           SizedBox(height: 40),
+                          GestureDetector(
+                         onTap: () {
+                                    Get.to(() => YourTaxDetails());
+                                  },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            width:
+                                     MediaQuery.of(context).size.width / 2,
+                                    
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            decoration: BoxDecoration(
+                                      color: HexColor('#CEE812'),
+                                      borderRadius: BorderRadius.circular(5)),
+                            child: Center(
+                              child: Text(
+                              "Proceed to Confirm",
+                                style: TextStyle(
+                                  fontFamily: 'ProductSans',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('Upload Statement of Account',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 16,
-                          color: Colors.black))),
-              const SizedBox(height: 10),
-              displayImageSelfie(),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: AuthButton(
-          decoration: BoxDecoration(
-              color: HexColor('#CEE812'),
-              borderRadius: BorderRadius.circular(5)),
-          onTap: () {
-            Get.to(() => YourTaxDetails());
-          },
-          text: "Proceed to Confirm"),
+              ],
+            ),
+     
+      bottomNavigationBar: Responsive.isMobile(context)
+          ? AuthButton(
+              decoration: BoxDecoration(
+                  color: HexColor('#CEE812'),
+                  borderRadius: BorderRadius.circular(5)),
+              onTap: () {
+                Get.to(() => YourTaxDetails());
+              },
+              text: "Proceed to Confirm")
+          : null,
     );
   }
 
@@ -254,7 +738,11 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   Widget displayImageSelfie() {
     if (imageFile == null) {
       return Container(
-          width: MediaQuery.of(context).size.width,
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2,
           height: 160,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
@@ -276,7 +764,11 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
     } else {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+          width: Responsive.isMobile(context)
+              ? MediaQuery.of(context).size.width
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
