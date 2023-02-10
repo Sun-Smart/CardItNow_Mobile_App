@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -14,10 +15,10 @@ class ReceiverPaymentScreen extends StatefulWidget {
 class _ReceiverPaymentScreenState extends State<ReceiverPaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return  DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
+        appBar: Responsive.isMobile(context)?AppBar(
           automaticallyImplyLeading: false,
           foregroundColor: Colors.black,
           title: Text('Payments',
@@ -26,7 +27,7 @@ class _ReceiverPaymentScreenState extends State<ReceiverPaymentScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 24)),
           backgroundColor: Colors.transparent,
-          bottom: const TabBar(
+          bottom: TabBar(
             indicatorColor: Color(0XffCEE812),
             indicatorWeight: 2.5,
             tabs: [
@@ -47,14 +48,53 @@ class _ReceiverPaymentScreenState extends State<ReceiverPaymentScreen> {
                     icon: Icon(Icons.keyboard_arrow_down_sharp))),
             SizedBox(width: 10),
           ],
-        ),
-        body: TabBarView(
+        ):null,
+        body:Responsive.isMobile(context)? TabBarView(
           children: [
             _buildThisWeek(),
             Text('Pass'),
             _buildThisWeek(),
           ],
-        ),
+        ):Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                 SizedBox(height: 30,),
+Text('Payments',
+              style: TextStyle(
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24)),
+              ],
+            ),
+            SizedBox(height: 40,),
+            Container(
+              width: MediaQuery.of(context).size.width/2,
+              child: TabBar(
+              indicatorColor: Color(0XffCEE812),
+              indicatorWeight: 2.5,
+              tabs: [
+                Tab(text: "This Week"),
+                Tab(text: "This Month"),
+                Tab(text: "This Year"),
+              ],
+                      ),
+            ),
+            Expanded(
+              child: Container(
+                 width: MediaQuery.of(context).size.width/2,
+                child: TabBarView(
+                  children: [
+                    _buildThisWeek(),
+                    Text('Pass'),
+                    _buildThisWeek(),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        )
       ),
     );
   }

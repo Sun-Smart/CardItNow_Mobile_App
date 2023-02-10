@@ -120,12 +120,12 @@ class _LoansPaymentState extends State<LoansPayment> {
                 color: themeChange.darkTheme ? Colors.white : Color(0xff292929),
                 size: 20,
               ),
-              contentPadding: EdgeInsets.all(10.0),
-              focusedBorder: OutlineInputBorder(
+              contentPadding: const EdgeInsets.all(10.0),
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder:const  OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
