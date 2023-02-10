@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../responsive/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/tgrid.dart';
 import '../model_screen/dashboard_screen.dart';
@@ -64,7 +65,7 @@ class _LoansPaymentState extends State<LoansPayment> {
     return SafeArea(
         child: Scaffold(
       //bottomNavigationBar: BottomNavBarWidget(1),
-      appBar: PreferredSize(
+      appBar: Responsive.isMobile(context)?PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
@@ -83,8 +84,8 @@ class _LoansPaymentState extends State<LoansPayment> {
                     fontWeight: FontWeight.bold),
               ),
             )),
-      ),
-      body: SingleChildScrollView(
+      ):null,
+      body: Responsive.isMobile(context)?SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,13 +96,58 @@ class _LoansPaymentState extends State<LoansPayment> {
             _buildPartners(),
           ],
         ),
+      ):Row(
+        children: [
+          Container(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Image.asset("assets/applogo-02.png",
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              height: MediaQuery.of(context).size.height / 3)),
+                    ),
+        Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                            
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  BackButton(
+                    color: themeChange.darkTheme ? Colors.white : Colors.black,
+                  ),
+                ],
+              ),
+              Text(
+                'Payment',
+                style: TextStyle(
+                    color: themeChange.darkTheme
+                        ? Colors.white
+                        : Color(0Xff1B1B1B),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+              ),
+                _buildScarch(),
+            _buildtitle1(),
+            buildRecipients(),
+            _buildtitle2(),
+            _buildPartners(),
+            ],
+          ),
+        )
+        
+        
+        
+        ]
       ),
     ));
   }
 
   Widget _buildScarch() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
+    return Responsive.isMobile(context)? Container(
         margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
         width: double.infinity,
         height: 80,
@@ -110,6 +156,68 @@ class _LoansPaymentState extends State<LoansPayment> {
           child: TextField(
             onTap: () {},
             decoration: InputDecoration(
+              hintText: 'Enter email or phone number to search',
+              hintStyle: TextStyle(
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                fontSize: 14,
+              ),
+              suffixIcon: Icon(
+                Icons.search,
+                color: themeChange.darkTheme ? Colors.white : Color(0xff292929),
+                size: 20,
+              ),
+              contentPadding: const EdgeInsets.all(10.0),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              ),
+              enabledBorder:const  OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              ),
+            ),
+          ),
+        )):Responsive.isDesktop(context)?Container(
+        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        width: MediaQuery.of(context).size.width/4,
+        height: 80,
+        color: themeChange.darkTheme ? Colors.black : Colors.white,
+        child: Center(
+          child: TextField(
+            onTap: () {},
+            decoration: InputDecoration(
+              hoverColor: Colors.transparent,
+              hintText: 'Enter email or phone number to search',
+              hintStyle: TextStyle(
+                color: themeChange.darkTheme ? Colors.white : Colors.black,
+                fontSize: 14,
+              ),
+              suffixIcon: Icon(
+                Icons.search,
+                color: themeChange.darkTheme ? Colors.white : Color(0xff292929),
+                size: 20,
+              ),
+              contentPadding: const EdgeInsets.all(10.0),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              ),
+              enabledBorder:const  OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffE5E5E5), width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              ),
+            ),
+          ),
+        )):Container(
+        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        width: MediaQuery.of(context).size.width/2,
+        height: 80,
+        color: themeChange.darkTheme ? Colors.black : Colors.white,
+        child: Center(
+          child: TextField(
+            onTap: () {},
+            decoration: InputDecoration(
+              hoverColor: Colors.transparent,
               hintText: 'Enter email or phone number to search',
               hintStyle: TextStyle(
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -210,7 +318,19 @@ class _LoansPaymentState extends State<LoansPayment> {
         ),
       ),
     );
-    return Container(
+    return  Responsive.isMobile(context)?Container(
+      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+      child: Wrap(
+        children: items,
+      ),
+    ):Responsive.isDesktop(context)?Container(
+      width: MediaQuery.of(context).size.width/4,
+      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+      child: Wrap(
+        children: items,
+      ),
+    ):Container(
+      width: MediaQuery.of(context).size.width/2,
       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
       child: Wrap(
         children: items,
@@ -220,7 +340,25 @@ class _LoansPaymentState extends State<LoansPayment> {
 
   Widget _buildtitle1() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
+    return Responsive.isMobile(context)?Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Text('My Recipients',
+          style: TextStyle(
+              color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
+              fontSize: 14,
+              fontWeight: FontWeight.bold)),
+    ):Responsive.isDesktop(context)?Container(
+      width: MediaQuery.of(context).size.width/4,
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Text('My Recipients',
+          style: TextStyle(
+              color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
+              fontSize: 14,
+              fontWeight: FontWeight.bold)),
+    ):Container(
+      width: MediaQuery.of(context).size.width/2,
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Text('My Recipients',
@@ -233,7 +371,25 @@ class _LoansPaymentState extends State<LoansPayment> {
 
   Widget _buildtitle2() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
+    return Responsive.isMobile(context)? Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Text('Carditnow Partners',
+          style: TextStyle(
+              color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
+              fontSize: 14,
+              fontWeight: FontWeight.bold)),
+    ): Responsive.isDesktop(context)?Container(
+      width: MediaQuery.of(context).size.width/4,
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Text('Carditnow Partners',
+          style: TextStyle(
+              color: themeChange.darkTheme ? Colors.white : Color(0XFF413D4B),
+              fontSize: 14,
+              fontWeight: FontWeight.bold)),
+    ):Container(
+      width: MediaQuery.of(context).size.width/2,
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Text('Carditnow Partners',
@@ -245,7 +401,31 @@ class _LoansPaymentState extends State<LoansPayment> {
   }
 
   Widget _buildPartners() {
-    return Container(
+    return Responsive.isMobile(context)?Container(
+        margin: EdgeInsets.all(15),
+        child: TGrid(
+            columnCount: 4,
+            itemCount: myData!.partners.length,
+            spacing: 15,
+            runSpacing: 15,
+            itemBuilder: (BuildContext context, int index) {
+              return index < myData!.partners.length
+                  ? _buildguide(myData!.partners[index])
+                  : Container();
+            })):Responsive.isDesktop(context)?Container(
+              width: MediaQuery.of(context).size.width/4,
+        margin: EdgeInsets.all(15),
+        child: TGrid(
+            columnCount: 4,
+            itemCount: myData!.partners.length,
+            spacing: 15,
+            runSpacing: 15,
+            itemBuilder: (BuildContext context, int index) {
+              return index < myData!.partners.length
+                  ? _buildguide(myData!.partners[index])
+                  : Container();
+            })):Container(
+              width: MediaQuery.of(context).size.width/2,
         margin: EdgeInsets.all(15),
         child: TGrid(
             columnCount: 4,
@@ -261,7 +441,7 @@ class _LoansPaymentState extends State<LoansPayment> {
 
   Widget _buildguide(DataUser partners) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
         decoration: BoxDecoration(
