@@ -324,7 +324,7 @@ class _RegisterState extends State<Register> {
                     ? 0
                     : MediaQuery.of(context).size.width / 14,
               ),
-              Image.asset("assets/regnewimg.png", width: 107),
+              Image.asset("assets/regnew.png", width: 107),
             ]));
   }
   Widget buildormweb(){

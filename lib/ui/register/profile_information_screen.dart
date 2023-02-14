@@ -1251,13 +1251,13 @@ Widget buttontab(){
                 labelStyle: const TextStyle(
                 fontFamily: 'Sora',fontWeight: FontWeight.bold
               ),
-                filled: true,
-                fillColor: Colors.white,
+                // filled: true,
+                // fillColor: Colors.white,
                 hintText: 'First Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   fontFamily: 'Sora',
                   fontWeight: FontWeight.bold,
                 ),
@@ -1306,13 +1306,13 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
+                // filled: true,
+                // fillColor: Colors.white,
                 hintText: 'Middle Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   fontFamily: 'Sora',
                   fontWeight: FontWeight.bold,
                 ),
@@ -1359,19 +1359,19 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
+                // filled: true,
+                // fillColor: Colors.white,
                 hintText: 'Last Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   fontFamily: 'Sora',
                   fontWeight: FontWeight.bold,
                 ),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
+                // focusColor: Colors.grey.shade300,
                 // border: const OutlineInputBorder(
                 //     borderSide: BorderSide(color: Colors.grey)),
                 // focusedBorder: OutlineInputBorder(
@@ -1421,14 +1421,14 @@ Widget buttontab(){
         .copyWith(
     colorScheme:
     ColorScheme.light(
-    primary:HexColor('#CEE812'),
+    primary:HexColor('#004751'),
     ),
 
     textButtonTheme:
     TextButtonThemeData(
     style: TextButton
         .styleFrom(
-    primary: HexColor('#CEE812'), // button text color
+    primary: HexColor('#004751'), // button text color
     ),
     ),
     ),
@@ -1490,7 +1490,7 @@ Widget buttontab(){
               label: "Email ID",
               controller: con.emailController,
               obsecureText: false,
-              inputHint: "Your First Name",
+              inputHint: "Your Email ID",
               textInputType: TextInputType.text,
               validator: (value) {
                 if (con.emailController.text.isEmpty) {
@@ -1503,7 +1503,7 @@ Widget buttontab(){
               inputDecoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'First Name',
+                hintText: 'Your Email ID',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
@@ -1594,14 +1594,23 @@ Widget buttontab(){
             ),
             const SizedBox(height: 10),
             MyCustomInputBox(
+
               enabled: true,
               label: "Phone Number *",
-              maxLength: 10,
+              maxLength:con.dropdownvalue == con.pickcountry[0]? 9:8,
+              keyboardType: TextInputType.number,
               controller: requiredNoController,
               obsecureText: false,
-              textInputType: TextInputType.phone,
+              textInputType: TextInputType.number,
               textInputAction: TextInputAction.next,
               inputHint: "Your Required Number",
+              inputFormatters: <TextInputFormatter>[
+                // for below version 2 use this
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+
+                FilteringTextInputFormatter.digitsOnly
+
+              ],
               validator: (value) {
                 if (requiredNoController.text.isEmpty) {
                   return "";
@@ -1610,6 +1619,13 @@ Widget buttontab(){
                 }
               },
               inputDecoration: InputDecoration(
+
+               
+                prefixIcon: TextButton(onPressed: (){}, child:
+                con.dropdownvalue == con.pickcountry[0]?
+                Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
+                Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Required Number',

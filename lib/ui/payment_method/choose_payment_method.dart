@@ -26,7 +26,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
               foregroundColor: Colors.black,
               backgroundColor: Colors.transparent,
               leading: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                  },
                   icon: Icon(Icons.arrow_back,
                       size: 25, color: HexColor('#004751'))))
           : null,
@@ -232,7 +234,7 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Colors.grey, width: 2)),
+            border: Border.all(color: Colors.grey, width: 0.8)),
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(

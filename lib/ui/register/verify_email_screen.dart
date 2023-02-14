@@ -295,9 +295,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 margin: EdgeInsets.only(left: 15),
                 child: Row(
                   children: [
-                    Text("Enter the Verification Code",style: TextStyle(
-                        fontFamily: 'sora',fontWeight: FontWeight.bold
-                    ),),
+                    // Text("Enter the Verification Code",style: TextStyle(
+                    //     fontFamily: 'sora',fontWeight: FontWeight.bold
+                    // ),),
                   ],
                 ),
               ),
@@ -305,7 +305,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
 
               MyCustomInputBox(
                 enabled: true,
-                // label: "Enter the verification code ",
+                label: "Enter the verification code ",
                 controller: phonenumberController,
                 keyboardType: TextInputType.number,
                 maxLength: 6,
@@ -372,10 +372,16 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           textStyle: TextStyle(
                               fontSize: 14, color: HexColor('#036D7B'))),
                       onPressed: () {
-                        con.registerAPI(con.emailController.text.toString());
-                        Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
+                        if (phonenumberController.text.isEmpty) {
+                          Fluttertoast.showToast(msg: "Enter Your OTP");
+                        } else {
+                          // Get.to(VerifyUserId(value: widget.value));
+                          con.verify(con.emailController.text, phonenumberController.text);
+                        }
+                        // con.registerAPI(con.emailController.text.toString());
+                        // Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
                       },
-                      child: Text('Resend',
+                      child: Text('Send',
                           style: TextStyle(
                               fontSize: 16,fontWeight: FontWeight.bold,
                               color: HexColor('#036D7B'),
@@ -396,6 +402,41 @@ class _VerifyEmailState extends State<VerifyEmail> {
             Text(
               con.emailController.text,
               style:  TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.bold)
+            ),
+
+            Center(
+              child: Container(
+                // margin: EdgeInsets.only(left:40),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Didn’t receive a verification code?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.normal)),
+
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                    onTap:(){
+                              con.registerAPI(con.emailController.text.toString());
+                              Fluttertoast.showToast(msg: "OTP Sent Successfully");
+
+                    },
+                    child: Text(' Resend again',
+                              style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.bold,
+                              color: Colors.teal
+                              )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ],
         ));

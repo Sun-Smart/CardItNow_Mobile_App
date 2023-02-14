@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/letsstartpage.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -690,19 +692,19 @@ class _AddbankaccountState extends State<Addbankaccount> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          // if (businesstype == null) {
-          //   Fluttertoast.showToast(msg: "Enter your Bank");
-          // } else if (accno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Account No");
-          // } else if (swiftcodeno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Swiftcode No");
-          // } else if (swiftcodeno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Branch Address");
-          // } else {
-          //   Get.to(() => Registerloading());
-          //   Get.to(() => Letsstartpage());
-          // }
-          Get.to(() => Registerloading());
+          if (businesstype == null) {
+            Fluttertoast.showToast(msg: "Enter your Bank");
+          } else if (accno.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Account No");
+          } else if (swiftcodeno.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Swiftcode No");
+          } else if (swiftcodeno.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Branch Address");
+          } else {
+            Get.to(() => Registerloading());
+            Get.to(() => Letsstartpage());
+          }
+          // Get.to(() => Registerloading());
         },
         text: "Verify and Proceed");
   }

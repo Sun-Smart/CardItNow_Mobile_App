@@ -115,7 +115,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       margin: EdgeInsets.all(5),
                       child: Row(
                         children: [
-                          Text("  Choose Your Avatar",
+                          Text("  Choose your Avatar",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,fontFamily: 'sora',

@@ -222,7 +222,7 @@ Widget selectcardweb( BuildContext context, Function()? onTap, String title, Str
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Colors.grey, width: 2)),
+            border: Border.all(color: Colors.grey, width: 1)),
         child: Padding(
           padding: EdgeInsets.all(10),
           child: Column(

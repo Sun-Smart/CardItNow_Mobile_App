@@ -104,6 +104,8 @@ class _splash2State extends State<splash2> {
                               onTap: () {
                                 setState(() {
                                   con.dropdownvalue = con.pickcountry[index];
+                                  if (con.dropdownvalue != null)
+                                  Get.to(Register());
                                 });
                               },
                               child: Container(
@@ -148,17 +150,17 @@ class _splash2State extends State<splash2> {
                       }),
                 ),
                 const Spacer(),
-                if (con.dropdownvalue != null)
-                AuthButton(
-                    decoration: BoxDecoration(
-                      color: HexColor('#CEE812'),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    onTap: () {
-                      Get.to(Register());
-                    },
-                    text: "Next",
-                  ),
+                // if (con.dropdownvalue != null)
+                // AuthButton(
+                //     decoration: BoxDecoration(
+                //       color: HexColor('#CEE812'),
+                //       borderRadius: BorderRadius.circular(5),
+                //     ),
+                //     onTap: () {
+                //       Get.to(Register());
+                //     },
+                //     text: "Next",
+                //   ),
               ],
             ),
           )),

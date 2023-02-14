@@ -38,6 +38,7 @@ class _RegisterloadingState extends State<Registerloading> {
     return WillPopScope(
       onWillPop: _willPopCallback,
       child: Scaffold(
+        backgroundColor: Colors.white,
           body: Responsive.isMobile(context)
               ? Container(
                   padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
@@ -170,7 +171,7 @@ Widget buildtitle1(context) {
             style: TextStyle(
               fontSize: 18,
               fontFamily: 'Sora',
-              color: Styles.whitecolortext,
+              color: HexColor('#004751'),
               fontWeight: FontWeight.bold,
             ),
           ),

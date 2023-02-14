@@ -245,9 +245,9 @@ class _termsandconditionsState extends State<termsandconditions> {
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (GetStorage().read('save_token') == null) {
-            Get.to(congratesscreen());
+            Get.to(ChoosePaymentPage());
           } else {
-            Get.to(congratesscreen());
+            Get.to(ChoosePaymentPage());
           }
         },
         text: "Accept and Proceed");

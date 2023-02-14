@@ -1,17 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cardit/ui/register/terms&condition.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'select_avatar_screen.dart';
 
 class Twofactor extends StatefulWidget {
   const Twofactor({Key? key}) : super(key: key);
@@ -54,7 +51,7 @@ class _TwofactorState extends State<Twofactor> {
                   ),
                 ),
                 onTap: () {
-                  Get.to(const termsandconditions());
+                  Get.to(const congratesscreen());
                 },
               ),
             ),
@@ -115,26 +112,26 @@ class _TwofactorState extends State<Twofactor> {
                       InkWell(
                         child: Image.asset('assets/face id.png'),
                         onTap: () async {
-                          try {
-                            // _authenticate();
-
-                            pass = await auth.authenticate(
-                                localizedReason:
-                                    'Authenticate with pattern/pin/passcode',
-                                options: const AuthenticationOptions(
-                                    biometricOnly: true, stickyAuth: false,
-                                useErrorDialogs: true
-                                ));
-
-                            if (pass) {
-                              msg = "Biometric Successfully setted";
-                              setState(() {});
-                            }
-                          } catch (e) {
-                            print("ss" + e.toString());
-                            msg =
-                                "Error while opening fingerprint/face scanner";
-                          }
+                          // try {
+                          //   // _authenticate();
+                          //
+                          //   pass = await auth.authenticate(
+                          //       localizedReason:
+                          //           'Authenticate with pattern/pin/passcode',
+                          //       options: const AuthenticationOptions(
+                          //           biometricOnly: true, stickyAuth: false,
+                          //       useErrorDialogs: true
+                          //       ));
+                          //
+                          //   if (pass) {
+                          //     msg = "Biometric Successfully setted";
+                          //     setState(() {});
+                          //   }
+                          // } catch (e) {
+                          //   print("ss" + e.toString());
+                          //   msg =
+                          //       "Error while opening fingerprint/face scanner";
+                          // }
                         },
                       ),
                     ],
@@ -160,9 +157,6 @@ class _TwofactorState extends State<Twofactor> {
 
             ]))));
 
-
-
-
   }
 
   Widget buildbutton() {
@@ -170,7 +164,7 @@ class _TwofactorState extends State<Twofactor> {
       onTap: () {
         if (pass = true) {
           GetStorage().write("bioAuth", true);
-          Get.to(termsandconditions());
+          Get.to(congratesscreen());
         } else {
           Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
           // Get.to(termsandconditions());

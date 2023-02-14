@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -384,8 +385,12 @@ class _PasscodeState extends State<Passcode> {
         if (otpCon.text.isEmpty && confirmotp.text.isEmpty) {
           Fluttertoast.showToast(msg: 'Enter your 6 digit passcode');
         } else if (otpCon.text.contains("1" "2" "3" "4" "5" "6")) {
-          Fluttertoast.showToast(msg: "Loose Passcode");
-        } else if (otpCon.text[0] == otpCon.text[1] &&
+          Fluttertoast.showToast(msg: "Sequential number is not permitted");
+        }
+        else if (otpCon.text.contains("0" "9" "8" "7" "6" "5")) {
+          Fluttertoast.showToast(msg: "Sequential number is not permitted");
+        }
+        else if (otpCon.text[0] == otpCon.text[1] &&
             otpCon.text[2] == otpCon.text[3] &&
             otpCon.text[4] == otpCon.text[5]) {
           Fluttertoast.showToast(msg: 'Error Same Number');
@@ -396,8 +401,9 @@ class _PasscodeState extends State<Passcode> {
         } else if (otpCon.text != confirmotp.text) {
           Fluttertoast.showToast(msg: "Passcode has Mismatched");
         } else {
+          Get.to(()=>passcodecongrats());
           // Fluttertoast.showToast(msg: 'Correct');
-          con.pinsetapi(con.emailController.text.trim(), otpCon.text);
+          // con.pinsetapi(con.emailController.text.trim(), otpCon.text);
         }
       },
       text: "Next",

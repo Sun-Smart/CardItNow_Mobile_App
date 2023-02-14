@@ -7,6 +7,7 @@ import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
+import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
@@ -31,6 +32,7 @@ import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/startingscreen/home_screen.dart';
 import 'init.dart';
+
 
 class AuthCon extends GetxController with BaseController {
   var profileinfo = {}.obs;
@@ -240,6 +242,7 @@ class AuthCon extends GetxController with BaseController {
 
   //pinset
   void pinsetapi(email, pin) async {
+
     print(email);
     print(pin);
     var body = {};
@@ -255,7 +258,8 @@ class AuthCon extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == "success") {
-      Get.to(VerifyUserId());
+      Get.to(()=>passcodecongrats());
+      // Get.to(VerifyUserId());
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());

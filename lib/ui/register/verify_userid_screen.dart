@@ -245,15 +245,17 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               )
             : null,
         body: Responsive.isMobile(context)
-            ? Container(
-                //color: Color(0XFFffffff),
-                child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                    buildtitle(),
-                    bulidForm(),
-                  ])))
+            ? SingleChildScrollView(
+              child: Container(
+                  //color: Color(0XFFffffff),
+                  child: SingleChildScrollView(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                      buildtitle(),
+                      bulidForm(),
+                    ]))),
+            )
             : Responsive.isDesktop(context)
                 ? Row(
                     children: [
@@ -267,7 +269,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               )),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width / 1.5,
+                          // width: MediaQuery.of(context).size.width / 1.5,
                           //color: Color(0XFFffffff),
                           child: SingleChildScrollView(
                             child: Column(

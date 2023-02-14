@@ -1,5 +1,6 @@
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/login/login_screen.dart';
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -120,15 +121,15 @@ Widget bulildbutton() {
 
   if (GetStorage().read('save_token') == null) {
     // Fluttertoast.showToast(msg: "Your token is null");
-    Get.to(ChoosePaymentPage());
+    Get.to(()=>termsandconditions());
     // Get.to(()=>ChoosePaymentPage());
 
   } else {
-    Get.to(ChoosePaymentPage());
+    Get.to(()=>termsandconditions());
     // Get.to(()=>ChoosePaymentPage());
   }
 
       },
 
-      text: "Click to Make your payment");
+      text: "Next");
 }
