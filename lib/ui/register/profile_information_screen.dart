@@ -1248,6 +1248,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 labelStyle: const TextStyle(
                 fontFamily: 'Sora',fontWeight: FontWeight.bold
               ),
@@ -1306,6 +1307,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 // filled: true,
                 // fillColor: Colors.white,
                 hintText: 'Middle Name',
@@ -1359,6 +1361,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 // filled: true,
                 // fillColor: Colors.white,
                 hintText: 'Last Name',
@@ -1410,6 +1413,7 @@ Widget buttontab(){
                 }
               },
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 suffixIcon: GestureDetector(
                   onTap: () async {
                     DateTime? date = DateTime(1900);
@@ -1502,6 +1506,7 @@ Widget buttontab(){
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
                 filled: true,
+                  hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Email ID',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1556,6 +1561,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Enter Your Nick Name',
@@ -1619,6 +1625,7 @@ Widget buttontab(){
                 }
               },
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
 
                
                 prefixIcon: TextButton(onPressed: (){}, child:
@@ -1675,6 +1682,7 @@ Widget buttontab(){
               },
               inputDecoration: InputDecoration(
                 filled: true,
+                  hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Gender',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1725,6 +1733,7 @@ Widget buttontab(){
                 // }
               },
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your House No',
@@ -1776,6 +1785,7 @@ Widget buttontab(){
                 // }
               },
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your Building Name',
@@ -1831,6 +1841,7 @@ Widget buttontab(){
               },
               inputDecoration: InputDecoration(
                 filled: true,
+                  hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Street Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1880,6 +1891,7 @@ Widget buttontab(){
               controller: postalCodeController,
               obsecureText: false,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your Postal Code',
@@ -2132,6 +2144,7 @@ Widget buttontab(){
               controller: postalCodeController,
               obsecureText: false,
               inputDecoration: InputDecoration(
+                  hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your Postal Code',

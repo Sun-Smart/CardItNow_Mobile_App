@@ -209,7 +209,7 @@ Widget buildtitleweb(){
             children: [
           Padding(
               padding: Responsive.isDesktop(context)? EdgeInsets.fromLTRB(15, 10, 0, 0):
-               EdgeInsets.fromLTRB(50, 10, 0, 0),
+               EdgeInsets.fromLTRB(15, 10, 0, 0),
               child: Text('We’ve \nMissed you!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
