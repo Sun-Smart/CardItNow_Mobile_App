@@ -113,7 +113,7 @@ class _LoginState extends State<Login> {
                 ]):Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
+                   // height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/carditlogo.png",
@@ -137,11 +137,13 @@ class _LoginState extends State<Login> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          buildToptitle(),
-                          buildtitle(),
+                         toptitleweb(),
+                       buildtitleweb(),
+                       SizedBox(height: 20,),
+                          buildformweb(),
+                buildCartweb()
                         ])),
-                bulidForm(),
-                buildCart()
+               
               ],
             ),
           ))])
@@ -200,13 +202,14 @@ class _LoginState extends State<Login> {
 Widget buildtitleweb(){
    final themeChange = Provider.of<DarkThemeProvider>(context);
   return Container(
-      width: MediaQuery.of(context).size.width/1.5,
+      width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/1.5:0,
         child: Row(
             mainAxisAlignment:  MainAxisAlignment.center,
             crossAxisAlignment:  CrossAxisAlignment.center,
             children: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+              padding: Responsive.isDesktop(context)? EdgeInsets.fromLTRB(15, 10, 0, 0):
+               EdgeInsets.fromLTRB(50, 10, 0, 0),
               child: Text('We’ve \nMissed you!',
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -219,7 +222,8 @@ Widget buildtitleweb(){
           SizedBox(
               width: MediaQuery.of(context).size.width / 14),
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+              padding:Responsive.isDesktop(context)? EdgeInsets.fromLTRB(0, 0, 15, 0):
+              EdgeInsets.fromLTRB(0, 0, 30, 0),
               child: Image.asset("assets/userimg.png", width: 100)),
         ]));
 }
@@ -227,12 +231,12 @@ Widget buildtitleweb(){
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Row(
-            mainAxisAlignment: Responsive.isMobile(context)
-                ? MainAxisAlignment.spaceBetween
-                : MainAxisAlignment.center,
-            crossAxisAlignment: Responsive.isMobile(context)
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
+            mainAxisAlignment:
+                 MainAxisAlignment.spaceBetween,
+                
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
+                
             children: [
           Padding(
               padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
@@ -269,14 +273,16 @@ Widget buildformweb(){
                    Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                      children: [
-                      SizedBox(width:MediaQuery.of(context).size.width/4.8 ,),
+                      SizedBox(width:Responsive.isDesktop(context)?
+                      MediaQuery.of(context).size.width/4.8:  MediaQuery.of(context).size.width/12 ,),
                       SizedBox(height: 10,),
                        Text('Email', style: TextStyle(fontSize: 15)),
                      ],
                    ),
                     SizedBox(height: 10,),
                  Container(
-                  width: MediaQuery.of(context).size.width/4,
+                  width:  Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:
+                  MediaQuery.of(context).size.width/2,
                    child: TextFormField(
                       enabled: true,
                      // label: "Email",
@@ -343,7 +349,8 @@ Widget buildformweb(){
                           Text('Passcode', style: TextStyle(fontSize: 15)),
                           SizedBox(height: 5),
                           Container(
-                  width: MediaQuery.of(context).size.width/4,
+                   width:  Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:
+                  MediaQuery.of(context).size.width/2,
 
                             child: TextFormField(
                                 obscureText: isVisible,
