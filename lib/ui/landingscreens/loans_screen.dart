@@ -131,7 +131,7 @@ class _LoansState extends State<Loans> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const[
                 Text(
                   'Get Instant loans !',
                   style: TextStyle(
@@ -163,7 +163,7 @@ class _LoansState extends State<Loans> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children:const [
                 Text(
                   'Get Instant loans !',
                   style: TextStyle(

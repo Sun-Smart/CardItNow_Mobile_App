@@ -2,11 +2,13 @@
 
 import 'package:cardit/ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../responsive/responsive.dart';
+import '../../../widgets/receiver_drawerweb.dart';
 
 class Letsstartpage extends StatefulWidget {
   const Letsstartpage({Key? key}) : super(key: key);
@@ -72,14 +74,18 @@ class _LetsstartpageState extends State<Letsstartpage> {
                       Row(
                         children: [
                           IconButton(
-                  onPressed: () {}, icon: Icon(Icons.close, size: 30)),
+                              onPressed: () {},
+                              icon: Icon(Icons.close, size: 30)),
                         ],
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Container(
-                        width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4:
-                        MediaQuery.of(context).size.width / 2 ,
-                        child: Image.asset('assets/banner/banner1.png')),
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
+                          child: Image.asset('assets/banner/banner1.png')),
                       SizedBox(height: 50),
                       Text(
                         'Awesome ! You Are ready to \nRecieve Payments',
@@ -99,47 +105,54 @@ class _LetsstartpageState extends State<Letsstartpage> {
                             fontFamily: 'Sora',
                             color: HexColor('#041316')),
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       GestureDetector(
-      onTap: () {
-          Get.to(() => CreditPrepaidScreen());
-        },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        width: 
-             Responsive.isDesktop(context)
-                ? MediaQuery.of(context).size.width / 4.4
-                : MediaQuery.of(context).size.width / 2.5,
-        height: MediaQuery.of(context).size.height * 0.07,
-       decoration: BoxDecoration(
-            color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: Text(
-           'Let’s Start',
-            style: TextStyle(
-              fontFamily: 'ProductSans',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: HexColor('#004751'),
-            ),
-          ),
-        ),
-      ),
-    )
- 
+                        onTap: () {
+                          setState(() {
+                            Get.to(ReceiverDrawerWeb());
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.4
+                              : MediaQuery.of(context).size.width / 2.5,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          decoration: BoxDecoration(
+                              color: HexColor('#CEE812'),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                            child: Text(
+                              'Let’s Start',
+                              style: TextStyle(
+                                fontFamily: 'ProductSans',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: HexColor('#004751'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 )
               ],
             ),
-      bottomNavigationBar: Responsive.isMobile(context)?AuthButton(
-        onTap: () {
-          Get.to(() => CreditPrepaidScreen());
-        },
-        text: 'Let’s Start',
-        decoration: BoxDecoration(
-            color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
-      ):null,
+      bottomNavigationBar: Responsive.isMobile(context)
+          ? AuthButton(
+              onTap: () {
+                Get.to(() => CreditPrepaidScreen());
+              },
+              text: 'Let’s Start',
+              decoration: BoxDecoration(
+                  color: HexColor('#CEE812'),
+                  borderRadius: BorderRadius.circular(5)),
+            )
+          : null,
     );
   }
 }
