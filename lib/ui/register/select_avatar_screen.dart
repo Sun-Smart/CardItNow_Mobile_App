@@ -277,7 +277,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 :Row(children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
+                     // height: MediaQuery.of(context).size.width / 1,
                       color: Color(0XFF004751),
                       child: Center(
                           child: Image.asset("assets/applogo-02.png",
@@ -320,13 +320,13 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                 Container(
                                                   child: InkWell(
                                                     onTap: () {
-                                                     setState(() {
-
-                                                type = avatars[index];
-                                                GetStorage().write("avatarpic", type);
-                                                print(type);
-
-                                              });
+                                                      type = avatars[index];
+                                                      var avatorDatas =
+                                                          avatars[index];
+                                                      imagePickerAvator(
+                                                          avatorDatas, () {
+                                                        // con.avatorSelfi(avatorDatas);
+                                                      });
 
                                                       print(con.avatarImageList
                                                           .toString());
@@ -336,7 +336,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                       //     ? HexColor('#CEE812')
                                                       //     : Colors.white,
                                                       color: type ==
-                                                              avatars[index]
+                                                              avatars.length
                                                           ? HexColor('#CEE812')
                                                           : Colors.white,
                                                       elevation: 4,
@@ -363,7 +363,9 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                     margin: EdgeInsets.only(left: 25),
                                     child: Row(
                                       mainAxisAlignment:
-                                         MainAxisAlignment.center,
+                                          Responsive.isMobile(context)
+                                              ? MainAxisAlignment.start
+                                              : MainAxisAlignment.center,
                                       children: [
                                         InkWell(
                                             onTap: () {

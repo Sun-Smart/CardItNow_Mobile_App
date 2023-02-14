@@ -76,7 +76,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
+      bottomNavigationBar: Responsive.isMobile(context)?bulildbutton():null,
       appBar: Responsive.isMobile(context)? AppBar(
           backgroundColor: Colors.transparent,
           leading: BackButton(
@@ -142,7 +142,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               : Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
+                 //   height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/applogo-02.png",

@@ -93,7 +93,7 @@ class _PasscodeState extends State<Passcode> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.width / 1,
+                       //   height: MediaQuery.of(context).size.width / 1,
                           color: Color(0XFF004751),
                           child: Center(
                               child: Image.asset("assets/applogo-02.png",
@@ -178,8 +178,9 @@ class _PasscodeState extends State<Passcode> {
                               left: MediaQuery.of(context).size.height / 2.5,
                               right: MediaQuery.of(context).size.height / 2.5)
                           : EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height / 6,
-                              right: MediaQuery.of(context).size.height / 6),
+                              left: MediaQuery.of(context).size.width /6 ,
+                              right: 20),
+                             // right: MediaQuery.of(context).size.height / 6),
                       // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: otpCon,
@@ -222,9 +223,9 @@ class _PasscodeState extends State<Passcode> {
                           ? EdgeInsets.only(
                               left: MediaQuery.of(context).size.height / 2.5,
                               right: MediaQuery.of(context).size.height / 2.5)
-                          : EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height / 6,
-                              right: MediaQuery.of(context).size.height / 6),
+                          :EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width /6 ,
+                              right: 20),
                       // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: confirmotp,
