@@ -269,7 +269,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                               )),
                       ),
                       Container(
-                          // width: MediaQuery.of(context).size.width / 1.5,
+                           width: MediaQuery.of(context).size.width / 1.5,
                           //color: Color(0XFFffffff),
                           child: SingleChildScrollView(
                             child: Column(
@@ -290,7 +290,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.width / 1,
+                       // height: MediaQuery.of(context).size.width / 1,
                         color: Color(0XFF004751),
                         child: Center(
                             child: Image.asset("assets/applogo-02.png",
@@ -300,18 +300,16 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       Container(
                          width: MediaQuery.of(context).size.width / 1.5,
                           //color: Color(0XFFffffff),
-                          child: SingleChildScrollView(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                            SizedBox(
-                              height: 20,
-                            ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                //SizedBox(height: 20,),
+                           
                             buildToptitle(),
                             buildtitle(),
                             bulidForm(),
                             bulildbutton()
-                          ])))
+                          ]))
                     ],
                   ));
   }

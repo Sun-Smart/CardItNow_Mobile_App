@@ -75,17 +75,19 @@ class _PasscodeState extends State<Passcode> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width / 1.5,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            buildToptitle(),
-                            buildtitle(),
-                            SizedBox(height: 50),
-                            buildformweb(),
-                            SizedBox(height: 30),
-                            bulildbutton(),
-                            SizedBox(height: 30)
-                          ]),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              buildToptitle(),
+                              buildtitle(),
+                              SizedBox(height: 50),
+                              buildformweb(),
+                              SizedBox(height: 30),
+                              bulildbutton(),
+                              SizedBox(height: 30)
+                            ]),
+                      ),
                     ),
                   ])
                 : Row(children: [
@@ -93,7 +95,7 @@ class _PasscodeState extends State<Passcode> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.width / 1,
+                       //   height: MediaQuery.of(context).size.width / 1,
                           color: Color(0XFF004751),
                           child: Center(
                               child: Image.asset("assets/applogo-02.png",
@@ -102,17 +104,19 @@ class _PasscodeState extends State<Passcode> {
                         ),
                         Container(
                             width: MediaQuery.of(context).size.width / 1.5,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  buildToptitle(),
-                                  buildtitle(),
-                                  SizedBox(height: 50),
-                                  buildformweb(),
-                                  SizedBox(height: 30),
-                                  bulildbutton(),
-                                  SizedBox(height: 30)
-                                ])),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    buildToptitle(),
+                                    buildtitle(),
+                                    SizedBox(height: 50),
+                                    buildformweb(),
+                                    SizedBox(height: 30),
+                                    bulildbutton(),
+                                    SizedBox(height: 30)
+                                  ]),
+                            )),
                       ],
                     )
                   ]));
@@ -178,11 +182,13 @@ class _PasscodeState extends State<Passcode> {
                               left: MediaQuery.of(context).size.height / 2.5,
                               right: MediaQuery.of(context).size.height / 2.5)
                           : EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height / 6,
-                              right: MediaQuery.of(context).size.height / 6),
+                              left: MediaQuery.of(context).size.width /6 ,
+                              right: 20),
+                             // right: MediaQuery.of(context).size.height / 6),
                       // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: otpCon,
+                            obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -222,12 +228,13 @@ class _PasscodeState extends State<Passcode> {
                           ? EdgeInsets.only(
                               left: MediaQuery.of(context).size.height / 2.5,
                               right: MediaQuery.of(context).size.height / 2.5)
-                          : EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height / 6,
-                              right: MediaQuery.of(context).size.height / 6),
+                          :EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width /6 ,
+                              right: 20),
                       // padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                       child: PinPut(
                           controller: confirmotp,
+                            obscureText: "\u2B24",
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6)
@@ -240,6 +247,80 @@ class _PasscodeState extends State<Passcode> {
                               borderRadius: BorderRadius.circular(0)),
                           selectedFieldDecoration: _pinPutDecoration,
                           fieldsCount: 6)),
+                              Container(
+                    // width: size.width/2,
+                    margin: EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                       SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                         // crossAxisAlignment: CrossAxisAlignment.center,
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              SizedBox(width: 40,),
+                            Text("note",style: TextStyle(
+                              fontFamily: 'sora',fontSize: 16
+                            ),),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             SizedBox(width: 40,),
+                            Text("1. passcode only contains numbers only.",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                           //mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             SizedBox(width: 40,),
+                            Text("2. passcode should not be contains same digits.",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             SizedBox(width: 40,),
+                            Text("3. passcode should not be contains continues digits",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
+                          ],
+                        ),
+
+                        Row(
+                           //mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             SizedBox(width: 40,),
+                            Text("   (ex:123456).",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 13
+                            ),),
+                          ],
+                        ),
+
+
+                      ],
+                    ),
+
+
+                  ),
+              
                 ])));
   }
 //for  mobile.......

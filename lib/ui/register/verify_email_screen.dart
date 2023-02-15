@@ -66,9 +66,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       height: MediaQuery.of(context).size.width / 1,
                       color: Color(0XFF004751),
                       child: Center(
-                          child:Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                          child: Image.asset("assets/applogo-02.png",
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              height: MediaQuery.of(context).size.height / 3)),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width / 1.5,
@@ -109,41 +109,51 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ],
                 )
               : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      // height: MediaQuery.of(context).size.width / 1,
                       color: Color(0XFF004751),
                       child: Center(
                           child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              height: MediaQuery.of(context).size.height / 3)),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width / 1.5,
+                        width: MediaQuery.of(context).size.width / 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          
                           Container(
                               padding: EdgeInsets.only(top: 10, bottom: 30),
                               margin: EdgeInsets.only(top: 30),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    buildToptitle(),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        buildToptitle(),
+                                      ],
+                                    ),
                                     buildtitle(),
                                   ])),
                           Row(
                             children: [
                               SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width / 4.8),
+                                      MediaQuery.of(context).size.width / 15),
                               Text(
                                 "Enter the verification code ",
                                 style: TextStyle(
                                     fontFamily: 'Sora',
-                                    fontSize: 17,fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
                             ],
@@ -169,8 +179,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
         crossAxisAlignment: Responsive.isMobile(context)
             ? CrossAxisAlignment.start
             : Responsive.isDesktop(context)
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.center,
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.start,
         children: [
           IconButton(
             hoverColor: Colors.transparent,
@@ -185,30 +195,50 @@ class _VerifyEmailState extends State<VerifyEmail> {
 
   Widget buildtitle() {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Verify Your Email',
-            style: TextStyle(
-              fontSize: 32, fontFamily: 'sora',color: HexColor('#004751'),
-              // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-              fontWeight: FontWeight.bold,
+    return Responsive.isMobile(context)
+        ? Container(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Verify Your Email',
+                  style: TextStyle(
+                    fontSize: 32, fontFamily: 'sora',
+                    color: HexColor('#004751'),
+                    // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  ' Id',
+                  style: TextStyle(
+                    fontSize: 32, fontFamily: 'sora',
+                    color: HexColor('#004751'),
+                    // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Text(
-            ' Id',
-            style: TextStyle(
-              fontSize: 32, fontFamily: 'sora',color: HexColor('#004751'),
-              // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-              fontWeight: FontWeight.bold,
+          )
+        : Container(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Verify Your Email Id',
+                  style: TextStyle(
+                    fontSize: 32, fontFamily: 'sora',
+                    color: HexColor('#004751'),
+                    // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Widget bulidFormweb() {
@@ -269,18 +299,35 @@ class _VerifyEmailState extends State<VerifyEmail> {
               ),
               Positioned(
                   left: Responsive.isDesktop(context) ? 250 : 200,
-                  top: 10,
+                  // right: Responsive.isMobile(context)
+                  //     ? 20
+                  //     : Responsive.isDesktop(context)
+                  //         ? MediaQuery.of(context).size.width / 4.2
+                  //         : MediaQuery.of(context).size.width / 3.2,
+                  // top: Responsive.isMobile(context)
+                  //     ? 30
+                  //     : Responsive.isDesktop(context)
+                  //         ? 45
+                  //         : 45,
                   child: TextButton(
                       style: TextButton.styleFrom(
                           textStyle: TextStyle(
                               fontSize: 14, color: HexColor('#036D7B'))),
                       onPressed: () {
-                        con.registerAPI(con.emailController.text.toString());
-                        Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
+                        if (phonenumberController.text.isEmpty) {
+                          Fluttertoast.showToast(msg: "Enter Your OTP");
+                        } else {
+                          // Get.to(VerifyUserId(value: widget.value));
+                          con.verify(con.emailController.text,
+                              phonenumberController.text);
+                        }
+                        // con.registerAPI(con.emailController.text.toString());
+                        // Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
                       },
-                      child: Text('Resend',
+                      child: Text('Send',
                           style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                               color: HexColor('#036D7B'),
                               fontFamily: 'Sora')))),
             ])));
@@ -301,8 +348,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ],
                 ),
               ),
-
-
               MyCustomInputBox(
                 enabled: true,
                 label: "Enter the verification code ",
@@ -376,14 +421,16 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           Fluttertoast.showToast(msg: "Enter Your OTP");
                         } else {
                           // Get.to(VerifyUserId(value: widget.value));
-                          con.verify(con.emailController.text, phonenumberController.text);
+                          con.verify(con.emailController.text,
+                              phonenumberController.text);
                         }
                         // con.registerAPI(con.emailController.text.toString());
                         // Fluttertoast.showToast(msg: "Otp Sent Suceessfully");
                       },
                       child: Text('Send',
                           style: TextStyle(
-                              fontSize: 16,fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                               color: HexColor('#036D7B'),
                               fontFamily: 'Sora')))),
             ])));
@@ -398,11 +445,15 @@ class _VerifyEmailState extends State<VerifyEmail> {
           children: [
             // const SizedBox(height: 10),
             Text('We have sent you verification code on',
-                style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.normal)),
-            Text(
-              con.emailController.text,
-              style:  TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.bold)
-            ),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'sora',
+                    fontWeight: FontWeight.normal)),
+            Text(con.emailController.text,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'sora',
+                    fontWeight: FontWeight.bold)),
 
             Center(
               child: Container(
@@ -414,23 +465,28 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       children: [
                         Text('Didn’t receive a verification code?',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.normal)),
-
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'sora',
+                                fontWeight: FontWeight.normal)),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                    onTap:(){
-                              con.registerAPI(con.emailController.text.toString());
-                              Fluttertoast.showToast(msg: "OTP Sent Successfully");
-
-                    },
-                    child: Text(' Resend again',
-                              style: TextStyle(fontSize: 16,fontFamily: 'sora',fontWeight: FontWeight.bold,
-                              color: Colors.teal
-                              )),
+                          onTap: () {
+                            con.registerAPI(
+                                con.emailController.text.toString());
+                            Fluttertoast.showToast(
+                                msg: "OTP Sent Successfully");
+                          },
+                          child: Text(' Resend again',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'sora',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal)),
                         ),
                       ],
                     )

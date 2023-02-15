@@ -43,105 +43,115 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           body: Responsive.isMobile(context)
               ? SingleChildScrollView(
                   child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                          Stack(
-                            alignment: Alignment.topLeft,
-                            children: [
-
-                              Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage("assets/backimg.png",),
-                                        fit: BoxFit.fill),
-                                  ),
-
-                                  child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-
-                                        buildtitle(),
-
-                                         Container(
-
-                                              width: Responsive.isMobile(context)
-                                                  ? MediaQuery.of(context).size.width / 1
-                                                  : Responsive.isDesktop(context)
-                                                  ? MediaQuery.of(context).size.width / 4.3
-                                                  : MediaQuery.of(context).size.width / 2.5,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(2),
-                                                  border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
-                                                  color: Colors.transparent),
-                                              margin: EdgeInsets.all(15),
-
-                                              child: InkWell(
-                                                highlightColor: Color(0XFFffffff),
-                                                focusColor: Color(0XFFffffff),
-                                                splashColor: Colors.green, // splash color
-                                                onTap: () async {
-                                                  FacebookAuth.instance.login(
-                                                      permissions: ["public_profile", "email"]).then((value) {
-                                                    FacebookAuth.instance.getUserData().then((userData) {
-                                                      setState(() {
-                                                        isLoggedIn = true;
-                                                        userObj = userData;
-                                                      });
-                                                      if (isLoggedIn == true) {
-                                                        con.emailController.text = userData["email"];
-                                                        print(userData.toString());
-                                                        var userDatas = {
-                                                          "email": userData["email"].toString(),
-                                                          "firstname": userData['name'].toString(),
-                                                          "lastname": "",
-                                                          "socialid": userData['id'].toString(),
-                                                          "mediatype": "Facebook"
-                                                        };
-                                                        con.registerSignAPI(userDatas);
-                                                        GetStorage().write('username', userData['name']
-                                                        );
-                                                      } else {
-                                                        Fluttertoast.showToast(msg: "Check Your Facebook Account");
-                                                      }
-                                                    });
-                                                  });
-                                                }, // button pressed
-                                                child: Padding(
-                                                    padding: EdgeInsets.all(10),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        SizedBox(width: 30),
-                                                        Image.asset("assets/fb.png", width: 32),
-                                                        SizedBox(width: 15),
-                                                        Text("Sign Up using Facebook",
-                                                            style:
-                                                            TextStyle(
-                                                                color: Color(0XFF413D4B), fontSize: 16,
-                                                                fontFamily: 'sora',fontWeight: FontWeight.bold
-                                                            )),
-                                                        // text
-                                                      ],
-                                                    )),
-                                              )),
-
-                                        buildbutton(),
-                                      ])),
-                              buildToptitle(),
-                            ],
-                          ),
-
-
-
+                        Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                        "assets/backimg.png",
+                                      ),
+                                      fit: BoxFit.fill),
+                                ),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      buildtitle(),
+                                      Container(
+                                          width: Responsive.isMobile(context)
+                                              ? MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1
+                                              : Responsive.isDesktop(context)
+                                                  ? MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4.3
+                                                  : MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(2),
+                                              border: Border.all(
+                                                  color: Color(0XFFB7C5C7),
+                                                  width: 1.5),
+                                              color: Colors.transparent),
+                                          margin: EdgeInsets.all(15),
+                                          child: InkWell(
+                                            highlightColor: Color(0XFFffffff),
+                                            focusColor: Color(0XFFffffff),
+                                            splashColor:
+                                                Colors.green, // splash color
+                                            onTap: () {
+                                              // FacebookAuth.instance.login(
+                                              //     permissions: ["public_profile", "email"]).then((value) {
+                                              //   FacebookAuth.instance.getUserData().then((userData) {
+                                              //     setState(() {
+                                              //       isLoggedIn = true;
+                                              //       userObj = userData;
+                                              //     });
+                                              //     if (isLoggedIn == true) {
+                                              //       con.emailController.text = userData["email"];
+                                              //       print(userData.toString());
+                                              //       var userDatas = {
+                                              //         "email": userData["email"].toString(),
+                                              //         "firstname": userData['name'].toString(),
+                                              //         "lastname": "",
+                                              //         "socialid": userData['id'].toString(),
+                                              //         "mediatype": "Facebook"
+                                              //       };
+                                              //       con.registerSignAPI(userDatas);
+                                              //       GetStorage().write('username', userData['name']
+                                              //       );
+                                              //     } else {
+                                              //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                              //     }
+                                              //   });
+                                              // });
+                                            }, // button pressed
+                                            child: Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    SizedBox(width: 30),
+                                                    Image.asset("assets/fb.png",
+                                                        width: 32),
+                                                    SizedBox(width: 15),
+                                                    Text(
+                                                        "Sign Up using Facebook",
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0XFF413D4B),
+                                                            fontSize: 16,
+                                                            fontFamily: 'sora',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    // text
+                                                  ],
+                                                )),
+                                          )),
+                                      buildbutton(),
+                                    ])),
+                            buildToptitle(),
+                          ],
+                        ),
                         bulidForm(),
                         SizedBox(
                           height: 30,
@@ -152,7 +162,7 @@ class _RegisterState extends State<Register> {
                 ))
               : Responsive.isDesktop(context)
                   ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width / 3,
@@ -160,45 +170,126 @@ class _RegisterState extends State<Register> {
                           color: Color(0XFF004751),
                           child: Center(
                               child: Image.asset("assets/applogo-02.png",
-
-                                  width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3)),
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3)),
                         ),
-                        Container(
+                        SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                   color: Styles.colorBackgroundBlock,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                          // padding: EdgeInsets.only(top: 20, bottom: 30),
-                                          // margin: EdgeInsets.only(top: 40),
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/loginbg.png"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    // buildToptitle(),
-                                                    buildtitle()
-                                                  ],
-                                                ),
-                                              ])),
-                                      buildbutton(),
-                                       buildormweb(),
+                                      Stack(
+                                        alignment: Alignment.topLeft,
+                                        children: [
+                                          Container(
+                                              // decoration: BoxDecoration(
+                                              //   image: DecorationImage(
+                                              //       image: AssetImage("assets/backimg.png",),
+                                              //       fit: BoxFit.fill),
+                                              // ),
 
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                buildtitle(),
+                                                Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4.3,
+                                                    // : MediaQuery.of(context).size.width / 2.5,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        border: Border.all(
+                                                            color: Color(
+                                                                0XFFB7C5C7),
+                                                            width: 1.5),
+                                                        color:
+                                                            Colors.transparent),
+                                                    margin: EdgeInsets.all(15),
+                                                    child: InkWell(
+                                                      highlightColor:
+                                                          Color(0XFFffffff),
+                                                      focusColor:
+                                                          Color(0XFFffffff),
+                                                      splashColor: Colors
+                                                          .green, // splash color
+                                                      onTap: () {
+                                                        // FacebookAuth.instance.login(
+                                                        //     permissions: ["public_profile", "email"]).then((value) {
+                                                        //   FacebookAuth.instance.getUserData().then((userData) {
+                                                        //     setState(() {
+                                                        //       isLoggedIn = true;
+                                                        //       userObj = userData;
+                                                        //     });
+                                                        //     if (isLoggedIn == true) {
+                                                        //       con.emailController.text = userData["email"];
+                                                        //       print(userData.toString());
+                                                        //       var userDatas = {
+                                                        //         "email": userData["email"].toString(),
+                                                        //         "firstname": userData['name'].toString(),
+                                                        //         "lastname": "",
+                                                        //         "socialid": userData['id'].toString(),
+                                                        //         "mediatype": "Facebook"
+                                                        //       };
+                                                        //       con.registerSignAPI(userDatas);
+                                                        //       GetStorage().write('username', userData['name']
+                                                        //       );
+                                                        //     } else {
+                                                        //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                                        //     }
+                                                        //   });
+                                                        // });
+                                                      }, // button pressed
+                                                      child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                  width: 30),
+                                                              Image.asset(
+                                                                  "assets/fb.png",
+                                                                  width: 32),
+                                                              SizedBox(
+                                                                  width: 15),
+                                                              Text(
+                                                                  "Sign Up using Facebook",
+                                                                  style: TextStyle(
+                                                                      color: Color(
+                                                                          0XFF413D4B),
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontFamily:
+                                                                          'sora',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                              // text
+                                                            ],
+                                                          )),
+                                                    )),
+                                                buildbutton(),
+                                                buildformweb()
+                                              ])),
+                                          // buildToptitle(),
+                                        ],
+                                      ),
                                       SizedBox(
                                         height: 30,
                                       ),
@@ -207,63 +298,156 @@ class _RegisterState extends State<Register> {
                             ],
                           ),
                         ),
-                      SizedBox( width: 20,)
+                        SizedBox(
+                          width: 20,
+                        )
                       ],
                     )
-
                   : Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.height / 1,
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          // height: MediaQuery.of(context).size.height / 1,
                           color: Color(0XFF004751),
                           child: Center(
                               child: Image.asset("assets/applogo-02.png",
-                                  width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                                )),
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3)),
+                        ),
+                        SizedBox(
+                          width: 30,
                         ),
                         Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  color: Styles.colorBackgroundBlock,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    color: Styles.colorBackgroundBlock,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Stack(
+                                          // alignment: Alignment.top,
+                                          children: [
+                                            Container(
+                                                // decoration: BoxDecoration(
+                                                //   image: DecorationImage(
+                                                //       image: AssetImage("assets/backimg.png",),
+                                                //       fit: BoxFit.fill),
+                                                // ),
 
-                                      Container(
-                                          // padding: EdgeInsets.only(top: 20, bottom: 30),
-                                          // margin: EdgeInsets.only(top: 80),
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/loginbg.png"),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    // buildToptitle(),
-                                                    buildtitle()
-                                                  ],
-                                                ),
-                                              ])),
-                                      buildbutton(),
-                                     buildormweb(),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
-                                  )),
-                            ],
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                  buildtitle(),
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2.5,
+                                                      // : MediaQuery.of(context).size.width / 2.5,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2),
+                                                          border: Border.all(
+                                                              color: Color(
+                                                                  0XFFB7C5C7),
+                                                              width: 1.5),
+                                                          color: Colors
+                                                              .transparent),
+                                                      margin:
+                                                          EdgeInsets.all(15),
+                                                      child: InkWell(
+                                                        highlightColor:
+                                                            Color(0XFFffffff),
+                                                        focusColor:
+                                                            Color(0XFFffffff),
+                                                        splashColor: Colors
+                                                            .green, // splash color
+                                                        onTap: () {
+                                                          // FacebookAuth.instance.login(
+                                                          //     permissions: ["public_profile", "email"]).then((value) {
+                                                          //   FacebookAuth.instance.getUserData().then((userData) {
+                                                          //     setState(() {
+                                                          //       isLoggedIn = true;
+                                                          //       userObj = userData;
+                                                          //     });
+                                                          //     if (isLoggedIn == true) {
+                                                          //       con.emailController.text = userData["email"];
+                                                          //       print(userData.toString());
+                                                          //       var userDatas = {
+                                                          //         "email": userData["email"].toString(),
+                                                          //         "firstname": userData['name'].toString(),
+                                                          //         "lastname": "",
+                                                          //         "socialid": userData['id'].toString(),
+                                                          //         "mediatype": "Facebook"
+                                                          //       };
+                                                          //       con.registerSignAPI(userDatas);
+                                                          //       GetStorage().write('username', userData['name']
+                                                          //       );
+                                                          //     } else {
+                                                          //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                                          //     }
+                                                          //   });
+                                                          // });
+                                                        }, // button pressed
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: <
+                                                                  Widget>[
+                                                                SizedBox(
+                                                                    width: 30),
+                                                                Image.asset(
+                                                                    "assets/fb.png",
+                                                                    width: 32),
+                                                                SizedBox(
+                                                                    width: 15),
+                                                                Text(
+                                                                    "Sign Up using Facebook",
+                                                                    style: TextStyle(
+                                                                        color: Color(
+                                                                            0XFF413D4B),
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontFamily:
+                                                                            'sora',
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                // text
+                                                              ],
+                                                            )),
+                                                      )),
+                                                  buildbutton(),
+                                                  buildformweb()
+                                                ])),
+                                            // buildToptitle(),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -292,7 +476,7 @@ class _RegisterState extends State<Register> {
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
-      height: MediaQuery.of(context).size.height / 3.7,
+        height: MediaQuery.of(context).size.height / 3.7,
         alignment: Alignment.bottomRight,
         padding:
             Responsive.isMobile(context) ? EdgeInsets.all(10) : EdgeInsets.zero,
@@ -319,35 +503,38 @@ class _RegisterState extends State<Register> {
               //     Image.asset("assets/carditlogo.png", width: 96, height: 60),
               //   ],
               // ),
-              SizedBox(
-                width: Responsive.isMobile(context)
-                    ? 0
-                    : MediaQuery.of(context).size.width / 14,
-              ),
+              SizedBox(width: Responsive.isMobile(context) ? 0 : 0
+                  //MediaQuery.of(context).size.width / 14,
+                  ),
               Image.asset("assets/regnew.png", width: 107),
             ]));
   }
-  Widget buildormweb(){
-        final themeChange = Provider.of<DarkThemeProvider>(context);
+
+  Widget buildformweb() {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Form(
             key: formKey,
-            child:Column(
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     width: Responsive.isDesktop(context)
-            ? MediaQuery.of(context).size.width / 4.5
-            : MediaQuery.of(context).size.width / 2.5, 
+                        ? MediaQuery.of(context).size.width / 4.5
+                        : MediaQuery.of(context).size.width / 2.5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Use your Email",style: TextStyle(
-                          fontFamily: 'sora',fontWeight: FontWeight.bold
-                        ),),
-                        SizedBox(height: 10,),
+                        Text(
+                          "Use your Email",
+                          style: TextStyle(
+                              fontFamily: 'sora', fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
                           enabled: true,
                           //label: "Use your Email ",
@@ -355,7 +542,7 @@ class _RegisterState extends State<Register> {
                           controller: con.emailController,
                           textInputAction: TextInputAction.next,
                           obscureText: false,
-                         // inputHint: 'Enter your email',
+                          // inputHint: 'Enter your email',
                           validator: (value) {
                             if (con.emailController.text.isEmpty) {
                               return "Please Enter The Email";
@@ -375,8 +562,10 @@ class _RegisterState extends State<Register> {
                             fillColor: Colors.white,
                             hintText: 'Enter your email',
                             floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle:
-                                const TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),
+                            helperStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
                             hintStyle: const TextStyle(
                               fontSize: 12,
                               fontFamily: 'Sora',
@@ -389,83 +578,80 @@ class _RegisterState extends State<Register> {
                                 borderSide: BorderSide(color: Colors.grey)),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
                             focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
                                 gapPadding: 7,
-                                borderSide: const BorderSide(color: Colors.grey)),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey)),
                             errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(color: Colors.grey)),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey)),
                             errorStyle: const TextStyle(
                                 fontFamily: 'Sora',
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                         Container(
-                    //alignment: Alignment.bottomLeft,
-                      child:
-                       Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.start,
-                          children: [
-                        Theme(
-                          data: ThemeData(
-                              unselectedWidgetColor:
-                                  themeChange.darkTheme
+                        Container(
+                            //alignment: Alignment.bottomLeft,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                              Theme(
+                                data: ThemeData(
+                                    unselectedWidgetColor: themeChange.darkTheme
+                                        ? Colors.white
+                                        : Color(0xff004751)),
+                                child: Checkbox(
+                                  activeColor: themeChange.darkTheme
                                       ? Colors.white
-                                      : Color(0xff004751)),
-                          child: Checkbox(
-                            activeColor: themeChange.darkTheme
-                                ? Colors.white
-                                : Color(0xff004751),
-                            value: isChecked,
-                            onChanged: (value) {
-                              setState(() {
-                                if (isChecked) {
-                                  isChecked = false;
-                                } else {
-                                  isChecked = true;
-                                  // showAlertDialog(context);
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 10.0),
-                        Text("I agree to the",
-                            style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Color(0xff646464),
-                              fontSize: 16, fontFamily: 'sora',fontWeight: FontWeight.bold
-                            )),
-                            InkWell(
-                    onTap: () {
-                      showAlertDialog(context);
-                    },
-                    child: Text(
-                      ' Privacy Clause',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: themeChange.darkTheme
-                              ? Colors.white
-                              : HexColor('#004751')),
-                    ),
-                  ),
-                      ])),
-                  
+                                      : Color(0xff004751),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (isChecked) {
+                                        isChecked = false;
+                                      } else {
+                                        isChecked = true;
+                                        // showAlertDialog(context);
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(width: 10.0),
+                              Text("I agree to the",
+                                  style: TextStyle(
+                                      color: themeChange.darkTheme
+                                          ? Colors.white
+                                          : Color(0xff646464),
+                                      fontSize: 16,
+                                      fontFamily: 'sora',
+                                      fontWeight: FontWeight.bold)),
+                              InkWell(
+                                onTap: () {
+                                  showAlertDialog(context);
+                                },
+                                child: Text(
+                                  ' Privacy Clause',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white
+                                          : HexColor('#004751')),
+                                ),
+                              ),
+                            ])),
                       ],
                     ),
                   ),
-
-                 
                   AuthButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
@@ -531,13 +717,14 @@ class _RegisterState extends State<Register> {
                   ),
                 ])));
   }
+
 //for desktop and tablet
   Widget bulidForm() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         child: Form(
             key: formKey,
-            child:Column(
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -551,112 +738,42 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                   ),
-                  Responsive.isMobile(context)? MyCustomInputBox(
-                    enabled: true,
-                    label: "Use your Email ",
-
-                    keyboardType: TextInputType.emailAddress,
-                    controller: con.emailController,
-                    textInputAction: TextInputAction.next,
-                    obsecureText: false,
-                    inputHint: 'Enter your email',
-                    validator: (value) {
-                      // if (con.emailController.text.isEmpty) {
-                      //   return "Please Enter The Email";
-                      // } else if (!con.emailController.text.contains("@")
-                      //     //     ||
-                      //     //     !emailController.text.endsWith('.com')||
-                      //     // !emailController.text.endsWith('.co.in')
-                      //     ) {
-                      //   return "Please Enter The valid Email";
-                      // } else {
-                      //   return null;
-                      // }
-                    },
-                    inputDecoration: InputDecoration(
-                      filled: true,
-                      hoverColor: Colors.transparent,
-                      fillColor: Colors.white,
-                      hintText: 'Enter your email',
-
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      helperStyle:
-                          const TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                      hintStyle: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      focusColor: Colors.grey.shade300,
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 1.0)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          gapPadding: 7,
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: Colors.grey)),
-                      errorStyle: const TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ):Container(
-                    width: Responsive.isDesktop(context)
-            ? MediaQuery.of(context).size.width / 4.5
-            : MediaQuery.of(context).size.width / 2.5, 
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Use your Email", style: TextStyle(
-                          fontWeight: FontWeight.bold,fontFamily: 'sora'
-                        ),),
-                        SizedBox(height: 10,),
-                        TextFormField(
+                  Responsive.isMobile(context)
+                      ? MyCustomInputBox(
                           enabled: true,
-                          //label: "Use your Email ",
+                          label: "Use your Email ",
                           keyboardType: TextInputType.emailAddress,
                           controller: con.emailController,
                           textInputAction: TextInputAction.next,
-                          obscureText: false,
-                         // inputHint: 'Enter your email',
+                          obsecureText: false,
+                          inputHint: 'Enter your email',
                           validator: (value) {
-                            if (con.emailController.text.isEmpty) {
-                              return "Please Enter The Email";
-                            } else if (!con.emailController.text.contains("@")
-                                //     ||
-                                //     !emailController.text.endsWith('.com')||
-                                // !emailController.text.endsWith('.co.in')
-                                ) {
-                              return "Please Enter The valid Email";
-                            } else {
-                              return null;
-                            }
+                            // if (con.emailController.text.isEmpty) {
+                            //   return "Please Enter The Email";
+                            // } else if (!con.emailController.text.contains("@")
+                            //     //     ||
+                            //     //     !emailController.text.endsWith('.com')||
+                            //     // !emailController.text.endsWith('.co.in')
+                            //     ) {
+                            //   return "Please Enter The valid Email";
+                            // } else {
+                            //   return null;
+                            // }
                           },
-                          decoration: InputDecoration(
+                          inputDecoration: InputDecoration(
                             filled: true,
                             hoverColor: Colors.transparent,
                             fillColor: Colors.white,
-                            hintText: 'Enter your email',labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                            hintText: 'Enter your email',
                             floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle:
-                                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                            helperStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                             hintStyle: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontFamily: 'Sora',
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.bold,
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 15),
@@ -665,38 +782,124 @@ class _RegisterState extends State<Register> {
                                 borderSide: BorderSide(color: Colors.grey)),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey, width: 1.0)),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
                             focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
                                 gapPadding: 7,
-                                borderSide: const BorderSide(color: Colors.grey)),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey)),
                             errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(color: Colors.grey)),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey)),
                             errorStyle: const TextStyle(
                                 fontFamily: 'Sora',
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold),
                           ),
+                        )
+                      : Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.5
+                              : MediaQuery.of(context).size.width / 2.5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Use your Email",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'sora'),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                enabled: true,
+                                //label: "Use your Email ",
+                                keyboardType: TextInputType.emailAddress,
+                                controller: con.emailController,
+                                textInputAction: TextInputAction.next,
+                                obscureText: false,
+                                // inputHint: 'Enter your email',
+                                validator: (value) {
+                                  if (con.emailController.text.isEmpty) {
+                                    return "Please Enter The Email";
+                                  } else if (!con.emailController.text
+                                          .contains("@")
+                                      //     ||
+                                      //     !emailController.text.endsWith('.com')||
+                                      // !emailController.text.endsWith('.co.in')
+                                      ) {
+                                    return "Please Enter The valid Email";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  hoverColor: Colors.transparent,
+                                  fillColor: Colors.white,
+                                  hintText: 'Enter your email',
+                                  labelStyle:
+                                      TextStyle(fontWeight: FontWeight.bold),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
                   SizedBox(height: 90),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                       mainAxisAlignment: Responsive.isMobile(context)
-                                  ? MainAxisAlignment.start
-                                  : Responsive.isDesktop(context)
-                                      ? MainAxisAlignment.start
-                                      : MainAxisAlignment.start,
+                        mainAxisAlignment: Responsive.isMobile(context)
+                            ? MainAxisAlignment.start
+                            : Responsive.isDesktop(context)
+                                ? MainAxisAlignment.start
+                                : MainAxisAlignment.start,
                         children: [
                           Row(
                               mainAxisAlignment: Responsive.isMobile(context)
@@ -705,7 +908,7 @@ class _RegisterState extends State<Register> {
                                       ? MainAxisAlignment.start
                                       : MainAxisAlignment.start,
                               children: [
-                                // sizedbox is for screen size 
+                                // sizedbox is for screen size
                                 // SizedBox(
                                 //     width: Responsive.isMobile(context)
                                 //         ? 0
@@ -721,9 +924,8 @@ class _RegisterState extends State<Register> {
                                 //                 3.6),
 
                                 Container(
-                                  //alignment: Alignment.bottomLeft,
-                                    child:
-                                     Row(
+                                    //alignment: Alignment.bottomLeft,
+                                    child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
@@ -754,15 +956,14 @@ class _RegisterState extends State<Register> {
                                             ),
                                           )),
                                       SizedBox(width: 10.0),
-
-
                                       Text("I agree to the ",
                                           style: TextStyle(
-                                            color: themeChange.darkTheme
-                                                ? Colors.white
-                                                : Color(0xff646464),
-                                            fontSize: 16,fontWeight: FontWeight.bold,fontFamily: 'sora'
-                                          ))
+                                              color: themeChange.darkTheme
+                                                  ? Colors.white
+                                                  : Color(0xff646464),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'sora'))
                                     ])),
                                 InkWell(
                                   onTap: () {
@@ -773,7 +974,8 @@ class _RegisterState extends State<Register> {
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         decorationThickness: 2,
-                                        fontSize: 16,fontFamily: 'sora',
+                                        fontSize: 16,
+                                        fontFamily: 'sora',
                                         fontWeight: FontWeight.bold,
                                         color: themeChange.darkTheme
                                             ? Colors.white
@@ -865,7 +1067,7 @@ class _RegisterState extends State<Register> {
                         ],
                       )),
 
-              //mobileview button
+                  //mobileview button
                   AuthButton(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
@@ -941,9 +1143,13 @@ class _RegisterState extends State<Register> {
   Widget buildbutton() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(children: [
-
       // const SizedBox(height: 10),
       Container(
+          height: Responsive.isMobile(context)
+              ? 0
+              : Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.height /14
+                  : MediaQuery.of(context).size.height / 14,
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
@@ -963,26 +1169,26 @@ class _RegisterState extends State<Register> {
               //Gmail Auth
               AuthService().signinWithGoogle();
             }, // button pressed
-            child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const SizedBox(width: 20),
-                    Image.asset("assets/google.png", width: 32),
-                    SizedBox(width: 15),
-                    Text("Sign Up using Google",
-                        style: TextStyle(
-                            color: Color(0XFF413D4B), fontSize: 16,
-                        fontFamily: 'sora',fontWeight: FontWeight.bold
-                        )), // text
-                  ],
-                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(width: 20),
+                Image.asset("assets/google.png", width: 32),
+                SizedBox(width: 15),
+                Text("Sign Up using Google",
+                    style: TextStyle(
+                        color: Color(0XFF413D4B),
+                        fontSize: 16,
+                        fontFamily: 'sora',
+                        fontWeight: FontWeight.bold)), // text
+              ],
+            ),
           )),
       const SizedBox(height: 10),
       Text('Or',
           style: TextStyle(
-              fontSize: 14,fontFamily: 'sora',
+              fontSize: 14,
+              fontFamily: 'sora',
               color:
                   themeChange.darkTheme ? Colors.white : HexColor('#413D4B'))),
       const SizedBox(height: 10),
@@ -1005,8 +1211,6 @@ class _RegisterState extends State<Register> {
               Navigator.pop(context);
               isChecked = true;
             });
-
-
           }, // button pressed
           child: const Padding(
             padding: EdgeInsets.all(10),
@@ -1024,38 +1228,37 @@ class _RegisterState extends State<Register> {
       content: Container(
         margin: EdgeInsets.all(5),
         height:
-        //  Responsive.isMobile(context)
-        MediaQuery.of(context).size.height / 1,
+            //  Responsive.isMobile(context)
+            MediaQuery.of(context).size.height / 1,
         // : MediaQuery.of(context).size.height / 2,
         width:
-        // Responsive.isMobile(context)
-        MediaQuery.of(context).size.width / 1,
+            // Responsive.isMobile(context)
+            MediaQuery.of(context).size.width / 1,
         // : MediaQuery.of(context).size.width / 2,
-        child:
-        ListView.builder(
+        child: ListView.builder(
             itemCount: con.termscond.length,
             itemBuilder: (BuildContext context, int index) {
-              return
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(con.termscond[index][],
-                    //     style: TextStyle(
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 18,
-                    //         color: Colors.black)),
-                    // SizedBox(height: 15),
-                    Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(con.termscond[index]["termdetails"].toString(),
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
-                                fontFamily: 'sora'))),
-                    SizedBox(height: 20),
-                  ],
-                );
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Text(con.termscond[index][],
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 18,
+                  //         color: Colors.black)),
+                  // SizedBox(height: 15),
+                  Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                          con.termscond[index]["termdetails"].toString(),
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                              fontFamily: 'sora'))),
+                  SizedBox(height: 20),
+                ],
+              );
             }),
       ),
       actions: [okButton],

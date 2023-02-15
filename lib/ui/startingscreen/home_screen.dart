@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                         ? topbanner()
                         : Responsive.isDesktop(context)
                             ? topbannerweb()
-                            : topbanner())
+                            :topbannerweb())
                 : index == 1
                     ? Container(
                         margin: EdgeInsets.all(15),
@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
                             ? homescroll()
                             : Responsive.isDesktop(context)
                                 ? homescrollweb()
-                                : homescroll())
+                                :homescrollweb())
                     : index == 2
                         ? Container(
                             margin: EdgeInsets.all(15),
@@ -150,7 +150,7 @@ class _HomeState extends State<Home> {
                                 ? howitsworks()
                                 : Responsive.isDesktop(context)
                                     ? howitworksweb()
-                                    : howitsworks())
+                                    : howitworksweb())
                         : index == 3
                             ? Container(
                                 margin: EdgeInsets.all(15),
@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
                                     ? pricing()
                                     : Responsive.isDesktop(context)
                                         ? pricingweb()
-                                        : pricing())
+                                        :pricingweb())
                             : index == 4
                                 ? Container(
                                     margin: EdgeInsets.all(15),
@@ -166,21 +166,21 @@ class _HomeState extends State<Home> {
                                         ? easysplit()
                                         : Responsive.isDesktop(context)
                                             ? easysplitweb()
-                                            : easysplit())
+                                            :easysplitweb())
                                 : index == 5
                                     ? Container(
                                         child: Responsive.isMobile(context)
                                             ? buildcontainer()
                                             : Responsive.isDesktop(context)
                                                 ? buildcontainerweb()
-                                                : buildcontainer())
+                                                : buildcontainerweb())
                                     : index == 6
                                         ? Container(
                                             child: Responsive.isMobile(context)
                                                 ? buildsystemimage()
                                                 : Responsive.isDesktop(context)
                                                     ? null
-                                                    : buildsystemimage())
+                                                    : null)
                                         : index == 7
                                             ? Container(
                                                 child:
@@ -189,7 +189,7 @@ class _HomeState extends State<Home> {
                                                         : Responsive.isDesktop(
                                                                 context)
                                                             ? buildaboutweb()
-                                                            : buildabout())
+                                                            :buildaboutweb())
                                             : index == 8
                                                 ? Container(
                                                     child: Responsive.isMobile(
@@ -198,7 +198,7 @@ class _HomeState extends State<Home> {
                                                         : Responsive.isDesktop(
                                                                 context)
                                                             ? buildgetstartedweb()
-                                                            : buildgetstarted())
+                                                            : buildgetstartedweb())
                                                 : Container(
                                                     child: Responsive.isMobile(
                                                             context)
@@ -206,7 +206,7 @@ class _HomeState extends State<Home> {
                                                         : Responsive.isDesktop(
                                                                 context)
                                                             ? buildgetstartedweb()
-                                                            : buildgetstarted());
+                                                            :  buildgetstartedweb());
           }),
       bottomNavigationBar: Responsive.isMobile(context) ? buildButton() : null,
     );
@@ -759,7 +759,7 @@ class homescrollweb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding:Responsive.isDesktop(context)?  EdgeInsets.all(15):EdgeInsets.all(5),
       child: Column(
         children: [
           Row(
@@ -794,8 +794,10 @@ class homescrollweb extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: MediaQuery.of(context).size.width / 3.4,
-                width: MediaQuery.of(context).size.width / 3.3,
+                // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
+                // MediaQuery.of(context).size.height / 2,
+                 width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.3:
+                  MediaQuery.of(context).size.width / 3.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(
@@ -803,7 +805,7 @@ class homescrollweb extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.3),
                     )),
                 child: Container(
-                  margin: EdgeInsets.all(25),
+                  margin:Responsive.isDesktop(context)? EdgeInsets.all(25):EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -831,7 +833,15 @@ class homescrollweb extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text("Make And Recieve",
+                         Responsive.isDesktop(context)? Text("Make And Recieve",
+                           textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 22,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)):
+                                  Text("Make And \n Recieve Pay",
+                           textAlign: TextAlign.justify,
                               style: TextStyle(
                                   color: Color(0XFF004751).withOpacity(0.9),
                                   fontSize: 22,
@@ -844,7 +854,15 @@ class homescrollweb extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text("Payment Digitally",
+                          Responsive.isDesktop(context)?  Text("Payment Digitally",
+                           textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 22,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)):
+                                   Text("ment Digitally",
+                           textAlign: TextAlign.justify,
                               style: TextStyle(
                                   color: Color(0XFF004751).withOpacity(0.9),
                                   fontSize: 22,
@@ -871,8 +889,10 @@ class homescrollweb extends StatelessWidget {
                 width: 20,
               ),
               Container(
-                height: MediaQuery.of(context).size.width / 3.4,
-                width: MediaQuery.of(context).size.width / 3.3,
+                // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
+                // MediaQuery.of(context).size.height / 1.5,
+                 width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.3:
+                  MediaQuery.of(context).size.width / 3.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(
@@ -880,7 +900,7 @@ class homescrollweb extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.3),
                     )),
                 child: Container(
-                  margin: EdgeInsets.all(25),
+                   margin:Responsive.isDesktop(context)? EdgeInsets.all(25):EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -906,7 +926,15 @@ class homescrollweb extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text("Track and Manage",
+                          Responsive.isDesktop(context)? Text("Track and  Manage",
+                           textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 22,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)):
+                                  Text("Track and \n Manage",
+                           textAlign: TextAlign.justify,
                               style: TextStyle(
                                   color: Color(0XFF004751).withOpacity(0.9),
                                   fontSize: 22,
@@ -946,8 +974,10 @@ class homescrollweb extends StatelessWidget {
                 width: 20,
               ),
               Container(
-                height: MediaQuery.of(context).size.width / 3.4,
-                width: MediaQuery.of(context).size.width / 3.3,
+                  height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
+                MediaQuery.of(context).size.height / 2.2,
+                width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.3:
+                 MediaQuery.of(context).size.width / 3.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
@@ -955,7 +985,7 @@ class homescrollweb extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.2),
                     )),
                 child: Container(
-                  margin: EdgeInsets.all(25),
+                   margin:Responsive.isDesktop(context)? EdgeInsets.all(25):EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -981,7 +1011,15 @@ class homescrollweb extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text("Easy Payment Plan",
+                         Responsive.isDesktop(context)? Text("Easy Payment Plan",
+                           textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 22,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)):
+                                  Text("Easy Payment\n Plan",
+                           textAlign: TextAlign.justify,
                               style: TextStyle(
                                   color: Color(0XFF004751).withOpacity(0.9),
                                   fontSize: 22,
@@ -1015,17 +1053,20 @@ class homescrollweb extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Container(
-              height: MediaQuery.of(context).size.height / 1.5,
-              width: MediaQuery.of(context).size.width / 1,
+              // height:Responsive.isDesktop(context)?  MediaQuery.of(context).size.height / 1.5:
+              // MediaQuery.of(context).size.height / 2.3,
+              // width: Responsive.isDesktop(context)?  MediaQuery.of(context).size.width / 1:
+              //  MediaQuery.of(context).size.width / 1,
               decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 15),
+                        padding:  EdgeInsets.only(top: 20, left: Responsive.isDesktop(context)? 15:10),
                         child: Text("What can i pay for using Carditnow?",
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -1066,7 +1107,7 @@ class homescrollweb extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 100, top: 50),
+                    padding: EdgeInsets.only(right:Responsive.isDesktop(context)?  100:20, top: 50),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -1077,8 +1118,8 @@ class homescrollweb extends StatelessWidget {
                               children: [
                                 Image.asset(
                                   "assets/rent.png",
-                                  cacheWidth: 75,
-                                  cacheHeight: 75,
+                                  cacheWidth: Responsive.isDesktop(context)?75:30,
+                                  cacheHeight: Responsive.isDesktop(context)?75:30,
                                 ),
                                 Text(
                                   "Rent",
@@ -1091,14 +1132,14 @@ class homescrollweb extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              width: 50,
+                              width:Responsive.isDesktop(context)?  50:10,
                             ),
                             Column(
                               children: [
                                 Image.asset(
                                   "assets/mail.png",
-                                  cacheWidth: 75,
-                                  cacheHeight: 75,
+                                  cacheWidth:Responsive.isDesktop(context)?  75:30,
+                                  cacheHeight:Responsive.isDesktop(context)?  75:30
                                 ),
                                 Text(
                                   "Taxes",
@@ -1114,19 +1155,30 @@ class homescrollweb extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 20,
+                         
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                           //  SizedBox(width:50),
                             Column(
                               children: [
+                                // SizedBox(width:50),
+                            
                                 Image.asset(
                                   "assets/build.png",
-                                  cacheWidth: 75,
-                                  cacheHeight: 75,
+                                  cacheWidth:Responsive.isDesktop(context)?  75:30,
+                                  cacheHeight: Responsive.isDesktop(context)? 75:30,
                                 ),
-                                Text(
-                                  "Condo Fees",
+                               Responsive.isDesktop(context)? Text(
+                                  "Condo\n Fees",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0XFF004751)),
+                                ):Text(
+                                  "Condo \nFees",
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontFamily: 'Poppins',
@@ -1136,14 +1188,14 @@ class homescrollweb extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              width: 50,
+                              width: Responsive.isDesktop(context)? 50:10,
                             ),
                             Column(
                               children: [
                                 Image.asset(
                                   "assets/invoices.png",
-                                  cacheWidth: 75,
-                                  cacheHeight: 75,
+                                  cacheWidth: Responsive.isDesktop(context)? 75:30,
+                                  cacheHeight: Responsive.isDesktop(context)? 75:30,
                                 ),
                                 Text(
                                   "Invoices",
@@ -1162,10 +1214,10 @@ class homescrollweb extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Center(
+                          Responsive.isDesktop(context)?  Center(
                               child: Container(
                                 height: 40,
-                                width: 220,
+                                width: Responsive.isDesktop(context)?220:100,
                                 decoration: BoxDecoration(
                                     color: Colors.white30,
                                     borderRadius: BorderRadius.circular(10)),
@@ -1178,6 +1230,23 @@ class homescrollweb extends StatelessWidget {
                                         fontFamily: 'Poppins',
                                         color: Color(0XFF004751)),
                                   ),
+                                ),
+                              ),
+                            ):
+                            Container(
+                              height: 70,
+                              width: 140,
+                              decoration: BoxDecoration(
+                                  color: Colors.white30,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  "And Many More..",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      fontFamily: 'Poppins',
+                                      color: Color(0XFF004751)),
                                 ),
                               ),
                             ),
@@ -1476,9 +1545,9 @@ class howitworksweb extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/reg.png",
-                          width: 250,
-                          height: 300,
-                        ),
+                          width: Responsive.isDesktop(context)?250:100,
+                          height:Responsive.isDesktop(context)? 300:150,
+                        )
                       ],
                     ),
                     SizedBox(
@@ -1501,10 +1570,10 @@ class howitworksweb extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            Column(
+                           Responsive.isDesktop(context)? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Onboard Yourself As A ",
+                             Text("Onboard Yourself As A  ",
                                     style: TextStyle(
                                         color: Color(0XFF004751).withOpacity(0.9),
                                         fontSize: 18,
@@ -1515,7 +1584,25 @@ class howitworksweb extends StatelessWidget {
                                         color: Color.fromRGBO(0, 71, 81, 1),
                                         fontSize: 18,
                                         fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold))
+                               
+                              ],
+                            ):
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                             Text("Onboard Yourself As\n A  Payee ",
+                                    style: TextStyle(
+                                        color: Color(0XFF004751).withOpacity(0.9),
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
                                         fontWeight: FontWeight.bold)),
+                                Text(" On a Payer ",
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(0, 71, 81, 1),
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.bold))
                                
                               ],
                             ),
@@ -1524,9 +1611,17 @@ class howitworksweb extends StatelessWidget {
                       ],
                     ),
                      Padding(
-                       padding: const EdgeInsets.only(left:30),
-                       child: Text(
+                       padding:  EdgeInsets.only(left:Responsive.isDesktop(context)?30:10),
+                       child: Responsive.isDesktop(context)? Text(
                                   "Dont Worry we will ask you \n few questions  and that all ",
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500)):
+                                      Text(
+                                  "Dont Worry we will\n ask you  few questions\n  and that all ",
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -1548,8 +1643,8 @@ class howitworksweb extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/reg2.png",
-                          width: 250,
-                          height: 300,
+                          width: Responsive.isDesktop(context)?250:100,
+                          height:Responsive.isDesktop(context)? 300:150,
                         ),
                       ],
                     ),
@@ -1571,7 +1666,7 @@ class howitworksweb extends StatelessWidget {
                           child: Center(child: Text("2")),
                         ),
                         SizedBox(width:10)   ,                
-                         Column(
+                        Responsive.isDesktop(context)? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Select the Way You Like ",
@@ -1588,6 +1683,23 @@ class howitworksweb extends StatelessWidget {
                                     fontWeight: FontWeight.bold)),
                           
                           ],
+                        ):Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Select the Way \nYou Like To ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold)),
+                            Text(" Pay or Receive",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold)),
+                          
+                          ],
                         ),
                         
                       
@@ -1597,8 +1709,16 @@ class howitworksweb extends StatelessWidget {
                         
                        ,Padding(
                          padding: const EdgeInsets.only(left:30),
-                         child: Text(
+                         child:  Responsive.isDesktop(context)?Text(
                                   "You can choose from various \n options such as credit card ,\n credit BNPL etc.",
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500)):
+                                      Text(
+                                  "You can choose from various\n  options such as credit card\n , credit BNPL etc.",
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -1622,8 +1742,8 @@ class howitworksweb extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/reg3.png",
-                          width: 250,
-                          height: 300,
+                         width: Responsive.isDesktop(context)?250:100,
+                          height:Responsive.isDesktop(context)? 300:150,
                         ),
                       ],
                     ),
@@ -1645,10 +1765,10 @@ class howitworksweb extends StatelessWidget {
                           child: Center(child: Text("3")),
                         ),
                      SizedBox(width: 10,),
-                                Column(
+                             Responsive.isDesktop(context)?    Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Alright ! You Are Now Ready to ",
+                           Text("Alright ! You Are Now Ready to ",
                                 style: TextStyle(
                                     color: Color(0XFF004751),
                                     fontSize: 18,
@@ -1662,14 +1782,39 @@ class howitworksweb extends StatelessWidget {
                                     fontWeight: FontWeight.bold)),
                            
                           ],
+                        ): Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                           Text("Alright ! You Are Now\n Ready to Pay ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold)),
+                            Text(" Or Recieve  ",
+                                style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold)),
+                           
+                          ],
                         ),
                     
                           ],
                         ),
                          Padding(
                            padding: const EdgeInsets.only(left:30),
-                           child: Text(
+                           child:Responsive.isDesktop(context)? Text(
                                   "Pay to anyone via various payment\n options such as credit card, \nBank Transfer and Easy Payment Plan",
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500)):
+                                      Text(
+                              "Pay to anyone via various\n payment options such as\n credit card, Bank Transfer\n and Easy Payment Plan",
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -1684,9 +1829,7 @@ class howitworksweb extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    
                   ],
                 ),
               ),
@@ -1861,8 +2004,9 @@ class pricingweb extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(15),
           child: Container(
-            width: MediaQuery.of(context).size.width / 1,
-            height: MediaQuery.of(context).size.height / 1.8,
+            // width: MediaQuery.of(context).size.width / 1,
+            // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.8:
+            // MediaQuery.of(context).size.height / 2.5,
             decoration: BoxDecoration(
                 border: Border.all(
               width: 3,
@@ -1912,7 +2056,7 @@ class pricingweb extends StatelessWidget {
                             Text("Why does Carditnow Charge service ",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color: Styles.whitecolortext,
+                                   color: Styles.whitecolortext,
                                     fontSize: 20,
                                      fontFamily:'Poppins',
                                     fontWeight: FontWeight.w700)),
@@ -1931,8 +2075,14 @@ class pricingweb extends StatelessWidget {
                     SizedBox(height: 20),
                     Container(
                       margin: EdgeInsets.only(left: 0),
-                      child: Text(
+                      child:Responsive.isDesktop(context)? Text(
                           "Convenience Fee covers the processing costs to credit card Issuer,\n Lenders, network providers for each transaction made.\n The fee also ensures our platform remains\n secure for your everyday use.",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                               fontFamily:'Poppins',
+                              fontWeight: FontWeight.w500)):Text(
+                          "Convenience Fee covers the processing\n costs to credit card Issuer\n, Lenders, network\n providers for each transaction\n made. The fee also ensures our\n platform remains secure for\n your everyday use.",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -1943,10 +2093,12 @@ class pricingweb extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.only(right: 15),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.height / 2.3,
+                  width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3:
+                 MediaQuery.of(context).size.width / 3,
+                  // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 2.3:
+                  // MediaQuery.of(context).size.height / 2.5,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/paymentdetails.jpg"),
@@ -2544,10 +2696,22 @@ class easysplitweb extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
+                 Responsive.isDesktop(context)? Row(
                     children: [
                       Text(
                           "Simplify your living expenses with flexible payments.\n Fast and easy online approvals.",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 20,
+                             
+                               fontFamily:'Poppins',
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromRGBO(4, 19, 22, 0.75))),
+                    ],
+                  ): Row(
+                    children: [
+                      Text(
+                          "Simplify your living expenses\n with flexible payments. Fast\n and easy online approvals.",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontSize: 20,
@@ -2658,11 +2822,13 @@ class easysplitweb extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 2.5,
+                width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 2.5:
+                MediaQuery.of(context).size.width / 2.2,
                 height: 500,
                 decoration: BoxDecoration(
                     //  color: Colors.black,
@@ -2673,7 +2839,7 @@ class easysplitweb extends StatelessWidget {
                   fit: BoxFit.fill,
                 )),
               ),
-              Column(
+            Responsive.isDesktop(context)?  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -2712,6 +2878,45 @@ class easysplitweb extends StatelessWidget {
                     ],
                   ),
                 ],
+              ): Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        // margin: EdgeInsets.all(25),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0XFFCEE812),
+                        ),
+                        child: Center(child: Text("1")),
+                      ),
+                      SizedBox(width: 20),
+                      Text("Choose Carditnow\n Payee or  Onboard\n new  Payee",
+                          style: TextStyle(
+                              color: Color(0XFF004751).withOpacity(0.9),
+                              fontSize: 23,
+                               fontFamily:'Poppins',
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 40, top: 10),
+                        child: Text(
+                            "Onboard payee by adding his/her\n bank details and wait for\n an few minutes till we\n verify your Payee",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                 fontFamily:'Poppins',
+                                fontWeight: FontWeight.w300)),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -2719,8 +2924,52 @@ class easysplitweb extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Column(
+                padding: const EdgeInsets.only(left:20),
+                child: Responsive.isDesktop(context)? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            // margin: EdgeInsets.all(25),
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0XFFCEE812),
+                            ),
+                            child: Center(child: Text("2")),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Verify Your Bank\n Details ",
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 23,
+                                     fontFamily:'Poppins',
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child: Text(
+                                "Verify your bank details and upload\n 3-month pay slips for loan verification.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                       fontFamily:'Poppins',
+                                    fontWeight: FontWeight.w300)),
+                          ),
+                        ],
+                      ),
+                    ]):Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -2755,7 +3004,7 @@ class easysplitweb extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(left: 50),
                             child: Text(
-                                "Verify your bank details and upload\n 3-month pay slips for loan verification.",
+                                "Verify your bank details\n and upload 3-month\n pay slips for loan\n verification.",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
@@ -2769,7 +3018,8 @@ class easysplitweb extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
+                  width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 2.5:
+                   MediaQuery.of(context).size.width / 2.3,
                   height: 500,
                   decoration: BoxDecoration(
                       //   color: Colors.black,
@@ -2793,7 +3043,8 @@ class easysplitweb extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 2.5,
+                  width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 2.5:
+                   MediaQuery.of(context).size.width / 2.2,
                 height: 500,
                 decoration: BoxDecoration(
                     //  color: Colors.black,
@@ -2837,14 +3088,22 @@ class easysplitweb extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 40, top: 10),
-                        child: Text(
+                        margin: EdgeInsets.only(left: 40, top: 10,
+                        ),
+                        child: Responsive.isDesktop(context)? Text(
                             "Carditnow will show you the list of \n lenders from whom you can choose to go ahead with.",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                   fontFamily:'Poppins',
-                                fontWeight: FontWeight.w300)),
+                                fontWeight: FontWeight.w300)):
+                               Text(
+                            "Carditnow will show you the list of \n lenders from whom you\n can choose to go ahead with.",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                  fontFamily:'Poppins',
+                                fontWeight: FontWeight.w300),),
                       ),
                     ],
                   ),
@@ -2857,7 +3116,7 @@ class easysplitweb extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 30),
-                child: Column(
+                child:Responsive.isDesktop(context)? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -2876,7 +3135,7 @@ class easysplitweb extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Pay To Your Seller Anytime ",
+                          Text("Pay To Your Seller\n Anytime ",
                               style: TextStyle(
                                   color: Color(0XFF004751).withOpacity(0.9),
                                   fontSize: 23,
@@ -2891,8 +3150,52 @@ class easysplitweb extends StatelessWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.only(left: 50),
-                            child: Text(
+                            child:  Text(
                                 "Overview of your payment details and Swipe to Pay.\n Congratulations! You have completed the payment.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                      fontFamily:'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300))
+                          ),
+                        ],
+                      ),
+                    ]):Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            // margin: EdgeInsets.all(25),
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0XFFCEE812),
+                            ),
+                            child: Center(child: Text("4")),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Pay To Your Seller\n Anytime ",
+                              style: TextStyle(
+                                  color: Color(0XFF004751).withOpacity(0.9),
+                                  fontSize: 23,
+                                    fontFamily:'Poppins',
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 50),
+                            child:  Text(
+                                "Overview of your payment\n details and Swipe to Pay.\n Congratulations! You have\n completed the payment.",
                                 style: TextStyle(
                                     color: Colors.black,
                                       fontFamily:'Poppins',
@@ -2906,7 +3209,8 @@ class easysplitweb extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
+                   width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 2.5:
+                   MediaQuery.of(context).size.width / 2.5,
                   height: 500,
                   decoration: BoxDecoration(
                       //   color: Colors.black,
@@ -2930,7 +3234,8 @@ class easysplitweb extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 2.5,
+                  width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 2.5:
+                   MediaQuery.of(context).size.width / 2.2,
                 height: 500,
                 decoration: BoxDecoration(
                     //  color: Colors.black,
@@ -2941,7 +3246,7 @@ class easysplitweb extends StatelessWidget {
                   fit: BoxFit.fill,
                 )),
               ),
-              Column(
+             Responsive.isDesktop(context)? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -2971,6 +3276,45 @@ class easysplitweb extends StatelessWidget {
                         margin: EdgeInsets.only(left: 40, top: 10),
                         child: Text(
                             "Onboard payee by adding his/her bank details\n and wait for an few minutes till we\n verify your Payee",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                  fontFamily:'Poppins',
+                                fontWeight: FontWeight.w300)),
+                      ),
+                    ],
+                  ),
+                ],
+              ):Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        // margin: EdgeInsets.all(25),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0XFFCEE812),
+                        ),
+                        child: Center(child: Text("5")),
+                      ),
+                      SizedBox(width: 20),
+                      Text("Congratulations ! you\n have Completed A\n Payment",
+                          style: TextStyle(
+                              color: Color(0XFF004751).withOpacity(0.9),
+                              fontSize: 23,
+                                fontFamily:'Poppins',
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 40, top: 10),
+                        child: Text(
+                            "Onboard payee by adding his/her\n bank details and wait for\n an few minutes till we\n verify your Payee",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -3060,8 +3404,9 @@ class topbannerweb extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(15),
           child: Container(
-            width: MediaQuery.of(context).size.width / 1,
-            height: MediaQuery.of(context).size.width / 3,
+            // width: MediaQuery.of(context).size.width / 1,
+            // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3:
+            //  MediaQuery.of(context).size.width / 1.8,
             decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -3073,7 +3418,7 @@ class topbannerweb extends StatelessWidget {
                       child: Image.asset(
                         "assets/homescreen_curve.png",
                         height: 250,
-                        width: 400,
+                        width: Responsive.isDesktop(context)? 400:300,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -3082,14 +3427,14 @@ class topbannerweb extends StatelessWidget {
                         //color: Colors.black38,
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 60, left: 40),
+                          padding:  EdgeInsets.only(top: 60, left:Responsive.isDesktop(context)?  40:10),
                           child: Column(
                             children: [
                               Text("Simplify Payments",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Styles.whitecolortext,
-                                      fontSize: 40,
+                                      fontSize:Responsive.isDesktop(context)?  40:35,
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.bold)),
                               Row(
@@ -3209,7 +3554,9 @@ class topbannerweb extends StatelessWidget {
                               SizedBox(height: 50),
                               SwipeButton(
                                   width:
-                                      MediaQuery.of(context).size.width / 4.4,
+                                    Responsive.isDesktop(context)?   MediaQuery.of(context).size.width / 4.4:
+                                    MediaQuery.of(context).size.width/2.5
+                                    ,
                                   activeThumbColor: const Color(0XFFCEE812),
                                   thumbPadding:
                                       const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -3236,16 +3583,17 @@ class topbannerweb extends StatelessWidget {
                       Image.asset(
                         "assets/homescreen_web.png",
                         fit: BoxFit.fill,
-                        width: MediaQuery.of(context).size.width / 2,
+                        width:Responsive.isDesktop(context)?  MediaQuery.of(context).size.width / 2:
+                        MediaQuery.of(context).size.width/2.5,
                         height: MediaQuery.of(context).size.width / 3,
                       ),
                       Positioned(
                         top: 70,
                         // bottom: 10,
-                        right: 590,
+                        right:Responsive.isDesktop(context)? 590:240,
 
                         width: 120,
-                        height: 300,
+                        height:Responsive.isDesktop(context)?  300:150,
                         child: IconButton(
                           icon: Image.asset(
                               height: 400,
@@ -3338,12 +3686,13 @@ class buildcontainerweb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Responsive.isDesktop(context)? Column(
       children: [
         Container(
           margin: EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width / 1,
-          height: MediaQuery.of(context).size.height / 1.3,
+          // width: MediaQuery.of(context).size.width / 1,
+          // height: MediaQuery.of(context).size.height / 1.3,
+    
           decoration: BoxDecoration(color: HexColor('#004751')),
           child: Padding(
             padding: const EdgeInsets.only(left: 20, top: 10),
@@ -3402,12 +3751,101 @@ class buildcontainerweb extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             )),
                       ),
+                      
                     ),
+                   SizedBox(height:20),  
+                    
                   ],
                 ),
                 Container(
                   child: Image.asset(
                     'assets/web_info.png',
+                    width: 500,
+                    height: 600,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+       
+      ],
+    )
+    :Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(10),
+          // width: MediaQuery.of(context).size.width / 1,
+          // height: MediaQuery.of(context).size.height / 1.8,
+    
+          decoration: BoxDecoration(color: HexColor('#004751')),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        'We Keep your Information and \nTransactions Safe and Secure',
+                        style: TextStyle(
+                            fontSize: 28,
+                             fontFamily:'Poppins',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                    SizedBox(height: 20),
+                    Text('Security is our Core and\n Number one priority',
+                        style: TextStyle(
+                            fontSize: 18,
+                           fontFamily:'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white60)),
+                    SizedBox(height: 20),
+                    Text(
+                        'We maintain strict compliance of\n all guidelines, requirements,  directives\n and conditions issued by\n Bangko Sentral ng Pilipinas as well as Financial\n institution partners. All funds\n will always be held securely\n with Financial institution partners.',
+                        style: TextStyle(
+                          fontSize: 18,
+                           fontFamily:'Poppins',  color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    SizedBox(height: 20),
+                    Text(
+                        ' We also take additional measures\n to evaluate the risk across all our\n platforms and have constant back up \nand firewalls in place to keep your data\n safe at all times.',
+                        style: TextStyle(
+                            fontSize: 18,
+                             fontFamily:'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white)),
+                    SizedBox(height: 30),
+                    Container(
+                     width: MediaQuery.of(context).size.width / 4,
+                      height: MediaQuery.of(context).size.height / 12,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: HexColor('#CEE812')),
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(20),
+                        onPressed: () {},
+                        child: Text('Sign Up to Carditnow',
+                            style: TextStyle(
+                              color: Color(0XFF004751),
+                              fontSize: 16,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                    SizedBox(height:20),
+                  ],
+                ),
+                Container(
+                  width: 250,
+                    height:350,
+                  child: Image.asset(
+                    'assets/web_info.png',
+                    
                   ),
                 )
               ],
@@ -3594,12 +4032,13 @@ class buildaboutweb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Responsive.isDesktop(context)?Column(
       children: [
         Container(
           margin: EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width / 1,
-          height: MediaQuery.of(context).size.height / 1.5,
+          // width: MediaQuery.of(context).size.width / 1,
+          // height: MediaQuery.of(context).size.height / 1.5,
+          
           decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -3623,16 +4062,17 @@ class buildaboutweb extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: Colors.black)),
                     SizedBox(height: 20),
-                    Text(
-                        'Carditnow is a third party provider registered user SEC 2022070061722-06.\n  We adhere to the highest standards of security and compliance in the\n market where we operate, your transactions are processed through\n regulated financial institutions and via a client safeguarded account.',
+                 Text(
+                        'Carditnow is a third party provider registered user\n SEC 2022070061722-06.  We adhere\n to the highest standards of security and\n compliance in the market where we operate\n, your transactions are processed through\n regulated financial institutions and\n via a client safeguarded account.',
                         style: TextStyle(
                             fontSize: 18,
                              fontFamily:'Poppins',
                             fontWeight: FontWeight.w400,
                             color: Colors.black)),
+                          
                     SizedBox(height: 20),
                     Text(
-                        'Our aim is streamlining all your expenses in One App,\n Enjoy hassle free payments, interest free credit and bigger rewards.',
+                        'Our aim is streamlining all your expenses\n in One App, Enjoy hassle free payments,\n interest free credit and\n bigger rewards.',
                         style: TextStyle(
                             fontSize: 18,
                              fontFamily:'Poppins',
@@ -3646,8 +4086,8 @@ class buildaboutweb extends StatelessWidget {
                 // color: Colors.black,
                 child: Image.asset(
                   'assets/aboutusweb.png',
-                  width: 450,
-                  height: 420,
+                  width:  450,
+                  height:420,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -3656,8 +4096,9 @@ class buildaboutweb extends StatelessWidget {
         ),
         Container(
             margin: EdgeInsets.all(15),
-            width: MediaQuery.of(context).size.width / 1,
-            height: MediaQuery.of(context).size.height / 1.2,
+            // width: MediaQuery.of(context).size.width / 1,
+            // height: MediaQuery.of(context).size.height / 1.2,
+             
             decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
             child: (Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -3791,6 +4232,240 @@ class buildaboutweb extends StatelessWidget {
                       SizedBox(height: 20),
                       Container(
                         width: MediaQuery.of(context).size.width / 4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: HexColor('#CEE812')),
+                        child: MaterialButton(
+                          hoverColor: Colors.transparent,
+                          minWidth: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.all(20),
+                          onPressed: () {},
+                          child: Text('Ping Us',
+                              style: TextStyle(
+                                color: Color(0XFF004751),
+                                fontSize: 16,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            )))
+      ],
+    ):Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(15),
+          // width: MediaQuery.of(context).size.width / 1,
+          // height: MediaQuery.of(context).size.height / 2.2,
+          
+          decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('About Us',
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontFamily:'Poppins',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    SizedBox(height: 20),
+                    Text('Know More About us',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily:'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black)),
+                    SizedBox(height: 20),
+                 Text(
+                        'Carditnow is a third party provider\n registered user SEC 2022070061722-06.\n  We adhere to the highest standards of\n security and compliance in the\n market where we operate, your transactions\n are processed through regulated\n financial institutions and via a \nclient safeguarded account.',
+                        style: TextStyle(
+                            fontSize: 18,
+                             fontFamily:'Poppins',
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black)),
+                          
+                    SizedBox(height: 20),
+                    Text(
+                        'Our aim is streamlining all your\n expenses in One App, Enjoy hassle\n free payments, interest free credit\n and bigger rewards.',
+                        style: TextStyle(
+                            fontSize: 18,
+                             fontFamily:'Poppins',
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black)),
+                    SizedBox(height: 50),
+                  ],
+                ),
+              ),
+               Container(
+                // color: Colors.black,
+                child: Image.asset(
+                  'assets/aboutusweb.png',
+                  width:  250,
+                  height:350,
+                  fit: BoxFit.fill,
+                ),
+                
+              ),
+              // Container(
+              //   // color: Colors.black,
+              //   child: Image.asset(
+              //     'assets/aboutusweb.png',
+              //     width:  350,
+              //     height:400,
+              //     fit: BoxFit.fill,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.all(15),
+            // width: MediaQuery.of(context).size.width / 1,
+            // height: MediaQuery.of(context).size.height / 2,
+             
+            decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+            child: (Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                        width: 450,
+                        height: 400,
+                        child: Image.asset(
+                          'assets/getintouch.png',
+                          width: 450,
+                        )),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 50, top: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Your Name',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+                      SizedBox(height: 10),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4.5,
+                        child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            decoration: InputDecoration(
+                                labelText: 'Enter your name',
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Email',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+                      SizedBox(height: 10),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4.5,
+                        child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            decoration: InputDecoration(
+                                labelText: 'Enter email id',
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey)),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                      SizedBox(height: 10),
+                      Text('What do you want to tell us?',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+                      SizedBox(height: 10),
+                      Container(
+                          width: MediaQuery.of(context).size.width / 4.5,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromRGBO(0, 71, 81, 0.2),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Card(
+                              color: Colors.white,
+                              child: TextField(
+                                  maxLines: 8,
+                                  decoration: InputDecoration.collapsed(
+                                      hintText: "Write Something")))),
+                      SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4.5,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: HexColor('#CEE812')),
@@ -3956,7 +4631,7 @@ class buildgetstartedweb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Responsive.isDesktop(context)? Column(
       children: [
         Row(
           children: [
@@ -4075,6 +4750,137 @@ class buildgetstartedweb extends StatelessWidget {
             ),
             Container(
                 height: MediaQuery.of(context).size.height / 1.5,
+                child: Image.asset('assets/city.png',
+                    width: MediaQuery.of(context).size.width / 2,
+                    fit: BoxFit.fill)),
+          ],
+        ),
+      ],
+    ):Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.height / 2,
+              color: Color(0XFF004751),
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text('Are you ready?',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white))),
+                    SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text('Let’s get started',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white)),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 4,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: HexColor('#CEE812')),
+                      child: MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(20),
+                        onPressed: () {},
+                        child: Text('Get Started',
+                            style: TextStyle(
+                              color: Color(0XFF004751),
+                              fontSize: 16,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('Home',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text('How it Works?',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Pricing',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Split Expenses',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
+                       
+                      ],
+                    ),Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                         Text('Refer a Friend',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('About Us',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                color: Colors.white)),
+                        SizedBox(height: 10),
+                        Text('Contact us',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white)),
+                      ],
+                    ),
+                    
+                        SizedBox(height: 20),
+                   
+                    Center(
+                      child: Text(
+                        'Copyright © 2020. Carditnow. All rights reserved.',
+                        style: TextStyle(
+                          fontFamily: 'Sora',
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+                height: MediaQuery.of(context).size.height / 2,
                 child: Image.asset('assets/city.png',
                     width: MediaQuery.of(context).size.width / 2,
                     fit: BoxFit.fill)),

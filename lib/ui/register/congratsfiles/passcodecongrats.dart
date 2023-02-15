@@ -76,23 +76,55 @@ class _passcodecongratsState extends State<passcodecongrats> {
             ),
 
             SizedBox(height: 30),
-            const Text("Congratulations your passcode has been successfully created, keep this safe and do not share with anybody.",
-                style: TextStyle(
-                    fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
-                    fontWeight: FontWeight.bold
-                )),
+             Center(
+               child: Container(
+                width: 400,
+                 child: Text("Congratulations your passcode has been successfully created, keep this safe and do not share with anybody.",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                        fontSize: 15, color: Colors.lightGreen, fontFamily: 'sora',
+                        fontWeight: FontWeight.bold
+                    )),
+               ),
+             ),
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             // Text("We are very happy to onboard you.",
             //     style: TextStyle(
-            //         fontSize: 13, color: Colors.white, fontFamily: 'sora')),
+           GestureDetector(
+      onTap:(){
+         Get.to(VerifyUserId());
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        width: Responsive.isMobile(context)
+            ? MediaQuery.of(context).size.width / 1
+            : Responsive.isDesktop(context)
+                ? MediaQuery.of(context).size.width / 4.4
+                : MediaQuery.of(context).size.width / 2.5,
+        height: MediaQuery.of(context).size.height * 0.07,
+        decoration: BoxDecoration(
+          color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
+        child: Center(
+          child: Text(
+            "Go to Document Verification",
+            style: TextStyle(
+              fontFamily: 'ProductSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: HexColor('#004751'),
+            ),
+          ),
+        ),
+      ),
+    )//         fontSize: 13, color: Colors.white, fontFamily: 'sora')),
 
           ],
         ),
       )
       ,
-      bottomNavigationBar:  Responsive.isMobile(context)?bulildbutton():Responsive.isDesktop(context)?null: bulildbutton(),
+      bottomNavigationBar:  Responsive.isMobile(context)?bulildbutton():Responsive.isDesktop(context)?null: null,
     );
   }
 }
