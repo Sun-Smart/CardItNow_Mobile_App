@@ -217,17 +217,17 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-          Text(
-            'Tell About Your Self!',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 28,
-              fontFamily: 'Sora',
-              color:
-              themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-              fontWeight: FontWeight.bold,
-            ),
-          )
+          // Text(
+          //   'Tell About Your Self!',
+          //   textAlign: TextAlign.justify,
+          //   style: TextStyle(
+          //     fontSize: 28,
+          //     fontFamily: 'Sora',
+          //     color:
+          //     themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // )
         ],
       ),
     );
@@ -254,51 +254,67 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("First Name *",
-                        style: TextStyle(
-                          fontFamily: 'Sora',
-                        ),
+                        style:TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
-                          child: TextFormField(
-    
-                            enabled: true,
-                            //label: "First Name ",
-                            controller: firstNameController,
-                            obscureText: false,
-                            //inputHint: "Your First Name",
-                            keyboardType: TextInputType.text,
-                            validator: (value) {
-                              if (firstNameController.text.isEmpty) {
-                                return "Please Enter First Name...";
-                              } else {
-                                return null;
-                              }
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hoverColor: Colors.transparent,
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'First Name *',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              helperStyle: const TextStyle(
-                                  fontFamily: 'Sora', fontSize: 14),
-                              hintStyle: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.normal,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 15),
-                              focusColor: Colors.grey.shade300,
-                            ),
-                          ),
-                        ),
+                          child:  TextFormField(
+              enabled: false,
+            //  label: "First Name",
+              controller: firstNameController,
+              obscureText: false,
+             // inputHint: "Your First Name",
+             keyboardType: TextInputType.text,
+              validator: (value) {
+                if (firstNameController.text.isEmpty) {
+                  return "Please Enter First Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+                  hoverColor: Colors.transparent,
+                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                // filled: true,
+                // fillColor: Colors.white,
+                hintText: 'First Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.bold,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                // border: const OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.grey)),
+                // focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // focusedErrorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     gapPadding: 7,
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorStyle: const TextStyle(
+                //     fontFamily: 'Sora',
+                //     fontSize: 13,
+                //     fontWeight: FontWeight.bold),
+              ),
+            ), ),
                       ],
                     ),
                     SizedBox(
@@ -307,47 +323,68 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Middle Name *"),
+                        Text("Middle Name *",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
-                            enabled: true,
-                            //label: "First Name ",
-                            controller: middlenamecontroller,
-                            obscureText: false,
-                            //inputHint: "Your First Name",
-                            keyboardType: TextInputType.name,
-                            validator: (value) {
-                              if (firstNameController.text.isEmpty) {
-                                return "Please Enter First Name...";
-                              } else {
-                                return null;
-                              }
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              filled: true,
-                              hoverColor: Colors.transparent,
-                              fillColor: Colors.white,
-                              hintText: 'Middle Name',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              helperStyle: const TextStyle(
-                                  fontFamily: 'Sora', fontSize: 14),
-                              hintStyle: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.normal,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 15),
-                              focusColor: Colors.grey.shade300,
-                            ),
-                          ),
-                        ),
+              enabled: false,
+            //  label: "First Name",
+              controller: middlenamecontroller,
+              obscureText: false,
+             // inputHint: "Your First Name",
+             keyboardType: TextInputType.text,
+              validator: (value) {
+                if (middlenamecontroller.text.isEmpty) {
+                  return "Please Enter Middle Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+                  hoverColor: Colors.transparent,
+                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                // filled: true,
+                // fillColor: Colors.white,
+                hintText: 'Middle Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.bold,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                // border: const OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.grey)),
+                // focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // focusedErrorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     gapPadding: 7,
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorStyle: const TextStyle(
+                //     fontFamily: 'Sora',
+                //     fontSize: 13,
+                //     fontWeight: FontWeight.bold),
+              ),
+            ), ),
+                     
                       ],
                     ),
                   ],
@@ -361,70 +398,68 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Last Name *"),
+                        Text("Last Name *",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
-                            enabled: true,
-                            // label: "Last Name ",
-                            controller: lastNameController,
-                            obscureText: false,
-                            // inputHint: "Your Last Name",
-                            keyboardType: TextInputType.text,
-                            validator: (value) {
-                              if (lastNameController.text.isEmpty) {
-                                return "Please Enter Last Name...";
-                              } else {
-                                return null;
-                              }
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
-                              hoverColor: Colors.transparent,
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Last Name',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              helperStyle: const TextStyle(
-                                  fontFamily: 'Sora', fontSize: 14),
-                              hintStyle: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.normal,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 15),
-                              focusColor: Colors.grey.shade300,
-                              border: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: Colors.grey, width: 1.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: Colors.grey, width: 1.0)),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  gapPadding: 7,
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey)),
-                              errorStyle: const TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+              enabled: false,
+            //  label: "First Name",
+              controller: lastNameController,
+              obscureText: false,
+             // inputHint: "Your First Name",
+             keyboardType: TextInputType.text,
+              validator: (value) {
+                if (lastNameController.text.isEmpty) {
+                  return "Please Enter Last Name...";
+                } else {
+                  return null;
+                }
+              },
+              textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+                  hoverColor: Colors.transparent,
+                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                // filled: true,
+                // fillColor: Colors.white,
+                hintText: 'Last Name',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.bold,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                // border: const OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.grey)),
+                // focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide:
+                //         const BorderSide(color: Colors.grey, width: 1.0)),
+                // focusedErrorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     gapPadding: 7,
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(4),
+                //     borderSide: const BorderSide(color: Colors.grey)),
+                // errorStyle: const TextStyle(
+                //     fontFamily: 'Sora',
+                //     fontSize: 13,
+                //     fontWeight: FontWeight.bold),
+              ),
+            ), ),
+                     
                       ],
                     ),
                     SizedBox(
@@ -433,7 +468,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Date Of Birth"),
+                        Text("Date Of Birth",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
@@ -544,7 +580,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("What should we call you?"),
+                        Text("What should we call you?",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
@@ -616,7 +653,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Enter your Email"),
+                        Text("Enter your Email",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
@@ -694,7 +732,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         SizedBox(
                           height: 30,
                         ),
-                        Text("Phone Number *"),
+                        Text("Phone Number *",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
@@ -702,11 +741,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
                             inputFormatters: [
+                               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
     FilteringTextInputFormatter.digitsOnly,
   ],
                             enabled: true,
                             //: "Phone Number",
-                            maxLength: 10,
+                          maxLength:con.dropdownvalue == con.pickcountry[0]? 9:8,
                             controller: requiredNoController,
                             obscureText: false,
                             keyboardType: TextInputType.number,
@@ -720,47 +760,50 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                 return null;
                               }
                             },
-                            decoration: InputDecoration(
-                              hoverColor: Colors.transparent,
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Required Number',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              helperStyle: const TextStyle(
-                                  fontFamily: 'Sora', fontSize: 14),
-                              hintStyle: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.normal,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 15),
-                              focusColor: Colors.grey.shade300,
-                              border: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: Colors.grey, width: 1.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: Colors.grey, width: 1.0)),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  gapPadding: 7,
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey)),
-                              errorStyle: const TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            decoration:  InputDecoration(
+                  hoverColor: Colors.transparent,
+
+               
+                prefixIcon: TextButton(onPressed: (){}, child:
+                con.dropdownvalue == con.pickcountry[0]?
+                Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
+                Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Required Number',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.normal,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
+              ),
                           ),
                         ),
                       ],
@@ -773,6 +816,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'Select Your Interests',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
@@ -835,7 +879,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Address *"),
+                        Text("Address *",
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                         SizedBox(
                           height: 10,
                         ),
@@ -906,6 +951,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'Country',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
@@ -968,6 +1014,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'City',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
@@ -1018,6 +1065,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'Postal Code',
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
