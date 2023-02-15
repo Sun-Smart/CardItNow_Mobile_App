@@ -405,7 +405,7 @@ class DashbordScreenState extends State<DashbordScreen>
                       children: [
                         Obx(() => Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.width / 1,
+                             // height: MediaQuery.of(context).size.width / 1,
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.1)),
                               child: Column(

@@ -87,28 +87,30 @@ class _LoginState extends State<Login> {
                             width: 130, height: 65)),
                   ),
                   Container(
-                    child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    padding: EdgeInsets.only(top: 20, bottom: 30),
-                   // margin: EdgeInsets.only(top: 40),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/loginbg.png"),
-                          fit:BoxFit.fill)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      toptitleweb(),
-                       buildtitleweb(),
-                       SizedBox(height: 20,),
-                          buildformweb(),
-                buildCartweb()
-                      ])),
-             
-              ],
-            ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 30),
+                                       // margin: EdgeInsets.only(top: 40),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/loginbg.png"),
+                            fit:BoxFit.fill)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        toptitleweb(),
+                         buildtitleweb(),
+                         SizedBox(height: 20,),
+                            buildformweb(),
+                                    buildCartweb()
+                        ])),
+                                 
+                                  ],
+                                ),
+                    ),
                   )
                 ]):Row(children: [
                   Container(
@@ -202,7 +204,7 @@ class _LoginState extends State<Login> {
 Widget buildtitleweb(){
    final themeChange = Provider.of<DarkThemeProvider>(context);
   return Container(
-      width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/1.5:0,
+      width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/1.5:MediaQuery.of(context).size.width/1.5,
         child: Row(
             mainAxisAlignment:  MainAxisAlignment.center,
             crossAxisAlignment:  CrossAxisAlignment.center,
@@ -223,7 +225,7 @@ Widget buildtitleweb(){
               width: MediaQuery.of(context).size.width / 14),
           Padding(
               padding:Responsive.isDesktop(context)? EdgeInsets.fromLTRB(0, 0, 15, 0):
-              EdgeInsets.fromLTRB(0, 0, 30, 0),
+              EdgeInsets.fromLTRB(0, 0, 15, 0),
               child: Image.asset("assets/userimg.png", width: 100)),
         ]));
 }
@@ -276,7 +278,7 @@ Widget buildformweb(){
                       SizedBox(width:Responsive.isDesktop(context)?
                       MediaQuery.of(context).size.width/4.8:  MediaQuery.of(context).size.width/12 ,),
                       SizedBox(height: 10,),
-                       Text('Email', style: TextStyle(fontSize: 15)),
+                       Text('Email', style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
                      ],
                    ),
                     SizedBox(height: 10,),
@@ -346,7 +348,7 @@ Widget buildformweb(){
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Passcode', style: TextStyle(fontSize: 15)),
+                          Text('Passcode', style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
                           Container(
                    width:  Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:

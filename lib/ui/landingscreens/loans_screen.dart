@@ -69,15 +69,15 @@ class _LoansState extends State<Loans> {
           : Row(
             mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.height / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                //  Container(
+                //       width: MediaQuery.of(context).size.width / 3,
+                //       height: MediaQuery.of(context).size.height / 1,
+                //       color: Color(0XFF004751),
+                //       child: Center(
+                //           child: Image.asset("assets/applogo-02.png",
+                //               width: MediaQuery.of(context).size.width / 1.5,
+                //               height: MediaQuery.of(context).size.height / 3)),
+                //     ),
                 SingleChildScrollView(
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.5,
