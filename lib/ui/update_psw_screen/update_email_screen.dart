@@ -210,7 +210,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
         child: Text('Forgot Password',
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)));
   }
-//for web and tab also..
+//for web and tab also.....
   Widget bulidForm() {
     return Responsive.isMobile(context)? Form(
       key: formKey,
