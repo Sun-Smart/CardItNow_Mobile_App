@@ -84,7 +84,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
       body: Responsive.isMobile(context)?Container(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
+          child:
+          con.dropdownvalue==null?Center(child: LinearProgressIndicator(
+            backgroundColor: HexColor('#004751'),
+            valueColor: AlwaysStoppedAnimation(Colors.green),
+          )):
+          Column(
             crossAxisAlignment: Responsive.isMobile(context)
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center,

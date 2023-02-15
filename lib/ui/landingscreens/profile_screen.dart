@@ -263,8 +263,10 @@ class _ProfileState extends State<Profile> {
                               .contains('assets')
                           ? Image.asset(GetStorage().read("avatarpic"),
                               fit: BoxFit.cover, height: 43, width: 43)
-                          : Image.file(File(GetStorage().read("avatarpic")),
-                              fit: BoxFit.cover, height: 43, width: 43)),
+                          : Container()
+                  // Image.file(File(GetStorage().read("avatarpic")),
+                  //             fit: BoxFit.cover, height: 43, width: 43)
+    ),
               // CircleAvatar(
               //     radius: 50,
               //     backgroundImage: ,),
@@ -306,8 +308,10 @@ class _ProfileState extends State<Profile> {
                               .contains('assets')
                           ? Image.asset(GetStorage().read("avatarpic"),
                               fit: BoxFit.cover, height: 43, width: 43)
-                          : Image.file(File(GetStorage().read("avatarpic")),
-                              fit: BoxFit.cover, height: 43, width: 43)),
+                          : Container()
+                  // Image.file(File(GetStorage().read("avatarpic")),
+                  //             fit: BoxFit.cover, height: 43, width: 43)
+              ),
               // CircleAvatar(
               //     radius: 50,
               //     backgroundImage: ,),

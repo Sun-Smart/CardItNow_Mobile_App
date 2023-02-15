@@ -102,7 +102,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           bulidFormweb(),
                           SizedBox(height: 10),
                           emailText(),
-                          bulildbutton()
+                          // bulildbutton()
                         ],
                       ),
                     ),
@@ -162,14 +162,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           bulidFormweb(),
                           SizedBox(height: 10),
                           emailText(),
-                          bulildbutton()
+                          // bulildbutton()
                         ],
                       ),
                     ),
                   ],
                 ),
 
-      bottomSheet: Responsive.isMobile(context) ? bulildbutton() : null,
+      bottomSheet: Responsive.isMobile(context) ? null : null,
     );
   }
 

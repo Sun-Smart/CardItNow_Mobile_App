@@ -4,11 +4,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/login/login_screen.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
-import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -18,8 +16,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../main.dart';
@@ -41,7 +37,7 @@ class AuthCon extends GetxController with BaseController {
   @override
   void onInit() {
     termsconditions();
-    showAvatorMaster();
+    // showAvatorMaster();
     geoaccess();
     countryselection();
     if(GetStorage().read('save_token').toString() != "null"){
@@ -126,14 +122,24 @@ class AuthCon extends GetxController with BaseController {
         .post(API().register + '?email=' + emailController.text, body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
+
+    var data1 = json.decode(response);
+
+
+
     hideLoading();
-    if (data=="Success") {
-      Get.to(VerifyEmail());
-      Fluttertoast.showToast(msg: data.toString());
-    } else {
-      Fluttertoast.showToast(msg: data.toString());
+    if(data1!="Your account already register"){
+      var data = json.decode(data1);
+      if (data["status"]=="success") {
+        Get.to(VerifyEmail());
+        Fluttertoast.showToast(msg: data["message"].toString());
+      } else {
+        Fluttertoast.showToast(msg: data["message"].toString());
+      }
+    }else{
+      Fluttertoast.showToast(msg: "Your Account Already Register");
     }
+
   }
 
   //regsterApi
@@ -170,16 +176,21 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
 
     var data = json.decode(response);
-    hideLoading();
-    if (data=="Success") {
-     // GetStorage().write("save_token", email);
-     print("hhheedds"+email.toString());
-      Get.to(() => Passcode());
-      Fluttertoast.showToast(msg: data.toString());
-    } else {
 
-      Fluttertoast.showToast(msg: data.toString());
+    hideLoading();
+    if(data !="Fail" && data != "not match"){
+      if (data=="Success") {
+
+        Get.to(() => Passcode());
+        Fluttertoast.showToast(msg: "OTP validated");
+      } else {
+
+        Fluttertoast.showToast(msg: "OTP Not valid".toString());
+      }
+    }else{
+      Fluttertoast.showToast(msg: "OTP Fail");
     }
+
   }
 
   // password
@@ -225,8 +236,9 @@ class AuthCon extends GetxController with BaseController {
             body)
         .catchError(handleError);
     if (response == null) return;
-    var data = json.decode(response);
-    if (data == 'Success') {
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+    if (data["status"] == 'success') {
       GetStorage().write('username', firstName.toString());
       // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
       if(kIsWeb){
@@ -234,7 +246,7 @@ class AuthCon extends GetxController with BaseController {
       } else{
          Get.to(() => Twofactor());
       }
-      Fluttertoast.showToast(msg: data.toString());
+      // Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -277,13 +289,16 @@ class AuthCon extends GetxController with BaseController {
   }
 
   //show Avator Master
-  void showAvatorMaster() async {
-    var response =
-        await BaseClient().get(API().showAvatorMaster).catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-    avatarImageList = data;
-  }
+  // void showAvatorMaster() async {
+  //   var response =
+  //       await BaseClient().get(API().showAvatorMaster).catchError(handleError);
+  //   if (response == null) return;
+  //   var data = json.decode(response);
+  //   if(data["status"] == "success"){
+  //     avatarImageList = data[data];
+  //   }
+  //
+  // }
 
   //upload Avator and Selfi
   void avatorSelfi(avator) async {
@@ -361,9 +376,9 @@ class AuthCon extends GetxController with BaseController {
 
   //onboard payee
   void onboardPayee(firstName, email, businessRegnumber, phonenumber, bank,
-      accountnumber, swiftcode, doctypedropdown, doc) async {
+      accountnumber, swiftcode) async {
     var body = {
-      "customerid": "17",
+      "customerid": GetStorage().read("getuserid"),
       "firstname": firstName,
       "email": email,
       "businessregnumber": businessRegnumber,
@@ -371,8 +386,8 @@ class AuthCon extends GetxController with BaseController {
       "bankname": bank,
       "accountnumber": accountnumber,
       "swiftcode": swiftcode,
-      "documnettype": doctypedropdown,
-      "documnet": doc
+      // "documnettype": doctypedropdown,
+      // "documnet": doc
     };
     var response = await BaseClient()
         .post(API().onboardPayeePost, body)
@@ -441,8 +456,9 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
-    var data = json.decode(response);
-    print('pass' + data);
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+
     if (data["status"] == "success") {
       emailController.clear();
       Fluttertoast.showToast(msg: data["message"].toString());
@@ -466,8 +482,10 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
-    var data = json.decode(response);
-    print('check' + data);
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+
+
     if (data["status"] == "success") {
       Get.to(UpdatePasswordCode());
     } else {
@@ -486,8 +504,10 @@ class AuthCon extends GetxController with BaseController {
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
-    var data = json.decode(response);
-    print('check' + data);
+
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+
     if (data["status"] == "success") {
       Get.to(() => UpdatePassword());
     } else {

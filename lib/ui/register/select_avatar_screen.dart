@@ -312,7 +312,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
 
                                                 type = avatars[index];
                                                 GetStorage().write("avatarpic", type);
-                                                print(type);
+                                                print("heiuiu"+type.toString());
 
                                               });
 
@@ -395,6 +395,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                         borderRadius: BorderRadius.circular(5)),
                                     onTap: () {
                                       print('dhamu' + type);
+
                                       GetStorage().read("avatarpic");
                                       Get.to(const ProfileInformation());
                                     },
@@ -648,7 +649,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                     color: HexColor('#CEE812'),
                     onPressed: () {
                       print('llll');
-                      // GetStorage().write("avatarpic", type);
+                      GetStorage().write("avatarpic", type);
                       Get.back();
                       // Get.to(() => Passcode());
                       // Navigator.pop(context);

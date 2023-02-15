@@ -369,7 +369,7 @@ Widget buildformweb(){
                                 ],
                                 decoration: InputDecoration(
                                   hoverColor: Colors.transparent,
-                                    labelText: 'Password',
+                                    labelText: 'Passcode',
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                           isVisible
@@ -500,7 +500,7 @@ Widget buildformweb(){
                       if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
-                        Fluttertoast.showToast(msg: "Enter Your Password");
+                        Fluttertoast.showToast(msg: "Enter Your Passcode");
                       } else {
                         logincon.loginAPI(_emailController.text,
                             _passwordController.text, isremember);
@@ -641,7 +641,7 @@ Widget buildformweb(){
                                 LengthLimitingTextInputFormatter(6)
                               ],
                               decoration: InputDecoration(
-                                  labelText: 'Password',
+                                  labelText: 'Passcode',
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                         isVisible
@@ -771,7 +771,7 @@ Widget buildformweb(){
                       if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
-                        Fluttertoast.showToast(msg: "Enter Your Password");
+                        Fluttertoast.showToast(msg: "Enter Your Passcode");
                       } else {
                         logincon.loginAPI(_emailController.text,
                             _passwordController.text, isremember);

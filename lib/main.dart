@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:io';
-// import 'dart:html' as html;
 import 'package:cardit/firebase_options.dart';
 import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';

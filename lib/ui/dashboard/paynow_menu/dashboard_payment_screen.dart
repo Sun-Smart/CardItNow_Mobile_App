@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/onboard_recipient_screen.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/lgu/choose_lgu_screen.dart';
 import 'package:cardit/ui/model_screen/dashboard_screen.dart';
@@ -225,7 +226,8 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
           //     recepient;
           //   });
           // }
-          Navigator.of(context).pushNamed('/selecttypeofrecipient');
+          Get.to(onboardRecipient());
+          // Navigator.of(context).pushNamed('/selectdocuments');
         },
         child: Column(children: [
           Container(
