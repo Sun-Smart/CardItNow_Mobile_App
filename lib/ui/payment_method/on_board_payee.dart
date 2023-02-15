@@ -21,6 +21,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
   final selectBankController = TextEditingController();
   final accountNumberController = TextEditingController();
   final swiftCodeController = TextEditingController();
+  final Branchcontroller = TextEditingController();
 
   final List<String> dropdownData = [
     'State Bank',
@@ -193,7 +194,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold))),
                     SizedBox(height: 10),
-                    Text('Phone Number',
+                    Text('Mobile Number',
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Sora',
@@ -203,7 +204,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                         controller: phoneNumberController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: 'Enter your Phone Number',
+                            labelText: 'Enter your Mobile Number',
                             filled: true,
                             fillColor: Colors.white,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -291,7 +292,54 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text('Account Number',
+                    Text('Branch Name',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Sora',
+                            color: Colors.black)),
+                    SizedBox(height: 10),
+                    TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: Branchcontroller,
+                        decoration: InputDecoration(
+                            labelText: 'Enter your Branch Name',
+                            filled: true,
+                            fillColor: Colors.white,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            helperStyle: const TextStyle(
+                                fontFamily: 'Sora', fontSize: 14),
+                            hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15),
+                            focusColor: Colors.grey.shade300,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1.0)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                gapPadding: 7,
+                                borderSide:
+                                const BorderSide(color: Colors.grey)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide:
+                                const BorderSide(color: Colors.grey)),
+                            errorStyle: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold))),
+                    SizedBox(height: 10),
+                    Text('IBAN Number',
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Sora',
@@ -301,7 +349,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                         controller: accountNumberController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: 'Enter your Account Number',
+                            labelText: 'Enter your IBAN Number',
                             filled: true,
                             fillColor: Colors.white,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -637,7 +685,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontWeight: FontWeight.bold))),
         ),
         SizedBox(height: 10),
-        Text('Phone Number',
+        Text('Mobile Number',
             style: TextStyle(
                 fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
         SizedBox(height: 10),
@@ -650,7 +698,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                  hoverColor: Colors.transparent,
-                  labelText: 'Enter your Phone Number',
+                  labelText: 'Enter your Mobile Number',
                   filled: true,
                   fillColor: Colors.white,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -729,7 +777,49 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
           ),
         ),
         SizedBox(height: 10),
-        Text('Account Number',
+        SizedBox(height: 10),
+        TextFormField(
+            keyboardType: TextInputType.number,
+            controller: Branchcontroller,
+            decoration: InputDecoration(
+                labelText: 'Enter your Branch Name',
+                filled: true,
+                fillColor: Colors.white,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle: const TextStyle(
+                    fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.normal),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                        color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                        color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide:
+                    const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold))),
+        SizedBox(height: 10),
+        Text('IBAN Number',
             style: TextStyle(
                 fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
         SizedBox(height: 10),
@@ -738,11 +828,12 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
               ? MediaQuery.of(context).size.width / 4
               : MediaQuery.of(context).size.width / 2.5,
           child: TextFormField(
+            //accno==ibanno
               controller: accountNumberController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                  hoverColor: Colors.transparent,
-                  labelText: 'Enter your Account Number',
+                  labelText: 'Enter your IBAN Number',
                   filled: true,
                   fillColor: Colors.white,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
