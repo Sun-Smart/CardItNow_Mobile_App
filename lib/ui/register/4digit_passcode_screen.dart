@@ -485,9 +485,8 @@ class _PasscodeState extends State<Passcode> {
         } else if (otpCon.text != confirmotp.text) {
           Fluttertoast.showToast(msg: "Passcode has Mismatched");
         } else {
-          Get.to(()=>passcodecongrats());
           // Fluttertoast.showToast(msg: 'Correct');
-          // con.pinsetapi(con.emailController.text.trim(), otpCon.text);
+          con.pinsetapi(con.emailController.text.trim(), otpCon.text);
         }
       },
       text: "Next",
