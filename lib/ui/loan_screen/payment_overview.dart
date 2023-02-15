@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../responsive/responsive.dart';
@@ -398,8 +400,36 @@ class _PaymentOverviewState extends State<PaymentOverview> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Navigator.of(context).pushNamed('/paymentsuccess');
+            locationPermission();
           }),
     );
+  }
+
+  locationPermission() async{
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else if(permission == LocationPermission.deniedForever){
+        print("'Location permissions are permanently denied");
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else{
+        print("GPS Location service is granted");
+        getLocation();
+      }
+    }else{
+      print("GPS Location permission granted.");
+      getLocation();
+    }
+  }
+
+  getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude); //Output: 80.24599079
+    print(position.latitude); //Output: 29.6593457
+    Navigator.of(context).pushNamed('/paymentsuccess');
   }
 }
