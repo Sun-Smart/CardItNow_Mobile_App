@@ -390,6 +390,9 @@ class _PasscodeState extends State<Passcode> {
         else if (otpCon.text.contains("0" "9" "8" "7" "6" "5")) {
           Fluttertoast.showToast(msg: "Sequential number is not permitted");
         }
+        else if (otpCon.text.contains("9" "8" "7" "6" "5" "4")) {
+          Fluttertoast.showToast(msg: "Sequential number is not permitted");
+        }
         else if (otpCon.text[0] == otpCon.text[1] &&
             otpCon.text[2] == otpCon.text[3] &&
             otpCon.text[4] == otpCon.text[5]) {

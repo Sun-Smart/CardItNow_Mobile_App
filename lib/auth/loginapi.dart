@@ -43,15 +43,15 @@ class loginauth extends GetxController with BaseController {
       GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
       if(MyApp.logindetails["status"] == "A"){
         // Get.to(DashbordScreen());
-        // Get.to(kIsWeb?DrawerWeb():DashbordScreen());
-        MaterialPageRoute(
-            builder: (context) =>
-                Responsive.isDesktop(context) ? DrawerWeb() : DashbordScreen());
+        Get.offAll(kIsWeb?DrawerWeb():DashbordScreen());
+        // MaterialPageRoute(
+        //     builder: (context) =>
+        //         Responsive.isDesktop(context) ? DrawerWeb() : DashbordScreen());
       } else{
         Get.to(VerifyUserId());
       }
     } else {
-      Fluttertoast.showToast(msg: data.toString());
+      Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
 }

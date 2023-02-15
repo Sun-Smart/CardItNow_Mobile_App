@@ -493,8 +493,8 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            documenttype: dropdowndocx.toString(),
-            uploadoc: con.doc64,
+            // documenttype: dropdowndocx.toString(),
+            // uploadoc: con.doc64,
           ));
         }},
       child: Container(
@@ -550,8 +550,8 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            documenttype: dropdowndocx.toString(),
-            uploadoc: con.doc64,
+            // documenttype: dropdowndocx.toString(),
+            // uploadoc: con.doc64,
           ));
         }},
       child: Container(
@@ -784,16 +784,18 @@ class _SelectDocumentsState extends State<SelectDocuments> {
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
+
         if (dropdowndocx == null) {
           Fluttertoast.showToast(msg: "Enter Your Document Type");
         } else if (imagedoc2 == null) {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            documenttype: dropdowndocx.toString(),
-            uploadoc: con.doc64,
+            // documenttype: dropdowndocx.toString(),
+            // uploadoc: con.doc64,
           ));
         }
+
 
         // Navigator.of(context).pushNamed(
         //   '/onboardrecipient',

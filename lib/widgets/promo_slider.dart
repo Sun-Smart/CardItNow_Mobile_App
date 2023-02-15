@@ -112,7 +112,7 @@ class CustomeCardData extends StatelessWidget {
       children: [
         Container(
             width: MediaQuery.of(context).size.width,
-            height: 230,
+            // height: 230,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/banner/card_01.png'))),
@@ -148,7 +148,7 @@ class CustomeCardData extends StatelessWidget {
                                     fontFamily: 'Sora',
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
+                                    fontSize: 15)),
                             Text(cardNumber,
                                 style: TextStyle(
                                     fontFamily: 'Sora',

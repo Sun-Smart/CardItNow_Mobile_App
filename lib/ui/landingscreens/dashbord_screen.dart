@@ -55,8 +55,18 @@ class DashbordScreenState extends State<DashbordScreen>
   @override
   void initState() {
     cardcons.creditCardgetAPI();
+    imageprint();
     super.initState();
   }
+
+  imageprint(){
+    var printimage = GetStorage()
+        .read("avatarpic")
+        .toString();
+    print("dsdsf"+printimage.toString());
+  }
+
+
 
   var dashboard = '/payment_dashboard';
   @override
@@ -97,12 +107,16 @@ class DashbordScreenState extends State<DashbordScreen>
                                             fit: BoxFit.cover,
                                             height: 43,
                                             width: 43)
-                                        : Image.file(
-                                            File(
-                                                GetStorage().read("avatarpic")),
-                                            fit: BoxFit.cover,
-                                            height: 43,
-                                            width: 43)),
+                                        : Container()
+
+                                // Image.file(
+                                //             File(
+                                //                 GetStorage().read("avatarpic")),
+                                //             fit: BoxFit.cover,
+                                //             height: 43,
+                                //             width: 43)
+
+                            ),
                             Container(
                                 alignment: Alignment.centerLeft,
                                 padding: const EdgeInsets.all(20.0),
@@ -125,7 +139,9 @@ class DashbordScreenState extends State<DashbordScreen>
                                                 style: const TextStyle(
                                                     color: Color(0xffC9E313),
                                                     fontSize: 18))
-                                          ])),
+                                          ]
+                                          )
+                                      ),
                                     const Text(
                                       'Welcome !',
                                       style: TextStyle(

@@ -12,9 +12,9 @@ import '../../../widgets/custom_input.dart';
 import 'payment_loading.dart';
 
 class onboardRecipient extends StatefulWidget {
-  String documenttype;
-  String uploadoc;
-   onboardRecipient({Key? key,required this.documenttype,required this.uploadoc}) : super(key: key);
+  // String documenttype;
+  // String uploadoc;
+   onboardRecipient({Key? key,}) : super(key: key);
 
   @override
   State<onboardRecipient> createState() => _onboardRecipientState();
@@ -289,7 +289,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   ),
                   //command
                   MyCustomInputBox(
-                    label: "Phone Number *",
+                    label: "Mobile Number *",
                     enabled: true,
                     textInputType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
@@ -406,7 +406,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     enabled: true,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.next,
-                    label: "Account Number *",
+                    label: "IBAN Number *",
                     controller: _accountnumberController,
                     obsecureText: false,
                     inputHint: 'Enter your Account Number',
@@ -941,9 +941,9 @@ SizedBox(height: 20,),
               _phonenumberController.text.trim(),
               dropdownvalue,
               _accountnumberController.text.trim(),
-              _swiftcodeController.text.trim(),
-              widget.documenttype,
-              widget.uploadoc
+              _swiftcodeController.text.trim()
+              // widget.documenttype,
+              // widget.uploadoc
             );
           }
         }
@@ -1430,9 +1430,9 @@ SizedBox(height: 20,),
               _phonenumberController.text.trim(),
               dropdownvalue,
               _accountnumberController.text.trim(),
-              _swiftcodeController.text.trim(),
-              widget.documenttype,
-              widget.uploadoc
+              _swiftcodeController.text.trim()
+              // widget.documenttype,
+              // widget.uploadoc
             );
           }
         }
@@ -1490,8 +1490,8 @@ SizedBox(height: 20,),
               dropdownvalue,
               _accountnumberController.text.trim(),
               _swiftcodeController.text.trim(),
-              widget.documenttype,
-              widget.uploadoc
+              // widget.documenttype,
+              // widget.uploadoc
             );
           }
         }
