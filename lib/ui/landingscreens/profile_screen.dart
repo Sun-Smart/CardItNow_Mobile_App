@@ -390,7 +390,7 @@ class _ProfileState extends State<Profile> {
     bool exitApp = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return  Responsive.isMobile(context)?AlertDialog(
           elevation: 10,
           title: const Text('Really...',
               style: TextStyle(
@@ -420,6 +420,78 @@ class _ProfileState extends State<Profile> {
                   Get.back();
                 },
                 text: "No"),
+          ],
+        ):AlertDialog(
+          insetPadding: EdgeInsets.symmetric(vertical: 50),
+          elevation: 10,
+          title: const Text('Really...',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
+          content: const Text('Do you want to Logout the app?',
+              style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
+          actions: <Widget>[
+          
+                GestureDetector(
+       onTap: () {
+                  GetStorage().remove('save_token');
+                  Get.offAndToNamed('/home');
+                },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        width:
+             Responsive.isDesktop(context)
+                ? MediaQuery.of(context).size.width / 8
+                : MediaQuery.of(context).size.width / 10,
+        height: MediaQuery.of(context).size.height * 0.07,
+      decoration: BoxDecoration(
+                    color: HexColor('#90BA06'),
+                    borderRadius: BorderRadius.circular(5)),
+        child: Center(
+          child: Text(
+           "Yes",
+            style: TextStyle(
+              fontFamily: 'ProductSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: HexColor('#004751'),
+            ),
+          ),
+        ),
+      ),
+    ),
+      GestureDetector(
+       onTap: () {
+                   Get.back();
+                },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        width:
+             Responsive.isDesktop(context)
+                ? MediaQuery.of(context).size.width / 8
+                : MediaQuery.of(context).size.width / 10,
+        height: MediaQuery.of(context).size.height * 0.07,
+       decoration: BoxDecoration(
+                    color: HexColor('#D2ED78'),
+                    borderRadius: BorderRadius.circular(5)),
+        child: Center(
+          child: Text(
+           "No",
+            style: TextStyle(
+              fontFamily: 'ProductSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: HexColor('#004751'),
+            ),
+          ),
+        ),
+      ),
+    ),
+          
           ],
         );
       },
