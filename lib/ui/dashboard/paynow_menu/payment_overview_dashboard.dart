@@ -83,7 +83,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         children: [
             Container(
                   width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.height / 1,
+                 // height: MediaQuery.of(context).size.height / 1,
                   color: Color(0XFF004751),
                   child: Center(
                       child: Image.asset("assets/applogo-02.png",
