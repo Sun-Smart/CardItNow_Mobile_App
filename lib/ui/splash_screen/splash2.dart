@@ -1,4 +1,5 @@
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,8 @@ import '../register/register_screen.dart';
 import '../startingscreen/home_screen.dart';
 
 class splash2 extends StatefulWidget {
-  const splash2({Key? key}) : super(key: key);
+  final choosetype;
+   splash2({Key? key,this.choosetype}) : super(key: key);
 
   @override
   State<splash2> createState() => _splash2State();
@@ -105,8 +107,16 @@ class _splash2State extends State<splash2> {
                                 setState(() {
                                   con.dropdownvalue = con.pickcountry[index];
                                   if (con.dropdownvalue != null)
-                                  Get.to(Register());
-                                });
+                                    if(widget.choosetype=="Login"){
+                                      Get.to(Login());
+                                    }    else{
+                                      Get.to(Register());
+                                    }
+
+                                }
+
+                                );
+
                               },
                               child: Container(
                                 margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
