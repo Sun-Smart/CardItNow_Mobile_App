@@ -111,9 +111,13 @@ class _HomeState extends State<Home> {
                 fixedWidth: 100,
                 onValueChanged: (int value) {
                   if (value == 1) {
-                    Get.to(const Login());
+                    Get.to( splash2(
+                      choosetype:"Login"
+                    ));
                   } else if (value == 2) {
-                    Get.to(const splash2());
+                    Get.to( splash2(
+                        choosetype:"Register"
+                    ));
                   }
                 },
               )
@@ -261,7 +265,7 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(const splash2());
+            Get.to( splash2());
           }),
     );
   }
@@ -3735,7 +3739,7 @@ class topbannerweb extends StatelessWidget {
                                           fontSize: 16,
                                           color: Color(0XFFCEE812))),
                                   onSwipe: () {
-                                    Get.to(const splash2());
+                                    Get.to( splash2());
                                   }),
                                   SizedBox(height: 20,)
                             ],

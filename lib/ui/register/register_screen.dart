@@ -97,31 +97,36 @@ class _RegisterState extends State<Register> {
                                             splashColor:
                                                 Colors.green, // splash color
                                             onTap: () {
-                                              // FacebookAuth.instance.login(
-                                              //     permissions: ["public_profile", "email"]).then((value) {
-                                              //   FacebookAuth.instance.getUserData().then((userData) {
-                                              //     setState(() {
-                                              //       isLoggedIn = true;
-                                              //       userObj = userData;
-                                              //     });
-                                              //     if (isLoggedIn == true) {
-                                              //       con.emailController.text = userData["email"];
-                                              //       print(userData.toString());
-                                              //       var userDatas = {
-                                              //         "email": userData["email"].toString(),
-                                              //         "firstname": userData['name'].toString(),
-                                              //         "lastname": "",
-                                              //         "socialid": userData['id'].toString(),
-                                              //         "mediatype": "Facebook"
-                                              //       };
-                                              //       con.registerSignAPI(userDatas);
-                                              //       GetStorage().write('username', userData['name']
-                                              //       );
-                                              //     } else {
-                                              //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
-                                              //     }
-                                              //   });
-                                              // });
+                                              if(isChecked == true){
+                                                FacebookAuth.instance.login(
+                                                    permissions: ["public_profile", "email"]).then((value) {
+                                                  FacebookAuth.instance.getUserData().then((userData) {
+                                                    setState(() {
+                                                      isLoggedIn = true;
+                                                      userObj = userData;
+                                                    });
+                                                    if (isLoggedIn == true) {
+                                                      con.emailController.text = userData["email"];
+                                                      print(userData.toString());
+                                                      var userDatas = {
+                                                        "email": userData["email"].toString(),
+                                                        "firstname": userData['name'].toString(),
+                                                        "lastname": "",
+                                                        "socialid": userData['id'].toString(),
+                                                        "mediatype": "Facebook"
+                                                      };
+                                                      con.registerSignAPI(userDatas);
+                                                      GetStorage().write('username', userData['name']
+                                                      );
+                                                    } else {
+                                                      Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                                    }
+                                                  });
+                                                });
+                                              }else{
+                                                Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
+                                              }
+
                                             }, // button pressed
                                             child: Padding(
                                                 padding: EdgeInsets.all(10),
@@ -1145,29 +1150,44 @@ class _RegisterState extends State<Register> {
     return Column(children: [
       // const SizedBox(height: 10),
       Container(
-          height: Responsive.isMobile(context)
-              ? 0
-              : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.height /14
-                  : MediaQuery.of(context).size.height / 14,
-          width: Responsive.isMobile(context)
-              ? MediaQuery.of(context).size.width / 1
-              : Responsive.isDesktop(context)
-                  ? MediaQuery.of(context).size.width / 4.3
-                  : MediaQuery.of(context).size.width / 2.5,
+
+          // height: Responsive.isMobile(context)
+          //     ? MediaQuery.of(context).size.height /10
+          //     : Responsive.isDesktop(context)
+          //         ? MediaQuery.of(context).size.height /14
+          //         : MediaQuery.of(context).size.height / 14,
+          // width: Responsive.isMobile(context)
+          //     ? MediaQuery.of(context)
+          //     .size
+          //     .width /
+          //     1
+          //     : Responsive.isDesktop(context)
+          //     ? MediaQuery.of(context)
+          //     .size
+          //     .width /
+          //     4.3
+          //     : MediaQuery.of(context)
+          //     .size
+          //     .width /
+          //     2.5,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
             color: Color(0XFFffffff),
           ),
           margin: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
           child: InkWell(
             highlightColor: Color(0XFFffffff),
             focusColor: Color(0XFFffffff),
             splashColor: Colors.green, // splash color
             onTap: () async {
               //Gmail Auth
+            if(isChecked==true){
               AuthService().signinWithGoogle();
+            }else{
+              Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
+            }
             }, // button pressed
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

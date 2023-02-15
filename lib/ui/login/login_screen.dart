@@ -512,7 +512,7 @@ Widget buildformweb(){
                   GestureDetector(
                     onTap: () async {
                       // Navigator.of(context).pushNamed('/selectcountry');
-                      Get.to(const splash2());
+                      Get.to( splash2());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -783,7 +783,7 @@ Widget buildformweb(){
                   GestureDetector(
                     onTap: () async {
                       // Navigator.of(context).pushNamed('/selectcountry');
-                      Get.to(const splash2());
+                      Get.to( splash2());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,

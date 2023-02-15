@@ -11,9 +11,12 @@ import 'package:cardit/ui/loan_screen/payment_overview.dart';
 import 'package:cardit/ui/loan_screen/payment_successful.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
+import 'package:cardit/ui/payment_method/on_board_payee.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/ui/register/select_country_screen.dart';
+import 'package:cardit/ui/register/verify_email_screen.dart';
+import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
@@ -49,7 +52,7 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) => const Home());
       case '/splash2':
-        return MaterialPageRoute(builder: (_) => const splash2());
+        return MaterialPageRoute(builder: (_) =>  splash2());
       case '/selectcountry':
         return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':
