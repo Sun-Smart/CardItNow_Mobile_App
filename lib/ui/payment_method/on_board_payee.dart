@@ -22,6 +22,7 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
   final accountNumberController = TextEditingController();
   final swiftCodeController = TextEditingController();
   final Branchcontroller = TextEditingController();
+  bool isBusiness = false;
 
   final List<String> dropdownData = [
     'State Bank',
@@ -146,53 +147,59 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                                 fontFamily: 'Sora',
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold))),
-                    SizedBox(height: 10),
-                    Text('Business Reg Number',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Sora',
-                            color: Colors.black)),
-                    SizedBox(height: 10),
-                    TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: registrationController,
-                        decoration: InputDecoration(
-                            labelText: 'Enter your Registration Number',
-                            filled: true,
-                            fillColor: Colors.white,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle: const TextStyle(
-                                fontFamily: 'Sora', fontSize: 14),
-                            hintStyle: const TextStyle(
-                                fontSize: 12,
+                    if(isBusiness)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        Text('Business Reg Number',
+                            style: TextStyle(
+                                fontSize: 16,
                                 fontFamily: 'Sora',
-                                fontWeight: FontWeight.normal),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            focusColor: Colors.grey.shade300,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                gapPadding: 7,
-                                borderSide:
+                                color: Colors.black)),
+                        SizedBox(height: 10),
+                        TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: registrationController,
+                            decoration: InputDecoration(
+                                labelText: 'Enter your Registration Number',
+                                filled: true,
+                                fillColor: Colors.white,
+                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 15),
+                                focusColor: Colors.grey.shade300,
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 1.0)),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    gapPadding: 7,
+                                    borderSide:
                                     const BorderSide(color: Colors.grey)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide:
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    borderSide:
                                     const BorderSide(color: Colors.grey)),
-                            errorStyle: const TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold))),
+                                errorStyle: const TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold))),
+                      ],
+                    ),
                     SizedBox(height: 10),
                     Text('Mobile Number',
                         style: TextStyle(
@@ -432,6 +439,22 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                                 fontFamily: 'Sora',
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold))),
+                    SizedBox(height: 10),
+                    CheckboxListTile(
+                      title: const Text('Is your payee a business licensed in the Philippines?'),
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      autofocus: false,
+                      activeColor: HexColor('#004751'),
+                      checkColor: Colors.white,
+                      selected: isBusiness,
+                      value: isBusiness,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isBusiness = value!;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -635,55 +658,61 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontSize: 13,
                       fontWeight: FontWeight.bold))),
         ),
-        SizedBox(height: 10),
-        Text('Business Reg Number',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
-        SizedBox(height: 10),
-        Container(
-          width: Responsive.isDesktop(context)
-              ? MediaQuery.of(context).size.width / 4
-              : MediaQuery.of(context).size.width / 2.5,
-          child: TextFormField(
-              keyboardType: TextInputType.number,
-              controller: registrationController,
-              decoration: InputDecoration(
-                 hoverColor: Colors.transparent,
-                  labelText: 'Enter your Registration Number',
-                  filled: true,
-                  fillColor: Colors.white,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  helperStyle:
-                      const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                  hintStyle: const TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.normal),
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  focusColor: Colors.grey.shade300,
-                  border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      gapPadding: 7,
-                      borderSide: const BorderSide(color: Colors.grey)),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(color: Colors.grey)),
-                  errorStyle: const TextStyle(
-                      fontFamily: 'Sora',
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold))),
-        ),
+        if(isBusiness)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              Text('Business Reg Number',
+                  style: TextStyle(
+                      fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+              SizedBox(height: 10),
+              Container(
+                width: Responsive.isDesktop(context)
+                    ? MediaQuery.of(context).size.width / 4
+                    : MediaQuery.of(context).size.width / 2.5,
+                child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: registrationController,
+                    decoration: InputDecoration(
+                        hoverColor: Colors.transparent,
+                        labelText: 'Enter your Registration Number',
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle:
+                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal),
+                        contentPadding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                        focusColor: Colors.grey.shade300,
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide:
+                            const BorderSide(color: Colors.grey, width: 1.0)),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            gapPadding: 7,
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey)),
+                        errorStyle: const TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold))),
+              ),
+            ],
+          ),
         SizedBox(height: 10),
         Text('Mobile Number',
             style: TextStyle(
@@ -916,6 +945,22 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontFamily: 'Sora',
                       fontSize: 13,
                       fontWeight: FontWeight.bold))),
+        ),
+        SizedBox(height: 10),
+        CheckboxListTile(
+          title: const Text('Is your payee a business licensed in the Philippines?'),
+          controlAffinity: ListTileControlAffinity.leading,
+          contentPadding: EdgeInsets.zero,
+          autofocus: false,
+          activeColor: HexColor('#004751'),
+          checkColor: Colors.white,
+          selected: isBusiness,
+          value: isBusiness,
+          onChanged: (bool? value) {
+            setState(() {
+              isBusiness = value!;
+            });
+          },
         ),
         Container(
           width: Responsive.isDesktop(context)
