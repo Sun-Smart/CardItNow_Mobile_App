@@ -277,15 +277,20 @@ class AuthCon extends GetxController with BaseController {
       Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
-
+  var currentversion;
   //terms and condition
   void termsconditions() async {
 
     var response =
         await BaseClient().get(API().termsmaster).catchError(handleError);
+
     if (response == null) return;
     var data = json.decode(response);
-    termscond = data;
+    if(data != ""){
+
+      termscond.clear();
+      termscond = data.where((element) => element["currentversion"] == true).toList();
+    }
   }
 
   //show Avator Master
@@ -575,6 +580,47 @@ class AuthCon extends GetxController with BaseController {
 
     } else {
       Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  //termsandconditions post
+
+  void Termspost() async {
+
+    DateTime datetime = DateTime.now();
+    String dateaccpt = datetime.toString();
+    var userid = GetStorage().read("getuserid");
+
+    var body = {
+      "customertermid":"" ,
+      "termid": termscond[0]["termid"],
+      "termiddesc":termscond[0]["termdetails"],
+      "version":termscond[0]["termid"],
+      "customerid":"160",
+      "customeriddesc":"",
+      "dateofacceptance":dateaccpt,
+      "status":termscond[0]["status"]
+    };
+    var response = await BaseClient()
+        .post(API().termsacceptance, body)
+        .catchError(handleError);
+    print("---data-----$body");
+    if (response == null) return;
+    var data = json.decode(response);
+    if (data != null) {
+      if(data["token"] !=null){
+        AuthCon auth = AuthCon();
+        GetStorage().write("save_token", data["token"].toString());
+        await auth.getLoginToken();
+        auth.onInit();
+        GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
+        Get.to(ChoosePaymentPage());
+
+      }
+
+      Fluttertoast.showToast(msg: "success");
+    } else {
+      Fluttertoast.showToast(msg: "Fail");
     }
   }
 

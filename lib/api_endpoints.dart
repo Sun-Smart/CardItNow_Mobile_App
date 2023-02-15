@@ -79,4 +79,7 @@ class API {
   String forgotSendOTP = "common/ForgotPasscode";
   String forgotOTPVerify = "common/ForgotOTPvalidate";
   String updateForgotPassword = "common/Changepass";
+
+  //termsandconditions acceptance
+String termsacceptance = "customertermsacceptance";
 }
