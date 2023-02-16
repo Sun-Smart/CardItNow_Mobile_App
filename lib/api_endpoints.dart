@@ -8,7 +8,7 @@ class API {
   String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
   String logIn = "member/login";
-  String register = "customermaster/SendOTP";
+  String register = "customermaster/SendOTP1";
   String verifyotp = "verifyotp/Verify";
   String registerSign = "common/SaveSocialMedia";
 
@@ -82,4 +82,9 @@ class API {
 
   //termsandconditions acceptance
 String termsacceptance = "customertermsacceptance";
+
+//countrywise document selection
+
+String countrydoc = "customermaster/GetDocumenttype";
+
 }
