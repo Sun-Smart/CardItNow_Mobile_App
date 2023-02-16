@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
+import 'dart:html' as html;
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/themes/styles.dart';
@@ -16,6 +16,7 @@ import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -129,44 +130,55 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   File? _image;
   Future<Null> _cropImage(String? imagespath) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      compressQuality: 100,
-      sourcePath: imagespath.toString(),
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarTitle: 'Crop Your Image',
-            toolbarColor: Colors.transparent,
-            toolbarWidgetColor: Colors.black,
-            initAspectRatio: CropAspectRatioPreset.ratio4x3,
-            lockAspectRatio: false),
-        IOSUiSettings(
-          title: 'Cropper',
-        ),
-        WebUiSettings(
-          context: context,
-        ),
-      ],
 
-    );
-    setState(() {
+    List<int> fileInBytes = [];
+    if(!kIsWeb) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        compressQuality: 100,
+        sourcePath: imagespath.toString(),
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Crop Your Image',
+              toolbarColor: Colors.transparent,
+              toolbarWidgetColor: Colors.black,
+              initAspectRatio: CropAspectRatioPreset.ratio4x3,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: CroppieBoundary(
+              width: 350,
+              height: 250,
+            ),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      imagedoc2 = File(croppedFile!.path.toString());
+      fileInBytes = await imagedoc2!.readAsBytes();
+      con.scandocs = base64.encode(fileInBytes);
+    } else{
+      imagedoc2 = File(imagespath.toString());
+      // con.scandocs = base64Encode(await imagedoc2!.readAsBytes());
+    }
+        setState(() {
 
-    });
+        });
 
-    imagedoc2 = File(croppedFile!.path.toString());
-    // ImagePickerController.text = croppedFile.path;
-    print(imagedoc2!.path);
-    List<int> fileInBytes = await imagedoc2!.readAsBytes();
-    String fileInBase64 = base64Encode(fileInBytes);
-    con.scandocs = base64.encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-    log(fileInBase64);
+
+
   }
 
 
@@ -689,7 +701,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             borderRadius: const BorderRadius.all(Radius.circular(3))),
         child: InkWell(
           onTap: () async {
-            _showPicker(context);
+            if(kIsWeb){
+              getImage(
+                  ImageSource
+                      .gallery);
+            } else {
+              _showPicker(context);
+            }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -711,9 +729,17 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                _showPicker(context);
+                if(kIsWeb){
+                  getImage(
+                      ImageSource
+                          .gallery);
+                } else {
+                  _showPicker(context);
+                }
               },
-              child: Image.file(
+              child: kIsWeb
+            ?Image.network(imagedoc2!.path, fit: BoxFit.fill,)
+             : Image.file(
                 imagedoc2!,
                 fit: BoxFit.fill,
               )));
