@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -49,7 +50,7 @@ class cardsapi extends GetxController with BaseController {
 
 //upload credit card details
   void creditCardPostAPI(
-      cardNumber, validity, cvv, cardName, bankName, nickName) async {
+      cardNumber, validity, cvv, cardName, bankName, nickName, type) async {
     DateTime datetime = DateTime.now();
     String dateStr = datetime.toString();
     var userid = GetStorage().read("getuserid");
@@ -75,9 +76,14 @@ class cardsapi extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data == "Success") {
+
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
       creditCardgetAPI();
-      Get.back();
+      if(type == "Regflow"){
+        Get.offAll(DashbordScreen());
+      } else{
+        Get.back();
+      }
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }

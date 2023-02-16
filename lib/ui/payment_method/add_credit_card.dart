@@ -13,7 +13,8 @@ import '../../responsive/responsive.dart';
 import 'card_input_formatter_class.dart';
 
 class AddCreditCardPage extends StatefulWidget {
-  const AddCreditCardPage({Key? key}) : super(key: key);
+  final cardflow;
+   AddCreditCardPage({Key? key, this.cardflow}) : super(key: key);
 
   @override
   State<AddCreditCardPage> createState() => _AddCreditCardPageState();
@@ -543,7 +544,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       cvvController.text.toString(),
                       nameOnCardController.text.toString(),
                       bankNameController.text.toString(),
-                      addNickController.text.toString());
+                      addNickController.text.toString(), widget.cardflow);
                 }
               },
               text: 'Verify and Proceed',
@@ -936,7 +937,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     cvvController.text.toString(),
                     nameOnCardController.text.toString(),
                     bankNameController.text.toString(),
-                    addNickController.text.toString());
+                    addNickController.text.toString(), widget.cardflow);
               }
             },
             child: Container(

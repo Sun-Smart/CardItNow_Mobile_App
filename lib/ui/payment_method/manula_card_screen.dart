@@ -43,7 +43,7 @@ class _ManualCardState extends State<ManualCard> {
             const Icon(Icons.add, color: Colors.black),
             TextButton(
                 onPressed: () {
-                  Get.to(const AddCreditCardPage());
+                  Get.to( AddCreditCardPage());
                 },
                 child: const Text('Add Card',
                     style: TextStyle(
