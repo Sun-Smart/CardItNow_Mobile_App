@@ -85,38 +85,40 @@ class _ProfileState extends State<Profile> {
                       decoration: BoxDecoration(
                           // color: Colors.blue
                           ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            profileweb(),
-                            TextButton(
-                                style: TextButton.styleFrom(
-                                  textStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                ),
-                                onPressed: () {},
-                                child: Text('Set up to Recieve',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold))),
-                            buildmenu('assets/banner/usericon.png',
-                                'User Details', '/userdetails'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/card.png', 'Manage Cards',
-                                '/manualCard'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/reward.png', 'My Rewards',
-                                '/settings'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/setting.png', 'Settings',
-                                '/settings'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/chart.png',
-                                'Help and Support', '/settings'),
-                            SizedBox(height: 15),
-                            buildlogout('assets/banner/logout.png', 'Log out')
-                          ]),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              profileweb(),
+                              TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle: TextStyle(
+                                        fontSize: 14, color: Colors.black),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text('Set up to Recieve',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold))),
+                              buildmenu('assets/banner/usericon.png',
+                                  'User Details', '/userdetails'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/card.png',
+                                  'Manage Cards', '/manualCard'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/reward.png',
+                                  'My Rewards', '/settings'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/setting.png', 'Settings',
+                                  '/settings'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/chart.png',
+                                  'Help and Support', '/settings'),
+                              SizedBox(height: 15),
+                              buildlogout('assets/banner/logout.png', 'Log out')
+                            ]),
+                      ),
                     ),
                     usertab == '/userdetails'
                         ? Container(
@@ -152,38 +154,40 @@ class _ProfileState extends State<Profile> {
                       decoration: BoxDecoration(
                           // color: Colors.blue
                           ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            profileweb(),
-                            TextButton(
-                                style: TextButton.styleFrom(
-                                  textStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                ),
-                                onPressed: () {},
-                                child: Text('Set up to Recieve',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold))),
-                            buildmenu('assets/banner/usericon.png',
-                                'User Details', '/userdetails'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/card.png', 'Manage Cards',
-                                '/manualCard'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/reward.png', 'My Rewards',
-                                '/settings'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/setting.png', 'Settings',
-                                '/settings'),
-                            SizedBox(height: 15),
-                            buildmenu('assets/banner/chart.png',
-                                'Help and Support', '/settings'),
-                            SizedBox(height: 15),
-                            buildlogout('assets/banner/logout.png', 'Log out')
-                          ]),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              profileweb(),
+                              TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle: TextStyle(
+                                        fontSize: 14, color: Colors.black),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text('Set up to Recieve',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold))),
+                              buildmenu('assets/banner/usericon.png',
+                                  'User Details', '/userdetails'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/card.png',
+                                  'Manage Cards', '/manualCard'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/reward.png',
+                                  'My Rewards', '/settings'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/setting.png', 'Settings',
+                                  '/settings'),
+                              SizedBox(height: 15),
+                              buildmenu('assets/banner/chart.png',
+                                  'Help and Support', '/settings'),
+                              SizedBox(height: 15),
+                              buildlogout('assets/banner/logout.png', 'Log out')
+                            ]),
+                      ),
                     ),
                     usertab == '/userdetails'
                         ? Container(
@@ -266,7 +270,7 @@ class _ProfileState extends State<Profile> {
                           : Container()
                   // Image.file(File(GetStorage().read("avatarpic")),
                   //             fit: BoxFit.cover, height: 43, width: 43)
-    ),
+                  ),
               // CircleAvatar(
               //     radius: 50,
               //     backgroundImage: ,),
@@ -311,7 +315,7 @@ class _ProfileState extends State<Profile> {
                           : Container()
                   // Image.file(File(GetStorage().read("avatarpic")),
                   //             fit: BoxFit.cover, height: 43, width: 43)
-              ),
+                  ),
               // CircleAvatar(
               //     radius: 50,
               //     backgroundImage: ,),
@@ -335,7 +339,7 @@ class _ProfileState extends State<Profile> {
     return ListTile(
         hoverColor: Colors.transparent,
         onTap: () {
-          if (Responsive.isDesktop(context) ||Responsive.isTablet(context)) {
+          if (Responsive.isDesktop(context) || Responsive.isTablet(context)) {
             setState(() {
               usertab = link;
             });
@@ -390,38 +394,110 @@ class _ProfileState extends State<Profile> {
     bool exitApp = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          elevation: 10,
-          title: const Text('Really...',
-              style: TextStyle(
-                  fontFamily: 'ProductSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold)),
-          content: const Text('Do you want to Logout the app?',
-              style: TextStyle(
-                  fontFamily: 'ProductSans',
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold)),
-          actions: <Widget>[
-            AuthButton(
-                decoration: BoxDecoration(
-                    color: HexColor('#90BA06'),
-                    borderRadius: BorderRadius.circular(5)),
-                onTap: () {
-                  GetStorage().remove('save_token');
-                  Get.offAndToNamed('/home');
-                },
-                text: "Yes"),
-            AuthButton(
-                decoration: BoxDecoration(
-                    color: HexColor('#D2ED78'),
-                    borderRadius: BorderRadius.circular(5)),
-                onTap: () {
-                  Get.back();
-                },
-                text: "No"),
-          ],
-        );
+        return Responsive.isMobile(context)
+            ? AlertDialog(
+                elevation: 10,
+                title: const Text('Really...',
+                    style: TextStyle(
+                        fontFamily: 'ProductSans',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                content: const Text('Do you want to Logout the app?',
+                    style: TextStyle(
+                        fontFamily: 'ProductSans',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold)),
+                actions: <Widget>[
+                  AuthButton(
+                      decoration: BoxDecoration(
+                          color: HexColor('#90BA06'),
+                          borderRadius: BorderRadius.circular(5)),
+                      onTap: () {
+                        GetStorage().remove('save_token');
+                        Get.offAndToNamed('/home');
+                      },
+                      text: "Yes"),
+                  AuthButton(
+                      decoration: BoxDecoration(
+                          color: HexColor('#D2ED78'),
+                          borderRadius: BorderRadius.circular(5)),
+                      onTap: () {
+                        Get.back();
+                      },
+                      text: "No"),
+                ],
+              )
+            : AlertDialog(
+                insetPadding: EdgeInsets.symmetric(vertical: 50),
+                elevation: 10,
+                title: const Text('Really...',
+                    style: TextStyle(
+                        fontFamily: 'ProductSans',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                content: const Text('Do you want to Logout the app?',
+                    style: TextStyle(
+                        fontFamily: 'ProductSans',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold)),
+                actions: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      GetStorage().remove('save_token');
+                      Get.offAndToNamed('/home');
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                      width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 8
+                          : MediaQuery.of(context).size.width / 10,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: HexColor('#90BA06'),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(
+                            fontFamily: 'ProductSans',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#004751'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                      width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 8
+                          : MediaQuery.of(context).size.width / 10,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: HexColor('#D2ED78'),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                        child: Text(
+                          "No",
+                          style: TextStyle(
+                            fontFamily: 'ProductSans',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#004751'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
       },
     );
     return exitApp ?? false;

@@ -299,6 +299,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               ),
               Positioned(
                   left: Responsive.isDesktop(context) ? 250 : 200,
+                  top: Responsive.isDesktop(context) ?5:5,
                   // right: Responsive.isMobile(context)
                   //     ? 20
                   //     : Responsive.isDesktop(context)

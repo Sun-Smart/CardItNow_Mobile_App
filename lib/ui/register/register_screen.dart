@@ -1150,7 +1150,7 @@ class _RegisterState extends State<Register> {
 
   Widget buildbutton() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Column(children: [
+    return Responsive.isMobile(context)? Column(children: [
       // const SizedBox(height: 10),
       Container(
 
@@ -1215,8 +1215,74 @@ class _RegisterState extends State<Register> {
               color:
                   themeChange.darkTheme ? Colors.white : HexColor('#413D4B'))),
       const SizedBox(height: 10),
+    ]):Column(children: [
+      // const SizedBox(height: 10),
+      Container(
+
+          // height: Responsive.isMobile(context)
+          //     ? MediaQuery.of(context).size.height /10
+          //     : Responsive.isDesktop(context)
+          //         ? MediaQuery.of(context).size.height /14
+          //         : MediaQuery.of(context).size.height / 14,
+           width: Responsive.isMobile(context)
+               ? MediaQuery.of(context)
+              .size
+              .width /
+               1
+               : Responsive.isDesktop(context)
+             ? MediaQuery.of(context)
+             .size
+              .width /
+              4.3
+              : MediaQuery.of(context)
+              .size
+              .width /
+              2.5,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2),
+            border: Border.all(color: Color(0XFFB7C5C7), width: 1.5),
+            color: Color(0XFFffffff),
+          ),
+          margin: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
+          child: InkWell(
+            highlightColor: Color(0XFFffffff),
+            focusColor: Color(0XFFffffff),
+            splashColor: Colors.green, // splash color
+            onTap: () async {
+              //Gmail Auth
+            if(isChecked==true){
+              AuthService().signinWithGoogle();
+            }else{
+              Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
+            }
+            }, // button pressed
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(width: 20),
+                Image.asset("assets/google.png", width: 32),
+                SizedBox(width: 15),
+                Text("Sign Up using Google",
+                    style: TextStyle(
+                        color: Color(0XFF413D4B),
+                        fontSize: 16,
+                        fontFamily: 'sora',
+                        fontWeight: FontWeight.bold)), // text
+              ],
+            ),
+          )),
+      const SizedBox(height: 10),
+      Text('Or',
+          style: TextStyle(
+              fontSize: 14,
+              fontFamily: 'sora',
+              color:
+                  themeChange.darkTheme ? Colors.white : HexColor('#413D4B'))),
+      const SizedBox(height: 10),
     ]);
   }
+
 
   showAlertDialog(BuildContext context) {
     Widget okButton = Container(

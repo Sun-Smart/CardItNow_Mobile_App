@@ -868,14 +868,48 @@ Widget buildformweb(){
               child: Image.asset(width: 40, 'assets/fb.png')),
         ]));
   }
-   Widget buildCartweb() {
+  Widget buildCartweb() {
     return Container(
         width:MediaQuery.of(context).size.width/1.5 ,
         child:
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset("assets/google.png", width: 40),
+       
+              GestureDetector(
+                  onTap: (){
+                    AuthService().signinWithGoogle();
+                  },
+                  child: Image.asset("assets/google.png", width: 40)),
           const SizedBox(width: 20),
-          Image.asset(width: 40, 'assets/fb.png'),
+          GestureDetector(
+              onTap: (){
+
+    FacebookAuth.instance.login(
+    permissions: ["public_profile", "email"]).then((value) {
+    FacebookAuth.instance.getUserData().then((userData) {
+    setState(() {
+    isLoggedIn = true;
+    userObj = userData;
+    });
+    if (isLoggedIn == true) {
+    con.emailController.text = userData["email"];
+    print(userData.toString());
+    var userDatas = {
+    "email": userData["email"].toString(),
+    "firstname": userData['name'].toString(),
+    "lastname": "",
+    "socialid": userData['id'].toString(),
+    "mediatype": "Facebook"
+    };
+    con.registerSignAPI(userDatas);
+    GetStorage().write('username', userData['name']
+    );
+    } else {
+    Fluttertoast.showToast(msg: "Check Your Facebook Account");
+    }
+    });
+    });
+              },
+              child: Image.asset(width: 40, 'assets/fb.png')),
         ]));
   }
 
