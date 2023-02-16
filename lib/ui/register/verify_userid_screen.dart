@@ -116,6 +116,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     final image = await ImagePicker().pickImage(
       source: source,
       imageQuality: 100,
+      maxHeight: 700,
+      maxWidth: 700,
     );
     if (image == null) return;
     // final imageTemporary = File(image.path);
@@ -142,7 +144,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             toolbarTitle: 'Crop Your Image',
             toolbarColor: Colors.transparent,
             toolbarWidgetColor: Colors.black,
-            initAspectRatio: CropAspectRatioPreset.original,
+            initAspectRatio: CropAspectRatioPreset.ratio4x3,
             lockAspectRatio: false),
         IOSUiSettings(
           title: 'Cropper',
