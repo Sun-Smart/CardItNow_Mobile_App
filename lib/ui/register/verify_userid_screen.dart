@@ -122,7 +122,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     );
     if (image == null) return;
     // final imageTemporary = File(image.path);
-    await _cropImage(image.path);
+    if(kIsWeb){
+      setState(() {
+        imagedoc2 = File(image.path.toString());
+      });
+        List<int> bytes = await image.readAsBytes();
+        con.scandocs = base64Encode(bytes);
+    } else {
+      await _cropImage(image.path);
+    }
   }
 
 
@@ -130,9 +138,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
 
   File? _image;
   Future<Null> _cropImage(String? imagespath) async {
-
-    List<int> fileInBytes = [];
-    if(!kIsWeb) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         compressQuality: 100,
         sourcePath: imagespath.toString(),
@@ -166,19 +171,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           ),
         ],
       );
+      setState(() {
       imagedoc2 = File(croppedFile!.path.toString());
-      fileInBytes = await imagedoc2!.readAsBytes();
+      });
+      List<int> fileInBytes = await imagedoc2!.readAsBytes();
       con.scandocs = base64.encode(fileInBytes);
-    } else{
-      imagedoc2 = File(imagespath.toString());
-      // con.scandocs = base64Encode(await imagedoc2!.readAsBytes());
-    }
-        setState(() {
-
-        });
-
-
-
   }
 
 
@@ -723,7 +720,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     } else {
       return Container(
           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 1,
+          width:Responsive.isDesktop(context) ? MediaQuery.of(context).size.width / 4 : MediaQuery.of(context).size.width / 1,
           decoration: BoxDecoration(
               border: Border.all(color: const Color(0XffB7C5C7), width: 1.5),
               borderRadius: const BorderRadius.all(Radius.circular(3))),
@@ -738,7 +735,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                 }
               },
               child: kIsWeb
-            ?Image.network(imagedoc2!.path, fit: BoxFit.fill,)
+            ?Image.network(imagedoc2!.path, fit: BoxFit.fill, height: 150)
              : Image.file(
                 imagedoc2!,
                 fit: BoxFit.fill,
