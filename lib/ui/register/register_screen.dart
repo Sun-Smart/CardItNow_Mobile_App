@@ -672,7 +672,10 @@ class _RegisterState extends State<Register> {
                         Fluttertoast.showToast(
                             msg: "Please Accept Terms and conditions");
                       } else {
-                        con.registerAPI(con.emailController.text.toString());
+                        con.registerAPI(
+                            con.emailController.text.toString()
+
+                        );
                       }
                     },
                     // text: isChecked == false

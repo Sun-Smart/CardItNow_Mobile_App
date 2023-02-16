@@ -40,7 +40,9 @@ class AuthCon extends GetxController with BaseController {
     // showAvatorMaster();
     geoaccess();
     countryselection();
+
     if(GetStorage().read('save_token').toString() != "null"){
+      docselect();
       taxDetailsGetApi();
       banklistget();
       documenttypeget();
@@ -84,6 +86,7 @@ class AuthCon extends GetxController with BaseController {
 //choose country
   var pickcountry = [];
   RxList pickcity = [].obs;
+  RxList pickdoc = [].obs;
 
 
 
@@ -107,6 +110,7 @@ class AuthCon extends GetxController with BaseController {
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
+  dynamic countrywisedoc;
 
   getLoginToken(){
     var token = GetStorage().read('save_token');
@@ -117,9 +121,14 @@ class AuthCon extends GetxController with BaseController {
   //regsterApi
   void registerAPI(email) async {
     showLoading();
-    var body = {};
+    var body ={
+    "email":emailController.text,
+    "geoid":dropdownvalue["geoid"]
+
+    };
+
     var response = await BaseClient()
-        .post(API().register + '?email=' + emailController.text, body)
+        .post(API().register, body)
         .catchError(handleError);
     if (response == null) return;
 
@@ -130,6 +139,8 @@ class AuthCon extends GetxController with BaseController {
     hideLoading();
     if(data1!="Your account already register"){
       var data = json.decode(data1);
+      GetStorage().write("custid", data["customerid"]);
+      print(data);
       if (data["status"]=="success") {
         Get.to(VerifyEmail());
         Fluttertoast.showToast(msg: data["message"].toString());
@@ -589,14 +600,14 @@ class AuthCon extends GetxController with BaseController {
 
     DateTime datetime = DateTime.now();
     String dateaccpt = datetime.toString();
-    var userid = GetStorage().read("getuserid");
+    var customerids = GetStorage().read("custid");
 
     var body = {
       "customertermid":"" ,
       "termid": termscond[0]["termid"],
       "termiddesc":termscond[0]["termdetails"],
       "version":termscond[0]["termid"],
-      "customerid":"160",
+      "customerid":customerids,
       "customeriddesc":"",
       "dateofacceptance":dateaccpt,
       "status":termscond[0]["status"]
@@ -604,7 +615,7 @@ class AuthCon extends GetxController with BaseController {
     var response = await BaseClient()
         .post(API().termsacceptance, body)
         .catchError(handleError);
-    print("---data-----$body");
+    log(body.toString());
     if (response == null) return;
     var data = json.decode(response);
     if (data != null) {
@@ -622,6 +633,23 @@ class AuthCon extends GetxController with BaseController {
     } else {
       Fluttertoast.showToast(msg: "Fail");
     }
+  }
+
+  //countrywise document selection api
+  void docselect() async {
+
+    var body = {
+
+      "geoid":dropdownvalue["geoid"]
+
+    };
+    var response = await BaseClient()
+        .post(API().countrydoc, body)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    pickdoc.value = data;
   }
 
 

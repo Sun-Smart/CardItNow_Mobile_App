@@ -422,42 +422,28 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton(
-                        
                         underline: const SizedBox(),
                         dropdownColor: Colors.white,
                         isExpanded: true,
-                        value: dropdownvalue,
-                        hint: Text('Choose Your ID',
+                        value: con.countrywisedoc,
+                        hint: Text('Choose Your Document',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
                                 color: Styles.whitecustomlable, fontSize: 14)),
-                        icon: GestureDetector(
-                            child: Icon(Icons.keyboard_arrow_down,
-                                color: themeChange.darkTheme
-                                    ? Colors.white
-                                    : Colors.black45)),
-                        items: con.isUAE.value
-                            ? uaeData.map((String item) {
-                                return DropdownMenuItem(
-                                  
-                                    value: item,
-                                    child: Text(item,
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList()
-                            : philipineData.map((String item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item,
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList(),
-                        onChanged: (String? newValue) {
+                        icon: InkWell(
+                            child: Icon(
+                              Icons.keyboard_arrow_down,
+
+                            )),
+                        items: con.pickdoc.map((dynamic item) {
+                          return DropdownMenuItem(
+                              value: item,
+                              child: Text(item["value"],
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)));
+                        }).toList(),
+                        onChanged: (dynamic newValue) {
                           setState(() {
-                            dropdownvalue = newValue!;
-                            con.choosedDocId = newValue;
+                            con.countrywisedoc = newValue!;
                           });
                         },
                         style: const TextStyle(color: Colors.black),
@@ -498,9 +484,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                             fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: dropdownvalue == null
-                            ? "Select Document"
-                            : 'Enter ${dropdownvalue} Number',
+                        hintText: con.countrywisedoc == null
+                            ? "Enter Document No"
+                            : 'Enter ${con.countrywisedoc["value"]} Number',
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         helperStyle:
                             const TextStyle(fontFamily: 'Sora', fontSize: 14),
