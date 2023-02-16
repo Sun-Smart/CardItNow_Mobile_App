@@ -1271,10 +1271,10 @@ class _RegisterState extends State<Register> {
                       padding: const EdgeInsets.all(10),
                       child: Text(
                           con.termscond[index]["termdetails"].toString(),
-                          textAlign: TextAlign.justify,
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
+                              fontSize: 13,
+                              color: Colors.black,
                               fontFamily: 'sora'))),
                   SizedBox(height: 20),
                 ],
