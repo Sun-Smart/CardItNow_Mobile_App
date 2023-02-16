@@ -80,13 +80,12 @@ class _termsandconditionsState extends State<termsandconditions> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        if (GetStorage().read('save_token') ==
-                                            null) {
-                                          Get.to(congratesscreen());
-                                        } else {
-                                          Get.to(congratesscreen());
-                                        }
-                                      },
+          if (GetStorage().read('save_token') == null) {
+            Get.to(ChoosePaymentPage());
+          } else {
+            Get.to(ChoosePaymentPage());
+          }
+        },
                                       child: Container(
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 15, horizontal: 20),
@@ -158,14 +157,13 @@ class _termsandconditionsState extends State<termsandconditions> {
                                             color: HexColor('#CEE812'),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                        onTap: () {
-                                          if (GetStorage().read('save_token') ==
-                                              null) {
-                                            Get.to(congratesscreen());
-                                          } else {
-                                            Get.to(congratesscreen());
-                                          }
-                                        },
+                                       onTap: () {
+          if (GetStorage().read('save_token') == null) {
+            Get.to(ChoosePaymentPage());
+          } else {
+            Get.to(ChoosePaymentPage());
+          }
+        },
                                         text: "Accept and Proceed"),
                                   ],
                                 ),
