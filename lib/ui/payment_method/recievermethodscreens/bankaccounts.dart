@@ -1,13 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/payment_method/recievermethodscreens/addbankaccount.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../auth/bank_api.dart';
 import '../../../themes/styles.dart';
 
 class Bankaccounts extends StatefulWidget {
@@ -18,11 +21,15 @@ class Bankaccounts extends StatefulWidget {
 }
 
 class _BankaccountsState extends State<Bankaccounts> {
-  String? businesstype;
-  var typeofbusiness = ["Individual", "Payer", "Payee"];
-  final businessnamecontroller = TextEditingController();
-  final businessregno = TextEditingController();
-  bool isvisibleall = false;
+  final BankAPI bank = Get.put(BankAPI());
+  final AuthCon auth = Get.put(AuthCon());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    auth.banklistget();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                     MyCustomInputBox(
                       enabled: true,
                       label: "Business Name *",
-                      controller: businessnamecontroller,
+                      controller: bank.businessNameCnl,
                       obsecureText: false,
                       textInputAction: TextInputAction.next,
                       inputHint: "Your Required Number",
@@ -113,11 +120,8 @@ class _BankaccountsState extends State<Bankaccounts> {
                             : EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width / 7.5,
                               ),
-                        child: Text('Enter Your Business type',
-                            style: TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 14,
-                                color: Styles.whitecustomlable))),
+                        child: Text('Enter Your Business type *',
+                            style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold))),
                     SizedBox(
                       height: 20,
                     ),
@@ -145,7 +149,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                           underline: const SizedBox(),
                           dropdownColor: Colors.white,
                           isExpanded: true,
-                          value: businesstype,
+                          value: bank.businessType,
                           hint: Text('Select Your Business type',
                               style: TextStyle(
                                   color: Styles.whitecustomlable,
@@ -153,11 +157,8 @@ class _BankaccountsState extends State<Bankaccounts> {
                           icon: GestureDetector(
                               child: Icon(
                             Icons.keyboard_arrow_down,
-                            // color: themeChange.darkTheme
-                            //     ? Colors.white
-                            //     : Colors.black45
                           )),
-                          items: typeofbusiness.map((String item) {
+                          items: bank.businessTypeList.map((String item) {
                             return DropdownMenuItem(
                                 value: item,
                                 child: Text(item,
@@ -167,7 +168,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              businesstype = newValue!;
+                              bank.businessType = newValue!;
                             });
                           },
                           style: const TextStyle(color: Colors.black),
@@ -180,7 +181,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                     MyCustomInputBox(
                       enabled: true,
                       label: "Business Reg. Number *",
-                      controller: businessregno,
+                      controller: bank.businessRegNoCnl,
                       obsecureText: false,
                       textInputAction: TextInputAction.next,
                       inputHint: "Enter Your Verification Number",
@@ -239,15 +240,10 @@ class _BankaccountsState extends State<Bankaccounts> {
                                 unselectedWidgetColor: Color(0xff004751)),
                             child: Checkbox(
                               activeColor: Color(0xff004751),
-                              value: isvisibleall,
+                              value: bank.isVisibleToAll,
                               onChanged: (value) {
                                 setState(() {
-                                  if (isvisibleall) {
-                                    isvisibleall = false;
-                                  } else {
-                                    isvisibleall = true;
-                                    // showAlertDialog(context);
-                                  }
+                                  bank.isVisibleToAll = value!;
                                 });
                               },
                             ),
@@ -311,7 +307,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                         child: TextFormField(
                           enabled: true,
                           //label: "Business Name *",
-                          controller: businessnamecontroller,
+                          controller: bank.businessNameCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                           //  inputHint: "Your Required Number",
@@ -374,11 +370,8 @@ class _BankaccountsState extends State<Bankaccounts> {
                             ? MediaQuery.of(context).size.width / 4.8
                             : MediaQuery.of(context).size.width / 12,
                           ),
-                          Text('Enter Your Business type',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable)),
+                          Text('Enter Your Business type *',
+                              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
@@ -401,7 +394,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                             underline: const SizedBox(),
                             dropdownColor: Colors.white,
                             isExpanded: true,
-                            value: businesstype,
+                            value: bank.businessType,
                             hint: Text('Select Your Business type',
                                 style: TextStyle(
                                     color: Styles.whitecustomlable,
@@ -413,7 +406,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                               //     ? Colors.white
                               //     : Colors.black45
                             )),
-                            items: typeofbusiness.map((String item) {
+                            items: bank.businessTypeList.map((String item) {
                               return DropdownMenuItem(
                                   value: item,
                                   child: Text(item,
@@ -423,7 +416,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                             }).toList(),
                             onChanged: (String? newValue) {
                               setState(() {
-                                businesstype = newValue!;
+                                bank.businessType = newValue!;
                               });
                             },
                             style: const TextStyle(color: Colors.black),
@@ -451,7 +444,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                         child: TextFormField(
                           enabled: true,
                           //label: "Business Reg. Number *",
-                          controller: businessregno,
+                          controller: bank.businessRegNoCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                           //inputHint: "Enter Your Verification Number",
@@ -519,15 +512,10 @@ class _BankaccountsState extends State<Bankaccounts> {
                                       unselectedWidgetColor: Color(0xff004751)),
                                   child: Checkbox(
                                     activeColor: Color(0xff004751),
-                                    value: isvisibleall,
+                                    value: bank.isVisibleToAll,
                                     onChanged: (value) {
                                       setState(() {
-                                        if (isvisibleall) {
-                                          isvisibleall = false;
-                                        } else {
-                                          isvisibleall = true;
-                                          // showAlertDialog(context);
-                                        }
+                                        bank.isVisibleToAll = value!;
                                       });
                                     },
                                   ),
@@ -582,16 +570,15 @@ class _BankaccountsState extends State<Bankaccounts> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          // if (businessnamecontroller.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your business Name");
-          // } else if (businesstype == null) {
-          //   Fluttertoast.showToast(msg: "Enter your Business type");
-          // } else if (businessregno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Business Reg No");
-          // } else {
-          //   Get.to(() => Addbankaccount());
-          // }
-          Get.to(() => Addbankaccount());
+          if (bank.businessNameCnl.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your business Name");
+          } else if (bank.businessType == null) {
+            Fluttertoast.showToast(msg: "Enter your Business type");
+          } else if (bank.businessRegNoCnl.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Business Reg No");
+          } else {
+            Get.to(() => Addbankaccount());
+          }
         },
         text: "Verify and Proceed");
   }

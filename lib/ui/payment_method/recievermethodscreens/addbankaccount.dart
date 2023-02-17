@@ -10,6 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../auth/auth.dart';
+import '../../../auth/bank_api.dart';
 import '../../../themes/styles.dart';
 
 class Addbankaccount extends StatefulWidget {
@@ -20,12 +22,9 @@ class Addbankaccount extends StatefulWidget {
 }
 
 class _AddbankaccountState extends State<Addbankaccount> {
-  String? businesstype;
-  var choosebank = ["IDBI", "SBI", "AXIS"];
-  final accno = TextEditingController();
-  final swiftcodeno = TextEditingController();
-  final branchaddress = TextEditingController();
-  bool isvisibleall = false;
+  final BankAPI bank = Get.put(BankAPI());
+  final AuthCon auth = Get.put(AuthCon());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +62,8 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             : EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width / 7.5,
                               ),
-                        child: Text('Select Bank',
-                            style: TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 14,
-                                color: Styles.whitecustomlable))),
+                        child: Text('Select Bank *',
+                            style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold))),
                     SizedBox(
                       height: 20,
                     ),
@@ -95,7 +91,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                           underline: const SizedBox(),
                           dropdownColor: Colors.white,
                           isExpanded: true,
-                          value: businesstype,
+                          value: bank.selectedBank,
                           hint: Text('Select Your Business type',
                               style: TextStyle(
                                   color: Styles.whitecustomlable,
@@ -107,17 +103,17 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             //     ? Colors.white
                             //     : Colors.black45
                           )),
-                          items: choosebank.map((String item) {
+                          items: auth.banklist.map((var item) {
                             return DropdownMenuItem(
                                 value: item,
-                                child: Text(item,
+                                child: Text(item["bankname"],
                                     style: const TextStyle(
                                         color: Color(0Xff413D4B),
                                         fontSize: 14)));
                           }).toList(),
-                          onChanged: (String? newValue) {
+                          onChanged: (var newValue) {
                             setState(() {
-                              businesstype = newValue!;
+                              bank.selectedBank = newValue!;
                             });
                           },
                           style: const TextStyle(color: Colors.black),
@@ -130,7 +126,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                     MyCustomInputBox(
                       enabled: true,
                       label: "Account Number *",
-                      controller: accno,
+                      controller: bank.accountNumberCnl,
                       obsecureText: false,
                       textInputAction: TextInputAction.next,
                       inputHint: "Enter Your Account Number",
@@ -185,7 +181,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                     MyCustomInputBox(
                       enabled: true,
                       label: "Enter Your Swift Code *",
-                      controller: branchaddress,
+                      controller: bank.swiftCodeCnl,
                       obsecureText: false,
                       textInputAction: TextInputAction.next,
                       inputHint: "Enter Your Swift Code Of Your Bank",
@@ -240,7 +236,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                     MyCustomInputBox(
                       enabled: true,
                       label: "Enter Branch Address *",
-                      controller: swiftcodeno,
+                      controller: bank.branchAddressCnl,
                       obsecureText: false,
                       textInputAction: TextInputAction.next,
                       inputHint: "Enter Your Bank Branch Address",
@@ -335,11 +331,8 @@ class _AddbankaccountState extends State<Addbankaccount> {
                                 ? MediaQuery.of(context).size.width / 4.8
                                 : MediaQuery.of(context).size.width / 12,
                           ),
-                          Text('Select Bank',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable)),
+                          Text('Select Bank *',
+                              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
@@ -364,7 +357,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             underline: const SizedBox(),
                             dropdownColor: Colors.white,
                             isExpanded: true,
-                            value: businesstype,
+                            value: bank.selectedBank,
                             hint: Text('Select Your Business type',
                                 style: TextStyle(
                                     color: Styles.whitecustomlable,
@@ -376,17 +369,17 @@ class _AddbankaccountState extends State<Addbankaccount> {
                               //     ? Colors.white
                               //     : Colors.black45
                             )),
-                            items: choosebank.map((String item) {
+                            items: auth.banklist.map((var item) {
                               return DropdownMenuItem(
                                   value: item,
-                                  child: Text(item,
+                                  child: Text(item["bankname"],
                                       style: const TextStyle(
                                           color: Color(0Xff413D4B),
                                           fontSize: 14)));
                             }).toList(),
-                            onChanged: (String? newValue) {
+                            onChanged: (var newValue) {
                               setState(() {
-                                businesstype = newValue!;
+                                bank.selectedBank = newValue!;
                               });
                             },
                             style: const TextStyle(color: Colors.black),
@@ -420,7 +413,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                         child: TextFormField(
                           enabled: true,
                           //label: "Account Number *",
-                          controller: accno,
+                          controller: bank.accountNumberCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                          // inputHint: "Enter Your Account Number",
@@ -501,7 +494,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                         child: TextFormField(
                           enabled: true,
                           //label: "Enter Your Swift Code *",
-                          controller: branchaddress,
+                          controller: bank.swiftCodeCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                          // inputHint: "Enter Your Swift Code Of Your Bank",
@@ -583,7 +576,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                         child: TextFormField(
                           enabled: true,
                           //label: "Enter Branch Address *",
-                          controller: swiftcodeno,
+                          controller: bank.branchAddressCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                           //inputHint: "Enter Your Bank Branch Address",
@@ -641,19 +634,17 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       ),
                    GestureDetector(
        onTap: () {
-          // if (businesstype == null) {
-          //   Fluttertoast.showToast(msg: "Enter your Bank");
-          // } else if (accno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Account No");
-          // } else if (swiftcodeno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Swiftcode No");
-          // } else if (swiftcodeno.text.isEmpty) {
-          //   Fluttertoast.showToast(msg: "Enter your Branch Address");
-          // } else {
-          //   Get.to(() => Registerloading());
-          //   Get.to(() => Letsstartpage());
-          // }
-          Get.to(() => Registerloading());
+          if (bank.selectedBank == null) {
+            Fluttertoast.showToast(msg: "Enter your Bank");
+          } else if (bank.accountNumberCnl.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Account No");
+          } else if (bank.swiftCodeCnl.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Swiftcode No");
+          } else if (bank.branchAddressCnl.text.isEmpty) {
+            Fluttertoast.showToast(msg: "Enter your Branch Address");
+          } else {
+            bank.addBankAPI();
+          }
         },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -692,19 +683,17 @@ class _AddbankaccountState extends State<Addbankaccount> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (businesstype == null) {
+          if (bank.selectedBank == null) {
             Fluttertoast.showToast(msg: "Enter your Bank");
-          } else if (accno.text.isEmpty) {
+          } else if (bank.accountNumberCnl.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Account No");
-          } else if (swiftcodeno.text.isEmpty) {
+          } else if (bank.swiftCodeCnl.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Swiftcode No");
-          } else if (swiftcodeno.text.isEmpty) {
+          } else if (bank.branchAddressCnl.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Branch Address");
           } else {
-            Get.to(() => Registerloading());
-            Get.to(() => Letsstartpage());
+            bank.addBankAPI();
           }
-          // Get.to(() => Registerloading());
         },
         text: "Verify and Proceed");
   }

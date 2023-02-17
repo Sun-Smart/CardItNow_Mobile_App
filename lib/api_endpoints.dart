@@ -87,4 +87,7 @@ String termsacceptance = "customertermsacceptance";
 
 String countrydoc = "customermaster/GetDocumenttype";
 
+
+//bank
+String addBankAccount = "payerpayeeprivate/SavePayerPayeePrivate";
 }
