@@ -105,7 +105,14 @@ class _RegisterState extends State<Register> {
                                                       isLoggedIn = true;
                                                       userObj = userData;
                                                     });
-                                                    if (isLoggedIn == true) {
+
+
+                                                    if (userData["email"] == null) {
+                                                      Fluttertoast.showToast(msg: "Your Facebook Account not registerd with Email");
+                                                    }
+                                                    else if(
+                                                    isLoggedIn == true
+                                                    ){
                                                       con.emailController.text = userData["email"];
                                                       print(userData.toString());
                                                       var userDatas = {
@@ -118,7 +125,9 @@ class _RegisterState extends State<Register> {
                                                       con.registerSignAPI(userDatas);
                                                       GetStorage().write('username', userData['name']
                                                       );
-                                                    } else {
+
+                                                    }
+                                                    else {
                                                       Fluttertoast.showToast(msg: "Check Your Facebook Account");
                                                     }
                                                   });

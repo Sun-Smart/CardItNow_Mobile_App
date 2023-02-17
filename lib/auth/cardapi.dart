@@ -68,7 +68,9 @@ class cardsapi extends GetxController with BaseController {
       "createdby": userid,
       "createddate": dateStr,
       "updatedby": userid,
-      "updateddate": dateStr
+      "updateddate": dateStr,
+      "customertype":"I",
+      "Type":"I"
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)

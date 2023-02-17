@@ -5,7 +5,7 @@
 </resources> -->
 
 <resources>
-    <string name="facebook_app_id">601591934671361</string>
-    <string name="fb_login_protocol_scheme">fb601591934671361</string>
-    <string name="facebook_client_token">971f189fec084e344c093959319338ef</string>
+    <string name="facebook_app_id">1350511352407815</string>
+    <string name="fb_login_protocol_scheme">fb1350511352407815</string>
+    <string name="facebook_client_token">7725350b1de0a6f36c203f892e4b911b</string>
 </resources>

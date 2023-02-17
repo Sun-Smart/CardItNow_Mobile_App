@@ -544,7 +544,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       cvvController.text.toString(),
                       nameOnCardController.text.toString(),
                       bankNameController.text.toString(),
-                      addNickController.text.toString(), widget.cardflow);
+                      addNickController.text.toString(),
+                      widget.cardflow);
                 }
               },
               text: 'Verify and Proceed',
