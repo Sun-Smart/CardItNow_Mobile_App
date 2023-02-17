@@ -610,6 +610,10 @@ class DashbordScreenState extends State<DashbordScreen>
                   child: Text('Yes'),
                   onPressed: () {
                     GetStorage().remove('save_token');
+                    GetStorage().remove("custid");
+                    GetStorage().remove('avatarpic');
+                    GetStorage().remove('getuserid');
+
                     Get.offAndToNamed('/home');
                   },
                 ),
