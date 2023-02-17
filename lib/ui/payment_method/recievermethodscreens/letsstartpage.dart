@@ -33,7 +33,7 @@ class _LetsstartpageState extends State<Letsstartpage> {
               padding: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  Image.asset('assets/banner/banner1.png'),
+                  Image.asset('assets/cardacept.png'),
                   SizedBox(height: 50),
                   Text(
                     'Awesome ! You Are ready to \nRecieve Payments',

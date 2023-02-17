@@ -4,6 +4,7 @@ import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -23,6 +24,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Responsive.isMobile(context)
           ? SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -37,8 +39,32 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       children: [
                         Row(
                           children: [
-                            Image.asset('assets/card/up_arrow.png',
-                                width: 50, height: 50),
+
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: const Color(0xff036D7A)),
+                                child: GetStorage().read("avatarpic") == null
+                                    ? Container()
+                                    : GetStorage()
+                                    .read("avatarpic")
+                                    .toString()
+                                    .contains('assets')
+                                    ? Image.asset(
+                                    GetStorage().read("avatarpic"),
+                                    fit: BoxFit.cover,
+                                    height: 43,
+                                    width: 43)
+                                    : Container()
+
+                              // Image.file(
+                              //             File(
+                              //                 GetStorage().read("avatarpic")),
+                              //             fit: BoxFit.cover,
+                              //             height: 43,
+                              //             width: 43)
+
+                            ),
                             SizedBox(width: 15),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

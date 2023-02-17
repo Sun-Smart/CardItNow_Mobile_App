@@ -136,13 +136,21 @@ class _BottomNavBarReceiverState extends State<BottomNavBarReceiver> {
   void _onItemTapped(int index) {
     switch (index) {
       case 0:
-        Get.to(() => CreditPrepaidScreen());
+        Navigator.pushReplacementNamed(
+            NavigationService.navigatorKey.currentContext ?? context,
+            "/CreditPrepaidScreen");
         break;
       case 1:
-        Get.to(() => ReceiverPaymentScreen());
+
+        Navigator.pushReplacementNamed(
+            NavigationService.navigatorKey.currentContext ?? context,
+            "/ReceiverPaymentScreen");
         break;
+
       case 2:
-        Get.to(() => ReceiverPaymentScreen());
+        Navigator.pushReplacementNamed(
+            NavigationService.navigatorKey.currentContext ?? context,
+            "/recieverprofile");
         break;
     }
   }

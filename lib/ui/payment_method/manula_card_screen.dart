@@ -2,6 +2,7 @@
 
 import 'package:cardit/auth/auth.dart';
 import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,9 @@ class _ManualCardState extends State<ManualCard> {
                             SizedBox(height: 50),
                             Center(
                               child: GestureDetector(
-                                  onTap:(){},
+                                  onTap:(){
+                                    Get.offAll(DashbordScreen());
+                                  },
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                                     width:  Responsive.isDesktop(context)
@@ -191,7 +194,7 @@ class _ManualCardState extends State<ManualCard> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          //  Get.to(const DashbordScreen());
+           Get.to(const DashbordScreen());
         },
         text: "Let's Start Payments",
       ):null,

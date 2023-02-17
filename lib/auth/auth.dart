@@ -141,6 +141,7 @@ class AuthCon extends GetxController with BaseController {
       var data = json.decode(data1);
       GetStorage().write("custid", data["customerid"]);
       print(data);
+      print(data["OTP"]);
       if (data["status"]=="success") {
         Get.to(VerifyEmail());
         Fluttertoast.showToast(msg: data["message"].toString());
@@ -622,6 +623,7 @@ class AuthCon extends GetxController with BaseController {
       if(data["token"] !=null){
         AuthCon auth = AuthCon();
         GetStorage().write("save_token", data["token"].toString());
+        print(data["token"]);
         await auth.getLoginToken();
         auth.onInit();
         GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());

@@ -603,7 +603,7 @@ class DashbordScreenState extends State<DashbordScreen>
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MaterialButton(
                   color: HexColor('#90BA06'),
@@ -616,6 +616,9 @@ class DashbordScreenState extends State<DashbordScreen>
 
                     Get.offAndToNamed('/home');
                   },
+                ),
+                SizedBox(
+                  width: 20,
                 ),
                 MaterialButton(
                   color: HexColor('#90BA06'),
