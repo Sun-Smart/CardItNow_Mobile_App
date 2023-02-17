@@ -230,32 +230,62 @@ class _RegisterState extends State<Register> {
                                                           Color(0XFFffffff),
                                                       splashColor: Colors
                                                           .green, // splash color
-                                                      onTap: () {
-                                                        // FacebookAuth.instance.login(
-                                                        //     permissions: ["public_profile", "email"]).then((value) {
-                                                        //   FacebookAuth.instance.getUserData().then((userData) {
-                                                        //     setState(() {
-                                                        //       isLoggedIn = true;
-                                                        //       userObj = userData;
-                                                        //     });
-                                                        //     if (isLoggedIn == true) {
-                                                        //       con.emailController.text = userData["email"];
-                                                        //       print(userData.toString());
-                                                        //       var userDatas = {
-                                                        //         "email": userData["email"].toString(),
-                                                        //         "firstname": userData['name'].toString(),
-                                                        //         "lastname": "",
-                                                        //         "socialid": userData['id'].toString(),
-                                                        //         "mediatype": "Facebook"
-                                                        //       };
-                                                        //       con.registerSignAPI(userDatas);
-                                                        //       GetStorage().write('username', userData['name']
-                                                        //       );
-                                                        //     } else {
-                                                        //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
-                                                        //     }
-                                                        //   });
-                                                        // });
+                                                      onTap: () async{
+                                                        if(isChecked == true){
+                                                          FacebookAuth.instance.login(
+                                                              permissions: ["public_profile", "email"]).then((value) {
+                                                           if(value.accessToken != null) {
+                                                             FacebookAuth
+                                                                 .instance
+                                                                 .getUserData()
+                                                                 .then((
+                                                                 userData) {
+                                                               setState(() {
+                                                                 isLoggedIn =
+                                                                 true;
+                                                                 userObj =
+                                                                     userData;
+                                                               });
+                                                               if (isLoggedIn ==
+                                                                   true) {
+                                                                 con
+                                                                     .emailController
+                                                                     .text =
+                                                                 userData["email"];
+                                                                 print(userData
+                                                                     .toString());
+                                                                 var userDatas = {
+                                                                   "email": userData["email"]
+                                                                       .toString(),
+                                                                   "firstname": userData['name']
+                                                                       .toString(),
+                                                                   "lastname": "",
+                                                                   "socialid": userData['id']
+                                                                       .toString(),
+                                                                   "mediatype": "Facebook"
+                                                                 };
+                                                                 con
+                                                                     .registerSignAPI(
+                                                                     userDatas);
+                                                                 GetStorage()
+                                                                     .write(
+                                                                     'username',
+                                                                     userData['name']
+                                                                 );
+                                                               } else {
+                                                                 Fluttertoast
+                                                                     .showToast(
+                                                                     msg: "Check Your Facebook Account");
+                                                               }
+                                                             });
+                                                           }
+                                                           else{
+                                                             Fluttertoast.showToast(msg: "Please Check Auth");
+                                                           }
+                                                          });
+                                                        }else{
+                                                          Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
+                                                        }
                                                       }, // button pressed
                                                       child: Padding(
                                                           padding:

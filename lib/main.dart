@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,13 @@ WidgetsFlutterBinding.ensureInitialized();
     );
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
+    );
+      // initialiaze the facebook javascript SDK
+    await FacebookAuth.instance.webAndDesktopInitialize(
+      appId: "601591934671361",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
     );
   }
   await GetStorage.init();
