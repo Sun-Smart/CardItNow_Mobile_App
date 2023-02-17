@@ -90,6 +90,7 @@ class AuthCon extends GetxController with BaseController {
 
 
 
+
   // login
   final TextEditingController userNameCon = TextEditingController();
   final TextEditingController mobileCon = TextEditingController();
