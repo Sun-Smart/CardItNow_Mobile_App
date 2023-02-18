@@ -48,7 +48,9 @@ class AuthService {
         "firstname": details.user!.displayName.toString(),
         "lastname": "",
         "socialid": details.user!.uid.toString(),
-        "mediatype": "Google"
+        "mediatype": "Google",
+        "mobile":details.user!.phoneNumber.toString(),
+        "geoid": con.dropdownvalue["geoid"].toString()
       };
       con.registerSignAPI(userDatas);
      GetStorage().write('username', details.user!.displayName);

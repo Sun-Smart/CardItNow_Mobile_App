@@ -14,6 +14,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 import '../base_client.dart';
 import '../main.dart';
 import '../responsive/responsive.dart';
+import '../ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 import '../ui/register/verify_userid_screen.dart';
 
 class loginauth extends GetxController with BaseController {
@@ -43,7 +44,7 @@ class loginauth extends GetxController with BaseController {
       GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
       if(MyApp.logindetails["status"] == "A"){
         // Get.to(DashbordScreen());
-        Get.offAll(kIsWeb?DrawerWeb():DashbordScreen());
+        Get.offAll(kIsWeb?DrawerWeb():MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
         // MaterialPageRoute(
         //     builder: (context) =>
         //         Responsive.isDesktop(context) ? DrawerWeb() : DashbordScreen());

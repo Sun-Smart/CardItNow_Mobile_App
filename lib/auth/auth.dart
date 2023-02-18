@@ -166,8 +166,8 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data1 = json.decode(response);
     var data = json.decode(data1);
-    print(data.toString());
     if (data["status"] == "success") {
+      GetStorage().write("custid", data["customerid"]);
       Get.to(Passcode());
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
@@ -449,7 +449,6 @@ class AuthCon extends GetxController with BaseController {
   void invoicegetmethod() async {
     var response =
         await BaseClient().get(API().invoiceget).catchError(handleError);
-    print("response" + response);
     if (response == null) return;
     var data = jsonDecode(response);
     var data1 = json.decode(data);
@@ -640,19 +639,19 @@ class AuthCon extends GetxController with BaseController {
 
   //countrywise document selection api
   void docselect() async {
+    if(dropdownvalue != null || MyApp.logindetails != null) {
+      var body = {
+        "geoid": dropdownvalue != null ? dropdownvalue["geoid"].toString() : MyApp
+            .logindetails["geoid"]
+      };
+      var response = await BaseClient()
+          .post(API().countrydoc, body)
+          .catchError(handleError);
 
-    var body = {
-
-      "geoid":dropdownvalue["geoid"]
-
-    };
-    var response = await BaseClient()
-        .post(API().countrydoc, body)
-        .catchError(handleError);
-
-    if (response == null) return;
-    var data = json.decode(response);
-    pickdoc.value = data;
+      if (response == null) return;
+      var data = json.decode(response);
+      pickdoc.value = data;
+    }
   }
 
 

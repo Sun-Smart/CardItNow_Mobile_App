@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'package:cardit/auth/auth.dart';
+import 'package:cardit/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -26,23 +28,22 @@ class BankAPI extends GetxController with BaseController {
   void addBankAPI() async {
     Get.to(Registerloading());
     var customerID = GetStorage().read("custid");
-    //customerID.toString()
     var body = {
-        "customerid":"232",
+        "customerid": customerID.toString(),
         "uid":"",
         "customertype":"R",
         "type":"B",
         "businessname":businessNameCnl.text,
-        "ContactName":"",
-        "email":"",
-        "mobile":"",
-        "geocode":"",
+        "ContactName":MyApp.logindetails["username"].toString(),
+        "email": MyApp.logindetails["email"][0].toString(),
+        "mobile":MyApp.logindetails["mobile"].toString(),
+        "geocode": MyApp.logindetails["geoid"].toString(),
         "city":0,
         "pincode":"",
         "bankaccountnumber": accountNumberCnl.text,
         "brn": businessRegNoCnl.text,
         "accountname":accountNumberCnl.text,
-        "visibletoall": isVisibleToAll ? "1" : "0",
+        "visibletoall": isVisibleToAll,
         "bankname": selectedBank["bankname"],
         "iban":swiftCodeCnl.text
       };
@@ -52,11 +53,11 @@ class BankAPI extends GetxController with BaseController {
     Get.back();
     if (response == null) return;
     var data = json.decode(response);
-    if (data["status"].toString() == "true") {
+    if (data.toString() == "Success") {
       clearBank();
-      Get.to(Letsstartpage());
+      Get.off(Letsstartpage());
     } else {
-      Fluttertoast.showToast(msg: data["message"].toString());
+      Fluttertoast.showToast(msg: "Add bank failed".toString());
     }
   }
 

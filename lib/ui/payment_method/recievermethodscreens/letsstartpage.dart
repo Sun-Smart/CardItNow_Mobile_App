@@ -24,7 +24,9 @@ class _LetsstartpageState extends State<Letsstartpage> {
       appBar: Responsive.isMobile(context)
           ? AppBar(
               leading: IconButton(
-                  onPressed: () {}, icon: Icon(Icons.close, size: 30)),
+                  onPressed: () {
+                    Get.back();
+                  }, icon: Icon(Icons.close, size: 30)),
               foregroundColor: Colors.black,
               backgroundColor: Colors.transparent)
           : null,
@@ -74,7 +76,9 @@ class _LetsstartpageState extends State<Letsstartpage> {
                       Row(
                         children: [
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.back();
+                              },
                               icon: Icon(Icons.close, size: 30)),
                         ],
                       ),
@@ -110,9 +114,7 @@ class _LetsstartpageState extends State<Letsstartpage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            Get.to(ReceiverDrawerWeb());
-                          });
+                            Get.offAll(ReceiverDrawerWeb());
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
@@ -145,7 +147,7 @@ class _LetsstartpageState extends State<Letsstartpage> {
       bottomNavigationBar: Responsive.isMobile(context)
           ? AuthButton(
               onTap: () {
-                Get.to(() => CreditPrepaidScreen());
+                Get.offAll(() => CreditPrepaidScreen());
               },
               text: 'Let’s Start',
               decoration: BoxDecoration(

@@ -106,14 +106,14 @@ class _splash2State extends State<splash2> {
                               onTap: () {
                                 setState(() {
                                   con.dropdownvalue = con.pickcountry[index];
-                                  con. docselect();
-                                  if (con.dropdownvalue != null)
-                                    if(widget.choosetype=="Login"){
+                                  if (con.dropdownvalue != null) {
+                                    con.docselect();
+                                    if (widget.choosetype == "Login") {
                                       Get.to(Login());
-                                    }    else{
+                                    } else {
                                       Get.to(Register());
                                     }
-
+                                  }
                                 }
 
                                 );

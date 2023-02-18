@@ -854,7 +854,9 @@ Widget buildformweb(){
     "firstname": userData['name'].toString(),
     "lastname": "",
     "socialid": userData['id'].toString(),
-    "mediatype": "Facebook"
+    "mediatype": "Facebook",
+      "mobile":"",
+      "geoid": con.dropdownvalue["geoid"].toString()
     };
     con.registerSignAPI(userDatas);
     GetStorage().write('username', userData['name']
@@ -898,7 +900,9 @@ Widget buildformweb(){
     "firstname": userData['name'].toString(),
     "lastname": "",
     "socialid": userData['id'].toString(),
-    "mediatype": "Facebook"
+    "mediatype": "Facebook",
+      "mobile":"",
+      "geoid": con.dropdownvalue["geoid"].toString()
     };
     con.registerSignAPI(userDatas);
     GetStorage().write('username', userData['name']

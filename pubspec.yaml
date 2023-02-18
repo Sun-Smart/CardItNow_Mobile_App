@@ -102,6 +102,7 @@ flutter:
   assets:
     - assets/
     - assets/banner/
+    - assets/card/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

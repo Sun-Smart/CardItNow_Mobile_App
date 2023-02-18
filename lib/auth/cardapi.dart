@@ -60,7 +60,7 @@ class cardsapi extends GetxController with BaseController {
       "uiddesc": 0,
       "payid": "",
       "cardnumber": cardNumber.toString().replaceAll(" ", ""),
-      "cardname": "",
+      "cardname": cardName,
       "expirydate": validity.toString(),
       "bankname": bankName.toString(),
       "ibannumber": "",

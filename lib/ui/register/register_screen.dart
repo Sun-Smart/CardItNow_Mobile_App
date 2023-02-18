@@ -120,7 +120,9 @@ class _RegisterState extends State<Register> {
                                                         "firstname": userData['name'].toString(),
                                                         "lastname": "",
                                                         "socialid": userData['id'].toString(),
-                                                        "mediatype": "Facebook"
+                                                        "mediatype": "Facebook",
+                                                       "mobile":"",
+                                                        "geoid": con.dropdownvalue["geoid"].toString()
                                                       };
                                                       con.registerSignAPI(userDatas);
                                                       GetStorage().write('username', userData['name']
@@ -271,7 +273,9 @@ class _RegisterState extends State<Register> {
                                                                    "lastname": "",
                                                                    "socialid": userData['id']
                                                                        .toString(),
-                                                                   "mediatype": "Facebook"
+                                                                   "mediatype": "Facebook",
+                                                                   "mobile":"",
+                                                                   "geoid": con.dropdownvalue["geoid"].toString()
                                                                  };
                                                                  con
                                                                      .registerSignAPI(

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:cardit/main.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../auth/auth.dart';
+import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -60,7 +62,7 @@ class StartState extends State<SplashScreens> {
             options: const AuthenticationOptions(biometricOnly: true));
         if (didAuthenticate) {
           await authcon.getLoginToken();
-          Get.offAll(() => DashbordScreen());
+          Get.offAll(() => MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
         }
       } catch (e) {
         print(e.toString());
@@ -68,7 +70,7 @@ class StartState extends State<SplashScreens> {
       }
     } else {
       await authcon.getLoginToken();
-      Get.offAll(() => DashbordScreen());
+      Get.offAll(() => MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
     }
   }
 

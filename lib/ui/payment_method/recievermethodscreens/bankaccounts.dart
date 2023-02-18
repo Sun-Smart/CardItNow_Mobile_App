@@ -531,7 +531,7 @@ class _BankaccountsState extends State<Bankaccounts> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(() => Addbankaccount());
+                          Get.off(() => Addbankaccount());
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
@@ -577,7 +577,7 @@ class _BankaccountsState extends State<Bankaccounts> {
           } else if (bank.businessRegNoCnl.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Business Reg No");
           } else {
-            Get.to(() => Addbankaccount());
+            Get.off(() => Addbankaccount());
           }
         },
         text: "Verify and Proceed");
