@@ -4,7 +4,6 @@ import 'package:cardit/ui/payment_method/recievermethodscreens/bankaccounts.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
 
 import '../../../responsive/responsive.dart';
 
