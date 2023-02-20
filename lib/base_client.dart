@@ -108,6 +108,7 @@ class DialogHelper {
         if (_timerCount.value == 0) {
             timer.cancel();
             GetStorage().remove('save_token');
+            GetStorage().remove("customer_type");
             if (Get.isDialogOpen ?? true) Get.back();
             Get.offAll(Home());
         } else {
@@ -150,6 +151,7 @@ class DialogHelper {
                     ElevatedButton(
                         onPressed: () {
                           GetStorage().remove('save_token');
+                          GetStorage().remove("customer_type");
                           if (Get.isDialogOpen ?? true) Get.back();
                           _timerCou.cancel();
                           Get.offAll(Home());

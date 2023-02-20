@@ -613,7 +613,7 @@ class DashbordScreenState extends State<DashbordScreen>
                     GetStorage().remove("custid");
                     GetStorage().remove('avatarpic');
                     GetStorage().remove('getuserid');
-
+                    GetStorage().remove("customer_type");
                     Get.offAndToNamed('/home');
                   },
                 ),

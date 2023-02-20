@@ -384,6 +384,7 @@ class _recieverprofileState extends State<recieverprofile> {
                     borderRadius: BorderRadius.circular(5)),
                 onTap: () {
                   GetStorage().remove('save_token');
+                  GetStorage().remove("customer_type");
                   Get.offAndToNamed('/home');
                 },
                 text: "Yes"),
@@ -414,6 +415,7 @@ class _recieverprofileState extends State<recieverprofile> {
             GestureDetector(
               onTap: () {
                 GetStorage().remove('save_token');
+                GetStorage().remove("customer_type");
                 Get.offAndToNamed('/home');
               },
               child: Container(

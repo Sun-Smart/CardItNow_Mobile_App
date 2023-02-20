@@ -414,6 +414,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(5)),
                       onTap: () {
                         GetStorage().remove('save_token');
+                        GetStorage().remove("customer_type");
                         Get.offAndToNamed('/home');
                       },
                       text: "Yes"),
@@ -444,6 +445,7 @@ class _ProfileState extends State<Profile> {
                   GestureDetector(
                     onTap: () {
                       GetStorage().remove('save_token');
+                      GetStorage().remove("customer_type");
                       Get.offAndToNamed('/home');
                     },
                     child: Container(

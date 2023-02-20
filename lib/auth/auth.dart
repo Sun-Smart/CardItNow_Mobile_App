@@ -118,6 +118,9 @@ class AuthCon extends GetxController with BaseController {
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     print(payload);
     MyApp.logindetails = payload;
+    if(GetStorage().read("customer_type") != null){
+      MyApp.logindetails["customertype"] = GetStorage().read("user_type");
+    }
   }
   //regsterApi
   void registerAPI(email) async {

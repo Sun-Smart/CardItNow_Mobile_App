@@ -54,6 +54,7 @@ class BankAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data.toString() == "Success") {
+      GetStorage().write("customer_type", "R");
       clearBank();
       Get.off(Letsstartpage());
     } else {
