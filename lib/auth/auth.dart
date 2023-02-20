@@ -21,6 +21,7 @@ import '../base_client.dart';
 import '../main.dart';
 import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/register_loading_screen.dart';
+import '../ui/register/security_question.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/terms&condition.dart';
 import '../ui/register/twofactor.dart';
@@ -38,7 +39,7 @@ class AuthCon extends GetxController with BaseController {
     // showAvatorMaster();
     geoaccess();
     countryselection();
-
+    getSecurityQuestionAPI();
     if(GetStorage().read('save_token').toString() != "null"){
       docselect();
       taxDetailsGetApi();
@@ -85,6 +86,8 @@ class AuthCon extends GetxController with BaseController {
   var pickcountry = [];
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
+
+  var securityQuestionList = [];
 
 
 
@@ -255,11 +258,12 @@ class AuthCon extends GetxController with BaseController {
     if (data["status"] == 'success') {
       GetStorage().write('username', firstName.toString());
       // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-      if(kIsWeb){
- Get.to(() => termsandconditions());
-      } else{
-         Get.to(() => Twofactor());
-      }
+ //      if(kIsWeb){
+ // Get.to(() => termsandconditions());
+ //      } else{
+ //         Get.to(() => Twofactor());
+ //      }
+      Get.to(SecurityQuestion());
       // Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -655,6 +659,35 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
+  void mandatoryPayeeAPI(String brn) async{
+    var body = {
+      "brn": brn
+    };
+    var response = await BaseClient()
+        .post(API().mandatoryPayee, body)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    if(data["mandatoryPayee"] != null){
+
+    }
+  }
+
+
+  void getSecurityQuestionAPI() async{
+
+    var response = await BaseClient()
+        .get(API().getSecurityQuestion)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    if(data != [])
+    {
+      securityQuestionList = data;
+    }
+  }
 
 }
 
