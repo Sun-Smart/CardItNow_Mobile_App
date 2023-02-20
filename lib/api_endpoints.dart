@@ -23,25 +23,6 @@ class API {
   String pinset = "customermaster/TPIN config";
   String updateProfileInformation = 'customermaster/UpdateProfileInformation';
 
-  //home
-  String home = "";
-
-  //profile
-  String getProfile = "member";
-  String profileUpdate = "profile/update";
-  String notificationList = "notification";
-  String viewNotification = "updateNotification/65956";
-
-  //subscription
-  String planList = "membership_package_list";
-  String addPlan = "subscription/pay";
-  String paymentHistory = "profile/paymentHistory";
-
-  //workout
-  String updateGoal = "profile/goals/update";
-  String dietPlanList = "mealPlan";
-  String updateDietPlan = "mealPlan/status_update";
-
   //avator
   String showAvatorMaster = "avatarmaster";
   String uploadAvator = "avatarmaster/UploadSelfi";

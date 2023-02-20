@@ -20,14 +20,12 @@ import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../main.dart';
 import '../ui/register/4digit_passcode_screen.dart';
-import '../ui/register/profile_information_screen.dart';
 import '../ui/register/register_loading_screen.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/terms&condition.dart';
 import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/startingscreen/home_screen.dart';
-import 'init.dart';
 
 
 class AuthCon extends GetxController with BaseController {
