@@ -8,7 +8,6 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +34,6 @@ class DashbordScreen extends StatefulWidget {
 
 class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
-  final CarouselController _controller = CarouselController();
   final AuthCon con = Get.find();
   final cardsapi cardcons = Get.put(cardsapi());
   int _currentsliderindex = 0;

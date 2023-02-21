@@ -2,7 +2,6 @@ import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

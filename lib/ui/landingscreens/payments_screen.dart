@@ -1,7 +1,5 @@
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../responsive/responsive.dart';
@@ -20,7 +18,6 @@ class Payments extends StatefulWidget {
 
 class PaymentsState extends State<Payments>
     with SingleTickerProviderStateMixin {
-  final CarouselController _controller = CarouselController();
 
   int _currentsliderindex = 0;
   List<_SalesData> data = [

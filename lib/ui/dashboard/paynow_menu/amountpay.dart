@@ -3,7 +3,6 @@ import 'package:cardit/ui/dashboard/paynow_menu/payment_purpose.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

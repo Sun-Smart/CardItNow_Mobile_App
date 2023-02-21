@@ -3,7 +3,6 @@ import 'package:cardit/auth/cardapi.dart';
 import 'package:cardit/const/common/fourDigitsplit.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
-import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,6 @@ class AddCreditCardPage extends StatefulWidget {
 class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final creditCardController = new TextEditingController();
   final validityController = new TextEditingController();
-  var controller = new MaskedTextController(mask: '0 0 0 0');
   final cvvController = new TextEditingController();
   final nameOnCardController = new TextEditingController();
   final bankNameController = new TextEditingController();
