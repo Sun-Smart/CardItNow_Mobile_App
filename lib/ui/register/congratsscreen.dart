@@ -70,7 +70,7 @@ class _congratesscreenState extends State<congratesscreen> {
                   borderRadius: BorderRadius.circular(100)
                 ),
                 child: Center(
-                  child:  Image.asset('assets/congrats.png',
+                  child:  Image.asset('assets/wish.png',
                       width: 230, height: 150),
                 ),
 

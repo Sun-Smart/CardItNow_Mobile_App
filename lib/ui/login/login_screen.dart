@@ -10,7 +10,6 @@ import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
-import 'package:cardit/ui/register/select_country_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:cardit/ui/update_psw_screen/update_email_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
