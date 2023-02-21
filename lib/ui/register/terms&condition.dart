@@ -79,12 +79,10 @@ class _termsandconditionsState extends State<termsandconditions> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-          if (GetStorage().read('save_token') == null) {
-            Get.to(ChoosePaymentPage());
-          } else {
-            Get.to(ChoosePaymentPage());
-          }
+                                       onTap: () {
+          con.Termspost(
+
+          );
         },
                                       child: Container(
                                         margin: const EdgeInsets.symmetric(
@@ -157,12 +155,10 @@ class _termsandconditionsState extends State<termsandconditions> {
                                             color: HexColor('#CEE812'),
                                             borderRadius:
                                                 BorderRadius.circular(5)),
-                                       onTap: () {
-          if (GetStorage().read('save_token') == null) {
-            Get.to(ChoosePaymentPage());
-          } else {
-            Get.to(ChoosePaymentPage());
-          }
+                                        onTap: () {
+          con.Termspost(
+
+          );
         },
                                         text: "Accept and Proceed"),
                                   ],
