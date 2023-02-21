@@ -109,9 +109,9 @@ class _splash2State extends State<splash2> {
                                   if (con.dropdownvalue != null) {
                                     con.docselect();
                                     if (widget.choosetype == "Login") {
-                                      Get.to(Login());
+                                      Get.off(Login());
                                     } else {
-                                      Get.to(Register());
+                                      Get.off(Register());
                                     }
                                   }
                                 }

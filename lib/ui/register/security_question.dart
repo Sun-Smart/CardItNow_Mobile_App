@@ -20,50 +20,47 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   final AuthCon auth = Get.find();
+  List<TextEditingController> _controllers = [];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar:
+              AppBar(
+            backgroundColor: Colors.transparent,
+            leading: BackButton(
+              onPressed: (){Get.back();},
+              color: HexColor('#004751'),
+            ),
+
+          ),
         body:Responsive.isMobile(context)
-              ? Column(
-          // crossAxisAlignment: Responsive.isMobile(context)
-          //     ? CrossAxisAlignment.start
-          //     : Responsive.isDesktop(context)
-          //     ? CrossAxisAlignment.center
-          //     : CrossAxisAlignment.center,
+              ? Container(
+          margin: EdgeInsets.all(15),
+                child: Column(
+
           children: [
-            Text("Security Questions",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: HexColor('#004751'))),
-            ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(10),
-                itemCount: auth.securityQuestionList.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  var item = auth.securityQuestionList[index];
-                  return
-                    SingleChildScrollView(
-                      child: InkWell(
-                        hoverColor: Colors.transparent,
-                        onTap: () {
-                        },
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
 
-                          child: Text("${item['label']}"),
 
-                        ),
-                      ),
-                    );
-                }),
+            Row(
+                children: [
+                  Text("Security Questions",
+                      style: TextStyle(
+                          fontSize: 24,fontFamily: 'Sora',
+                          fontWeight: FontWeight.bold,
+                          color: HexColor('#004751'))),
+                ],
+            ),
+
+
+
+
+
 
           ],
-        ): Responsive.isDesktop(context)?Row(
+        ),
+              ): Responsive.isDesktop(context)?Row(
           children: [
             Container(
                           width: MediaQuery.of(context).size.width / 3,
@@ -108,7 +105,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                           child: Container(
                             margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
                         
-                            child: Text("${item['label']}"),
+                            child: Text("${item["question"]}"),
                         
                           ),
                                               ),
@@ -177,7 +174,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                           child: Container(
                             margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
                         
-                            child: Text("${item['label']}"),
+                            child: Text("${item["question"]}"),
                         
                           ),
                                               ),
@@ -205,7 +202,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
          
           ],
         ),
-        bottomSheet: Responsive.isMobile(context)? AuthButton(
+        bottomNavigationBar: Responsive.isMobile(context)? AuthButton(
           decoration: BoxDecoration(
             color: HexColor('#CEE812'),
             borderRadius: BorderRadius.circular(5),

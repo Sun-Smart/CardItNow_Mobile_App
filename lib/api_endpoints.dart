@@ -11,7 +11,7 @@ class API {
   String register = "customermaster/SendOTP1";
   String verifyotp = "verifyotp/Verify";
   String registerSign = "common/SaveSocialMedia";
-  String getSecurityQuestion = "customersecurityquestion";
+  String getSecurityQuestion = "customermaster/GetsecurityQuestions";
   String mandatoryPayee = "payerpayeeprivate/MandatoryPayee";
 
   //Terms acceptance

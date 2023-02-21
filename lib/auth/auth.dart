@@ -87,7 +87,7 @@ class AuthCon extends GetxController with BaseController {
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
 
-  var securityQuestionList = [];
+  var securityQuestionList = [].obs;
 
 
 
@@ -685,7 +685,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     if(data != [])
     {
-      securityQuestionList = data;
+      securityQuestionList.value = data;
     }
   }
 
