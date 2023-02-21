@@ -559,11 +559,17 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
 
   Widget onboardweb() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Payee’s Name',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+            SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Payee’s Name',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           width: Responsive.isDesktop(context)
@@ -610,9 +616,15 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontWeight: FontWeight.bold))),
         ),
         SizedBox(height: 10),
-        Text('Payee’s Email',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+            SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Payee’s Email',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           width: Responsive.isDesktop(context)
@@ -660,12 +672,18 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
         ),
         if(isBusiness)
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 10),
-              Text('Business Reg Number',
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+              Row(
+                children: [
+                    SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+                  Text('Business Reg Number',
+                      style: TextStyle(
+                          fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+                ],
+              ),
               SizedBox(height: 10),
               Container(
                 width: Responsive.isDesktop(context)
@@ -714,9 +732,15 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
             ],
           ),
         SizedBox(height: 10),
-        Text('Mobile Number',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+              SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Mobile Number',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           width: Responsive.isDesktop(context)
@@ -763,9 +787,15 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontWeight: FontWeight.bold))),
         ),
         SizedBox(height: 10),
-        Text('Select Bank',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+              SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Select Bank',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -806,51 +836,71 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
           ),
         ),
         SizedBox(height: 10),
+        Row(
+          children: [
+              SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Branch Name',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
+         SizedBox(height: 10),
+        Container(
+            width: Responsive.isDesktop(context)
+              ? MediaQuery.of(context).size.width / 4
+              : MediaQuery.of(context).size.width / 2.5,
+          child: TextFormField(
+              keyboardType: TextInputType.number,
+              controller: Branchcontroller,
+              decoration: InputDecoration(
+                  labelText: 'Enter your Branch Name',
+                  filled: true,
+                  fillColor: Colors.white,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  helperStyle: const TextStyle(
+                      fontFamily: 'Sora', fontSize: 14),
+                  hintStyle: const TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'Sora',
+                      fontWeight: FontWeight.normal),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 15),
+                  focusColor: Colors.grey.shade300,
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: Colors.grey, width: 1.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: Colors.grey, width: 1.0)),
+                  focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      gapPadding: 7,
+                      borderSide:
+                      const BorderSide(color: Colors.grey)),
+                  errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide:
+                      const BorderSide(color: Colors.grey)),
+                  errorStyle: const TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold))),
+        ),
         SizedBox(height: 10),
-        TextFormField(
-            keyboardType: TextInputType.number,
-            controller: Branchcontroller,
-            decoration: InputDecoration(
-                labelText: 'Enter your Branch Name',
-                filled: true,
-                fillColor: Colors.white,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(
-                    fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.normal),
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide:
-                    const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                    const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold))),
-        SizedBox(height: 10),
-        Text('IBAN Number',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+               SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('IBAN Number',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           width: Responsive.isDesktop(context)
@@ -898,9 +948,15 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontWeight: FontWeight.bold))),
         ),
         SizedBox(height: 10),
-        Text('Enter SWIFT Code',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+        Row(
+          children: [
+               SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+            MediaQuery.of(context).size.width/8,),
+            Text('Enter SWIFT Code',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Sora', color: Colors.black)),
+          ],
+        ),
         SizedBox(height: 10),
         Container(
           width: Responsive.isDesktop(context)
@@ -947,20 +1003,26 @@ class _OnBoardPayeePageState extends State<OnBoardPayeePage> {
                       fontWeight: FontWeight.bold))),
         ),
         SizedBox(height: 10),
-        CheckboxListTile(
-          title: const Text('Is your payee a business licensed in the Philippines?'),
-          controlAffinity: ListTileControlAffinity.leading,
-          contentPadding: EdgeInsets.zero,
-          autofocus: false,
-          activeColor: HexColor('#004751'),
-          checkColor: Colors.white,
-          selected: isBusiness,
-          value: isBusiness,
-          onChanged: (bool? value) {
-            setState(() {
-              isBusiness = value!;
-            });
-          },
+          // SizedBox(width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/4.8:
+          //   MediaQuery.of(context).size.width/8,),
+        Container(
+          width:Responsive.isDesktop(context) ?MediaQuery.of(context).size.width/3.8:
+            MediaQuery.of(context).size.width/2.2,
+          child: CheckboxListTile(
+            title: const Text('Is your payee a business licensed in the Philippines?'),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: EdgeInsets.zero,
+            autofocus: false,
+            activeColor: HexColor('#004751'),
+            checkColor: Colors.white,
+            selected: isBusiness,
+            value: isBusiness,
+            onChanged: (bool? value) {
+              setState(() {
+                isBusiness = value!;
+              });
+            },
+          ),
         ),
         Container(
           width: Responsive.isDesktop(context)
