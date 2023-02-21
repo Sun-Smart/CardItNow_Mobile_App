@@ -22,7 +22,7 @@ class API {
   String termsmaster = "termsCondition/TermsList";
 
   String password = "customermaster/password config";
-  String pinset = "customermaster/TPIN config";
+  String pinset = "customermaster/TPINconfig";
   String updateProfileInformation = 'customermaster/UpdateProfileInformation';
 
   //avator

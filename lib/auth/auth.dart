@@ -98,6 +98,9 @@ class AuthCon extends GetxController with BaseController {
   final emailController = TextEditingController();
   final forgotemailController = TextEditingController();
 
+  //securityquestion controllers
+  List<TextEditingController> controllers = [];
+
   //  ItemScrollController itemScrollController = ItemScrollController();
   //  ItemPositionsListener itemPositionsListener =
   // ItemPositionsListener.create();
@@ -683,9 +686,34 @@ class AuthCon extends GetxController with BaseController {
 
     if (response == null) return;
     var data = json.decode(response);
+    GetStorage().write("questionid", data["questionid"]);
     if(data != [])
     {
       securityQuestionList.value = data;
+    }
+  }
+
+//security question post api
+  void securityPost(String brn) async{
+    var customerids = GetStorage().read("custid");
+    var questionids = GetStorage().read("questionid");
+    var body = {
+      {
+        "securityquestionid":questionids,
+        "customerid":customerids,
+        "questionid":questionids,
+        "answer":controllers[0],
+        "status":""
+      }
+    };
+    var response = await BaseClient()
+        .post(API().mandatoryPayee, body)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    if(data["mandatoryPayee"] != null){
+
     }
   }
 

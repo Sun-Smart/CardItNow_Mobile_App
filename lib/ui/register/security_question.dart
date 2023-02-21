@@ -20,7 +20,7 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   final AuthCon auth = Get.find();
-  List<TextEditingController> _controllers = [];
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,8 @@ Obx(() =>Expanded(
       itemCount: auth.securityQuestionList.length,
       itemBuilder: (BuildContext context, int index) {
         var item = auth.securityQuestionList[index];
-        _controllers.add(new TextEditingController());
+        auth.controllers.add(new TextEditingController());
+
         return Container(
           child:
           Column(
@@ -91,7 +92,7 @@ Obx(() =>Expanded(
                 ),
 
                 textAlign: TextAlign.start,
-                controller:   _controllers[index],
+                controller: auth.controllers[index],
                 autofocus: false,
                 keyboardType: TextInputType.text,),
             ],

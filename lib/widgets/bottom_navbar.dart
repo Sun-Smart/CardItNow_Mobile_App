@@ -125,7 +125,7 @@ class _BottomNavBarReceiverState extends State<BottomNavBarReceiver> {
             activeColor: Color(0xffCEE812),
             inactiveColor: Color.fromRGBO(255, 255, 255, 0.4)),
         BarItem(
-            icon: CustomIcon.exchange,
+            icon: CustomIcon.person_outline,
             title: 'Profile',
             activeColor: Color(0xffCEE812),
             inactiveColor: Color.fromRGBO(255, 255, 255, 0.4)),
@@ -150,7 +150,7 @@ class _BottomNavBarReceiverState extends State<BottomNavBarReceiver> {
       case 2:
         Navigator.pushReplacementNamed(
             NavigationService.navigatorKey.currentContext ?? context,
-            "/recieverprofile");
+            "/profile");
         break;
     }
   }

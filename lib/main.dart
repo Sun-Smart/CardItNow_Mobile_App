@@ -73,7 +73,7 @@ class MyAppState extends State<MyApp> {
     if (_timer != null) {
       _timer?.cancel();
     }
-    _timer = Timer(const Duration(minutes: 5), _logOutUser);
+    _timer = Timer(const  Duration(minutes: 5), _logOutUser);
   }
 
   void _logOutUser() {

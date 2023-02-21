@@ -2,6 +2,8 @@
 
 import 'dart:io';
 
+import 'package:cardit/main.dart';
+import 'package:cardit/ui/landingscreens/BusinessDetails.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +73,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     // final themeChange = Provider.of<DarkThemeProvider>(context);
     return DefaultTabController(
-      length: 2,
+      length: MyApp.logindetails["customertype"] == "I"?2:3,
       child: Scaffold(
         appBar: AppBar(
           elevation: 2,
@@ -98,24 +100,34 @@ class _UserDetailsState extends State<UserDetails> {
           bottom: TabBar(
             indicatorColor: Color(0XffCEE812),
             indicatorWeight: 2.5,
-            tabs: const [
+
+            tabs:  [
               Tab(text: "Personal Details"),
-              Tab(text: "Upload Document"),
+              if(MyApp.logindetails["customertype"] == "R")
+              Tab(text: "Business Details"),
+              Tab(text: "National ID"),
+
             ],
           ),
         ),
         body: Responsive.isMobile(context)
             ? TabBarView(children: [
                 bulidForm(),
+          if(MyApp.logindetails["customertype"] == "R")
+            BusinessDetails(),
                 UploadDocuments(),
               ])
             : Responsive.isDesktop(context)
                 ? TabBarView(children: [
                     buildformweb(),
+          if(MyApp.logindetails["customertype"] == "R")
+            BusinessDetails(),
                     UploadDocuments(),
                   ])
                 : TabBarView(children: [
                     buildformweb(),
+          if(MyApp.logindetails["customertype"] == "R")
+            BusinessDetails(),
                     UploadDocuments(),
                   ]),
       ),

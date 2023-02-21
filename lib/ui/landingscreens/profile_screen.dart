@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/main.dart';
 import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/services/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
@@ -38,13 +39,20 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         bottomNavigationBar:
-            Responsive.isMobile(context) ? BottomNavBarWidget(3) : null,
-        body: Responsive.isMobile(context)
+            Responsive.isMobile(context) ?
+            MyApp.logindetails["customertype"] == "I"?
+            BottomNavBarWidget(3) : BottomNavBarReceiver( index: 2,):null,
+
+        body:
+
+        Responsive.isMobile(context)
             ? Container(
                 child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
+                child:
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -61,11 +69,13 @@ class _ProfileState extends State<Profile> {
                     buildmenu('assets/banner/usericon.png', 'User Details',
                         '/userdetails'),
                     SizedBox(height: 15),
-                    buildmenu('assets/banner/card.png', 'Manage Cards',
+                    MyApp.logindetails["customertype"] == "I"? buildmenu('assets/banner/card.png', 'Manage Cards',
+                        '/manualCard'):buildmenu('assets/banner/card.png', 'Manage Prepaid Cards',
                         '/manualCard'),
-                    SizedBox(height: 15),
-                    buildmenu(
-                        'assets/banner/reward.png', 'My Rewards', '/settings'),
+                    MyApp.logindetails["customertype"] == "I"?SizedBox(height: 15):SizedBox(),
+                    MyApp.logindetails["customertype"] == "I"?   buildmenu(
+                        'assets/banner/reward.png', 'My Rewards', '/settings'):
+                    SizedBox(),
                     SizedBox(height: 15),
                     buildmenu(
                         'assets/banner/setting.png', 'Settings', '/settings'),
