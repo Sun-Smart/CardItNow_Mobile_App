@@ -11,13 +11,10 @@ import 'package:cardit/ui/loan_screen/payment_overview.dart';
 import 'package:cardit/ui/loan_screen/payment_successful.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:cardit/ui/onboard_screen/onboard-seller-load_screen.dart';
-import 'package:cardit/ui/payment_method/on_board_payee.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/receiver_payment_screen.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/register_loading_screen.dart';
-import 'package:cardit/ui/register/select_country_screen.dart';
-import 'package:cardit/ui/register/terms&condition.dart';
-import 'package:cardit/ui/register/verify_email_screen.dart';
-import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/ui/splash_screen/splash2.dart';
 import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
@@ -35,6 +32,7 @@ import 'ui/login/login_screen.dart';
 import 'ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'ui/onboard_screen/onboard-seller_screen.dart';
 import 'ui/payment_method/manula_card_screen.dart';
+import 'ui/payment_method/recievermethodscreens/recieverprofile.dart';
 import 'ui/register/profile_information_screen.dart';
 import 'ui/register/select_avatar_screen.dart';
 import 'ui/startingscreen/home_screen.dart';
@@ -54,8 +52,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Home());
       case '/splash2':
         return MaterialPageRoute(builder: (_) =>  splash2());
-      case '/selectcountry':
-        return MaterialPageRoute(builder: (_) => const Selectcountry());
       case '/4digitpasscode':
         return MaterialPageRoute(builder: (_) => const Passcode());
       case '/updatepasswordcode':
@@ -112,6 +108,20 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => onboardRecipient());
       case '/chooseLPG':
         return MaterialPageRoute(builder: (_) => ChooseLGU()
+
+        );
+      case '/CreditPrepaidScreen':
+        return MaterialPageRoute(builder: (_) => CreditPrepaidScreen()
+
+        );
+      case '/ReceiverPaymentScreen':
+        return MaterialPageRoute(builder: (_) => ReceiverPaymentScreen()
+
+        );
+
+        case '/recieverprofile':
+        return MaterialPageRoute(builder: (_) => recieverprofile()
+
         );
 
 //git push
