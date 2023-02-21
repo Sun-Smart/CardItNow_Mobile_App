@@ -52,11 +52,88 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                           color: HexColor('#004751'))),
                 ],
             ),
+Obx(() =>Expanded(
+  child:   ListView.builder(
+
+      shrinkWrap: true,
+      itemCount: auth.securityQuestionList.length,
+      itemBuilder: (BuildContext context, int index) {
+        var item = auth.securityQuestionList[index];
+        _controllers.add(new TextEditingController());
+        return Container(
+          child:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text("${item["question"]}",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,fontFamily: 'Sora',
+                    fontSize: 16
+                ),
+              ),
+              SizedBox(height: 20,),
+              TextFormField(
+
+                decoration: InputDecoration(
+
+                  hintText: "${item["question"]}",
+
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder:  OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black,
+                          width: 1.0)
+                  ),
+                ),
+
+                textAlign: TextAlign.start,
+                controller:   _controllers[index],
+                autofocus: false,
+                keyboardType: TextInputType.text,),
+            ],
+          ),
 
 
 
+        );
+
+      }),
+),
+),
 
 
+
+            // ListView.builder(
+            //       physics: ScrollPhysics(),
+            //       shrinkWrap: true,
+            //       padding: const EdgeInsets.all(10),
+            //       itemCount: auth.securityQuestionList.length,
+            //       scrollDirection: Axis.vertical,
+            //       itemBuilder: (context, index) {
+            //         var item = auth.securityQuestionList[index];
+            //         return
+            //           SingleChildScrollView(
+            //             child: InkWell(
+            //               hoverColor: Colors.transparent,
+            //               onTap: () {
+            //               },
+            //               child: Container(
+            //                 margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
+            //
+            //                 child: Text("${item["question"]}",
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.bold,fontFamily: 'Sora'
+            //                 ),
+            //                 ),
+            //
+            //               ),
+            //             ),
+            //           );
+            //       }),
 
           ],
         ),
