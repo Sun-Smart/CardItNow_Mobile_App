@@ -26,120 +26,116 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar:
-              AppBar(
-            backgroundColor: Colors.transparent,
-            leading: BackButton(
-              onPressed: (){Get.back();},
-              color: HexColor('#004751'),
-            ),
-
-          ),
-        body:Responsive.isMobile(context)
+          appBar: Responsive.isMobile(context)
+              ? AppBar(
+                  backgroundColor: Colors.transparent,
+                  leading: BackButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    color: HexColor('#004751'),
+                  ),
+                )
+              : null,
+          body: Responsive.isMobile(context)
               ? Container(
-          margin: EdgeInsets.all(15),
-                child: Column(
+                  margin: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Security Questions",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751'))),
+                        ],
+                      ),
+                      Obx(
+                        () => Expanded(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: auth.securityQuestionList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var item = auth.securityQuestionList[index];
+                                _controllers.add(new TextEditingController());
+                                return Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "${item["question"]}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Sora',
+                                            fontSize: 16),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          hintText: "${item["question"]}",
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.black),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 1.0)),
+                                        ),
+                                        textAlign: TextAlign.start,
+                                        controller: _controllers[index],
+                                        autofocus: false,
+                                        keyboardType: TextInputType.text,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
 
-          children: [
-
-
-            Row(
-                children: [
-                  Text("Security Questions",
-                      style: TextStyle(
-                          fontSize: 24,fontFamily: 'Sora',
-                          fontWeight: FontWeight.bold,
-                          color: HexColor('#004751'))),
-                ],
-            ),
-Obx(() =>Expanded(
-  child:   ListView.builder(
-
-      shrinkWrap: true,
-      itemCount: auth.securityQuestionList.length,
-      itemBuilder: (BuildContext context, int index) {
-        var item = auth.securityQuestionList[index];
-        _controllers.add(new TextEditingController());
-        return Container(
-          child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Text("${item["question"]}",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,fontFamily: 'Sora',
-                    fontSize: 16
-                ),
-              ),
-              SizedBox(height: 20,),
-              TextFormField(
-
-                decoration: InputDecoration(
-
-                  hintText: "${item["question"]}",
-
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                      // ListView.builder(
+                      //       physics: ScrollPhysics(),
+                      //       shrinkWrap: true,
+                      //       padding: const EdgeInsets.all(10),
+                      //       itemCount: auth.securityQuestionList.length,
+                      //       scrollDirection: Axis.vertical,
+                      //       itemBuilder: (context, index) {
+                      //         var item = auth.securityQuestionList[index];
+                      //         return
+                      //           SingleChildScrollView(
+                      //             child: InkWell(
+                      //               hoverColor: Colors.transparent,
+                      //               onTap: () {
+                      //               },
+                      //               child: Container(
+                      //                 margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
+                      //
+                      //                 child: Text("${item["question"]}",
+                      //                 style: TextStyle(
+                      //                   fontWeight: FontWeight.bold,fontFamily: 'Sora'
+                      //                 ),
+                      //                 ),
+                      //
+                      //               ),
+                      //             ),
+                      //           );
+                      //       }),
+                    ],
                   ),
-                  enabledBorder:  OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black,
-                          width: 1.0)
-                  ),
-                ),
-
-                textAlign: TextAlign.start,
-                controller:   _controllers[index],
-                autofocus: false,
-                keyboardType: TextInputType.text,),
-            ],
-          ),
-
-
-
-        );
-
-      }),
-),
-),
-
-
-
-            // ListView.builder(
-            //       physics: ScrollPhysics(),
-            //       shrinkWrap: true,
-            //       padding: const EdgeInsets.all(10),
-            //       itemCount: auth.securityQuestionList.length,
-            //       scrollDirection: Axis.vertical,
-            //       itemBuilder: (context, index) {
-            //         var item = auth.securityQuestionList[index];
-            //         return
-            //           SingleChildScrollView(
-            //             child: InkWell(
-            //               hoverColor: Colors.transparent,
-            //               onTap: () {
-            //               },
-            //               child: Container(
-            //                 margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
-            //
-            //                 child: Text("${item["question"]}",
-            //                 style: TextStyle(
-            //                   fontWeight: FontWeight.bold,fontFamily: 'Sora'
-            //                 ),
-            //                 ),
-            //
-            //               ),
-            //             ),
-            //           );
-            //       }),
-
-          ],
-        ),
-              ): Responsive.isDesktop(context)?Row(
-          children: [
-            Container(
+                )
+              : Responsive.isDesktop(context)
+                  ? Row(
+                      children: [
+                        Container(
                           width: MediaQuery.of(context).size.width / 3,
                           height: MediaQuery.of(context).size.width / 1,
                           color: Color(0XFF004751),
@@ -151,150 +147,270 @@ Obx(() =>Expanded(
                                       MediaQuery.of(context).size.height / 3)),
                         ),
                         Container(
-                           width: MediaQuery.of(context).size.width / 1.5,
+                          width: MediaQuery.of(context).size.width / 1.5,
                           child: Column(
-                                  // crossAxisAlignment: Responsive.isMobile(context)
-                                  //     ? CrossAxisAlignment.start
-                                  //     : Responsive.isDesktop(context)
-                                  //     ? CrossAxisAlignment.center
-                                  //     : CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(height: 20,),
-                                    Text("Security Questions",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: HexColor('#004751'))),
-                                    ListView.builder(
-                                        physics: ScrollPhysics(),
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.all(10),
-                                        itemCount: auth.securityQuestionList.length,
-                                        scrollDirection: Axis.vertical,
-                                        itemBuilder: (context, index) {
-                                          var item = auth.securityQuestionList[index];
-                                          return
-                                            SingleChildScrollView(
-                                              child: InkWell(
-                          hoverColor: Colors.transparent,
-                          onTap: () {
-                          },
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
-                        
-                            child: Text("${item["question"]}"),
-                        
-                          ),
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  BackButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    color: HexColor('#004751'),
+                                  ),
+                                ],
+                              ),
+                              Text("Security Questions",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: HexColor('#004751'))),
+                              Obx(
+                                () => Expanded(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          auth.securityQuestionList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        var item =
+                                            auth.securityQuestionList[index];
+                                        _controllers
+                                            .add(new TextEditingController());
+                                        return Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 20,
                                               ),
-                                            );
-                                        }),
-                                        SizedBox(height: 50,),
-                                        AuthButton(
-          decoration: BoxDecoration(
-            color: HexColor('#CEE812'),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          onTap: () {
-            if(kIsWeb){
-              Get.to(() => termsandconditions());
-            } else{
-              Get.to(() => Twofactor());
-            }
-          },
-          text: "Next",
-        ),
-                        
-                                  ],
+                                              // SizedBox(height:MediaQuery.of(context).size.width/4.8 ,),
+                                              Row(
+                                                children: [
+                                                  SizedBox(width:MediaQuery.of(context).size.width/4.8 ,),
+                                                  Text(
+                                                    "${item["question"]}",
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontFamily: 'Sora',
+                                                        fontSize: 16),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    4,
+                                                child: TextFormField(
+                                                  decoration: InputDecoration(
+                                                    hintText:
+                                                        "${item["question"]}",
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black),
+                                                    ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    width:
+                                                                        1.0)),
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                  controller:
+                                                      _controllers[index],
+                                                  autofocus: false,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                      
                                 ),
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              AuthButton(
+                                decoration: BoxDecoration(
+                                  color: HexColor('#CEE812'),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                onTap: () {
+                                  if (kIsWeb) {
+                                    Get.to(() => termsandconditions());
+                                  } else {
+                                    Get.to(() => Twofactor());
+                                  }
+                                },
+                                text: "Next",
+                              ),
+                            ],
+                          ),
                         )
-          ],
-        ):Row(
-          children: [
-            Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                    //  height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          //  height: MediaQuery.of(context).size.width / 1,
+                          color: Color(0XFF004751),
+                          child: Center(
+                              child: Image.asset("assets/applogo-02.png",
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3)),
+                        ),
+                         Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  BackButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    color: HexColor('#004751'),
+                                  ),
+                                ],
+                              ),
+                              Text("Security Questions",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: HexColor('#004751'))),
+                              Obx(
+                                () => Expanded(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          auth.securityQuestionList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        var item =
+                                            auth.securityQuestionList[index];
+                                        _controllers
+                                            .add(new TextEditingController());
+                                        return Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              // SizedBox(height:MediaQuery.of(context).size.width/4.8 ,),
+                                              Row(
+                                                children: [
+                                                  SizedBox(width:MediaQuery.of(context).size.width/12 ,),
+                                                  Text(
+                                                    "${item["question"]}",
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontFamily: 'Sora',
+                                                        fontSize: 16),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                child: TextFormField(
+                                                  decoration: InputDecoration(
+                                                    hintText:
+                                                        "${item["question"]}",
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black),
+                                                    ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    width:
+                                                                        1.0)),
+                                                  ),
+                                                  textAlign: TextAlign.start,
+                                                  controller:
+                                                      _controllers[index],
+                                                  autofocus: false,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                      
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              AuthButton(
+                                decoration: BoxDecoration(
+                                  color: HexColor('#CEE812'),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                onTap: () {
+                                  if (kIsWeb) {
+                                    Get.to(() => termsandconditions());
+                                  } else {
+                                    Get.to(() => Twofactor());
+                                  }
+                                },
+                                text: "Next",
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                       Container(
-                           width: MediaQuery.of(context).size.width / 1.5,
-                          child: Column(
-                                  // crossAxisAlignment: Responsive.isMobile(context)
-                                  //     ? CrossAxisAlignment.start
-                                  //     : Responsive.isDesktop(context)
-                                  //     ? CrossAxisAlignment.center
-                                  //     : CrossAxisAlignment.center,
-                                  children: [
-                                     SizedBox(height: 20,),
-                                    Text("Security Questions",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: HexColor('#004751'))),
-                                    ListView.builder(
-                                        physics: ScrollPhysics(),
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.all(10),
-                                        itemCount: auth.securityQuestionList.length,
-                                        scrollDirection: Axis.vertical,
-                                        itemBuilder: (context, index) {
-                                          var item = auth.securityQuestionList[index];
-                                          return
-                                            SingleChildScrollView(
-                                              child: InkWell(
-                          hoverColor: Colors.transparent,
-                          onTap: () {
-                          },
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
-                        
-                            child: Text("${item["question"]}"),
-                        
-                          ),
-                                              ),
-                                            );
-                                        }),
-                                        SizedBox(height: 50,),
-                                        AuthButton(
-          decoration: BoxDecoration(
-            color: HexColor('#CEE812'),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          onTap: () {
-            if(kIsWeb){
-              Get.to(() => termsandconditions());
-            } else{
-              Get.to(() => Twofactor());
-            }
-          },
-          text: "Next",
-        ),
-                        
-                                  ],
-                                ),
-                        )
-         
-          ],
-        ),
-        bottomNavigationBar: Responsive.isMobile(context)? AuthButton(
-          decoration: BoxDecoration(
-            color: HexColor('#CEE812'),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          onTap: () {
-            if(kIsWeb){
-              Get.to(() => termsandconditions());
-            } else{
-              Get.to(() => Twofactor());
-            }
-          },
-          text: "Next",
-        ):null
-      ),
+          bottomNavigationBar: Responsive.isMobile(context)
+              ? AuthButton(
+                  decoration: BoxDecoration(
+                    color: HexColor('#CEE812'),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  onTap: () {
+                    if (kIsWeb) {
+                      Get.to(() => termsandconditions());
+                    } else {
+                      Get.to(() => Twofactor());
+                    }
+                  },
+                  text: "Next",
+                )
+              : null),
     );
   }
-
 }

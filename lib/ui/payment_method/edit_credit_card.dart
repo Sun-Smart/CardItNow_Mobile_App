@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:cardit/auth/auth.dart';
+import 'package:cardit/responsive/responsive.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -53,7 +55,12 @@ class _EditCardState extends State<EditCard> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          Get.to(const DashbordScreen());
+          if(Responsive.isMobile(context)){
+            Get.to(const DashbordScreen());
+          }else{
+              Get.to(const DrawerWeb());
+          }
+          
         },
         text: "Let's Start Payments",
       ),
