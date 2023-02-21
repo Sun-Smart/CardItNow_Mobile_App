@@ -11,7 +11,7 @@ import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
-import 'package:cunning_document_scanner/cunning_document_scanner.dart';
+// import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -754,7 +754,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             onTap: () async {
               // openGallery();
               print('kkkk');
-              onPressed();
+              // onPressed();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -799,25 +799,25 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   //Document Scan
-  void onPressed() async {
-    List<String> pictures;
-    try {
-      pictures = await CunningDocumentScanner.getPictures() ?? [];
-      if (!mounted) return;
-      setState(() {
-        _pictures = pictures;
-        imagedoc2 = File(_pictures[0]);
-      });
-    } catch (exception) {
-      print('Image Not Pic');
-    }
-    List<int> fileInBytes = await imagedoc2!.readAsBytes();
-    String fileInBase64 = base64Encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-    log(fileInBase64);
-    //  con.uploaddoc = base64.encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-  }
+  // void onPressed() async {
+  //   List<String> pictures;
+  //   try {
+  //     pictures = await CunningDocumentScanner.getPictures() ?? [];
+  //     if (!mounted) return;
+  //     setState(() {
+  //       _pictures = pictures;
+  //       imagedoc2 = File(_pictures[0]);
+  //     });
+  //   } catch (exception) {
+  //     print('Image Not Pic');
+  //   }
+  //   List<int> fileInBytes = await imagedoc2!.readAsBytes();
+  //   String fileInBase64 = base64Encode(fileInBytes);
+  //   print('******************* BASE 64 SOURCE *******************');
+  //   log(fileInBase64);
+  //   //  con.uploaddoc = base64.encode(fileInBytes);
+  //   print('******************* BASE 64 SOURCE *******************');
+  // }
 
   //Gallery Image
   Future<void> openGalleryImage() async {

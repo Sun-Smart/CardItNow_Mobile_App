@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:cardit/ui/register/pdfView.dart';
 import 'package:cardit/widgets/auth_button.dart';
-import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,23 +30,23 @@ class _SelectDocumentsState extends State<SelectDocuments> {
   File? imagedoc2;
   PlatformFile? _platformFile;
   List<String> _pictures = [];
-  void onPressed() async {
-    List<String> pictures;
-    try {
-      pictures = await CunningDocumentScanner.getPictures() ?? [];
-      if (!mounted) return;
-      setState(() {
-        _pictures = pictures;
-        imagedoc2 = File(_pictures[0]);
-        print("---ssss----$imagedoc2");
-        List<int> fileBytes = imagedoc2!.readAsBytesSync();
-        con.doc64 = base64.encode(fileBytes);
-        print("-----64-----${con.doc64}");
-      });
-    } catch (exception) {
-      print('Image Not Pic');
-    }
-  }
+  // void onPressed() async {
+  //   List<String> pictures;
+  //   try {
+  //     pictures = await CunningDocumentScanner.getPictures() ?? [];
+  //     if (!mounted) return;
+  //     setState(() {
+  //       _pictures = pictures;
+  //       imagedoc2 = File(_pictures[0]);
+  //       print("---ssss----$imagedoc2");
+  //       List<int> fileBytes = imagedoc2!.readAsBytesSync();
+  //       con.doc64 = base64.encode(fileBytes);
+  //       print("-----64-----${con.doc64}");
+  //     });
+  //   } catch (exception) {
+  //     print('Image Not Pic');
+  //   }
+  // }
 
   Widget open_document() {
     if (_platformFile == null) {
@@ -680,7 +679,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
                 splashColor: Colors.green, // splash color
                 onTap: () {
                   setState(() {
-                    onPressed();
+                    // onPressed();
                     // displayImagedoc();
                   });
                 }, // button pressed
@@ -747,7 +746,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                onPressed();
+                // onPressed();
               },
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -771,7 +770,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
             onTap: () async {
-              onPressed();
+              // onPressed();
             },
             child: Image.file(
               imagedoc2!,

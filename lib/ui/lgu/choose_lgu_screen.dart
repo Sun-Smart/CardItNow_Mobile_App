@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:cardit/auth/auth.dart';
 
 import 'package:cardit/widgets/auth_button.dart';
-import 'package:cunning_document_scanner/cunning_document_scanner.dart';
+// import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -782,25 +782,25 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   }
 
   //Scan
-  void onPressed() async {
-    List<String> pictures;
-    try {
-      pictures = await CunningDocumentScanner.getPictures() ?? [];
-      if (!mounted) return;
-      setState(() {
-        _pictures = pictures;
-        imageFile = File(_pictures[0]);
-      });
-    } catch (exception) {
-      print('Image Not Pic');
-    }
-    List<int> fileInBytes = await imageFile!.readAsBytes();
-    String fileInBase64 = base64Encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-    log(fileInBase64);
-    //con.uploaddoc = base64.encode(fileInBytes);
-    print('******************* BASE 64 SOURCE *******************');
-  }
+  // void onPressed() async {
+  //   List<String> pictures;
+  //   try {
+  //     pictures = await CunningDocumentScanner.getPictures() ?? [];
+  //     if (!mounted) return;
+  //     setState(() {
+  //       _pictures = pictures;
+  //       imageFile = File(_pictures[0]);
+  //     });
+  //   } catch (exception) {
+  //     print('Image Not Pic');
+  //   }
+  //   List<int> fileInBytes = await imageFile!.readAsBytes();
+  //   String fileInBase64 = base64Encode(fileInBytes);
+  //   print('******************* BASE 64 SOURCE *******************');
+  //   log(fileInBase64);
+  //   //con.uploaddoc = base64.encode(fileInBytes);
+  //   print('******************* BASE 64 SOURCE *******************');
+  // }
 
   //Popup
   Future<bool> popupScreen() async {
@@ -870,7 +870,7 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
                 }),
             GestureDetector(
                 onTap: () {
-                  onPressed();
+                  // onPressed();
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 10),

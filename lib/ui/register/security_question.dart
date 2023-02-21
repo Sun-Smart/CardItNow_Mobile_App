@@ -20,24 +20,22 @@ class SecurityQuestion extends StatefulWidget {
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
   final AuthCon auth = Get.find();
-  List<TextEditingController> _controllers = [];
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: Responsive.isMobile(context)
-              ? AppBar(
-                  backgroundColor: Colors.transparent,
-                  leading: BackButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    color: HexColor('#004751'),
-                  ),
-                )
-              : null,
-          body: Responsive.isMobile(context)
+          appBar:
+              AppBar(
+            backgroundColor: Colors.transparent,
+            leading: BackButton(
+              onPressed: (){Get.back();},
+              color: HexColor('#004751'),
+            ),
+
+          ),
+        body:Responsive.isMobile(context)
               ? Container(
           margin: EdgeInsets.all(15),
                 child: Column(
@@ -62,7 +60,6 @@ Obx(() =>Expanded(
       itemBuilder: (BuildContext context, int index) {
         var item = auth.securityQuestionList[index];
         auth.controllers.add(new TextEditingController());
-
         return Container(
           child:
           Column(
@@ -94,7 +91,7 @@ Obx(() =>Expanded(
                 ),
 
                 textAlign: TextAlign.start,
-                controller: auth.controllers[index],
+                controller:   auth.controllers[index],
                 autofocus: false,
                 keyboardType: TextInputType.text,),
             ],
@@ -107,36 +104,6 @@ Obx(() =>Expanded(
       }),
 ),
 ),
-
-
-
-            // ListView.builder(
-            //       physics: ScrollPhysics(),
-            //       shrinkWrap: true,
-            //       padding: const EdgeInsets.all(10),
-            //       itemCount: auth.securityQuestionList.length,
-            //       scrollDirection: Axis.vertical,
-            //       itemBuilder: (context, index) {
-            //         var item = auth.securityQuestionList[index];
-            //         return
-            //           SingleChildScrollView(
-            //             child: InkWell(
-            //               hoverColor: Colors.transparent,
-            //               onTap: () {
-            //               },
-            //               child: Container(
-            //                 margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
-            //
-            //                 child: Text("${item["question"]}",
-            //                 style: TextStyle(
-            //                   fontWeight: FontWeight.bold,fontFamily: 'Sora'
-            //                 ),
-            //                 ),
-            //
-            //               ),
-            //             ),
-            //           );
-            //       }),
 
           ],
         ),
@@ -156,57 +123,38 @@ Obx(() =>Expanded(
                         Container(
                            width: MediaQuery.of(context).size.width / 1.5,
                           child: Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  BackButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    color: HexColor('#004751'),
-                                  ),
-                                ],
-                              ),
-                              Text("Security Questions",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: HexColor('#004751'))),
-                              Obx(
-                                () => Expanded(
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          auth.securityQuestionList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        var item =
-                                            auth.securityQuestionList[index];
-                                        _controllers
-                                            .add(new TextEditingController());
-                                        return Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              // SizedBox(height:MediaQuery.of(context).size.width/4.8 ,),
-                                              Row(
-                                                children: [
-                                                  SizedBox(width:MediaQuery.of(context).size.width/4.8 ,),
-                                                  Text(
-                                                    "${item["question"]}",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontFamily: 'Sora',
-                                                        fontSize: 16),
-                                                  ),
-                                                ],
+                                  // crossAxisAlignment: Responsive.isMobile(context)
+                                  //     ? CrossAxisAlignment.start
+                                  //     : Responsive.isDesktop(context)
+                                  //     ? CrossAxisAlignment.center
+                                  //     : CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 20,),
+                                    Text("Security Questions",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: HexColor('#004751'))),
+                                    ListView.builder(
+                                        physics: ScrollPhysics(),
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.all(10),
+                                        itemCount: auth.securityQuestionList.length,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          var item = auth.securityQuestionList[index];
+                                          return
+                                            SingleChildScrollView(
+                                              child: InkWell(
+                          hoverColor: Colors.transparent,
+                          onTap: () {
+                          },
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
+
+                            child: Text("${item["question"]}"),
+
+                          ),
                                               ),
                                             );
                                         }),
