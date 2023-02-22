@@ -56,4 +56,8 @@ class API {
   String setDefaultCard = "customerpaymode/setCardDefault";
   String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
   String creditCardGetLink = 'customerpaymode/GetCustomerCardList?id=';
+
+  //Securitypost
+
+  String securitypost = "customersecurityquestion";
 }

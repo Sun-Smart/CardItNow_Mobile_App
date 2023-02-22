@@ -700,7 +700,7 @@ class AuthCon extends GetxController with BaseController {
 //security question post api
   void securityPost() async{
     var customerids = GetStorage().read("custid");
-    var questionids = GetStorage().read("questionid");
+
     var body = {
       {
         "securityquestionid":securequestions["questionid"],

@@ -6,8 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class Styles {
-  static final themeChange =
-      Provider.of<DarkThemeProvider>(navigatorKey.currentContext!);
+  static final themeChange =  themeChangeProvider;
   static Color get colorBackgroundBlock =>
       themeChange.darkTheme ? const Color(0xff000000) : const Color(0xffffffff);
   static Color get colorBackgroundwhite =>

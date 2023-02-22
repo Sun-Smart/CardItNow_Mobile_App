@@ -19,7 +19,8 @@ import 'package:provider/provider.dart';
 import 'auth/auth.dart';
 import 'base_client.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+
 Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
 
