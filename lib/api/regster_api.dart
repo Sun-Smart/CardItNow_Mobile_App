@@ -4,12 +4,11 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
-import 'package:cardit/ui/login/login_screen.dart';
+import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
-import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
-import 'package:cardit/ui/update_psw_screen/update_password_screen.dart';
-import 'package:flutter/foundation.dart';
+import 'package:cardit/ui/auth/update_password_code_screen.dart';
+import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -23,40 +22,17 @@ import '../ui/register/4digit_passcode_screen.dart';
 import '../ui/register/register_loading_screen.dart';
 import '../ui/register/security_question.dart';
 import '../ui/register/select_avatar_screen.dart';
-import '../ui/register/terms&condition.dart';
-import '../ui/register/twofactor.dart';
 import '../ui/register/verify_email_screen.dart';
-import '../ui/startingscreen/home_screen.dart';
+import '../ui/splash/home_screen.dart';
 
 
-class AuthCon extends GetxController with BaseController {
+class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
   var scandocs = '';
-
-  @override
-  void onInit() {
-    termsconditions();
-    // showAvatorMaster();
-    geoaccess();
-    countryselection();
-    getSecurityQuestionAPI();
-    if(GetStorage().read('save_token').toString() != "null"){
-      docselect();
-      taxDetailsGetApi();
-      banklistget();
-      documenttypeget();
-      paymentpurposeget();
-      invoicegetmethod();
-    }
-    super.onInit();
-  }
-
   File? image;
-  var isUAE = false.obs;
 
   // terms and conditions
   var termscond = [];
-  var doc64 = '';
   var banklist = [];
   var paymentpurposelist = [];
 
@@ -72,53 +48,47 @@ class AuthCon extends GetxController with BaseController {
   var drawercountry = "CM".obs;
 
   var documenttypelist = [];
-  RxBool newExcercise = false.obs;
-  RxBool workoutWithoutOutSide = false.obs;
-  RxBool fitEveryDay = false.obs;
   var regDoc = '';
   var uploadimg = '';
-  var uploaddoc = '';
   String choosedDocId = '';
   var googleMail = '';
+
   //your Details
   var Owner = {}.obs;
-//choose country
+
+  //choose country
   var pickcountry = [];
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
 
-
   RxList securityQuestionList = [].obs;
 
-
-
-
   // login
-  final TextEditingController userNameCon = TextEditingController();
-  final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
-  final forgotemailController = TextEditingController();
   final securityquestioncontroller = TextEditingController();
-
-  //securityquestion controllers
-  List<TextEditingController> controllers = [];
-
-  //  ItemScrollController itemScrollController = ItemScrollController();
-  //  ItemPositionsListener itemPositionsListener =
-  // ItemPositionsListener.create();
-  var otp = ''.obs;
-  var token = ''.obs;
-
-  //Get Storage
-  final box = GetStorage();
-
-  //otp
-  final TextEditingController otpCon = TextEditingController();
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
   dynamic countrywisedoc;
   dynamic securequestions;
+
+
+  @override
+  void onInit() {
+    termsconditions();
+    geoaccess();
+    countryselection();
+    getSecurityQuestionAPI();
+    if(GetStorage().read('save_token').toString() != "null"){
+      docselect();
+      taxDetailsGetApi();
+      banklistget();
+      documenttypeget();
+      paymentpurposeget();
+      invoicegetmethod();
+    }
+    super.onInit();
+  }
 
   getLoginToken(){
     var token = GetStorage().read('save_token');
@@ -263,14 +233,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(data1);
     if (data["status"] == 'success') {
       GetStorage().write('username', firstName.toString());
-      // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
- //      if(kIsWeb){
- // Get.to(() => termsandconditions());
- //      } else{
- //         Get.to(() => Twofactor());
- //      }
       Get.to(SecurityQuestion());
-      // Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -317,18 +280,6 @@ class AuthCon extends GetxController with BaseController {
     }
   }
 
-  //show Avator Master
-  // void showAvatorMaster() async {
-  //   var response =
-  //       await BaseClient().get(API().showAvatorMaster).catchError(handleError);
-  //   if (response == null) return;
-  //   var data = json.decode(response);
-  //   if(data["status"] == "success"){
-  //     avatarImageList = data[data];
-  //   }
-  //
-  // }
-
   //upload Avator and Selfi
   void avatorSelfi(avator) async {
     showLoading();
@@ -361,7 +312,6 @@ class AuthCon extends GetxController with BaseController {
     if (data != null) {
       profileinfo.value = data;
        Get.to(AvatarPageView());
-      // Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -414,9 +364,7 @@ class AuthCon extends GetxController with BaseController {
       "mobile": phonenumber,
       "bankname": bank,
       "accountnumber": accountnumber,
-      "swiftcode": swiftcode,
-      // "documnettype": doctypedropdown,
-      // "documnet": doc
+      "swiftcode": swiftcode
     };
     var response = await BaseClient()
         .post(API().onboardPayeePost, body)
@@ -440,9 +388,7 @@ class AuthCon extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     banklist = data;
-//banklist-dropdown
     print("-----data-------$banklist");
-    // termscond = data[0]['termdetails'];
   }
 
   void paymentpurposeget() async {
@@ -454,7 +400,6 @@ class AuthCon extends GetxController with BaseController {
     paymentpurposelist = data;
 
     print("-----data-------$paymentpurposelist");
-    // termscond = data[0]['termdetails'];
   }
 
   void invoicegetmethod() async {
@@ -464,10 +409,8 @@ class AuthCon extends GetxController with BaseController {
     var data = jsonDecode(response);
     var data1 = json.decode(data);
     print("-----data" + data);
-    // Get.to(AmountPay());
     invoicejson = data1;
     print("------inovice----${invoicejson["Rent"]}");
-    // Fluttertoast.showToast(msg: data.toString());
   }
 
   //forgot password
@@ -632,7 +575,7 @@ class AuthCon extends GetxController with BaseController {
     var data = json.decode(response);
     if (data != null) {
       if(data["token"] !=null){
-        AuthCon auth = AuthCon();
+        RegisterAPI auth = RegisterAPI();
         GetStorage().write("save_token", data["token"].toString());
         print(data["token"]);
         await auth.getLoginToken();

@@ -1,11 +1,9 @@
 // ignore_for_file: unnecessary_import, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'dart:ui';
-
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/login/login_screen.dart';
-
-import 'package:cardit/ui/splash_screen/splash2.dart';
+import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/auth/login_screen.dart';
+import 'package:cardit/ui/splash/country.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +13,9 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../register/drawer/drawerscreen.dart';
-import '../register/profile_information_screen.dart';
-import '../register/terms&condition.dart';
-import '../register/verify_email_screen.dart';
-
-// ItemScrollController itemScrollController = ItemScrollController();
-// ItemPositionsListener itemPositionsListener =
-// ItemPositionsListener.create();
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -111,11 +101,11 @@ class _HomeState extends State<Home> {
                 fixedWidth: 100,
                 onValueChanged: (int value) {
                   if (value == 1) {
-                    Get.to( splash2(
+                    Get.to( Country(
                       choosetype:"Login"
                     ));
                   } else if (value == 2) {
-                    Get.to( splash2(
+                    Get.to( Country(
                         choosetype:"Register"
                     ));
                   }
@@ -143,10 +133,10 @@ class _HomeState extends State<Home> {
                     ? Container(
                         margin: EdgeInsets.all(15),
                         child: Responsive.isMobile(context)
-                            ? homescroll()
+                            ? homeScrollWidget()
                             : Responsive.isDesktop(context)
-                                ? homescrollweb()
-                                : homescrollweb())
+                                ? homeScrollWebWidget()
+                                : homeScrollWebWidget())
                     : index == 2
                         ? Container(
                             margin: EdgeInsets.all(15),
@@ -216,35 +206,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget topBanner() {
-  //   return
-  // }
-
-  // Widget buildTitle() {
-  //   return Container(
-  //     color: Styles.colorBackgroundBlock,
-  //     padding: const EdgeInsets.all(15),
-  //     child: Column(
-  //       crossAxisAlignment: Responsive.isMobile(context)
-  //           ? CrossAxisAlignment.start
-  //           : CrossAxisAlignment.center,
-  //       mainAxisAlignment: Responsive.isMobile(context)
-  //           ? MainAxisAlignment.start
-  //           : MainAxisAlignment.center,
-  //       children: [
-  //
-  //        // homescroll(),
-  //        //  howitsworks(),
-  //        //  pricing(),
-  //        //  SizedBox(height: 40),
-  //        //  easysplit(),
-  //
-  //
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget buildButton() {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -265,42 +226,16 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to( splash2());
+            Get.to( Country());
           }),
     );
   }
 
-  //
-  // Widget buildSystemImage() {
-  //   return Image.asset('assets/system.png');
-  // }
-
-  // Widget buildAbout() {
-  //   return
-  // }
-
-  // Widget buildLetGetStarted() {
-  //   return
-  // }
-
-  Widget _buildCart() {
-    return Container(
-        color: const Color(0XFFF7F7F7),
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Image.asset("assets/visa.png", width: 50),
-          const SizedBox(width: 10),
-          Image.asset(width: 50, 'assets/americon.png'),
-          const SizedBox(width: 10),
-          SvgPicture.asset('assets/master.svg', width: 40)
-        ]));
-  }
 }
 
 //for mobile
-class homescroll extends StatelessWidget {
-  const homescroll({Key? key}) : super(key: key);
+class homeScrollWidget extends StatelessWidget {
+  const homeScrollWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -414,9 +349,6 @@ class homescroll extends StatelessWidget {
           height: 20,
         ),
         Container(
-          // height: 360 ,
-          // width: MediaQuery.of(context).size.width / 1,
-
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
@@ -431,7 +363,6 @@ class homescroll extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      // margin: EdgeInsets.all(25),
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
@@ -488,9 +419,6 @@ class homescroll extends StatelessWidget {
           height: 20,
         ),
         Container(
-          // height: 350 ,
-          // width: MediaQuery.of(context).size.width / 1,
-
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
@@ -505,7 +433,6 @@ class homescroll extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      // margin: EdgeInsets.all(25),
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
@@ -576,7 +503,6 @@ class homescroll extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      // margin: EdgeInsets.all(25),
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
@@ -622,7 +548,6 @@ class homescroll extends StatelessWidget {
         ),
         Container(
           padding: EdgeInsets.all(15),
-          // color: Color(0XD9D8D8FF),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -755,10 +680,12 @@ class homescroll extends StatelessWidget {
     );
   }
 }
+
+
 //for web--(what can i pay...)
 
-class homescrollweb extends StatelessWidget {
-  const homescrollweb({super.key});
+class homeScrollWebWidget extends StatelessWidget {
+  const homeScrollWebWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -800,8 +727,6 @@ class homescrollweb extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
-                // MediaQuery.of(context).size.height / 2,
                 width: Responsive.isDesktop(context)
                     ? MediaQuery.of(context).size.width / 3.3
                     : MediaQuery.of(context).size.width / 3.5,
@@ -821,7 +746,6 @@ class homescrollweb extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            // margin: EdgeInsets.all(25),
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
@@ -900,8 +824,6 @@ class homescrollweb extends StatelessWidget {
                 width: 20,
               ),
               Container(
-                // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
-                // MediaQuery.of(context).size.height / 1.5,
                 width: Responsive.isDesktop(context)
                     ? MediaQuery.of(context).size.width / 3.3
                     : MediaQuery.of(context).size.width / 3.5,
@@ -921,7 +843,6 @@ class homescrollweb extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            // margin: EdgeInsets.all(25),
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
@@ -992,8 +913,6 @@ class homescrollweb extends StatelessWidget {
                 width: 20,
               ),
               Container(
-                //   height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 1.5:
-                // MediaQuery.of(context).size.height / 2.2,
                 width: Responsive.isDesktop(context)
                     ? MediaQuery.of(context).size.width / 3.3
                     : MediaQuery.of(context).size.width / 3.5,
@@ -1013,7 +932,6 @@ class homescrollweb extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            // margin: EdgeInsets.all(25),
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
@@ -1088,10 +1006,6 @@ class homescrollweb extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Container(
-              // height:Responsive.isDesktop(context)?  MediaQuery.of(context).size.height / 1.5:
-              // MediaQuery.of(context).size.height / 2.3,
-              // width: Responsive.isDesktop(context)?  MediaQuery.of(context).size.width / 1:
-              //  MediaQuery.of(context).size.width / 1.5,
               decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1236,11 +1150,8 @@ class homescrollweb extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            //  SizedBox(width:50),
                             Column(
                               children: [
-                                // SizedBox(width:50),
-
                                 Image.asset(
                                   "assets/build.png",
                                   cacheWidth:
@@ -1563,7 +1474,6 @@ class howitsworks extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    // margin: EdgeInsets.all(25),
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
@@ -2228,8 +2138,6 @@ class pricingweb extends StatelessWidget {
                       width: Responsive.isDesktop(context)
                           ? MediaQuery.of(context).size.width / 3
                           : 275,
-                      // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.height / 2.3:
-                      // MediaQuery.of(context).size.height / 2.5,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/paymentdetails.jpg"),
@@ -2474,7 +2382,6 @@ class easysplit extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    // margin: EdgeInsets.all(25),
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
@@ -2540,7 +2447,6 @@ class easysplit extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    // margin: EdgeInsets.all(25),
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
@@ -3382,12 +3288,6 @@ class easysplitweb extends StatelessWidget {
                     ),
                     fit: BoxFit.fill,
                   )),
-                  // child: Image.asset(
-                  //   "assets/phones1.png",
-
-                  //   fit: BoxFit.fill,
-
-                  // ),
                 ),
               ),
             ],
@@ -3571,9 +3471,6 @@ class topbannerweb extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(15),
           child: Container(
-            // width: MediaQuery.of(context).size.width / 1,
-            // height:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3:
-            //  MediaQuery.of(context).size.width / 1.8,
             decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -3590,8 +3487,6 @@ class topbannerweb extends StatelessWidget {
                       ),
                     ),
                     Container(
-                        //width: MediaQuery.of(context).size.width / 3,
-                        //color: Colors.black38,
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -3641,48 +3536,13 @@ class topbannerweb extends StatelessWidget {
                                         fontSize: 35,
                                         fontFamily: 'Poppins',
                                         fontWeight: FontWeight.bold
-                                        // fontWeight: FontWeight.w400
                                         ),
                                   )
-                                  // RichText(
-                                  //   text: TextSpan(
-                                  //     text: 'with',
-                                  //     style: TextStyle(
-                                  //         color: Styles.whitecolortext,
-                                  //         fontSize: 35,
-                                  //         fontFamily: 'Poppins',
-                                  //         fontWeight: FontWeight.bold
-                                  //         // fontWeight: FontWeight.w400
-                                  //         ),
-                                  // children: <TextSpan>[
-                                  // TextSpan(
-                                  //     text: 'Cardit',
-                                  //     style: TextStyle(
-                                  //         fontSize: 35,
-                                  //         fontWeight: FontWeight.w400,
-                                  //         color: Color(0XFFCEE812))),
-                                  // TextSpan(
-                                  //   text: ' it ',
-                                  //   style: TextStyle(
-                                  //       fontSize: 35,
-                                  //       color: Styles.whitecolortext,
-                                  //       fontWeight: FontWeight.w400),
-                                  // ),
-                                  // TextSpan(
-                                  //   text: 'Now',
-                                  //   style: TextStyle(
-                                  //   fontSize: 35,
-                                  //   fontWeight: FontWeight.w400,
-                                  //   color: Color(0XFFCEE812))),
-                                  //],
-                                  // ),
-                                  // ),
                                 ],
                               ),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.only(left: 190),
-                                // color: Colors.amber,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -3739,7 +3599,7 @@ class topbannerweb extends StatelessWidget {
                                           fontSize: 16,
                                           color: Color(0XFFCEE812))),
                                   onSwipe: () {
-                                    Get.to( splash2());
+                                    Get.to( Country());
                                   }),
                                   SizedBox(height: 20,)
                             ],
@@ -3867,9 +3727,6 @@ class buildcontainerweb extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.all(15),
-                // width: MediaQuery.of(context).size.width / 1,
-                // height: MediaQuery.of(context).size.height / 1.3,
-
                 decoration: BoxDecoration(color: HexColor('#004751')),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 10),
@@ -3950,9 +3807,6 @@ class buildcontainerweb extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                // width: MediaQuery.of(context).size.width / 1,
-                // height: MediaQuery.of(context).size.height / 1.8,
-
                 decoration: BoxDecoration(color: HexColor('#004751')),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 10),
@@ -4272,9 +4126,6 @@ class buildaboutweb extends StatelessWidget {
               ),
               Container(
                   margin: EdgeInsets.all(15),
-                  // width: MediaQuery.of(context).size.width / 1,
-                  // height: MediaQuery.of(context).size.height / 1.2,
-
                   decoration:
                       BoxDecoration(color: Colors.grey.withOpacity(0.1)),
                   child: (Row(
@@ -4435,9 +4286,6 @@ class buildaboutweb extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.all(15),
-                // width: MediaQuery.of(context).size.width / 1,
-                // height: MediaQuery.of(context).size.height / 2.2,
-
                 decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -4489,23 +4337,11 @@ class buildaboutweb extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    // Container(
-                    //   // color: Colors.black,
-                    //   child: Image.asset(
-                    //     'assets/aboutusweb.png',
-                    //     width:  350,
-                    //     height:400,
-                    //     fit: BoxFit.fill,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
               Container(
                   margin: EdgeInsets.all(15),
-                  // width: MediaQuery.of(context).size.width / 1,
-                  // height: MediaQuery.of(context).size.height / 2,
-
                   decoration:
                       BoxDecoration(color: Colors.grey.withOpacity(0.1)),
                   child: (Row(

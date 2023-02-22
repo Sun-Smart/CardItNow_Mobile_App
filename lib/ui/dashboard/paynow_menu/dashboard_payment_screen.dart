@@ -12,7 +12,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../const/responsive.dart';
 import '../../../widgets/tgrid.dart';
 
 class PaymentDashboard extends StatefulWidget {

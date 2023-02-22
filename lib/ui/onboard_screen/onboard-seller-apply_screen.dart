@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-
-import '../../auth/auth.dart';
-import '../../responsive/responsive.dart';
-import '../../themes/styles.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
-import '../register/congratsscreen.dart';
 
 class OnboardSellerApply extends StatefulWidget {
   const OnboardSellerApply({Key? key}) : super(key: key);
@@ -19,12 +16,9 @@ class OnboardSellerApply extends StatefulWidget {
 }
 
 class _OnboardSellerApplyState extends State<OnboardSellerApply> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  final AuthCon con = Get.find();
+
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -162,8 +156,6 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                         width: MediaQuery.of(context).size.width / 1.5,
                         height: MediaQuery.of(context).size.height / 1,
                         child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
                               children: [

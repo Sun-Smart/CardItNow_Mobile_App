@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/payment_method/recievermethodscreens/addbankaccount.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -9,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../../../auth/bank_api.dart';
+import '../../../api/bank_api.dart';
+import '../../../api/regster_api.dart';
 import '../../../themes/styles.dart';
 
 class Bankaccounts extends StatefulWidget {
@@ -22,7 +20,7 @@ class Bankaccounts extends StatefulWidget {
 
 class _BankaccountsState extends State<Bankaccounts> {
   final BankAPI bank = Get.put(BankAPI());
-  final AuthCon auth = Get.put(AuthCon());
+  final RegisterAPI auth = Get.put(RegisterAPI());
   @override
   void initState() {
     // TODO: implement initState

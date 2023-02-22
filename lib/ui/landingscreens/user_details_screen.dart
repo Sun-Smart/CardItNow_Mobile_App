@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import '../../widgets/custom_input.dart';
 import 'upload_documents_screen.dart';
 

@@ -1,30 +1,24 @@
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/login/login_screen.dart';
+
+import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../../responsive/responsive.dart';
-import '../../widgets/auth_button.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../register/register_screen.dart';
-import '../startingscreen/home_screen.dart';
 
-class splash2 extends StatefulWidget {
+class Country extends StatefulWidget {
   final choosetype;
-   splash2({Key? key,this.choosetype}) : super(key: key);
+   Country({Key? key,this.choosetype}) : super(key: key);
 
   @override
-  State<splash2> createState() => _splash2State();
+  State<Country> createState() => _CountryState();
 }
 
-class _splash2State extends State<splash2> {
-  @override
-
-  var type = '';
-
-  var country=[
+class _CountryState extends State<Country> {
+  final RegisterAPI con = Get.find();
+  var countryList = [
     {
       "img":'assets/uae.png',
       "type":'UAE'
@@ -33,23 +27,9 @@ class _splash2State extends State<splash2> {
       "img":'assets/phli.png',
       "type":'Philippines'
     },
-
   ];
-  final AuthCon con=Get.find();
-  // void initState() {
-  //   super.initState();
-  //   _navigation();
-  // }
 
-  // _navigation() async {
-  //   await Future.delayed(const Duration(milliseconds: 3400), () {});
-  //   if (GetStorage().read('token') == null) {
-  //     Get.toNamed('/home');
-  //   } else {
-  //     Get.toNamed('/dashbordScreen');
-  //   }
-  // }
-
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -57,9 +37,8 @@ class _splash2State extends State<splash2> {
           backgroundColor: HexColor('#004751'),
           body: Center(
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
 
@@ -137,7 +116,7 @@ class _splash2State extends State<splash2> {
                                             children: [
                                               const SizedBox(height: 10,width:10),
                                               Center(
-                                                child: Image.asset(country[index]['img']!,
+                                                child: Image.asset(countryList[index]['img']!,
                                                     width:Responsive.isMobile(context)? 100:50, height:Responsive.isMobile(context)? 100:50),
                                               ),
                                               const SizedBox(height: 10),
@@ -161,17 +140,6 @@ class _splash2State extends State<splash2> {
                       }),
                 ),
                 const Spacer(),
-                // if (con.dropdownvalue != null)
-                // AuthButton(
-                //     decoration: BoxDecoration(
-                //       color: HexColor('#CEE812'),
-                //       borderRadius: BorderRadius.circular(5),
-                //     ),
-                //     onTap: () {
-                //       Get.to(Register());
-                //     },
-                //     text: "Next",
-                //   ),
               ],
             ),
           )),

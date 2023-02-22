@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cardit/ui/register/pdfView.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../auth/auth.dart';
-import '../../../responsive/responsive.dart';
+import '../../../api/regster_api.dart';
+import '../../../const/responsive.dart';
 import '../../../themes/styles.dart';
 import 'onboard_recipient_screen.dart';
 
@@ -125,7 +123,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
   }
 
   openpdf_file() {
-    // print('pathoffile--pathoffile--$pathoffile');
     return Expanded(
       child: GestureDetector(
         onTap: () {
@@ -139,17 +136,11 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           style: const TextStyle(
               fontSize: 15, color: Colors.black, fontWeight: FontWeight.w700),
         ),
-        // SfPdfViewer.file(
-        //       File('/data/user/0/com.example.cardit/cache/file_picker/dummy.pdf',
-
-        //       ),
-        //       key: _pdfViewerKey,
-        //       )
       ),
     );
   }
 
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -260,8 +251,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
             ),
-            // underline:Container(),
-            //  validator: (value)=>value==null?'field required':null,
             dropdownColor: Colors.white,
             isExpanded: true,
             value: dropdowndocx,
@@ -329,8 +318,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
             ),
-            // underline:Container(),
-            //  validator: (value)=>value==null?'field required':null,
             dropdownColor: Colors.white,
             isExpanded: true,
             value: dropdowndocx,
@@ -398,8 +385,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1, color: Color(0xFFE5E5E5))),
             ),
-            // underline:Container(),
-            //  validator: (value)=>value==null?'field required':null,
             dropdownColor: Colors.white,
             isExpanded: true,
             value: dropdowndocx,
@@ -460,8 +445,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
             height: 15,
           ),
           displayImagedoc(),
-          //  showAlertDialog(context),
-          //open_document(),
         ],
       ),
     ):Responsive.isDesktop(context)?Column(
@@ -492,8 +475,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            // documenttype: dropdowndocx.toString(),
-            // uploadoc: con.doc64,
           ));
         }},
       child: Container(
@@ -549,8 +530,6 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            // documenttype: dropdowndocx.toString(),
-            // uploadoc: con.doc64,
           ));
         }},
       child: Container(
@@ -790,17 +769,9 @@ class _SelectDocumentsState extends State<SelectDocuments> {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
           Get.to(onboardRecipient(
-            // documenttype: dropdowndocx.toString(),
-            // uploadoc: con.doc64,
           ));
         }
-
-
-        // Navigator.of(context).pushNamed(
-        //   '/onboardrecipient',
-        // );
-        // // if (formKey.currentState.validate()) {}
-      },
+},
       text: "Add and Proceed",
       decoration: BoxDecoration(
         color: HexColor('#CEE812'),

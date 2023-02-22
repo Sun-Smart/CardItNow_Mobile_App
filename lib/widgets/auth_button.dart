@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../responsive/responsive.dart';
+import '../const/responsive.dart';
 
 class AuthButton extends StatefulWidget {
   final String text;

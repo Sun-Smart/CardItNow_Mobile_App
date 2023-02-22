@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unused_import
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/update_psw_screen/update_password_code_screen.dart';
+import 'package:cardit/ui/auth/update_password_code_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
   const UpdateEmailScreen({Key? key}) : super(key: key);
@@ -20,8 +20,7 @@ class UpdateEmailScreen extends StatefulWidget {
 
 class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
   final formKey = GlobalKey<FormState>();
-
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,6 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
                   ]):Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width / 3,
-                //    height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/carditlogo.png",

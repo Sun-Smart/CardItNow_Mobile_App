@@ -8,13 +8,7 @@ import '../api_endpoints.dart';
 import '../base_client.dart';
 
 
-class cardsapi extends GetxController with BaseController {
-
-  @override
-  void onInit() {
-    creditCardgetAPI();
-    super.onInit();
-  }
+class CardAPI extends GetxController with BaseController {
 
   final emailController = TextEditingController();
 
@@ -30,6 +24,14 @@ class cardsapi extends GetxController with BaseController {
 
   //your Details
   var Owner = {}.obs;
+
+
+
+  @override
+  void onInit() {
+    creditCardgetAPI();
+    super.onInit();
+  }
 
 
   void setCardDefaultPost(payId) async {

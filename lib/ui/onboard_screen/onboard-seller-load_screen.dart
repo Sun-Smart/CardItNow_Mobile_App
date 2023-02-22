@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 

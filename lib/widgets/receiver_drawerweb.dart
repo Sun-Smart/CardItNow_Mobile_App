@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../responsive/responsive.dart';
+import '../const/responsive.dart';
 import '../ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 import '../ui/payment_method/recievermethodscreens/receiver_payment_screen.dart';
 

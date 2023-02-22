@@ -8,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../const/responsive.dart';
 
 class CreditPrepaidScreen extends StatefulWidget {
   const CreditPrepaidScreen({Key? key}) : super(key: key);

@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print, avoid_unnecessary_containers
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/register/register_screen.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -12,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../api/regster_api.dart';
 import '../../themes/styles.dart';
 
 class SecurityQuestion extends StatefulWidget {
@@ -22,7 +20,7 @@ class SecurityQuestion extends StatefulWidget {
 }
 
 class _SecurityQuestionState extends State<SecurityQuestion> {
-  final AuthCon auth = Get.find();
+  final RegisterAPI auth = Get.find();
 
 
   @override
@@ -150,11 +148,6 @@ Obx(() =>Expanded(
                         Container(
                            width: MediaQuery.of(context).size.width / 1.5,
                           child: Column(
-                                  // crossAxisAlignment: Responsive.isMobile(context)
-                                  //     ? CrossAxisAlignment.start
-                                  //     : Responsive.isDesktop(context)
-                                  //     ? CrossAxisAlignment.center
-                                  //     : CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(height: 20,),
                                     Text("Security Questions",
@@ -219,11 +212,6 @@ Obx(() =>Expanded(
                        Container(
                            width: MediaQuery.of(context).size.width / 1.5,
                           child: Column(
-                                  // crossAxisAlignment: Responsive.isMobile(context)
-                                  //     ? CrossAxisAlignment.start
-                                  //     : Responsive.isDesktop(context)
-                                  //     ? CrossAxisAlignment.center
-                                  //     : CrossAxisAlignment.center,
                                   children: [
                                      SizedBox(height: 20,),
                                     Text("Security Questions",

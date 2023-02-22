@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
-import 'package:cardit/auth/auth.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/amountpay.dart';
 
@@ -9,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../api/regster_api.dart';
+import '../../../const/responsive.dart';
 import '../../../themes/styles.dart';
 import '../../../widgets/auth_button.dart';
 
@@ -26,7 +26,7 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
     super.initState();
   }
 
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,6 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
             child: AppBar(
               leading: IconButton(
                 onPressed: () {
-                  // Get.to( const PaymentLoading());
-                  // Navigator.pop(context);
                 },
                 icon: const Icon(Icons.close),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -154,8 +152,6 @@ class _PaynowSucessScreenState extends State<PaynowSucessScreen> {
                       width: MediaQuery.of(context).size.width / 1.5,
                       height: MediaQuery.of(context).size.height / 1,
                       child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                            Row(
                             children: [

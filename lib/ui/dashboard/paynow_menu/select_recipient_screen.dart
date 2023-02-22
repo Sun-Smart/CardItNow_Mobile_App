@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../const/responsive.dart';
 
 class RecipientType extends StatefulWidget {
   const RecipientType({super.key});

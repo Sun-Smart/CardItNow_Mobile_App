@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';

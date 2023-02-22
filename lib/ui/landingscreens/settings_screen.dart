@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import 'changepaymethod.dart';
 
 class Settings extends StatefulWidget {

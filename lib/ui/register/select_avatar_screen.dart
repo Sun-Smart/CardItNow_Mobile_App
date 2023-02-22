@@ -3,11 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
-import 'package:cardit/ui/register/4digit_passcode_screen.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +12,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../api/regster_api.dart';
 import '../../main.dart';
-import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 
 class AvatarPageView extends StatefulWidget {
@@ -28,7 +24,7 @@ class AvatarPageView extends StatefulWidget {
 }
 
 class _AvatarPageViewState extends State<AvatarPageView> {
-  var indx = 0;
+
   var type = '';
   File? uploadfiles1;
   var avatars = [
@@ -44,7 +40,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
     "assets/Memoji Girls 2-6.png",
     "assets/Memoji Girls 4-13.png"
   ];
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   Future<void> openCamera() async {
     var picker = ImagePicker();
@@ -179,49 +175,11 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                       ],
                                     );
                                   })),
-                          // Container(
-                          //   margin: EdgeInsets.only(left: 25),
-                          //   child: Row(
-                          //     mainAxisAlignment: Responsive.isMobile(context)
-                          //         ? MainAxisAlignment.start
-                          //         : MainAxisAlignment.center,
-                          //     children: [
-                          //       InkWell(
-                          //           onTap: () {
-                          //             // imagePicker();
-                          //           },
-                          //           child: Row(children: [
-                          //             Text("Upload ",
-                          //                 style: TextStyle(
-                          //                     fontFamily: 'Sofa',
-                          //                     fontSize: 18,
-                          //                     color: HexColor('#004751'))),
-                          //             Text("Selfie",
-                          //                 style: TextStyle(
-                          //                     fontFamily: 'Sofa',
-                          //                     fontSize: 18,
-                          //                     fontWeight: FontWeight.bold,
-                          //                     color: HexColor('#004751')))
-                          //           ]))
-                          //     ],
-                          //   ),
-                          // ),
-                          // Container(
-                          //     margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          //     child: Text('',
-                          //         style: TextStyle(
-                          //             fontFamily: 'Sora',
-                          //             fontSize: 14,
-                          //             color: Styles.whitecustomlable))),
-                          // const SizedBox(height: 20),
-                          // displayImageSelfie(),
-                          // const SizedBox(height: 20),
                           AuthButton(
                             decoration: BoxDecoration(
                                 color: HexColor('#CEE812'),
                                 borderRadius: BorderRadius.circular(5)),
                             onTap: () {
-                              print('dhamu' + type);
                               GetStorage().read("avatarpic");
                               Get.to(const ProfileInformation());
                             },
@@ -312,7 +270,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
 
                                                 type = avatars[index];
                                                 GetStorage().write("avatarpic", type);
-                                                print("heiuiu"+type.toString());
+
 
                                               });
 
@@ -320,9 +278,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                                           .toString());
                                                     },
                                                     child: Card(
-                                                      // color: type == con.avatarImageList.length
-                                                      //     ? HexColor('#CEE812')
-                                                      //     : Colors.white,
                                                       color: type ==
                                                               avatars[index]
                                                           ? HexColor('#CEE812')
@@ -347,54 +302,12 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                               ],
                                             );
                                           })),
-                                  // Container(
-                                  //   margin: EdgeInsets.only(left: 25),
-                                  //   child: Row(
-                                  //     mainAxisAlignment:
-                                  //         Responsive.isMobile(context)
-                                  //             ? MainAxisAlignment.start
-                                  //             : MainAxisAlignment.center,
-                                  //     children: [
-                                  //       InkWell(
-                                  //           onTap: () {
-                                  //             // imagePicker();
-                                  //           },
-                                  //           child: Row(children: [
-                                  //             Text("Upload ",
-                                  //                 style: TextStyle(
-                                  //                     fontFamily: 'Sofa',
-                                  //                     fontSize: 18,
-                                  //                     color:
-                                  //                         HexColor('#004751'))),
-                                  //             Text("Selfie",
-                                  //                 style: TextStyle(
-                                  //                     fontFamily: 'Sofa',
-                                  //                     fontSize: 18,
-                                  //                     fontWeight:
-                                  //                         FontWeight.bold,
-                                  //                     color:
-                                  //                         HexColor('#004751')))
-                                  //           ]))
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //     margin: const EdgeInsets.fromLTRB(
-                                  //         15, 0, 15, 0),
-                                  //     child: Text('',
-                                  //         style: TextStyle(
-                                  //             fontFamily: 'Sora',
-                                  //             fontSize: 14,
-                                  //             color: Styles.whitecustomlable))),
-                                  // const SizedBox(height: 20),
-                                  // displayImageSelfie(),
                                   const SizedBox(height: 20),
                                   AuthButton(
                                     decoration: BoxDecoration(
                                         color: HexColor('#CEE812'),
                                         borderRadius: BorderRadius.circular(5)),
                                     onTap: () {
-                                      print('dhamu' + type);
 
                                       GetStorage().read("avatarpic");
                                       Get.to(const ProfileInformation());
@@ -443,9 +356,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                               });
                             },
                             child: Card(
-                              // color: type == con.avatarImageList.length
-                              //     ? HexColor('#CEE812')
-                              //     : Colors.white,
                               color: type == avatars[index]
                                   ? HexColor('#CEE812')
                                   : Colors.white,
@@ -454,9 +364,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                   borderRadius: BorderRadius.circular(15.0)),
                               child: Container(
                                 child: Image.asset(avatars[index]),
-                                // Image.network(
-                                //     con.avatarImageList[index]['aurl']),
-                                // child: Image.network(con.avatarImage),
                               ),
                             ),
                           ),
@@ -464,53 +371,6 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       ],
                     );
                   })),
-      //     SizedBox(
-      //       width: 10,
-      //     ),
-      //     Text(
-      //       "Or",
-      //       style: TextStyle(color: Styles.whitecustomlable, fontSize: 15),
-      //     ),
-      //     SizedBox(
-
-      //       width: 10,
-      //     ),
-      //     Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         Container(
-      //           // margin: EdgeInsets.only(left: 25),
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             children: [
-      //               GestureDetector(
-      //                   onTap: () {
-      //                     // imagePicker();
-      //                   },
-      //                   child: Row(children: [
-      //                     Text("Upload ",
-      //                         style: TextStyle(
-      //                             fontFamily: 'Sofa',
-      //                             fontSize: 18,
-      //                             color: HexColor('#004751'))),
-      //                     Text("Selfie",
-      //                         style: TextStyle(
-      //                             fontFamily: 'Sofa',
-      //                             fontSize: 18,
-      //                             fontWeight: FontWeight.bold,
-      //                             color: HexColor('#004751')))
-      //                   ])),
-      //               Container(
-      //                   margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-      //                   child: Text('',
-      //                       style: TextStyle(
-      //                           fontFamily: 'Sora',
-      //                           fontSize: 14,
-      //                           color: Styles.whitecustomlable))),
-      //               const SizedBox(height: 10),
-      //               displayImageSelfie(),
-      //               const SizedBox(height: 20),
                     AuthButton(
                       decoration: BoxDecoration(
                           color: HexColor('#CEE812'),
