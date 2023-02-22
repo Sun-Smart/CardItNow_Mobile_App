@@ -5,6 +5,8 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../loan_screen/payment_successful.dart';
+
 
 
 class OverviewPayment extends StatefulWidget {
@@ -860,7 +862,7 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              Navigator.of(context).pushNamed('/paymentsuccess');
+              Get.to(PaymentSuccessful());
             }),
    ),
       ],
@@ -950,7 +952,7 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              Navigator.of(context).pushNamed('/paymentsuccess');
+              Get.to(PaymentSuccessful());
             }),
    ),
       ],
@@ -978,7 +980,7 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Navigator.of(context).pushNamed('/paymentsuccess');
+            Get.to(PaymentSuccessful());
           }),
     );
   }

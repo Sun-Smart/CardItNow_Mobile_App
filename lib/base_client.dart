@@ -33,17 +33,6 @@ class DialogHelper {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'sora')),
-                // Txt(
-                //   text: title,
-                //   weight: FontWeight.bold,
-                //   color: Get.theme.primaryColor,
-                // ),
-                // Txt(
-                //   text: description ?? '',
-                //   fsize: 12,
-                //   weight: FontWeight.bold,
-                //   color: Colors.black,
-                // ),
                 const SizedBox(height: 10),
                 ElevatedButton(
                     onPressed: () {
@@ -133,11 +122,6 @@ class DialogHelper {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'sora')),
-                // Txt(
-                //   text: title,
-                //   weight: FontWeight.bold,
-                //   color: Get.theme.primaryColor,
-                // ),
                 Obx(() =>
                 Text("${_timerCount.value}",
                     style: TextStyle(
@@ -223,7 +207,7 @@ class BaseClient {
   Future<dynamic> get(String endPoint) async {
     var uri = Uri.parse(API().baseURL + endPoint);
     var tokens = GetStorage().read("save_token");
-    print(uri.toString());
+    print("Get URL : " + uri.toString());
     try {
       var response = await http.get(uri, headers: <String, String>{
         'Accept': 'application/json',
@@ -232,9 +216,7 @@ class BaseClient {
         'accept': 'application/json',
       }).timeout(const Duration(seconds: TIME_OUT_DURATION));
       print(response.statusCode);
-      print(response.body);
-      print(response);
-
+      print("Get Body : " + response.body);
       return _processResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());
@@ -246,34 +228,23 @@ class BaseClient {
 
   //POST
   Future<dynamic> post(String endPoint, dynamic payloadObj,
-      {isMultiPart = false, file, isDev = false}) async {
-    var productionUrl = Uri.parse(API().baseURL + endPoint);
-    var devUrl = Uri.parse(API().localUrl + endPoint);
-    //Get Token Here
-    var token = await GetStorage().read('token');
+      {isMultiPart = false, file}) async {
+    var uri = Uri.parse(API().baseURL + endPoint);
     var payload = json.encode(payloadObj);
     var tokens = GetStorage().read("save_token");
-    // print('tokenn' + token);
-    // print(uri);
-    var uri = isDev ? devUrl : productionUrl;
-    print(uri.toString() + "url");
     try {
       if (isMultiPart) {
-        print('comess');
+        print("M-URL : " +uri.toString());
         var multiPartReq = http.MultipartRequest('POST', uri);
-        print('yesss');
         multiPartReq.headers.addAll({"Content-type": "multipart/form-data"});
         multiPartReq.files.add(file);
         var response = await multiPartReq.send();
         final respStr = await response.stream.bytesToString();
-        // var response = await
-        // normalReq.timeout(const Duration(seconds: TIME_OUT_DURATION));
-        print(respStr + "body");
-        // var result = json.decode(respStr);
-        print(response.statusCode.toString() + "body");
-        // return _processResponse(result);
+        print(response.statusCode.toString());
+        print("body : " + respStr);
       } else {
-        // print('sssss' + token + 'dsds');
+        print("URL : " +uri.toString());
+        print("Req : "+ payload);
         var response = await http
             .post(uri,
                 headers: <String, String>{
@@ -284,8 +255,8 @@ class BaseClient {
                 },
                 body: payload)
             .timeout(const Duration(seconds: TIME_OUT_DURATION));
-        print(response.statusCode.toString() + "body");
-        print('comess');
+        print(response.statusCode.toString());
+        print("body : " + response.body.toString());
         return _processResponse(response);
       }
     } on SocketException {
@@ -294,8 +265,7 @@ class BaseClient {
       throw ApiNotRespondingException(
           'API not responded in time', uri.toString());
     } catch (e) {
-      print('catchhh');
-      print(e.toString());
+      print("API Exception: " + e.toString());
     }
   }
 

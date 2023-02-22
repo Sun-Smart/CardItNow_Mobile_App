@@ -24,6 +24,7 @@ import 'package:provider/provider.dart';
 import '../../widgets/drawer_web.dart';
 import '../payment_method/manula_card_screen.dart';
 import '../register/drawer/drawerscreen.dart';
+import '../startingscreen/home_screen.dart';
 import 'dashbord_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -425,7 +426,7 @@ class _ProfileState extends State<Profile> {
                       onTap: () {
                         GetStorage().remove('save_token');
                         GetStorage().remove("customer_type");
-                        Get.offAndToNamed('/home');
+                        Get.offAll(Home());
                       },
                       text: "Yes"),
                   AuthButton(
@@ -456,7 +457,7 @@ class _ProfileState extends State<Profile> {
                     onTap: () {
                       GetStorage().remove('save_token');
                       GetStorage().remove("customer_type");
-                      Get.offAndToNamed('/home');
+                      Get.offAll(Home());
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(

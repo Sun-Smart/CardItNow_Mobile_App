@@ -1,12 +1,13 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
-import 'package:cardit/ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
-import 'package:cardit/ui/payment_method/recievermethodscreens/receiver_payment_screen.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/landingscreens/loans_screen.dart';
+import 'package:cardit/ui/landingscreens/payments_screen.dart';
+import 'package:cardit/ui/landingscreens/profile_screen.dart';
 import 'package:cardit/widgets/customicons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../route_generator.dart';
+import '../ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
+import '../ui/payment_method/recievermethodscreens/receiver_payment_screen.dart';
 import 'bottombar_widget/sliding_clipped_nav_bar.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
@@ -18,7 +19,6 @@ class BottomNavBarWidget extends StatefulWidget {
 }
 
 class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
-  String cont = '0';
 
   @override
   void initState() {
@@ -61,30 +61,19 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   void _onItemTapped(int index) {
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/dashbordScreen");
+        Get.offAll(DashbordScreen());
         break;
 
       case 1:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context, "/loan");
+        Get.offAll(Loans());
         break;
 
-      // case 2:
-      //   Navigator.pushReplacementNamed(
-      //       NavigationService.navigatorKey.currentContext ?? context,
-      //       "/myorder");
-      //   break;
       case 2:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/payments");
+        Get.offAll(Payments());
         break;
+
       case 3:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/profile");
+        Get.offAll(Profile());
         break;
     }
   }
@@ -136,21 +125,15 @@ class _BottomNavBarReceiverState extends State<BottomNavBarReceiver> {
   void _onItemTapped(int index) {
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/CreditPrepaidScreen");
+        Get.offAll(CreditPrepaidScreen());
         break;
-      case 1:
 
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/ReceiverPaymentScreen");
+      case 1:
+        Get.offAll(ReceiverPaymentScreen());
         break;
 
       case 2:
-        Navigator.pushReplacementNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            "/profile");
+        Get.offAll(Profile());
         break;
     }
   }

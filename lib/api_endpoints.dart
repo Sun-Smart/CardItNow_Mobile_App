@@ -4,8 +4,6 @@ class API {
 
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   // String baseURL = "https://10.0.2.2:5001/carditnowapi/";
-  String localUrl = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
-  String gapikey = "c7558c9a9ac19cc96816fd2aad245c7c";
 
   String logIn = "member/login";
   String register = "customermaster/SendOTP1";
@@ -16,11 +14,8 @@ class API {
 
   //Terms acceptance
   String terms = "customertermsacceptance/fulllist";
-
-  // String termsmaster ="termsmaster";
-  //terms and condition api
   String termsmaster = "termsCondition/TermsList";
-
+  String termsacceptance = "customertermsacceptance";
   String password = "customermaster/password config";
   String pinset = "customermaster/TPINconfig";
   String updateProfileInformation = 'customermaster/UpdateProfileInformation';
@@ -30,47 +25,35 @@ class API {
   String uploadAvator = "avatarmaster/UploadSelfi";
   String uploadProcessDocument = "customermaster/ProcessDocument";
 
-  //creditcard
+  //creditcard list
   String documenttypedropdown = "common/Getdocumenttype";
   String banklistdropdown = "common/GetBankList";
   String Paymentpurposedropdown = "common/GetpurposeList";
 
-  //set default card
-  String setDefaultCard = "customerpaymode/setCardDefault";
-
-  //dummy json for invoice and amount
-  String invoiceget = "PayerPayeePrivate/GetRawResult";
-
   //ocr
   String processocr = 'customerdetail/ProcessOCR';
-  //onboard Payeee
   String onboardPayeePost = 'PayerPayeePrivate';
-  String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
-  String creditCardGetLink = 'customerpaymode/GetCustomerCardList?id=';
 
   //Tas Details Get Api
   String taxDetailsGetApiData = 'PayerPayeePrivate/GetRawResult';
+  String invoiceget = "PayerPayeePrivate/GetRawResult";
 
   //countryselection
   String countryselect = 'geographymaster/fulllist';
-
   String cityselect = 'citymaster/geoid/';
+  String countrydoc = "customermaster/GetDocumenttype";
 
-  String newtoken = 'customermaster/customerauthendication';
-
-//forgot password
+  //forgot password
   String forgotSendOTP = "common/ForgotPasscode";
   String forgotOTPVerify = "common/ForgotOTPvalidate";
   String updateForgotPassword = "common/Changepass";
+  String newtoken = 'customermaster/customerauthendication';
 
-  //termsandconditions acceptance
-String termsacceptance = "customertermsacceptance";
+  //bank
+  String addBankAccount = "payerpayeeprivate/SavePayerPayeePrivate";
 
-//countrywise document selection
-
-String countrydoc = "customermaster/GetDocumenttype";
-
-
-//bank
-String addBankAccount = "payerpayeeprivate/SavePayerPayeePrivate";
+  //card
+  String setDefaultCard = "customerpaymode/setCardDefault";
+  String crediCardPost = 'customerpaymode/SaveCutomerCardDeatils';
+  String creditCardGetLink = 'customerpaymode/GetCustomerCardList?id=';
 }

@@ -12,6 +12,7 @@ import 'package:local_auth/local_auth.dart';
 
 import '../../auth/auth.dart';
 import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
+import '../startingscreen/home_screen.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -56,7 +57,6 @@ class StartState extends State<SplashScreens> {
   _bioAuth() async {
     if (GetStorage().read('bioAuth').toString() == 'true') {
       try {
-//kkkk
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please authenticate',
             options: const AuthenticationOptions(biometricOnly: true));
@@ -65,8 +65,8 @@ class StartState extends State<SplashScreens> {
           Get.offAll(() => MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
         }
       } catch (e) {
-        print(e.toString());
-        Get.toNamed('/home');
+        print("BIO : " + e.toString());
+        Get.offAll(Home());
       }
     } else {
       await authcon.getLoginToken();
@@ -77,11 +77,10 @@ class StartState extends State<SplashScreens> {
   _navigation() async {
     await Future.delayed(const Duration(milliseconds: 8500), () {});
     if (GetStorage().read('save_token') == null) {
-      Get.toNamed('/home');
+      Get.offAll(Home());
     } else {
       _bioAuth();
     }
-    // Get.toNamed('/home');
   }
 
   @override

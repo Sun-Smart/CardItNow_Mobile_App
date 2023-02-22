@@ -1,5 +1,6 @@
 import 'package:cardit/responsive/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +8,7 @@ import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
+import 'onboard-seller-load_screen.dart';
 
 class OnboardSeller extends StatefulWidget {
   const OnboardSeller({Key? key}) : super(key: key);
@@ -755,9 +757,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
                   SizedBox(height: 30,),
                   GestureDetector(
     onTap: () {
-        Navigator.of(context).pushNamed(
-          '/onboardsellerlode',
-        );
+       Get.to(OnboardSellerLoad());
         if (formKey.currentState!.validate()) {}
       },
       child: Container(
@@ -795,9 +795,7 @@ class _OnboardSellerState extends State<OnboardSeller> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/onboardsellerlode',
-        );
+        Get.to(OnboardSellerLoad());
         if (formKey.currentState!.validate()) {}
       },
       text: "Add and Proceed",

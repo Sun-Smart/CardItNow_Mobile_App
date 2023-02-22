@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/theme_notifier.dart';
 import '../../widgets/tgrid.dart';
 import '../model_screen/dashboard_screen.dart';
 import '../model_screen/user_screen.dart';
+import '../onboard_screen/onboard-seller_screen.dart';
 
 class LoansPayment extends StatefulWidget {
   const LoansPayment({Key? key}) : super(key: key);
@@ -179,7 +181,7 @@ class _LoansPaymentState extends State<LoansPayment> {
         padding: EdgeInsets.all(8),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed('/onboardseller');
+            Get.to(OnboardSeller());
           },
           child: Column(children: [
             Container(

@@ -1,5 +1,6 @@
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../responsive/responsive.dart';
@@ -480,7 +481,7 @@ class PaymentsState extends State<Payments>
             paymenttab;
           });
         } else {
-          Navigator.of(context).pushNamed('/paymentsdetails');
+          Get.to(PaymentsDetails());
         }
         //PaymentsDetails()
       },

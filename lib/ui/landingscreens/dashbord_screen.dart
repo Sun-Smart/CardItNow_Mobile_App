@@ -22,6 +22,7 @@ import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
+import '../startingscreen/home_screen.dart';
 
 //final userDetails = FirebaseAuth.instance.currentUser;
 
@@ -612,7 +613,7 @@ class DashbordScreenState extends State<DashbordScreen>
                     GetStorage().remove('avatarpic');
                     GetStorage().remove('getuserid');
                     GetStorage().remove("customer_type");
-                    Get.offAndToNamed('/home');
+                    Get.offAll(Home());
                   },
                 ),
                 SizedBox(
@@ -898,7 +899,7 @@ class DashbordScreenState extends State<DashbordScreen>
                 focusColor: const Color(0XFFffffff),
                 splashColor: Colors.green,
                 onTap: () {
-                  Navigator.of(context).pushNamed('/payment_dashboard');
+                  Get.to(PaymentDashboard());
                 },
                 // button pressed
                 child: Padding(

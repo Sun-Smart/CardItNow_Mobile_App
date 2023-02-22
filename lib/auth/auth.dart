@@ -337,7 +337,7 @@ class AuthCon extends GetxController with BaseController {
       var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
       var response = await BaseClient()
           .post(API().uploadAvator, body,
-              isMultiPart: true, file: file, isDev: true)
+              isMultiPart: true, file: file)
           .catchError(handleError);
       if (response == null) return;
       var data = json.decode(response);

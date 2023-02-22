@@ -1,7 +1,9 @@
+import 'package:cardit/ui/loan_screen/payment_successful.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../responsive/responsive.dart';
@@ -430,6 +432,6 @@ class _PaymentOverviewState extends State<PaymentOverview> {
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     print(position.longitude); //Output: 80.24599079
     print(position.latitude); //Output: 29.6593457
-    Navigator.of(context).pushNamed('/paymentsuccess');
+    Get.to(PaymentSuccessful());
   }
 }

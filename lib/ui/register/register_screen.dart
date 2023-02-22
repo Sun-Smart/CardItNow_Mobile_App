@@ -19,6 +19,7 @@ import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
+import '../login/login_screen.dart';
 
 bool isChecked = false;
 bool isChecked1 = true;
@@ -734,7 +735,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Navigator.of(context).pushNamed('/login');
+                      Get.to(Login());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -1156,7 +1157,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Navigator.of(context).pushNamed('/login');
+                      Get.to(Login());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,

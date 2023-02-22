@@ -1,6 +1,8 @@
+import 'package:cardit/ui/dashboard/paynow_menu/select_documents_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../responsive/responsive.dart';
@@ -190,7 +192,7 @@ class _RecipientTypeState extends State<RecipientType> {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/selectdocuments');
+        Get.to(SelectDocuments());
       },
     ):Responsive.isDesktop(context)?GestureDetector(
       
@@ -240,7 +242,7 @@ class _RecipientTypeState extends State<RecipientType> {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/selectdocuments');
+        Get.to(SelectDocuments());
       },
     ):GestureDetector(
       
@@ -290,7 +292,7 @@ class _RecipientTypeState extends State<RecipientType> {
         ),
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/selectdocuments');
+        Get.to(SelectDocuments());
       },
     );
   }

@@ -3,9 +3,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cardit/firebase_options.dart';
-import 'package:cardit/route_generator.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/splash_screen/splash_screen.dart';
+import 'package:cardit/ui/startingscreen/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +22,16 @@ import 'base_client.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
+
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 Future main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -46,8 +57,6 @@ WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
   Get.put(AuthCon());
-  // Get.put(loginauth());
-  // Get.put(cardsapi());
 }
 
 class MyApp extends StatefulWidget {
@@ -69,6 +78,7 @@ class MyAppState extends State<MyApp> {
     findCookies();
   }
 
+  //TIMER OUT
   void _initializeTimer() {
     if (_timer != null) {
       _timer?.cancel();
@@ -83,20 +93,19 @@ class MyAppState extends State<MyApp> {
       print("Time OUT");
       DialogHelper.showContinueDialog();
     }
-  // Popping all routes and pushing welcome screen
-   // _navigatorKey.currentState?.pushNamedAndRemoveUntil('welcome', (_) => false);
   }
 
   void _handleUserInteraction([_]) {
     _initializeTimer();
   }
 
-
+  // GET THEME
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
         await themeChangeProvider.darkThemePreference.getTheme();
   }
 
+  //FIND COOKIES
   void findCookies(){
     // if(kIsWeb){
     //   try {
@@ -111,7 +120,6 @@ class MyAppState extends State<MyApp> {
     // }
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -125,13 +133,10 @@ class MyAppState extends State<MyApp> {
             onTap: _handleUserInteraction,
             onPanDown: _handleUserInteraction,
             child: GetMaterialApp(
-                navigatorKey: navigatorKey,
                 title: 'Card-it',
                 debugShowCheckedModeBanner: false,
-                //theme: themeProvider.getTheme,
                 theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-                initialRoute: "/",
-                onGenerateRoute: RouteGenerator.generateRoute),
+               home: kIsWeb ? Home() : SplashScreens()),
           );
         },
       ),
@@ -139,12 +144,4 @@ class MyAppState extends State<MyApp> {
   }
 }
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
 
