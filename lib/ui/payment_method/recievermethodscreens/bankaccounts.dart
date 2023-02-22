@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
+
+import 'package:cardit/auth/auth.dart';
 import 'package:cardit/const/responsive.dart';
+
 import 'package:cardit/ui/payment_method/recievermethodscreens/addbankaccount.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -7,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import '../../../api/bank_api.dart';
-import '../../../api/regster_api.dart';
+
+import '../../../auth/bank_api.dart';
 import '../../../themes/styles.dart';
 
 class Bankaccounts extends StatefulWidget {
@@ -20,7 +23,7 @@ class Bankaccounts extends StatefulWidget {
 
 class _BankaccountsState extends State<Bankaccounts> {
   final BankAPI bank = Get.put(BankAPI());
-  final RegisterAPI auth = Get.put(RegisterAPI());
+  final AuthCon auth = Get.put(AuthCon());
   @override
   void initState() {
     // TODO: implement initState
@@ -119,7 +122,10 @@ class _BankaccountsState extends State<Bankaccounts> {
                                 left: MediaQuery.of(context).size.width / 7.5,
                               ),
                         child: Text('Enter Your Business type *',
-                            style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold))),
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold))),
                     SizedBox(
                       height: 20,
                     ),
@@ -291,10 +297,14 @@ class _BankaccountsState extends State<Bankaccounts> {
                         children: [
                           SizedBox(
                             width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4.8
-                            : MediaQuery.of(context).size.width / 12,
+                                ? MediaQuery.of(context).size.width / 4.8
+                                : MediaQuery.of(context).size.width / 12,
                           ),
-                          Text("Business Name"),
+                          Text("Business Name",
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -364,19 +374,22 @@ class _BankaccountsState extends State<Bankaccounts> {
                       Row(
                         children: [
                           SizedBox(
-                           width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4.8
-                            : MediaQuery.of(context).size.width / 12,
+                            width: Responsive.isDesktop(context)
+                                ? MediaQuery.of(context).size.width / 4.8
+                                : MediaQuery.of(context).size.width / 12,
                           ),
                           Text('Enter Your Business type *',
-                              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Container(
-                       width: Responsive.isDesktop(context)
+                        width: Responsive.isDesktop(context)
                             ? MediaQuery.of(context).size.width / 4
                             : MediaQuery.of(context).size.width / 2,
                         height: MediaQuery.of(context).size.height / 13,
@@ -427,16 +440,20 @@ class _BankaccountsState extends State<Bankaccounts> {
                       Row(
                         children: [
                           SizedBox(
-                           width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4.8
-                            : MediaQuery.of(context).size.width / 12,
+                            width: Responsive.isDesktop(context)
+                                ? MediaQuery.of(context).size.width / 4.8
+                                : MediaQuery.of(context).size.width / 12,
                           ),
-                          Text("Business Reg. Number *")
+                          Text("Business Reg. Number *",
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold))
                         ],
                       ),
                       SizedBox(height: 10),
                       Container(
-                         width: Responsive.isDesktop(context)
+                        width: Responsive.isDesktop(context)
                             ? MediaQuery.of(context).size.width / 4
                             : MediaQuery.of(context).size.width / 2,
                         child: TextFormField(
@@ -499,9 +516,10 @@ class _BankaccountsState extends State<Bankaccounts> {
                         height: 20,
                       ),
                       Container(
-                       width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2, //alignment: Alignment.bottomLeft,
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width /
+                                  2, //alignment: Alignment.bottomLeft,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -529,14 +547,25 @@ class _BankaccountsState extends State<Bankaccounts> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.off(() => Addbankaccount());
+                          if (bank.businessNameCnl.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your business Name");
+                          } else if (bank.businessType == null) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your Business type");
+                          } else if (bank.businessRegNoCnl.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your Business Reg No");
+                          } else {
+                            Get.off(() => Addbankaccount());
+                          }
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 20),
-                         width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height * 0.07,
                           decoration: BoxDecoration(
                               color: HexColor('#CEE812'),
