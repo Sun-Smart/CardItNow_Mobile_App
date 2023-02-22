@@ -219,17 +219,17 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-          // Text(
-          //   'Tell About Your Self!',
-          //   textAlign: TextAlign.justify,
-          //   style: TextStyle(
-          //     fontSize: 28,
-          //     fontFamily: 'Sora',
-          //     color:
-          //     themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // )
+          Text(
+            'Tell About Your Self!',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 28,
+              fontFamily: 'Sora',
+              color:
+              themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+              fontWeight: FontWeight.bold,
+            ),
+          )
         ],
       ),
     );

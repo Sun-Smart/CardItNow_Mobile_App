@@ -304,11 +304,13 @@ class RegisterAPI extends GetxController with BaseController {
   void ocrdocument() async {
     Get.to(Registerloading());
     var body = {"livestockphoto": scandocs};
+    log(scandocs);
     var response =
         await BaseClient().post(API().processocr, body).catchError(handleError);
     Get.back();
     if (response == null) return;
     var data = json.decode(response);
+
     if (data != null) {
       profileinfo.value = data;
        Get.to(AvatarPageView());
@@ -641,28 +643,32 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
 //security question post api
+  //security question post api
   void securityPost() async{
     var customerids = GetStorage().read("custid");
 
-    var body = {
-      {
-        "securityquestionid":securequestions["questionid"],
-        "customerid":customerids,
-        "questionid":securequestions["questionid"],
-        "answer":securityquestioncontroller,
-        "status":""
-      }
+    var body =  {
+      "securityquestionid": 10,
+      "customerid": int.parse(customerids),
+      "questionid":securequestions["questionid"],
+      "answer":securityquestioncontroller.text,
+      "status":""
     };
+
     var response = await BaseClient()
-        .post(API().mandatoryPayee, body)
+        .post(API().securitypost, body)
         .catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data["mandatoryPayee"] != null){
-
+    if(data == 'success'){
+      Get.off(()=>termsconditions());
+    }
+    else{
+      Fluttertoast.showToast(msg: "Something Went Wrong");
     }
   }
+
 
 }
 

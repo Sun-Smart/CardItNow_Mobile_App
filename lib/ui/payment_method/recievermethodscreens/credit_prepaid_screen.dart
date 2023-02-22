@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last, avoid_unnecessary_containers, unnecessary_new, prefer_final_fields, sized_box_for_whitespace
 
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/main.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
@@ -80,7 +81,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                             fontWeight: FontWeight.w500),
                                         children: <TextSpan>[
                                       TextSpan(
-                                          text: ' Angelo',
+                                          text: ' ${MyApp.logindetails['username']}',
                                           style: const TextStyle(
                                               color: Color(0xffC9E313),
                                               fontSize: 18))

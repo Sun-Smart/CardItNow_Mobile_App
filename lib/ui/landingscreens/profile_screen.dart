@@ -286,11 +286,11 @@ class _ProfileState extends State<Profile> {
               //     radius: 50,
               //     backgroundImage: ,),
               const SizedBox(height: 5),
-              Text('${GetStorage().read('username')}',
+              Text('${MyApp.logindetails['username']}',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text('${GetStorage().read('username')}',
+              Text('${MyApp.logindetails['username']}',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromARGB(255, 177, 178, 178),
@@ -331,11 +331,11 @@ class _ProfileState extends State<Profile> {
               //     radius: 50,
               //     backgroundImage: ,),
               const SizedBox(height: 5),
-              Text('${GetStorage().read('username')}',
+              Text('${MyApp.logindetails['username']}',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Text('${GetStorage().read('username')}',
+              Text('${MyApp.logindetails['username']}',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromARGB(255, 177, 178, 178),
@@ -355,7 +355,19 @@ class _ProfileState extends State<Profile> {
               usertab = link;
             });
           } else {
-            Navigator.of(context).pushNamed(link);
+            if(link =='/userdetails'){
+              Get.to(UserDetails());
+            }
+            else if(link =='/manualCard'){
+              Get.to(ManualCard());
+            }
+            else if(link == "/settings"){
+              Get.to(Settings());
+            }
+            else if(link == "/settings"){
+              Get.to(Settings());
+            }
+
           }
         },
         leading: Container(

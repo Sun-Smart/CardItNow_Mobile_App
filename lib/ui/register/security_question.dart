@@ -3,6 +3,7 @@
 
 import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/register/twofactor.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -267,7 +268,9 @@ AuthButton(
           if(auth.securityquestioncontroller.text.isEmpty){
             Fluttertoast.showToast(msg: "Please Enter Your Answer");
           }else{
-            auth.securityPost();
+
+            Get.to(Twofactor());
+            // auth.securityPost();
           }
           },
           text: "Next",
