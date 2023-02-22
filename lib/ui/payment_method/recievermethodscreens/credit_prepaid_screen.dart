@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last, avoid_unnecessary_containers, unnecessary_new, prefer_final_fields, sized_box_for_whitespace
 
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
@@ -8,7 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../../const/responsive.dart';
+
 
 class CreditPrepaidScreen extends StatefulWidget {
   const CreditPrepaidScreen({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                 RichText(
                                     text: TextSpan(
                                         text: 'Heloo!',
-                                        style: const TextStyle(
+                                        style:  TextStyle(
                                             color: Color(0xff036D7A),
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),
@@ -145,8 +146,31 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.asset('assets/card/up_arrow.png',
-                                          width: 50, height: 50),
+                                   Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: const Color(0xff036D7A)),
+                                child: GetStorage().read("avatarpic") == null
+                                    ? Container()
+                                    : GetStorage()
+                                    .read("avatarpic")
+                                    .toString()
+                                    .contains('assets')
+                                    ? Image.asset(
+                                    GetStorage().read("avatarpic"),
+                                    fit: BoxFit.cover,
+                                    height: 43,
+                                    width: 43)
+                                    : Container()
+
+                              // Image.file(
+                              //             File(
+                              //                 GetStorage().read("avatarpic")),
+                              //             fit: BoxFit.cover,
+                              //             height: 43,
+                              //             width: 43)
+
+                            ),
                                       SizedBox(width: 15),
                                       Column(
                                         crossAxisAlignment:
@@ -224,7 +248,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 2.5,
-                      height: MediaQuery.of(context).size.width / 1,
+                    height: MediaQuery.of(context).size.width / 1,
                       decoration:
                           BoxDecoration(color: Colors.grey.withOpacity(0.1)),
                       child: SingleChildScrollView(
@@ -241,8 +265,31 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Image.asset('assets/card/up_arrow.png',
-                                          width: 50, height: 50),
+                                     Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: const Color(0xff036D7A)),
+                                child: GetStorage().read("avatarpic") == null
+                                    ? Container()
+                                    : GetStorage()
+                                    .read("avatarpic")
+                                    .toString()
+                                    .contains('assets')
+                                    ? Image.asset(
+                                    GetStorage().read("avatarpic"),
+                                    fit: BoxFit.cover,
+                                    height: 43,
+                                    width: 43)
+                                    : Container()
+
+                              // Image.file(
+                              //             File(
+                              //                 GetStorage().read("avatarpic")),
+                              //             fit: BoxFit.cover,
+                              //             height: 43,
+                              //             width: 43)
+
+                            ),
                                       SizedBox(width: 15),
                                       Column(
                                         crossAxisAlignment:
