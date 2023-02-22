@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/letsstartpage.dart';
+import 'package:cardit/ui/register/register_loading_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +11,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../api/bank_api.dart';
-import '../../../api/regster_api.dart';
+import '../../../auth/auth.dart';
+import '../../../auth/bank_api.dart';
 import '../../../themes/styles.dart';
 
 class Addbankaccount extends StatefulWidget {
@@ -21,7 +24,7 @@ class Addbankaccount extends StatefulWidget {
 
 class _AddbankaccountState extends State<Addbankaccount> {
   final BankAPI bank = Get.put(BankAPI());
-  final RegisterAPI auth = Get.put(RegisterAPI());
+  final AuthCon auth = Get.put(AuthCon());
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,10 @@ class _AddbankaccountState extends State<Addbankaccount> {
                                 left: MediaQuery.of(context).size.width / 7.5,
                               ),
                         child: Text('Select Bank *',
-                            style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold))),
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold))),
                     SizedBox(
                       height: 20,
                     ),
@@ -330,17 +336,19 @@ class _AddbankaccountState extends State<Addbankaccount> {
                                 : MediaQuery.of(context).size.width / 12,
                           ),
                           Text('Select Bank *',
-                              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Container(
-                        
                         width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 2,
                         height: MediaQuery.of(context).size.height / 13,
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -348,8 +356,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(3))),
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: DropdownButton(
                             focusColor: Colors.transparent,
                             underline: const SizedBox(),
@@ -397,8 +404,8 @@ class _AddbankaccountState extends State<Addbankaccount> {
                           Text('Account Number *',
                               style: TextStyle(
                                   fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable)),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
@@ -406,15 +413,15 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       ),
                       Container(
                         width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 2,
                         child: TextFormField(
                           enabled: true,
                           //label: "Account Number *",
                           controller: bank.accountNumberCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
-                         // inputHint: "Enter Your Account Number",
+                          // inputHint: "Enter Your Account Number",
                           validator: (value) {
                             // if (requiredNoController.text.isEmpty) {
                             //   return "";
@@ -427,8 +434,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Enter Account No',
-                            floatingLabelBehavior:
-                                FloatingLabelBehavior.never,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             helperStyle: const TextStyle(
                                 fontFamily: 'Sora', fontSize: 14),
                             hintStyle: const TextStyle(
@@ -478,24 +484,24 @@ class _AddbankaccountState extends State<Addbankaccount> {
                           Text('Enter Your Swift Code *',
                               style: TextStyle(
                                   fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable)),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Container(
-                         width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 2,
                         child: TextFormField(
                           enabled: true,
                           //label: "Enter Your Swift Code *",
                           controller: bank.swiftCodeCnl,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
-                         // inputHint: "Enter Your Swift Code Of Your Bank",
+                          // inputHint: "Enter Your Swift Code Of Your Bank",
                           validator: (value) {
                             // if (requiredNoController.text.isEmpty) {
                             //   return "";
@@ -508,8 +514,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Enter Swiftcode No',
-                            floatingLabelBehavior:
-                                FloatingLabelBehavior.never,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             helperStyle: const TextStyle(
                                 fontFamily: 'Sora', fontSize: 14),
                             hintStyle: const TextStyle(
@@ -549,7 +554,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       SizedBox(
                         height: 30,
                       ),
-                         Row(
+                      Row(
                         children: [
                           SizedBox(
                             width: Responsive.isDesktop(context)
@@ -559,8 +564,8 @@ class _AddbankaccountState extends State<Addbankaccount> {
                           Text('Enter Branch Address *',
                               style: TextStyle(
                                   fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable)),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(
@@ -568,9 +573,8 @@ class _AddbankaccountState extends State<Addbankaccount> {
                       ),
                       Container(
                         width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                      
+                            ? MediaQuery.of(context).size.width / 4
+                            : MediaQuery.of(context).size.width / 2,
                         child: TextFormField(
                           enabled: true,
                           //label: "Enter Branch Address *",
@@ -589,8 +593,7 @@ class _AddbankaccountState extends State<Addbankaccount> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Enter Branch Address',
-                            floatingLabelBehavior:
-                                FloatingLabelBehavior.never,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             helperStyle: const TextStyle(
                                 fontFamily: 'Sora', fontSize: 14),
                             hintStyle: const TextStyle(
@@ -627,52 +630,55 @@ class _AddbankaccountState extends State<Addbankaccount> {
                           ),
                         ),
                       ),
-                    SizedBox(
+                      SizedBox(
                         height: 30,
                       ),
-                   GestureDetector(
-       onTap: () {
-          if (bank.selectedBank == null) {
-            Fluttertoast.showToast(msg: "Enter your Bank");
-          } else if (bank.accountNumberCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your Account No");
-          } else if (bank.swiftCodeCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your Swiftcode No");
-          } else if (bank.branchAddressCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter your Branch Address");
-          } else {
-            bank.addBankAPI();
-          }
-        },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        width: 
-             Responsive.isDesktop(context)
-                ? MediaQuery.of(context).size.width / 4.4
-                : MediaQuery.of(context).size.width / 2.5,
-        height: MediaQuery.of(context).size.height * 0.07,
-         decoration: BoxDecoration(
-            color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: Text(
-           "Verify and Proceed",
-            style: TextStyle(
-              fontFamily: 'ProductSans',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: HexColor('#004751'),
-            ),
-          ),
-        ),
-      ),
-    )
- 
+                      GestureDetector(
+                        onTap: () {
+                          if (bank.selectedBank == null) {
+                            Fluttertoast.showToast(msg: "Enter your Bank");
+                          } else if (bank.accountNumberCnl.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your Account No");
+                          } else if (bank.swiftCodeCnl.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your Swiftcode No");
+                          } else if (bank.branchAddressCnl.text.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "Enter your Branch Address");
+                          } else {
+                            bank.addBankAPI();
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.4
+                              : MediaQuery.of(context).size.width / 2.5,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          decoration: BoxDecoration(
+                              color: HexColor('#CEE812'),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                            child: Text(
+                              "Verify and Proceed",
+                              style: TextStyle(
+                                fontFamily: 'ProductSans',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: HexColor('#004751'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 )
               ],
             ),
-      bottomNavigationBar: Responsive.isMobile(context)?bulildbutton():null,
+      bottomNavigationBar: Responsive.isMobile(context) ? bulildbutton() : null,
     );
   }
 
