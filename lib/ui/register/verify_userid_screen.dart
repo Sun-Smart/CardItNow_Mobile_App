@@ -21,6 +21,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../api/regster_api.dart';
+import '../../utils/shuftipro.dart';
 import 'pdfView.dart';
 
 class VerifyUserId extends StatefulWidget {
@@ -638,7 +639,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ImageSource
                       .gallery);
             } else {
-              _showPicker(context);
+              Shuftipro pro = Shuftipro();
+              pro.continueFun();
             }
           },
           child: Column(
@@ -666,7 +668,8 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       ImageSource
                           .gallery);
                 } else {
-                  _showPicker(context);
+                  Shuftipro pro = Shuftipro();
+                  pro.continueFun();
                 }
               },
               child: kIsWeb
