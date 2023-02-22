@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'dart:ui';
-
-import 'package:cardit/auth/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../api/regster_api.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -23,14 +22,12 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   final formKey = GlobalKey<FormState>();
   final newpassword = TextEditingController();
   final updatepassword = TextEditingController();
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0XFFffffff),
       bottomNavigationBar: bulildbutton(),
       body: Container(
-          // color: Color(0XFFffffff),
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,14 +50,12 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   }
 
   Widget buildToptitle() {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
             icon: Icon(Icons.arrow_back,
-                // color: themeChange.darkTheme ? Colors.white : Colors.black,
                 size: 30),
             onPressed: () {
               Navigator.pop(context);
@@ -71,14 +66,12 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   }
 
   Widget buildtitle() {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       padding: EdgeInsets.all(15),
       child: Text(
         'Forgot \n Password',
         style: TextStyle(
           fontSize: 28,
-          // color: themeChange.darkTheme ? Colors.white : HexColor('#004751'),
           fontWeight: FontWeight.bold,
         ),
       ),

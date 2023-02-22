@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';

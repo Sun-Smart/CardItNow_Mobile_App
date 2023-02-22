@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import '../../widgets/auth_button.dart';
 
 class PaymentOverview extends StatefulWidget {

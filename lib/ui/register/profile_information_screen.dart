@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages, avoid_print
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
@@ -13,9 +11,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../api/regster_api.dart';
 import '../../themes/styles.dart';
-import 'register_screen.dart';
-import 'twofactor.dart';
 
 class ProfileInformation extends StatefulWidget {
   const ProfileInformation({Key? key}) : super(key: key);
@@ -25,7 +22,7 @@ class ProfileInformation extends StatefulWidget {
 }
 
 class _ProfileInformationState extends State<ProfileInformation> {
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   final formKey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
   final middlenamecontroller = TextEditingController();
@@ -297,27 +294,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorStyle: const TextStyle(
-                //     fontFamily: 'Sora',
-                //     fontSize: 13,
-                //     fontWeight: FontWeight.bold),
+
               ),
             ), ),
                       ],
@@ -366,27 +343,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorStyle: const TextStyle(
-                //     fontFamily: 'Sora',
-                //     fontSize: 13,
-                //     fontWeight: FontWeight.bold),
+
               ),
             ), ),
                      
@@ -1318,27 +1275,7 @@ Widget buttontab(){
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorStyle: const TextStyle(
-                //     fontFamily: 'Sora',
-                //     fontSize: 13,
-                //     fontWeight: FontWeight.bold),
+
               ),
             ),
 
@@ -1374,27 +1311,6 @@ Widget buttontab(){
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorStyle: const TextStyle(
-                //     fontFamily: 'Sora',
-                //     fontSize: 13,
-                //     fontWeight: FontWeight.bold),
               ),
             ),
 
@@ -1415,8 +1331,6 @@ Widget buttontab(){
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
                   hoverColor: Colors.transparent,
-                // filled: true,
-                // fillColor: Colors.white,
                 hintText: 'Last Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -1427,24 +1341,7 @@ Widget buttontab(){
                 ),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                // focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
+
                 errorStyle: const TextStyle(
                     fontFamily: 'Sora',
                     fontSize: 13,
@@ -1886,11 +1783,7 @@ Widget buttontab(){
               controller: streetnamecontroller,
               obsecureText: false,
               validator: (value) {
-                // if (addressController.text.isEmpty) {
-                //   return "Please Enter Address...";
-                // } else {
-                //   return null;
-                // }
+
               },
               inputDecoration: InputDecoration(
                 filled: true,
@@ -1935,72 +1828,6 @@ Widget buttontab(){
                 height: 10,
               ),
 
-            // Container(
-            //    margin: Responsive.isMobile(context)
-            //       ? EdgeInsets.fromLTRB(15, 0, 15, 0)
-            //       : EdgeInsets.only(
-            //           left: MediaQuery.of(context).size.width / 7.5,
-            //           ),
-            //
-            //     child: Text('Select Your Interests',
-            //         style: TextStyle(
-            //             fontFamily: 'Sora',
-            //             fontSize: 14,
-            //             color: Styles.whitecustomlable))),
-            // const SizedBox(height: 10),
-            // Container(
-            //   margin: Responsive.isMobile(context)
-            //       ? EdgeInsets.fromLTRB(15, 0, 15, 0)
-            //       : EdgeInsets.only(
-            //           left: MediaQuery.of(context).size.width / 7.5,
-            //           ),
-            //   width: Responsive.isMobile(context)
-            //       ? MediaQuery.of(context).size.width / 1
-            //
-            //           : MediaQuery.of(context).size.width / 2.5,
-            //   height: MediaQuery.of(context).size.height / 15,
-            //   decoration: BoxDecoration(
-            //       border:
-            //           Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-            //       borderRadius: const BorderRadius.all(Radius.circular(3))),
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 10),
-            //     child: DropdownButton(
-            //       underline: const SizedBox(),
-            //       dropdownColor: Colors.white,
-            //       isExpanded: true,
-            //       value: dropdownintrest,
-            //       hint: Text('Select Your Interests',
-            //           style: TextStyle(
-            //               color: Styles.whitecustomlable, fontSize: 14)),
-            //       icon: InkWell(
-            //           child: Icon(
-            //         Icons.keyboard_arrow_down,
-            //         // color: themeChange.darkTheme
-            //         //     ? Colors.white
-            //         //     : Colors.black45
-            //       )),
-            //       items: interests.map((String item) {
-            //         return DropdownMenuItem(
-            //             value: item,
-            //             child: Text(item,
-            //                 style: const TextStyle(
-            //                     color: Color(0Xff413D4B), fontSize: 14)));
-            //       }).toList(),
-            //       onChanged: (String? newValue) {
-            //         setState(() {
-            //           // dropdownvalueCity = null;
-            //           dropdownintrest = newValue!;
-            //           // con.choosedDocId = newValue;
-            //           // con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
-            //         });
-            //       },
-            //       style: const TextStyle(color: Colors.black),
-            //     ),
-            //   ),
-            // ),
-            //
-            // const SizedBox(height: 10),
             Container(
                margin: Responsive.isMobile(context)
                   ? EdgeInsets.fromLTRB(15, 0, 15, 0)
@@ -2221,7 +2048,6 @@ Widget buttontab(){
               addressController.text,
               postalCodeController.text,
             );
-            // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
           }
         },
         text: "Next");

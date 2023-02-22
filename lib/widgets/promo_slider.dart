@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, avoid_print, unnecessary_string_interpolations, prefer_const_constructors_in_immutables
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/auth/cardapi.dart';
-import 'package:cardit/responsive/responsive.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../api/card_api.dart';
+import '../api/regster_api.dart';
 
 class TopPromoSlider extends StatefulWidget {
   TopPromoSlider({Key? key}) : super(key: key);
@@ -16,8 +16,8 @@ class TopPromoSlider extends StatefulWidget {
 
 class _TopPromoSliderState extends State<TopPromoSlider> {
   final CarouselController _controller = CarouselController();
-  final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.find();
+  final RegisterAPI con = Get.find();
+  final CardAPI cardcons = Get.find();
 
   int _currentsliderindex = 0;
 
@@ -109,7 +109,6 @@ class CustomeCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthCon con = Get.find();
     return SingleChildScrollView(
       child: Column(
         children: [

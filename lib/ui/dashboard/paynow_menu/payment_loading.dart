@@ -7,7 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../const/responsive.dart';
 import 'paynow_payment_sucess.dart';
 
 class PaymentLoading extends StatefulWidget {

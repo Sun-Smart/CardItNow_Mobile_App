@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, sort_child_properties_last, avoid_print, unnecessary_null_comparison, library_private_types_in_public_api, unnecessary_import, non_constant_identifier_names
 
 import 'dart:io';
-
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/auth/cardapi.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -17,14 +14,15 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../api/card_api.dart';
+import '../../api/regster_api.dart';
 import '../../main.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
-import '../startingscreen/home_screen.dart';
+import '../splash/home_screen.dart';
 
-//final userDetails = FirebaseAuth.instance.currentUser;
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({Key? key}) : super(key: key);
@@ -35,8 +33,8 @@ class DashbordScreen extends StatefulWidget {
 
 class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
-  final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.put(cardsapi());
+  final RegisterAPI con = Get.find();
+  final CardAPI cardcons = Get.put(CardAPI());
   int _currentsliderindex = 0;
   List<_SalesData> data = [
     _SalesData('Jan', 35, const Color(0XffEDEDED)),
@@ -70,7 +68,6 @@ class DashbordScreenState extends State<DashbordScreen>
   var dashboard = '/payment_dashboard';
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return WillPopScope(
       onWillPop: _onBackButtonPressed,
       child: Scaffold(
@@ -107,13 +104,6 @@ class DashbordScreenState extends State<DashbordScreen>
                                             height: 43,
                                             width: 43)
                                         : Container()
-
-                                // Image.file(
-                                //             File(
-                                //                 GetStorage().read("avatarpic")),
-                                //             fit: BoxFit.cover,
-                                //             height: 43,
-                                //             width: 43)
 
                             ),
                             Container(
@@ -236,7 +226,6 @@ class DashbordScreenState extends State<DashbordScreen>
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.1)),
                               child: Column(
-                                // crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -305,26 +294,6 @@ class DashbordScreenState extends State<DashbordScreen>
                                           ],
                                         ),
                                       ),
-// SizedBox(width: MediaQuery.of(context).size.width/8,),
-
-//                               Padding(
-//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
-//                     child: GestureDetector(
-//                         onTap: () {},
-//                         child: Image.asset('assets/notification.png',
-//                             fit: BoxFit.contain, width: 25, height: 25))),
-//                 Padding(
-//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
-//                     child: GestureDetector(
-//                         onTap: () {},
-//                         child: IconButton(
-//                           hoverColor: Colors.transparent,
-//                             onPressed: () {
-//                               _logoutPressed();
-//                             },
-
-//                             icon: Icon(Icons.power_settings_new,
-//                                 color: Colors.black)))),
                                     ],
                                   ),
 
@@ -385,10 +354,6 @@ class DashbordScreenState extends State<DashbordScreen>
                                           ))
                                       : Slider(),
                                   payscheduleweb(),
-                                  // buildPayCharttitle(),
-                                  //buildPayChart(),
-                                  //buildTranstitle(),
-                                  //_buildBusinesscard(),
                                   const SizedBox(height: 20)
                                 ],
                               ),
@@ -404,11 +369,9 @@ class DashbordScreenState extends State<DashbordScreen>
                       children: [
                         Obx(() => Container(
                               width: MediaQuery.of(context).size.width / 3,
-                             // height: MediaQuery.of(context).size.width / 1,
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.1)),
                               child: Column(
-                                // crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -477,26 +440,6 @@ class DashbordScreenState extends State<DashbordScreen>
                                           ],
                                         ),
                                       ),
-// SizedBox(width: MediaQuery.of(context).size.width/8,),
-
-//                               Padding(
-//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
-//                     child: GestureDetector(
-//                         onTap: () {},
-//                         child: Image.asset('assets/notification.png',
-//                             fit: BoxFit.contain, width: 25, height: 25))),
-//                 Padding(
-//                     padding: const EdgeInsets.only(right: 10.0, top: 10),
-//                     child: GestureDetector(
-//                         onTap: () {},
-//                         child: IconButton(
-//                           hoverColor: Colors.transparent,
-//                             onPressed: () {
-//                               _logoutPressed();
-//                             },
-
-//                             icon: Icon(Icons.power_settings_new,
-//                                 color: Colors.black)))),
                                     ],
                                   ),
 
@@ -563,10 +506,6 @@ class DashbordScreenState extends State<DashbordScreen>
                                           ))
                                       : Slider(),
                                   payscheduleweb(),
-                                  // buildPayCharttitle(),
-                                  //buildPayChart(),
-                                  //buildTranstitle(),
-                                  //_buildBusinesscard(),
                                   const SizedBox(height: 20)
                                 ],
                               ),
@@ -678,7 +617,6 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   Widget Slider() {
-    //final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -712,13 +650,6 @@ class DashbordScreenState extends State<DashbordScreen>
                             dashboard;
                           });
                         }
-                        // setState(() {
-                        //     if(dashboard=='/payment_dashboard'){
-
-                        //     }else{}
-                        // });
-
-                        // Navigator.of(context).pushNamed('/payment_dashboard');
                       },
                       // button pressed
                       child: Padding(
@@ -806,13 +737,6 @@ class DashbordScreenState extends State<DashbordScreen>
                             dashboard;
                           });
                         }
-                        // setState(() {
-                        //     if(dashboard=='/payment_dashboard'){
-
-                        //     }else{}
-                        // });
-
-                        // Navigator.of(context).pushNamed('/payment_dashboard');
                       },
                       // button pressed
                       child: Padding(
@@ -1010,15 +934,11 @@ class DashbordScreenState extends State<DashbordScreen>
           width: MediaQuery.of(context).size.width / 3.6,
           height: MediaQuery.of(context).size.height / 15,
           decoration: const BoxDecoration(
-              //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
-              //borderRadius: const BorderRadius.all(Radius.circular(3)))
               ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: DropdownButton(
               underline: const SizedBox(),
-              // underline:Container(),
-              //  validator: (value)=>value==null?'field required':null,
               dropdownColor: Colors.white,
               isExpanded: true,
               value: dropdownvalue,
@@ -1064,12 +984,6 @@ class DashbordScreenState extends State<DashbordScreen>
         padding: const EdgeInsets.all(10),
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
-            // primaryXAxis: CategoryAxis(isVisible: false),
-            // Chart title
-            //title: ChartTitle(text: 'Half yearly sales analysis'),
-            // Enable legend
-            //legend: Legend(isVisible: true),
-            // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
             series: <ChartSeries<_SalesData, String>>[
               ColumnSeries<_SalesData, String>(
@@ -1109,7 +1023,6 @@ class DashbordScreenState extends State<DashbordScreen>
     return Container(
         decoration: BoxDecoration(
           border: Border.all(color: const Color(0XffE5E5E5), width: 1.5),
-          //borderRadius: const BorderRadius.all(Radius.circular(3)))
         ),
         // padding: EdgeInsets.all(15),
         child: Column(

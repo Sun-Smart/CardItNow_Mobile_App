@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unnecessary_null_comparison, avoid_unnecessary_containers, avoid_print, unrelated_type_equality_checks, unnecessary_brace_in_string_interps
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -9,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../auth/cardapi.dart';
+import '../../api/card_api.dart';
+import '../../api/regster_api.dart';
 import '../../widgets/drawer_web.dart';
 
 class ManualCard extends StatefulWidget {
@@ -20,8 +20,8 @@ class ManualCard extends StatefulWidget {
 }
 
 class _ManualCardState extends State<ManualCard> {
-  final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.put(cardsapi());
+  final RegisterAPI con = Get.find();
+  final CardAPI cardcons = Get.put(CardAPI());
 
   @override
   void initState() {
@@ -250,8 +250,7 @@ class CustomeCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardsapi cardcons = Get.put(cardsapi());
-    final AuthCon con = Get.find();
+    final CardAPI cardcons = Get.put(CardAPI());
     return Column(
       children: [
         Container(

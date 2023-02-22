@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:cardit/auth/auth.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../../widgets/auth_button.dart';
 
 class YourTaxDetails extends StatefulWidget {
@@ -18,7 +17,7 @@ class YourTaxDetails extends StatefulWidget {
 
 class _YourTaxDetailsState extends State<YourTaxDetails> {
   TextEditingController paymentController = TextEditingController();
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {

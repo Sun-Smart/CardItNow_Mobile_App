@@ -2,10 +2,9 @@
 
 import 'dart:io';
 
-import 'package:cardit/auth/auth.dart';
 import 'package:cardit/main.dart';
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/const/responsive.dart';
+import 'package:cardit/utils/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
 import 'package:cardit/ui/landingscreens/payments_screen.dart';
@@ -21,10 +20,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../api/regster_api.dart';
 import '../../widgets/drawer_web.dart';
 import '../payment_method/manula_card_screen.dart';
 import '../register/drawer/drawerscreen.dart';
-import '../startingscreen/home_screen.dart';
+import '../splash/home_screen.dart';
 import 'dashbord_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -35,7 +35,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final AuthCon con = Get.put(AuthCon());
+  final RegisterAPI con = Get.put(RegisterAPI());
   var usertab = '/userdetails';
   @override
   Widget build(BuildContext context) {

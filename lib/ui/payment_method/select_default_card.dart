@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, avoid_unnecessary_containers, unnecessary_import
 
-import 'package:cardit/auth/auth.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../api/regster_api.dart';
 
 class SelectDefaultCard extends StatefulWidget {
   final String cardNumber, cardHolderName, bankName, expDate;
@@ -23,7 +24,7 @@ class SelectDefaultCard extends StatefulWidget {
 }
 
 class _SelectDefaultCardState extends State<SelectDefaultCard> {
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   bool setAsDefault = false;
   @override
   Widget build(BuildContext context) {

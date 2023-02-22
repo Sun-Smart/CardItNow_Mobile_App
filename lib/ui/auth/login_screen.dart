@@ -1,17 +1,11 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print
 
-import 'dart:io';
 import 'dart:ui';
-
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/auth/loginapi.dart';
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/services/gmail_auth_services.dart';
+import 'package:cardit/const/responsive.dart';
+import 'package:cardit/utils/gmail_auth_services.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/register_screen.dart';
-import 'package:cardit/ui/splash_screen/splash2.dart';
-import 'package:cardit/ui/update_psw_screen/update_email_screen.dart';
+import 'package:cardit/ui/auth/update_email_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,6 +18,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
+import '../../api/login_api.dart';
+import '../../api/regster_api.dart';
+import '../splash/country.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -33,10 +31,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
+  final RegisterAPI con = Get.find();
+  final LoginAPI logincon = Get.put(LoginAPI());
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final AuthCon con = Get.find();
-  final loginauth logincon = Get.put(loginauth());
 
   bool isremember = false;
   bool isVisible = true;
@@ -157,7 +155,6 @@ class _LoginState extends State<Login> {
         children: [
           IconButton(
             icon: Icon(Icons.close,
-                //color: HexColor('#292929'),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
                 size: 22),
             onPressed: () {
@@ -175,7 +172,6 @@ class _LoginState extends State<Login> {
         children: [
           IconButton(
             icon: Icon(Icons.close,
-                //color: HexColor('#292929'),
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
                 size: 22),
             onPressed: () {
@@ -474,7 +470,7 @@ Widget buildformweb(){
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                                Get.offAll(() => UpdateEmailScreen());
+                                Get.to(() => UpdateEmailScreen());
                               },
                               child: Text(
                                 'Forgot Passcode?',
@@ -492,9 +488,6 @@ Widget buildformweb(){
                       borderRadius: BorderRadius.circular(5),
                     ),
                     onTap: () {
-                      // if (formKey.currentState!.validate()) {
-                      //   Get.to(const Passcode());
-                      // }
                       if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
@@ -509,8 +502,7 @@ Widget buildformweb(){
                   const SizedBox(height: 5),
                   GestureDetector(
                     onTap: () async {
-                      // Navigator.of(context).pushNamed('/selectcountry');
-                      Get.to( splash2());
+                      Get.off(Country());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -763,9 +755,6 @@ Widget buildformweb(){
                       borderRadius: BorderRadius.circular(5),
                     ),
                     onTap: () {
-                      // if (formKey.currentState!.validate()) {
-                      //   Get.to(const Passcode());
-                      // }
                       if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
@@ -780,8 +769,7 @@ Widget buildformweb(){
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () async {
-                      // Navigator.of(context).pushNamed('/selectcountry');
-                      Get.to( splash2());
+                      Get.off( Country());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -836,37 +824,36 @@ Widget buildformweb(){
           const SizedBox(width: 20),
           GestureDetector(
               onTap: (){
-
-    FacebookAuth.instance.login(
-    permissions: ["public_profile", "email"]).then((value) {
-    FacebookAuth.instance.getUserData().then((userData) {
-    setState(() {
-    isLoggedIn = true;
-    userObj = userData;
-    });
-    if (isLoggedIn == true) {
-    con.emailController.text = userData["email"];
-    print(userData.toString());
-    var userDatas = {
-    "email": userData["email"].toString(),
-    "firstname": userData['name'].toString(),
-    "lastname": "",
-    "socialid": userData['id'].toString(),
-    "mediatype": "Facebook",
-      "mobile":"",
-      "geoid": con.dropdownvalue["geoid"].toString()
-    };
-    con.registerSignAPI(userDatas);
-    GetStorage().write('username', userData['name']
-    );
-    } else {
-    Fluttertoast.showToast(msg: "Check Your Facebook Account");
-    }
-    });
-    });
-              },
-              child: Image.asset(width: 40, 'assets/fb.png')),
-        ]));
+                FacebookAuth.instance.login(
+                permissions: ["public_profile", "email"]).then((value) {
+                FacebookAuth.instance.getUserData().then((userData) {
+                setState(() {
+                isLoggedIn = true;
+                userObj = userData;
+                });
+                if (isLoggedIn == true) {
+                con.emailController.text = userData["email"];
+                print(" Email : " + userData.toString());
+                var userDatas = {
+                "email": userData["email"].toString(),
+                "firstname": userData['name'].toString(),
+                "lastname": "",
+                "socialid": userData['id'].toString(),
+                "mediatype": "Facebook",
+                "mobile":"",
+                "geoid": con.dropdownvalue["geoid"].toString()
+                };
+                con.registerSignAPI(userDatas);
+                GetStorage().write('username', userData['name']
+                );
+                } else {
+                Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                }
+                });
+                });
+                },
+                child: Image.asset(width: 40, 'assets/fb.png')),
+                ]));
   }
   Widget buildCartweb() {
     return Container(
@@ -883,33 +870,33 @@ Widget buildformweb(){
           GestureDetector(
               onTap: (){
 
-    FacebookAuth.instance.login(
-    permissions: ["public_profile", "email"]).then((value) {
-    FacebookAuth.instance.getUserData().then((userData) {
-    setState(() {
-    isLoggedIn = true;
-    userObj = userData;
-    });
-    if (isLoggedIn == true) {
-    con.emailController.text = userData["email"];
-    print(userData.toString());
-    var userDatas = {
-    "email": userData["email"].toString(),
-    "firstname": userData['name'].toString(),
-    "lastname": "",
-    "socialid": userData['id'].toString(),
-    "mediatype": "Facebook",
-      "mobile":"",
-      "geoid": con.dropdownvalue["geoid"].toString()
-    };
-    con.registerSignAPI(userDatas);
-    GetStorage().write('username', userData['name']
-    );
-    } else {
-    Fluttertoast.showToast(msg: "Check Your Facebook Account");
-    }
-    });
-    });
+                FacebookAuth.instance.login(
+                permissions: ["public_profile", "email"]).then((value) {
+                FacebookAuth.instance.getUserData().then((userData) {
+                setState(() {
+                isLoggedIn = true;
+                userObj = userData;
+                });
+                if (isLoggedIn == true) {
+                con.emailController.text = userData["email"];
+                print("Email : " + userData.toString());
+                var userDatas = {
+                "email": userData["email"].toString(),
+                "firstname": userData['name'].toString(),
+                "lastname": "",
+                "socialid": userData['id'].toString(),
+                "mediatype": "Facebook",
+                  "mobile":"",
+                  "geoid": con.dropdownvalue["geoid"].toString()
+                };
+                con.registerSignAPI(userDatas);
+                GetStorage().write('username', userData['name']
+                );
+                } else {
+                Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                }
+                });
+                });
               },
               child: Image.asset(width: 40, 'assets/fb.png')),
         ]));
@@ -938,9 +925,6 @@ Widget buildformweb(){
 //end
 
   void _loadUserEmailPassword() async {
-    print("Load Email");
-    // try {
-
     var email =  GetStorage().read("email") ?? "";
     var password =  GetStorage().read("password") ?? "";
     var remember =  GetStorage().read("remember_me") ?? false;
@@ -953,9 +937,6 @@ Widget buildformweb(){
         });
 
       }
-    // } catch (e) {
-    //   print(e);
-    // }
   }
 
 }

@@ -2,14 +2,14 @@
 
 import 'dart:ui';
 
-import 'package:cardit/auth/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -24,14 +24,11 @@ class VerifyEmail extends StatefulWidget {
 
 class _VerifyEmailState extends State<VerifyEmail> {
   final formKey = GlobalKey<FormState>();
-  final AuthCon con = Get.find();
-  final _otpController = TextEditingController();
-  bool _isChecked = false;
+  final RegisterAPI con = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0XFFffffff),
-      // bottomNavigationBar: bulildbutton(),
       body: Responsive.isMobile(context)
           ? Container(
               child: SingleChildScrollView(

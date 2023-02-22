@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
-
 import 'package:cardit/main.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:local_auth/local_auth.dart';
-
-import '../../auth/auth.dart';
+import '../../api/regster_api.dart';
 import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
-import '../startingscreen/home_screen.dart';
+import 'home_screen.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({Key? key}) : super(key: key);
@@ -22,37 +20,37 @@ class SplashScreens extends StatefulWidget {
 }
 
 class StartState extends State<SplashScreens> {
-  AuthCon authcon = AuthCon();
-
+  RegisterAPI authcon = RegisterAPI();
+  final LocalAuthentication auth = LocalAuthentication();
   @override
   void initState() {
     super.initState();
     _navigation();
   }
 
-  bool _authorizedOrNot = false;
-  final LocalAuthentication auth = LocalAuthentication();
+  // bool _authorizedOrNot = false;
 
-  Future<void> _authenticateMe() async {
-    bool authenticated = false;
-    try {
-      authenticated = await auth.authenticate(
-        options: AuthenticationOptions(biometricOnly: true, stickyAuth: true),
-        localizedReason: "Authenticate to use app",
-      );
-      print(authenticated.toString() + 'sss');
-    } catch (e) {
-      print(e);
-    }
-    if (!mounted) return;
-    setState(() {
-      _authorizedOrNot = authenticated ? true : false;
-      if (_authorizedOrNot) {
-        auth.stopAuthentication();
-      }
-      print(_authorizedOrNot.toString() + 'ggg');
-    });
-  }
+
+  // Future<void> _authenticateMe() async {
+  //   bool authenticated = false;
+  //   try {
+  //     authenticated = await auth.authenticate(
+  //       options: AuthenticationOptions(biometricOnly: true, stickyAuth: true),
+  //       localizedReason: "Authenticate to use app",
+  //     );
+  //     print(authenticated.toString() + 'sss');
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   if (!mounted) return;
+  //   setState(() {
+  //     _authorizedOrNot = authenticated ? true : false;
+  //     if (_authorizedOrNot) {
+  //       auth.stopAuthentication();
+  //     }
+  //     print(_authorizedOrNot.toString() + 'ggg');
+  //   });
+  // }
 
   _bioAuth() async {
     if (GetStorage().read('bioAuth').toString() == 'true') {
@@ -95,16 +93,8 @@ class StartState extends State<SplashScreens> {
               children: [
                 Image.asset(
                   "assets/giflogo.gif",
-                  // height: 220,
-                  //color: Colors.blueGrey,
                 ),
-                // SvgPicture.asset('assets/lodaingimg.svg',
-                //     width: 230, height: 65),
-                SizedBox(height: 30),
-                // Text("${"MAKE  YOUR  LIFE  EASY"}",
-                //     style: TextStyle(
-                //         fontSize: 15, color: Colors.white, fontFamily: 'sora')),
-              ],
+                SizedBox(height: 30), ],
             ),
           )),
     );

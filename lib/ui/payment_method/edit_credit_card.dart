@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_const_literals_to_create_immutables, avoid_print
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../api/regster_api.dart';
 import '../../widgets/auth_button.dart';
-import 'select_default_card.dart';
 
 class EditCard extends StatefulWidget {
   const EditCard({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class EditCard extends StatefulWidget {
 }
 
 class _EditCardState extends State<EditCard> {
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +40,6 @@ class _EditCardState extends State<EditCard> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              // Obx(() => CustomeCardData(
-              //     bankName: con.creditCardGet['bankname'].toString(),
-              //     cardNumber: con.creditCardGet['cardnumber'].toString(),
-              //     nameHolder: con.creditCardGet['cardname'].toString(),
-              //     validity: con.creditCardGet['expirydate'].toString())),
               SizedBox(height: 20),
             ],
           ),
@@ -81,7 +75,6 @@ class CustomeCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthCon con = Get.find();
 
     return Column(
       children: [
@@ -147,11 +140,6 @@ class CustomeCardData extends StatelessWidget {
                   style: TextStyle(
                       fontFamily: 'Sora', fontSize: 14, color: Colors.black)),
               onTap: () {
-                // Get.to(SelectDefaultCard(
-                //     bankName: con.creditCardGet['bankname'].toString(),
-                //     cardNumber: con.creditCardGet['cardnumber'].toString(),
-                //     cardHolderName: con.creditCardGet['cardname'].toString(),
-                //     expDate: con.creditCardGet['expirydate'].toString()));
               },
             ),
           ],

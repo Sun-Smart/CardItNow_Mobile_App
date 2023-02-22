@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../responsive/responsive.dart';
+import '../const/responsive.dart';
 
 class DrawerWeb extends StatefulWidget {
   const DrawerWeb({super.key});

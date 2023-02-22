@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';

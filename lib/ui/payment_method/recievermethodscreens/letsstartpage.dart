@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../const/responsive.dart';
 import '../../../widgets/receiver_drawerweb.dart';
 
 class Letsstartpage extends StatefulWidget {

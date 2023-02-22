@@ -1,17 +1,14 @@
 // ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
-import '../payment_method/choose_payment_method.dart';
 
 class termsandconditions extends StatefulWidget {
   const termsandconditions({Key? key}) : super(key: key);
@@ -21,7 +18,7 @@ class termsandconditions extends StatefulWidget {
 }
 
 class _termsandconditionsState extends State<termsandconditions> {
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,8 +63,6 @@ class _termsandconditionsState extends State<termsandconditions> {
                       Container(
                           width: MediaQuery.of(context).size.width / 1.5,
                           height: MediaQuery.of(context).size.height / 1,
-                          //padding: EdgeInsets.only(top: 20, bottom: 0),
-                          // margin: EdgeInsets.only(top: 40),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -194,12 +189,6 @@ class _termsandconditionsState extends State<termsandconditions> {
                 Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(con.termscond[index][],
-                //     style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //         fontSize: 18,
-                //         color: Colors.black)),
-                // SizedBox(height: 15),
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(con.termscond[index]["termdetails"].toString(),

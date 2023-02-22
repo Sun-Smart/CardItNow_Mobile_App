@@ -1,26 +1,14 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthService {
-  final AuthCon con = Get.find();
+import '../api/regster_api.dart';
 
-  //1. Handle Auth State()
-  handleAuthState() {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (BuildContext context, snapshot) {
-        return SplashScreens();
-      },
-    );
-  }
+class AuthService {
+  final RegisterAPI con = Get.find();
 
   //2. SignIn With Google account()
   signinWithGoogle() async {

@@ -1,4 +1,4 @@
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/material.dart';

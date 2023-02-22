@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, unused_local_variable, non_constant_identifier_names
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
-// import 'package:cardit/themes/Themes.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-// import '../../themes/styless/custom_input.dart';
+import '../../api/regster_api.dart';
 
 final password = TextEditingController();
 final confirmpassword = TextEditingController();
@@ -24,7 +22,7 @@ class Password extends StatefulWidget {
 }
 
 class _PasswordState extends State<Password> {
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   final formKey = GlobalKey<FormState>();
 
   bool _isObscure = true;
@@ -50,30 +48,19 @@ class _PasswordState extends State<Password> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                // color: Styles.colorBackgroundBlock,
                 child: Column(
               crossAxisAlignment: Responsive.isMobile(context)
                   ? CrossAxisAlignment.start
                   : CrossAxisAlignment.center,
               children: [
                 Container(
-                    // padding: EdgeInsets.only(top: 20, bottom: 30),
                     margin: EdgeInsets.only(top: 40),
-                    // decoration: BoxDecoration(
-                    //   image: DecorationImage(
-                    //     image: AssetImage("assets/loginbg.png"),
-                    //     fit: Responsive.isMobile(context)
-                    //         ? BoxFit.cover
-                    //         : BoxFit.fill,
-                    //   ),
-                    // ),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           buildToptitle(),
                           buildtitle(),
                         ])),
-                // buildbutton(),
                 bulidForm(),
                 SizedBox(height: 30),
               ],
@@ -312,8 +299,6 @@ class _PasswordState extends State<Password> {
       text: "Confirm",
       decoration: BoxDecoration(
           color:
-              // isChecked == false
-              //     ? HexColor('#E9F9B2')
               HexColor('#CEE812'),
           borderRadius: BorderRadius.circular(5)),
     );

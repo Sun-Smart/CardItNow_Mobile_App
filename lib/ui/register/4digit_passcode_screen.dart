@@ -2,10 +2,8 @@
 
 import 'dart:ui';
 
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +13,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
+
+import '../../api/regster_api.dart';
 
 class Passcode extends StatefulWidget {
   const Passcode({super.key});
@@ -35,7 +35,7 @@ class _PasscodeState extends State<Passcode> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController otpCon = TextEditingController();
   final TextEditingController confirmotp = TextEditingController();
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -485,7 +485,6 @@ class _PasscodeState extends State<Passcode> {
         } else if (otpCon.text != confirmotp.text) {
           Fluttertoast.showToast(msg: "Passcode has Mismatched");
         } else {
-          // Fluttertoast.showToast(msg: 'Correct');
           con.pinsetapi(con.emailController.text.trim(), otpCon.text);
         }
       },

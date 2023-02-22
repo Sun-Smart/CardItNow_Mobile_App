@@ -1,4 +1,4 @@
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/loan_screen/verify_bank_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

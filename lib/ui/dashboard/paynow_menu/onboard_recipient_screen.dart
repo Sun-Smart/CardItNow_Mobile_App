@@ -1,19 +1,17 @@
-import 'package:cardit/auth/auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../api/regster_api.dart';
+import '../../../const/responsive.dart';
 import '../../../widgets/auth_button.dart';
 import '../../../widgets/custom_input.dart';
 
-import 'payment_loading.dart';
-
 class onboardRecipient extends StatefulWidget {
-  // String documenttype;
-  // String uploadoc;
+
    onboardRecipient({Key? key,}) : super(key: key);
 
   @override
@@ -26,20 +24,14 @@ class _onboardRecipientState extends State<onboardRecipient> {
   final _emailController = TextEditingController();
   final _businessController = TextEditingController();
   final _phonenumberController = TextEditingController();
-  final _selectbankController = TextEditingController();
   final _accountnumberController = TextEditingController();
   final _swiftcodeController = TextEditingController();
      final 
      nameRegExp = new RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
-     static final RegExp numberRegExp = RegExp(r'\d');
-  // var item = ['Indin Bank', 'Axis Bank', 'ICIC Bank', 'IDBI Bank'];
   String? dropdownvalue;
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  final AuthCon con = Get.find();
+
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -114,7 +106,6 @@ class _onboardRecipientState extends State<onboardRecipient> {
         children: [
           Container(
              width: MediaQuery.of(context).size.width / 3,
-                     //   height: MediaQuery.of(context).size.height / 1,
                         color: Color(0XFF004751),
                         child: Center(
                             child: Image.asset("assets/applogo-02.png",
@@ -622,14 +613,10 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   Container(
                        width: MediaQuery.of(context).size.width/4,
                     child: TextFormField(
-                     // keyboardType: TextInputType.number,
                       enabled: true,
-                     // label: "Business Reg Number *",
                       controller: _businessController,
-                     // textInputType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       obscureText: false,
-                     // inputHint: 'Enter your Business Reg Number',
                      validator: (value) {
                         if (_businessController.text.isEmpty) {
                           return " Enter The Reg Number";
@@ -681,13 +668,10 @@ class _onboardRecipientState extends State<onboardRecipient> {
                   Container(
                        width: MediaQuery.of(context).size.width/4,
                     child: TextFormField(
-                     // label: "Phone Number *",
                       enabled: true,
-                     // textInputType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
                       controller: _phonenumberController,
                       obscureText: false,
-                     // inputHint: 'Enter your Phone number',
                      validator: (value) {
                         if (_phonenumberController.text.isEmpty) {
                           return " Enter The Phone number";
@@ -709,8 +693,6 @@ class _onboardRecipientState extends State<onboardRecipient> {
                           enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 2, color: Color(0xFFE5E5E5))),
-                          // filled: true,
-                          // fillColor: Colors.white,
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           helperStyle:
                               TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -738,13 +720,7 @@ SizedBox(height: 20,),
   
                   SizedBox(height: 10,),
                   Container(
-                   // margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                     width: MediaQuery.of(context).size.width / 4,
-
-                    /*  decoration: BoxDecoration(
-                        border: Border.all(color: Color(0XffB7C5C7), width: 1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(3))),*/
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0),
                       child: DropdownButtonFormField(

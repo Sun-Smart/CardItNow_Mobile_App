@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 import 'on_board_payee.dart';
 
 class MakePaymentPage extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../responsive/responsive.dart';
+import '../../const/responsive.dart';
 
 class UploadDocuments extends StatefulWidget {
   const UploadDocuments({Key? key}) : super(key: key);

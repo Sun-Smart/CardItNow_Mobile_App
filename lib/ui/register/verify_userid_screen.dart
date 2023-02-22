@@ -3,15 +3,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
-import 'package:cardit/ui/startingscreen/home_screen.dart';
+import 'package:cardit/ui/splash/home_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
-// import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../../api/regster_api.dart';
 import 'pdfView.dart';
 
 class VerifyUserId extends StatefulWidget {
@@ -64,7 +63,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   openFie() {
-    // print('pathoffile--pathoffile--$pathoffile');
     return Expanded(
       child: InkWell(
         onTap: () {
@@ -78,12 +76,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           style: const TextStyle(
               fontSize: 15, color: Colors.black, fontWeight: FontWeight.w700),
         ),
-        // SfPdfViewer.file(
-        //       File('/data/user/0/com.example.cardit/cache/file_picker/dummy.pdf',
 
-        //       ),
-        //       key: _pdfViewerKey,
-        //       )
       ),
     );
   }
@@ -118,7 +111,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
       maxWidth: 700,
     );
     if (image == null) return;
-    // final imageTemporary = File(image.path);
     if(kIsWeb){
       setState(() {
         imagedoc2 = File(image.path.toString());
@@ -199,17 +191,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
   }
 
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   String? dropdownvalue;
   var philipineData = ['Passport', 'Driving Licence', 'National ID', 'UMID'];
   var uaeData = ['UAE'];
 
-  Future<bool> _willPopCallback() async {
-    // await showDialog or Show add banners or whatever
-    // then
-    Get.offAll(Home());
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +261,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width / 3,
-                       // height: MediaQuery.of(context).size.width / 1,
                         color: Color(0XFF004751),
                         child: Center(
                             child: Image.asset("assets/applogo-02.png",
@@ -284,11 +269,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       ),
                       Container(
                          width: MediaQuery.of(context).size.width / 1.5,
-                          //color: Color(0XFFffffff),
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                //SizedBox(height: 20,),
                            
                             buildToptitle(),
                             buildtitle(),
@@ -300,7 +283,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget buildToptitle() {
-    // final themeChange = Provider.of<DarkThemeProvider>(context);
     return Row(
         mainAxisAlignment: Responsive.isMobile(context)
             ? MainAxisAlignment.start
@@ -357,7 +339,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   }
 
   Widget bulidForm() {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Container(
         padding: const EdgeInsets.all(15),
         child: Form(
@@ -590,26 +571,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                         ],
                       ),
                   const SizedBox(height: 20),
-                  // Row(
-                  //   children: [
-                  //     SizedBox(
-                  //       width: Responsive.isMobile(context)
-                  //           ? 0
-                  //           :  Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 5:
-                  //           MediaQuery.of(context).size.width / 9,
-                  //     ),
-                  //     Container(
-                  //         margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  //         child: Text('Upload your Selfie',
-                  //             style: TextStyle(
-                  //                 fontFamily: 'Sora',
-                  //                 fontSize: 14,
-                  //                 color: Styles.whitecustomlable))),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 20),
-                  // displayImageSelfie(),
-                  // const SizedBox(height: 20),
                 ])));
   }
 
@@ -775,26 +736,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
     }
   }
 
-  //Document Scan
-  // void onPressed() async {
-  //   List<String> pictures;
-  //   try {
-  //     pictures = await CunningDocumentScanner.getPictures() ?? [];
-  //     if (!mounted) return;
-  //     setState(() {
-  //       _pictures = pictures;
-  //       imagedoc2 = File(_pictures[0]);
-  //     });
-  //   } catch (exception) {
-  //     print('Image Not Pic');
-  //   }
-  //   List<int> fileInBytes = await imagedoc2!.readAsBytes();
-  //   String fileInBase64 = base64Encode(fileInBytes);
-  //   print('******************* BASE 64 SOURCE *******************');
-  //   log(fileInBase64);
-  //   //  con.uploaddoc = base64.encode(fileInBytes);
-  //   print('******************* BASE 64 SOURCE *******************');
-  // }
 
   //Gallery Image
   Future<void> openGalleryImage() async {

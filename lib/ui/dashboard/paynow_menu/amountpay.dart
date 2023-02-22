@@ -1,4 +1,4 @@
-import 'package:cardit/auth/auth.dart';
+
 import 'package:cardit/ui/dashboard/paynow_menu/payment_purpose.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../responsive/responsive.dart';
+import '../../../api/regster_api.dart';
+import '../../../const/responsive.dart';
 
 class AmountPay extends StatefulWidget {
   const AmountPay({super.key});
@@ -16,10 +17,8 @@ class AmountPay extends StatefulWidget {
 }
 
 class _AmountPayState extends State<AmountPay> {
-  //var item = ['Pay now', 'Schedule '];
   String? dropdownvalue;
-  TextEditingController _controller = TextEditingController();
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +105,6 @@ class _AmountPayState extends State<AmountPay> {
                 width: 10,
               ),
               Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -120,18 +118,6 @@ class _AmountPayState extends State<AmountPay> {
                   SizedBox(
                     height: 5,
                   ),
-                  //  Text(con.invoicejson["Rent"].toString())
-                  // Text(
-                  //   (int.parse("Invoice No. ${con.invoicejson["Amount"]}")
-                  //       .toString()),
-
-                  //   style: TextStyle(
-                  //       fontStyle: FontStyle.normal,
-                  //       fontSize: 15,
-                  //       color: HexColor('#2C3A4B'),
-                  //       fontWeight: FontWeight.w400,
-                  //       fontFamily: "Sora"),
-                  // ),
                 ],
               )
             ],
@@ -146,7 +132,6 @@ class _AmountPayState extends State<AmountPay> {
   }
 
   Widget bulidForm() {
-    //final themeChange = Provider.of<DarkThemeProvider>(context);
     return Responsive.isMobile(context)? Container(
         child: Form(
             // key: formKey,
@@ -157,7 +142,6 @@ class _AmountPayState extends State<AmountPay> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //  SizedBox(width: MediaQuery.of(context).size.width/8),
               Center(
                 child: Text(
                   "₱",
@@ -177,20 +161,6 @@ class _AmountPayState extends State<AmountPay> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 40),
                     )
-                    //     TextFormField(
-
-                    //   style: TextStyle(fontSize: 30),
-                    //   controller: _controller,
-                    //   keyboardType: TextInputType.number,
-                    //   inputFormatters: <TextInputFormatter>[
-                    //     FilteringTextInputFormatter.digitsOnly
-                    //   ],
-                    //   decoration: InputDecoration(
-                    //     border: InputBorder.none,
-
-                    //     contentPadding: EdgeInsets.all(10),
-                    //   ),
-                    // )
                     ),
               ),
             ],
@@ -207,7 +177,6 @@ class _AmountPayState extends State<AmountPay> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //  SizedBox(width: MediaQuery.of(context).size.width/8),
               Center(
                 child: Text(
                   "₱",
@@ -227,20 +196,6 @@ class _AmountPayState extends State<AmountPay> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 40),
                     )
-                    //     TextFormField(
-
-                    //   style: TextStyle(fontSize: 30),
-                    //   controller: _controller,
-                    //   keyboardType: TextInputType.number,
-                    //   inputFormatters: <TextInputFormatter>[
-                    //     FilteringTextInputFormatter.digitsOnly
-                    //   ],
-                    //   decoration: InputDecoration(
-                    //     border: InputBorder.none,
-
-                    //     contentPadding: EdgeInsets.all(10),
-                    //   ),
-                    // )
                     ),
               ),
             ],

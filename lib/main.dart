@@ -5,8 +5,8 @@ import 'dart:io';
 import 'package:cardit/firebase_options.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/splash_screen/splash_screen.dart';
-import 'package:cardit/ui/startingscreen/home_screen.dart';
+import 'package:cardit/ui/splash/splash_screen.dart';
+import 'package:cardit/ui/splash/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -15,8 +15,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-
-import 'auth/auth.dart';
+import 'api/regster_api.dart';
 import 'base_client.dart';
 
 DarkThemeProvider themeChangeProvider = DarkThemeProvider();
@@ -57,7 +56,7 @@ WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
   runApp(const MyApp());
-  Get.put(AuthCon());
+  Get.put(RegisterAPI());
 }
 
 class MyApp extends StatefulWidget {

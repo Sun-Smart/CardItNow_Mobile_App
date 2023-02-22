@@ -1,8 +1,9 @@
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/ui/startingscreen/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../../../api/regster_api.dart';
 
 var drawerselection ='';
 var items =[
@@ -24,18 +25,13 @@ class drawer extends StatefulWidget {
 
 class _drawerState extends State<drawer> {
 
-  // final ItemScrollController itemScrollController = ItemScrollController();
-  // final ItemPositionsListener itemPositionsListener =
-  // ItemPositionsListener.create();
-
-
   bool isselected = false;
 
 
 
 
 
-  final AuthCon con = Get.put(AuthCon());
+  final RegisterAPI con = Get.put(RegisterAPI());
   @override
   Widget build(BuildContext context) {
     return SafeArea(

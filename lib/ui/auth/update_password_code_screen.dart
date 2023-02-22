@@ -2,13 +2,13 @@
 
 import 'dart:ui';
 
-import 'package:cardit/auth/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../api/regster_api.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -22,7 +22,7 @@ class UpdatePasswordCode extends StatefulWidget {
 class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   final formKey = GlobalKey<FormState>();
   final otpController = TextEditingController();
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

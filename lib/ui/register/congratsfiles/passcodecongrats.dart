@@ -1,5 +1,5 @@
-import 'package:cardit/responsive/responsive.dart';
-import 'package:cardit/ui/login/login_screen.dart';
+import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';

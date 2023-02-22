@@ -1,4 +1,4 @@
-import 'package:cardit/responsive/responsive.dart';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../auth/auth.dart';
+import '../../../api/regster_api.dart';
 
 class PaymentPurpose extends StatefulWidget {
   const PaymentPurpose({super.key});
@@ -16,11 +16,10 @@ class PaymentPurpose extends StatefulWidget {
 }
 
 class _PaymentPurposeState extends State<PaymentPurpose> {
-  //var item = ['Goods/or Services', 'Rental'];
   String? dropdownvalue;
   TextEditingController _controller = TextEditingController();
 
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,8 +162,6 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
                       borderSide:
                           BorderSide(width: 1, color: HexColor('#E5E5E5'))),
                 ),
-                // underline:Container(),
-                //  validator: (value)=>value==null?'field required':null,
                 dropdownColor: Colors.white,
                 isExpanded: true,
                 value: dropdownvalue,
@@ -225,8 +222,6 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
                       borderSide:
                           BorderSide(width: 1, color: HexColor('#E5E5E5'))),
                 ),
-                // underline:Container(),
-                //  validator: (value)=>value==null?'field required':null,
                 dropdownColor: Colors.white,
                 isExpanded: true,
                 value: dropdownvalue,
@@ -264,7 +259,6 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
   }
 
   Widget bulidForm() {
-    //final themeChange = Provider.of<DarkThemeProvider>(context);
     return Responsive.isMobile(context)
         ? Container(
             child: Form(
@@ -377,12 +371,6 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
                 GestureDetector(
                   onTap: () {
                     Get.to(OverviewPayment());
-                    // Navigator.of(context).pushNamed(
-                    // '/registerloading',
-                    //  '/bankdetails'
-                    // );
-
-                    // showAlertDialog(context);
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(
@@ -419,12 +407,6 @@ class _PaymentPurposeState extends State<PaymentPurpose> {
       ),
       onTap: () {
         Get.to(OverviewPayment());
-        // Navigator.of(context).pushNamed(
-        // '/registerloading',
-        //  '/bankdetails'
-        // );
-
-        // showAlertDialog(context);
       },
       text: "Proceed To Pay",
     );

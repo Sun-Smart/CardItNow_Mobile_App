@@ -1,5 +1,4 @@
-import 'package:cardit/auth/auth.dart';
-import 'package:cardit/auth/cardapi.dart';
+
 import 'package:cardit/const/common/fourDigitsplit.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
@@ -8,7 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/card_api.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import 'card_input_formatter_class.dart';
 
 class AddCreditCardPage extends StatefulWidget {
@@ -27,8 +28,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   final bankNameController = new TextEditingController();
   final addNickController = new TextEditingController();
 
-  final AuthCon con = Get.find();
-  final cardsapi cardcons = Get.put(cardsapi());
+  final RegisterAPI con = Get.find();
+  final CardAPI cardcons = Get.put(CardAPI());
   final formKey = GlobalKey<FormState>();
 
   late FocusNode _focusNode;
@@ -88,16 +89,6 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
               backgroundColor: Colors.transparent,
               actions: [
                 Row(children: [
-                  // Image.asset('assets/card/scan.png', width: 18, height: 18),
-                  // TextButton(
-                  //     onPressed: () {
-                  //       scanCard();
-                  //     },
-                  //     child: Text('Scan Card',
-                  //         style: TextStyle(
-                  //             fontFamily: 'Sora',
-                  //             fontSize: 14,
-                  //             color: Colors.black)))
                 ])
               ],
             )
@@ -187,11 +178,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      // Positioned(
-                      //     child: Image.asset('assets/visa.png',
-                      //         width: 40, height: 35),
-                      //     right: 10,
-                      //     top: 5)
+
                     ],
                   ),
                 ),
@@ -268,123 +255,15 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text('CVV',
-                        //     style: TextStyle(
-                        //         color: HexColor('#041316'),
-                        //         fontFamily: 'Sora',
-                        //         fontSize: 16)),
-                        // SizedBox(height: 10),
                         SizedBox(
                           width: 150,
-                          // child: TextFormField(
-                          //   obscuringCharacter: '*',
-                          //   obscureText: true,
-                          //   keyboardType: TextInputType.number,
-                          //   controller: cvvController,
-                          //   validator: (value) {
-                          //     if (cvvController.text.isEmpty) {
-                          //       return 'Enter CVV';
-                          //     } else {}
-                          //   },
-                          //   inputFormatters: [
-                          //     FilteringTextInputFormatter.digitsOnly,
-                          //     LengthLimitingTextInputFormatter(3)
-                          //   ],
-                          //   decoration: InputDecoration(
-                          //       labelText: 'XXX',
-                          //       filled: true,
-                          //       fillColor: Colors.white,
-                          //       floatingLabelBehavior:
-                          //           FloatingLabelBehavior.never,
-                          //       helperStyle: const TextStyle(
-                          //           fontFamily: 'Sora', fontSize: 14),
-                          //       hintStyle: const TextStyle(
-                          //           fontSize: 12,
-                          //           fontFamily: 'Sora',
-                          //           fontWeight: FontWeight.normal),
-                          //       contentPadding: const EdgeInsets.symmetric(
-                          //           vertical: 15, horizontal: 15),
-                          //       focusColor: Colors.grey.shade300,
-                          //       border: const OutlineInputBorder(
-                          //           borderSide: BorderSide(color: Colors.grey)),
-                          //       focusedBorder: OutlineInputBorder(
-                          //           borderRadius: BorderRadius.circular(4),
-                          //           borderSide: const BorderSide(
-                          //               color: Colors.grey, width: 1.0)),
-                          //       enabledBorder: OutlineInputBorder(
-                          //           borderRadius: BorderRadius.circular(4),
-                          //           borderSide: const BorderSide(
-                          //               color: Colors.grey, width: 1.0)),
-                          //       focusedErrorBorder: OutlineInputBorder(
-                          //           borderRadius: BorderRadius.circular(4),
-                          //           gapPadding: 7,
-                          //           borderSide:
-                          //               const BorderSide(color: Colors.grey)),
-                          //       errorBorder: OutlineInputBorder(
-                          //           borderRadius: BorderRadius.circular(4),
-                          //           borderSide:
-                          //               const BorderSide(color: Colors.grey)),
-                          //       errorStyle: const TextStyle(
-                          //           fontFamily: 'Sora',
-                          //           fontSize: 13,
-                          //           fontWeight: FontWeight.bold)),
-                          // ),
+
                         ),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(height: 20),
-                // Text('Name On Card',
-                //     style: TextStyle(
-                //         color: HexColor('#041316'),
-                //         fontFamily: 'Sora',fontWeight: FontWeight.bold,
-                //         fontSize: 16)),
-                // SizedBox(height: 10),
-                // TextFormField(
-                //     controller: nameOnCardController,
-                //     keyboardType: TextInputType.text,
-                //     validator: (value) {
-                //       if (nameOnCardController.text.isEmpty) {
-                //         return 'Enter Card Holder Name';
-                //       } else {}
-                //     },
-                //     decoration: InputDecoration(
-                //         labelText: 'Enter your name',
-                //         filled: true,
-                //         fillColor: Colors.white,
-                //         floatingLabelBehavior: FloatingLabelBehavior.never,
-                //         helperStyle:
-                //             const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                //         hintStyle: const TextStyle(
-                //             fontSize: 12,
-                //             fontFamily: 'Sora',
-                //             fontWeight: FontWeight.normal),
-                //         contentPadding: const EdgeInsets.symmetric(
-                //             vertical: 15, horizontal: 15),
-                //         focusColor: Colors.grey.shade300,
-                //         border: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.grey)),
-                //         focusedBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(
-                //                 color: Colors.grey, width: 1.0)),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(
-                //                 color: Colors.grey, width: 1.0)),
-                //         focusedErrorBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             gapPadding: 7,
-                //             borderSide: const BorderSide(color: Colors.grey)),
-                //         errorBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(color: Colors.grey)),
-                //         errorStyle: const TextStyle(
-                //             fontFamily: 'Sora',
-                //             fontSize: 13,
-                //             fontWeight: FontWeight.bold))),
-                // SizedBox(height: 20),
                 Text('Bank Name',
                     style: TextStyle(
                         color: HexColor('#041316'),
@@ -434,57 +313,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             fontFamily: 'Sora',
                             fontSize: 13,
                             fontWeight: FontWeight.bold))),
-                // SizedBox(height: 20),
-                // Text('Add Nick Name',
-                //     style: TextStyle(
-                //         color: HexColor('#041316'),
-                //         fontFamily: 'Sora',fontWeight: FontWeight.bold,
-                //         fontSize: 16)),
-                // SizedBox(height: 10),
-                // TextFormField(
-                //     keyboardType: TextInputType.name,
-                //     controller: addNickController,
-                //     validator: (value) {
-                //       if (addNickController.text.isEmpty) {
-                //         return 'Enter Nick Name';
-                //       } else {}
-                //     },
-                //     decoration: InputDecoration(
-                //         labelText: 'Add nickname for your card',
-                //         filled: true,
-                //         fillColor: Colors.white,
-                //         floatingLabelBehavior: FloatingLabelBehavior.never,
-                //         helperStyle:
-                //             const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                //         hintStyle: const TextStyle(
-                //             fontSize: 12,
-                //             fontFamily: 'Sora',
-                //             fontWeight: FontWeight.normal),
-                //         contentPadding: const EdgeInsets.symmetric(
-                //             vertical: 15, horizontal: 15),
-                //         focusColor: Colors.grey.shade300,
-                //         border: const OutlineInputBorder(
-                //             borderSide: BorderSide(color: Colors.grey)),
-                //         focusedBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(
-                //                 color: Colors.grey, width: 1.0)),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(
-                //                 color: Colors.grey, width: 1.0)),
-                //         focusedErrorBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             gapPadding: 7,
-                //             borderSide: const BorderSide(color: Colors.grey)),
-                //         errorBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(4),
-                //             borderSide: const BorderSide(color: Colors.grey)),
-                //         errorStyle: const TextStyle(
-                //             fontFamily: 'Sora',
-                //             fontSize: 13,
-                //             fontWeight: FontWeight.bold))),
-                // SizedBox(height: 30),
+
               ],
             ),
           ),
@@ -734,70 +563,6 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
             ],
           ),
           SizedBox(height: 20),
-          // Row(
-          //   children: [
-          //     SizedBox(
-          //         width: Responsive.isDesktop(context)
-          //             ? MediaQuery.of(context).size.width / 4.8
-          //             : MediaQuery.of(context).size.width / 7.7),
-          //     Text('Name On Card',
-          //         style: TextStyle(
-          //             color: HexColor('#041316'),
-          //             fontFamily: 'Sora',
-          //             fontSize: 16)),
-          //   ],
-          // ),
-          // SizedBox(height: 10),
-          // Container(
-          //   width: Responsive.isDesktop(context)
-          //       ? MediaQuery.of(context).size.width / 4
-          //       : MediaQuery.of(context).size.width / 2.5,
-          //   child: TextFormField(
-          //       controller: nameOnCardController,
-          //       keyboardType: TextInputType.text,
-          //       validator: (value) {
-          //         if (nameOnCardController.text.isEmpty) {
-          //           return 'Enter Card Holder Name';
-          //         } else {}
-          //       },
-          //       decoration: InputDecoration(
-          //           hoverColor: Colors.transparent,
-          //           labelText: 'Enter your name',
-          //           filled: true,
-          //           fillColor: Colors.white,
-          //           floatingLabelBehavior: FloatingLabelBehavior.never,
-          //           helperStyle:
-          //               const TextStyle(fontFamily: 'Sora', fontSize: 14),
-          //           hintStyle: const TextStyle(
-          //               fontSize: 12,
-          //               fontFamily: 'Sora',
-          //               fontWeight: FontWeight.normal),
-          //           contentPadding:
-          //               const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          //           focusColor: Colors.grey.shade300,
-          //           border: const OutlineInputBorder(
-          //               borderSide: BorderSide(color: Colors.grey)),
-          //           focusedBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide:
-          //                   const BorderSide(color: Colors.grey, width: 1.0)),
-          //           enabledBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide:
-          //                   const BorderSide(color: Colors.grey, width: 1.0)),
-          //           focusedErrorBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               gapPadding: 7,
-          //               borderSide: const BorderSide(color: Colors.grey)),
-          //           errorBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide: const BorderSide(color: Colors.grey)),
-          //           errorStyle: const TextStyle(
-          //               fontFamily: 'Sora',
-          //               fontSize: 13,
-          //               fontWeight: FontWeight.bold))),
-          // ),
-          // SizedBox(height: 20),
           Row(
             children: [
               SizedBox(
@@ -861,71 +626,6 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                         fontSize: 13,
                         fontWeight: FontWeight.bold))),
           ),
-          // SizedBox(height: 20),
-          // Row(
-          //   children: [
-          //     SizedBox(
-          //         width: Responsive.isDesktop(context)
-          //             ? MediaQuery.of(context).size.width / 4.8
-          //             : MediaQuery.of(context).size.width / 7.7),
-          //     Text('Add Nick Name',
-          //         style: TextStyle(
-          //             color: HexColor('#041316'),
-          //             fontFamily: 'Sora',
-          //             fontSize: 16)),
-          //   ],
-          // ),
-          // SizedBox(height: 10),
-          // Container(
-           
-          //   width: Responsive.isDesktop(context)
-          //       ? MediaQuery.of(context).size.width / 4
-          //       : MediaQuery.of(context).size.width / 2.5,
-          //   child: TextFormField(
-          //       keyboardType: TextInputType.name,
-          //       controller: addNickController,
-          //       validator: (value) {
-          //         if (addNickController.text.isEmpty) {
-          //           return 'Enter Nick Name';
-          //         } else {}
-          //       },
-          //       decoration: InputDecoration(
-          //           hoverColor: Colors.transparent,
-          //           labelText: 'Add nickname for your card',
-          //           filled: true,
-          //           fillColor: Colors.white,
-          //           floatingLabelBehavior: FloatingLabelBehavior.never,
-          //           helperStyle:
-          //               const TextStyle(fontFamily: 'Sora', fontSize: 14),
-          //           hintStyle: const TextStyle(
-          //               fontSize: 12,
-          //               fontFamily: 'Sora',
-          //               fontWeight: FontWeight.normal),
-          //           contentPadding:
-          //               const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          //           focusColor: Colors.grey.shade300,
-          //           border: const OutlineInputBorder(
-          //               borderSide: BorderSide(color: Colors.grey)),
-          //           focusedBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide:
-          //                   const BorderSide(color: Colors.grey, width: 1.0)),
-          //           enabledBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide:
-          //                   const BorderSide(color: Colors.grey, width: 1.0)),
-          //           focusedErrorBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               gapPadding: 7,
-          //               borderSide: const BorderSide(color: Colors.grey)),
-          //           errorBorder: OutlineInputBorder(
-          //               borderRadius: BorderRadius.circular(4),
-          //               borderSide: const BorderSide(color: Colors.grey)),
-          //           errorStyle: const TextStyle(
-          //               fontFamily: 'Sora',
-          //               fontSize: 13,
-          //               fontWeight: FontWeight.bold))),
-          // ),
            SizedBox(height: 30),
           GestureDetector(
             onTap: () {

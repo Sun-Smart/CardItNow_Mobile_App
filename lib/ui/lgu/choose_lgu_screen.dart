@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:cardit/auth/auth.dart';
-
 import 'package:cardit/widgets/auth_button.dart';
-// import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../responsive/responsive.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import 'your_tax_details.dart';
 
 class ChooseLGUScreen extends StatefulWidget {
@@ -30,8 +27,7 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
   String? dropdownvalueCity;
   var selectedcountry = ['Batac', 'Helo', 'hiiii', 'hobby'];
 
-  List<String> _pictures = [];
-  final AuthCon con = Get.find();
+  final RegisterAPI con = Get.find();
 
   File? imageFile;
 
@@ -82,26 +78,6 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
                                 fontSize: 16,
                                 color: Colors.black))),
                     const SizedBox(height: 10),
-                    // CustomDropdown.search(
-                    //     borderRadius: BorderRadius.zero,
-                    //     borderSide: BorderSide(color: Colors.grey),
-                    //     hintText: 'Select job role',
-                    //     listItemStyle: TextStyle(color: Colors.black),
-                    //     selectedStyle:
-                    //     TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
-                    //     items: selectedcountry,
-                    //     controller: countryCon,
-                    //     onChanged: (v) {
-                    //       print(v);
-                    //
-                    //       // var ins =
-                    //       // dummy.indexWhere((element) => element.containsValue(v));
-                    //       // print(dummy[ins]['id']);
-                    //     },
-                    //   ),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
 
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -780,27 +756,6 @@ class _ChooseLGUScreenState extends State<ChooseLGUScreen> {
                   fit: BoxFit.cover, cacheHeight: 400, cacheWidth: 400)));
     }
   }
-
-  //Scan
-  // void onPressed() async {
-  //   List<String> pictures;
-  //   try {
-  //     pictures = await CunningDocumentScanner.getPictures() ?? [];
-  //     if (!mounted) return;
-  //     setState(() {
-  //       _pictures = pictures;
-  //       imageFile = File(_pictures[0]);
-  //     });
-  //   } catch (exception) {
-  //     print('Image Not Pic');
-  //   }
-  //   List<int> fileInBytes = await imageFile!.readAsBytes();
-  //   String fileInBase64 = base64Encode(fileInBytes);
-  //   print('******************* BASE 64 SOURCE *******************');
-  //   log(fileInBase64);
-  //   //con.uploaddoc = base64.encode(fileInBytes);
-  //   print('******************* BASE 64 SOURCE *******************');
-  // }
 
   //Popup
   Future<bool> popupScreen() async {
