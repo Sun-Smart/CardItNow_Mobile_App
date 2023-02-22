@@ -224,30 +224,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   color: themeChange.darkTheme ? Colors.white : Colors.black,
                 ),
                 actions: [
-                  // Center(
-                  //   child: GestureDetector(
-                  //     child: Container(
-                  //       height: 30,
-                  //       width: 80,
-                  //       decoration: BoxDecoration(
-                  //           border: Border.all(
-                  //               color: HexColor('#CEE812'), width: 3),
-                  //           borderRadius: BorderRadius.circular(30)),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Skip",
-                  //           textAlign: TextAlign.center,
-                  //           style: TextStyle(
-                  //               color: HexColor('#004751'),
-                  //               fontWeight: FontWeight.bold),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     onTap: () {
-                  //       Get.to(const AvatarPageView());
-                  //     },
-                  //   ),
-                  // ),
+
                   const SizedBox(width: 20),
                 ],
               )

@@ -87,7 +87,8 @@ class AuthCon extends GetxController with BaseController {
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
 
-  var securityQuestionList = [].obs;
+
+  RxList securityQuestionList = [].obs;
 
 
 
@@ -97,6 +98,7 @@ class AuthCon extends GetxController with BaseController {
   final TextEditingController mobileCon = TextEditingController();
   final emailController = TextEditingController();
   final forgotemailController = TextEditingController();
+  final securityquestioncontroller = TextEditingController();
 
   //securityquestion controllers
   List<TextEditingController> controllers = [];
@@ -116,6 +118,7 @@ class AuthCon extends GetxController with BaseController {
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
   dynamic countrywisedoc;
+  dynamic securequestions;
 
   getLoginToken(){
     var token = GetStorage().read('save_token');
@@ -686,23 +689,24 @@ class AuthCon extends GetxController with BaseController {
 
     if (response == null) return;
     var data = json.decode(response);
-    GetStorage().write("questionid", data["questionid"]);
+
     if(data != [])
+
     {
       securityQuestionList.value = data;
     }
   }
 
 //security question post api
-  void securityPost(String brn) async{
+  void securityPost() async{
     var customerids = GetStorage().read("custid");
     var questionids = GetStorage().read("questionid");
     var body = {
       {
-        "securityquestionid":questionids,
+        "securityquestionid":securequestions["questionid"],
         "customerid":customerids,
-        "questionid":questionids,
-        "answer":controllers[0],
+        "questionid":securequestions["questionid"],
+        "answer":securityquestioncontroller,
         "status":""
       }
     };

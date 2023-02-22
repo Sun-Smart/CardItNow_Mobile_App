@@ -8,8 +8,11 @@ import 'package:cardit/ui/register/twofactor.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../themes/styles.dart';
 
 class SecurityQuestion extends StatefulWidget {
   const SecurityQuestion({Key? key}) : super(key: key);
@@ -53,55 +56,79 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                 ],
             ),
 Obx(() =>Expanded(
-  child:   ListView.builder(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(
+        height: 40,
+      ),
+      Text(
+      'Choose Your Question',
+        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 30),
+      Container(
 
-      shrinkWrap: true,
-      itemCount: auth.securityQuestionList.length,
-      itemBuilder: (BuildContext context, int index) {
-        var item = auth.securityQuestionList[index];
-        auth.controllers.add(new TextEditingController());
-        return Container(
-          child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Text("${item["question"]}",
+        decoration: BoxDecoration(
+            border:
+            Border.all(color: const Color(0XffB7C5C7), width: 1.5),
+            borderRadius: const BorderRadius.all(Radius.circular(3))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: DropdownButton(
+            underline: const SizedBox(),
+            dropdownColor: Colors.white,
+            isExpanded: true,
+            value: auth.securequestions,
+            hint: Text('Choose Your Questions',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,fontFamily: 'Sora',
-                    fontSize: 16
-                ),
-              ),
-              SizedBox(height: 20,),
-              TextFormField(
+                    color: Styles.whitecustomlable, fontSize: 14)),
+            icon: InkWell(
+                child: Icon(
+                  Icons.keyboard_arrow_down,
 
-                decoration: InputDecoration(
-
-                  hintText: "${item["question"]}",
-
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  enabledBorder:  OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black,
-                          width: 1.0)
-                  ),
-                ),
-
-                textAlign: TextAlign.start,
-                controller:   auth.controllers[index],
-                autofocus: false,
-                keyboardType: TextInputType.text,),
-            ],
+                )),
+            items: auth.securityQuestionList.map((dynamic item) {
+              return DropdownMenuItem(
+                  value: item,
+                  child: Text(item["question"],
+                      style: const TextStyle(
+                          color: Color(0Xff413D4B), fontSize: 14)));
+            }).toList(),
+            onChanged: (dynamic newValue) {
+              setState(() {
+                auth.securequestions = newValue!;
+              });
+            },
+            style: const TextStyle(color: Colors.black,fontFamily: "Sora",fontWeight: FontWeight.bold),
           ),
+        ),
+      ),
+      SizedBox(height: 20,),
+      auth.securequestions!=null?
+      TextFormField(
+        decoration: InputDecoration(
+
+          hintText: "Answer Your Question",
+
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+          enabledBorder:  OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black,
+                  width: 1.0)
+          ),
+        ),
+
+        textAlign: TextAlign.start,
+        controller:  auth.securityquestioncontroller,
+        autofocus: false,
+        keyboardType: TextInputType.text,):SizedBox()
 
 
+    ],
+  ),
 
-        );
-
-      }),
 ),
 ),
 
@@ -227,21 +254,7 @@ Obx(() =>Expanded(
                                               ),
                                             );
                                         }),
-                                        SizedBox(height: 50,),
-                                        AuthButton(
-          decoration: BoxDecoration(
-            color: HexColor('#CEE812'),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          onTap: () {
-            if(kIsWeb){
-              Get.to(() => termsandconditions());
-            } else{
-              Get.to(() => Twofactor());
-            }
-          },
-          text: "Next",
-        ),
+
                         
                                   ],
                                 ),
@@ -255,11 +268,11 @@ Obx(() =>Expanded(
             borderRadius: BorderRadius.circular(5),
           ),
           onTap: () {
-            if(kIsWeb){
-              Get.to(() => termsandconditions());
-            } else{
-              Get.to(() => Twofactor());
-            }
+          if(auth.securityquestioncontroller.text.isEmpty){
+            Fluttertoast.showToast(msg: "Please Enter Your Answer");
+          }else{
+            auth.securityPost();
+          }
           },
           text: "Next",
         ):null
