@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
@@ -26,8 +27,8 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bulildbutton(),
-      body: SingleChildScrollView(
+      bottomNavigationBar:  Responsive.isMobile(context)?bulildbutton():null,
+      body: Responsive.isMobile(context)? SingleChildScrollView(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,8 +45,88 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         SizedBox(height: 10),
       ],
         ),
-      ),
-    );
+      ): Responsive.isDesktop(context)?Row(
+        children: [
+           Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/carditlogo.png",
+                            width: 130, height: 65)),
+                            
+
+                  ),
+                  Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+             width: MediaQuery.of(context).size.width / 1.5,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                   Row(
+                     children: [
+                       IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+                     ],
+                   ),
+                  buildtitle(),
+                  SizedBox(height: 50,),
+                    bulidForm(),
+                     SizedBox(height: 30,),
+                    bulildbutton()
+                ])),
+      
+        ],
+      
+        )]):Row(
+        children: [
+           Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Image.asset("assets/carditlogo.png",
+                            width: 130, height: 65)),
+                            
+
+                  ),
+                Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+             width: MediaQuery.of(context).size.width / 1.5,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                   Row(
+                     children: [
+                       IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+                     ],
+                   ),
+                  buildtitle(),
+                  SizedBox(height: 50,),
+                    bulidForm(),
+                     SizedBox(height: 30,),
+                    bulildbutton()
+              
+     ]))])])) ;
   }
 
   Widget buildToptitle() {
@@ -68,10 +149,20 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   }
 
   Widget buildtitle() {
-    return Container(
+    return Responsive.isMobile(context)?Container(
       padding: EdgeInsets.all(15),
       child: Text(
         'Forgot \n Password',
+        style: TextStyle(
+          fontSize: 28,
+          // color: Styles.whitecustomlable,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ):Container(
+      padding: EdgeInsets.all(15),
+      child: Text(
+        'Forgot Password',
         style: TextStyle(
           fontSize: 28,
           // color: Styles.whitecustomlable,
@@ -82,7 +173,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
   }
 
   Widget bulidForm() {
-    return Container(
+    return Responsive.isMobile(context)? Container(
         child: Form(
             key: formKey,
             child: Stack(children: [
@@ -106,6 +197,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
               ),
               Positioned(
                   right: 20,
+        
                   top: 40,
                   child: TextButton(
                     style: TextButton.styleFrom(
@@ -121,7 +213,64 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                           TextStyle(fontSize: 14, color: HexColor('#413D4B')),
                     ),
                   )),
-            ])));
+            ]))):Column(
+              children: [
+                Row(
+                  children:  [
+                    SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 4.8:
+                    MediaQuery.of(context).size.width / 8 ,),
+Text("Email Verification Code",
+style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Container(
+                  width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 4:
+                  MediaQuery.of(context).size.width / 2 ,
+        child: Form(
+                key: formKey,
+                child: Stack(children: [
+                  TextFormField(
+                    
+                    enabled: true,
+                   // label: "Email Verification Code",
+                    controller: otpController,
+                    decoration: const InputDecoration(
+                      hoverColor: Colors.transparent,
+                        filled: true,
+                        fillColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        helperStyle: TextStyle(fontFamily: 'Sora', fontSize: 14),
+                        hintStyle: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.normal,
+                            color: Color.fromRGBO(65, 61, 75, 0.6))),
+                    obscureText: false,
+                    //inputHint: 'Enter code',
+                    validator: (value) {},
+                  ),
+                  Positioned(
+                      // left:200,
+                       right:Responsive.isDesktop(context)? 10:20,
+                     top: 10,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle:
+                              TextStyle(fontSize: 14, color: HexColor('#413D4B')),
+                        ),
+                        onPressed: () {
+                          con.forgotPasswordOTP(con.emailController.text);
+                        },
+                        child: Text(
+                          'Resend',
+                          style:
+                              TextStyle(fontSize: 14, color: HexColor('#413D4B')),
+                        ),
+                      )),
+                ]))),
+              ],
+            );
   }
 
   Widget bulildbutton() {
