@@ -461,7 +461,7 @@ class RegisterAPI extends GetxController with BaseController {
     showLoading();
     var body = {
       "email": emailController.text,
-      "password": password
+      "pin": password
     };
     var response = await BaseClient()
         .post(
@@ -502,8 +502,8 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data["status"] == "success") {
 
-      Get.to(ChooseSecQus());
-      // Get.to(UpdatePasswordCode());
+      // Get.to(ChooseSecQus());
+      Get.to(UpdatePasswordCode());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -706,7 +706,6 @@ class RegisterAPI extends GetxController with BaseController {
     Get.to(termsandconditions());
     }
     else{
-
       Fluttertoast.showToast(msg: "Something Went Wrong");
     }
   }
