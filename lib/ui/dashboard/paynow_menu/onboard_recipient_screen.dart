@@ -147,8 +147,8 @@ class _onboardRecipientState extends State<onboardRecipient> {
   }
 
   Widget _buildField() {
-    return  Responsive.isMobile(context)?
-    Container(
+    return  Responsive.isMobile(context)
+    ?Container(
         child: Form(
             key: formKey,
             child: Column(
@@ -961,11 +961,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Account Holder Name",
-                        style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -1019,11 +1015,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Payee's Email",
-                        style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -1075,11 +1067,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Business Reg Number",
-                        style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                  
@@ -1134,11 +1122,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Phone Number",
-                       style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                  
@@ -1192,11 +1176,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Select Bank *",
-                       style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                  
@@ -1271,11 +1251,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Account Number",
-                       style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -1329,11 +1305,7 @@ SizedBox(height: 20,),
                     children: [
                        SizedBox(width: MediaQuery.of(context).size.width/11),
                        Text("Enter Swift Code",
-                       style: TextStyle(
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: HexColor('#000000')))
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                     ],
                   ),
                   SizedBox(height: 10,),
