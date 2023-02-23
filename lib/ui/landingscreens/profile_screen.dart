@@ -40,20 +40,18 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        bottomNavigationBar:
-            Responsive.isMobile(context) ?
-            MyApp.logindetails["customertype"] == "I"?
-            BottomNavBarWidget(3) : BottomNavBarReceiver( index: 2,):null,
-
-        body:
-
-        Responsive.isMobile(context)
+        bottomNavigationBar: Responsive.isMobile(context)
+            ? MyApp.logindetails["customertype"] == "I"
+                ? BottomNavBarWidget(3)
+                : BottomNavBarReceiver(
+                    index: 2,
+                  )
+            : null,
+        body: Responsive.isMobile(context)
             ? Container(
                 child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child:
-                Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -70,13 +68,18 @@ class _ProfileState extends State<Profile> {
                     buildmenu('assets/banner/usericon.png', 'User Details',
                         '/userdetails'),
                     SizedBox(height: 15),
-                    MyApp.logindetails["customertype"] == "I"? buildmenu('assets/banner/card.png', 'Manage Cards',
-                        '/manualCard'):buildmenu('assets/banner/card.png', 'Manage Prepaid Cards',
-                        '/manualCard'),
-                    MyApp.logindetails["customertype"] == "I"?SizedBox(height: 15):SizedBox(),
-                    MyApp.logindetails["customertype"] == "I"?   buildmenu(
-                        'assets/banner/reward.png', 'My Rewards', '/settings'):
-                    SizedBox(),
+                    MyApp.logindetails["customertype"] == "I"
+                        ? buildmenu('assets/banner/card.png', 'Manage Cards',
+                            '/manualCard')
+                        : buildmenu('assets/banner/card.png',
+                            'Manage Prepaid Cards', '/manualCard'),
+                    MyApp.logindetails["customertype"] == "I"
+                        ? SizedBox(height: 15)
+                        : SizedBox(),
+                    MyApp.logindetails["customertype"] == "I"
+                        ? buildmenu('assets/banner/reward.png', 'My Rewards',
+                            '/settings')
+                        : SizedBox(),
                     SizedBox(height: 15),
                     buildmenu(
                         'assets/banner/setting.png', 'Settings', '/settings'),
@@ -115,11 +118,18 @@ class _ProfileState extends State<Profile> {
                               buildmenu('assets/banner/usericon.png',
                                   'User Details', '/userdetails'),
                               SizedBox(height: 15),
-                              buildmenu('assets/banner/card.png',
-                                  'Manage Cards', '/manualCard'),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/reward.png',
-                                  'My Rewards', '/settings'),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? buildmenu('assets/banner/card.png',
+                                      'Manage Cards', '/manualCard')
+                                  : buildmenu('assets/banner/card.png',
+                                      'Manage Prepaid Cards', '/manualCard'),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? SizedBox(height: 15)
+                                  : SizedBox(),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? buildmenu('assets/banner/reward.png',
+                                      'My Rewards', '/settings')
+                                  : SizedBox(),
                               SizedBox(height: 15),
                               buildmenu('assets/banner/setting.png', 'Settings',
                                   '/settings'),
@@ -184,11 +194,18 @@ class _ProfileState extends State<Profile> {
                               buildmenu('assets/banner/usericon.png',
                                   'User Details', '/userdetails'),
                               SizedBox(height: 15),
-                              buildmenu('assets/banner/card.png',
-                                  'Manage Cards', '/manualCard'),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/reward.png',
-                                  'My Rewards', '/settings'),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? buildmenu('assets/banner/card.png',
+                                      'Manage Cards', '/manualCard')
+                                  : buildmenu('assets/banner/card.png',
+                                      'Manage Prepaid Cards', '/manualCard'),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? SizedBox(height: 15)
+                                  : SizedBox(),
+                              MyApp.logindetails["customertype"] == "I"
+                                  ? buildmenu('assets/banner/reward.png',
+                                      'My Rewards', '/settings')
+                                  : SizedBox(),
                               SizedBox(height: 15),
                               buildmenu('assets/banner/setting.png', 'Settings',
                                   '/settings'),
@@ -355,19 +372,15 @@ class _ProfileState extends State<Profile> {
               usertab = link;
             });
           } else {
-            if(link =='/userdetails'){
+            if (link == '/userdetails') {
               Get.to(UserDetails());
-            }
-            else if(link =='/manualCard'){
+            } else if (link == '/manualCard') {
               Get.to(ManualCard());
-            }
-            else if(link == "/settings"){
+            } else if (link == "/settings") {
+              Get.to(Settings());
+            } else if (link == "/settings") {
               Get.to(Settings());
             }
-            else if(link == "/settings"){
-              Get.to(Settings());
-            }
-
           }
         },
         leading: Container(

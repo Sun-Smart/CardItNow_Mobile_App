@@ -172,7 +172,9 @@ class _PasscodeState extends State<Passcode> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text("New Passcode",
-                            style: TextStyle(fontWeight: FontWeight.bold))
+                          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'sora',
+                                fontSize: 16,color: HexColor('#004751')
+                            ))
                       ],
                     ),
                   ),
@@ -214,9 +216,9 @@ class _PasscodeState extends State<Passcode> {
                       children: [
                         Text(
                           "Confirm Passcode",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                           style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'sora',
+                                fontSize: 16,color: HexColor('#004751')
+                            )
                         ),
                       ],
                     ),

@@ -189,10 +189,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
                             ? MediaQuery.of(context).size.width /8
                             : MediaQuery.of(context).size.width / 14,),
                     Text("Your Id",
-                     style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            color: HexColor('#505050')))
+                     style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                   ],
                 ),
                 SizedBox(height: 10),
@@ -259,10 +256,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
                             ? MediaQuery.of(context).size.width /8
                             : MediaQuery.of(context).size.width / 14,),
                     Text("Upload Your Id",
-                     style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            color: HexColor('#505050')))
+                     style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                   ],
                 ),
                 const SizedBox(height: 15),
@@ -274,10 +268,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
                             ? MediaQuery.of(context).size.width /8
                             : MediaQuery.of(context).size.width / 14,),
                     Text("ID Number",
-                     style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            color: HexColor('#505050')))
+                     style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                   ],
                 ),
                 SizedBox(height: 10,),
@@ -344,10 +335,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
                             ? MediaQuery.of(context).size.width /8
                             : MediaQuery.of(context).size.width / 14,),
                     Text("Upload Your Selfie",
-                     style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            color: HexColor('#505050')))
+                     style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)
                   ],
                 ),
                 const SizedBox(height: 15),

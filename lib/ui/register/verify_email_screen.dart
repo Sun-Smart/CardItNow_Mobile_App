@@ -147,11 +147,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                                       MediaQuery.of(context).size.width / 15),
                               Text(
                                 "Enter the verification code ",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),

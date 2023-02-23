@@ -247,9 +247,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "First Name *",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -324,9 +322,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Middle Name ",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -402,9 +398,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Last Name *",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -480,9 +474,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Enter Your Email *",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -560,9 +552,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Phone Number*",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -636,13 +626,7 @@ class _UserDetailsState extends State<UserDetails> {
                       alignment: Alignment.centerLeft,
                       margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Choose your Interests',
-                          style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            // color: themeChange.darkTheme
-                            //     ? Colors.white
-                            //     : HexColor('#505050')
-                          ))),
+                           style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)),
                   const SizedBox(height: 15),
                   Container(
                     // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -702,11 +686,7 @@ class _UserDetailsState extends State<UserDetails> {
                       alignment: Alignment.centerLeft,
                       // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Text('Date of Birth*',
-                          style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            // color: Styles.whitecustomlable,
-                          ))),
+                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)),
                   const SizedBox(height: 10),
                   Stack(clipBehavior: Clip.none, children: <Widget>[
                     // Container(
@@ -808,9 +788,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Address *",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -885,9 +863,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Country",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -958,9 +934,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "City",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -1032,9 +1006,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ),
                       Text(
                         "Postal Code",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
