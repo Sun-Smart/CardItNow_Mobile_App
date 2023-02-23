@@ -5,10 +5,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/auth/login_screen.dart';
+import 'package:cardit/ui/landingscreens/choose_securityqus.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_code_screen.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -58,6 +60,7 @@ class RegisterAPI extends GetxController with BaseController {
 
   //choose country
   var pickcountry = [];
+  var securedetailslist = [].obs;
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
 
@@ -66,6 +69,7 @@ class RegisterAPI extends GetxController with BaseController {
   // login
   final emailController = TextEditingController();
   final securityquestioncontroller = TextEditingController();
+  List<TextEditingController> controllers = [];
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
@@ -75,10 +79,11 @@ class RegisterAPI extends GetxController with BaseController {
 
   @override
   void onInit() {
-    termsconditions();
+    termsconditionsfun();
     geoaccess();
     countryselection();
     getSecurityQuestionAPI();
+    securitydetail();
     if(GetStorage().read('save_token').toString() != "null"){
       docselect();
       taxDetailsGetApi();
@@ -86,6 +91,7 @@ class RegisterAPI extends GetxController with BaseController {
       documenttypeget();
       paymentpurposeget();
       invoicegetmethod();
+
     }
     super.onInit();
   }
@@ -266,7 +272,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
   var currentversion;
   //terms and condition
-  void termsconditions() async {
+  void termsconditionsfun() async {
 
     var response =
         await BaseClient().get(API().termsmaster).catchError(handleError);
@@ -460,7 +466,9 @@ class RegisterAPI extends GetxController with BaseController {
 
 
     if (data["status"] == "success") {
-      Get.to(UpdatePasswordCode());
+
+      Get.to(ChooseSecQus());
+      // Get.to(UpdatePasswordCode());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -625,7 +633,6 @@ class RegisterAPI extends GetxController with BaseController {
     }
   }
 
-
   void getSecurityQuestionAPI() async{
 
     var response = await BaseClient()
@@ -643,34 +650,48 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
 //security question post api
-  //security question post api
-  void securityPost() async{
+
+  void securityPost() async {
     var customerids = GetStorage().read("custid");
 
     var body =  {
-      "securityquestionid": 10,
+      "securityquestionid": null,
       "customerid": int.parse(customerids),
       "questionid":securequestions["questionid"],
       "answer":securityquestioncontroller.text,
       "status":""
     };
-
     var response = await BaseClient()
         .post(API().securitypost, body)
         .catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data == 'success'){
-      Get.off(()=>termsconditions());
+    if(data != null){
+    Get.to(termsandconditions());
     }
     else{
+
       Fluttertoast.showToast(msg: "Something Went Wrong");
     }
   }
 
+  //securityquestiondetails
+  void securitydetail() async {
+    var customerids = GetStorage().read("custid");
+    var response = await BaseClient()
+        .get(API().securitydetails + customerids)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    securedetailslist.value = data;
+  }
 
-}
+  }
+
+
+
+
 
 
 

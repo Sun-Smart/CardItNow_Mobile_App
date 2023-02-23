@@ -15,6 +15,7 @@ import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 
 import '../../api/regster_api.dart';
+import '../../main.dart';
 
 class Passcode extends StatefulWidget {
   const Passcode({super.key});
@@ -398,15 +399,18 @@ class _PasscodeState extends State<Passcode> {
                           fieldsCount: 6)),
                   SizedBox(height: 20),
                   Container(
-                    // width: size.width/2,
+
                     margin: EdgeInsets.all(15),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            Text("note",style: TextStyle(
-                              fontFamily: 'sora',fontSize: 16
-                            ),),
+                            Container(
+
+                              child: Text("note",style: TextStyle(
+                                fontFamily: 'sora',fontSize: 16
+                              ),),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -415,9 +419,11 @@ class _PasscodeState extends State<Passcode> {
 
                         Row(
                           children: [
-                            Text("1. passcode only contains numbers only.",style: TextStyle(
-                                fontFamily: 'sora',fontSize: 13
-                            ),),
+                            Container(
+                              child: Text("1. passcode only contains numbers only.",style: TextStyle(
+                                  fontFamily: 'sora',fontSize: 13
+                              ),),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -435,15 +441,18 @@ class _PasscodeState extends State<Passcode> {
                         ),
                         Row(
                           children: [
-                            Text("3. passcode should not be contains continues digits",style: TextStyle(
-                                fontFamily: 'sora',fontSize: 13
-                            ),),
+                            Container(
+
+                              child: Text("3. passcode should not be contains continues ",style: TextStyle(
+                                  fontFamily: 'sora',fontSize: 13
+                              ),),
+                            ),
                           ],
                         ),
 
                         Row(
                           children: [
-                            Text("   (ex:123456).",style: TextStyle(
+                            Text("   digits (ex:123456).",style: TextStyle(
                                 fontFamily: 'sora',fontSize: 13
                             ),),
                           ],
