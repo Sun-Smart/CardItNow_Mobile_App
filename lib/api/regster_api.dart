@@ -8,7 +8,6 @@ import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/landingscreens/choose_securityqus.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
-import 'package:cardit/ui/auth/update_password_code_screen.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/splash/home_screen.dart';
 
-
+var ShuftiProValues;
 class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
   var scandocs = '';
@@ -76,6 +75,23 @@ class RegisterAPI extends GetxController with BaseController {
   dynamic countrywisedoc;
   dynamic securequestions;
 
+  //PROFILE INFORMATION SCREEN
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController middleNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController nickNameController = TextEditingController();
+  TextEditingController mobileNoController = TextEditingController();
+  TextEditingController dateOfBrithController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController expiredDateController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController buildingNameController = TextEditingController();
+  TextEditingController streetNameController = TextEditingController();
+  TextEditingController postalCodeController = TextEditingController();
+
+  //VERIFY USERID SCREEN
+  TextEditingController documentIDController = TextEditingController();
+
 
   @override
   void onInit() {
@@ -83,8 +99,8 @@ class RegisterAPI extends GetxController with BaseController {
     geoaccess();
     countryselection();
     getSecurityQuestionAPI();
-    securitydetail();
     if(GetStorage().read('save_token').toString() != "null"){
+      securitydetail();
       docselect();
       taxDetailsGetApi();
       banklistget();
@@ -215,19 +231,19 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   //profile Infomation
-  void profileInformatrion(email, firstName, lastName, city, state, requiredno,
-      dateofbrith, address, postalcode) async {
+  void profileInformatrion() async {
+
     var body = {
       "email": emailController.text,
-      "firstname": firstName,
-      "lastname": lastName,
-      "nickname": "",
-      "mobile": requiredno,
-      "dateofbirth": dateofbrith,
-      "address": address,
-      "geoid": 0,
-      "cityid": 0,
-      "postalcode": postalcode,
+      "firstname": firstNameController.text,
+      "lastname": lastNameController.text,
+      "nickname": nickNameController.text,
+      "mobile": mobileNoController.text,
+      "dateofbirth": dateOfBrithController.text,
+      "address": addressController.text,
+      "geoid": dropdownvalue["geoid"],
+      "cityid": dropdownvalueCity["cityid"],
+      "postalcode": postalCodeController.text,
     };
     var response = await BaseClient()
         .post(
@@ -238,10 +254,29 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == 'success') {
-      GetStorage().write('username', firstName.toString());
       Get.to(SecurityQuestion());
     } else {
       Fluttertoast.showToast(msg: data.toString());
+    }
+  }
+
+  assignProfileInfo(){
+    if(ShuftiProValues != null) {
+      var values = ShuftiProValues["verification_data"];
+      var shuftiName = values["document"]["name"];
+      var info = ShuftiProValues["info"]["geolocation"];
+      firstNameController.text = shuftiName["first_name"] ?? "";
+      middleNameController.text = shuftiName["middle_name"] ?? "";
+      lastNameController.text = shuftiName["last_name"] ?? "";
+      nickNameController.text = "";
+      mobileNoController.text = "";
+      dateOfBrithController.text = values["document"]["dob"] ?? "";
+      genderController.text = values["document"]["gender"] == "F" ? "Female" : "Male";
+      addressController.text = "";
+      buildingNameController.text = "";
+      streetNameController.text = "";
+      postalCodeController.text = info["postal_code"] ?? "";
+      documentIDController.text = values["document"]["document_number"] ?? "";
     }
   }
 

@@ -125,8 +125,6 @@ class _RegisterState extends State<Register> {
                                                         "geoid": con.dropdownvalue["geoid"].toString()
                                                       };
                                                       con.registerSignAPI(userDatas);
-                                                      GetStorage().write('username', userData['name']
-                                                      );
 
                                                     }
                                                     else {
@@ -280,11 +278,6 @@ class _RegisterState extends State<Register> {
                                                                  con
                                                                      .registerSignAPI(
                                                                      userDatas);
-                                                                 GetStorage()
-                                                                     .write(
-                                                                     'username',
-                                                                     userData['name']
-                                                                 );
                                                                } else {
                                                                  Fluttertoast
                                                                      .showToast(
@@ -437,8 +430,6 @@ class _RegisterState extends State<Register> {
                                                           //         "mediatype": "Facebook"
                                                           //       };
                                                           //       con.registerSignAPI(userDatas);
-                                                          //       GetStorage().write('username', userData['name']
-                                                          //       );
                                                           //     } else {
                                                           //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
                                                           //     }

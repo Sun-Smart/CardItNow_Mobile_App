@@ -844,8 +844,6 @@ Widget buildformweb(){
                 "geoid": con.dropdownvalue["geoid"].toString()
                 };
                 con.registerSignAPI(userDatas);
-                GetStorage().write('username', userData['name']
-                );
                 } else {
                 Fluttertoast.showToast(msg: "Check Your Facebook Account");
                 }
@@ -890,8 +888,6 @@ Widget buildformweb(){
                   "geoid": con.dropdownvalue["geoid"].toString()
                 };
                 con.registerSignAPI(userDatas);
-                GetStorage().write('username', userData['name']
-                );
                 } else {
                 Fluttertoast.showToast(msg: "Check Your Facebook Account");
                 }

@@ -7,7 +7,6 @@ import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/styles.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
-import 'package:cardit/ui/splash/home_screen.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
 import 'package:file_picker/file_picker.dart';
@@ -33,8 +32,7 @@ class VerifyUserId extends StatefulWidget {
 
 class _VerifyUserIdState extends State<VerifyUserId> {
   final formKey = GlobalKey<FormState>();
-  final phoneNumberController = TextEditingController();
-
+  RegisterAPI reg = Get.put(RegisterAPI());
   List<String> _pictures = [];
 
   File? imageFile;
@@ -440,7 +438,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                  Responsive.isMobile(context)? MyCustomInputBox(
                       enabled: true,
                       label: "Enter ID Number ",
-                      controller: phoneNumberController,
+                      controller: reg.documentIDController,
                       obsecureText: false,
                       inputDecoration: InputDecoration(
                         labelStyle: TextStyle(
@@ -519,7 +517,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           child: TextFormField(
                             enabled: true,
                                              // label: "Enter ID Number ",
-                          controller: phoneNumberController,
+                          controller: reg.documentIDController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hoverColor: Colors.transparent,
@@ -634,6 +632,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             borderRadius: const BorderRadius.all(Radius.circular(3))),
         child: InkWell(
           onTap: () async {
+            if(con.countrywisedoc != null) {
             if(kIsWeb){
               getImage(
                   ImageSource
@@ -641,6 +640,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             } else {
               Shuftipro pro = Shuftipro();
               pro.continueFun();
+            }}
+            else{
+              Fluttertoast.showToast(
+                msg: 'Choose your document',
+              );
             }
           },
           child: Column(
@@ -663,13 +667,20 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               borderRadius: const BorderRadius.all(Radius.circular(3))),
           child: InkWell(
               onTap: () async {
-                if(kIsWeb){
-                  getImage(
-                      ImageSource
-                          .gallery);
-                } else {
-                  Shuftipro pro = Shuftipro();
-                  pro.continueFun();
+                if(con.countrywisedoc != null) {
+                  if (kIsWeb) {
+                    getImage(
+                        ImageSource
+                            .gallery);
+                  } else {
+                    Shuftipro pro = Shuftipro();
+                    pro.continueFun();
+                  }
+                }
+                else{
+                  Fluttertoast.showToast(
+                    msg: 'Choose your document',
+                  );
                 }
               },
               child: kIsWeb
@@ -765,12 +776,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (phoneNumberController.text.isEmpty) {
+          if (reg.documentIDController.text.isEmpty) {
             Fluttertoast.showToast(
               msg: 'Enter ${dropdownvalue} Number',
             );
           } else {
-            con.ocrdocument();
+            Get.to(AvatarPageView());
+            // con.ocrdocument();
           }
         },
         text: "Next");

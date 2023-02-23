@@ -1,11 +1,15 @@
 
+import 'dart:convert';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shuftipro_sdk/shuftipro_sdk.dart';
+
+import '../api/regster_api.dart';
 
 class Shuftipro{
   static const String clientId = "0a75ae5dd88a098765cac9d4e8d27f46c3ea3477e0670a452c3b31e02f295c21"; // enter client id here
   static const String secretKey = "gN9GRTB89OTWjbTd2Ue4CDYYPHw5hszm"; // enter secret key here
-
+  RegisterAPI reg = RegisterAPI();
   var authObject = {
     "auth_type": "basic_auth",
     "client_id": clientId,
@@ -14,14 +18,16 @@ class Shuftipro{
 
 
   Map<String, Object> createdPayload = {
-    "country": "IN",
+    "country": "PH",
     "language": "EN",
     "email": "",
-    "show_consent": 1,
-    "show_privacy_policy": 1,
+    "show_consent": 0,
+    "show_privacy_policy": 0,
     "verification_mode": "image_only",
     "face": {},
     "document": {
+      "proof":"",
+      "additional_proof":"",
       "supported_types": [
         "passport",
         "id_card",
@@ -29,7 +35,7 @@ class Shuftipro{
         "credit_or_debit_card",
       ],
       "name": {
-        "first_name": "frstName",
+        "first_name": "",
         "last_name": "",
         "middle_name": "",
       },
@@ -49,27 +55,41 @@ class Shuftipro{
     "captureEnabled": false,
     "dark_mode" : false,
     "font_color" : "#263B54",
-    "button_text_color" : "#FFFFFF",
-    "button_background_color" : "#1F5AF6"
+    "button_text_color" : "#004751",
+    "button_background_color" : "#CEE812"
   };
 
   Future<void> initPlatformState() async {
-    String response = '';
     try{
-      response = await ShuftiproSdk.sendRequest(authObject: authObject,
+     var response = await ShuftiproSdk.sendRequest(authObject: authObject,
           createdPayload: createdPayload, configObject: configObj);
-      print(response.toString());
-      print(response);
-      Fluttertoast.showToast(msg: response.toString());
-      Fluttertoast.showToast(msg: "$response");
+     var res = response;
+     if(res["event"] == "verification.accepted"){
+       var body = jsonDecode(res["body"].toString());
+       print(body.toString());
+       ShuftiProValues = body;
+     } else if(res["event"] == "verification.declined"){
+       var body = jsonDecode(res["body"].toString());
+       ShuftiProValues = body;
+       Fluttertoast.showToast(msg: body["declined_reason"].toString());
+     }
+     else if(res["event"] == "verification.cancelled"){
+      // print(res["message"].toString());
+       ShuftiProValues = null;
+       Fluttertoast.showToast(msg: res["message"].toString());
+     } else{
+       ShuftiProValues = null;
+       Fluttertoast.showToast(msg: "Data get failed");
+     }
     }catch(e){
-      print(e);
+      ShuftiProValues = null;
+      print("Shuftipro : " + e.toString());
     }
   }
 
   void continueFun() {
     var v = DateTime.now();
-    var reference = "package_sample_Flutter_$v";
+    var reference = "CardITNow${v.day}${v.millisecond}";
     createdPayload["reference"] = reference;
     initPlatformState();
 

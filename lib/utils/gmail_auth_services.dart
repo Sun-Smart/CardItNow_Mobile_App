@@ -41,7 +41,6 @@ class AuthService {
         "geoid": con.dropdownvalue["geoid"].toString()
       };
       con.registerSignAPI(userDatas);
-     GetStorage().write('username', details.user!.displayName);
       GetStorage().write('useremail', details.user!.email);
       GetStorage().write('avatarpic', details.user!.photoURL);
     }

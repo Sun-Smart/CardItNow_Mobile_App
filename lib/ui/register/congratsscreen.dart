@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../main.dart';
 import '../payment_method/choose_payment_method.dart';
 
 
@@ -44,7 +45,7 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
-              Text("Hey Congrats ${GetStorage().read('username')} !",
+              Text("Hey Congrats ${MyApp.logindetails['username']} !",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                   fontWeight: FontWeight.bold
@@ -77,7 +78,7 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
-              Text("Hey Congrats ${GetStorage().read('username')} !",
+              Text("Hey Congrats ${MyApp.logindetails['username']} !",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                   fontWeight: FontWeight.bold

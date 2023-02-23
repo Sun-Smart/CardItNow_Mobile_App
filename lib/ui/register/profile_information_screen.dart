@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -22,50 +21,17 @@ class ProfileInformation extends StatefulWidget {
 }
 
 class _ProfileInformationState extends State<ProfileInformation> {
-  final RegisterAPI con = Get.find();
+  final RegisterAPI reg = Get.put(RegisterAPI());
   final formKey = GlobalKey<FormState>();
-  final firstNameController = TextEditingController();
-  final middlenamecontroller = TextEditingController();
-  final nicknamecontroller = TextEditingController();
-  final cityNameController = TextEditingController();
-  final stateNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final requiredNoController = TextEditingController();
-  final dateOfBrithController = TextEditingController();
-  final issueDateController = TextEditingController();
-  final expiredDateController = TextEditingController();
-  final addressController = TextEditingController();
-  final buildingnamecontroller = TextEditingController();
-  final streetnamecontroller = TextEditingController();
-  final postalCodeController = TextEditingController();
 
- 
-  String? dropdownintrest;
-  var selectedcountry = ['UAE', 'Philipines'];
-  var philipinecity = ['Manila', 'Davao City', 'Cebu City', 'loliocity'];
-  var uaecities = ['Dubai', 'Abudhabi', 'Sharjah', 'Fujariah'];
-  var uaeData = ['UAE'];
-  var interests = ["Racing", "Riding", "Gaming"];
-
-  assignvalues(){
-    if(con.profileinfo != {}){
-      setState(() {
-        firstNameController.text=con.profileinfo["firstname"] ?? "";
-        lastNameController.text=con.profileinfo["lastname"] ?? "";
-        dateOfBrithController.text=con.profileinfo["dob"] ?? "";
-      });
-
-    }else{
-
-    }
-  }
 
   @override
   void initState() {
-    assignvalues();
-    if(con.dropdownvalue!=null){
-      con.cityselection(con.dropdownvalue["geoid"].toString());
+    print(reg.postalCodeController.text);
+    if(reg.dropdownvalue!=null){
+      reg.cityselection(reg.dropdownvalue["geoid"].toString());
     }
+    reg.assignProfileInfo();
     super.initState();
   }
 
@@ -82,7 +48,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child:
-          con.dropdownvalue==null?Center(child: LinearProgressIndicator(
+          reg.dropdownvalue==null?Center(child: LinearProgressIndicator(
             backgroundColor: HexColor('#004751'),
             valueColor: AlwaysStoppedAnimation(Colors.green),
           )):
@@ -197,7 +163,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          GetStorage().read('username') == null
+          reg.firstNameController.text.isEmpty
               ? Text(
                   'Hey! Please Tell About Your Self!',
                   textAlign: TextAlign.justify,
@@ -210,7 +176,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   ),
                 )
               : Text(
-                  'Hey ${firstNameController.text}! ',
+                  'Hey ${reg.firstNameController.text}! ',
                   style: TextStyle(
                     fontSize: 28,
                     fontFamily: 'Sora',
@@ -266,12 +232,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child:  TextFormField(
               enabled: false,
             //  label: "First Name",
-              controller: firstNameController,
+              controller: reg.firstNameController,
               obscureText: false,
              // inputHint: "Your First Name",
              keyboardType: TextInputType.text,
               validator: (value) {
-                if (firstNameController.text.isEmpty) {
+                if (reg.firstNameController.text.isEmpty) {
                   return "Please Enter First Name...";
                 } else {
                   return null;
@@ -315,12 +281,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child: TextFormField(
               enabled: false,
             //  label: "First Name",
-              controller: middlenamecontroller,
+              controller: reg.middleNameController,
               obscureText: false,
              // inputHint: "Your First Name",
              keyboardType: TextInputType.text,
               validator: (value) {
-                if (middlenamecontroller.text.isEmpty) {
+                if (reg.middleNameController.text.isEmpty) {
                   return "Please Enter Middle Name...";
                 } else {
                   return null;
@@ -370,12 +336,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child: TextFormField(
               enabled: false,
             //  label: "First Name",
-              controller: lastNameController,
+              controller: reg.lastNameController,
               obscureText: false,
              // inputHint: "Your First Name",
              keyboardType: TextInputType.text,
               validator: (value) {
-                if (lastNameController.text.isEmpty) {
+                if (reg.lastNameController.text.isEmpty) {
                   return "Please Enter Last Name...";
                 } else {
                   return null;
@@ -398,27 +364,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-                // border: const OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey)),
-                // focusedBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide:
-                //         const BorderSide(color: Colors.grey, width: 1.0)),
-                // focusedErrorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     gapPadding: 7,
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(4),
-                //     borderSide: const BorderSide(color: Colors.grey)),
-                // errorStyle: const TextStyle(
-                //     fontFamily: 'Sora',
-                //     fontSize: 13,
-                //     fontWeight: FontWeight.bold),
               ),
             ), ),
                      
@@ -441,10 +386,10 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             enabled: true,
                             keyboardType: TextInputType.none,
                             // label: "Date Of Brith",
-                            controller: dateOfBrithController,
+                            controller: reg.dateOfBrithController,
                             obscureText: false,
                             validator: (value) {
-                              if (dateOfBrithController.text.isEmpty) {
+                              if (reg.dateOfBrithController.text.isEmpty) {
                                 return "Please Select Date Of Brith...";
                               } else {
                                 return null;
@@ -482,7 +427,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         firstDate: DateTime(1900),
                         lastDate: DateTime(DateTime.now().year-18)));
                     if(date!= null) {
-                      dateOfBrithController.text =
+                      reg.dateOfBrithController.text =
                     DateFormat("yyyy-MM-dd").format(date);
                   }
                   },
@@ -552,12 +497,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child: TextFormField(
                             enabled: true,
                             // label: "What Should we Called you ",
-                            controller: nicknamecontroller,
+                            controller: reg.nickNameController,
                             obscureText: false,
                             // inputHint: "Enter Your nick name",
                             keyboardType: TextInputType.text,
                             validator: (value) {
-                              if (nicknamecontroller.text.isEmpty) {
+                              if (reg.nickNameController.text.isEmpty) {
                                 return "Please Enter Nick Name...";
                               } else {
                                 return null;
@@ -625,12 +570,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child: TextFormField(
                             enabled: true,
                             // label: "Email id ",
-                            controller: con.emailController,
+                            controller: reg.emailController,
                             obscureText: false,
                             // inputHint: "Enter Valid Email id",
                             keyboardType: TextInputType.text,
                             validator: (value) {
-                              if (con.emailController.text.isEmpty) {
+                              if (reg.emailController.text.isEmpty) {
                                 return "Please Enter EmailId...";
                               } else {
                                 return null;
@@ -708,15 +653,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
   ],
                             enabled: true,
                             //: "Phone Number",
-                          maxLength:con.dropdownvalue == con.pickcountry[0]? 9:8,
-                            controller: requiredNoController,
+                          maxLength:reg.dropdownvalue["geoname"] == "UAE"? 9:8,
+                            controller: reg.mobileNoController,
                             obscureText: false,
                             keyboardType: TextInputType.number,
 
                             textInputAction: TextInputAction.next,
                             //inputHint: "Your Required Number",
                             validator: (value) {
-                              if (requiredNoController.text.isEmpty) {
+                              if (reg.mobileNoController.text.isEmpty) {
                                 return "Please Enter Required Number...";
                               } else {
                                 return null;
@@ -727,7 +672,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
                
                 prefixIcon: TextButton(onPressed: (){}, child:
-                con.dropdownvalue == con.pickcountry[0]?
+                reg.dropdownvalue["geoname"] == "UAE"?
                 Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
                 Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
                 ),
@@ -773,65 +718,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     SizedBox(
                       width: 20,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Select Your Interests',
-                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: MediaQuery.of(context).size.width / 4,
-                          height: MediaQuery.of(context).size.height / 13,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 1),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                          ),
-
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: DropdownButton(
-                              focusColor: Colors.transparent,
-                              underline: const SizedBox(),
-                              dropdownColor: Colors.white,
-                              isExpanded: true,
-                              value: dropdownintrest,
-                              hint: Text('Select Your Interests',
-                                  style: TextStyle(
-                                      color: Styles.whitecustomlable,
-                                      fontSize: 14)),
-                              icon: GestureDetector(
-                                  child: Icon(
-                                Icons.keyboard_arrow_down,
-                                // color: themeChange.darkTheme
-                                //     ? Colors.white
-                                //     : Colors.black45
-                              )),
-                                items: interests.map((String item) {
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item,
-                            style: const TextStyle(
-                                color: Color(0Xff413D4B), fontSize: 14)));
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      // dropdownvalueCity = null;
-                      dropdownintrest = newValue!;
-                      // con.choosedDocId = newValue;
-                      // con.isUAE.value = dropdownvalue == 'UAE' ? true : false;
-                    });
-                  },
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               
@@ -851,10 +737,10 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           child: TextFormField(
                             enabled: true,
                             // label: "Address",
-                            controller: addressController,
+                            controller: reg.addressController,
                             obscureText: false,
                             validator: (value) {
-                              if (addressController.text.isEmpty) {
+                              if (reg.addressController.text.isEmpty) {
                                 return "Please Enter Address...";
                               } else {
                                 return null;
@@ -929,7 +815,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               underline: const SizedBox(),
                               dropdownColor: Colors.white,
                               isExpanded: true,
-                              value: con.dropdownvalue,
+                              value: reg.dropdownvalue,
                               hint: Text('Select Your Country',
                                   style: TextStyle(
                                       color: Styles.whitecustomlable, fontSize: 14)),
@@ -940,7 +826,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                     //     ? Colors.white
                                     //     : Colors.black45
                                   )),
-                              items: con.pickcountry.map((dynamic item) {
+                              items: reg.pickcountry.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
                         child: Text(item["geoname"],
@@ -949,10 +835,10 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   }).toList(),
                   onChanged: (dynamic newValue) {
 
-                      con.dropdownvalue = newValue!;
-                      con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                    reg.dropdownvalue = newValue!;
+                    reg.cityselection(reg.dropdownvalue["geoid"].toString()).then((value){
                           setState(() {
-                          con.pickcity;
+                            reg.pickcity;
                           });
                       });
 
@@ -992,7 +878,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               underline: const SizedBox(),
                               dropdownColor: Colors.white,
                               isExpanded: true,
-                              value: con.dropdownvalueCity,
+                              value: reg.dropdownvalueCity,
                               hint: Text('Select Your city',
                                   style: TextStyle(
                                       color: Styles.whitecustomlable, fontSize: 14)),
@@ -1001,7 +887,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                     Icons.keyboard_arrow_down,
 
                                   )),
-                               items: con.pickcity.map((dynamic item) {
+                               items: reg.pickcity.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
                         child: Text(item["cityname"],
@@ -1010,7 +896,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   }).toList(),
                   onChanged: (dynamic newValue) {
                     setState(() {
-                      con.dropdownvalueCity = newValue!;
+                      reg.dropdownvalueCity = newValue!;
                     });
                   },
                               style: const TextStyle(color: Colors.black),
@@ -1039,13 +925,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             enabled: true,
                             //  label: "Postal Code",
                             validator: (value) {
-                              if (postalCodeController.text.isEmpty) {
+                              if (reg.postalCodeController.text.isEmpty) {
                                 return "Please Enter Postal Code...";
                               } else {
                                 return null;
                               }
                             },
-                            controller: postalCodeController,
+                            controller: reg.postalCodeController,
                             obscureText: false,
                             decoration: InputDecoration(
                               hoverColor: Colors.transparent,
@@ -1100,36 +986,26 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (firstNameController.text.isEmpty) {
+                        if (reg.firstNameController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your First name");
-                        } else if (lastNameController.text.isEmpty) {
+                        } else if (reg.lastNameController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your last name");
-                        } else if (dateOfBrithController.text.isEmpty) {
+                        } else if (reg.dateOfBrithController.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Enter your Date of birth");
-                        } else if (dateOfBrithController.text.isEmpty) {
+                        } else if (reg.dateOfBrithController.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Enter your Date of birth");
-                        } else if (addressController.text.isEmpty) {
+                        } else if (reg.addressController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your address");
-                        } else if (requiredNoController.text.isEmpty) {
+                        } else if (reg.mobileNoController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your mobile no");
-                        } else if (postalCodeController.text.isEmpty) {
+                        } else if (reg.dropdownvalueCity != null) {
+                          Fluttertoast.showToast(msg: "Select City");
+                        } else if (reg.postalCodeController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your postalcode");
                         } else {
-                          con.profileInformatrion(
-                            con.emailController.text,
-                            firstNameController.text,
-                            lastNameController.text,
-                            cityNameController.text,
-                            stateNameController.text,
-                            requiredNoController.text,
-                            dateOfBrithController.text,
-                            // issueDateController.text,
-                            // expiredDateController.text,
-                            addressController.text,
-                            postalCodeController.text,
-                          );
+                          reg.profileInformatrion();
                           // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
                         }
                       },
@@ -1170,36 +1046,26 @@ Widget buttontab(){
                   children: [
                     GestureDetector(
                       onTap: () {
-                        if (firstNameController.text.isEmpty) {
+                        if (reg.firstNameController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your First name");
-                        } else if (lastNameController.text.isEmpty) {
+                        } else if (reg.lastNameController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your last name");
-                        } else if (dateOfBrithController.text.isEmpty) {
+                        } else if (reg.dateOfBrithController.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Enter your Date of birth");
-                        } else if (dateOfBrithController.text.isEmpty) {
+                        } else if (reg.dateOfBrithController.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Enter your Date of birth");
-                        } else if (addressController.text.isEmpty) {
+                        } else if (reg.addressController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your address");
-                        } else if (requiredNoController.text.isEmpty) {
+                        } else if (reg.mobileNoController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your mobile no");
-                        } else if (postalCodeController.text.isEmpty) {
+                        } else if (reg.dropdownvalueCity != null) {
+                          Fluttertoast.showToast(msg: "Select City");
+                        } else if (reg.postalCodeController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your postalcode");
                         } else {
-                          con.profileInformatrion(
-                            con.emailController.text,
-                            firstNameController.text,
-                            lastNameController.text,
-                            cityNameController.text,
-                            stateNameController.text,
-                            requiredNoController.text,
-                            dateOfBrithController.text,
-                            // issueDateController.text,
-                            // expiredDateController.text,
-                            addressController.text,
-                            postalCodeController.text,
-                          );
+                          reg.profileInformatrion();
                           // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
                         }
                       },
@@ -1245,12 +1111,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: false,
               label: "First Name",
-              controller: firstNameController,
+              controller: reg.firstNameController,
               obsecureText: false,
               inputHint: "Your First Name",
               textInputType: TextInputType.text,
               validator: (value) {
-                if (firstNameController.text.isEmpty) {
+                if (reg.firstNameController.text.isEmpty) {
                   return "Please Enter First Name...";
                 } else {
                   return null;
@@ -1284,12 +1150,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: false,
               label: "Middle Name ",
-              controller: middlenamecontroller,
+              controller: reg.middleNameController,
               obsecureText: false,
               inputHint: "Your Middle Name",
               textInputType: TextInputType.text,
               validator: (value) {
-                if (middlenamecontroller.text.isEmpty) {
+                if (reg.middleNameController.text.isEmpty) {
                   return "Please Enter middle Name...";
                 } else {
                   return null;
@@ -1317,12 +1183,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: false,
               label: "Last Name",
-              controller: lastNameController,
+              controller: reg.lastNameController,
               obsecureText: false,
               inputHint: "Your Last Name",
               textInputType: TextInputType.text,
               validator: (value) {
-                if (lastNameController.text.isEmpty) {
+                if (reg.lastNameController.text.isEmpty) {
                   return "Please Enter Last Name...";
                 } else {
                   return null;
@@ -1353,10 +1219,10 @@ Widget buttontab(){
               enabled: true,
               keyboardType: TextInputType.none,
               label: "Date Of Brith *",
-              controller: dateOfBrithController,
+              controller: reg.dateOfBrithController,
               obsecureText: false,
               validator: (value) {
-                if (dateOfBrithController.text.isEmpty) {
+                if (reg.dateOfBrithController.text.isEmpty) {
                   return "Please Select Date Of Brith...";
                 } else {
                   return null;
@@ -1394,7 +1260,7 @@ Widget buttontab(){
                         firstDate: DateTime(1900),
                         lastDate: DateTime(DateTime.now().year-18)));
                     if(date!= null) {
-                      dateOfBrithController.text =
+                      reg.dateOfBrithController.text =
                     DateFormat("yyyy-MM-dd").format(date);
                   }
                   },
@@ -1442,12 +1308,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "Email ID",
-              controller: con.emailController,
+              controller: reg.emailController,
               obsecureText: false,
               inputHint: "Your Email ID",
               textInputType: TextInputType.text,
               validator: (value) {
-                if (con.emailController.text.isEmpty) {
+                if (reg.emailController.text.isEmpty) {
                   return "Please Enter EmailId...";
                 } else {
                   return null;
@@ -1498,12 +1364,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "What Should we Called you ",
-              controller: nicknamecontroller,
+              controller: reg.nickNameController,
               obsecureText: false,
               inputHint: "Enter Your nick name",
               textInputType: TextInputType.text,
               validator: (value) {
-                if (nicknamecontroller.text.isEmpty) {
+                if (reg.nickNameController.text.isEmpty) {
                   return "Please Enter Nick Name...";
                 } else {
                   return null;
@@ -1553,9 +1419,9 @@ Widget buttontab(){
 
               enabled: true,
               label: "Phone Number *",
-              maxLength:con.dropdownvalue == con.pickcountry[0]? 9:8,
+              maxLength:reg.dropdownvalue["geoname"] == "UAE" ? 9:8,
               keyboardType: TextInputType.number,
-              controller: requiredNoController,
+              controller: reg.mobileNoController,
               obsecureText: false,
               textInputType: TextInputType.number,
               textInputAction: TextInputAction.next,
@@ -1568,7 +1434,7 @@ Widget buttontab(){
 
               ],
               validator: (value) {
-                if (requiredNoController.text.isEmpty) {
+                if (reg.mobileNoController.text.isEmpty) {
                   return "";
                 } else {
                   return null;
@@ -1579,7 +1445,7 @@ Widget buttontab(){
 
                
                 prefixIcon: TextButton(onPressed: (){}, child:
-                con.dropdownvalue == con.pickcountry[0]?
+                reg.dropdownvalue["geoname"] == "UAE"?
                 Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
                 Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
                 ),
@@ -1625,7 +1491,7 @@ Widget buttontab(){
               enabled: true,
               label: "Gender",
 
-              controller: issueDateController,
+              controller: reg.genderController,
               obsecureText: false,
               validator: (value) {
 
@@ -1673,7 +1539,7 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "Address",
-              controller: addressController,
+              controller: reg.addressController,
               obsecureText: false,
               validator: (value) {
                 // if (addressController.text.isEmpty) {
@@ -1725,7 +1591,7 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "Building Name",
-              controller: buildingnamecontroller,
+              controller: reg.buildingNameController,
               obsecureText: false,
               validator: (value) {
                 // if (addressController.text.isEmpty) {
@@ -1780,7 +1646,7 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "Street Name",
-              controller: streetnamecontroller,
+              controller: reg.streetNameController,
               obsecureText: false,
               validator: (value) {
 
@@ -1863,7 +1729,7 @@ Widget buttontab(){
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: con.dropdownvalue,
+                  value: reg.dropdownvalue,
                   hint: Text('Select Your Country',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
@@ -1874,7 +1740,7 @@ Widget buttontab(){
                     //     ? Colors.white
                     //     : Colors.black45
                   )),
-                  items: con.pickcountry.map((dynamic item) {
+                  items: reg.pickcountry.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
                         child: Text(item["geoname"],
@@ -1883,10 +1749,10 @@ Widget buttontab(){
                   }).toList(),
                   onChanged: (dynamic newValue) {
 
-                      con.dropdownvalue = newValue!;
-                      con.cityselection(con.dropdownvalue["geoid"].toString()).then((value){
+                    reg.dropdownvalue = newValue!;
+                    reg.cityselection(reg.dropdownvalue["geoid"].toString()).then((value){
                           setState(() {
-                          con.pickcity;
+                            reg.pickcity;
                           });
                       });
 
@@ -1921,7 +1787,7 @@ Widget buttontab(){
                       ),
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
-                 
+
                       : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
@@ -1934,7 +1800,7 @@ Widget buttontab(){
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: con.dropdownvalueCity,
+                  value: reg.dropdownvalueCity,
                   hint: Text('Select Your city',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
@@ -1943,7 +1809,7 @@ Widget buttontab(){
                         Icons.keyboard_arrow_down,
 
                       )),
-                  items: con.pickcity.map((dynamic item) {
+                  items: reg.pickcity.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
                         child: Text(item["cityname"],
@@ -1952,7 +1818,7 @@ Widget buttontab(){
                   }).toList(),
                   onChanged: (dynamic newValue) {
                     setState(() {
-                      con.dropdownvalueCity = newValue!;
+                      reg.dropdownvalueCity = newValue!;
                     });
                   },
                   style: const TextStyle(color: Colors.black),
@@ -1965,13 +1831,13 @@ Widget buttontab(){
               enabled: true,
               label: "Postal Code *",
               validator: (value) {
-                if (postalCodeController.text.isEmpty) {
+                if (reg.postalCodeController.text.isEmpty) {
                   return "Please Enter Postal Code...";
                 } else {
                   return null;
                 }
               },
-              controller: postalCodeController,
+              controller: reg.postalCodeController,
               obsecureText: false,
               inputDecoration: InputDecoration(
                   hoverColor: Colors.transparent,
@@ -2023,31 +1889,21 @@ Widget buttontab(){
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (firstNameController.text.isEmpty) {
+          if (reg.firstNameController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your First name");
           }
-            else if (dateOfBrithController.text.isEmpty) {
+            else if (reg.dateOfBrithController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Date of birth");
-          } else if (addressController.text.isEmpty) {
+          } else if (reg.addressController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your address");
-          } else if (requiredNoController.text.isEmpty) {
+          } else if (reg.mobileNoController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your mobile no");
-          } else if (postalCodeController.text.isEmpty) {
+          }else if (reg.dropdownvalueCity != null) {
+            Fluttertoast.showToast(msg: "Select City");
+          }  else if (reg.postalCodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your postalcode");
           } else {
-            con.profileInformatrion(
-              con.emailController.text,
-              firstNameController.text,
-              lastNameController.text,
-              cityNameController.text,
-              stateNameController.text,
-              requiredNoController.text,
-              dateOfBrithController.text,
-              // issueDateController.text,
-              // expiredDateController.text,
-              addressController.text,
-              postalCodeController.text,
-            );
+            reg.profileInformatrion();
           }
         },
         text: "Next");
