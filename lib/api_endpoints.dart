@@ -60,4 +60,5 @@ class API {
   //Securitypost
 
   String securitypost = "customersecurityquestion";
+  String securitydetails = "customersecurityquestion/customerquestiondetail/";
 }
