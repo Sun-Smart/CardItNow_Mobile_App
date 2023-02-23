@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../api/regster_api.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
 import '../register/drawer/drawerscreen.dart';
@@ -35,28 +36,32 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  final RegisterAPI con = Get.put(RegisterAPI());
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      drawer: Column(
-        children: [
-          Container(
-              height: 500,
-              width: MediaQuery.of(context).size.width / 1,
-              child: drawer(
-                controller: itemScrollController!,
-              )),
-        ],
-      ),
+      drawer: Responsive.isDesktop(context)
+          ? null
+          : Column(
+              children: [
+                Container(
+                    height: 500,
+                    width: MediaQuery.of(context).size.width / 1,
+                    child: drawer(
+                      controller: itemScrollController!,
+                    )),
+              ],
+            ),
       backgroundColor: themeChange.darkTheme
           ? const Color(0XFF000000)
           : const Color(0XFFffffff),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: Size.fromHeight(70.0),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
+          padding: EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: AppBar(
+            // bottom:
             iconTheme: IconThemeData(color: Colors.green),
             elevation: 0,
             leading: Builder(
@@ -64,9 +69,61 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  child: SvgPicture.asset('assets/sortingleft.svg', width: 16)),
+                  child: Responsive.isDesktop(context)
+                      ? null
+                      : SvgPicture.asset('assets/sortingleft.svg', width: 16)),
             ),
             actions: [
+              Responsive.isDesktop(context)
+                  ? Row(
+                      children: [
+                        Image.asset('assets/carditlogo.png',
+                            width: 70, height: 70),
+                        SizedBox(width: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  con.drawercountry.value = "CM";
+                                  setState(() {});
+                                },
+                                child: Text(
+                                  "Philipines",
+                                  style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 12,
+                                    color: con.drawercountry.value == "CM"
+                                        ? Color(0XFF004751)
+                                        : Colors.grey,
+                                  ),
+                                )),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  con.drawercountry.value = "Ds";
+                                  setState(() {});
+                                },
+                                child: Text(
+                                  "UAE",
+                                  style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 12,
+                                    color: con.drawercountry.value == "Ds"
+                                        ? Color(0XFF004751)
+                                        : Colors.grey,
+                                  ),
+                                )),
+                          ],
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            child: MyMenuBar(controller: itemScrollController!))
+                      ],
+                    )
+                  : Container(),
               CustomSlidingSegmentedControl<int>(
                 thumbDecoration: BoxDecoration(
                     color: const Color(0XFFCEE812),
@@ -101,13 +158,9 @@ class _HomeState extends State<Home> {
                 fixedWidth: 100,
                 onValueChanged: (int value) {
                   if (value == 1) {
-                    Get.to( Country(
-                      choosetype:"Login"
-                    ));
+                    Get.to(Country(choosetype: "Login"));
                   } else if (value == 2) {
-                    Get.to( Country(
-                        choosetype:"Register"
-                    ));
+                    Get.to(Country(choosetype: "Register"));
                   }
                 },
               )
@@ -226,11 +279,10 @@ class _HomeState extends State<Home> {
                   fontSize: 16,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to( Country());
+            Get.to(Country());
           }),
     );
   }
-
 }
 
 //for mobile
@@ -680,7 +732,6 @@ class homeScrollWidget extends StatelessWidget {
     );
   }
 }
-
 
 //for web--(what can i pay...)
 
@@ -3535,8 +3586,7 @@ class topbannerweb extends StatelessWidget {
                                         color: Styles.whitecolortext,
                                         fontSize: 35,
                                         fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.bold
-                                        ),
+                                        fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
@@ -3599,9 +3649,11 @@ class topbannerweb extends StatelessWidget {
                                           fontSize: 16,
                                           color: Color(0XFFCEE812))),
                                   onSwipe: () {
-                                    Get.to( Country());
+                                    Get.to(Country());
                                   }),
-                                  SizedBox(height: 20,)
+                              SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                         )),
@@ -3631,7 +3683,6 @@ class topbannerweb extends StatelessWidget {
                         child: IconButton(
                           splashColor: Colors.transparent,
                           icon: Image.asset(
-                            
                               height: 400,
                               width: 200,
                               "assets/banner-icon.png"),
@@ -4896,5 +4947,164 @@ class buildgetstartedweb extends StatelessWidget {
               ),
             ],
           );
+  }
+}
+
+class MyMenuBar extends StatefulWidget {
+  final ItemScrollController controller;
+  MyMenuBar({super.key, required this.controller});
+
+  @override
+  State<MyMenuBar> createState() => _MyMenuBarState();
+}
+
+class _MyMenuBarState extends State<MyMenuBar> with TickerProviderStateMixin {
+late TabController tabController = TabController(length: 7, vsync: this);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 7,
+      child: TabBar(
+          controller:tabController,
+          labelPadding: EdgeInsets.zero,
+          labelColor: Color(0XFF004751),
+          labelStyle: TextStyle(
+              fontFamily: 'Sora',
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.w500),
+          indicatorColor: Color(0XFF004751),
+          unselectedLabelColor: Colors.black,
+          indicatorSize: TabBarIndicatorSize.label,
+          overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+          tabs: [
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 0,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 0;
+
+                  //  drawerselection = items[0];
+                });
+              },
+              child: Text(
+                'Home',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 2,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+tabController.index = 1;
+                  //drawerselection = items[0];
+                });
+              },
+              child: Text(
+                'How it Works?',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 3,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 2;
+
+                  //drawerselection = items[2];
+                });
+              },
+              child: Text(
+                'Pricing',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 4,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 3;
+
+                  // drawerselection = items[3];
+                });
+              },
+              child: Text(
+                'Split Expenses',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 5,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 4;
+
+                  //  drawerselection = items[0];
+                });
+              },
+              child: Text(
+                'Refer a friend',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 6,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 5;
+
+                  // drawerselection = items[0];
+                });
+              },
+              child: Text(
+                'About Us',
+              ),
+            ),
+            InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  widget.controller.scrollTo(
+                      index: 6,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                      tabController.index = 6;
+
+                  ///  drawerselection = items[0];
+                });
+              },
+              child: Text(
+                'Contact Us',
+              ),
+            ),
+          ]),
+    );
   }
 }

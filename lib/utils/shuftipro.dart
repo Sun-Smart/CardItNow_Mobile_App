@@ -1,9 +1,10 @@
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shuftipro_sdk/shuftipro_sdk.dart';
 
 class Shuftipro{
-  static const String clientId = ""; // enter client id here
-  static const String secretKey = ""; // enter secret key here
+  static const String clientId = "0a75ae5dd88a098765cac9d4e8d27f46c3ea3477e0670a452c3b31e02f295c21"; // enter client id here
+  static const String secretKey = "gN9GRTB89OTWjbTd2Ue4CDYYPHw5hszm"; // enter secret key here
 
   var authObject = {
     "auth_type": "basic_auth",
@@ -13,11 +14,9 @@ class Shuftipro{
 
 
   Map<String, Object> createdPayload = {
-    "country": "PH",
+    "country": "IN",
     "language": "EN",
     "email": "",
-    "callback_url": "http://www.example.com",
-    "redirect_url": "https://www.mydummy.package_sample.com/",
     "show_consent": 1,
     "show_privacy_policy": 1,
     "verification_mode": "image_only",
@@ -59,8 +58,10 @@ class Shuftipro{
     try{
       response = await ShuftiproSdk.sendRequest(authObject: authObject,
           createdPayload: createdPayload, configObject: configObj);
+      print(response.toString());
       print(response);
-
+      Fluttertoast.showToast(msg: response.toString());
+      Fluttertoast.showToast(msg: "$response");
     }catch(e){
       print(e);
     }
