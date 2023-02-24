@@ -1,4 +1,3 @@
-
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -24,46 +23,50 @@ class _ProfileInformationState extends State<ProfileInformation> {
   final RegisterAPI reg = Get.put(RegisterAPI());
   final formKey = GlobalKey<FormState>();
 
-
   @override
   void initState() {
-    print(reg.postalCodeController.text);
-    if(reg.dropdownvalue!=null){
-      reg.cityselection(reg.dropdownvalue["geoid"].toString());
-    }
-    reg.assignProfileInfo();
-    super.initState();
+    // print(reg.postalCodeController.text);
+    // if(reg.dropdownvalue!=null){
+    //   reg.cityselection(reg.dropdownvalue["geoid"].toString());
+    // }
+    // reg.assignProfileInfo();
+    // super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      bottomNavigationBar: Responsive.isMobile(context)?bulildbutton():null,
-      appBar: Responsive.isMobile(context)? AppBar(
-          backgroundColor: Colors.transparent,
-          leading: BackButton(
-              color: themeChange.darkTheme ? Colors.white : Colors.black)):null,
-      body: Responsive.isMobile(context)?Container(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child:
-          reg.dropdownvalue==null?Center(child: LinearProgressIndicator(
-            backgroundColor: HexColor('#004751'),
-            valueColor: AlwaysStoppedAnimation(Colors.green),
-          )):
-          Column(
-            crossAxisAlignment: Responsive.isMobile(context)
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: [
-              buildtitle(),
-              buildForm(),
-              // bulildbutton()
-            ],
-          ),
-        ),
-      ): Responsive.isDesktop(context)
+      bottomNavigationBar: Responsive.isMobile(context) ? bulildbutton() : null,
+      appBar: Responsive.isMobile(context)
+          ? AppBar(
+              backgroundColor: Colors.transparent,
+              leading: BackButton(
+                  color: themeChange.darkTheme ? Colors.white : Colors.black))
+          : null,
+      body: Responsive.isMobile(context)
+          ? Container(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: reg.dropdownvalue == null
+                    ? Center(
+                        child: LinearProgressIndicator(
+                        backgroundColor: HexColor('#004751'),
+                        valueColor: AlwaysStoppedAnimation(Colors.green),
+                      ))
+                    : Column(
+                        crossAxisAlignment: Responsive.isMobile(context)
+                            ? CrossAxisAlignment.start
+                            : CrossAxisAlignment.center,
+                        children: [
+                          buildtitle(),
+                          buildForm(),
+                          // bulildbutton()
+                        ],
+                      ),
+              ),
+            )
+          : Responsive.isDesktop(context)
               ? Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width / 3,
@@ -71,8 +74,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height: MediaQuery.of(context).size.height / 3
-                              )),
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            height: MediaQuery.of(context).size.height / 3)),
                   ),
                   Container(
                     child: SingleChildScrollView(
@@ -110,12 +113,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
               : Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width / 3,
-                 //   height: MediaQuery.of(context).size.width / 1,
+                    //   height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
                         child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
+                            width: MediaQuery.of(context).size.width / 1.5,
+                            height: MediaQuery.of(context).size.height / 3)),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width / 1.5,
@@ -162,7 +165,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           reg.firstNameController.text.isEmpty
               ? Text(
                   'Hey! Please Tell About Your Self!',
@@ -170,8 +172,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   style: TextStyle(
                     fontSize: 28,
                     fontFamily: 'Sora',
-                    color:
-                        themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                    color: themeChange.darkTheme
+                        ? Colors.white
+                        : HexColor('#004751'),
                     fontWeight: FontWeight.bold,
                   ),
                 )
@@ -180,22 +183,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   style: TextStyle(
                     fontSize: 28,
                     fontFamily: 'Sora',
-                    color:
-                        themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                    color: themeChange.darkTheme
+                        ? Colors.white
+                        : HexColor('#004751'),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-          Text(
-            'Tell About Your Self!',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 28,
-              fontFamily: 'Sora',
-              color:
-              themeChange.darkTheme ? Colors.white : HexColor('#004751'),
-              fontWeight: FontWeight.bold,
-            ),
-          )
         ],
       ),
     );
@@ -221,48 +214,57 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("First Name *",
-                        style:TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                        Text(
+                          "First Name *",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
-                          child:  TextFormField(
-              enabled: false,
-            //  label: "First Name",
-              controller: reg.firstNameController,
-              obscureText: false,
-             // inputHint: "Your First Name",
-             keyboardType: TextInputType.text,
-              validator: (value) {
-                if (reg.firstNameController.text.isEmpty) {
-                  return "Please Enter First Name...";
-                } else {
-                  return null;
-                }
-              },
-              textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                  hoverColor: Colors.transparent,
-                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                // filled: true,
-                // fillColor: Colors.white,
-                hintText: 'First Name',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.bold,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-
-              ),
-            ), ),
+                          child: TextFormField(
+                            enabled: false,
+                            //  label: "First Name",
+                            controller: reg.firstNameController,
+                            obscureText: false,
+                            // inputHint: "Your First Name",
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (reg.firstNameController.text.isEmpty) {
+                                return "Please Enter First Name...";
+                              } else {
+                                return null;
+                              }
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                              // filled: true,
+                              // fillColor: Colors.white,
+                              hintText: 'First Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -271,48 +273,57 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Middle Name *",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Middle Name *",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
-              enabled: false,
-            //  label: "First Name",
-              controller: reg.middleNameController,
-              obscureText: false,
-             // inputHint: "Your First Name",
-             keyboardType: TextInputType.text,
-              validator: (value) {
-                if (reg.middleNameController.text.isEmpty) {
-                  return "Please Enter Middle Name...";
-                } else {
-                  return null;
-                }
-              },
-              textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                  hoverColor: Colors.transparent,
-                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                // filled: true,
-                // fillColor: Colors.white,
-                hintText: 'Middle Name',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.bold,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-
-              ),
-            ), ),
-                     
+                            enabled: false,
+                            //  label: "First Name",
+                            controller: reg.middleNameController,
+                            obscureText: false,
+                            // inputHint: "Your First Name",
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (reg.middleNameController.text.isEmpty) {
+                                return "Please Enter Middle Name...";
+                              } else {
+                                return null;
+                              }
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                              // filled: true,
+                              // fillColor: Colors.white,
+                              hintText: 'Middle Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -326,47 +337,57 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Last Name *",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Last Name *",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
-              enabled: false,
-            //  label: "First Name",
-              controller: reg.lastNameController,
-              obscureText: false,
-             // inputHint: "Your First Name",
-             keyboardType: TextInputType.text,
-              validator: (value) {
-                if (reg.lastNameController.text.isEmpty) {
-                  return "Please Enter Last Name...";
-                } else {
-                  return null;
-                }
-              },
-              textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                  hoverColor: Colors.transparent,
-                labelStyle: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                // filled: true,
-                // fillColor: Colors.white,
-                hintText: 'Last Name',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.bold,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-              ),
-            ), ),
-                     
+                            enabled: false,
+                            //  label: "First Name",
+                            controller: reg.lastNameController,
+                            obscureText: false,
+                            // inputHint: "Your First Name",
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (reg.lastNameController.text.isEmpty) {
+                                return "Please Enter Last Name...";
+                              } else {
+                                return null;
+                              }
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                              // filled: true,
+                              // fillColor: Colors.white,
+                              hintText: 'Last Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -375,8 +396,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Date Of Birth",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Date Of Birth",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -397,43 +423,44 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             },
                             decoration: InputDecoration(
                               hoverColor: Colors.transparent,
-                             suffixIcon: GestureDetector(
-                  onTap: () async {
-                    DateTime? date = DateTime(1900);
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    date = (await showDatePicker(
-                        builder: (context, child) {
-    return Theme(
-    data: Theme.of(context)
-        .copyWith(
-    colorScheme:
-    ColorScheme.light(
-    primary:HexColor('#CEE812'),
-    ),
-
-    textButtonTheme:
-    TextButtonThemeData(
-    style: TextButton
-        .styleFrom(
-    primary: HexColor('#CEE812'), // button text color
-    ),
-    ),
-    ),
-    child: child!,
-    );
-    },
-                        context: context,
-                        initialDate: DateTime(DateTime.now().year-18),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(DateTime.now().year-18)));
-                    if(date!= null) {
-                      reg.dateOfBrithController.text =
-                    DateFormat("yyyy-MM-dd").format(date);
-                  }
-                  },
-                  child: Icon(Icons.date_range, color: Colors.black),
-                ),
-               filled: true,
+                              suffixIcon: GestureDetector(
+                                onTap: () async {
+                                  DateTime? date = DateTime(1900);
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  date = (await showDatePicker(
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: ColorScheme.light(
+                                              primary: HexColor('#CEE812'),
+                                            ),
+                                            textButtonTheme:
+                                                TextButtonThemeData(
+                                              style: TextButton.styleFrom(
+                                                primary: HexColor(
+                                                    '#CEE812'), // button text color
+                                              ),
+                                            ),
+                                          ),
+                                          child: child!,
+                                        );
+                                      },
+                                      context: context,
+                                      initialDate:
+                                          DateTime(DateTime.now().year - 18),
+                                      firstDate: DateTime(1900),
+                                      lastDate:
+                                          DateTime(DateTime.now().year - 18)));
+                                  if (date != null) {
+                                    reg.dateOfBrithController.text =
+                                        DateFormat("yyyy-MM-dd").format(date);
+                                  }
+                                },
+                                child:
+                                    Icon(Icons.date_range, color: Colors.black),
+                              ),
+                              filled: true,
                               fillColor: Colors.white,
                               hintText: 'YYYY-MM-DD',
                               floatingLabelBehavior:
@@ -487,8 +514,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("What should we call you?",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "What should we call you?",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -560,8 +592,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Enter your Email",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Enter your Email",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -629,7 +666,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
-                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -639,8 +675,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         SizedBox(
                           height: 30,
                         ),
-                        Text("Phone Number *",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Phone Number *",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -648,12 +689,14 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
                             inputFormatters: [
-                               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-    FilteringTextInputFormatter.digitsOnly,
-  ],
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             enabled: true,
                             //: "Phone Number",
-                          maxLength:reg.dropdownvalue["geoname"] == "UAE"? 9:8,
+                            maxLength:
+                                reg.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
                             controller: reg.mobileNoController,
                             obscureText: false,
                             keyboardType: TextInputType.number,
@@ -667,50 +710,64 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                 return null;
                               }
                             },
-                            decoration:  InputDecoration(
-                  hoverColor: Colors.transparent,
-
-               
-                prefixIcon: TextButton(onPressed: (){}, child:
-                reg.dropdownvalue["geoname"] == "UAE"?
-                Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
-                Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Required Number',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                hintStyle: const TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.normal,
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                focusColor: Colors.grey.shade300,
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 1.0)),
-                focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    gapPadding: 7,
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.grey)),
-                errorStyle: const TextStyle(
-                    fontFamily: 'Sora',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
+                            decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              prefixIcon: TextButton(
+                                  onPressed: () {},
+                                  child: reg.dropdownvalue["geoname"] == "UAE"
+                                      ? Text(
+                                          "+971",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'sora',
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : Text(
+                                          "+63",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'sora',
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Required Number',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ],
@@ -718,17 +775,16 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     SizedBox(
                       width: 20,
                     ),
-                  ],
-                ),
-              
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Address *",
-                        style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),),
+                        Text(
+                          "Gender",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -736,21 +792,242 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
                             enabled: true,
-                            // label: "Address",
+                            //  label: "Gender",
+
+                            controller: reg.genderController,
+                            obscureText: false,
+                            validator: (value) {},
+                            decoration: InputDecoration(
+                              filled: true,
+                              hoverColor: Colors.transparent,
+                              fillColor: Colors.white,
+                              hintText: 'Your Gender',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Address",
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 4,
+                          child: TextFormField(
+                            enabled: true,
+                            //   label: "Address",
                             controller: reg.addressController,
                             obscureText: false,
                             validator: (value) {
-                              if (reg.addressController.text.isEmpty) {
-                                return "Please Enter Address...";
-                              } else {
-                                return null;
-                              }
+                              // if (addressController.text.isEmpty) {
+                              //   return "Please Enter Address...";
+                              // } else {
+                              //   return null;
+                              // }
                             },
                             decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
                               filled: true,
                               fillColor: Colors.white,
+                              hintText: 'Your House No',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Building Name',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                         SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 4,
+                          child: TextFormField(
+                            enabled: true,
+                            //  label: "Building Name",
+                            controller: reg.buildingNameController,
+                            obscureText: false,
+                            validator: (value) {
+                              // if (addressController.text.isEmpty) {
+                              //   return "Please Enter Address...";
+                              // } else {
+                              //   return null;
+                              // }
+                            },
+                            decoration: InputDecoration(
                               hoverColor: Colors.transparent,
-                              hintText: 'Your Address',
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Your Building Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Street Name',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                         SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 4,
+                          child: TextFormField(
+                            enabled: true,
+                            //  label: "Street Name",
+                            controller: reg.streetNameController,
+                            obscureText: false,
+                            validator: (value) {},
+                            decoration: InputDecoration(
+                              filled: true,
+                              hoverColor: Colors.transparent,
+                              fillColor: Colors.white,
+                              hintText: 'Your Street Name',
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
                               helperStyle: const TextStyle(
@@ -799,16 +1076,20 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'Country',
-                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           height: MediaQuery.of(context).size.height / 13,
                           decoration: BoxDecoration(
-                              border:
-                              Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-                              borderRadius: const BorderRadius.all(Radius.circular(3))),
+                              border: Border.all(
+                                  color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(3))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: DropdownButton(
@@ -818,31 +1099,34 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               value: reg.dropdownvalue,
                               hint: Text('Select Your Country',
                                   style: TextStyle(
-                                      color: Styles.whitecustomlable, fontSize: 14)),
-                              icon: GestureDetector(
+                                      color: Styles.whitecustomlable,
+                                      fontSize: 14)),
+                              icon: InkWell(
                                   child: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    // color: themeChange.darkTheme
-                                    //     ? Colors.white
-                                    //     : Colors.black45
-                                  )),
+                                Icons.keyboard_arrow_down,
+                                // color: themeChange.darkTheme
+                                //     ? Colors.white
+                                //     : Colors.black45
+                              )),
                               items: reg.pickcountry.map((dynamic item) {
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item["geoname"],
-                            style: const TextStyle(
-                                color: Color(0Xff413D4B), fontSize: 14)));
-                  }).toList(),
-                  onChanged: (dynamic newValue) {
-
-                    reg.dropdownvalue = newValue!;
-                    reg.cityselection(reg.dropdownvalue["geoid"].toString()).then((value){
-                          setState(() {
-                            reg.pickcity;
-                          });
-                      });
-
-                  },
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item["geoname"],
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
+                              onChanged: (dynamic newValue) {
+                                reg.dropdownvalue = newValue!;
+                                reg
+                                    .cityselection(
+                                        reg.dropdownvalue["geoid"].toString())
+                                    .then((value) {
+                                  setState(() {
+                                    reg.pickcity;
+                                  });
+                                });
+                              },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
@@ -851,7 +1135,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
-                SizedBox(
+                 SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -862,16 +1146,20 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'City',
-                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
-                           width: MediaQuery.of(context).size.width / 4,
+                          width: MediaQuery.of(context).size.width / 4,
                           height: MediaQuery.of(context).size.height / 13,
                           decoration: BoxDecoration(
-                              border:
-                              Border.all(color: const Color(0XffB7C5C7), width: 1.5),
-                              borderRadius: const BorderRadius.all(Radius.circular(3))),
+                              border: Border.all(
+                                  color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(3))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: DropdownButton(
@@ -881,24 +1169,25 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               value: reg.dropdownvalueCity,
                               hint: Text('Select Your city',
                                   style: TextStyle(
-                                      color: Styles.whitecustomlable, fontSize: 14)),
+                                      color: Styles.whitecustomlable,
+                                      fontSize: 14)),
                               icon: InkWell(
                                   child: Icon(
-                                    Icons.keyboard_arrow_down,
-
-                                  )),
-                               items: reg.pickcity.map((dynamic item) {
-                    return DropdownMenuItem(
-                        value: item,
-                        child: Text(item["cityname"],
-                            style: const TextStyle(
-                                color: Color(0Xff413D4B), fontSize: 14)));
-                  }).toList(),
-                  onChanged: (dynamic newValue) {
-                    setState(() {
-                      reg.dropdownvalueCity = newValue!;
-                    });
-                  },
+                                Icons.keyboard_arrow_down,
+                              )),
+                              items: reg.pickcity.map((dynamic item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item["cityname"],
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
+                              onChanged: (dynamic newValue) {
+                                setState(() {
+                                  reg.dropdownvalueCity = newValue!;
+                                });
+                              },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
@@ -913,15 +1202,18 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           'Postal Code',
-                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           width: MediaQuery.of(context).size.width / 4,
                           child: TextFormField(
                             inputFormatters: [
-    FilteringTextInputFormatter.digitsOnly,
-  ],
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             enabled: true,
                             //  label: "Postal Code",
                             validator: (value) {
@@ -980,6 +1272,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 30,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -988,11 +1283,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       onTap: () {
                         if (reg.firstNameController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your First name");
-                        } else if (reg.lastNameController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your last name");
-                        } else if (reg.dateOfBrithController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Enter your Date of birth");
                         } else if (reg.dateOfBrithController.text.isEmpty) {
                           Fluttertoast.showToast(
                               msg: "Enter your Date of birth");
@@ -1006,7 +1296,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           Fluttertoast.showToast(msg: "Enter your postalcode");
                         } else {
                           reg.profileInformatrion();
-                          // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
                         }
                       },
                       child: Container(
@@ -1039,65 +1328,58 @@ class _ProfileInformationState extends State<ProfileInformation> {
               ],
             )));
   }
-Widget buttontab(){
-  return    Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (reg.firstNameController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your First name");
-                        } else if (reg.lastNameController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your last name");
-                        } else if (reg.dateOfBrithController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Enter your Date of birth");
-                        } else if (reg.dateOfBrithController.text.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Enter your Date of birth");
-                        } else if (reg.addressController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your address");
-                        } else if (reg.mobileNoController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your mobile no");
-                        } else if (reg.dropdownvalueCity != null) {
-                          Fluttertoast.showToast(msg: "Select City");
-                        } else if (reg.postalCodeController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: "Enter your postalcode");
-                        } else {
-                          reg.profileInformatrion();
-                          // Get.to(() => isChecked1 == true ? Twofactor() : AvatarPageView());
-                        }
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 20),
-                        width: Responsive.isMobile(context)
-                            ? MediaQuery.of(context).size.width / 1
-                            : Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.4
-                                : MediaQuery.of(context).size.width / 2.5,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        decoration: BoxDecoration(
-                            color: HexColor('#CEE812'),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Center(
-                          child: Text(
-                            "Next",
-                            style: TextStyle(
-                              fontFamily: 'ProductSans',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: HexColor('#004751'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-             
-}
+
+  Widget buttontab() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            if (reg.firstNameController.text.isEmpty) {
+              Fluttertoast.showToast(msg: "Enter your First name");
+            } else if (reg.dateOfBrithController.text.isEmpty) {
+              Fluttertoast.showToast(msg: "Enter your Date of birth");
+            } else if (reg.addressController.text.isEmpty) {
+              Fluttertoast.showToast(msg: "Enter your address");
+            } else if (reg.mobileNoController.text.isEmpty) {
+              Fluttertoast.showToast(msg: "Enter your mobile no");
+            } else if (reg.dropdownvalueCity != null) {
+              Fluttertoast.showToast(msg: "Select City");
+            } else if (reg.postalCodeController.text.isEmpty) {
+              Fluttertoast.showToast(msg: "Enter your postalcode");
+            } else {
+              reg.profileInformatrion();
+            }
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            width: Responsive.isMobile(context)
+                ? MediaQuery.of(context).size.width / 1
+                : Responsive.isDesktop(context)
+                    ? MediaQuery.of(context).size.width / 4.4
+                    : MediaQuery.of(context).size.width / 2.5,
+            height: MediaQuery.of(context).size.height * 0.07,
+            decoration: BoxDecoration(
+                color: HexColor('#CEE812'),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: Text(
+                "Next",
+                style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: HexColor('#004751'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget buildForm() {
     return Container(
       padding:
@@ -1124,10 +1406,9 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 labelStyle: const TextStyle(
-                fontFamily: 'Sora',fontWeight: FontWeight.bold
-              ),
+                    fontFamily: 'Sora', fontWeight: FontWeight.bold),
                 // filled: true,
                 // fillColor: Colors.white,
                 hintText: 'First Name',
@@ -1141,7 +1422,6 @@ Widget buttontab(){
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
-
               ),
             ),
 
@@ -1163,7 +1443,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 // filled: true,
                 // fillColor: Colors.white,
                 hintText: 'Middle Name',
@@ -1196,7 +1476,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 hintText: 'Last Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
@@ -1207,7 +1487,6 @@ Widget buttontab(){
                 ),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-
                 errorStyle: const TextStyle(
                     fontFamily: 'Sora',
                     fontSize: 13,
@@ -1229,40 +1508,36 @@ Widget buttontab(){
                 }
               },
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 suffixIcon: GestureDetector(
                   onTap: () async {
                     DateTime? date = DateTime(1900);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     date = (await showDatePicker(
                         builder: (context, child) {
-    return Theme(
-    data: Theme.of(context)
-        .copyWith(
-    colorScheme:
-    ColorScheme.light(
-    primary:HexColor('#004751'),
-    ),
-
-    textButtonTheme:
-    TextButtonThemeData(
-    style: TextButton
-        .styleFrom(
-    primary: HexColor('#004751'), // button text color
-    ),
-    ),
-    ),
-    child: child!,
-    );
-    },
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: HexColor('#004751'),
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary:
+                                      HexColor('#004751'), // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                         context: context,
-                        initialDate: DateTime(DateTime.now().year-18),
+                        initialDate: DateTime(DateTime.now().year - 18),
                         firstDate: DateTime(1900),
-                        lastDate: DateTime(DateTime.now().year-18)));
-                    if(date!= null) {
+                        lastDate: DateTime(DateTime.now().year - 18)));
+                    if (date != null) {
                       reg.dateOfBrithController.text =
-                    DateFormat("yyyy-MM-dd").format(date);
-                  }
+                          DateFormat("yyyy-MM-dd").format(date);
+                    }
                   },
                   child: Icon(Icons.date_range, color: Colors.black),
                 ),
@@ -1304,7 +1579,6 @@ Widget buttontab(){
             ),
             const SizedBox(height: 10),
 
-
             MyCustomInputBox(
               enabled: true,
               label: "Email ID",
@@ -1322,7 +1596,7 @@ Widget buttontab(){
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
                 filled: true,
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Email ID',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1358,9 +1632,9 @@ Widget buttontab(){
                     fontWeight: FontWeight.bold),
               ),
             ),
-              SizedBox(
-                height: 10,
-              ),
+            SizedBox(
+              height: 10,
+            ),
             MyCustomInputBox(
               enabled: true,
               label: "What Should we Called you ",
@@ -1377,7 +1651,7 @@ Widget buttontab(){
               },
               textInputAction: TextInputAction.next,
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Enter Your Nick Name',
@@ -1416,10 +1690,9 @@ Widget buttontab(){
             ),
             const SizedBox(height: 10),
             MyCustomInputBox(
-
               enabled: true,
               label: "Phone Number *",
-              maxLength:reg.dropdownvalue["geoname"] == "UAE" ? 9:8,
+              maxLength: reg.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
               keyboardType: TextInputType.number,
               controller: reg.mobileNoController,
               obsecureText: false,
@@ -1431,7 +1704,6 @@ Widget buttontab(){
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
 
                 FilteringTextInputFormatter.digitsOnly
-
               ],
               validator: (value) {
                 if (reg.mobileNoController.text.isEmpty) {
@@ -1441,14 +1713,24 @@ Widget buttontab(){
                 }
               },
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
-
-               
-                prefixIcon: TextButton(onPressed: (){}, child:
-                reg.dropdownvalue["geoname"] == "UAE"?
-                Text("+971",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),):
-                Text("+63",style: TextStyle(color: Colors.black,fontFamily: 'sora',fontWeight: FontWeight.bold),)
-                ),
+                hoverColor: Colors.transparent,
+                prefixIcon: TextButton(
+                    onPressed: () {},
+                    child: reg.dropdownvalue["geoname"] == "UAE"
+                        ? Text(
+                            "+971",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'sora',
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            "+63",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'sora',
+                                fontWeight: FontWeight.bold),
+                          )),
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Required Number',
@@ -1490,15 +1772,12 @@ Widget buttontab(){
             MyCustomInputBox(
               enabled: true,
               label: "Gender",
-
               controller: reg.genderController,
               obsecureText: false,
-              validator: (value) {
-
-              },
+              validator: (value) {},
               inputDecoration: InputDecoration(
                 filled: true,
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Gender',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1549,7 +1828,7 @@ Widget buttontab(){
                 // }
               },
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your House No',
@@ -1588,6 +1867,7 @@ Widget buttontab(){
             ),
 
             const SizedBox(height: 10),
+
             MyCustomInputBox(
               enabled: true,
               label: "Building Name",
@@ -1601,7 +1881,7 @@ Widget buttontab(){
                 // }
               },
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your Building Name',
@@ -1613,18 +1893,18 @@ Widget buttontab(){
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     gapPadding: 7,
@@ -1648,12 +1928,10 @@ Widget buttontab(){
               label: "Street Name",
               controller: reg.streetNameController,
               obsecureText: false,
-              validator: (value) {
-
-              },
+              validator: (value) {},
               inputDecoration: InputDecoration(
                 filled: true,
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 fillColor: Colors.white,
                 hintText: 'Your Street Name',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -1664,18 +1942,18 @@ Widget buttontab(){
                   fontWeight: FontWeight.normal,
                 ),
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 focusColor: Colors.grey.shade300,
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide:
-                    const BorderSide(color: Colors.grey, width: 1.0)),
+                        const BorderSide(color: Colors.grey, width: 1.0)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     gapPadding: 7,
@@ -1690,29 +1968,29 @@ Widget buttontab(){
               ),
             ),
 
-              SizedBox(
-                height: 10,
-              ),
+            SizedBox(
+              height: 10,
+            ),
 
             Container(
-               margin: Responsive.isMobile(context)
-                  ? EdgeInsets.fromLTRB(15, 0, 15, 0)
-                  : EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 7.5,
+                margin: Responsive.isMobile(context)
+                    ? EdgeInsets.fromLTRB(15, 0, 15, 0)
+                    : EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 7.5,
                       ),
                 child: Text('Select Your country',
                     style: TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        ))),
+                      fontFamily: 'Sora',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ))),
             const SizedBox(height: 10),
             Container(
-             margin: Responsive.isMobile(context)
+              margin: Responsive.isMobile(context)
                   ? EdgeInsets.fromLTRB(15, 0, 15, 0)
                   : EdgeInsets.only(
                       left: MediaQuery.of(context).size.width / 7.5,
-                      ),
+                    ),
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
                   : Responsive.isDesktop(context)
@@ -1748,14 +2026,14 @@ Widget buttontab(){
                                 color: Color(0Xff413D4B), fontSize: 14)));
                   }).toList(),
                   onChanged: (dynamic newValue) {
-
                     reg.dropdownvalue = newValue!;
-                    reg.cityselection(reg.dropdownvalue["geoid"].toString()).then((value){
-                          setState(() {
-                            reg.pickcity;
-                          });
+                    reg
+                        .cityselection(reg.dropdownvalue["geoid"].toString())
+                        .then((value) {
+                      setState(() {
+                        reg.pickcity;
                       });
-
+                    });
                   },
                   style: const TextStyle(color: Colors.black),
                 ),
@@ -1767,28 +2045,27 @@ Widget buttontab(){
             ),
 
             Container(
-               margin: Responsive.isMobile(context)
-                  ? EdgeInsets.fromLTRB(15, 0, 15, 0)
-                  : EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 7.5,
+                margin: Responsive.isMobile(context)
+                    ? EdgeInsets.fromLTRB(15, 0, 15, 0)
+                    : EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 7.5,
                       ),
                 child: Text('Select Your City',
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Sora',
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ))),
             const SizedBox(height: 10),
             Container(
-             margin: Responsive.isMobile(context)
+              margin: Responsive.isMobile(context)
                   ? EdgeInsets.fromLTRB(15, 0, 15, 0)
                   : EdgeInsets.only(
                       left: MediaQuery.of(context).size.width / 7.5,
-                      ),
+                    ),
               width: Responsive.isMobile(context)
                   ? MediaQuery.of(context).size.width / 1
-
-                      : MediaQuery.of(context).size.width / 2.5,
+                  : MediaQuery.of(context).size.width / 2.5,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
                   border:
@@ -1806,9 +2083,8 @@ Widget buttontab(){
                           color: Styles.whitecustomlable, fontSize: 14)),
                   icon: InkWell(
                       child: Icon(
-                        Icons.keyboard_arrow_down,
-
-                      )),
+                    Icons.keyboard_arrow_down,
+                  )),
                   items: reg.pickcity.map((dynamic item) {
                     return DropdownMenuItem(
                         value: item,
@@ -1840,7 +2116,7 @@ Widget buttontab(){
               controller: reg.postalCodeController,
               obsecureText: false,
               inputDecoration: InputDecoration(
-                  hoverColor: Colors.transparent,
+                hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Your Postal Code',
@@ -1891,16 +2167,15 @@ Widget buttontab(){
         onTap: () {
           if (reg.firstNameController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your First name");
-          }
-            else if (reg.dateOfBrithController.text.isEmpty) {
+          } else if (reg.dateOfBrithController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Date of birth");
           } else if (reg.addressController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your address");
           } else if (reg.mobileNoController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your mobile no");
-          }else if (reg.dropdownvalueCity != null) {
+          } else if (reg.dropdownvalueCity != null) {
             Fluttertoast.showToast(msg: "Select City");
-          }  else if (reg.postalCodeController.text.isEmpty) {
+          } else if (reg.postalCodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your postalcode");
           } else {
             reg.profileInformatrion();
