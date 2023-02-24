@@ -196,7 +196,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   ),
                 )
               : Text(
-                  'Hey ${reg.firstNameController.text}! ',
+                  'Hey ${reg.firstNameController.text} Tell About Your Self! ',
                   style: TextStyle(
                     fontSize: 28,
                     fontFamily: 'Sora',
