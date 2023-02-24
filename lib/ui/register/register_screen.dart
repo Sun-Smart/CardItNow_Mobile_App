@@ -1,3 +1,5 @@
+
+
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print
 
 import 'dart:ui';
@@ -125,6 +127,8 @@ class _RegisterState extends State<Register> {
                                                         "geoid": con.dropdownvalue["geoid"].toString()
                                                       };
                                                       con.registerSignAPI(userDatas);
+                                                      GetStorage().write('username', userData['name']
+                                                      );
 
                                                     }
                                                     else {
@@ -239,60 +243,49 @@ class _RegisterState extends State<Register> {
                                                           Color(0XFFffffff),
                                                       splashColor: Colors
                                                           .green, // splash color
-                                                      onTap: () async{
-                                                        if(isChecked == true){
-                                                          FacebookAuth.instance.login(
-                                                              permissions: ["public_profile", "email"]).then((value) {
-                                                           if(value.accessToken != null) {
-                                                             FacebookAuth
-                                                                 .instance
-                                                                 .getUserData()
-                                                                 .then((
-                                                                 userData) {
-                                                               setState(() {
-                                                                 isLoggedIn =
-                                                                 true;
-                                                                 userObj =
-                                                                     userData;
-                                                               });
-                                                               if (isLoggedIn ==
-                                                                   true) {
-                                                                 con
-                                                                     .emailController
-                                                                     .text =
-                                                                 userData["email"];
-                                                                 print(userData
-                                                                     .toString());
-                                                                 var userDatas = {
-                                                                   "email": userData["email"]
-                                                                       .toString(),
-                                                                   "firstname": userData['name']
-                                                                       .toString(),
-                                                                   "lastname": "",
-                                                                   "socialid": userData['id']
-                                                                       .toString(),
-                                                                   "mediatype": "Facebook",
-                                                                   "mobile":"",
-                                                                   "geoid": con.dropdownvalue["geoid"].toString()
-                                                                 };
-                                                                 con
-                                                                     .registerSignAPI(
-                                                                     userDatas);
-                                                               } else {
-                                                                 Fluttertoast
-                                                                     .showToast(
-                                                                     msg: "Check Your Facebook Account");
-                                                               }
-                                                             });
-                                                           }
-                                                           else{
-                                                             Fluttertoast.showToast(msg: "Please Check Auth");
-                                                           }
-                                                          });
-                                                        }else{
-                                                          Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
-                                                        }
-                                                      }, // button pressed
+                                                      onTap: () {
+                                              if(isChecked == true){
+                                                FacebookAuth.instance.login(
+                                                    permissions: ["public_profile", "email"]).then((value) {
+                                                  FacebookAuth.instance.getUserData().then((userData) {
+                                                    setState(() {
+                                                      isLoggedIn = true;
+                                                      userObj = userData;
+                                                    });
+
+
+                                                    if (userData["email"] == null) {
+                                                      Fluttertoast.showToast(msg: "Your Facebook Account not registerd with Email");
+                                                    }
+                                                    else if(
+                                                    isLoggedIn == true
+                                                    ){
+                                                      con.emailController.text = userData["email"];
+                                                      print(userData.toString());
+                                                      var userDatas = {
+                                                        "email": userData["email"].toString(),
+                                                        "firstname": userData['name'].toString(),
+                                                        "lastname": "",
+                                                        "socialid": userData['id'].toString(),
+                                                        "mediatype": "Facebook",
+                                                       "mobile":"",
+                                                        "geoid": con.dropdownvalue["geoid"].toString()
+                                                      };
+                                                      con.registerSignAPI(userDatas);
+                                                      GetStorage().write('username', userData['name']
+                                                      );
+
+                                                    }
+                                                    else {
+                                                      Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                                    }
+                                                  });
+                                                });
+                                              }else{
+                                                Fluttertoast.showToast(msg: "Please Check Privacy Clause");
+                                              }
+
+                                            }, //tton pressed
                                                       child: Padding(
                                                           padding:
                                                               EdgeInsets.all(
@@ -430,6 +423,8 @@ class _RegisterState extends State<Register> {
                                                           //         "mediatype": "Facebook"
                                                           //       };
                                                           //       con.registerSignAPI(userDatas);
+                                                          //       GetStorage().write('username', userData['name']
+                                                          //       );
                                                           //     } else {
                                                           //       Fluttertoast.showToast(msg: "Check Your Facebook Account");
                                                           //     }
@@ -675,14 +670,14 @@ class _RegisterState extends State<Register> {
                       if (formKey.currentState!.validate()) {
                       } else if (isChecked == false) {
                         Fluttertoast.showToast(
-                            msg: "Please Accept Terms and conditions");
+                            msg: "Please Accept Privacy Clause");
                       }
 
                       if (con.emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: 'Enter your Email Id');
                       } else if (isChecked == false) {
                         Fluttertoast.showToast(
-                            msg: "Please Accept Terms and conditions");
+                            msg: "Please Accept  Privacy Clause");
                       } else {
                         con.registerAPI(
                             con.emailController.text.toString()
@@ -1125,7 +1120,7 @@ class _RegisterState extends State<Register> {
             if(isChecked==true){
               AuthService().signinWithGoogle();
             }else{
-              Fluttertoast.showToast(msg: "Please Check Terms and Conditions");
+              Fluttertoast.showToast(msg: "Please Check Privacy Clause");
             }
             }, // button pressed
             child: Row(
@@ -1156,31 +1151,33 @@ class _RegisterState extends State<Register> {
 
 
   showAlertDialog(BuildContext context) {
-    Widget okButton = Container(
-        alignment: Alignment.center,
-        // width:Responsive.isMobile(context)? 300:MediaQuery.of(context).size.width / 5,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: Color(0XFF004751)),
-        margin: EdgeInsets.all(15),
-        child: InkWell(
-          highlightColor: Color(0XFF004751),
-          focusColor: Color(0XFF004751),
-          splashColor: Colors.green, // splash color
-          onTap: () {
-            setState(() {
-              Navigator.pop(context);
-              isChecked = true;
-            });
-          }, // button pressed
-          child: const Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              "Accept and Proceed",
-              style: TextStyle(color: Color(0XFFCEE812), fontSize: 12),
+    Widget okButton = Center(
+      child: Container(
+          alignment: Alignment.center,
+          width:Responsive.isMobile(context)? 300:MediaQuery.of(context).size.width / 4,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8), color: Color(0XFF004751)),
+          margin: EdgeInsets.all(15),
+          child: InkWell(
+            highlightColor: Color(0XFF004751),
+            focusColor: Color(0XFF004751),
+            splashColor: Colors.green, // splash color
+            onTap: () {
+              setState(() {
+                Navigator.pop(context);
+                isChecked = true;
+              });
+            }, // button pressed
+            child: const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                "Accept and Proceed",
+                style: TextStyle(color: Color(0XFFCEE812), fontSize: 12),
+              ),
+              // text
             ),
-            // text
-          ),
-        ));
+          )),
+    );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -1188,13 +1185,13 @@ class _RegisterState extends State<Register> {
       content: Container(
         margin: EdgeInsets.all(5),
         height:
-            //  Responsive.isMobile(context)
-            MediaQuery.of(context).size.height / 1,
-        // : MediaQuery.of(context).size.height / 2,
+              Responsive.isMobile(context)?
+            MediaQuery.of(context).size.height / 1
+         : MediaQuery.of(context).size.height / 2,
         width:
-            // Responsive.isMobile(context)
-            MediaQuery.of(context).size.width / 1,
-        // : MediaQuery.of(context).size.width / 2,
+             Responsive.isMobile(context)?
+            MediaQuery.of(context).size.width / 1
+        : MediaQuery.of(context).size.width / 2,
         child: ListView.builder(
             itemCount: con.termscond.length,
             itemBuilder: (BuildContext context, int index) {

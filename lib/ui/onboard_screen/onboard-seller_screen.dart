@@ -404,7 +404,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12 ,),
-                      Text("Account Holder Name"),
+                      Text("Account Holder Name",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -453,7 +454,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12 ,),
-                      Text("Seller’s Email "),
+                      Text("Seller’s Email ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -504,7 +506,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12 ,),
-                      Text("Business Reg Number "),
+                      Text("Business Reg Number ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -552,7 +555,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12 ,),
-                      Text("Phone Number "),
+                      Text("Phone Number ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -601,7 +605,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12,),
-                      Text("Select Bank "),
+                      Text("Select Bank ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),
                 
@@ -663,7 +668,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12 ,),
-                      Text("Account Number "),
+                      Text("Account Number ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),SizedBox(height: 10,),
                 
@@ -712,7 +718,8 @@ class _OnboardSellerState extends State<OnboardSeller> {
                     children: [
                       SizedBox(width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
                   MediaQuery.of(context).size.width/12,),
-                      Text("Enter Swift Code "),
+                      Text("Enter Swift Code ",
+                       style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold)),
                     ],
                   ),SizedBox(height: 10,),
                   Container(

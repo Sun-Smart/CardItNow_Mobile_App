@@ -98,8 +98,8 @@ class _HomeState extends State<Home> {
                                         : Colors.grey,
                                   ),
                                 )),
-                            SizedBox(
-                              width: 10,
+                            VerticalDivider(
+                              color: Colors.grey,
                             ),
                             GestureDetector(
                                 onTap: () {
@@ -4959,14 +4959,14 @@ class MyMenuBar extends StatefulWidget {
 }
 
 class _MyMenuBarState extends State<MyMenuBar> with TickerProviderStateMixin {
-late TabController tabController = TabController(length: 7, vsync: this);
+  late TabController tabController = TabController(length: 7, vsync: this);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 7,
       child: TabBar(
-          controller:tabController,
+          controller: tabController,
           labelPadding: EdgeInsets.zero,
           labelColor: Color(0XFF004751),
           labelStyle: TextStyle(
@@ -4988,7 +4988,7 @@ late TabController tabController = TabController(length: 7, vsync: this);
                       index: 0,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 0;
+                  tabController.index = 0;
 
                   //  drawerselection = items[0];
                 });
@@ -5006,7 +5006,7 @@ late TabController tabController = TabController(length: 7, vsync: this);
                       index: 2,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-tabController.index = 1;
+                  tabController.index = 1;
                   //drawerselection = items[0];
                 });
               },
@@ -5023,7 +5023,7 @@ tabController.index = 1;
                       index: 3,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 2;
+                  tabController.index = 2;
 
                   //drawerselection = items[2];
                 });
@@ -5041,7 +5041,7 @@ tabController.index = 1;
                       index: 4,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 3;
+                  tabController.index = 3;
 
                   // drawerselection = items[3];
                 });
@@ -5059,7 +5059,7 @@ tabController.index = 1;
                       index: 5,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 4;
+                  tabController.index = 4;
 
                   //  drawerselection = items[0];
                 });
@@ -5077,7 +5077,7 @@ tabController.index = 1;
                       index: 6,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 5;
+                  tabController.index = 5;
 
                   // drawerselection = items[0];
                 });
@@ -5095,7 +5095,7 @@ tabController.index = 1;
                       index: 6,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
-                      tabController.index = 6;
+                  tabController.index = 6;
 
                   ///  drawerselection = items[0];
                 });

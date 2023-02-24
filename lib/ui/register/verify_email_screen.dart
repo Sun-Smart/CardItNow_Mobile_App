@@ -115,10 +115,7 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
                                       MediaQuery.of(context).size.width / 4.8),
                               Text(
                                 "Enter the verification code ",
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 14,
-                                    color: Colors.black),
+                               style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -319,7 +316,7 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
               ),
               Positioned(
                   left: Responsive.isDesktop(context) ? 250 : 200,
-                  top: Responsive.isDesktop(context) ?5:5,
+                  top: Responsive.isDesktop(context) ?6:7,
                   // right: Responsive.isMobile(context)
                   //     ? 20
                   //     : Responsive.isDesktop(context)
