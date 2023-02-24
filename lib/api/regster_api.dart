@@ -158,6 +158,33 @@ class RegisterAPI extends GetxController with BaseController {
 
   }
 
+  //resendotp
+  void resend(email) async {
+    showLoading();
+    var body ={
+      "email":emailController.text,
+    };
+
+    var response = await BaseClient()
+        .post(API().ResendOTP, body)
+        .catchError(handleError);
+    if (response == null) return;
+
+    var data1 = json.decode(response);
+    var data = json.decode(data1);
+      print(data);
+
+    hideLoading();
+
+      if (data["status"]=="success") {
+        Fluttertoast.showToast(msg: data["message"].toString());
+      } else {
+        Fluttertoast.showToast(msg: data["message"].toString());
+      }
+    }
+
+
+
   //regsterApi
   void registerSignAPI(var body) async {
     showLoading();
