@@ -374,10 +374,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       Container(
                           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           child: Text('Select ID',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 14,fontWeight: FontWeight.bold,
-                                  color: Styles.whitecustomlable))),
+                               style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -438,11 +435,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                       Container(
                           margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           child: Text('Scan your ID',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable))),
+                               style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)),
                     ],
                   ),
                   SizedBox(height: 10,),
@@ -514,10 +507,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                  MediaQuery.of(context).size.width / 8  ),
                                     Text(
                           "Enter ID Number ",
-                          style: TextStyle(
-                               fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  color: Styles.whitecustomlable),
+                         style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
