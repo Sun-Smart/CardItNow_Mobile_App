@@ -143,9 +143,17 @@ class _PasscodeState extends State<Passcode> {
 
   Widget buildtitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Container(
+    return Responsive.isMobile(context)? Container(
         padding: EdgeInsets.all(15),
         child: Text('Set 6 Digit \nPasscode ',
+            style: TextStyle(
+                fontSize: 28,
+                color:
+                    themeChange.darkTheme ? Colors.white : HexColor('#004751'),
+                fontWeight: FontWeight.bold))):
+                Container(
+        padding: EdgeInsets.all(15),
+        child: Text('Set 6 Digit Passcode ',
             style: TextStyle(
                 fontSize: 28,
                 color:

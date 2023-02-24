@@ -248,7 +248,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  buildToptitle(),
+                                   Row(
+                                    children: [
+                                      BackButton(
+                  color:  Colors.black,
+                ),
+                                    ],
+                                  ),
+                                 // buildToptitle(),
                                   buildtitle(),
                                   bulidForm(),
                                   bulildbutton()
@@ -271,8 +278,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                           
-                            buildToptitle(),
+                             Row(
+                                    children: [
+                                      BackButton(
+                  color:  Colors.black,
+                ),
+                                    ],
+                                  ),
+                           // buildToptitle(),
                             buildtitle(),
                             bulidForm(),
                             bulildbutton()
