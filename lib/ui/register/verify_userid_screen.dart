@@ -784,7 +784,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               msg: 'Enter ${dropdownvalue} Number',
             );
           } else {
-            Get.to(AvatarPageView());
+            if(Responsive.isMobile(context)){
+   Get.to(AvatarPageView());
+            }else{
+               con.ocrdocument();
+            }
+         
             // con.ocrdocument();
           }
         },

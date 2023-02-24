@@ -2,6 +2,7 @@ import 'package:cardit/const/responsive.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:cardit/widgets/custom_input.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -25,12 +26,28 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   @override
   void initState() {
-    // print(reg.postalCodeController.text);
-    // if(reg.dropdownvalue!=null){
-    //   reg.cityselection(reg.dropdownvalue["geoid"].toString());
-    // }
+    print(reg.postalCodeController.text);
+    if(reg.dropdownvalue!=null){
+      reg.cityselection(reg.dropdownvalue["geoid"].toString());
+    }
     // reg.assignProfileInfo();
-    // super.initState();
+    assignvaluesweb();
+    super.initState();
+  }
+
+  assignvaluesweb() {
+    if (kIsWeb) {
+      if (reg.profileinfo != {}) {
+        setState(() {
+          reg.firstNameController.text = reg.profileinfo["firstname"] ?? "";
+          reg.lastNameController.text = reg.profileinfo["lastname"] ?? "";
+          reg.dateOfBrithController.text = reg.profileinfo["dob"] ?? "";
+        });
+      }
+    } else {
+      
+      reg.assignProfileInfo();
+    }
   }
 
   @override
@@ -848,7 +865,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Address",
@@ -923,7 +940,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       width: 20,
                     ),
                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Building Name',
@@ -932,7 +949,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -1003,7 +1020,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Street Name',
@@ -1012,7 +1029,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -1135,7 +1152,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 30,
                 ),
                 Row(
