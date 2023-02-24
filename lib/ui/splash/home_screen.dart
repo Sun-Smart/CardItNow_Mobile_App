@@ -239,14 +239,25 @@ class _HomeState extends State<Home> {
                                                             : buildaboutweb())
                                             : index == 8
                                                 ? Container(
+                                                    margin: EdgeInsets.all(15),
                                                     child: Responsive.isMobile(
                                                             context)
-                                                        ? buildgetstarted()
+                                                        ? contactus()
                                                         : Responsive.isDesktop(
                                                                 context)
                                                             ? buildgetstartedweb()
                                                             : buildgetstartedweb())
-                                                : Container(
+                                                : index == 9
+                                                     ? Container(
+                                                      child: Responsive.isMobile(
+                                                          context)
+                                                          ? buildgetstarted()
+                                                          : Responsive.isDesktop(
+                                                          context)
+                                                          ? buildgetstartedweb()
+                                                          : buildgetstartedweb()) :
+
+                                                    Container(
                                                     child: Responsive.isMobile(
                                                             context)
                                                         ? buildgetstarted()
@@ -3981,131 +3992,145 @@ class buildabout extends StatelessWidget {
                 'Our aim is streamlining all your expenses in One App, Enjoy hassle free payments, interest free credit and bigger rewards.',
                 style: TextStyle(
                     fontSize: 12, fontFamily: 'Sora', color: Colors.black)),
-            SizedBox(height: 50),
-            Image.asset('assets/getintouch.png'),
-            SizedBox(height: 30),
-            Text('Your Name',
-                style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
-            SizedBox(height: 10),
-            TextFormField(
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    labelText: 'Enter your name',
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle:
-                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    focusColor: Colors.grey.shade300,
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        gapPadding: 7,
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorStyle: const TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold))),
-            SizedBox(height: 10),
-            Text('Email', style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
-            SizedBox(height: 10),
-            TextFormField(
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    labelText: 'Enter email id',
-                    filled: true,
-                    fillColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    helperStyle:
-                        const TextStyle(fontFamily: 'Sora', fontSize: 14),
-                    hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.normal),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    focusColor: Colors.grey.shade300,
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 1.0)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        gapPadding: 7,
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    errorStyle: const TextStyle(
-                        fontFamily: 'Sora',
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold))),
-            SizedBox(height: 10),
-            Text('What do you want to tell us?',
-                style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
-            SizedBox(height: 10),
-            Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromRGBO(0, 71, 81, 0.2), width: 2),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Card(
-                    color: Colors.white,
-                    child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextField(
-                            maxLines: 8,
-                            decoration: InputDecoration.collapsed(
-                                hintText: "Write Something"))))),
-            SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: HexColor('#CEE812')),
-              child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                onPressed: () {},
-                child: Text('Ping Us',
-                    style: TextStyle(
-                      color: Color(0XFF004751),
-                      fontSize: 16,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-            ),
-            SizedBox(height: 50),
+
           ],
         ),
       ),
     );
   }
 }
+
+class contactus extends StatelessWidget {
+  const contactus({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:[
+        Image.asset('assets/getintouch.png'),
+        SizedBox(height: 30),
+        Text('Your Name',
+            style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+        SizedBox(height: 10),
+        TextFormField(
+            keyboardType: TextInputType.name,
+            decoration: InputDecoration(
+                labelText: 'Enter your name',
+                filled: true,
+                fillColor: Colors.white,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle:
+                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.normal),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold))),
+        SizedBox(height: 10),
+        Text('Email', style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+        SizedBox(height: 10),
+        TextFormField(
+            keyboardType: TextInputType.name,
+            decoration: InputDecoration(
+                labelText: 'Enter email id',
+                filled: true,
+                fillColor: Colors.white,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle:
+                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.normal),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15, horizontal: 15),
+                focusColor: Colors.grey.shade300,
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide:
+                    const BorderSide(color: Colors.grey, width: 1.0)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    gapPadding: 7,
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(color: Colors.grey)),
+                errorStyle: const TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold))),
+        SizedBox(height: 10),
+        Text('What do you want to tell us?',
+            style: TextStyle(fontFamily: 'Sora', fontSize: 16)),
+        SizedBox(height: 10),
+        Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                    color: Color.fromRGBO(0, 71, 81, 0.2), width: 2),
+                borderRadius: BorderRadius.circular(5)),
+            child: Card(
+                color: Colors.white,
+                child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: TextField(
+                        maxLines: 8,
+                        decoration: InputDecoration.collapsed(
+                            hintText: "Write Something"))))),
+        SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: HexColor('#CEE812')),
+          child: MaterialButton(
+            minWidth: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(20),
+            onPressed: () {},
+            child: Text('Ping Us',
+                style: TextStyle(
+                  color: Color(0XFF004751),
+                  fontSize: 16,
+                  fontFamily: 'Sora',
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
+        ),
+      ]
+    );
+  }
+}
+
+
 
 //for web(about us......)
 class buildaboutweb extends StatelessWidget {
