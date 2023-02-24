@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../api/regster_api.dart';
@@ -22,9 +24,34 @@ class VerifyEmail extends StatefulWidget {
   State<VerifyEmail> createState() => _VerifyEmailState();
 }
 
-class _VerifyEmailState extends State<VerifyEmail> {
+class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin{
   final formKey = GlobalKey<FormState>();
   final RegisterAPI con = Get.find();
+
+  int _counter = 0;
+   AnimationController? _controller;
+  int levelClock = 300;
+
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+        vsync: this,
+        duration: Duration(
+            seconds:
+            levelClock) // gameData.levelClock is a user entered number elsewhere in the applciation
+    );
+
+    _controller?.forward().whenComplete(() => Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please Click Resend"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -470,8 +497,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            con.registerAPI(
-                                con.emailController.text.toString());
+                           con.resend(con.emailController.text);
                             Fluttertoast.showToast(
                                 msg: "OTP Sent Successfully");
                           },
@@ -483,7 +509,21 @@ class _VerifyEmailState extends State<VerifyEmail> {
                                   color: Colors.teal)),
                         ),
                       ],
-                    )
+                    ),
+
+                          Countdown(
+                            animation: StepTween(
+                              begin: levelClock,
+                              end: 0,
+
+                            ).animate(_controller!), key: formKey,
+                          )
+
+
+                    // Text(
+                    //   '$_counter',style: TextStyle(color: Colors.black),
+                    //
+                    // ),
                   ],
                 ),
               ),
@@ -512,4 +552,52 @@ class _VerifyEmailState extends State<VerifyEmail> {
       text: "Next",
     );
   }
+  //otp timer
+
+  // otptimer() {
+  //   Timer  _timerCou;
+  //   var _timerCount = 300.obs;
+  //   const oneSec =  Duration(seconds: 1);
+  //   _timerCou =  Timer.periodic(
+  //     oneSec,
+  //         (Timer timer) {
+  //       if (_timerCount.value == 0) {
+  //         timer.cancel();
+  //
+  //       } else {
+  //         _timerCount.value--;
+  //       }
+  //     },
+  //   );
+  // }
+
+
 }
+
+class Countdown extends AnimatedWidget {
+  Countdown({required Key key, required this.animation}) : super(key: key, listenable: animation);
+  Animation<int> animation;
+
+  @override
+  build(BuildContext context) {
+    Duration clockTimer = Duration(seconds: animation.value);
+
+    String timerText =
+        '${clockTimer.inMinutes.remainder(60).toString()}:${clockTimer.inSeconds.remainder(60).toString().padLeft(2, '0')}';
+
+    // print('animation.value  ${animation.value} ');
+    // print('inMinutes ${clockTimer.inMinutes.toString()}');
+    // print('inSeconds ${clockTimer.inSeconds.toString()}');
+    // print('inSeconds.remainder ${clockTimer.inSeconds.remainder(60).toString()}');
+
+    return Text(
+      "$timerText",
+      style: TextStyle(
+        fontSize: 20,
+        color: Colors.black,
+      ),
+    );
+  }
+}
+
+// Fluttertoast.showToast(msg: "Your Time limit Exceeded, please click Resend");
