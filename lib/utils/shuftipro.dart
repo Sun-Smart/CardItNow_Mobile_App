@@ -63,7 +63,7 @@ class Shuftipro{
     try{
      var response = await ShuftiproSdk.sendRequest(authObject: authObject,
           createdPayload: createdPayload, configObject: configObj);
-     var res = response;
+     var res = jsonDecode(response);
      if(res["event"] == "verification.accepted"){
        var body = jsonDecode(res["body"].toString());
        print(body.toString());
