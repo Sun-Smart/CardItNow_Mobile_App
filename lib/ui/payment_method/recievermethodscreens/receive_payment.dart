@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:cardit/ui/payment_method/recievermethodscreens/bankaccounts.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/payee_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -36,7 +36,7 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
                     color: HexColor('#004751'))),
             SizedBox(height: 30),
             selectCard(context, () {
-              Get.to(()=>Bankaccounts());
+              Get.to(()=>PayeeDetails());
             }, Icons.house_outlined, 'Bank Account'),
             SizedBox(height: 20),
             selectCard(context, () {
@@ -85,7 +85,7 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
                         color: HexColor('#004751'))),
                 SizedBox(height: 30),
                 selectCard(context, () {
-                  Get.to(()=>Bankaccounts());
+                  Get.to(()=>PayeeDetails());
                 }, Icons.house_outlined, 'Bank Account'),
                 SizedBox(height: 20),
                 selectCard(context, () {
@@ -135,7 +135,7 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
                         color: HexColor('#004751'))),
                 SizedBox(height: 30),
                 selectCard(context, () {
-                  Get.to(()=>Bankaccounts());
+                  Get.to(()=>PayeeDetails());
                 }, Icons.house_outlined, 'Bank Account'),
                 SizedBox(height: 20),
                 selectCard(context, () {
