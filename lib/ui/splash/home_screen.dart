@@ -245,8 +245,8 @@ class _HomeState extends State<Home> {
                                                         ? contactus()
                                                         : Responsive.isDesktop(
                                                                 context)
-                                                            ? buildgetstartedweb()
-                                                            : buildgetstartedweb())
+                                                            ?  ContactUsWeb()
+                                                            :  ContactUsWeb())
                                                 : index == 9
                                                      ? Container(
                                                       child: Responsive.isMobile(
@@ -4132,75 +4132,17 @@ class contactus extends StatelessWidget {
 
 
 
-//for web(about us......)
-class buildaboutweb extends StatelessWidget {
-  const buildaboutweb({super.key});
+
+//for web
+
+class ContactUsWeb extends StatelessWidget {
+  const ContactUsWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Responsive.isDesktop(context)
-        ? Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(15),
-                // width: MediaQuery.of(context).size.width / 1,
-                // height: MediaQuery.of(context).size.height / 1.5,
-
-                decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('About Us',
-                              style: TextStyle(
-                                  fontSize: 28,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text('Know More About us',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text(
-                              'Carditnow is a third party provider registered user\n SEC 2022070061722-06.  We adhere\n to the highest standards of security and\n compliance in the market where we operate\n, your transactions are processed through\n regulated financial institutions and\n via a client safeguarded account.',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text(
-                              'Our aim is streamlining all your expenses\n in One App, Enjoy hassle free payments,\n interest free credit and\n bigger rewards.',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          SizedBox(height: 50),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      // color: Colors.black,
-                      child: Image.asset(
-                        'assets/aboutusweb.png',
-                        width: 450,
-                        height: 420,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
+    return Responsive.isDesktop(context)? Column(
+      children: [
+           Container(
                   margin: EdgeInsets.all(15),
                   decoration:
                       BoxDecoration(color: Colors.grey.withOpacity(0.1)),
@@ -4356,67 +4298,11 @@ class buildaboutweb extends StatelessWidget {
                       ),
                     ],
                   )))
-            ],
-          )
-        : Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(15),
-                decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('About Us',
-                              style: TextStyle(
-                                  fontSize: 28,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text('Know More About us',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text(
-                              'Carditnow is a third party provider\n registered user SEC 2022070061722-06.\n  We adhere to the highest standards of\n security and compliance in the\n market where we operate, your transactions\n are processed through regulated\n financial institutions and via a \nclient safeguarded account.',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          SizedBox(height: 20),
-                          Text(
-                              'Our aim is streamlining all your\n expenses in One App, Enjoy hassle\n free payments, interest free credit\n and bigger rewards.',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          SizedBox(height: 50),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      // color: Colors.black,
-                      child: Image.asset(
-                        'assets/aboutusweb.png',
-                        width: 200,
-                        height: 300,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
+           
+      ],
+    ):Column(
+      children: [
+            Container(
                   margin: EdgeInsets.all(15),
                   decoration:
                       BoxDecoration(color: Colors.grey.withOpacity(0.1)),
@@ -4573,6 +4459,139 @@ class buildaboutweb extends StatelessWidget {
                       ),
                     ],
                   )))
+          
+      ],
+    );
+  }
+}
+//for web(about us......)
+class buildaboutweb extends StatelessWidget {
+  const buildaboutweb({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Responsive.isDesktop(context)
+        ? Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(15),
+                // width: MediaQuery.of(context).size.width / 1,
+                // height: MediaQuery.of(context).size.height / 1.5,
+
+                decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('About Us',
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text('Know More About us',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text(
+                              'Carditnow is a third party provider registered user\n SEC 2022070061722-06.  We adhere\n to the highest standards of security and\n compliance in the market where we operate\n, your transactions are processed through\n regulated financial institutions and\n via a client safeguarded account.',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text(
+                              'Our aim is streamlining all your expenses\n in One App, Enjoy hassle free payments,\n interest free credit and\n bigger rewards.',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
+                          SizedBox(height: 50),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      // color: Colors.black,
+                      child: Image.asset(
+                        'assets/aboutusweb.png',
+                        width: 450,
+                        height: 420,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+        : Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(15),
+                decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('About Us',
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text('Know More About us',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text(
+                              'Carditnow is a third party provider\n registered user SEC 2022070061722-06.\n  We adhere to the highest standards of\n security and compliance in the\n market where we operate, your transactions\n are processed through regulated\n financial institutions and via a \nclient safeguarded account.',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
+                          SizedBox(height: 20),
+                          Text(
+                              'Our aim is streamlining all your\n expenses in One App, Enjoy hassle\n free payments, interest free credit\n and bigger rewards.',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black)),
+                          SizedBox(height: 50),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      // color: Colors.black,
+                      child: Image.asset(
+                        'assets/aboutusweb.png',
+                        width: 200,
+                        height: 300,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           );
   }
@@ -5117,7 +5136,7 @@ class _MyMenuBarState extends State<MyMenuBar> with TickerProviderStateMixin {
               onTap: () {
                 setState(() {
                   widget.controller.scrollTo(
-                      index: 6,
+                      index: 8,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
                   tabController.index = 6;
