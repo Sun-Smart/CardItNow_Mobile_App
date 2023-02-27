@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../api/regster_api.dart';
@@ -26,16 +24,16 @@ class VerifyEmail extends StatefulWidget {
 
 class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin{
   final formKey = GlobalKey<FormState>();
+  final formKeytimer = GlobalKey<FormState>();
   final RegisterAPI con = Get.find();
 
-  int _counter = 0;
-   AnimationController? _controller;
+   AnimationController? _timercontroller;
   int levelClock = 300;
 
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _timercontroller?.dispose();
     super.dispose();
   }
 
@@ -43,14 +41,14 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
+    _timercontroller = AnimationController(
         vsync: this,
         duration: Duration(
             seconds:
             levelClock) // gameData.levelClock is a user entered number elsewhere in the applciation
     );
 
-    _controller?.forward().whenComplete(() => Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please Click Resend"));
+    _timercontroller?.forward().whenComplete(() => Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please Click Resend"));
   }
 
   @override
@@ -513,7 +511,7 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
                               begin: levelClock,
                               end: 0,
 
-                            ).animate(_controller!), key: formKey,
+                            ).animate(_timercontroller!), key: formKeytimer,
                           )
 
 

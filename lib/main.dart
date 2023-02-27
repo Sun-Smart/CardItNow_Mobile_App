@@ -17,6 +17,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'api/regster_api.dart';
 import 'base_client.dart';
+import 'ui/register/security_question.dart';
 
 DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 

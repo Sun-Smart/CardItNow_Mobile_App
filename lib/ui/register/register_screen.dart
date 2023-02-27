@@ -1181,7 +1181,7 @@ class _RegisterState extends State<Register> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Terms and Conditions."),
+      title: Text("Privacy Policy"),
       content: Container(
         margin: EdgeInsets.all(5),
         height:
@@ -1193,7 +1193,7 @@ class _RegisterState extends State<Register> {
             MediaQuery.of(context).size.width / 1
         : MediaQuery.of(context).size.width / 2,
         child: ListView.builder(
-            itemCount: con.termscond.length,
+            itemCount: con.privacycontent.length,
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1201,7 +1201,7 @@ class _RegisterState extends State<Register> {
                   Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                          con.termscond[index]["termdetails"].toString(),
+                          con.privacycontent["privacyclause"].toString(),
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontSize: 13,

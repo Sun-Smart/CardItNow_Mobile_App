@@ -59,6 +59,11 @@ class API {
 
   //Securitypost
 
-  String securitypost = "customersecurityquestion";
+  String securitypost = "customersecurityquestion/insertcustomerallsecurityquestions";
   String securitydetails = "customersecurityquestion/customerquestiondetail/";
+
+
+  //privacy clause
+
+  String privacyclausecontent = "common/GetPrivacyclause";
 }

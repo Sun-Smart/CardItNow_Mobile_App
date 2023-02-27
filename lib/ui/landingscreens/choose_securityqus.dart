@@ -62,7 +62,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                           physics: ScrollPhysics(),
                           itemCount: auth.securedetailslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            auth.controllers.add(new TextEditingController());
+                            auth.protectcontrollers.add(new TextEditingController());
                             return Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                                   ),
                                   TextFormField(
                                     textAlign: TextAlign.start,
-                                    controller:  auth.controllers[index],
+                                    controller:  auth.protectcontrollers[index],
                                     autofocus: false,
                                     keyboardType: TextInputType.text,),
                                 ],
@@ -367,7 +367,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                         if(auth.securityquestioncontroller.text.isEmpty){
                           Fluttertoast.showToast(msg: "Please Enter Your Answer");
                         }else{
-                          auth.securityPost();
+                          // auth.securityPost();
                         }
                       },
                       text: "Next",
@@ -387,7 +387,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
               if(auth.securityquestioncontroller.text.isEmpty){
                 Fluttertoast.showToast(msg: "Please Enter Your Answer");
               }else{
-                auth.securityPost();
+                // auth.securityPost();
               }
             },
             text: "Next",

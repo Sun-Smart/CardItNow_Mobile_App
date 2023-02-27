@@ -158,6 +158,7 @@ class _HomeState extends State<Home> {
                 fixedWidth: 100,
                 onValueChanged: (int value) {
                   if (value == 1) {
+                    // readJson();
                     Get.to(Country(choosetype: "Login"));
                   } else if (value == 2) {
                     Get.to(Country(choosetype: "Register"));
@@ -256,7 +257,6 @@ class _HomeState extends State<Home> {
                                                           context)
                                                           ? buildgetstartedweb()
                                                           : buildgetstartedweb()) :
-
                                                     Container(
                                                     child: Responsive.isMobile(
                                                             context)
@@ -316,6 +316,7 @@ class homeScrollWidget extends StatelessWidget {
                     color: Styles.whitecolortext,
                     fontSize: 22,
                     fontWeight: FontWeight.bold)),
+            // Text(mocktermscond[0]),
             RichText(
               text: TextSpan(
                 text: Responsive.isDesktop(context) &&

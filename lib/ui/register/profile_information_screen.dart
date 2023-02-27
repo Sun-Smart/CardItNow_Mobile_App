@@ -2182,7 +2182,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
-          if (reg.firstNameController.text.isEmpty) {
+          if (reg.firstNameController.text.isNotEmpty) {
             Fluttertoast.showToast(msg: "Enter your First name");
           } else if (reg.dateOfBrithController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your Date of birth");
@@ -2190,7 +2190,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             Fluttertoast.showToast(msg: "Enter your address");
           } else if (reg.mobileNoController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your mobile no");
-          } else if (reg.dropdownvalueCity != null) {
+          } else if (reg.dropdownvalueCity == null) {
             Fluttertoast.showToast(msg: "Select City");
           } else if (reg.postalCodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your postalcode");
