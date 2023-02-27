@@ -12,15 +12,18 @@ import '../ui/payment_method/recievermethodscreens/letsstartpage.dart';
 import '../ui/register/register_loading_screen.dart';
 
 class BankAPI extends GetxController with BaseController {
-  String? businessType;
-  var businessTypeList = ["LCU"];
-  final businessNameCnl = TextEditingController();
-  final businessRegNoCnl = TextEditingController();
+  String? payeeType = "Individual";
+  var payeeTypeList = ["Individual", "Company"];
+  String? accountType = "Saving";
+  var accountTypeList = ["Saving", "Current"];
   bool isVisibleToAll = false;
-
   var selectedBank;
+  final payeeCompanyNameCnl = TextEditingController();
+  final businessRegNoCnl = TextEditingController();
+  final firstNameCnl = TextEditingController();
+  final middleNameCnl = TextEditingController();
+  final lastNameCnl = TextEditingController();
   final accountNumberCnl = TextEditingController();
-  final swiftCodeCnl = TextEditingController();
   final branchAddressCnl = TextEditingController();
 
   //loginApi
@@ -32,7 +35,7 @@ class BankAPI extends GetxController with BaseController {
         "uid":"",
         "customertype":"R",
         "type":"B",
-        "businessname":businessNameCnl.text,
+        "businessname":payeeCompanyNameCnl.text,
         "ContactName":MyApp.logindetails["username"].toString(),
         "email": MyApp.logindetails["email"][0].toString(),
         "mobile":MyApp.logindetails["mobile"].toString(),
@@ -44,7 +47,7 @@ class BankAPI extends GetxController with BaseController {
         "accountname":accountNumberCnl.text,
         "visibletoall": isVisibleToAll,
         "bankname": selectedBank["bankname"],
-        "iban":swiftCodeCnl.text
+        "iban": ""
       };
     var response = await BaseClient()
         .post(API().addBankAccount, body)
@@ -62,13 +65,16 @@ class BankAPI extends GetxController with BaseController {
   }
 
   clearBank(){
-   businessType = null;
-   businessNameCnl.clear();
+   payeeType = "Individual";
+   accountType = "Saving";
+   payeeCompanyNameCnl.clear();
    businessRegNoCnl.clear();
    isVisibleToAll = false;
    selectedBank = null;
    accountNumberCnl.clear();
-   swiftCodeCnl.clear();
+   firstNameCnl.clear();
+   middleNameCnl.clear();
+   lastNameCnl.clear();
    branchAddressCnl.clear();
   }
 }
