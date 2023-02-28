@@ -34,7 +34,7 @@ class BankAPI extends GetxController with BaseController {
         "customerid": customerID.toString(),
         "uid":"",
         "customertype":"R",
-        "type":"B",
+        "type": payeeType == "Individual" ? "I" : "B",
         "businessname":payeeCompanyNameCnl.text,
         "ContactName":MyApp.logindetails["username"].toString(),
         "email": MyApp.logindetails["email"][0].toString(),
@@ -47,7 +47,11 @@ class BankAPI extends GetxController with BaseController {
         "accountname":accountNumberCnl.text,
         "visibletoall": isVisibleToAll,
         "bankname": selectedBank["bankname"],
-        "iban": ""
+        "iban": "",
+      "firstname":firstNameCnl.text,
+      "lastename": lastNameCnl.text,
+      "middlename": middleNameCnl.text,
+      "accounttype": accountType
       };
     var response = await BaseClient()
         .post(API().addBankAccount, body)
