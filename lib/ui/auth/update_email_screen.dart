@@ -180,7 +180,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
           IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black, size: 30),
             onPressed: () {
-              Get.back();
+             Get.back();
             },
           ),
           Container()
