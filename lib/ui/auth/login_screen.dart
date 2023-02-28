@@ -1,4 +1,6 @@
 
+
+
 import 'dart:ui';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/utils/gmail_auth_services.dart';
@@ -79,9 +81,24 @@ class _LoginState extends State<Login> {
                     height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
-                        child: Image.asset("assets/carditlogo.png",
-                            width: 130, height: 65)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
                   ),
+                ),
+                          ],
+                        )),
+                  ),
+                  
                   Container(
                     child: SingleChildScrollView(
                       child: Column(
