@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/themes/theme_notifier.dart';
-import 'package:cardit/ui/dashboard/paynow_menu/onboard_recipient_screen.dart';
+import 'package:cardit/ui/payment/payee_information.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
 import 'package:cardit/ui/lgu/choose_lgu_screen.dart';
 import 'package:cardit/ui/model_screen/dashboard_screen.dart';
@@ -220,14 +220,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       padding: EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
-          // if(recepient=='/selecttypeofrecipient'){
-
-          //   setState(() {
-          //     recepient;
-          //   });
-          // }
-          Get.to(onboardRecipient());
-          // Navigator.of(context).pushNamed('/selectdocuments');
+          Get.to(PayeeInformation());
         },
         child: Column(children: [
           Container(

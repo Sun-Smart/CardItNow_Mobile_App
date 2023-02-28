@@ -10,6 +10,7 @@ import 'package:cardit/ui/landingscreens/choose_securityqus.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
 import 'package:flutter/foundation.dart';
@@ -50,7 +51,6 @@ class RegisterAPI extends GetxController with BaseController {
   // geoaccess
   var geoacclist;
 
-
   var drawercountry = "CM".obs;
 
   var documenttypelist = [];
@@ -77,8 +77,6 @@ class RegisterAPI extends GetxController with BaseController {
   final securityquestioncontroller = TextEditingController();
   List<TextEditingController> protectcontrollers = [];
 
-
-
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
   dynamic countrywisedoc;
@@ -101,7 +99,6 @@ class RegisterAPI extends GetxController with BaseController {
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
 
-
   @override
   void onInit() {
     termsconditionsfun();
@@ -110,27 +107,27 @@ class RegisterAPI extends GetxController with BaseController {
     getSecurityQuestionAPI();
     privacypolicy();
 
-    if(GetStorage().read('save_token').toString() != "null"){
+    if (GetStorage().read('save_token').toString() != "null") {
       docselect();
       taxDetailsGetApi();
       banklistget();
       documenttypeget();
       paymentpurposeget();
       invoicegetmethod();
-
     }
     super.onInit();
   }
 
-  getLoginToken(){
+  getLoginToken() {
     var token = GetStorage().read('save_token');
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     print(payload);
     MyApp.logindetails = payload;
-    if(GetStorage().read("customer_type") != null){
+    if (GetStorage().read("customer_type") != null) {
       MyApp.logindetails["customertype"] = GetStorage().read("user_type");
     }
   }
+
   //regsterApi
   void registerAPI(email) async {
     showLoading();
@@ -147,10 +144,8 @@ class RegisterAPI extends GetxController with BaseController {
 
     var data1 = json.decode(response);
 
-
-
     hideLoading();
-    if(data1!="Your account already register"){
+    if (data1 != "Your account already register") {
       var data = json.decode(data1);
       GetStorage().write("custid", data["customerid"]);
       print(data);
@@ -237,19 +232,22 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
 
     hideLoading();
-    if(data !="Fail" && data != "not match"){
-      if (data=="Success") {
+    if (data != "Fail" && data != "not match") {
+      if (data == "Success") {
+        if (kIsWeb) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
+          Get.to(() => Passcode());
+        }
 
-        Get.to(() => Passcode());
         Fluttertoast.showToast(msg: "OTP validated");
       } else {
-
         Fluttertoast.showToast(msg: "OTP Not valid".toString());
       }
     }else{
       Fluttertoast.showToast(msg: "OTP Fail");
     }
-
   }
 
   // password
@@ -298,7 +296,12 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == 'success') {
-      Get.to(SecurityQuestion());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.to(SecurityQuestion());
+      }
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -342,7 +345,13 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == "success") {
-      Get.to(()=>passcodecongrats());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.to(() => passcodecongrats());
+      }
+
       // Get.to(VerifyUserId());
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
@@ -358,10 +367,10 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data != ""){
-
+    if (data != "") {
       termscond.clear();
-      termscond = data.where((element) => element["currentversion"] == true).toList();
+      termscond =
+          data.where((element) => element["currentversion"] == true).toList();
     }
   }
 
@@ -398,13 +407,15 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data != null) {
       profileinfo.value = data;
-       Get.to(AvatarPageView());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      }
+      // Get.to(AvatarPageView());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
   }
-
-
 
   void uploadDocx(email, docid) async {
     Get.to(Registerloading());
@@ -747,10 +758,16 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data != null){
-    Get.to(Twofactor());
-    }
-    else{
+    if (data != null) {
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+
+        // Get.to(termsandconditions());
+      } else {
+        Get.to(Twofactor());
+      }
+    } else {
       Fluttertoast.showToast(msg: "Something Went Wrong");
     }
   }

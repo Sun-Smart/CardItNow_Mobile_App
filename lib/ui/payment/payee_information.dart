@@ -4,31 +4,32 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../../../api/regster_api.dart';
-import '../../../const/responsive.dart';
-import '../../../widgets/auth_button.dart';
-import '../../../widgets/custom_input.dart';
+import '../../api/regster_api.dart';
+import '../../const/responsive.dart';
+import '../../widgets/auth_button.dart';
+import '../../widgets/custom_input.dart';
 
-class onboardRecipient extends StatefulWidget {
-  onboardRecipient({
+class PayeeInformation extends StatefulWidget {
+  PayeeInformation({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<onboardRecipient> createState() => _onboardRecipientState();
+  State<PayeeInformation> createState() => _PayeeInformationState();
 }
 
-class _onboardRecipientState extends State<onboardRecipient> {
+class _PayeeInformationState extends State<PayeeInformation> {
   final formKey = GlobalKey<FormState>();
   final _holdernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _businessController = TextEditingController();
   final _phonenumberController = TextEditingController();
   final _accountnumberController = TextEditingController();
-  final _swiftcodeController = TextEditingController();
   final nameRegExp =
       new RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
   String? dropdownvalue;
+  String? accountType = "Saving";
+  var accountTypeList = ["Saving", "Current"];
 
   final RegisterAPI con = Get.find();
   @override
@@ -47,7 +48,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                     ),
                     centerTitle: true,
                     title: const Text(
-                      'Onboard Payee',
+                      'Payee Information',
                       style: TextStyle(
                           color: Color(0Xff413D4B),
                           fontSize: 14,
@@ -92,7 +93,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             ],
                           ),
                           const Text(
-                            'Onboard Payee',
+                            'Payee Information',
                             style: TextStyle(
                                 color: Color(0Xff413D4B),
                                 fontSize: 17,
@@ -130,7 +131,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                               ],
                             ),
                             const Text(
-                              'Onboard Payee',
+                              'Payee Information',
                               style: TextStyle(
                                   color: Color(0Xff413D4B),
                                   fontSize: 17,
@@ -286,10 +287,10 @@ class _onboardRecipientState extends State<onboardRecipient> {
                         textInputAction: TextInputAction.next,
                         controller: _phonenumberController,
                         obsecureText: false,
-                        inputHint: 'Enter your Phone number',
+                        inputHint: 'Enter your Mobile number',
                         validator: (value) {
                           if (_phonenumberController.text.isEmpty) {
-                            return " Enter The Phone number";
+                            return " Enter The Mobile number";
                           } else {
                             return null;
                           }
@@ -301,7 +302,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2, color: Color(0xFFE5E5E5))),
-                            hintText: "Enter your Phone number",
+                            hintText: "Enter your Mobile number",
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2, color: Color(0xFFE5E5E5))),
@@ -434,46 +435,80 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(65, 61, 75, 0.6))),
                       ),
-                      MyCustomInputBox(
-                        enabled: true,
-                        label: "Enter Swift Code *",
-                        controller: _swiftcodeController,
-                        textInputType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        obsecureText: false,
-                        inputHint: 'Enter swift code of your Bank',
-                        validator: (value) {
-                          if (_swiftcodeController.text.isEmpty) {
-                            return " Enter swift code of your bank";
-                          } else {
-                            return null;
-                          }
-                        },
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        inputDecoration: const InputDecoration(
-                            border: OutlineInputBorder(
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Text('Account Type *',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  color: HexColor('#505050')))),
+                      const SizedBox(height: 5),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        width: MediaQuery.of(context).size.width / 1.1,
+
+                        /*  decoration: BoxDecoration(
+                        border: Border.all(color: Color(0XffB7C5C7), width: 1),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(3))),*/
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 0),
+                          child: DropdownButtonFormField(
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 2, color: Color(0xFFE5E5E5))),
-                            hintText: "Enter swift code of your Bank",
-                            focusedBorder: OutlineInputBorder(
+                                    width: 2, color: Color(0xFFE5E5E5)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 2, color: Color(0xFFE5E5E5))),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 2, color: Color(0xFFE5E5E5))),
-                            filled: true,
-                            fillColor: Colors.white,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle:
-                                TextStyle(fontFamily: 'Sora', fontSize: 14),
-                            hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Sora',
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                                    width: 2, color: Color(0xFFE5E5E5)),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2, color: Color(0xFFE5E5E5))),
+                            ),
+                            dropdownColor: Colors.white,
+                            isExpanded: true,
+                            value: accountType,
+                            hint: const Text('Account Type',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            icon: const InkWell(
+                              child: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.black45,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (accountType == null) {
+                                return " Enter Account Type";
+                              } else {
+                                return null;
+                              }
+                            },
+                            items: accountTypeList.map((item) {
+                              return DropdownMenuItem(
+                                value: item.toString(),
+                                child: Text(item.toString(),
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B),
+                                        fontSize: 14)),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                accountType = newValue!;
+                              });
+                            },
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
                       ),
+                      const SizedBox(height: 10),
                     ])))
         : Responsive.isDesktop(context)
             ? Container(
@@ -681,7 +716,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width / 4.8),
-                              Text("Phone Number",
+                              Text("Mobile Number",
                                   style: TextStyle(
                                       fontFamily: 'Sora',
                                       fontSize: 16,
@@ -700,7 +735,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                               obscureText: false,
                               validator: (value) {
                                 if (_phonenumberController.text.isEmpty) {
-                                  return " Enter The Phone number";
+                                  return " Enter The Mobile number";
                                 } else {
                                   return null;
                                 }
@@ -712,7 +747,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
-                                  hintText: "Enter your Phone number",
+                                  hintText: "Enter your Mobile number",
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
@@ -878,8 +913,8 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             children: [
                               SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width / 4.8),
-                              Text("Enter Swift Code",
+                                  MediaQuery.of(context).size.width / 4.8),
+                              Text("Account Type *",
                                   style: TextStyle(
                                       fontFamily: 'Sora',
                                       fontSize: 16,
@@ -891,51 +926,65 @@ class _onboardRecipientState extends State<onboardRecipient> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width / 4,
-                            child: TextFormField(
-                              enabled: true,
-                              //label: "Enter Swift Code *",
-                              controller: _swiftcodeController,
-                              // textInputType: TextInputType.text,
-                              textInputAction: TextInputAction.done,
-                              obscureText: false,
-                              // inputHint: 'Enter swift code of your Bank',
-                              validator: (value) {
-                                if (_swiftcodeController.text.isEmpty) {
-                                  return " Enter swift code of your bank";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: const InputDecoration(
-                                  hoverColor: Colors.transparent,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              child: DropdownButtonFormField(
+                                decoration: const InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5)),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5)),
+                                  ),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
-                                  hintText: "Enter swift code of your Bank",
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 2, color: Color(0xFFE5E5E5))),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 2, color: Color(0xFFE5E5E5))),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  helperStyle: TextStyle(
-                                      fontFamily: 'Sora', fontSize: 14),
-                                  hintStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w400,
-                                      color: Color.fromRGBO(65, 61, 75, 0.6))),
+                                ),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: accountType,
+                                hint: const Text('Select User Id',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Sora',
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                        Color.fromRGBO(65, 61, 75, 0.6))),
+                                icon: const InkWell(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.black45,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (accountType == null) {
+                                    return " Enter your Bank name";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                items: accountTypeList.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.toString(),
+                                    child: Text(item.toString(),
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    accountType = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 20,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -949,7 +998,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                 } else if (_phonenumberController
                                     .text.isEmpty) {
                                   Fluttertoast.showToast(
-                                      msg: "Enter the  Phone Number");
+                                      msg: "Enter the  Mobile Number");
                                 } else if (dropdownvalue!.isEmpty) {
                                   Fluttertoast.showToast(
                                       msg: "Select the bank");
@@ -957,9 +1006,9 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                     .text.isEmpty) {
                                   Fluttertoast.showToast(
                                       msg: "Enter the  account number");
-                                } else if (_swiftcodeController.text.isEmpty) {
+                                } else if (accountType == null) {
                                   Fluttertoast.showToast(
-                                      msg: "Enter the  Swift code");
+                                      msg: "Enter the  account type");
                                 } else {
                                   con.onboardPayee(
                                       _holdernameController.text.trim(),
@@ -968,7 +1017,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                       _phonenumberController.text.trim(),
                                       dropdownvalue,
                                       _accountnumberController.text.trim(),
-                                      _swiftcodeController.text.trim()
+                                      accountType
                                       // widget.documenttype,
                                       // widget.uploadoc
                                       );
@@ -1214,7 +1263,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                   width:
                                       MediaQuery.of(context).size.width / 11),
                               Text(
-                                "Phone Number",
+                                "Mobile Number",
                                 style: TextStyle(
                                     fontFamily: 'Sora',
                                     fontSize: 16,
@@ -1228,16 +1277,16 @@ class _onboardRecipientState extends State<onboardRecipient> {
                           Container(
                             width: MediaQuery.of(context).size.width / 2,
                             child: TextFormField(
-                              // label: "Phone Number *",
+                              // label: "Mobile Number *",
                               enabled: true,
                               // textInputType: TextInputType.phone,
                               textInputAction: TextInputAction.next,
                               controller: _phonenumberController,
                               obscureText: false,
-                              // inputHint: 'Enter your Phone number',
+                              // inputHint: 'Enter your Mobile number',
                               validator: (value) {
                                 if (_phonenumberController.text.isEmpty) {
-                                  return " Enter The Phone number";
+                                  return " Enter The Mobile number";
                                 } else {
                                   return null;
                                 }
@@ -1249,7 +1298,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
-                                  hintText: "Enter your Phone number",
+                                  hintText: "Enter your Mobile number",
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
@@ -1427,9 +1476,9 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             children: [
                               SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width / 11),
+                                  MediaQuery.of(context).size.width / 11),
                               Text(
-                                "Enter Swift Code",
+                                "Account Type *",
                                 style: TextStyle(
                                     fontFamily: 'Sora',
                                     fontSize: 16,
@@ -1441,52 +1490,72 @@ class _onboardRecipientState extends State<onboardRecipient> {
                             height: 10,
                           ),
                           Container(
+                            // margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
                             width: MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              //label: "Enter Swift Code *",
-                              controller: _swiftcodeController,
-                              // textInputType: TextInputType.text,
-                              textInputAction: TextInputAction.done,
-                              obscureText: false,
-                              // inputHint: 'Enter swift code of your Bank',
-                              validator: (value) {
-                                if (_swiftcodeController.text.isEmpty) {
-                                  return " Enter swift code of your bank";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: const InputDecoration(
-                                  hoverColor: Colors.transparent,
+
+                            /*  decoration: BoxDecoration(
+                        border: Border.all(color: Color(0XffB7C5C7), width: 1),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(3))),*/
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              child: DropdownButtonFormField(
+                                decoration: const InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5)),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5)),
+                                  ),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           width: 2, color: Color(0xFFE5E5E5))),
-                                  hintText: "Enter swift code of your Bank",
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 2, color: Color(0xFFE5E5E5))),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          width: 2, color: Color(0xFFE5E5E5))),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  helperStyle: TextStyle(
-                                      fontFamily: 'Sora', fontSize: 14),
-                                  hintStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w400,
-                                      color: Color.fromRGBO(65, 61, 75, 0.6))),
+                                ),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: accountType,
+                                hint: const Text('Account Type',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Sora',
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                        Color.fromRGBO(65, 61, 75, 0.6))),
+                                icon: const InkWell(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.black45,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (accountType == null) {
+                                    return " Enter your Bank name";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                items: accountTypeList.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.toString(),
+                                    child: Text(item.toString(),
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    accountType = newValue!;
+                                  });
+                                },
+                                style: const TextStyle(color: Colors.black),
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 20,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -1500,7 +1569,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                 } else if (_phonenumberController
                                     .text.isEmpty) {
                                   Fluttertoast.showToast(
-                                      msg: "Enter the  Phone Number");
+                                      msg: "Enter the  Mobile Number");
                                 } else if (dropdownvalue!.isEmpty) {
                                   Fluttertoast.showToast(
                                       msg: "Select the bank");
@@ -1508,9 +1577,9 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                     .text.isEmpty) {
                                   Fluttertoast.showToast(
                                       msg: "Enter the  account number");
-                                } else if (_swiftcodeController.text.isEmpty) {
+                                } else if (accountType == null) {
                                   Fluttertoast.showToast(
-                                      msg: "Enter the  Swift code");
+                                      msg: "Enter the  account type");
                                 } else {
                                   con.onboardPayee(
                                       _holdernameController.text.trim(),
@@ -1519,7 +1588,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
                                       _phonenumberController.text.trim(),
                                       dropdownvalue,
                                       _accountnumberController.text.trim(),
-                                      _swiftcodeController.text.trim()
+                                      accountType
                                       // widget.documenttype,
                                       // widget.uploadoc
                                       );
@@ -1562,13 +1631,13 @@ class _onboardRecipientState extends State<onboardRecipient> {
           } else if (_emailController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter the  Email");
           } else if (_phonenumberController.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter the  Phone Number");
+            Fluttertoast.showToast(msg: "Enter the  Mobile Number");
           } else if (dropdownvalue!.isEmpty) {
             Fluttertoast.showToast(msg: "Select the bank");
           } else if (_accountnumberController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter the  account number");
-          } else if (_swiftcodeController.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Enter the  Swift code");
+          } else if (accountType == null) {
+            Fluttertoast.showToast(msg: "Enter the  account type");
           } else {
             con.onboardPayee(
               _holdernameController.text.trim(),
@@ -1577,7 +1646,7 @@ class _onboardRecipientState extends State<onboardRecipient> {
               _phonenumberController.text.trim(),
               dropdownvalue,
               _accountnumberController.text.trim(),
-              _swiftcodeController.text.trim(),
+              accountType
               // widget.documenttype,
               // widget.uploadoc
             );

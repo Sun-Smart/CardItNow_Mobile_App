@@ -12,7 +12,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../../api/regster_api.dart';
 import '../../../const/responsive.dart';
 import '../../../themes/styles.dart';
-import 'onboard_recipient_screen.dart';
+import '../../payment/payee_information.dart';
 
 class SelectDocuments extends StatefulWidget {
   const SelectDocuments({super.key});
@@ -474,7 +474,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
         } else if (imagedoc2 == null) {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
-          Get.to(onboardRecipient(
+          Get.to(PayeeInformation(
           ));
         }},
       child: Container(
@@ -529,7 +529,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
         } else if (imagedoc2 == null) {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
-          Get.to(onboardRecipient(
+          Get.to(PayeeInformation(
           ));
         }},
       child: Container(
@@ -768,7 +768,7 @@ class _SelectDocumentsState extends State<SelectDocuments> {
         } else if (imagedoc2 == null) {
           Fluttertoast.showToast(msg: "Choose Your Document");
         } else {
-          Get.to(onboardRecipient(
+          Get.to(PayeeInformation(
           ));
         }
 },
