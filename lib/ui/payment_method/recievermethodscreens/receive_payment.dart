@@ -51,14 +51,14 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
       ):Responsive.isDesktop(context)?
       Row(
         children: [
-          Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3))),
+          // Container(
+          //           width: MediaQuery.of(context).size.width / 3,
+          //           height: MediaQuery.of(context).size.width / 1,
+          //           color: Color(0XFF004751),
+          //           child: Center(
+          //               child: Image.asset("assets/applogo-02.png",
+          //                   width: MediaQuery.of(context).size.width / 1.5,
+          //                   height: MediaQuery.of(context).size.height / 3))),
           Container(
               width: MediaQuery.of(context).size.width / 1.5,
             child: Column(
@@ -101,14 +101,14 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
         ],
       ):Row(
         children: [
-          Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                   // height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3))),
+          // Container(
+          //           width: MediaQuery.of(context).size.width / 3,
+          //          // height: MediaQuery.of(context).size.width / 1,
+          //           color: Color(0XFF004751),
+          //           child: Center(
+          //               child: Image.asset("assets/applogo-02.png",
+          //                   width: MediaQuery.of(context).size.width / 1.5,
+          //                   height: MediaQuery.of(context).size.height / 3))),
       Container(
           width: MediaQuery.of(context).size.width / 1.5,
         child: Column(

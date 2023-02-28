@@ -10,6 +10,7 @@ import 'package:cardit/ui/landingscreens/choose_securityqus.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
 import 'package:flutter/foundation.dart';
@@ -647,7 +648,12 @@ class RegisterAPI extends GetxController with BaseController {
         auth.onInit();
         GetStorage()
             .write("getuserid", MyApp.logindetails["userid"].toString());
-        Get.to(ChoosePaymentPage());
+        if (kIsWeb) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
+          Get.to(ChoosePaymentPage());
+        }
       }
 
       Fluttertoast.showToast(msg: "success");
@@ -714,7 +720,14 @@ class RegisterAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data != null) {
-      Get.to(Twofactor());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+
+        // Get.to(termsandconditions());
+      } else {
+        Get.to(Twofactor());
+      }
     } else {
       Fluttertoast.showToast(msg: "Something Went Wrong");
     }

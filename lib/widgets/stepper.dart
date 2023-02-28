@@ -1,12 +1,17 @@
 import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/bank_transection/loading_screen.dart';
+import 'package:cardit/ui/payment_method/choose_payment_method.dart';
+import 'package:cardit/ui/payment_method/make_payment.dart';
+import 'package:cardit/ui/payment_method/recievermethodscreens/receive_payment.dart';
 import 'package:cardit/ui/register/4digit_passcode_screen.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/security_question.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +49,7 @@ class _StepperWebState extends State<StepperWeb> {
     if (progress == 2 || progress == 3 || progress == 4||progress == 5 ) {
       return 2;
     }
- if (progress == 6 || progress == 7 ) {
+ if (progress == 6 || progress == 7 || progress == 8 ||progress == 9||progress == 10) {
       return 3;
     }
     if (progress > 7) {
@@ -124,6 +129,22 @@ class _StepperWebState extends State<StepperWeb> {
                           ),
                           Center(
                             child:SecurityQuestion(),
+                            //
+                          ),
+                           Center(
+                            child:termsandconditions(),
+                            //
+                          ),
+                          Center(
+                            child:ChoosePaymentPage(),
+                            //
+                          ),
+                           Center(
+                            child:MakePaymentPage(),
+                            //
+                          ),
+                           Center(
+                            child:ReceivePaymentPage(),
                             //
                           ),
                         ],

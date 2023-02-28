@@ -2,6 +2,7 @@
 
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/payment_method/recievermethodscreens/receive_payment.dart';
+import 'package:cardit/widgets/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -61,15 +62,15 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
           : Responsive.isDesktop(context)
               ? Row(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width / 3,
+                    //   height: MediaQuery.of(context).size.width / 1,
+                    //   color: Color(0XFF004751),
+                    //   child: Center(
+                    //       child: Image.asset("assets/applogo-02.png",
+                    //           width: MediaQuery.of(context).size.width / 1.5,
+                    //           height: MediaQuery.of(context).size.height / 3)),
+                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -89,12 +90,16 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                                     color: HexColor('#004751'))),
                             SizedBox(height: 30),
                             selectcardweb(context, () {
-                              Get.to(const MakePaymentPage());
+                                pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+                             // Get.to(const MakePaymentPage());
                             }, 'assets/card/up_arrow.png', 'Make Payments',
                                 'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
                             SizedBox(height: 20),
                             selectcardweb(context, () {
-                              Get.to(const ReceivePaymentPage());
+                                pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+                             // Get.to(const ReceivePaymentPage());
                             },
                                 'assets/banner/down_arrow.png',
                                 'Receive Payments',
@@ -106,15 +111,15 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                   ],
                 )
               : Row(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                 //   height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3)),
-                  ),
+                //   Container(
+                //     width: MediaQuery.of(context).size.width / 3,
+                //  //   height: MediaQuery.of(context).size.width / 1,
+                //     color: Color(0XFF004751),
+                //     child: Center(
+                //         child: Image.asset("assets/applogo-02.png",
+                //             width: MediaQuery.of(context).size.width / 1.5,
+                //             height: MediaQuery.of(context).size.height / 3)),
+                //   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -134,12 +139,16 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                                   color: HexColor('#004751'))),
                           SizedBox(height: 30),
                           selectcardweb(context, () {
-                            Get.to(const MakePaymentPage());
+                            pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+                           // Get.to(const MakePaymentPage());
                           }, 'assets/card/up_arrow.png', 'Make Payments',
                               'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
                           SizedBox(height: 20),
                           selectcardweb(context, () {
-                            Get.to(const ReceivePaymentPage());
+                              pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+                            //Get.to(const ReceivePaymentPage());
                           }, 'assets/banner/down_arrow.png', 'Receive Payments',
                               'Receive Payment via Carditnow and track \nyour finances.')
                         ],

@@ -29,6 +29,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
     securecontrollers.clear();
     super.initState();
   }
+
   List<TextEditingController> securecontrollers = [];
 
   @override
@@ -48,7 +49,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
               : null,
           body: Responsive.isMobile(context)
               ? SingleChildScrollView(
-                child: Container(
+                  child: Container(
                     margin: EdgeInsets.all(15),
                     child: Column(
                       children: [
@@ -68,330 +69,416 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                             SizedBox(
                               height: 40,
                             ),
-
-
                             ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 physics: ScrollPhysics(),
                                 itemCount: auth.securityQuestionList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  securecontrollers.add( TextEditingController());
+                                  securecontrollers
+                                      .add(TextEditingController());
                                   return Container(
-                                    width: MediaQuery.of(context).size.width/4.5,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           "${auth.securityQuestionList[index]["question"]}",
-                                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              fontFamily: 'Sora',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(height: 20),
                                         Container(
-                                            width: MediaQuery.of(context).size.width/4.5,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4.5,
                                           child: TextFormField(
-                                        
                                             textAlign: TextAlign.start,
-                                            controller: securecontrollers[index],
+                                            controller:
+                                                securecontrollers[index],
                                             autofocus: false,
                                             keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide:
-                                                BorderSide(
+                                                borderSide: BorderSide(
                                                   width: 1, //<-- SEE HERE
-                                                  color: Colors.black,),
-                                                borderRadius: BorderRadius.circular(10.0),
+                                                  color: Colors.black,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide:
-                                                BorderSide(
+                                                borderSide: BorderSide(
                                                   width: 1, //<-- SEE HERE
-                                                  color: Colors.black,),
-                                                borderRadius: BorderRadius.circular(10.0),
+                                                  color: Colors.black,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
                                               ),
                                             ),
-                                        
                                           ),
                                         ),
-                                        SizedBox(height: 10,)
+                                        SizedBox(
+                                          height: 10,
+                                        )
                                       ],
-                                    ),);}),
-                         
-
-
-
+                                    ),
+                                  );
+                                }),
                           ],
-
                         ),
-
-
-
                       ],
                     ),
                   ),
-              )
+                )
               : Responsive.isDesktop(context)
-                  ? Row(
-                      children: [
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width / 3,
-                        //   height: MediaQuery.of(context).size.width / 1,
-                        //   color: Color(0XFF004751),
-                        //   child: Center(
-                        //       child: Image.asset("assets/applogo-02.png",
-                        //           width:
-                        //               MediaQuery.of(context).size.width / 1.5,
-                        //           height:
-                        //               MediaQuery.of(context).size.height / 3)),
-                        // ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  BackButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    color: HexColor('#004751'),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Security Questions",
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontFamily: 'Sora',
-                                          fontWeight: FontWeight.bold,
-                                          color: HexColor('#004751'))),
-                                ],
-                              ),
-                              Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 40,
-                                    ),
-                                  
-                                
-                                   Container(
-                                      width: MediaQuery.of(context).size.width / 4.5,
-                                     child: ListView.builder(
-                                                                   shrinkWrap: true,
-                                                                   scrollDirection: Axis.vertical,
-                                                                   physics: ScrollPhysics(),
-                                                                   itemCount: auth.securityQuestionList.length,
-                                                                   itemBuilder: (BuildContext context, int index) {
-                                                                     securecontrollers.add( TextEditingController());
-                                                                     return Container(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ? SingleChildScrollView(
+
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Row(
+                              children: [
+                                // Container(
+                                //   width: MediaQuery.of(context).size.width / 3,
+                                //   height: MediaQuery.of(context).size.width / 1,
+                                //   color: Color(0XFF004751),
+                                //   child: Center(
+                                //       child: Image.asset("assets/applogo-02.png",
+                                //           width:
+                                //               MediaQuery.of(context).size.width / 1.5,
+                                //           height:
+                                //               MediaQuery.of(context).size.height / 3)),
+                                // ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 1.5,
+                                  child: Column(
+                                    children: [
+                                      Row(
                                         children: [
-                                          Text(
-                                            "${auth.securityQuestionList[index]["question"]}",
-                                            style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+                                          BackButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            color: HexColor('#004751'),
                                           ),
-                                          SizedBox(height: 20),
-                                          Container(
-                                            child: TextFormField(
-                                                                             
-                                              textAlign: TextAlign.start,
-                                              controller: securecontrollers[index],
-                                              autofocus: false,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderSide:
-                                                  BorderSide(
-                                                    width: 1, //<-- SEE HERE
-                                                    color: Colors.black,),
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide:
-                                                  BorderSide(
-                                                    width: 1, //<-- SEE HERE
-                                                    color: Colors.black,),
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                ),
-                                              ),
-                                                                             
-                                            ),
-                                          ),
-                                          SizedBox(height: 10,)
                                         ],
-                                      ),);}),
-                                   ),  SizedBox(
-                                      height: 20,
-                                    ),
-                                    
-                                  ],
-                                ),
-
-                              AuthButton(
-                                decoration: BoxDecoration(
-                                  color: HexColor('#CEE812'),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onTap: () {
-                                  var answerList = [];
-                                  for (var i = 0; i < securecontrollers.length; i++) {
-                                    if(securecontrollers[i].text.isNotEmpty) {
-                                      var body = {
-                                        "securityquestionid": null,
-                                        "customerid": int.parse(
-                                            GetStorage().read("custid")),
-                                        "questionid": auth
-                                            .securityQuestionList[i]["questionid"],
-                                        "answer": securecontrollers[i],
-                                        "status": ""
-                                      };
-                                      answerList.add(body);
-                                    }
-                                  }
-                                  if(answerList.length < 3){
-                                    Fluttertoast.showToast(msg: "You must answer 3 Questions");
-                                  }
-                                  else {
-                                    auth.securityPost(answerList);
-                                  }
-                                },
-                                text: "Next",
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width / 3,
-                        //   //  height: MediaQuery.of(context).size.width / 1,
-                        //   color: Color(0XFF004751),
-                        //   child: Center(
-                        //       child: Image.asset("assets/applogo-02.png",
-                        //           width:
-                        //               MediaQuery.of(context).size.width / 1.5,
-                        //           height:
-                        //               MediaQuery.of(context).size.height / 3)),
-                        // ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  BackButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    color: HexColor('#004751'),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Security Questions",
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          fontFamily: 'Sora',
-                                          fontWeight: FontWeight.bold,
-                                          color: HexColor('#004751'))),
-                                ],
-                              ), Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 40,
-                                    ),
-                                 ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                physics: ScrollPhysics(),
-                                itemCount: auth.securityQuestionList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  securecontrollers.add( TextEditingController());
-                                  return Container(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${auth.securityQuestionList[index]["question"]}",
-                                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: 20),
-                                        TextFormField(
-
-                                          textAlign: TextAlign.start,
-                                          controller: securecontrollers[index],
-                                          autofocus: false,
-                                          keyboardType: TextInputType.text,
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide:
-                                              BorderSide(
-                                                width: 1, //<-- SEE HERE
-                                                color: Colors.black,),
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide:
-                                              BorderSide(
-                                                width: 1, //<-- SEE HERE
-                                                color: Colors.black,),
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Security Questions",
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontFamily: 'Sora',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: HexColor('#004751'))),
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 40,
                                           ),
-
+                                          Container(
+                                            width:
+                                                MediaQuery.of(context).size.width / 4.5,
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.vertical,
+                                                physics: ScrollPhysics(),
+                                                itemCount:
+                                                    auth.securityQuestionList.length,
+                                                itemBuilder:
+                                                    (BuildContext context, int index) {
+                                                  securecontrollers
+                                                      .add(TextEditingController());
+                                                  return Container(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${auth.securityQuestionList[index]["question"]}",
+                                                          style: TextStyle(
+                                                              fontFamily: 'Sora',
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight.bold),
+                                                        ),
+                                                        SizedBox(height: 20),
+                                                        Container(
+                                                          width: MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4.5,
+                                                          child: TextFormField(
+                                                            textAlign: TextAlign.start,
+                                                            controller:
+                                                                securecontrollers[
+                                                                    index],
+                                                            autofocus: false,
+                                                            keyboardType:
+                                                                TextInputType.text,
+                                                            decoration: InputDecoration(
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                  width:
+                                                                      1, //<-- SEE HERE
+                                                                  color: Colors.black,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(10.0),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                  width:
+                                                                      1, //<-- SEE HERE
+                                                                  color: Colors.black,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(10.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                            AuthButton(
+                                        decoration: BoxDecoration(
+                                          color: HexColor('#CEE812'),
+                                          borderRadius: BorderRadius.circular(5),
                                         ),
-                                        SizedBox(height: 10,)
-                                      ],
-                                    ),);}), ],
-                                ),
-
-                              AuthButton(
-                                decoration: BoxDecoration(
-                                  color: HexColor('#CEE812'),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onTap: () {
-                                  var answerList = [];
-                                  for (var i = 0; i < securecontrollers.length; i++) {
-                                    if(securecontrollers[i].text.isNotEmpty) {
-                                      var body = {
-                                        "securityquestionid": null,
-                                        "customerid": int.parse(
-                                            GetStorage().read("custid")),
-                                        "questionid": auth
-                                          .securityQuestionList[i]["questionid"],
-                                        "answer": securecontrollers[i],
-                                        "status": ""
-                                      };
-                                      answerList.add(body);
-                                    }
-                                  }
-                                  if(answerList.length < 3){
-                                    Fluttertoast.showToast(msg: "You must answer 3 Questions");
-                                  }
-                                  else {
-                                    auth.securityPost(answerList);
-                                  }
-                                },
-                                text: "Next",
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                                        onTap: () {
+                                          var answerList = [];
+                                          print(auth.securityQuestionList[0]
+                                              ["questionid"]);
+                                          for (var i = 0;
+                                              i < securecontrollers.length;
+                                              i++) {
+                                            if (securecontrollers[i].text.isNotEmpty) {
+                                              var body = {
+                                                "securityquestionid": null,
+                                                "customerid": int.parse(
+                                                    GetStorage().read("custid")),
+                                                "questionid":
+                                                    auth.securityQuestionList[i]
+                                                        ["questionid"],
+                                                "answer": securecontrollers[i].text,
+                                                "status": ""
+                                              };
+                                              answerList.add(body);
+                                            }
+                                          }
+                                          if (answerList.length < 3) {
+                                            Fluttertoast.showToast(
+                                                msg: "You must answer 3 Questions");
+                                          } else {
+                                            auth.securityPost(answerList);
+                                          }
+                                        },
+                                        text: "Next",
+                                      )
+                                                               
+                                        ],
+                                      ),
+                                     ],
+                                  ),
+                                )
+                              ],
+                            ),
+                        ],
+                      ),
                     ),
+                  )
+                  : SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Row(
+                              children: [
+                                // Container(
+                                //   width: MediaQuery.of(context).size.width / 3,
+                                //   //  height: MediaQuery.of(context).size.width / 1,
+                                //   color: Color(0XFF004751),
+                                //   child: Center(
+                                //       child: Image.asset("assets/applogo-02.png",
+                                //           width:
+                                //               MediaQuery.of(context).size.width / 1.5,
+                                //           height:
+                                //               MediaQuery.of(context).size.height / 3)),
+                                // ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 1.5,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          BackButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            color: HexColor('#004751'),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Security Questions",
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  fontFamily: 'Sora',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: HexColor('#004751'))),
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 40,
+                                          ),
+                                          ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              physics: ScrollPhysics(),
+                                              itemCount:
+                                                  auth.securityQuestionList.length,
+                                              itemBuilder:
+                                                  (BuildContext context, int index) {
+                                                securecontrollers
+                                                    .add(TextEditingController());
+                                                return Container(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                              width:
+                                                                  MediaQuery.of(context)
+                                                                          .size
+                                                                          .width /
+                                                                      10),
+                                                          Text(
+                                                            "${auth.securityQuestionList[index]["question"]}",
+                                                            style: TextStyle(
+                                                                fontFamily: 'Sora',
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight.bold),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 20),
+                                                      Container(
+                                                        width: MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            2.5,
+                                                        child: TextFormField(
+                                                          textAlign: TextAlign.start,
+                                                          controller:
+                                                              securecontrollers[index],
+                                                          autofocus: false,
+                                                          keyboardType:
+                                                              TextInputType.text,
+                                                          decoration: InputDecoration(
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                width: 1, //<-- SEE HERE
+                                                                color: Colors.black,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      10.0),
+                                                            ),
+                                                            focusedBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                width: 1, //<-- SEE HERE
+                                                                color: Colors.black,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      10.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      ),
+                                      AuthButton(
+                                        decoration: BoxDecoration(
+                                          color: HexColor('#CEE812'),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        onTap: () {
+                                          var answerList = [];
+                                          print(auth.securityQuestionList[0]
+                                              ["questionid"]);
+                                          for (var i = 0;
+                                              i < securecontrollers.length;
+                                              i++) {
+                                            if (securecontrollers[i].text.isNotEmpty) {
+                                              var body = {
+                                                "securityquestionid": null,
+                                                "customerid": int.parse(
+                                                    GetStorage().read("custid")),
+                                                "questionid":
+                                                    auth.securityQuestionList[i]
+                                                        ["questionid"],
+                                                "answer": securecontrollers[i].text,
+                                                "status": ""
+                                              };
+                                              answerList.add(body);
+                                            }
+                                          }
+                                          if (answerList.length < 3) {
+                                            Fluttertoast.showToast(
+                                                msg: "You must answer 3 Questions");
+                                          } else {
+                                            auth.securityPost(answerList);
+                                          }
+                                        },
+                                        text: "Next",
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
           bottomNavigationBar: Responsive.isMobile(context)
               ? AuthButton(
                   decoration: BoxDecoration(
@@ -400,27 +487,26 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                   ),
                   onTap: () {
                     var answerList = [];
-                    print( auth.securityQuestionList[0]["questionid"]);
+                    print(auth.securityQuestionList[0]["questionid"]);
                     for (var i = 0; i < securecontrollers.length; i++) {
-
-                      if(securecontrollers[i].text.isNotEmpty) {
+                      if (securecontrollers[i].text.isNotEmpty) {
                         var body = {
                           "securityquestionid": null,
                           "customerid": int.parse(GetStorage().read("custid")),
-                          "questionid": auth.securityQuestionList[i]["questionid"],
+                          "questionid": auth.securityQuestionList[i]
+                              ["questionid"],
                           "answer": securecontrollers[i].text,
                           "status": ""
                         };
                         answerList.add(body);
                       }
                     }
-                    if(answerList.length < 3){
-                      Fluttertoast.showToast(msg: "You must answer 3 Questions");
-                    }
-                    else {
+                    if (answerList.length < 3) {
+                      Fluttertoast.showToast(
+                          msg: "You must answer 3 Questions");
+                    } else {
                       auth.securityPost(answerList);
                     }
-                   
                   },
                   text: "Next",
                 )
