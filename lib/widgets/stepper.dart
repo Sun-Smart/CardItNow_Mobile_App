@@ -1,14 +1,13 @@
-
 import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/bank_transection/loading_screen.dart';
+import 'package:cardit/ui/register/register_screen.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../ui/register/register_screen.dart';
 
  PageController? pageController;
 class StepperWeb extends StatefulWidget {
