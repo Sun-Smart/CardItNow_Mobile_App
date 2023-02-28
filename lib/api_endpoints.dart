@@ -61,6 +61,7 @@ class API {
 
   String securitypost = "customersecurityquestion/insertcustomerallsecurityquestions";
   String securitydetails = "customersecurityquestion/customerquestiondetail/";
+  String securityanswers = "customersecurityquestion/securityquestionscheck";
 
 
   //privacy clause

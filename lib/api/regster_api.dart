@@ -75,7 +75,7 @@ class RegisterAPI extends GetxController with BaseController {
   // login
   final emailController = TextEditingController();
   final securityquestioncontroller = TextEditingController();
-  List<TextEditingController> protectcontrollers = [];
+
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
@@ -336,7 +336,7 @@ class RegisterAPI extends GetxController with BaseController {
     var response = await BaseClient()
         .post(
             API().pinset +
-                '?email=${googleMail == '' ? email : googleMail}' +
+                '?email=${googleMail == '' ? email : email}' +
                 '&pin=' +
                 pin,
             body)
@@ -780,7 +780,36 @@ class RegisterAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    securedetailslist.value = data;
+    securedetailslist.value = data["customersecurityquestiondetail"];
+  }
+
+  //security questions check
+
+  void securitycheck(List checklist) async {
+
+    var storedquestions = {
+      "securityquestions":[{
+        "questiondetails": checklist
+      }]};
+
+    var response = await BaseClient()
+        .post(API().securityanswers,storedquestions)
+        .catchError(handleError);
+
+    if (response == null) return;
+    var data = json.decode(response);
+    if (data != null) {
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+
+        //
+      } else {
+        Get.to(UpdatePasswordCode());
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something Went Wrong");
+    }
   }
 
   //privacyclause get

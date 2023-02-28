@@ -782,7 +782,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
         onTap: () {
           if (reg.documentIDController.text.isEmpty) {
             Fluttertoast.showToast(
-              msg: 'Enter ${dropdownvalue} Number',
+              msg: 'Enter ${dropdownvalue.toString()} Number',
             );
           }
             else{

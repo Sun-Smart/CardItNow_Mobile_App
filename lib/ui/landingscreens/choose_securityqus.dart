@@ -3,6 +3,7 @@ import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../const/responsive.dart';
@@ -17,6 +18,7 @@ class ChooseSecQus extends StatefulWidget {
 
 class _ChooseSecQusState extends State<ChooseSecQus> {
   final RegisterAPI auth = Get.find();
+  List<TextEditingController> protectcontrollers = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,7 +64,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                           physics: ScrollPhysics(),
                           itemCount: auth.securedetailslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            auth.protectcontrollers.add(new TextEditingController());
+                            protectcontrollers.add(new TextEditingController());
                             return Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +75,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                                   ),
                                   TextFormField(
                                     textAlign: TextAlign.start,
-                                    controller:  auth.protectcontrollers[index],
+                                    controller:  protectcontrollers[index],
                                     autofocus: false,
                                     keyboardType: TextInputType.text,),
                                 ],
@@ -384,10 +386,25 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
               borderRadius: BorderRadius.circular(5),
             ),
             onTap: () {
-              if(auth.securityquestioncontroller.text.isEmpty){
-                Fluttertoast.showToast(msg: "Please Enter Your Answer");
-              }else{
-                // auth.securityPost();
+              var checklist = [];
+
+              for (var i = 0; i < protectcontrollers.length; i++) {
+                if (protectcontrollers[i].text.isNotEmpty) {
+                  var body = {
+                    "securityquestionid": auth.securedetailslist[i]["securityquestionid"],
+                    "customerid": int.parse(GetStorage().read("custid")),
+                    "questionid": auth.securedetailslist[i]["questionid"],
+                    "answer": protectcontrollers[i].text,
+                    "status": ""
+                  };
+                  checklist.add(body);
+                }
+              }
+              if (checklist.isEmpty) {
+                Fluttertoast.showToast(
+                    msg: "Please Enter Your Valid Answers");
+              } else {
+                auth.securitycheck(checklist);
               }
             },
             text: "Next",
