@@ -28,7 +28,7 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
   final RegisterAPI con = Get.find();
 
    AnimationController? _timercontroller;
-  int levelClock = 300;
+  int levelClock = 60;
 
 
   @override
@@ -48,7 +48,9 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
             levelClock) // gameData.levelClock is a user entered number elsewhere in the applciation
     );
 
-    _timercontroller?.forward().whenComplete(() => Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please Click Resend"));
+    _timercontroller?.forward().whenComplete(
+
+            () => Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please Click Resend"));
   }
 
   @override
@@ -332,7 +334,11 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
                       onPressed: () {
                         if (phonenumberController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter Your OTP");
-                        } else {
+                        }
+                        else if(_timercontroller!.isCompleted){
+                          Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please click Resend");
+                        }
+                        else {
                           // Get.to(VerifyUserId(value: widget.value));
                           con.verify(con.emailController.text,
                               phonenumberController.text);
@@ -435,7 +441,11 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
                       onPressed: () {
                         if (phonenumberController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter Your OTP");
-                        } else {
+                        }
+                        else if(_timercontroller!.isCompleted){
+                          Fluttertoast.showToast(msg: "Your Time Limit Exceeded Please click Resend");
+                        }
+                        else {
                           // Get.to(VerifyUserId(value: widget.value));
                           con.verify(con.emailController.text,
                               phonenumberController.text);
@@ -492,9 +502,15 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
                       children: [
                         GestureDetector(
                           onTap: () {
-                           con.resend(con.emailController.text);
-                            Fluttertoast.showToast(
-                                msg: "OTP Sent Successfully");
+                          if(_timercontroller!.isCompleted || _timercontroller!.isAnimating){
+                            restartTimer();
+                            con.resend(con.emailController.text);
+                          }
+                          else{
+
+                          }
+
+
                           },
                           child: Text(' Resend again',
                               style: TextStyle(
@@ -566,6 +582,12 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
   //   );
   // }
 
+  void restartTimer() {
+    setState(() {
+      _timercontroller!.reset();
+      _timercontroller!.forward();
+    });
+  }
 
 }
 
@@ -595,4 +617,3 @@ class Countdown extends AnimatedWidget {
   }
 }
 
-// Fluttertoast.showToast(msg: "Your Time limit Exceeded, please click Resend");
