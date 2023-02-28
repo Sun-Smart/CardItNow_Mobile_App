@@ -107,8 +107,8 @@ class RegisterAPI extends GetxController with BaseController {
     countryselection();
     getSecurityQuestionAPI();
     privacypolicy();
+
     if(GetStorage().read('save_token').toString() != "null"){
-      securitydetail();
       docselect();
       taxDetailsGetApi();
       banklistget();
@@ -537,8 +537,9 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data["status"] == "success") {
 
-      // Get.to(ChooseSecQus());
-      Get.to(UpdatePasswordCode());
+      Get.to(ChooseSecQus());
+      securitydetail();
+      // Get.to(UpdatePasswordCode());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -753,10 +754,9 @@ class RegisterAPI extends GetxController with BaseController {
     securedetailslist.value = data;
   }
 
-  //privacyclause
+  //privacyclause get
 
   void privacypolicy() async {
-
     var response = await BaseClient()
         .get(API().privacyclausecontent)
         .catchError(handleError);
@@ -764,9 +764,6 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
     privacycontent.value = data["privacypolicy"];
   }
-
-
-
 
   }
 

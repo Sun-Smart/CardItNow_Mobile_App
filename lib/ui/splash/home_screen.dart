@@ -310,6 +310,7 @@ class homeScrollWidget extends StatelessWidget {
               ? MainAxisAlignment.start
               : MainAxisAlignment.center,
           children: [
+
             Text("Simplify Payments",
                 textAlign: TextAlign.center,
                 style: TextStyle(
