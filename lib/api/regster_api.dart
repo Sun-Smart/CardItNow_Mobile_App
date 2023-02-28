@@ -30,8 +30,10 @@ import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/splash/home_screen.dart';
 import '../widgets/stepper.dart';
+
 var mocktermscond;
 var ShuftiProValues;
+
 class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
   var scandocs = '';
@@ -49,7 +51,6 @@ class RegisterAPI extends GetxController with BaseController {
 
   // geoaccess
   var geoacclist;
-
 
   var drawercountry = "CM".obs;
 
@@ -77,8 +78,6 @@ class RegisterAPI extends GetxController with BaseController {
   final securityquestioncontroller = TextEditingController();
   List<TextEditingController> protectcontrollers = [];
 
-
-
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
   dynamic countrywisedoc;
@@ -101,7 +100,6 @@ class RegisterAPI extends GetxController with BaseController {
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
 
-
   @override
   void onInit() {
     termsconditionsfun();
@@ -110,96 +108,83 @@ class RegisterAPI extends GetxController with BaseController {
     getSecurityQuestionAPI();
     privacypolicy();
 
-    if(GetStorage().read('save_token').toString() != "null"){
+    if (GetStorage().read('save_token').toString() != "null") {
       docselect();
       taxDetailsGetApi();
       banklistget();
       documenttypeget();
       paymentpurposeget();
       invoicegetmethod();
-
     }
     super.onInit();
   }
 
-  getLoginToken(){
+  getLoginToken() {
     var token = GetStorage().read('save_token');
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     print(payload);
     MyApp.logindetails = payload;
-    if(GetStorage().read("customer_type") != null){
+    if (GetStorage().read("customer_type") != null) {
       MyApp.logindetails["customertype"] = GetStorage().read("user_type");
     }
   }
+
   //regsterApi
   void registerAPI(email) async {
     showLoading();
-    var body ={
-    "email":emailController.text,
-    "geoid":dropdownvalue["geoid"]
+    var body = {"email": emailController.text, "geoid": dropdownvalue["geoid"]};
 
-    };
-
-    var response = await BaseClient()
-        .post(API().register, body)
-        .catchError(handleError);
+    var response =
+        await BaseClient().post(API().register, body).catchError(handleError);
     if (response == null) return;
 
     var data1 = json.decode(response);
 
-
-
     hideLoading();
-    if(data1!="Your account already register"){
+    if (data1 != "Your account already register") {
       var data = json.decode(data1);
       GetStorage().write("custid", data["customerid"]);
       print(data);
       print(data["OTP"]);
-      if (data["status"]=="success") {
-        if(kIsWeb){
-           pageController!.nextPage(
-                              duration: Duration(milliseconds: 200),
-                              curve: Curves.linear);
-        }
-        else{
-            Get.to(VerifyEmail());
+      if (data["status"] == "success") {
+        if (kIsWeb) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
+          Get.to(VerifyEmail());
         }
         Fluttertoast.showToast(msg: data["message"].toString());
       } else {
         Fluttertoast.showToast(msg: data["message"].toString());
       }
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "Your Account Already Register");
     }
-
   }
 
   //resendotp
   void resend(email) async {
     showLoading();
-    var body ={
-      "email":emailController.text,
+    var body = {
+      "email": emailController.text,
     };
 
-    var response = await BaseClient()
-        .post(API().ResendOTP, body)
-        .catchError(handleError);
+    var response =
+        await BaseClient().post(API().ResendOTP, body).catchError(handleError);
     if (response == null) return;
 
     var data1 = json.decode(response);
     var data = json.decode(data1);
-      print(data);
+    print(data);
 
     hideLoading();
 
-      if (data["status"]=="success") {
-        Fluttertoast.showToast(msg: data["message"].toString());
-      } else {
-        Fluttertoast.showToast(msg: data["message"].toString());
-      }
+    if (data["status"] == "success") {
+      Fluttertoast.showToast(msg: data["message"].toString());
+    } else {
+      Fluttertoast.showToast(msg: data["message"].toString());
     }
-
-
+  }
 
   //regsterApi
   void registerSignAPI(var body) async {
@@ -237,19 +222,22 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
 
     hideLoading();
-    if(data !="Fail" && data != "not match"){
-      if (data=="Success") {
+    if (data != "Fail" && data != "not match") {
+      if (data == "Success") {
+        if (kIsWeb) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
+          Get.to(() => Passcode());
+        }
 
-        Get.to(() => Passcode());
         Fluttertoast.showToast(msg: "OTP validated");
       } else {
-
         Fluttertoast.showToast(msg: "OTP Not valid".toString());
       }
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "OTP Fail");
     }
-
   }
 
   // password
@@ -276,7 +264,6 @@ class RegisterAPI extends GetxController with BaseController {
 
   //profile Infomation
   void profileInformatrion() async {
-
     var body = {
       "email": emailController.text,
       "firstname": firstNameController.text,
@@ -290,22 +277,25 @@ class RegisterAPI extends GetxController with BaseController {
       "postalcode": postalCodeController.text,
     };
     var response = await BaseClient()
-        .post(
-            API().updateProfileInformation ,
-            body)
+        .post(API().updateProfileInformation, body)
         .catchError(handleError);
     if (response == null) return;
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == 'success') {
-      Get.to(SecurityQuestion());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.to(SecurityQuestion());
+      }
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
   }
 
-  assignProfileInfo(){
-    if(ShuftiProValues != null) {
+  assignProfileInfo() {
+    if (ShuftiProValues != null) {
       var values = ShuftiProValues["verification_data"];
       var shuftiName = values["document"]["name"];
       var info = ShuftiProValues["info"]["geolocation"];
@@ -315,7 +305,8 @@ class RegisterAPI extends GetxController with BaseController {
       nickNameController.text = "";
       mobileNoController.text = "";
       dateOfBrithController.text = values["document"]["dob"] ?? "";
-      genderController.text = values["document"]["gender"] == "F" ? "Female" : "Male";
+      genderController.text =
+          values["document"]["gender"] == "F" ? "Female" : "Male";
       addressController.text = "";
       buildingNameController.text = "";
       streetNameController.text = "";
@@ -326,7 +317,6 @@ class RegisterAPI extends GetxController with BaseController {
 
   //pinset
   void pinsetapi(email, pin) async {
-
     print(email);
     print(pin);
     var body = {};
@@ -342,26 +332,32 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == "success") {
-      Get.to(()=>passcodecongrats());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.to(() => passcodecongrats());
+      }
+
       // Get.to(VerifyUserId());
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
+
   var currentversion;
   //terms and condition
   void termsconditionsfun() async {
-
     var response =
         await BaseClient().get(API().termsmaster).catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data != ""){
-
+    if (data != "") {
       termscond.clear();
-      termscond = data.where((element) => element["currentversion"] == true).toList();
+      termscond =
+          data.where((element) => element["currentversion"] == true).toList();
     }
   }
 
@@ -372,8 +368,7 @@ class RegisterAPI extends GetxController with BaseController {
     if (image != null) {
       var file = await http.MultipartFile.fromPath('Imagefile', image!.path);
       var response = await BaseClient()
-          .post(API().uploadAvator, body,
-              isMultiPart: true, file: file)
+          .post(API().uploadAvator, body, isMultiPart: true, file: file)
           .catchError(handleError);
       if (response == null) return;
       var data = json.decode(response);
@@ -398,27 +393,27 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data != null) {
       profileinfo.value = data;
-       Get.to(AvatarPageView());
+      if (kIsWeb) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      }
+      // Get.to(AvatarPageView());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
   }
-
-
 
   void uploadDocx(email, docid) async {
     Get.to(Registerloading());
     var body = {
       'email': email.toString(),
       'documenttype': choosedDocId.toString(),
-      'document':scandocs.toString(),
+      'document': scandocs.toString(),
       'documentid': docid.toString(),
       'selfi': uploadimg.toString()
     };
     var response = await BaseClient()
-        .post(
-            API().uploadProcessDocument,
-            body)
+        .post(API().uploadProcessDocument, body)
         .catchError(handleError);
     Get.back();
     if (response == null) return;
@@ -437,8 +432,6 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
     geoacclist = data[0];
   }
-
-
 
   //onboard payee
   void onboardPayee(firstName, email, businessRegnumber, phonenumber, bank,
@@ -503,14 +496,9 @@ class RegisterAPI extends GetxController with BaseController {
   //forgot password
   void updateForgotPassword(String password) async {
     showLoading();
-    var body = {
-      "email": emailController.text,
-      "pin": password
-    };
+    var body = {"email": emailController.text, "pin": password};
     var response = await BaseClient()
-        .post(
-        API().updateForgotPassword,
-        body)
+        .post(API().updateForgotPassword, body)
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
@@ -526,26 +514,22 @@ class RegisterAPI extends GetxController with BaseController {
     }
   }
 
-
-
   //forgot password otp
   void forgotPasswordOTP(String email) async {
     showLoading();
     var body = {"email": email};
     var response = await BaseClient()
         .post(
-      API().forgotSendOTP,
-      body,
-    )
+          API().forgotSendOTP,
+          body,
+        )
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
     var data1 = json.decode(response);
     var data = json.decode(data1);
 
-
     if (data["status"] == "success") {
-
       Get.to(ChooseSecQus());
       securitydetail();
       // Get.to(UpdatePasswordCode());
@@ -555,13 +539,11 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   //forgot otp verify
-  void forgotOTPVerify(String email,String otp) async {
+  void forgotOTPVerify(String email, String otp) async {
     showLoading();
-    var body = {"email": email,  "otp": otp};
+    var body = {"email": email, "otp": otp};
     var response = await BaseClient()
-        .post(
-        API().forgotOTPVerify,
-        body)
+        .post(API().forgotOTPVerify, body)
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
@@ -601,39 +583,33 @@ class RegisterAPI extends GetxController with BaseController {
 
   void countryselection() async {
     var response =
-    await BaseClient().get(API().countryselect).catchError(handleError);
+        await BaseClient().get(API().countryselect).catchError(handleError);
     if (response == null) return;
     var data = jsonDecode(response);
     pickcountry = data;
   }
 
-  cityselection(
-      String countryid
-      ) async {
+  cityselection(String countryid) async {
     dropdownvalueCity = null;
-    var response =
-    await BaseClient().get(API().cityselect+countryid).catchError(handleError);
+    var response = await BaseClient()
+        .get(API().cityselect + countryid)
+        .catchError(handleError);
     if (response == null) return;
     var data = jsonDecode(response);
     pickcity.value = data;
   }
 
-
   //cardstoken
 
   void cardsget(customerid) async {
-    var body = {
-    "customerid": customerid
-    };
-    var response = await BaseClient()
-        .post(API().newtoken, body)
-        .catchError(handleError);
+    var body = {"customerid": customerid};
+    var response =
+        await BaseClient().post(API().newtoken, body).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
       Get.to(ChoosePaymentPage());
-
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -642,20 +618,19 @@ class RegisterAPI extends GetxController with BaseController {
   //termsandconditions post
 
   void Termspost() async {
-
     DateTime datetime = DateTime.now();
     String dateaccpt = datetime.toString();
     var customerids = GetStorage().read("custid");
 
     var body = {
-      "customertermid":"" ,
+      "customertermid": "",
       "termid": termscond[0]["termid"],
-      "termiddesc":termscond[0]["termdetails"],
-      "version":termscond[0]["termid"],
-      "customerid":customerids,
-      "customeriddesc":"",
-      "dateofacceptance":dateaccpt,
-      "status":termscond[0]["status"]
+      "termiddesc": termscond[0]["termdetails"],
+      "version": termscond[0]["termid"],
+      "customerid": customerids,
+      "customeriddesc": "",
+      "dateofacceptance": dateaccpt,
+      "status": termscond[0]["status"]
     };
     var response = await BaseClient()
         .post(API().termsacceptance, body)
@@ -664,15 +639,15 @@ class RegisterAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data != null) {
-      if(data["token"] !=null){
+      if (data["token"] != null) {
         RegisterAPI auth = RegisterAPI();
         GetStorage().write("save_token", data["token"].toString());
         print(data["token"]);
         await auth.getLoginToken();
         auth.onInit();
-        GetStorage().write("getuserid", MyApp.logindetails["userid"].toString());
+        GetStorage()
+            .write("getuserid", MyApp.logindetails["userid"].toString());
         Get.to(ChoosePaymentPage());
-
       }
 
       Fluttertoast.showToast(msg: "success");
@@ -683,10 +658,11 @@ class RegisterAPI extends GetxController with BaseController {
 
   //countrywise document selection api
   void docselect() async {
-    if(dropdownvalue != null || MyApp.logindetails != null) {
+    if (dropdownvalue != null || MyApp.logindetails != null) {
       var body = {
-        "geoid": dropdownvalue != null ? dropdownvalue["geoid"].toString() : MyApp
-            .logindetails["geoid"]
+        "geoid": dropdownvalue != null
+            ? dropdownvalue["geoid"].toString()
+            : MyApp.logindetails["geoid"]
       };
       var response = await BaseClient()
           .post(API().countrydoc, body)
@@ -698,23 +674,18 @@ class RegisterAPI extends GetxController with BaseController {
     }
   }
 
-  void mandatoryPayeeAPI(String brn) async{
-    var body = {
-      "brn": brn
-    };
+  void mandatoryPayeeAPI(String brn) async {
+    var body = {"brn": brn};
     var response = await BaseClient()
         .post(API().mandatoryPayee, body)
         .catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data["mandatoryPayee"] != null){
-
-    }
+    if (data["mandatoryPayee"] != null) {}
   }
 
-  void getSecurityQuestionAPI() async{
-
+  void getSecurityQuestionAPI() async {
     var response = await BaseClient()
         .get(API().getSecurityQuestion)
         .catchError(handleError);
@@ -722,9 +693,7 @@ class RegisterAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
 
-    if(data != [])
-
-    {
+    if (data != []) {
       securityQuestionList.value = data;
     }
   }
@@ -732,22 +701,21 @@ class RegisterAPI extends GetxController with BaseController {
 //security question post api
 
   void securityPost(List answerList) async {
-
     var storedquestions = {
-    "securityquestions":[{
-    "questiondetails": answerList
-    }]};
+      "securityquestions": [
+        {"questiondetails": answerList}
+      ]
+    };
 
     var response = await BaseClient()
-        .post(API().securitypost,storedquestions)
+        .post(API().securitypost, storedquestions)
         .catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
-    if(data != null){
-    Get.to(Twofactor());
-    }
-    else{
+    if (data != null) {
+      Get.to(Twofactor());
+    } else {
       Fluttertoast.showToast(msg: "Something Went Wrong");
     }
   }
@@ -773,27 +741,14 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
     privacycontent.value = data["privacypolicy"];
   }
-
-  }
+}
 
 Future<void> readJson() async {
-  final String response = await rootBundle.loadString('assets/mockjsonfile.json');
+  final String response =
+      await rootBundle.loadString('assets/mockjsonfile.json');
   final data = await json.decode(response);
   print(data);
 
   mocktermscond.clear();
   mocktermscond = data;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,11 +1,14 @@
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
+
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../../widgets/stepper.dart';
 
 class passcodecongrats extends StatefulWidget {
   const passcodecongrats({Key? key}) : super(key: key);
@@ -18,7 +21,7 @@ class _passcodecongratsState extends State<passcodecongrats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#004751'),
+      backgroundColor: Responsive.isMobile(context)?HexColor('#004751'):Colors.white,
       body: Responsive.isMobile(context)?
       Center(
         child: Column(
@@ -94,7 +97,9 @@ class _passcodecongratsState extends State<passcodecongrats> {
             //     style: TextStyle(
            GestureDetector(
       onTap:(){
-         Get.to(VerifyUserId());
+        pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+      //  Get.to(VerifyUserId());
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

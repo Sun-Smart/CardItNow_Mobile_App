@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../api/regster_api.dart';
 import '../../main.dart';
 import '../../widgets/auth_button.dart';
+import '../../widgets/stepper.dart';
 
 class AvatarPageView extends StatefulWidget {
   const AvatarPageView({super.key});
@@ -193,43 +194,45 @@ class _AvatarPageViewState extends State<AvatarPageView> {
               )
             : Responsive.isDesktop(context)
                 ? Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width / 3,
+                    //   height: MediaQuery.of(context).size.width / 1,
+                    //   color: Color(0XFF004751),
+                    //   child: Center(
+                    //       child: Image.asset("assets/applogo-02.png",
+                    //             width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                    //           )),
+                    // ),
                     Container(
                       width: size.width / 1.5,
-                      child: Column(
-                        children: [
-                          buildToptitle(),
-                          Text("Select Your Avatar",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: HexColor('#413D4B'))),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          buildavatarweb()
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            buildToptitle(),
+                            Text("Select Your Avatar",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: HexColor('#413D4B'))),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            buildavatarweb()
+                          ],
+                        ),
                       ),
                     ),
                   ])
                 :Row(children: [
-                     Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                    //  height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                                width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                              )),
-                    ),
+                    //  Container(
+                    //   width: MediaQuery.of(context).size.width / 3,
+                    // //  height: MediaQuery.of(context).size.width / 1,
+                    //   color: Color(0XFF004751),
+                    //   child: Center(
+                    //       child: Image.asset("assets/applogo-02.png",
+                    //             width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                    //           )),
+                    // ),
                     Container(
                       width: size.width / 1.5,
                       child: SingleChildScrollView(
@@ -378,7 +381,11 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                       onTap: () {
                         print('dhamu' + type);
                         GetStorage().read("avatarpic");
-                        Get.to(const ProfileInformation());
+                        if(kIsWeb){
+  pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+                        }
+                       // Get.to(const ProfileInformation());
                       },
                       text: "Next",
                     ),

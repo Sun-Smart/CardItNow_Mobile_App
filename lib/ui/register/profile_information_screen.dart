@@ -85,15 +85,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
             )
           : Responsive.isDesktop(context)
               ? Row(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3)),
-                  ),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width / 3,
+                  //   height: MediaQuery.of(context).size.width / 1,
+                  //   color: Color(0XFF004751),
+                  //   child: Center(
+                  //       child: Image.asset("assets/applogo-02.png",
+                  //           width: MediaQuery.of(context).size.width / 1.5,
+                  //           height: MediaQuery.of(context).size.height / 3)),
+                  // ),
                   Container(
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
@@ -128,15 +128,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   )
                 ])
               : Row(children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    //   height: MediaQuery.of(context).size.width / 1,
-                    color: Color(0XFF004751),
-                    child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3)),
-                  ),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width / 3,
+                  //   //   height: MediaQuery.of(context).size.width / 1,
+                  //   color: Color(0XFF004751),
+                  //   child: Center(
+                  //       child: Image.asset("assets/applogo-02.png",
+                  //           width: MediaQuery.of(context).size.width / 1.5,
+                  //           height: MediaQuery.of(context).size.height / 3)),
+                  // ),
                   Container(
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: SingleChildScrollView(
@@ -1306,7 +1306,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           Fluttertoast.showToast(msg: "Enter your address");
                         } else if (reg.mobileNoController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your mobile no");
-                        } else if (reg.dropdownvalueCity != null) {
+                        } else if (reg.dropdownvalueCity == null) {
                           Fluttertoast.showToast(msg: "Select City");
                         } else if (reg.postalCodeController.text.isEmpty) {
                           Fluttertoast.showToast(msg: "Enter your postalcode");
@@ -1360,7 +1360,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               Fluttertoast.showToast(msg: "Enter your address");
             } else if (reg.mobileNoController.text.isEmpty) {
               Fluttertoast.showToast(msg: "Enter your mobile no");
-            } else if (reg.dropdownvalueCity != null) {
+            } else if (reg.dropdownvalueCity == null) {
               Fluttertoast.showToast(msg: "Select City");
             } else if (reg.postalCodeController.text.isEmpty) {
               Fluttertoast.showToast(msg: "Enter your postalcode");

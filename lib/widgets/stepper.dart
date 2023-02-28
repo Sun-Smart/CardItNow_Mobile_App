@@ -1,7 +1,11 @@
 import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/bank_transection/loading_screen.dart';
+import 'package:cardit/ui/register/4digit_passcode_screen.dart';
+import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
+import 'package:cardit/ui/register/profile_information_screen.dart';
 import 'package:cardit/ui/register/register_screen.dart';
+import 'package:cardit/ui/register/security_question.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:cardit/ui/register/verify_email_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
@@ -37,14 +41,16 @@ class _StepperWebState extends State<StepperWeb> {
     if(progress==1){
       return 1;
     }
-    if (progress == 2 || progress == 3 || progress == 4) {
+    if (progress == 2 || progress == 3 || progress == 4||progress == 5 ) {
       return 2;
     }
-
-    if (progress > 4) {
+ if (progress == 6 || progress == 7 ) {
+      return 3;
+    }
+    if (progress > 7) {
       progress = progress - 2;
     }
-    return progress;
+     return progress;
   }
   @override
   Widget build(BuildContext context) {
@@ -101,19 +107,22 @@ class _StepperWebState extends State<StepperWeb> {
                             child: VerifyEmail(),
                           ),
                           Center(
-                            child: VerifyUserId(),
+                            child: Passcode(),
                           ),
                           Center(
-                            child:AvatarPageView(),
+                            child:passcodecongrats(),
                           ),
                           Center(
-                            child: Text("VERIFICATION PAGE 2"),
+                            child:VerifyUserId(),
                           ),
                           Center(
-                            child: Text("VERIFICATION PAGE 2"),
+                            child: AvatarPageView(),
                           ),
                           Center(
-                            child: Text("PAGE 4"),
+                            child:ProfileInformation(),
+                          ),
+                          Center(
+                            child:SecurityQuestion(),
                           ),
                         ],
                       ),
