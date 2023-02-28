@@ -470,7 +470,7 @@ Widget buildformweb(){
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                                Get.to(() => UpdateEmailScreen());
+                                Get.offAll(() => UpdateEmailScreen());
                               },
                               child: Text(
                                 'Forgot Passcode?',
@@ -737,7 +737,7 @@ Widget buildformweb(){
                                         : HexColor('#004751')),
                               ),
                               onPressed: () {
-                                Get.offAll(() => UpdateEmailScreen());
+                                Get.to(() => UpdateEmailScreen());
                               },
                               child: Text(
                                 'Forgot Passcode?',
