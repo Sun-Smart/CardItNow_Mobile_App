@@ -75,7 +75,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                                           size: 30,
                                         ),
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                          Get.back();
                                         },
                                       ),
                                     ],

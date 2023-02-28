@@ -2189,7 +2189,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             Fluttertoast.showToast(msg: "Enter your address");
           } else if (reg.mobileNoController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your mobile no");
-          } else if (reg.dropdownvalueCity != null) {
+          } else if (reg.dropdownvalueCity == null) {
             Fluttertoast.showToast(msg: "Select City");
           } else if (reg.postalCodeController.text.isEmpty) {
             Fluttertoast.showToast(msg: "Enter your postalcode");

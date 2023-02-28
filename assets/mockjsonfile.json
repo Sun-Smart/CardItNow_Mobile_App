@@ -1,0 +1,17 @@
+[
+  {
+    "termid": 12,
+    "versionid": 12,
+    "termdetails": "Example Term List",
+    "currentversion": true,
+    "status": "A",
+    "termid": 12,
+    "termdetails": "Example Term List",
+    "currentversion": true,
+    "status": "A",
+    "createdby": 5,
+    "createddate": "2023-01-12T22:53:05.412",
+    "updatedby": null,
+    "updateddate": null
+  }
+]

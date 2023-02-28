@@ -11,7 +11,9 @@ import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
+import 'package:cardit/ui/register/twofactor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,7 +28,7 @@ import '../ui/register/security_question.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/splash/home_screen.dart';
-
+var mocktermscond;
 var ShuftiProValues;
 class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
@@ -61,6 +63,8 @@ class RegisterAPI extends GetxController with BaseController {
   //choose country
   var pickcountry = [];
   var securedetailslist = [].obs;
+  var privacycontent = {}.obs;
+  var questionslist = [].obs;
   RxList pickcity = [].obs;
   RxList pickdoc = [].obs;
 
@@ -69,7 +73,9 @@ class RegisterAPI extends GetxController with BaseController {
   // login
   final emailController = TextEditingController();
   final securityquestioncontroller = TextEditingController();
-  List<TextEditingController> controllers = [];
+  List<TextEditingController> protectcontrollers = [];
+
+
 
   dynamic dropdownvalue;
   dynamic dropdownvalueCity;
@@ -100,8 +106,9 @@ class RegisterAPI extends GetxController with BaseController {
     geoaccess();
     countryselection();
     getSecurityQuestionAPI();
+    privacypolicy();
+
     if(GetStorage().read('save_token').toString() != "null"){
-      securitydetail();
       docselect();
       taxDetailsGetApi();
       banklistget();
@@ -530,8 +537,9 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data["status"] == "success") {
 
-      // Get.to(ChooseSecQus());
-      Get.to(UpdatePasswordCode());
+      Get.to(ChooseSecQus());
+      securitydetail();
+      // Get.to(UpdatePasswordCode());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -714,24 +722,21 @@ class RegisterAPI extends GetxController with BaseController {
 
 //security question post api
 
-  void securityPost() async {
-    var customerids = GetStorage().read("custid");
+  void securityPost(List answerList) async {
 
-    var body =  {
-      "securityquestionid": null,
-      "customerid": int.parse(customerids),
-      "questionid":securequestions["questionid"],
-      "answer":securityquestioncontroller.text,
-      "status":""
-    };
+    var storedquestions = {
+    "securityquestions":[{
+    "questiondetails": answerList
+    }]};
+
     var response = await BaseClient()
-        .post(API().securitypost, body)
+        .post(API().securitypost,storedquestions)
         .catchError(handleError);
 
     if (response == null) return;
     var data = json.decode(response);
     if(data != null){
-    Get.to(termsandconditions());
+    Get.to(Twofactor());
     }
     else{
       Fluttertoast.showToast(msg: "Something Went Wrong");
@@ -749,7 +754,32 @@ class RegisterAPI extends GetxController with BaseController {
     securedetailslist.value = data;
   }
 
+  //privacyclause get
+
+  void privacypolicy() async {
+    var response = await BaseClient()
+        .get(API().privacyclausecontent)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    privacycontent.value = data["privacypolicy"];
   }
+
+  }
+
+Future<void> readJson() async {
+  final String response = await rootBundle.loadString('assets/mockjsonfile.json');
+  final data = await json.decode(response);
+  print(data);
+
+  mocktermscond.clear();
+  mocktermscond = data;
+
+}
+
+
+
+
 
 
 
