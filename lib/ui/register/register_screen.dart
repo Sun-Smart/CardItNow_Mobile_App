@@ -180,156 +180,159 @@ class _RegisterState extends State<Register> {
                 ))
               : Responsive.isDesktop(context)
                   ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width / 3,
+                        //   height: MediaQuery.of(context).size.width / 1,
+                        //   color: Color(0XFF004751),
+                        //   child: Center(
+                        //       child: Image.asset("assets/applogo-02.png",
+                        //           width:
+                        //               MediaQuery.of(context).size.width / 1.5,
+                        //           height:
+                        //               MediaQuery.of(context).size.height / 3)),
+                        // ),
                         Container(
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.width / 1,
-                          color: Color(0XFF004751),
-                          child: Center(
-                              child: Image.asset("assets/applogo-02.png",
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  height:
-                                      MediaQuery.of(context).size.height / 3)),
-                        ),
-                        SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  color: Styles.colorBackgroundBlock,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        alignment: Alignment.topLeft,
-                                        children: [
-                                          Container(
-                                              // decoration: BoxDecoration(
-                                              //   image: DecorationImage(
-                                              //       image: AssetImage("assets/backimg.png",),
-                                              //       fit: BoxFit.fill),
-                                              // ),
-
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                buildtitle(),
-                                                Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            4.3,
-                                                    // : MediaQuery.of(context).size.width / 2.5,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                        border: Border.all(
-                                                            color: Color(
-                                                                0XFFB7C5C7),
-                                                            width: 1.5),
-                                                        color:
-                                                            Colors.transparent),
-                                                    margin: EdgeInsets.all(15),
-                                                    child: InkWell(
-                                                      highlightColor:
-                                                          Color(0XFFffffff),
-                                                      focusColor:
-                                                          Color(0XFFffffff),
-                                                      splashColor: Colors
-                                                          .green, // splash color
-                                                      onTap: () {
-                                              if(isChecked == true){
-                                                FacebookAuth.instance.login(
-                                                    permissions: ["public_profile", "email"]).then((value) {
-                                                  FacebookAuth.instance.getUserData().then((userData) {
-                                                    setState(() {
-                                                      isLoggedIn = true;
-                                                      userObj = userData;
+                           width: MediaQuery.of(context).size.width / 1.5,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                    color: Styles.colorBackgroundBlock,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          alignment: Alignment.topLeft,
+                                          children: [
+                                            Container(
+                                                // decoration: BoxDecoration(
+                                                //   image: DecorationImage(
+                                                //       image: AssetImage("assets/backimg.png",),
+                                                //       fit: BoxFit.fill),
+                                                // ),
+                        
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    children: [
+                                                  buildtitle(),
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4.3,
+                                                      // : MediaQuery.of(context).size.width / 2.5,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(2),
+                                                          border: Border.all(
+                                                              color: Color(
+                                                                  0XFFB7C5C7),
+                                                              width: 1.5),
+                                                          color:
+                                                              Colors.transparent),
+                                                      margin: EdgeInsets.all(15),
+                                                      child: InkWell(
+                                                        highlightColor:
+                                                            Color(0XFFffffff),
+                                                        focusColor:
+                                                            Color(0XFFffffff),
+                                                        splashColor: Colors
+                                                            .green, // splash color
+                                                        onTap: () {
+                                                if(isChecked == true){
+                                                  FacebookAuth.instance.login(
+                                                      permissions: ["public_profile", "email"]).then((value) {
+                                                    FacebookAuth.instance.getUserData().then((userData) {
+                                                      setState(() {
+                                                        isLoggedIn = true;
+                                                        userObj = userData;
+                                                      });
+                        
+                        
+                                                      if (userData["email"] == null) {
+                                                        Fluttertoast.showToast(msg: "Your Facebook Account not registerd with Email");
+                                                      }
+                                                      else if(
+                                                      isLoggedIn == true
+                                                      ){
+                                                        con.emailController.text = userData["email"];
+                                                        print(userData.toString());
+                                                        var userDatas = {
+                                                          "email": userData["email"].toString(),
+                                                          "firstname": userData['name'].toString(),
+                                                          "lastname": "",
+                                                          "socialid": userData['id'].toString(),
+                                                          "mediatype": "Facebook",
+                                                         "mobile":"",
+                                                          "geoid": con.dropdownvalue["geoid"].toString()
+                                                        };
+                                                        con.registerSignAPI(userDatas);
+                                                        GetStorage().write('username', userData['name']
+                                                        );
+                        
+                                                      }
+                                                      else {
+                                                        Fluttertoast.showToast(msg: "Check Your Facebook Account");
+                                                      }
                                                     });
-
-
-                                                    if (userData["email"] == null) {
-                                                      Fluttertoast.showToast(msg: "Your Facebook Account not registerd with Email");
-                                                    }
-                                                    else if(
-                                                    isLoggedIn == true
-                                                    ){
-                                                      con.emailController.text = userData["email"];
-                                                      print(userData.toString());
-                                                      var userDatas = {
-                                                        "email": userData["email"].toString(),
-                                                        "firstname": userData['name'].toString(),
-                                                        "lastname": "",
-                                                        "socialid": userData['id'].toString(),
-                                                        "mediatype": "Facebook",
-                                                       "mobile":"",
-                                                        "geoid": con.dropdownvalue["geoid"].toString()
-                                                      };
-                                                      con.registerSignAPI(userDatas);
-                                                      GetStorage().write('username', userData['name']
-                                                      );
-
-                                                    }
-                                                    else {
-                                                      Fluttertoast.showToast(msg: "Check Your Facebook Account");
-                                                    }
                                                   });
-                                                });
-                                              }else{
-                                                Fluttertoast.showToast(msg: "Please Check Privacy Clause");
-                                              }
-
-                                            }, //tton pressed
-                                                      child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              SizedBox(
-                                                                  width: 30),
-                                                              Image.asset(
-                                                                  "assets/fb.png",
-                                                                  width: 32),
-                                                              SizedBox(
-                                                                  width: 15),
-                                                              Text(
-                                                                  "Sign Up using Facebook",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0XFF413D4B),
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontFamily:
-                                                                          'sora',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold)),
-                                                              // text
-                                                            ],
-                                                          )),
-                                                    )),
-                                                buildbutton(),
-                                                buildformweb()
-                                              ])),
-                                          // buildToptitle(),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
-                                  )),
-                            ],
+                                                }else{
+                                                  Fluttertoast.showToast(msg: "Please Check Privacy Clause");
+                                                }
+                        
+                                              }, //tton pressed
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: <Widget>[
+                                                                SizedBox(
+                                                                    width: 30),
+                                                                Image.asset(
+                                                                    "assets/fb.png",
+                                                                    width: 32),
+                                                                SizedBox(
+                                                                    width: 15),
+                                                                Text(
+                                                                    "Sign Up using Facebook",
+                                                                    style: TextStyle(
+                                                                        color: Color(
+                                                                            0XFF413D4B),
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontFamily:
+                                                                            'sora',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold)),
+                                                                // text
+                                                              ],
+                                                            )),
+                                                      )),
+                                                  buildbutton(),
+                                                  buildformweb()
+                                                ])),
+                                            // buildToptitle(),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -340,20 +343,21 @@ class _RegisterState extends State<Register> {
                   : Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          color: Color(0XFF004751),
-                          child: Center(
-                              child: Image.asset("assets/applogo-02.png",
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  height:
-                                      MediaQuery.of(context).size.height / 3)),
-                        ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width / 2.5,
+                        //   color: Color(0XFF004751),
+                        //   child: Center(
+                        //       child: Image.asset("assets/applogo-02.png",
+                        //           width:
+                        //               MediaQuery.of(context).size.width / 1.5,
+                        //           height:
+                        //               MediaQuery.of(context).size.height / 3)),
+                        // ),
                         SizedBox(
                           width: 30,
                         ),
                         Container(
+                           width: MediaQuery.of(context).size.width / 2,
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

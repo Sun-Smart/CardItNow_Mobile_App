@@ -85,15 +85,15 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width / 3,
+                    //   height: MediaQuery.of(context).size.width / 1,
+                    //   color: Color(0XFF004751),
+                    //   child: Center(
+                    //       child: Image.asset("assets/applogo-02.png",
+                    //           width: MediaQuery.of(context).size.width / 1.5,
+                    //           height: MediaQuery.of(context).size.height / 3)),
+                    // ),
                     Container(
                       width: MediaQuery.of(context).size.width / 1.5,
                       child: Column(
@@ -132,15 +132,15 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
               : Row(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      // height: MediaQuery.of(context).size.width / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width / 2.5,
+                    //   // height: MediaQuery.of(context).size.width / 1,
+                    //   color: Color(0XFF004751),
+                    //   child: Center(
+                    //       child: Image.asset("assets/applogo-02.png",
+                    //           width: MediaQuery.of(context).size.width / 1.5,
+                    //           height: MediaQuery.of(context).size.height / 3)),
+                    // ),
                     Container(
                         width: MediaQuery.of(context).size.width / 2,
                       child: Column(

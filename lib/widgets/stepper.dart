@@ -103,6 +103,7 @@ class _StepperWebState extends State<StepperWeb> {
                           Center(
                             child: Register(),
                           ),
+                          //
                           Center(
                             child: VerifyEmail(),
                           ),

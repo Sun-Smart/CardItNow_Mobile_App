@@ -1314,6 +1314,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           reg.profileInformatrion();
                         }
                       },
+                      //
                       child: Container(
                         margin: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 20),

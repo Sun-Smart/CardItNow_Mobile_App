@@ -65,7 +65,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
       }
     }
   }
-
+//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
