@@ -1184,27 +1184,26 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               dropdownColor: Colors.white,
                               isExpanded: true,
                               value: reg.dropdownvalueCity,
-                              hint: Text('Select Your city',
-                                  style: TextStyle(
-                                      color: Styles.whitecustomlable,
-                                      fontSize: 14)),
-                              icon: InkWell(
-                                  child: Icon(
-                                Icons.keyboard_arrow_down,
-                              )),
-                              items: reg.pickcity.map((dynamic item) {
-                                return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item["cityname"],
-                                        style: const TextStyle(
-                                            color: Color(0Xff413D4B),
-                                            fontSize: 14)));
-                              }).toList(),
-                              onChanged: (dynamic newValue) {
-                                setState(() {
-                                  reg.dropdownvalueCity = newValue!;
-                                });
-                              },
+                  hint: Text('Select Your city',
+                      style: TextStyle(
+                          color: Styles.whitecustomlable, fontSize: 14)),
+                  icon: InkWell(
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+
+                      )),
+                  items: reg.pickcity.map((dynamic item) {
+                    return DropdownMenuItem(
+                        value: item,
+                        child: Text(item["cityname"],
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B), fontSize: 14)));
+                  }).toList(),
+                  onChanged: (dynamic newValue) {
+                    setState(() {
+                      reg.dropdownvalueCity = newValue!;
+                    });
+                  },
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),

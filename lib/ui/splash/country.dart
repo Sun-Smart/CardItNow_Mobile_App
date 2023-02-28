@@ -1,5 +1,6 @@
 
 import 'package:cardit/ui/auth/login_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../../api/regster_api.dart';
 import '../../const/responsive.dart';
 import '../register/register_screen.dart';
+import '../stepper.dart';
 
 class Country extends StatefulWidget {
   final choosetype;
@@ -90,7 +92,13 @@ class _CountryState extends State<Country> {
                                     if (widget.choosetype == "Login") {
                                       Get.off(Login());
                                     } else {
-                                      Get.off(Register());
+                                     if(kIsWeb){
+                                        Get.to(StepperWeb());
+
+                                      }
+                                     else{
+                                       Get.off(Register());
+                                     }
                                     }
                                   }
                                 }

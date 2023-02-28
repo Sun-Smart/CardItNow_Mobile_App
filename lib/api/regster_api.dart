@@ -12,6 +12,7 @@ import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,6 +29,7 @@ import '../ui/register/security_question.dart';
 import '../ui/register/select_avatar_screen.dart';
 import '../ui/register/verify_email_screen.dart';
 import '../ui/splash/home_screen.dart';
+import '../widgets/stepper.dart';
 var mocktermscond;
 var ShuftiProValues;
 class RegisterAPI extends GetxController with BaseController {
@@ -154,7 +156,14 @@ class RegisterAPI extends GetxController with BaseController {
       print(data);
       print(data["OTP"]);
       if (data["status"]=="success") {
-        Get.to(VerifyEmail());
+        if(kIsWeb){
+           pageController!.nextPage(
+                              duration: Duration(milliseconds: 200),
+                              curve: Curves.linear);
+        }
+        else{
+            Get.to(VerifyEmail());
+        }
         Fluttertoast.showToast(msg: data["message"].toString());
       } else {
         Fluttertoast.showToast(msg: data["message"].toString());
