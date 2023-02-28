@@ -783,15 +783,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             Fluttertoast.showToast(
               msg: 'Enter ${dropdownvalue} Number',
             );
-          } else {
-            if(Responsive.isMobile(context)){
-   Get.to(AvatarPageView());
-            }else{
-               con.ocrdocument();
-            }
-         
-            // con.ocrdocument();
           }
+            else{
+               con.uploadDocx(con.emailController.text, reg.documentIDController.text);
+            }
+
+
+
         },
         text: "Next");
   }

@@ -409,11 +409,11 @@ class RegisterAPI extends GetxController with BaseController {
   void uploadDocx(email, docid) async {
     Get.to(Registerloading());
     var body = {
-      'email': email.toString(),
-      'documenttype': choosedDocId.toString(),
-      'document':scandocs.toString(),
+      'email': emailController.text,
+      'documenttype': countrywisedoc["key"],
+      'document':"",
       'documentid': docid.toString(),
-      'selfi': uploadimg.toString()
+      'selfi': ""
     };
     var response = await BaseClient()
         .post(
@@ -421,13 +421,16 @@ class RegisterAPI extends GetxController with BaseController {
             body)
         .catchError(handleError);
     Get.back();
+    var data1 = json.decode(response);
+    var data = jsonDecode(data1);
     if (response == null) return;
-    var data = json.decode(response);
+
     await Get.to(AvatarPageView());
-    if (data == 'Success') {
-      Fluttertoast.showToast(msg: "Data Saved");
+    if (data["status"]=="success") {
+      Get.offAll(AvatarPageView());
+      Fluttertoast.showToast(msg:data["message"]);
     } else {
-      print("---------failed");
+      Fluttertoast.showToast(msg:data["message"]);
     }
   }
 

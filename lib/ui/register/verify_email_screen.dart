@@ -28,7 +28,7 @@ class _VerifyEmailState extends State<VerifyEmail> with TickerProviderStateMixin
   final RegisterAPI con = Get.find();
 
    AnimationController? _timercontroller;
-  int levelClock = 60;
+  int levelClock = 300;
 
 
   @override
