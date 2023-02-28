@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../../api/regster_api.dart';
 import '../../const/responsive.dart';
+import '../../widgets/stepper.dart';
 import '../register/register_screen.dart';
-import '../stepper.dart';
 
 class Country extends StatefulWidget {
   final choosetype;
