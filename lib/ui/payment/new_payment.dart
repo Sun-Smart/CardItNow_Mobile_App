@@ -1,9 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cardit/ui/payment/purpose_details.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../api/payment_api.dart';
 import '../../const/responsive.dart';
@@ -615,7 +620,7 @@ class _NewPaymentState extends State<NewPayment> {
         Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Text('Upload Contract/Invoice *',
+            child: Text(widget.paymentType == "LGU" ?"Upload Statement of Account *" : 'Upload Contract/Invoice *',
                 style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold))),
         const SizedBox(height: 5),
         Container(
@@ -631,17 +636,15 @@ class _NewPaymentState extends State<NewPayment> {
                 borderRadius: const BorderRadius.all(Radius.circular(3))),
             child: InkWell(
               onTap: () async {
-                // getImage(
-                //     ImageSource
-                //         .gallery);
+                filePicker(context);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(Icons.arrow_upward_sharp),
+                children:  [
+                  pay.pickedFile == null ? Icon(Icons.arrow_upward_sharp) : Icon(Icons.file_present, size: 50,),
                    SizedBox(height: 5),
-                   Text('Upload Document'),
+                   Text(pay.pickedFile == null ? 'Upload Document' : 'File Uploaded'),
                 ],
               ),
             ),
@@ -732,4 +735,104 @@ class _NewPaymentState extends State<NewPayment> {
       }
     }
   }
+
+  void filePicker(context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        backgroundColor: Colors.white,
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+                padding: const EdgeInsets.only(top: 10),
+                height: 130,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                     Text(widget.paymentType == "LGU" ? "Upload Statement of Account" : 'Upload Contract/Invoice',
+                        style: TextStyle(fontSize: 16)),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      openGallery();
+                                      Get.back();
+                                    },
+                                    child: Image.asset("assets/gallery.jpg",
+                                        height: 50)),
+                                const SizedBox(height: 5),
+                                const Text("Gallery")
+                              ],
+                            )),
+                        SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      getImage(
+                                          ImageSource
+                                              .camera);
+                                      Get.back();
+                                    },
+                                    child: Image.asset("assets/camera_new.png",
+                                        height: 50)),
+                                const SizedBox(height: 5),
+                                const Text("Camera")
+                              ],
+                            )),
+                      ],
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
+
+  Future getImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(
+      source: source,
+      imageQuality: 100,
+      maxHeight: 700,
+      maxWidth: 700,
+    );
+    if (image == null) return;
+    List<int> bytes = await image.readAsBytes();
+    pay.pickedFile = base64Encode(bytes);
+    print(pay.pickedFile);
+  }
+
+  openGallery() async {
+    final file = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf','jpg','png']);
+    if (file == null) return;
+    var _file = File(file.files.single.path!);
+    List<int> fileBytes = _file.readAsBytesSync();
+    pay.pickedFile = base64.encode(fileBytes);
+    print(pay.pickedFile);
+  }
+
+  fileSizeChecker(String filePath){
+    final f = File(filePath);
+    int sizeInBytes = f.lengthSync();
+    double sizeInMb = sizeInBytes / (1024 * 1024);
+    if (sizeInMb <= 2){
+      return true;
+    }
+    return false;
+  }
 }
+

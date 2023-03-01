@@ -116,11 +116,10 @@ class PaymentAPI extends GetxController with BaseController {
          "startdate": startDate.text,
          "enddate": endDate.text,
          "postal": postalCode.text,
+         "file": pickedFile
        };
-       var file = await http.MultipartFile.fromPath(
-           'file', pickedFile!.path);
        var response = await BaseClient()
-           .post(API().newPaymentDocument, body, isMultiPart: true, file: file)
+           .post(API().newPaymentDocument, body, isMultiPart: true)
            .catchError(handleError);
        hideLoading();
        if (response == null) return;
@@ -176,11 +175,12 @@ class PaymentAPI extends GetxController with BaseController {
         "billamount": billAmountCnl.text,
         "startdate": startDate.text,
         "enddate": endDate.text,
+        "file": pickedFile
       };
       // var file = await http.MultipartFile.fromPath(
       //     'file', pickedFile!.path);
       // var response = await BaseClient()
-      //     .post(API().newPaymentDocument, body, isMultiPart: true, file: file)
+      //     .post(API().newPaymentDocument, body, isMultiPart: true)
       //     .catchError(handleError);
       // hideLoading();
       // if (response == null) return;
