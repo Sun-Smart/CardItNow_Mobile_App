@@ -515,8 +515,9 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             children: [
               GestureDetector(
                 child: Container(
-                  height: 70,
-                  width: 170,
+                  padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                  // height: 70,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
@@ -529,7 +530,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       Text('Pay',
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: 'Sora',
+                              fontFamily: 'Sora',fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ],
                   ),
@@ -538,10 +539,12 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   print('Pay Tapped');
                 },
               ),
+
               GestureDetector(
                 child: Container(
-                  height: 70,
-                  width: 170,
+                  padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                  // height: 70,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
@@ -554,7 +557,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       Text('Receive',
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: 'Sora',
+                              fontFamily: 'Sora',fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ],
                   ),
@@ -600,7 +603,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               GestureDetector(
                 child: Container(
                   height: 70,
-                  width: 170,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),

@@ -45,6 +45,12 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
+              MyApp.logindetails['username'] == null?
+              Text("Hey Congrats your Document Verification done",
+                  style: TextStyle(
+                      fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
+                      fontWeight: FontWeight.bold
+                  )):
               Text("Hey Congrats ${MyApp.logindetails['username']} !",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
@@ -78,11 +84,18 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
-              Text("Hey Congrats ${MyApp.logindetails['username']} !",
+              MyApp.logindetails['username'] == null?
+              Text("Hey Congrats your Document",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                   fontWeight: FontWeight.bold
+                  )):
+              Text("Hey Congrats ${MyApp.logindetails['username']} !",
+                  style: TextStyle(
+                      fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
+                      fontWeight: FontWeight.bold
                   )),
+
               SizedBox(
                 height: 10,
               ),

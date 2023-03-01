@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cardit/ui/register/congratsscreen.dart';
+import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -164,7 +165,8 @@ class _TwofactorState extends State<Twofactor> {
       onTap: () {
         if (pass = true) {
           GetStorage().write("bioAuth", true);
-          Get.to(congratesscreen());
+          Get.to(termsandconditions());
+          // Get.to(congratesscreen());
         } else {
           Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
           // Get.to(termsandconditions());

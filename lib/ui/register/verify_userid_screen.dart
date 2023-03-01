@@ -789,8 +789,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                con.uploadDocx(con.emailController.text, reg.documentIDController.text);
             }
 
-
-
         },
         text: "Next");
   }

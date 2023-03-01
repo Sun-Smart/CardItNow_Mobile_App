@@ -12,7 +12,8 @@ import '../../api/regster_api.dart';
 import '../../const/responsive.dart';
 
 class UpdateEmailScreen extends StatefulWidget {
-  const UpdateEmailScreen({Key? key}) : super(key: key);
+
+   UpdateEmailScreen({Key? key,}) : super(key: key);
 
   @override
   State<UpdateEmailScreen> createState() => _UpdateEmailScreenState();
@@ -81,7 +82,9 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
        if(con.emailController.text.isEmpty){
          Fluttertoast.showToast(msg: "Enter your Email Id");
        }else{
-         con.forgotPasswordOTP(con.emailController.text.toString().trim());
+         con.forgotPasswordOTP(con.emailController.text.toString().trim(),
+
+         );
        }
       },
       child: Container(
@@ -334,7 +337,10 @@ Text("Enter Email",
        if(con.emailController.text.isEmpty){
          Fluttertoast.showToast(msg: "Enter your Email Id");
        }else{
-         con.forgotPasswordOTP(con.emailController.text.toString().trim());
+
+         con.forgotPasswordOTP(con.emailController.text.toString().trim(),
+
+         );
        }
       },
       text: "Next",
