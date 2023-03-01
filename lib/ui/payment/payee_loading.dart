@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../../api/regster_api.dart';
 import '../../../const/responsive.dart';
 import '../../../widgets/auth_button.dart';
+import '../../api/payment_api.dart';
 import '../dashboard/paynow_menu/payment_overview_dashboard.dart';
 
 class PayeeLoading extends StatefulWidget {
@@ -23,7 +24,29 @@ class PayeeLoading extends StatefulWidget {
 }
 
 class _PayeeLoadingState extends State<PayeeLoading> {
-  final RegisterAPI con = Get.find();
+  final RegisterAPI con = Get.put(RegisterAPI());
+  final PaymentAPI pay = Get.put(PaymentAPI());
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    iniLoadingFunction();
+  }
+
+  iniLoadingFunction() async {
+    pay.lguPaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, "200")
+        .then((value) {
+      if (value == "Success") {
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        Get.back();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +61,7 @@ class _PayeeLoadingState extends State<PayeeLoading> {
                   child: AppBar(
                     leading: IconButton(
                       onPressed: () {
+                        Get.back();
                       },
                       icon: const Icon(Icons.close),
                       color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -222,32 +246,7 @@ class _PayeeLoadingState extends State<PayeeLoading> {
                             ),
                           ),
                           SizedBox(height: 30,),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(OverviewPayment());
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                              width:Responsive.isDesktop(context)?
-                              MediaQuery.of(context).size.width / 4:  MediaQuery.of(context).size.width / 3,
-
-                              height: MediaQuery.of(context).size.height * 0.07,
-                              decoration: BoxDecoration(
-                                  color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
-
-                              child: Center(
-                                child: Text(
-                                  'Start New Payment',
-                                  style: TextStyle(
-                                    fontFamily: 'ProductSans',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: HexColor('#004751'),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
+                          bulildbutton()
 
                         ],
                       )
@@ -258,13 +257,15 @@ class _PayeeLoadingState extends State<PayeeLoading> {
 
 
   Widget bulildbutton() {
-    return AuthButton(
+    return
+      !isLoading
+     ? AuthButton(
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
         Get.to(OverviewPayment(payee: widget.payee, purpose: widget.purpose, paymentType: widget.paymentType,));
       },
       text: "Start New Payment",
-    );
+    ) : Container();
   }
 }

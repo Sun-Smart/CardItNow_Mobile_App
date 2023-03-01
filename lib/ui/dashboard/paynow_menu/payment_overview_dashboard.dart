@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../loan_screen/payment_successful.dart';
+import '../../payment_method/add_credit_card.dart';
 
 
 
@@ -13,7 +14,8 @@ class OverviewPayment extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
-   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose});
+  var payment;
+   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.payment});
 
   @override
   State<OverviewPayment> createState() => _OverviewPaymentState();
@@ -24,6 +26,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
   // bool selectdbank =false;
     String _selectedGender = 'VISA - **** **** 8756';
     String selectbank = 'Pay via through bank';
+    bool isFeeCheck = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -122,7 +125,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Paying',
+            widget.payment["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -133,14 +136,14 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/profile.png",
+            child: Image.asset("assets/logouser.png",
             fit: BoxFit.cover,
             width: 45.0,
             height: 45.0,
             )
             ),
             title: Text(
-              widget.payee["name"] ?? "",
+              widget.purpose["ownername"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -149,7 +152,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontWeight: FontWeight.w400),
             ),
             subtitle: Text(
-              'Invoice No. - 23344565',
+              'Invoice No. - ${widget.payment["invoiceno"]}',
               style: TextStyle(
                   color:  Color.fromARGB(255, 140, 140, 140),
                   fontSize: 15,
@@ -164,7 +167,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Paying',
+            widget.payment["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -175,14 +178,14 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/profile.png",
+            child: Image.asset("assets/logouser.png",
             fit: BoxFit.cover,
             width: 45.0,
             height: 45.0,
             )
             ),
             title: Text(
-              widget.payee["name"] ?? "",
+              widget.purpose["ownername"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -191,7 +194,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontWeight: FontWeight.w400),
             ),
             subtitle: Text(
-              'Invoice No. - 23344565',
+              'Invoice No. - ${widget.payment["invoiceno"] ?? ""}',
               style: TextStyle(
                   color:  Color.fromARGB(255, 140, 140, 140),
                   fontSize: 15,
@@ -224,7 +227,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payee["amount"]}',
+          '${widget.payment["totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -240,36 +243,43 @@ class _OverviewPaymentState extends State<OverviewPayment> {
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
-        SizedBox(
-          height: 10,
-        ),
         Row(
           children: [
             Text(
-              '${widget.payee["amount"]} + 40',
+              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
+            IconButton(onPressed: (){
+              setState(() {
+                if(isFeeCheck){
+                  isFeeCheck = false;
+                } else {
+                  isFeeCheck = true;
+                }
+              });
+            }, icon: Icon(Icons.announcement_outlined, color: Colors.white,))
           ],
         ),
-        SizedBox(
-          height: 20,
+        if(isFeeCheck)
+        Column(
+          children: [
+            Text(
+              '${widget.payment["feereason"]}',
+              style: TextStyle(
+                  color: Color(0Xff99B5B9),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        Text(
-          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
-          style: TextStyle(
-              color: Color(0Xff99B5B9),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
-       
         SizedBox(
           height: 30,
         ),
         Text(
-          'TXN ID: 45879652',
+          'TXN ID: ${widget.payment["txdid"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 10,
@@ -279,7 +289,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          'View  Invoice/Contract',
+          'View Invoice/Contract',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 14,
@@ -310,7 +320,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payee["amount"]}',
+          '${widget.payment["totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -326,36 +336,43 @@ class _OverviewPaymentState extends State<OverviewPayment> {
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
-        SizedBox(
-          height: 10,
-        ),
         Row(
           children: [
             Text(
-              '${widget.payee["amount"]} + 40',
+              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
+            IconButton(onPressed: (){
+              setState(() {
+                if(isFeeCheck){
+                  isFeeCheck = false;
+                } else {
+                  isFeeCheck = true;
+                }
+              });
+            }, icon: Icon(Icons.announcement_outlined, color: Colors.white))
           ],
         ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
-          style: TextStyle(
-              color: Color(0Xff99B5B9),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
-       
+        if(isFeeCheck)
+          Column(
+            children: [
+              Text(
+                '${widget.payment["feereason"]}',
+                style: TextStyle(
+                    color: Color(0Xff99B5B9),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         SizedBox(
           height: 30,
         ),
         Text(
-          'TXN ID: 45879652',
+          'TXN ID: ${widget.payment["txdid"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 10,
@@ -396,7 +413,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payee["amount"]}',
+          '${widget.payment["totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -412,36 +429,43 @@ class _OverviewPaymentState extends State<OverviewPayment> {
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
-        SizedBox(
-          height: 10,
-        ),
         Row(
           children: [
             Text(
-              '${widget.payee["amount"]} + 40',
+              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
+            IconButton(onPressed: (){
+              setState(() {
+                if(isFeeCheck){
+                  isFeeCheck = false;
+                } else {
+                  isFeeCheck = true;
+                }
+              });
+            }, icon: Icon(Icons.announcement_outlined, color:  Colors.white,))
           ],
         ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
-          style: TextStyle(
-              color: Color(0Xff99B5B9),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
-       
+        if(isFeeCheck)
+          Column(
+            children: [
+              Text(
+                '${widget.payment["feereason"]}',
+                style: TextStyle(
+                    color: Color(0Xff99B5B9),
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         SizedBox(
           height: 30,
         ),
         Text(
-          'TXN ID: 45879652',
+          'TXN ID: ${widget.payment["txdid"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 10,
@@ -465,7 +489,8 @@ class _OverviewPaymentState extends State<OverviewPayment> {
   }
 
 Widget  buildcardenable (){
-  return Responsive.isMobile(context)?Row(
+  return widget.paymentType != "LGU"
+   ? Responsive.isMobile(context)?Row(
     children: [
       Checkbox(
                                               activeColor: 
@@ -553,7 +578,7 @@ Widget  buildcardenable (){
                                            
       ],
     ),
-  );
+  ) : Container();
 }
 
  Widget  buildchooseCard(){
@@ -571,7 +596,10 @@ Widget  buildcardenable (){
     SizedBox(width: 10,),
     
     GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Get.to(() =>
+            AddCreditCardPage());
+      },
       child: Row(
         children: [
           Icon(Icons.add,
@@ -610,7 +638,10 @@ Widget  buildcardenable (){
       SizedBox(width: 10,),
       
       GestureDetector(
-        onTap: (){},
+        onTap: (){
+          Get.to(() =>
+              AddCreditCardPage());
+        },
         child: Row(
           children: [
             Icon(Icons.add,
@@ -649,7 +680,10 @@ Widget  buildcardenable (){
       SizedBox(width: 10,),
       
       GestureDetector(
-        onTap: (){},
+        onTap: (){
+          Get.to(() =>
+              AddCreditCardPage());
+        },
         child: Row(
           children: [
             Icon(Icons.add,
@@ -724,7 +758,7 @@ Widget  buildcardenable (){
           onChanged: (value) {
             setState(() {
               _selectedGender = value!;
-              Get.offAll(()=>TransectionSummeryScreen());
+              // Get.offAll(()=>TransectionSummeryScreen());
             });
           },
         ),
@@ -793,7 +827,7 @@ Widget  buildcardenable (){
             onChanged: (value) {
               setState(() {
                 _selectedGender = value!;
-                Get.offAll(()=>TransectionSummeryScreen());
+                // Get.offAll(()=>TransectionSummeryScreen());
               });
             },
           ),
@@ -816,7 +850,7 @@ Widget  buildcardenable (){
             borderRadius: BorderRadius.circular(3),
             activeTrackColor: const Color(0XFF004751),
             height: 60,
-            child: const Text("Swipe to Apply",
+            child: const Text("SWIPE TO PAY",
                 style: TextStyle(
                     fontFamily: "assets/fonts/Sora.ttf",
                     fontSize: 18,
@@ -884,7 +918,7 @@ Widget  buildcardenable (){
             onChanged: (value) {
               setState(() {
                 _selectedGender = value!;
-                Get.offAll(()=>TransectionSummeryScreen());
+                // Get.offAll(()=>TransectionSummeryScreen());
               });
             },
           ),
@@ -906,7 +940,7 @@ Widget  buildcardenable (){
             borderRadius: BorderRadius.circular(3),
             activeTrackColor: const Color(0XFF004751),
             height: 60,
-            child: const Text("Swipe to Apply",
+            child: const Text("SWIPE TO PAY",
                 style: TextStyle(
                     fontFamily: "assets/fonts/Sora.ttf",
                     fontSize: 18,
@@ -934,14 +968,14 @@ Widget  buildcardenable (){
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
-          child: const Text("Swipe to Apply",
+          child: const Text("SWIPE TO PAY",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(PaymentSuccessful());
+            Get.to(PaymentSuccessful(payment: widget.payment, paymentType: widget.paymentType, purpose: widget.purpose, payee: widget.payee,));
           }),
     );
   }

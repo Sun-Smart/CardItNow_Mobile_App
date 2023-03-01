@@ -28,8 +28,7 @@ class _NewPaymentState extends State<NewPayment> {
 
   titleText(){
     return Text(
-      widget.paymentType == "LGU" ? "LGU" :
-      widget.payee != null ? '${widget.payee["name"]}' : 'New Payee',
+      widget.payee != null ? '${widget.payee["name"]}' : widget.paymentType == "LGU" ? "LGU" : 'New Payee',
       style: const TextStyle(
           color: Color(0Xff413D4B),
           fontSize: 14,
@@ -135,16 +134,16 @@ class _NewPaymentState extends State<NewPayment> {
 
   Widget firstFormWidget() {
     return Responsive.isMobile(context)
-        ? filedWidget()
+        ? widget.paymentType == "LGU" ? payeeLGUWidget() : filedWidget()
         : Responsive.isDesktop(context)
         ? SizedBox(
         width:MediaQuery.of(context).size.width / 4,
-      child: filedWidget(),
+      child: widget.paymentType == "LGU" ? payeeLGUWidget() : filedWidget()
     )
         : SizedBox(
         width:
         MediaQuery.of(context).size.width / 11,
-      child: filedWidget(),
+      child: widget.paymentType == "LGU" ? payeeLGUWidget() : filedWidget()
 
     );
   }
@@ -439,6 +438,176 @@ class _NewPaymentState extends State<NewPayment> {
   }
 
 
+  payeeLGUWidget(){
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: const Text('Select Purpose *',
+                    style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),)),
+              const SizedBox(height: 5),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                width: MediaQuery.of(context).size.width / 1.1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: DropdownButtonFormField(
+                    decoration: Styles.dropdownDecoration(),
+                    dropdownColor: Colors.white,
+                    isExpanded: true,
+                    value: pay.lguPurpose,
+                    hint: const Text('Select Purpose',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.w400,
+                            color: Color.fromRGBO(65, 61, 75, 0.6))),
+                    icon: const InkWell(
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.black45,
+                      ),
+                    ),
+                    items: pay.lguPurposeList.map((item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text("${item["name"]}}",
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B),
+                                fontSize: 14)),
+                      );
+                    }).toList(),
+                    onChanged: (var newValue) {
+                      setState(() {
+                        pay.lguPurpose = newValue;
+                      });
+                    },
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Column(
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: const Text('Select Province *',
+                    style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),)),
+              const SizedBox(height: 5),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                width: MediaQuery.of(context).size.width / 1.1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: DropdownButtonFormField(
+                    decoration: Styles.dropdownDecoration(),
+                    dropdownColor: Colors.white,
+                    isExpanded: true,
+                    value: pay.lguProvince,
+                    hint: const Text('Select Province',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.w400,
+                            color: Color.fromRGBO(65, 61, 75, 0.6))),
+                    icon: const InkWell(
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.black45,
+                      ),
+                    ),
+                    items: pay.lguProvinceList.map((item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text("${item["municipality"]}, ${item["province"]}",
+                            style: const TextStyle(
+                                color: Color(0Xff413D4B),
+                                fontSize: 14)),
+                      );
+                    }).toList(),
+                    onChanged: (var newValue) {
+                      setState(() {
+                        pay.lguProvince = newValue;
+                      });
+                    },
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          MyCustomInputBox(
+            label: "Property Identification Number *",
+            controller: pay.PINCnl,
+            obsecureText: false,
+            textInputType: TextInputType.number,
+            inputFormatters:  [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            textInputAction: TextInputAction.next,
+            inputDecoration: Styles.textFiledDecoration(hint: "PIN"),
+            enabled: true,
+          ),
+          const SizedBox(height: 10),
+          MyCustomInputBox(
+            label: "Start Date *",
+            controller: pay.startDate,
+            obsecureText: false,
+            textInputType: TextInputType.number,
+            textInputAction: TextInputAction.next,
+            inputFormatters:  [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(4),
+              CardMonthFormatter()
+            ],
+            inputDecoration: Styles.textFiledDecoration(hint: "MM/YY"),
+            enabled: true,
+          ),
+          const SizedBox(height: 10),
+          MyCustomInputBox(
+            label: "End Date *",
+            controller: pay.endDate,
+            obsecureText: false,
+            textInputType: TextInputType.number,
+            textInputAction: TextInputAction.next,
+            inputFormatters:  [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(4),
+              CardMonthFormatter()
+            ],
+            inputDecoration: Styles.textFiledDecoration(hint: "MM/YY"),
+            enabled: true,
+          ),
+          MyCustomInputBox(
+            label: "Bill Amount *",
+            controller: pay.billAmountCnl,
+            obsecureText: false,
+            textInputType: TextInputType.number,
+            inputFormatters:  [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            textInputAction: TextInputAction.next,
+            inputDecoration: Styles.textFiledDecoration(hint: "Bill Amount"),
+            enabled: true,
+          ),
+          const SizedBox(height: 10),
+          filePickWidget(),
+          const SizedBox(height: 10),
+          if(!Responsive.isMobile(context))
+            firstButtonNext()
+        ]);
+  }
+
+
   Widget filePickWidget() {
     return isVerify ? Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -485,39 +654,12 @@ class _NewPaymentState extends State<NewPayment> {
   Widget firstButtonNext() {
     return AuthButton(
       onTap: () {
-          if (pay.paymentPurpose == null) {
-            Fluttertoast.showToast(msg: "Please Select Purpose");
-          } else if (pay.paymentSubPurpose == null) {
-            Fluttertoast.showToast(msg: "Please Select SubPurpose");
-          } else if (pay.province == null) {
-            Fluttertoast.showToast(msg: "Please Select Province");
-          } else if (pay.city == null) {
-            Fluttertoast.showToast(msg: "Please Select City");
-          } else if (pay.propertyOwnerNameCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter Owner Name");
-          } else if (pay.addressNoCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter Address");
-          } else if (pay.streetNameCnl.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter Street");
-          } else if (pay.startDate.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter Start Date");
-          } else if (pay.endDate.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter End Date");
-          }  else if (pay.postalCode.text.isEmpty) {
-            Fluttertoast.showToast(msg: "Please Enter Postal Code");
-          }else {
-            if(!isVerify) {
-              pay.newPaymentVerificationAPI().then((value) {
-                if (value == "Success") {
-                  setState(() {
-                    isVerify = true;
-                  });
-                }
-              });
-            } else{
-              pay.newPaymentDocumentAPI();
-            }
-          }
+        if(widget.paymentType == "LGU"){
+          lguValidateFunction();
+        } else{
+          newPayeeValidateFunction();
+        }
+
       },
       text: "Next",
       decoration: BoxDecoration(
@@ -525,5 +667,69 @@ class _NewPaymentState extends State<NewPayment> {
         borderRadius: BorderRadius.circular(5),
       ),
     );
+  }
+
+  newPayeeValidateFunction(){
+    if (pay.paymentPurpose == null) {
+      Fluttertoast.showToast(msg: "Please Select Purpose");
+    } else if (pay.paymentSubPurpose == null) {
+      Fluttertoast.showToast(msg: "Please Select SubPurpose");
+    } else if (pay.province == null) {
+      Fluttertoast.showToast(msg: "Please Select Province");
+    } else if (pay.city == null) {
+      Fluttertoast.showToast(msg: "Please Select City");
+    } else if (pay.propertyOwnerNameCnl.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Owner Name");
+    } else if (pay.addressNoCnl.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Address");
+    } else if (pay.streetNameCnl.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Street");
+    } else if (pay.startDate.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Start Date");
+    } else if (pay.endDate.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter End Date");
+    }  else if (pay.postalCode.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Postal Code");
+    }else {
+      if(!isVerify) {
+        pay.newPaymentVerificationAPI(widget.paymentType, widget.payee).then((value) {
+          if (value == "Success") {
+            setState(() {
+              isVerify = true;
+            });
+          }
+        });
+      } else{
+        pay.newPaymentDocumentAPI(widget.paymentType, widget.payee);
+      }
+    }
+  }
+
+  lguValidateFunction(){
+    if (pay.lguPurpose == null) {
+      Fluttertoast.showToast(msg: "Please Select Purpose");
+    }  else if (pay.lguProvince == null) {
+      Fluttertoast.showToast(msg: "Please Select Province");
+    } else if (pay.PINCnl.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter PIN");
+    } else if (pay.billAmountCnl.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Bill Amount");
+    } else if (pay.startDate.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter Start Date");
+    } else if (pay.endDate.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please Enter End Date");
+    } else {
+      if(!isVerify) {
+        // pay.lguPaymentVerificationAPI(widget.paymentType, widget.payee).then((value) {
+        //   if (value == "Success") {
+            setState(() {
+              isVerify = true;
+            });
+        //   }
+        // });
+      } else{
+        pay.lguPaymentDocumentAPI(widget.paymentType, widget.payee);
+      }
+    }
   }
 }
