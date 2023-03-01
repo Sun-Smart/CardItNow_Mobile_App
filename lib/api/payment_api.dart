@@ -9,6 +9,7 @@ import '../api_endpoints.dart';
 import '../base_client.dart';
 import '../main.dart';
 import '../ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
+import '../ui/loan_screen/payment_successful.dart';
 import '../ui/payment/payee_loading.dart';
 import '../ui/payment/purpose_details.dart';
 
@@ -260,4 +261,24 @@ class PaymentAPI extends GetxController with BaseController {
     //   return null;
     // }
   }
+
+  finalPaymentAPI(String type, var payee, var purpose, var payment) async {
+    // showLoading();
+    var body = {
+      "customerid": MyApp.logindetails["userid"],
+    };
+    // var response = await BaseClient()
+    //     .post(API().newPaymentVerify, body)
+    //     .catchError(handleError);
+    // hideLoading();
+    // if (response == null) return;
+    // var data = json.decode(response);
+    // if (data.toString() == "Success") {
+    Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,));
+    // } else {
+    //   Fluttertoast.showToast(msg: "This is an existing Relationship");
+    //   return null;
+    // }
+  }
+
 }

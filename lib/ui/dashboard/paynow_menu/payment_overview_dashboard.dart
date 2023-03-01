@@ -1,11 +1,9 @@
+import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
-import 'package:cardit/ui/bank_transection/transection_summery_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../../loan_screen/payment_successful.dart';
 import '../../payment_method/add_credit_card.dart';
 
 
@@ -22,6 +20,7 @@ class OverviewPayment extends StatefulWidget {
 }
 
 class _OverviewPaymentState extends State<OverviewPayment> {
+  PaymentAPI pay = PaymentAPI();
   bool isChecked = false;
   // bool selectdbank =false;
     String _selectedGender = 'VISA - **** **** 8756';
@@ -857,7 +856,8 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              Get.to(PaymentSuccessful());
+
+              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
             }),
    ),
       ],
@@ -947,7 +947,7 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              Get.to(PaymentSuccessful());
+              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
             }),
    ),
       ],
@@ -975,7 +975,7 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-            Get.to(PaymentSuccessful(payment: widget.payment, paymentType: widget.paymentType, purpose: widget.purpose, payee: widget.payee,));
+          pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
           }),
     );
   }

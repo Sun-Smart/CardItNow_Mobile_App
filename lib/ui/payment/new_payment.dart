@@ -882,9 +882,11 @@ class _NewPaymentState extends State<NewPayment> {
       maxWidth: 700,
     );
     if (image == null) return;
-    List<int> bytes = await image.readAsBytes();
-    pay.pickedFile = base64Encode(bytes);
-    print(pay.pickedFile);
+      List<int> bytes = await image.readAsBytes();
+    setState(() {
+      pay.pickedFile = base64Encode(bytes);
+      print(pay.pickedFile);
+    });
   }
 
   openGallery() async {
@@ -892,9 +894,11 @@ class _NewPaymentState extends State<NewPayment> {
         .pickFiles(type: FileType.custom, allowedExtensions: ['pdf','jpg','png']);
     if (file == null) return;
     var _file = File(file.files.single.path!);
-    List<int> fileBytes = _file.readAsBytesSync();
-    pay.pickedFile = base64.encode(fileBytes);
-    print(pay.pickedFile);
+    setState(() {
+      List<int> fileBytes = _file.readAsBytesSync();
+      pay.pickedFile = base64.encode(fileBytes);
+      print(pay.pickedFile);
+    });
   }
 
   fileSizeChecker(String filePath){
