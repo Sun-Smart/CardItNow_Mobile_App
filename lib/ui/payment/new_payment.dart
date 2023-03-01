@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cardit/ui/payment/purpose_details.dart';
+import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -567,14 +567,32 @@ class _NewPaymentState extends State<NewPayment> {
             label: "Start Date *",
             controller: pay.startDate,
             obsecureText: false,
+            read: true,
             textInputType: TextInputType.number,
             textInputAction: TextInputAction.next,
-            inputFormatters:  [
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(4),
-              CardMonthFormatter()
-            ],
-            inputDecoration: Styles.textFiledDecoration(hint: "MM/YY"),
+            inputDecoration:  InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: (){
+                  datePickerForDate("Start");
+                }, icon: Icon(Icons.date_range)),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                hintText: "dd-MM-YYY",
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle:
+                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromRGBO(65, 61, 75, 0.6))),
             enabled: true,
           ),
           const SizedBox(height: 10),
@@ -582,14 +600,31 @@ class _NewPaymentState extends State<NewPayment> {
             label: "End Date *",
             controller: pay.endDate,
             obsecureText: false,
+            read: true,
             textInputType: TextInputType.number,
             textInputAction: TextInputAction.next,
-            inputFormatters:  [
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(4),
-              CardMonthFormatter()
-            ],
-            inputDecoration: Styles.textFiledDecoration(hint: "MM/YY"),
+            inputDecoration: InputDecoration(
+              suffixIcon: IconButton(onPressed: (){
+                datePickerForDate("End");
+              }, icon: Icon(Icons.date_range)),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                hintText: "dd-MM-YYY",
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2, color: Color(0xFFE5E5E5))),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                helperStyle:
+                const TextStyle(fontFamily: 'Sora', fontSize: 14),
+                hintStyle: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromRGBO(65, 61, 75, 0.6))),
             enabled: true,
           ),
           MyCustomInputBox(
@@ -610,6 +645,43 @@ class _NewPaymentState extends State<NewPayment> {
           if(!Responsive.isMobile(context))
             firstButtonNext()
         ]);
+  }
+
+  datePickerForDate(String type) async{
+    DateTime? date = DateTime(1900);
+    FocusScope.of(context).requestFocus(new FocusNode());
+    date = (await showDatePicker(
+        builder: (context, child) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.light(
+            primary: HexColor('#004751'),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary:
+              HexColor('#004751'), // button text color
+            ),
+          ),
+        ),
+        child: child!,
+      );
+    },
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+      lastDate: DateTime(DateTime.now().year + 18),));
+    if (date != null) {
+      setState(() {
+        if(type == "Start"){
+          pay.startDate.text =
+              DateFormat("dd-MM-yyyy").format(date!);
+        } else{
+          pay.endDate.text =
+              DateFormat("dd-MM-yyyy").format(date!);
+        }
+      });
+    }
   }
 
 
