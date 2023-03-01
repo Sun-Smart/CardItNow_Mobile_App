@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../../../const/responsive.dart';
 import '../../../widgets/tgrid.dart';
+import '../../payment/new_payment.dart';
 
 class PaymentDashboard extends StatefulWidget {
   const PaymentDashboard({super.key});
@@ -220,7 +221,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       padding: EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
-          Get.to(PayeeInformation());
+          Get.to(NewPayment());
         },
         child: Column(children: [
           Container(
@@ -320,7 +321,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                   height: 38,
                 )),
             onTap: () {
-              Get.to(() => ChooseLGUScreen());
+              Get.to(NewPayment( paymentType: "LGU",));
             },
           ),
           //commit

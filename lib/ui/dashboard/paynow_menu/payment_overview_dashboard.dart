@@ -10,7 +10,10 @@ import '../../loan_screen/payment_successful.dart';
 
 
 class OverviewPayment extends StatefulWidget {
-  const OverviewPayment({super.key});
+  var paymentType;
+  var payee;
+  var purpose;
+   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose});
 
   @override
   State<OverviewPayment> createState() => _OverviewPaymentState();
@@ -130,14 +133,14 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/user-img.png",
+            child: Image.asset("assets/profile.png",
             fit: BoxFit.cover,
             width: 45.0,
             height: 45.0,
             )
             ),
             title: Text(
-              'Angelo',
+              widget.payee["name"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -172,14 +175,14 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/user-img.png",
+            child: Image.asset("assets/profile.png",
             fit: BoxFit.cover,
             width: 45.0,
             height: 45.0,
             )
             ),
             title: Text(
-              'Angelo',
+              widget.payee["name"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -211,7 +214,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
       padding: EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'Total Amount Pay',
+          'Total Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -221,7 +224,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '₱ 4120',
+          '${widget.payee["amount"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -231,7 +234,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'Service changes(3%)',
+          'Net Payable Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -243,23 +246,9 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '₱ 4000',
+              '${widget.payee["amount"]} + 40',
               style: TextStyle(
                   color: Color(0XffCEE812),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '+',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '₱ 120',
-              style: TextStyle(
-                  color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
@@ -269,7 +258,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'For Rent on 23 December\n 2022',
+          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -290,7 +279,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          'View Invoice',
+          'View  Invoice/Contract',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 14,
@@ -311,7 +300,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
       padding: EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'Total Amount Pay',
+          'Total Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -321,7 +310,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '₱ 4120',
+          '${widget.payee["amount"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -331,7 +320,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'Service changes(3%)',
+          'Net Payable Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -343,23 +332,9 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '₱ 4000',
+              '${widget.payee["amount"]} + 40',
               style: TextStyle(
                   color: Color(0XffCEE812),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '+',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '₱ 120',
-              style: TextStyle(
-                  color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
@@ -369,7 +344,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'For Rent on 23 December\n 2022',
+          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -390,7 +365,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          'View Invoice',
+          'View  Invoice/Contract',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 14,
@@ -411,7 +386,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
       padding: EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'Total Amount Pay',
+          'Total Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -421,7 +396,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '₱ 4120',
+          '${widget.payee["amount"]}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -431,7 +406,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'Service changes(3%)',
+          'Net Payable Amount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -443,23 +418,9 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '₱ 4000',
+              '${widget.payee["amount"]} + 40',
               style: TextStyle(
                   color: Color(0XffCEE812),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '+',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-             Text(
-              '₱ 120',
-              style: TextStyle(
-                  color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
@@ -469,7 +430,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 20,
         ),
         Text(
-          'For Rent on 23 December\n 2022',
+          'For ${widget.purpose["purpose"]} on 23 December\n 2022',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -490,7 +451,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          'View Invoice',
+          'View  Invoice/Contract',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 14,
@@ -522,7 +483,7 @@ Widget  buildcardenable (){
                                                 });
                                               },
                                             ),
-                                            Text("Enable Recurring Payment",
+                                            Text("Schedule Payment",
                                             style: TextStyle(
                                               color: HexColor('#413D4B'),
                                               fontSize: 14,
@@ -552,7 +513,7 @@ Widget  buildcardenable (){
                                                   });
                                                 },
                                               ),
-                                              Text("Enable Recurring Payment",
+                                              Text("Schedule PaymentPayment",
                                               style: TextStyle(
                                                 color: HexColor('#413D4B'),
                                                 fontSize: 14,
@@ -583,7 +544,7 @@ Widget  buildcardenable (){
                                                   });
                                                 },
                                               ),
-                                              Text("Enable Recurring Payment",
+                                              Text("Schedule Payment",
                                               style: TextStyle(
                                                 color: HexColor('#413D4B'),
                                                 fontSize: 14,

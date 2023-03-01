@@ -83,7 +83,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
                         left: MediaQuery.of(context).size.width / 7),
             child: Text(
               widget.label ?? "",
-              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+              style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),
             ),
           ),
         ),

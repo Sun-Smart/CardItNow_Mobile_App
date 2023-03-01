@@ -67,4 +67,8 @@ class API {
   //privacy clause
 
   String privacyclausecontent = "common/GetPrivacyclause";
+
+  //payment
+  String newPaymentVerify = "";
+  String newPaymentDocument = "";
 }
