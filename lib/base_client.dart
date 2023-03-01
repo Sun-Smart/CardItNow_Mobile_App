@@ -237,7 +237,10 @@ class BaseClient {
         print("M-URL : " +uri.toString());
         var multiPartReq = http.MultipartRequest('POST', uri);
         multiPartReq.headers.addAll({"Content-type": "multipart/form-data"});
-        multiPartReq.files.add(file);
+        if(file != null) {
+          multiPartReq.files.add(file);
+        }
+        multiPartReq.fields.addAll(payloadObj);
         var response = await multiPartReq.send();
         final respStr = await response.stream.bytesToString();
         print(response.statusCode.toString());

@@ -4,64 +4,82 @@ import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:intl/intl.dart';
 import '../../widgets/auth_button.dart';
 
 class PaymentSuccessful extends StatefulWidget {
-  const PaymentSuccessful({super.key});
+  var paymentType;
+  var payee;
+  var purpose;
+  var payment;
+   PaymentSuccessful({super.key, this.paymentType,this.payee, this.purpose, this.payment});
 
   @override
   State<PaymentSuccessful> createState() => _PaymentSuccessfulState();
 }
 
 class _PaymentSuccessfulState extends State<PaymentSuccessful> {
+
+  Future<bool> _willPopCallback() async {
+    if(Responsive.isMobile(context)){
+      Get.offAll(DashbordScreen());
+    } else{
+      Get.offAll(DrawerWeb());
+    }
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar:
-            Responsive.isMobile(context) ? bulildbutton() : null,
-        backgroundColor: HexColor('#004751'),
-        appBar: Responsive.isMobile(context)
-            ? AppBar(
-                backgroundColor: Colors.transparent,
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close),
-                    color: Colors.white))
-            : null,
-        body: Responsive.isMobile(context)
-            ? Column(
-                children: [buildimage()],
-              )
-            : Responsive.isDesktop(context)
-                ? Column(children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.close),
-                            color: Colors.white),
-                      ],
-                    ),
-                    buildimage()
-                  ])
-                : Column(children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.close),
-                            color: Colors.white),
-                      ],
-                    ),
-                    buildimage()
-                  ]));
+    return WillPopScope(
+        onWillPop:() => _willPopCallback(),
+
+      child: Scaffold(
+          bottomNavigationBar:
+              Responsive.isMobile(context) ? bulildbutton() : null,
+          backgroundColor: HexColor('#004751'),
+          appBar: Responsive.isMobile(context)
+              ? AppBar(
+                  backgroundColor: Colors.transparent,
+                  leading: IconButton(
+                      onPressed: () {
+                        Get.offAll(DashbordScreen());
+                      },
+                      icon: Icon(Icons.close),
+                      color: Colors.white))
+              : null,
+          body: Responsive.isMobile(context)
+              ? Column(
+                  children: [buildimage()],
+                )
+              : Responsive.isDesktop(context)
+                  ? Column(children: [
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.offAll(DrawerWeb());
+                              },
+                              icon: Icon(Icons.close),
+                              color: Colors.white),
+                        ],
+                      ),
+                      buildimage()
+                    ])
+                  : Column(children: [
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.offAll(DrawerWeb());
+                              },
+                              icon: Icon(Icons.close),
+                              color: Colors.white),
+                        ],
+                      ),
+                      buildimage()
+                    ])),
+    );
   }
 
   Widget buildimage() {
@@ -97,23 +115,16 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                  margin: EdgeInsets.only(left: 40, right: 40),
-                  child: Text(
-                    "Your payment with ID 1321324 is completed on 23 December 2022",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                  )),
-              SizedBox(height: MediaQuery.of(context).size.width / 1.5),
-              Container(
-                  margin: EdgeInsets.only(left: 40, right: 40),
-                  child: Text(
-                    "Check your email for confirmation and Connect with your Recipient for delivery of product",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                  )),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: Text(
+                  "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15, color: Colors.white.withOpacity(0.6)),
+                ),
+              ),
+
               //git push
             ],
           )
@@ -149,29 +160,23 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                      margin: EdgeInsets.only(left: 40, right: 40),
-                      child: Text(
-                        "Your payment with ID 1321324 is completed on 23 December 2022",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                      )),
-                  SizedBox(height: MediaQuery.of(context).size.width / 6),
-                  Container(
-                      margin: EdgeInsets.only(left: 40, right: 40),
-                      child: Text(
-                        "Check your email for confirmation and Connect with your Recipient\n for delivery of product",
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                      )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Container(
+                        margin: EdgeInsets.only(left: 40, right: 40),
+                        child: Text(
+                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15, color: Colors.white.withOpacity(0.6)),
+                        )),
+                  ),
+
                   SizedBox(height: 40),
                   GestureDetector(
                     onTap: () {
-                   Get.to(DrawerWeb());
+                   Get.offAll(DrawerWeb());
 
-                      // showAlertDialog(context);
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
@@ -232,29 +237,22 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                      margin: EdgeInsets.only(left: 40, right: 40),
-                      child: Text(
-                        "Your payment with ID 1321324 is completed on 23 December 2022",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                      )),
-                  SizedBox(height: MediaQuery.of(context).size.width / 5),
-                  Container(
-                      margin: EdgeInsets.only(left: 40, right: 40),
-                      child: Text(
-                        "Check your email for confirmation and Connect with your Recipient\n for delivery of product",
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            fontSize: 15, color: Colors.white.withOpacity(0.6)),
-                      )),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Container(
+                        margin: EdgeInsets.only(left: 40, right: 40),
+                        child: Text(
+                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15, color: Colors.white.withOpacity(0.6)),
+                        )),
+                  ),
+
                   SizedBox(height: 40),
                   GestureDetector(
                     onTap: () {
-                     Get.to(DrawerWeb());
-
-                      // showAlertDialog(context);
+                     Get.offAll(DrawerWeb());
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(

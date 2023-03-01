@@ -21,6 +21,7 @@ class MyCustomInputBox extends StatefulWidget {
   final TextInputAction? textInputAction;
   final TextEditingController controller;
   final int? maxLines;
+  final bool? read;
 
   MyCustomInputBox(
       {Key? key,
@@ -39,7 +40,7 @@ class MyCustomInputBox extends StatefulWidget {
       this.suffixIcon,
       this.maxLines,
       this.maxLength,
-      this.keyboardType})
+      this.keyboardType, this.read})
       : super(key: key);
   @override
   _MyCustomInputBoxState createState() => _MyCustomInputBoxState();
@@ -83,7 +84,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
                         left: MediaQuery.of(context).size.width / 7),
             child: Text(
               widget.label ?? "",
-              style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
+              style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -102,7 +103,7 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
             inputFormatters: widget.inputFormatters,
             maxLength: widget.maxLength,
             keyboardType: widget.keyboardType,
-
+            readOnly: widget.read ?? false,
             onChanged: widget.onChanged,
             obscureText: widget.inputHint == 'Password' ? showpass : false,
             controller: widget.controller,
