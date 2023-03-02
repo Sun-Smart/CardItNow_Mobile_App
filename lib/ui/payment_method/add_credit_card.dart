@@ -355,7 +355,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: Column(
                           children: [
-                            appbarweb(),
+                           appbarweb(),
                             cardtextfieldweb(),
                           ],
                         )),
@@ -672,18 +672,18 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
           Navigator.pop(context);
         },
       ),
-      Row(
-        children: [
-          Image.asset('assets/card/scan.png', width: 18, height: 18),
-          TextButton(
-              onPressed: () {
-                scanCard();
-              },
-              child: Text('Scan Card',
-                  style: TextStyle(
-                      fontFamily: 'Sora', fontSize: 14, color: Colors.black)))
-        ],
-      ),
+      // Row(
+      //   children: [
+      //     Image.asset('assets/card/scan.png', width: 18, height: 18),
+      //     TextButton(
+      //         onPressed: () {
+      //           scanCard();
+      //         },
+      //         child: Text('Scan Card',
+      //             style: TextStyle(
+      //                 fontFamily: 'Sora', fontSize: 14, color: Colors.black)))
+      //   ],
+      // ),
     ]);
   }
 }

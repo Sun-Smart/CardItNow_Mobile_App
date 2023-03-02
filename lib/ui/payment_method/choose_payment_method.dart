@@ -111,6 +111,7 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                   ],
                 )
               : Row(children: [
+                
                 //   Container(
                 //     width: MediaQuery.of(context).size.width / 3,
                 //  //   height: MediaQuery.of(context).size.width / 1,

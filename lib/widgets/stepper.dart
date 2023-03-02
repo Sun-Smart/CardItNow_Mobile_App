@@ -17,8 +17,8 @@ import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+PageController? pageController;
 
- PageController? pageController;
 class StepperWeb extends StatefulWidget {
   @override
   State<StepperWeb> createState() => _StepperWebState();
@@ -43,23 +43,47 @@ class _StepperWebState extends State<StepperWeb> {
   }
 
   int _decideProgress(int progress) {
-    if(progress==1){
-      return 1;
+    switch (progress) {
+      case 1:
+        progress = 1;
+        break;
+
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        progress = 2;
+        break;
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        progress = 3;
+        break;
+      default:
+        return progress = 1;
     }
-    if (progress == 2 || progress == 3 || progress == 4||progress == 5 ) {
-      return 2;
-    }
- if (progress == 6 || progress == 7 || progress == 8 ||progress == 9||progress == 10) {
-      return 3;
-    }
-    if (progress > 7) {
-      progress = progress - 2;
-    }
-     return progress;
+
+//     if(progress==1){
+//       return 1;
+//     }
+//     if (progress == 2 || progress == 3 || progress == 4||progress == 5 ) {
+//       return 2;
+//     }
+//  if (progress == 6 || progress == 7 || progress == 8 ||progress == 9||progress == 10) {
+//       return 3;
+//     }
+//     if (progress > 7) {
+//       progress = progress - 2;
+//     }
+    return progress;
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Row(
         children: [
           Container(
@@ -80,14 +104,13 @@ class _StepperWebState extends State<StepperWeb> {
                   ],
                 ),
                 StepperProgress(
-                       currentStep: _currentProgress,
+                  currentStep: _currentProgress,
                   steps: [
                     StepperStep(
-                        title: "Onboarding",
-                       ),
-                    StepperStep(title: "Verify", 
-                    
-                      
+                      title: "Onboarding",
+                    ),
+                    StepperStep(
+                      title: "Verify",
                     ),
                     StepperStep(title: "Personal Details"),
                     StepperStep(title: "Getting Started"),
@@ -96,75 +119,74 @@ class _StepperWebState extends State<StepperWeb> {
               ],
             ),
           ),
-           Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: PageView(
-                        controller: pageController,
-                        children: const [
-                          Center(
-                            child: Register(),
-                          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView(
+                      controller: pageController,
+                      children: const [
+                        Center(
+                          child: Register(),
+                        ),
+                        //
+                        Center(
+                          child: VerifyEmail(),
+                        ),
+                        Center(
+                          child: Passcode(),
+                        ),
+                        Center(
+                          child: passcodecongrats(),
+                        ),
+                        Center(
+                          child: VerifyUserId(),
+                        ),
+                        Center(
+                          child: AvatarPageView(),
+                        ),
+                        Center(
+                          child: ProfileInformation(),
+                        ),
+                        Center(
+                          child: SecurityQuestion(),
                           //
-                          Center(
-                            child: VerifyEmail(),
-                          ),
-                          Center(
-                            child: Passcode(),
-                          ),
-                          Center(
-                            child:passcodecongrats(),
-                          ),
-                          Center(
-                            child:VerifyUserId(),
-                          ),
-                          Center(
-                            child: AvatarPageView(),
-                          ),
-                          Center(
-                            child:ProfileInformation(),
-                          ),
-                          Center(
-                            child:SecurityQuestion(),
-                            //
-                          ),
-                           Center(
-                            child:termsandconditions(),
-                            //
-                          ),
-                          Center(
-                            child:ChoosePaymentPage(),
-                            //
-                          ),
-                           Center(
-                            child:MakePaymentPage(),
-                            //
-                          ),
-                           Center(
-                            child:ReceivePaymentPage(),
-                            //
-                          ),
-                        ],
-                      ),
+                        ),
+                        Center(
+                          child: termsandconditions(),
+                          //
+                        ),
+                        Center(
+                          child: ChoosePaymentPage(),
+                          //
+                        ),
+                        Center(
+                          child: MakePaymentPage(),
+                          //
+                        ),
+                        Center(
+                          child: ReceivePaymentPage(),
+                          //
+                        ),
+                      ],
                     ),
-                    // Container(
-                    //   child: ElevatedButton(
-                    //     onPressed: () {
-                    //       _pageController.nextPage(
-                    //           duration: Duration(milliseconds: 200),
-                    //           curve: Curves.linear);
-                    //     },
-                    //     child: const Text("Next page"),
-                    //   ),
-                    // )
-                  ],
-                ),
+                  ),
+                  // Container(
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       _pageController.nextPage(
+                  //           duration: Duration(milliseconds: 200),
+                  //           curve: Curves.linear);
+                  //     },
+                  //     child: const Text("Next page"),
+                  //   ),
+                  // )
+                ],
               ),
-            )
-         
+            ),
+          )
         ],
       ),
     );
@@ -181,7 +203,7 @@ class StepperStep {
 }
 
 class StepperProgress extends StatefulWidget {
-List<StepperStep> steps = [];
+  List<StepperStep> steps = [];
   int currentStep = 0;
   StepperProgress({required this.steps, this.currentStep = 0});
 
