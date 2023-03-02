@@ -471,6 +471,7 @@ class RegisterAPI extends GetxController with BaseController {
         .post(API().onboardPayeePost, body)
         .catchError(handleError);
     print("---data-----$body");
+
     if (response == null) return;
     var data = json.decode(response);
     print('Pass' + data);

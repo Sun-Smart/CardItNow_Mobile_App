@@ -5,6 +5,7 @@
 import 'dart:ui';
 
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/splash/country.dart';
 import 'package:cardit/utils/gmail_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ bool isLoggedIn = false;
 Map userObj = {};
 
 class Register extends StatefulWidget {
+
   const Register({
     super.key,
   });
@@ -702,7 +704,8 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Get.to(Login());
+
+                      Get.off(Login());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,
@@ -1004,7 +1007,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 10),
                   InkWell(
                     onTap: () async {
-                      Get.to(Login());
+                      Get.off(Login());
                     },
                     child: RichText(
                       textAlign: TextAlign.end,

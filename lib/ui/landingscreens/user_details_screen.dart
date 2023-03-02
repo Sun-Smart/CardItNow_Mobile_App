@@ -1029,7 +1029,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "First Name*",
-                    controller: _holdernameController,
+                    controller: reg.firstNameController,
                     obsecureText: false,
                     inputHint: 'Enter your first name',
                     validator: (value) {
@@ -1081,7 +1081,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Middle Name ",
-                    controller: _middleController,
+                    controller: reg.middleNameController,
                     obsecureText: false,
                     inputHint: 'Enter your Middle name',
                     inputDecoration: InputDecoration(
@@ -1133,7 +1133,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Last Name*",
-                    controller: _lastnameController,
+                    controller: reg.lastNameController,
                     obsecureText: false,
                     inputHint: 'Enter your last name',
                     validator: (value) {
@@ -1185,7 +1185,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Enter Your Email*",
-                    controller: _emailController,
+                    controller: reg.emailController,
                     obsecureText: false,
                     inputDecoration: InputDecoration(
                       filled: true,
@@ -1239,7 +1239,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Phone Number*",
-                    controller: _phoneController,
+                    controller: reg.mobileNoController,
                     obsecureText: false,
                     inputHint: 'Enter your Phone number',
                     validator: (value) {
@@ -1287,64 +1287,8 @@ class _UserDetailsState extends State<UserDetails> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Choose your Interests',
-                          style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            // color: themeChange.darkTheme
-                            //     ? Colors.white
-                            //     : HexColor('#505050')
-                          ))),
-                  const SizedBox(height: 15),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: DropdownButtonFormField(
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 1))),
-                      // underline:Container(),
-                      //  validator: (value)=>value==null?'field required':null,
-                      dropdownColor: Colors.white,
-                      isExpanded: true,
-                      value: dropdownvalue,
-                      hint: const Text(
-                        'Select your interests',
-                        style:
-                            TextStyle(color: Color(0Xff413D4B), fontSize: 14),
-                      ),
-                      icon: const InkWell(
-                        child: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.black45,
-                        ),
-                      ),
-                      validator: (value) =>
-                          value == null ? 'field required' : null,
-                      items: item.map((String item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff413D4B), fontSize: 14)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ),
+
+
                   const SizedBox(height: 15),
                   Container(
                       alignment: Alignment.centerLeft,
@@ -1363,7 +1307,7 @@ class _UserDetailsState extends State<UserDetails> {
                         width: MediaQuery.of(context).size.width / 1,
                         height: MediaQuery.of(context).size.width / 7,
                         child: TextFormField(
-                          controller: dateCtl,
+                          controller: reg.dateOfBrithController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -1435,7 +1379,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Address*",
-                    controller: _addressController,
+                    controller: reg.addressController,
                     obsecureText: false,
                     suffixIcon: const Icon(Icons.calendar_today),
                     validator: (value) {
@@ -1610,7 +1554,7 @@ class _UserDetailsState extends State<UserDetails> {
                   MyCustomInputBox(
                     enabled: true,
                     label: "Postal code",
-                    controller: _postalController,
+                    controller: reg.postalCodeController,
                     obsecureText: false,
                     validator: (value) {
                       if (_postalController.text.isEmpty) {
