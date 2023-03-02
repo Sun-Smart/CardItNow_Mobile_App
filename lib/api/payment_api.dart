@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -180,10 +181,12 @@ class PaymentAPI extends GetxController with BaseController {
 
   void lguPaymentDocumentAPI(String type, var payee) async {
     if(pickedFile != null) {
-       Get.to(Registerloading());
+      Get.to(Registerloading());
       var body = {
         "customerid": MyApp.logindetails["userid"],
-        "purpose": lguPurpose["masterdatadescription"] == "Real property TAX" ? "P": "",
+        "purpose": lguPurpose["masterdatadescription"] == "Real property TAX"
+            ? "P"
+            : "R",
         "municipality": lguProvince["customerid"],
         "province": "Ilocos Norte",
         "pin": PINCnl.text,
@@ -195,51 +198,62 @@ class PaymentAPI extends GetxController with BaseController {
       var response = await BaseClient()
           .post(API().lguPaymentDocument, body)
           .catchError(handleError);
-       Get.back();
-      if (response == null) return;
-      var data = json.decode(response);
-     // if (data["status"] == "success") {
-        // var jsonResponse = json.encode(data["data"]);
-        // var responce = json.decode(jsonResponse);
+      Get.back();
+      if (response == null) {
+        Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
+      } else {
+        var data = json.decode(response);
+        // if (data["status"] == "success") {
+        //    var jsonResponse = json.encode(data["data"]);
+        //    var responce = json.decode(jsonResponse);
+        var payee = {
+          "payee": lguProvince,
+          "purpose": lguPurpose,
+          "date": {
+            "start": startDate.text,
+            "end": endDate.text
+          }
+        };
         var responce;
-       responce = {
+        responce = {
           "KEYVALUE": {
-            "PIN":"003-19-003-07-004",
-            "Taxpayer":"NACION, FELIX & EDITHA SPS",
-            "Bill Date":"November 15, 2022",
-            "Declared Owner":" NACION, FELIX & EDITHA SPS",
-            "Location":"SAN BARTOLOME",
-            "BILL AMOUNT":"P 75.68",
-            "BAR CODE":"00319220022090"
+            "PIN": "003-19-003-07-004",
+            "Taxpayer": "NACION, FELIX & EDITHA SPS",
+            "Bill Date": "November 15, 2022",
+            "Declared Owner": " NACION, FELIX & EDITHA SPS",
+            "Location": "SAN BARTOLOME",
+            "BILL AMOUNT": "P 75.68",
+            "BAR CODE": "00319220022090"
           },
-          "DOCNAME":"MUNICIPAL STATEMENT",
-          "TableResult":{
-            "statement summary":[
+          "DOCNAME": "MUNICIPAL STATEMENT",
+          "TableResult": {
+            "statement summary": [
               {
-                "A/V":"4,730.00",
-                "PERIOD":"2023",
-                "BASIC":"47.30",
-                "D/P1":"-9.46",
-                "TOTAL":"75.68"
+                "A/V": "4,730.00",
+                "PERIOD": "2023",
+                "BASIC": "47.30",
+                "D/P1": "-9.46",
+                "TOTAL": "75.68"
               }
             ]
           }
         };
 
         var dateList = responce["TableResult"]["statement summary"] ?? [];
-          startYearList = dateList ?? [];
-          endYearList = dateList ?? [];
-          startYear = startYearList.first;
-          endYear = endYearList.last;
-          Get.to(PurposeDetails(
-              paymentType: type, payee: payee, purpose: responce));
-      // } else {
-      //   Fluttertoast.showToast(msg: "This is an existing Relationship");
-      // }
-    }
-    else{
+        startYearList = dateList ?? [];
+        endYearList = dateList ?? [];
+        startYear = startYearList.first;
+        endYear = endYearList.last;
+        Get.to(PurposeDetails(
+            paymentType: type, payee: payee, purpose: responce));
+        // } else {
+        //   Fluttertoast.showToast(msg: "This is an existing Relationship");
+        // }
+      }}
+    else {
       Fluttertoast.showToast(msg: "Please Upload Statement of Account");
     }
+
   }
 
   //LGU Payee Verification
@@ -252,34 +266,58 @@ class PaymentAPI extends GetxController with BaseController {
         .post(API().lguPaymentDetails, body)
         .catchError(handleError);
     hideLoading();
-    if (response == null) return;
+    if (response == null){
+      Fluttertoast.showToast(msg: "Payment Validation Failed");
+    } else{
     var dataValue = json.decode(response);
     var data = json.decode(dataValue);
     if (data != null) {
-    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data,));
+      var date = {
+        "start": startYear,
+        "end": endYear
+      };
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
     } else {
-      Fluttertoast.showToast(msg: "This is an existing Relationship");
-      return null;
-    }
+      Fluttertoast.showToast(msg: "Payment Validation Wrong");
+    }}
   }
 
-  finalPaymentAPI(String type, var payee, var purpose, var payment) async {
-    // showLoading();
+  finalPaymentAPI(String type, var payee, var purpose, var payment, var date) async {
+    showLoading();
     var body = {
-      "customerid": MyApp.logindetails["userid"],
+      "TransactionID":null,
+      "UID": MyApp.logindetails["userid"],
+      "PayeeUID": payee["payee"]["uid"],
+      "PrivateID": null,
+      "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
+      "PayeeName": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
+      "DocumentNumber": purpose["KEYVALUE"]["BAR CODE"],
+      "AdditionalDocumentNumber":"",
+      "StartDate": payee["date"]["start"],
+      "ExpiryDate": payee["date"]["end"],
+      "Address": purpose["KEYVALUE"]["Location"],
+      "BillDate": purpose["KEYVALUE"]["Bill Date"],
+      "ContractAmount": payment["billamount"],
+      "Discount":"",
+      "CarditConvFee": payment["CC_carditnowfee"],
+      "PayAmount": payment["CC_totalamount"],
+      "PayID": 1,
+      "PayType":"O",
+      "Status":""
     };
-    // var response = await BaseClient()
-    //     .post(API().newPaymentVerify, body)
-    //     .catchError(handleError);
-    // hideLoading();
-    // if (response == null) return;
-    // var data = json.decode(response);
-    // if (data.toString() == "Success") {
+    var response = await BaseClient()
+        .post(API().lguPayment, body)
+        .catchError(handleError);
+    hideLoading();
+    if (response == null){
+      Fluttertoast.showToast(msg: "Payment Failed");
+    } else{
+    var data = json.decode(response);
+    if (data == "success") {
     Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,));
-    // } else {
-    //   Fluttertoast.showToast(msg: "This is an existing Relationship");
-    //   return null;
-    // }
-  }
+    } else {
+      Fluttertoast.showToast(msg: "$data");
+    }
+  }}
 
 }

@@ -14,7 +14,8 @@ class OverviewPayment extends StatefulWidget {
   var payee;
   var purpose;
   var payment;
-   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.payment});
+  var date;
+   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.payment, this.date});
 
   @override
   State<OverviewPayment> createState() => _OverviewPaymentState();
@@ -805,7 +806,7 @@ Widget  buildcardenable (){
                     color: Color(0XFFCEE812))),
             onSwipe: () {
 
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
+              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
             }),
    ),
       ],
@@ -853,7 +854,7 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
+              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment,widget.date);
             }),
    ),
       ],
@@ -883,7 +884,7 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-          pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment);
+          pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
           }),
     );
   }

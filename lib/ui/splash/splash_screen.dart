@@ -72,7 +72,7 @@ class StartState extends State<SplashScreens> {
       }
     } else {
       await authcon.getLoginToken();
-      Get.offAll(()=>MyApp.logindetails["status"] == "A"?
+      Get.offAll(()=>MyApp.logindetails["status"] == "N"?
       MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen():
       VerifyUserId());
     }
