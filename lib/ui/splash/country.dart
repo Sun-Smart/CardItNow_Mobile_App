@@ -93,7 +93,7 @@ class _CountryState extends State<Country> {
                                     if (widget.choosetype == "Login") {
                                       Get.off(Login());
                                     } else {
-                                     if(kIsWeb){
+                                     if(Responsive.isDesktop(context)){
                                         Get.to(StepperWeb());
 
                                       }

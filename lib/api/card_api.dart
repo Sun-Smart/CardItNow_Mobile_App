@@ -94,7 +94,7 @@ class CardAPI extends GetxController with BaseController {
   }
 
   //get credit card details
-  void creditCardgetAPI() async {
+   creditCardgetAPI() async {
     var userid = GetStorage().read("getuserid");
     var response = await BaseClient()
         .get(API().creditCardGetLink + userid)

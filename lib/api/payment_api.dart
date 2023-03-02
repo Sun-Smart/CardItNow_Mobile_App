@@ -12,8 +12,11 @@ import '../ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import '../ui/loan_screen/payment_successful.dart';
 import '../ui/payment/payee_loading.dart';
 import '../ui/payment/purpose_details.dart';
+import '../ui/register/register_loading_screen.dart';
+import 'card_api.dart';
 
 class PaymentAPI extends GetxController with BaseController {
+  CardAPI card = CardAPI();
   var paymentPurposeList = [{"name":"Rent"}];
   var paymentPurpose;
   var paymentSubPurposeList = [{"name":"Monthly Rent"},{"name":"Advance Rent"},{"name":"Security Deposit"}];
@@ -31,12 +34,7 @@ class PaymentAPI extends GetxController with BaseController {
   var pickedFile;
 
   //LGU payee
-  var lguPurposeList = [
-    {
-    "id": 1,
-    "name":" Real Property Tax,"
-    }
-  ];
+  var lguPurposeList = [].obs;
   var lguPurpose;
   var lguProvinceList = [
     {
@@ -72,6 +70,32 @@ class PaymentAPI extends GetxController with BaseController {
   var endYearList = [];
   var endYear;
 
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getPurposeListAPI();
+  }
+  //Get LGU
+  void getPurposeListAPI() async {
+    var response = await BaseClient()
+        .get(API().getLGUPurpose)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    lguPurposeList.value = data;
+  }
+
+  void getProvinceListAPI() async {
+    var response = await BaseClient()
+        .get(API().getLGUPayee)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    lguProvinceList = data;
+  }
+
   //newPayVerifyAPI
    newPaymentVerificationAPI(String type, var payee) async {
     showLoading();
@@ -104,7 +128,7 @@ class PaymentAPI extends GetxController with BaseController {
 
   void newPaymentDocumentAPI(String type, var payee) async {
      if(pickedFile != null) {
-       showLoading();
+       Get.to(Registerloading());
        var body = {
          "customerid": MyApp.logindetails["userid"],
          "purpose": paymentPurpose["name"],
@@ -122,7 +146,7 @@ class PaymentAPI extends GetxController with BaseController {
        var response = await BaseClient()
            .post(API().newPaymentDocument, body, isMultiPart: true)
            .catchError(handleError);
-       hideLoading();
+      Get.back();
        if (response == null) return;
        var data = json.decode(response);
        if (data.toString() == "Success") {
@@ -132,7 +156,7 @@ class PaymentAPI extends GetxController with BaseController {
        }
      }
       else{
-       Fluttertoast.showToast(msg: "Please Upload Contract/Invoice");
+       Fluttertoast.showToast(msg: "Please Upload Document");
      }
   }
 
@@ -141,7 +165,7 @@ class PaymentAPI extends GetxController with BaseController {
     showLoading();
     var body = {
       "customerid": MyApp.logindetails["userid"],
-      "purpose": lguProvince["name"],
+      "purpose": lguPurpose["masterdatadescription"] == "Real property TAX" ? "P": "",
       "municipality": lguProvince["municipality"],
       "province": lguProvince["province"],
       "pin": PINCnl.text,
@@ -149,9 +173,8 @@ class PaymentAPI extends GetxController with BaseController {
       "startdate": startDate.text,
       "enddate": endDate.text,
     };
-    Get.to(PurposeDetails(paymentType:type, payee: payee, purpose: body));
     var response = await BaseClient()
-        .post(API().newPaymentVerify, body)
+        .post(API().lguPaymentVerify, body)
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
@@ -165,28 +188,26 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   void lguPaymentDocumentAPI(String type, var payee) async {
-    //if(pickedFile != null) {
-    //  showLoading();
-      var body = {
-        "customerid": MyApp.logindetails["userid"],
-        "purpose": lguProvince["name"],
-        "municipality": lguProvince["municipality"],
-        "province": lguProvince["province"],
-        "pin": PINCnl.text,
-        "billamount": billAmountCnl.text,
-        "startdate": startDate.text,
-        "enddate": endDate.text,
-        "file": pickedFile
-      };
-      // var file = await http.MultipartFile.fromPath(
-      //     'file', pickedFile!.path);
-      // var response = await BaseClient()
-      //     .post(API().newPaymentDocument, body, isMultiPart: true)
-      //     .catchError(handleError);
-      // hideLoading();
-      // if (response == null) return;
-      // var data = json.decode(response);
-      // if (data.toString() == "Success") {
+    if(pickedFile != null) {
+     //   Get.to(Registerloading());
+     //  var body = {
+     //    "customerid": MyApp.logindetails["userid"],
+     //    "purpose": lguProvince["name"],
+     //    "municipality": lguProvince["municipality"],
+     //    "province": lguProvince["province"],
+     //    "pin": PINCnl.text,
+     //    "billamount": billAmountCnl.text,
+     //    "startdate": startDate.text,
+     //    "enddate": endDate.text,
+     //    "uploadDoc": pickedFile
+     //  };
+     //  var response = await BaseClient()
+     //      .post(API().lguPaymentDocument, body, isMultiPart: true)
+     //      .catchError(handleError);
+     //   Get.back();
+     //  if (response == null) return;
+     //  var data = json.decode(response);
+     //  if (data.toString() == "Success") {
       var responce =  {
           "payeeid": "1",
           "ownername": lguProvince["municipality"],
@@ -221,10 +242,10 @@ class PaymentAPI extends GetxController with BaseController {
     //   } else {
     //     Fluttertoast.showToast(msg: "This is an existing Relationship");
     //   }
-    // }
-    // else{
-    //   Fluttertoast.showToast(msg: "Please Upload Statement of Account");
-    // }
+    }
+    else{
+      Fluttertoast.showToast(msg: "Please Upload Statement of Account");
+    }
   }
 
   //LGU Payee Verification

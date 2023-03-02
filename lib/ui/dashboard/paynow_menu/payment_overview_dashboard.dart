@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '../../../api/card_api.dart';
 import '../../payment_method/add_credit_card.dart';
 
 
@@ -21,11 +22,35 @@ class OverviewPayment extends StatefulWidget {
 
 class _OverviewPaymentState extends State<OverviewPayment> {
   PaymentAPI pay = PaymentAPI();
+  CardAPI card = Get.put(CardAPI());
   bool isChecked = false;
-  // bool selectdbank =false;
-    String _selectedGender = 'VISA - **** **** 8756';
-    String selectbank = 'Pay via through bank';
-    bool isFeeCheck = false;
+  bool isFeeCheck = false;
+  bool cardLoading = true;
+  var selectPaymentType;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    assignCardFunction();
+  }
+
+  assignCardFunction() {
+  setState(() {
+    cardLoading = true;
+  });
+    card.creditCardgetAPI().then((value){
+     card.creditCardGet.forEach((element) {
+       if(element["carddefault"] == 0){
+         selectPaymentType = element["payid"].toString();
+       }
+     });
+     setState(() {
+       cardLoading = false;
+     });
+   });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -597,7 +622,9 @@ Widget  buildcardenable (){
     GestureDetector(
       onTap: (){
         Get.to(() =>
-            AddCreditCardPage());
+            AddCreditCardPage())?.then((value){
+          assignCardFunction();
+        });
       },
       child: Row(
         children: [
@@ -639,7 +666,9 @@ Widget  buildcardenable (){
       GestureDetector(
         onTap: (){
           Get.to(() =>
-              AddCreditCardPage());
+              AddCreditCardPage())?.then((value){
+            assignCardFunction();
+          });
         },
         child: Row(
           children: [
@@ -681,7 +710,9 @@ Widget  buildcardenable (){
       GestureDetector(
         onTap: (){
           Get.to(() =>
-              AddCreditCardPage());
+              AddCreditCardPage())?.then((value){
+            assignCardFunction();
+          });
         },
         child: Row(
           children: [
@@ -705,138 +736,55 @@ Widget  buildcardenable (){
   );
  }
  Widget buildaddcard(){
-  return  Responsive.isMobile(context)?Column(
+  return !cardLoading
+   ? Responsive.isMobile(context)?Column(
     children: [
+      for(int i = 0; i < card.creditCardGet.length; i++)
            ListTile(
-            
                 leading: Radio<String>(
-                  
                   activeColor:HexColor('#036D7A'),
-                  value: 'VISA - **** **** 8756',
-                  groupValue: _selectedGender,
+                  value: card.creditCardGet[i]["payid"].toString(),
+                  groupValue: selectPaymentType,
                   onChanged: (value) {
                     setState(() {
-                      _selectedGender = value!;
+                      selectPaymentType = value!;
                     });
                   },
                 ),
-                title:  Text('VISA - **** **** 8756',
+                title:  Text('${card.creditCardGet[i]["cardname"]} - ${card.creditCardGet[i]["cardnumber"]}',
                 style: TextStyle(
                   color: HexColor('#2C3A4B'),
                   fontSize: 14,
                   fontWeight: FontWeight.w400
                 ),),
               ),
-              ListTile(
-              
-                leading: Radio<String>(
-                 activeColor:HexColor('#036D7A'),
-                  value: 'Master Card - **** **** 1265',
-                  groupValue: _selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedGender = value!;
-                    });
-                  },
-                ),
-                title: Text('Master Card - **** **** 1265',
-                  style: TextStyle(
-                  color: HexColor('#2C3A4B'),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400
-                ),),
-              ),
-
-      ListTile(
-
-        leading: Radio<String>(
-
-          activeColor:HexColor('#036D7A'),
-          value: 'Master Card - **** **** 2265',
-          groupValue: _selectedGender,
-          onChanged: (value) {
-            setState(() {
-              _selectedGender = value!;
-              // Get.offAll(()=>TransectionSummeryScreen());
-            });
-          },
-        ),
-        title:  Text('Pay via through bank',
-          style: TextStyle(
-              color: HexColor('#2C3A4B'),
-              fontSize: 14,
-              fontWeight: FontWeight.w400
-          ),),
-      ),
-
     ],
-  ):Responsive.isDesktop(context)?Container(
+  ):Responsive.isDesktop(context)
+      ?Container(
     width: MediaQuery.of(context).size.width/4,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-             ListTile(
-              
-                  leading: Radio<String>(
-                    
-                    activeColor:HexColor('#036D7A'),
-                    value: 'VISA - **** **** 8756',
-                    groupValue: _selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedGender = value!;
-                      });
-                    },
-                  ),
-                  title:  Text('VISA - **** **** 8756',
-                  style: TextStyle(
-                    color: HexColor('#2C3A4B'),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400
-                  ),),
-                ),
-                ListTile(
-                
-                  leading: Radio<String>(
-                   activeColor:HexColor('#036D7A'),
-                    value: 'Master Card - **** **** 1265',
-                    groupValue: _selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedGender = value!;
-                      });
-                    },
-                  ),
-                  title: Text('Master Card - **** **** 1265',
-                    style: TextStyle(
-                    color: HexColor('#2C3A4B'),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400
-                  ),),
-                ),
-  
-        ListTile(
-  
-          leading: Radio<String>(
-  
-            activeColor:HexColor('#036D7A'),
-            value: 'Master Card - **** **** 2265',
-            groupValue: _selectedGender,
-            onChanged: (value) {
-              setState(() {
-                _selectedGender = value!;
-                // Get.offAll(()=>TransectionSummeryScreen());
-              });
-            },
+        for(int i = 0; i < card.creditCardGet.length; i++)
+          ListTile(
+            leading: Radio<String>(
+              activeColor:HexColor('#036D7A'),
+              value: card.creditCardGet[i]["payid"].toString(),
+              groupValue: selectPaymentType,
+              onChanged: (value) {
+                setState(() {
+                  selectPaymentType = value!;
+                });
+              },
+            ),
+            title:  Text('${card.creditCardGet[i]["cardname"]} - ${card.creditCardGet[i]["cardnumber"]}',
+              style: TextStyle(
+                  color: HexColor('#2C3A4B'),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400
+              ),),
           ),
-          title:  Text('Pay via through bank',
-            style: TextStyle(
-                color: HexColor('#2C3A4B'),
-                fontSize: 14,
-                fontWeight: FontWeight.w400
-            ),),
-        ),
   
    Container(
      child: SwipeButton(
@@ -868,67 +816,25 @@ Widget  buildcardenable (){
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-             ListTile(
-              
-                  leading: Radio<String>(
-                    
-                    activeColor:HexColor('#036D7A'),
-                    value: 'VISA - **** **** 8756',
-                    groupValue: _selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedGender = value!;
-                      });
-                    },
-                  ),
-                  title:  Text('VISA - **** **** 8756',
-                  style: TextStyle(
-                    color: HexColor('#2C3A4B'),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400
-                  ),),
-                ),
-                ListTile(
-                
-                  leading: Radio<String>(
-                   activeColor:HexColor('#036D7A'),
-                    value: 'Master Card - **** **** 1265',
-                    groupValue: _selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedGender = value!;
-                      });
-                    },
-                  ),
-                  title: Text('Master Card - **** **** 1265',
-                    style: TextStyle(
-                    color: HexColor('#2C3A4B'),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400
-                  ),),
-                ),
-  
-        ListTile(
-  
-          leading: Radio<String>(
-  
-            activeColor:HexColor('#036D7A'),
-            value: 'Master Card - **** **** 2265',
-            groupValue: _selectedGender,
-            onChanged: (value) {
-              setState(() {
-                _selectedGender = value!;
-                // Get.offAll(()=>TransectionSummeryScreen());
-              });
-            },
+        for(int i = 0; i < card.creditCardGet.length; i++)
+          ListTile(
+            leading: Radio<String>(
+              activeColor:HexColor('#036D7A'),
+              value: card.creditCardGet[i]["payid"].toString(),
+              groupValue: selectPaymentType,
+              onChanged: (value) {
+                setState(() {
+                  selectPaymentType = value!;
+                });
+              },
+            ),
+            title:  Text('${card.creditCardGet[i]["cardname"]} - ${card.creditCardGet[i]["cardnumber"]}',
+              style: TextStyle(
+                  color: HexColor('#2C3A4B'),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400
+              ),),
           ),
-          title:  Text('Pay via through bank',
-            style: TextStyle(
-                color: HexColor('#2C3A4B'),
-                fontSize: 14,
-                fontWeight: FontWeight.w400
-            ),),
-        ),
   
    Container(
      child: SwipeButton(
@@ -952,6 +858,8 @@ Widget  buildcardenable (){
    ),
       ],
     ),
+  ) : Center(
+    child: CircularProgressIndicator(color: HexColor('#036D7A'),),
   );
  }
   Widget buildButton() {

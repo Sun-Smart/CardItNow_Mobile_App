@@ -11,6 +11,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../api/payment_api.dart';
+import '../../const/common/fourDigitsplit.dart';
+import '../../const/common/pin_formate.dart';
 import '../../const/responsive.dart';
 import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
@@ -448,6 +450,7 @@ class _NewPaymentState extends State<NewPayment> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Obx(()=>
           Column(
             children: [
               Container(
@@ -481,7 +484,7 @@ class _NewPaymentState extends State<NewPayment> {
                     items: pay.lguPurposeList.map((item) {
                       return DropdownMenuItem(
                         value: item,
-                        child: Text("${item["name"]}}",
+                        child: Text("${item["masterdatadescription"]}",
                             style: const TextStyle(
                                 color: Color(0Xff413D4B),
                                 fontSize: 14)),
@@ -497,7 +500,7 @@ class _NewPaymentState extends State<NewPayment> {
                 ),
               ),
             ],
-          ),
+          )),
           const SizedBox(height: 10),
           Column(
             children: [
@@ -555,8 +558,10 @@ class _NewPaymentState extends State<NewPayment> {
             controller: pay.PINCnl,
             obsecureText: false,
             textInputType: TextInputType.number,
-            inputFormatters:  [
+            inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(12),
+              PINInputFormatter()
             ],
             textInputAction: TextInputAction.next,
             inputDecoration: Styles.textFiledDecoration(hint: "PIN"),
