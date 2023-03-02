@@ -147,7 +147,7 @@ class _LetsstartpageState extends State<Letsstartpage> {
       bottomNavigationBar: Responsive.isMobile(context)
           ? AuthButton(
               onTap: () {
-                Get.to(() => CreditPrepaidScreen());
+                Get.off(() => CreditPrepaidScreen());
               },
               text: 'Let’s Start',
               decoration: BoxDecoration(
