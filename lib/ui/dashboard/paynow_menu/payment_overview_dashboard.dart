@@ -167,7 +167,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             )
             ),
             title: Text(
-              widget.purpose["ownername"] ?? "",
+              widget.purpose["KEYVALUE"]["Declared Owner"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -175,13 +175,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontSize: 14,
                   fontWeight: FontWeight.w400),
             ),
-            subtitle: Text(
-              'Invoice No. - ${widget.payment["invoiceno"]}',
-              style: TextStyle(
-                  color:  Color.fromARGB(255, 140, 140, 140),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700),
-            ),
+            // subtitle: Text(
+            //   'Invoice No. - ${widget.payment["invoiceno"]}',
+            //   style: TextStyle(
+            //       color:  Color.fromARGB(255, 140, 140, 140),
+            //       fontSize: 15,
+            //       fontWeight: FontWeight.w700),
+            // ),
           )
         ],
       ),
@@ -209,7 +209,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             )
             ),
             title: Text(
-              widget.purpose["ownername"] ?? "",
+              widget.purpose["KEYVALUE"]["Declared Owner"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -217,13 +217,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontSize: 14,
                   fontWeight: FontWeight.w400),
             ),
-            subtitle: Text(
-              'Invoice No. - ${widget.payment["invoiceno"] ?? ""}',
-              style: TextStyle(
-                  color:  Color.fromARGB(255, 140, 140, 140),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700),
-            ),
+            // subtitle: Text(
+            //   'Invoice No. - ${widget.payment["invoiceno"] ?? ""}',
+            //   style: TextStyle(
+            //       color:  Color.fromARGB(255, 140, 140, 140),
+            //       fontSize: 15,
+            //       fontWeight: FontWeight.w700),
+            // ),
           )
         ],
       ),
@@ -251,7 +251,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["totalamount"]??''}',
+          '${widget.payment["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -270,7 +270,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
+              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -302,13 +302,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         SizedBox(
           height: 30,
         ),
-        Text(
-          'TXN ID: ${widget.payment["txdid"]}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   style: TextStyle(
+        //       color: Color(0XffCEE812),
+        //       fontSize: 10,
+        //       fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: 10,
         ),
@@ -344,7 +344,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["totalamount"]??''}',
+          '${widget.payment["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -363,7 +363,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
+              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -395,13 +395,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         SizedBox(
           height: 30,
         ),
-        Text(
-          'TXN ID: ${widget.payment["txdid"]}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   style: TextStyle(
+        //       color: Color(0XffCEE812),
+        //       fontSize: 10,
+        //       fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: 10,
         ),
@@ -437,7 +437,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["totalamount"]??''}',
+          '${widget.payment["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -456,7 +456,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["carditnowfee"]} = ${widget.payment["totalamount"]}',
+              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -488,13 +488,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         SizedBox(
           height: 30,
         ),
-        Text(
-          'TXN ID: ${widget.payment["txdid"]}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   style: TextStyle(
+        //       color: Color(0XffCEE812),
+        //       fontSize: 10,
+        //       fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: 10,
         ),

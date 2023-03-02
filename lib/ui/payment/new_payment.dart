@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
@@ -11,7 +12,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../api/payment_api.dart';
-import '../../const/common/fourDigitsplit.dart';
 import '../../const/common/pin_formate.dart';
 import '../../const/responsive.dart';
 import '../../themes/styles.dart';
@@ -535,7 +535,7 @@ class _NewPaymentState extends State<NewPayment> {
                     items: pay.lguProvinceList.map((item) {
                       return DropdownMenuItem(
                         value: item,
-                        child: Text("${item["municipality"]}, ${item["province"]}",
+                        child: Text("${item["firstname"]} ${item["lastname"] ?? ""}",
                             style: const TextStyle(
                                 color: Color(0Xff413D4B),
                                 fontSize: 14)),
@@ -800,13 +800,13 @@ class _NewPaymentState extends State<NewPayment> {
       Fluttertoast.showToast(msg: "Please Enter End Date");
     } else {
       if(!isVerify) {
-        // pay.lguPaymentVerificationAPI(widget.paymentType, widget.payee).then((value) {
-        //   if (value == "Success") {
+        pay.lguPaymentVerificationAPI(widget.paymentType, widget.payee).then((value) {
+          if (value == "Success") {
             setState(() {
               isVerify = true;
             });
-        //   }
-        // });
+          }
+        });
       } else{
         pay.lguPaymentDocumentAPI(widget.paymentType, widget.payee);
       }
@@ -890,7 +890,7 @@ class _NewPaymentState extends State<NewPayment> {
       List<int> bytes = await image.readAsBytes();
     setState(() {
       pay.pickedFile = base64Encode(bytes);
-      print(pay.pickedFile);
+      log(pay.pickedFile);
     });
   }
 
@@ -902,7 +902,7 @@ class _NewPaymentState extends State<NewPayment> {
     setState(() {
       List<int> fileBytes = _file.readAsBytesSync();
       pay.pickedFile = base64.encode(fileBytes);
-      print(pay.pickedFile);
+      log(pay.pickedFile);
     });
   }
 

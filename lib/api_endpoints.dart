@@ -78,4 +78,5 @@ class API {
   //LGU
   String lguPaymentVerify = "common/duplicatetransactionvalidation";
   String lguPaymentDocument = "transactionmaster/Post_transactiondocument";
+  String lguPaymentDetails = "transactionmaster/Post_billamountcalculation";
 }

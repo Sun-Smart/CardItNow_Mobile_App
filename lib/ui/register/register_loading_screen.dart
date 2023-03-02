@@ -23,7 +23,7 @@ class Registerloading extends StatefulWidget {
 Future<bool> _willPopCallback() async {
   // await showDialog or Show add banners or whatever
   // then
-  return Future.value(false);
+  return Future.value(true);
 }
 
 class _RegisterloadingState extends State<Registerloading> {

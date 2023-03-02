@@ -32,8 +32,8 @@ class _PurposeDetailsState extends State<PurposeDetails> {
   String amountCalculation(var start, var end){
     double value = 0.0;
     pay.startYearList.forEach((element) {
-      if((int.parse(start["year"]) <= int.parse(element["year"])) && (int.parse(end["year"]) >= int.parse(element["year"]))){
-         value += double.parse(element["year"]);
+      if((int.parse(start["PERIOD"]) <= int.parse(element["PERIOD"])) && (int.parse(end["PERIOD"]) >= int.parse(element["PERIOD"]))){
+         value += double.parse(element["TOTAL"]);
       }
     });
     return value.toString();
@@ -43,7 +43,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    billAmount = widget.purpose["billamount"];
+    billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"];
   }
 
   @override
@@ -519,7 +519,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                 fontWeight: FontWeight.bold,
                 fontSize: 16)),
         const SizedBox(height: 10),
-        Text(widget.purpose["ownername"] ?? '',
+        Text(widget.purpose["KEYVALUE"]["Declared Owner"] ?? '',
             style: TextStyle(
                 fontFamily: 'Sora',
                 color: Colors.grey,
@@ -532,7 +532,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                 fontWeight: FontWeight.bold,
                 fontSize: 16)),
         SizedBox(height: 10),
-        Text(widget.purpose["location"] ?? '',
+        Text(widget.purpose["KEYVALUE"]["Location"] ?? '',
             style: TextStyle(
                 fontFamily: 'Sora',
                 color: Colors.grey,
@@ -590,7 +590,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                         items: pay.startYearList.map((item) {
                           return DropdownMenuItem(
                             value: item,
-                            child: Text(item["year"].toString(),
+                            child: Text(item["PERIOD"].toString(),
                                 style: const TextStyle(
                                     color: Color(0Xff413D4B),
                                     fontSize: 14)),
@@ -646,7 +646,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                         items: pay.endYearList.map((item) {
                           return DropdownMenuItem(
                             value: item,
-                            child: Text(item["year"].toString(),
+                            child: Text(item["PERIOD"].toString(),
                                 style: const TextStyle(
                                     color: Color(0Xff413D4B),
                                     fontSize: 14)),
@@ -673,7 +673,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                 fontWeight: FontWeight.bold,
                 fontSize: 16)),
         SizedBox(height: 10),
-        Text("${widget.purpose["pin"]}",
+        Text("${widget.purpose["KEYVALUE"]["PIN"]}",
             style: TextStyle(
                 fontFamily: 'Sora',
                 color: Colors.grey,
