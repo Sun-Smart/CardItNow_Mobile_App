@@ -2,9 +2,11 @@
 
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../api/regster_api.dart';
 import '../../const/responsive.dart';
@@ -18,6 +20,14 @@ class termsandconditions extends StatefulWidget {
 }
 
 class _termsandconditionsState extends State<termsandconditions> {
+
+  void launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   final RegisterAPI con = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -112,16 +122,6 @@ class _termsandconditionsState extends State<termsandconditions> {
                   )
                 : Row(
                     children: [
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width / 3,
-                      //  // height: MediaQuery.of(context).size.width / 1,
-                      //   color: Color(0XFF004751),
-                      //   child: Center(
-                      //       child: Image.asset("assets/applogo-02.png",
-                      //           width: MediaQuery.of(context).size.width / 1.5,
-                      //           height:
-                      //               MediaQuery.of(context).size.height / 3)),
-                      // ),
                       Container(
                           width: MediaQuery.of(context).size.width / 1.5,
                           //eight: MediaQuery.of(context).size.height / 0.8,
@@ -191,12 +191,32 @@ class _termsandconditionsState extends State<termsandconditions> {
               children: [
                 Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Text(con.termscond[index]["termdetails"].toString(),
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontFamily: 'sora'))),
+                    child:
+                        Html(
+
+                          data: con.termscond[index]["termdetails"].toString(),
+                          // onLinkTap: (url) async {
+                          //   if (await canLaunch(url)) {
+                          //     await launch(
+                          //       url,
+                          //     );
+                          //   } else {
+                          //     throw 'Could not launch $url';
+                          //   }
+                          // },
+
+
+                          style: {
+                      "body": Style(
+                      fontSize: FontSize(14.0),
+                      color: Colors.black87,
+                      textAlign: TextAlign.left,
+                      fontFamily: 'sora'
+                      ),
+                      },
+
+                      )
+                   ),
               ],
             );
         }),

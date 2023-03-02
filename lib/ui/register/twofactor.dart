@@ -52,7 +52,8 @@ class _TwofactorState extends State<Twofactor> {
                   ),
                 ),
                 onTap: () {
-                  Get.to(const congratesscreen());
+                  Get.to(termsandconditions());
+                  // Get.to(const congratesscreen());
                 },
               ),
             ),

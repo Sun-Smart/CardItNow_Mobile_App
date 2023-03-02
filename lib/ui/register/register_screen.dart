@@ -9,12 +9,12 @@ import 'package:cardit/utils/gmail_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-
 import '../../api/regster_api.dart';
 import '../../themes/styles.dart';
 import '../../themes/theme_notifier.dart';
@@ -1203,15 +1203,26 @@ class _RegisterState extends State<Register> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                          con.privacycontent["privacyclause"].toString(),
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.black,
-                              fontFamily: 'sora'))),
-                  SizedBox(height: 20),
+                      padding: const EdgeInsets.all(5),
+                      child:Html(
+                      data: con.privacycontent["privacyclause"].toString(),
+                        style: {
+                          "body": Style(
+                            fontSize: FontSize(14.0),
+                              textAlign: TextAlign.left,
+                              fontFamily: 'sora'
+                          ),
+                        },
+                      )
+                      // Text(
+                      //     con.privacycontent["privacyclause"].toString(),
+                      //     textAlign: TextAlign.left,
+                      //     style: TextStyle(
+                      //         fontSize: 13,
+                      //         color: Colors.black,
+                      //         fontFamily: 'sora')
+              // )
+              ),
                 ],
               );
             }),

@@ -79,7 +79,7 @@ class StartState extends State<SplashScreens> {
   }
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 8500), () {});
+    await Future.delayed( Duration(milliseconds: 8000), () {});
     if (GetStorage().read('save_token') == null) {
       Get.offAll(Home());
     } else {

@@ -2,11 +2,13 @@
 
 import 'dart:io';
 
+import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/main.dart';
 import 'package:cardit/ui/landingscreens/BusinessDetails.dart';
 import 'package:cardit/ui/register/select_avatar_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +41,7 @@ class _UserDetailsState extends State<UserDetails> {
   File? imgcameraFile;
   File? imggalleryFile;
   final ImagePicker _picker = ImagePicker();
+  final RegisterAPI reg = Get.put(RegisterAPI());
 
   void openCamera() async {
     var cameraFile = await _picker.pickImage(source: ImageSource.camera);
@@ -261,7 +264,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       //label: "First Name*",
-                      controller: _holdernameController,
+                      controller: reg.firstNameController,
                       obscureText: false,
                       //inputHint: 'Enter your first name',
                       validator: (value) {
@@ -337,7 +340,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       // label: "Middle Name ",
-                      controller: _middleController,
+                      controller: reg.middleNameController,
                       obscureText: false,
                       // inputHint: 'Enter your Middle name',
                       decoration: InputDecoration(
@@ -413,7 +416,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       // label: "Last Name*",
-                      controller: _lastnameController,
+                      controller: reg.lastNameController,
                       obscureText: false,
                       // inputHint: 'Enter your last name',
                       validator: (value) {
@@ -489,7 +492,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       //label: "Enter Your Email*",
-                      controller: _emailController,
+                      controller: reg.emailController,
                       obscureText: false,
                       decoration: InputDecoration(
                         hoverColor: Colors.transparent,
@@ -567,7 +570,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       // label: "Phone Number*",
-                      controller: _phoneController,
+                      controller: reg.mobileNoController,
                       obscureText: false,
                       // inputHint: 'Enter your Phone number',
                       validator: (value) {
@@ -618,66 +621,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                      width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 3,
-                      
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Text('Choose your Interests',
-                           style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),)),
-                  const SizedBox(height: 15),
-                  Container(
-                    // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width /4
-                            : MediaQuery.of(context).size.width / 3,
-                      
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: DropdownButtonFormField(
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                          border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1, color: Colors.grey),
-                          )),
-                      // underline:Container(),
-                      //  validator: (value)=>value==null?'field required':null,
-                      dropdownColor: Colors.white,
-                      isExpanded: true,
-                      value: dropdownvalue,
-                      hint: const Text(
-                        'Select your interests',
-                        style:
-                            TextStyle(color: Color(0Xff413D4B), fontSize: 14),
-                      ),
-                      icon: const InkWell(
-                        child: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.black45,
-                        ),
-                      ),
-                      validator: (value) =>
-                          value == null ? 'field required' : null,
-                      items: item.map((String item) {
-                        return DropdownMenuItem(
-                          value: item,
-                          child: Text(item,
-                              style: const TextStyle(
-                                  color: Color(0Xff413D4B), fontSize: 14)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ),
+
                   const SizedBox(height: 15),
                   Container(
                        width: Responsive.isDesktop(context)
@@ -709,7 +653,7 @@ class _UserDetailsState extends State<UserDetails> {
                             : MediaQuery.of(context).size.width / 3,
                         // height: MediaQuery.of(context).size.width / 7,
                         child: TextFormField(
-                          controller: dateCtl,
+                          controller: reg.dateOfBrithController,
                           decoration: InputDecoration(
                             hoverColor: Colors.transparent,
                             filled: true,
@@ -802,7 +746,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       // label: "Address*",
-                      controller: _addressController,
+                      controller: reg.addressController,
                       obscureText: false,
 
                       validator: (value) {
@@ -1020,7 +964,7 @@ class _UserDetailsState extends State<UserDetails> {
                     child: TextFormField(
                       enabled: true,
                       // label: "Postal code",
-                      controller: _postalController,
+                      controller: reg.postalCodeController,
                       obscureText: false,
                       validator: (value) {
                         if (_postalController.text.isEmpty) {
