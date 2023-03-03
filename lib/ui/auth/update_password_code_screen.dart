@@ -14,7 +14,8 @@ import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 
 class UpdatePasswordCode extends StatefulWidget {
-  const UpdatePasswordCode({super.key});
+
+   UpdatePasswordCode({super.key,});
 
   @override
   State<UpdatePasswordCode> createState() => _UpdatePasswordCodeState();
@@ -216,12 +217,12 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                               fontSize: 14, color: HexColor('#413D4B')),
                         ),
                         onPressed: () {
-                          con.forgotPasswordOTP(con.emailController.text);
+                          con.resend(con.emailController.text);
                         },
                         child: Text(
                           'Resend',
                           style: TextStyle(
-                              fontSize: 14, color: HexColor('#413D4B')),
+                              fontSize: 16, color: HexColor('#413D4B')),
                         ),
                       )),
                 ])))
@@ -307,6 +308,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
         if (otpController.text.isEmpty) {
           Fluttertoast.showToast(msg: "Enter your otp");
         } else {
+
           con.forgotOTPVerify(con.emailController.text, otpController.text);
         }
       },

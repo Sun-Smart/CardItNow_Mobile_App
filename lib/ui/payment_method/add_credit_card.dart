@@ -9,6 +9,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 import '../../api/card_api.dart';
 import '../../api/regster_api.dart';
+import '../../const/common/card_type_finder.dart';
 import '../../const/responsive.dart';
 import 'card_input_formatter_class.dart';
 
@@ -37,6 +38,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
   bool showBack = false;
 
   var changeNumber = '';
+  var cardType = '';
 
   @override
   void initState() {
@@ -132,8 +134,11 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             } else {}
                           },
                           onChanged: (v) {
-                            changeNumber = v;
-                            print(changeNumber);
+                            setState(() {
+                              changeNumber = v;
+                              cardType = cardTypeFunction(v);
+                              print(cardType);
+                            });
                           },
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -143,6 +148,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           decoration: InputDecoration(
                               labelText: '4XXX 5XXX 7XXX 3XXX',
                               filled: true,
+                              suffix: Text(cardType),
                               fillColor: Colors.white,
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
@@ -369,7 +375,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                       creditCardController.text.toString(),
                       validityController.text.toString(),
                       cvvController.text.toString(),
-                      nameOnCardController.text.toString(),
+                      cardType,
                       bankNameController.text.toString(),
                       addNickController.text.toString(),
                       widget.cardflow);
@@ -426,7 +432,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                           validator: (value) {
                             if (creditCardController.text.isEmpty) {
                               return 'Enter Card Number';
-                            } else {}
+                            } else if(creditCardController.text.length > 15){
+                              return 'Enter Valid Card Number';
+                            }
                           },
                           onChanged: (v) {
                             changeNumber = v;
@@ -634,7 +642,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                     creditCardController.text.toString(),
                     validityController.text.toString(),
                     cvvController.text.toString(),
-                    nameOnCardController.text.toString(),
+                    cardType.toString(),
                     bankNameController.text.toString(),
                     addNickController.text.toString(), widget.cardflow);
               }

@@ -129,11 +129,11 @@ Text('Payments',
                               fontFamily: 'Sora',
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 10),
-                      Text('₱ 20000',
+                      Text('₱ 0',
                           style: TextStyle(
                               color: HexColor('#CEE812'),
                               fontSize: 24,
-                              fontFamily: 'Sora',
+
                               fontWeight: FontWeight.bold))
                     ],
                   ),
@@ -145,7 +145,7 @@ Text('Payments',
                     backgroundColor: HexColor('#1C292C'),
                     animationDuration: 2500,
                     animateFromLastPercent: true,
-                    center: Text("+0.47%",
+                    center: Text("+0%",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Sora',
@@ -178,7 +178,7 @@ Text('Payments',
                               fontFamily: 'Sora',
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 10),
-                      Text('2000.0',
+                      Text('0.0',
                           style: TextStyle(
                               color: HexColor('#CEE812'),
                               fontSize: 24,
@@ -211,57 +211,58 @@ Text('Payments',
 
   Widget _buildCustomerDetails() {
     return Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.asset('assets/card/up_arrow.png', width: 50, height: 50),
-            SizedBox(width: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text('Rita',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16)),
-                    SizedBox(width: 25),
-                    Icon(Icons.arrow_upward)
-                  ],
-                ),
-                Text('at 4:30 pm',
-                    style: TextStyle(
-                        fontFamily: 'Sora',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16))
-              ],
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              '₱ 4000.00',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              '24 Dec 21',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        )
-      ],
-    ));
+    //     child: Row(
+    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //   children: [
+    //     Row(
+    //       children: [
+    //         Image.asset('assets/card/up_arrow.png', width: 50, height: 50),
+    //         SizedBox(width: 20),
+    //         Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Row(
+    //               children: [
+    //                 Text('Rita',
+    //                     style: TextStyle(
+    //                         fontFamily: 'Sora',
+    //                         fontWeight: FontWeight.bold,
+    //                         fontSize: 16)),
+    //                 SizedBox(width: 25),
+    //                 Icon(Icons.arrow_upward)
+    //               ],
+    //             ),
+    //             Text('at 4:30 pm',
+    //                 style: TextStyle(
+    //                     fontFamily: 'Sora',
+    //                     color: Colors.grey,
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: 16))
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //     Column(
+    //       children: [
+    //         Text(
+    //           '₱ 4000.00',
+    //           style: TextStyle(
+    //               fontFamily: 'Sora',
+    //               fontSize: 16,
+    //               fontWeight: FontWeight.bold),
+    //         ),
+    //         Text(
+    //           '24 Dec 21',
+    //           style: TextStyle(
+    //               fontFamily: 'Sora',
+    //               fontSize: 16,
+    //               color: Colors.grey,
+    //               fontWeight: FontWeight.bold),
+    //         ),
+    //       ],
+    //     )
+    //   ],
+    // )
+        );
   }
 }

@@ -65,10 +65,19 @@ class API {
 
 
   //privacy clause
-
   String privacyclausecontent = "common/GetPrivacyclause";
+
+  //Get LGU
+  String getLGUPurpose = "transactionmaster/Getpurpose";
+  String getLGUPayee = "transactionmaster/Getpayee";
 
   //payment
   String newPaymentVerify = "";
   String newPaymentDocument = "";
+
+  //LGU
+  String lguPaymentVerify = "common/duplicatetransactionvalidation";
+  String lguPaymentDocument = "transactionmaster/Post_transactiondocument";
+  String lguPaymentDetails = "transactionmaster/Post_billamountcalculation";
+  String lguPayment = "transactionmaster/Post_transactionmaster";
 }

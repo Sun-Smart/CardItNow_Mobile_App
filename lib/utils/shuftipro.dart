@@ -119,7 +119,11 @@ class Shuftipro {
   void loadreference(){
       var v = DateTime.now();
     var reference = "CardITNow${v.day}${v.millisecond}";
+    var url_Callback='https://demo.herbie.ai/carditnow/#/';
+    var url_redirect='https://demo.herbie.ai/carditnow/#/';
     createdPayload["reference"] = reference;
+    createdPayload["callback_url"]=url_Callback;
+    createdPayload["redirect_url"]=url_redirect;
      shuftiproweb();
   }
 

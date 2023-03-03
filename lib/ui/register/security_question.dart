@@ -63,73 +63,70 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                     color: HexColor('#004751'))),
                           ],
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                            ),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                physics: ScrollPhysics(),
-                                itemCount: auth.securityQuestionList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  securecontrollers
-                                      .add(TextEditingController());
-                                  return Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${auth.securityQuestionList[index]["question"]}",
-                                          style: TextStyle(
-                                              fontFamily: 'Sora',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: 20),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          child: TextFormField(
-                                            textAlign: TextAlign.start,
-                                            controller:
-                                                securecontrollers[index],
-                                            autofocus: false,
-                                            keyboardType: TextInputType.text,
-                                            decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  width: 1, //<-- SEE HERE
-                                                  color: Colors.black,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  width: 1, //<-- SEE HERE
-                                                  color: Colors.black,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ],
-                        ),
+                       Obx(() =>  Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                             height: 40,
+                           ),
+                           ListView.builder(
+                               shrinkWrap: true,
+                               scrollDirection: Axis.vertical,
+                               physics: ScrollPhysics(),
+                               itemCount: auth.securityQuestionList.length,
+                               itemBuilder: (BuildContext context, int index) {
+                                 securecontrollers
+                                     .add(TextEditingController());
+                                 return Container(
+                                   child: Column(
+                                     crossAxisAlignment:
+                                     CrossAxisAlignment.start,
+                                     children: [
+                                       Text(
+                                         "${auth.securityQuestionList[index]["question"]}",
+                                         style: TextStyle(
+                                             fontFamily: 'Sora',
+                                             fontSize: 16,
+                                             fontWeight: FontWeight.bold),
+                                       ),
+                                       SizedBox(height: 20),
+                                       Container(
+
+                                         child: TextFormField(
+                                           textAlign: TextAlign.start,
+                                           controller:
+                                           securecontrollers[index],
+                                           autofocus: false,
+                                           keyboardType: TextInputType.text,
+                                           decoration: InputDecoration(
+                                             enabledBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 width: 1, //<-- SEE HERE
+                                                 color: Colors.black,
+                                               ),
+                                               borderRadius:
+                                               BorderRadius.circular(10.0),
+                                             ),
+                                             focusedBorder: OutlineInputBorder(
+                                               borderSide: BorderSide(
+                                                 width: 1, //<-- SEE HERE
+                                                 color: Colors.black,
+                                               ),
+                                               borderRadius:
+                                               BorderRadius.circular(10.0),
+                                             ),
+                                           ),
+                                         ),
+                                       ),
+                                       SizedBox(
+                                         height: 10,
+                                       )
+                                     ],
+                                   ),
+                                 );
+                               }),
+                         ],
+                       ),)
                       ],
                     ),
                   ),
@@ -184,15 +181,15 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                           SizedBox(
                                             height: 40,
                                           ),
-                                          Container(
+                                          Obx(() => Container(
                                             width:
-                                                MediaQuery.of(context).size.width / 4.5,
+                                            MediaQuery.of(context).size.width / 4.5,
                                             child: ListView.builder(
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 physics: ScrollPhysics(),
                                                 itemCount:
-                                                    auth.securityQuestionList.length,
+                                                auth.securityQuestionList.length,
                                                 itemBuilder:
                                                     (BuildContext context, int index) {
                                                   securecontrollers
@@ -200,7 +197,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                                   return Container(
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           "${auth.securityQuestionList[index]["question"]}",
@@ -208,44 +205,44 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                                               fontFamily: 'Sora',
                                                               fontSize: 16,
                                                               fontWeight:
-                                                                  FontWeight.bold),
+                                                              FontWeight.bold),
                                                         ),
                                                         SizedBox(height: 20),
                                                         Container(
                                                           width: MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
+                                                              .size
+                                                              .width /
                                                               4.5,
                                                           child: TextFormField(
                                                             textAlign: TextAlign.start,
                                                             controller:
-                                                                securecontrollers[
-                                                                    index],
+                                                            securecontrollers[
+                                                            index],
                                                             autofocus: false,
                                                             keyboardType:
-                                                                TextInputType.text,
+                                                            TextInputType.text,
                                                             decoration: InputDecoration(
                                                               enabledBorder:
-                                                                  OutlineInputBorder(
+                                                              OutlineInputBorder(
                                                                 borderSide: BorderSide(
                                                                   width:
-                                                                      1, //<-- SEE HERE
+                                                                  1, //<-- SEE HERE
                                                                   color: Colors.black,
                                                                 ),
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(10.0),
+                                                                BorderRadius
+                                                                    .circular(10.0),
                                                               ),
                                                               focusedBorder:
-                                                                  OutlineInputBorder(
+                                                              OutlineInputBorder(
                                                                 borderSide: BorderSide(
                                                                   width:
-                                                                      1, //<-- SEE HERE
+                                                                  1, //<-- SEE HERE
                                                                   color: Colors.black,
                                                                 ),
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(10.0),
+                                                                BorderRadius
+                                                                    .circular(10.0),
                                                               ),
                                                             ),
                                                           ),
@@ -257,7 +254,7 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                                     ),
                                                   );
                                                 }),
-                                          ),
+                                          ),),
                                           SizedBox(
                                             height: 20,
                                           ),
@@ -350,91 +347,91 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                                   color: HexColor('#004751'))),
                                         ],
                                       ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 40,
-                                          ),
-                                          ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.vertical,
-                                              physics: ScrollPhysics(),
-                                              itemCount:
-                                                  auth.securityQuestionList.length,
-                                              itemBuilder:
-                                                  (BuildContext context, int index) {
-                                                securecontrollers
-                                                    .add(TextEditingController());
-                                                return Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          SizedBox(
-                                                              width:
-                                                                  MediaQuery.of(context)
-                                                                          .size
-                                                                          .width /
-                                                                      10),
-                                                          Text(
-                                                            "${auth.securityQuestionList[index]["question"]}",
-                                                            style: TextStyle(
-                                                                fontFamily: 'Sora',
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight.bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(height: 20),
-                                                      Container(
-                                                        width: MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.5,
-                                                        child: TextFormField(
-                                                          textAlign: TextAlign.start,
-                                                          controller:
-                                                              securecontrollers[index],
-                                                          autofocus: false,
-                                                          keyboardType:
-                                                              TextInputType.text,
-                                                          decoration: InputDecoration(
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                width: 1, //<-- SEE HERE
-                                                                color: Colors.black,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      10.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                width: 1, //<-- SEE HERE
-                                                                color: Colors.black,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      10.0),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                        ],
-                                      ),
+                                   Obx(() =>    Column(
+                                     crossAxisAlignment: CrossAxisAlignment.center,
+                                     children: [
+                                       SizedBox(
+                                         height: 40,
+                                       ),
+                                       ListView.builder(
+                                           shrinkWrap: true,
+                                           scrollDirection: Axis.vertical,
+                                           physics: ScrollPhysics(),
+                                           itemCount:
+                                           auth.securityQuestionList.length,
+                                           itemBuilder:
+                                               (BuildContext context, int index) {
+                                             securecontrollers
+                                                 .add(TextEditingController());
+                                             return Container(
+                                               child: Column(
+                                                 crossAxisAlignment:
+                                                 CrossAxisAlignment.start,
+                                                 children: [
+                                                   Row(
+                                                     children: [
+                                                       SizedBox(
+                                                           width:
+                                                           MediaQuery.of(context)
+                                                               .size
+                                                               .width /
+                                                               10),
+                                                       Text(
+                                                         "${auth.securityQuestionList[index]["question"]}",
+                                                         style: TextStyle(
+                                                             fontFamily: 'Sora',
+                                                             fontSize: 16,
+                                                             fontWeight:
+                                                             FontWeight.bold),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                   SizedBox(height: 20),
+                                                   Container(
+                                                     width: MediaQuery.of(context)
+                                                         .size
+                                                         .width /
+                                                         2.5,
+                                                     child: TextFormField(
+                                                       textAlign: TextAlign.start,
+                                                       controller:
+                                                       securecontrollers[index],
+                                                       autofocus: false,
+                                                       keyboardType:
+                                                       TextInputType.text,
+                                                       decoration: InputDecoration(
+                                                         enabledBorder:
+                                                         OutlineInputBorder(
+                                                           borderSide: BorderSide(
+                                                             width: 1, //<-- SEE HERE
+                                                             color: Colors.black,
+                                                           ),
+                                                           borderRadius:
+                                                           BorderRadius.circular(
+                                                               10.0),
+                                                         ),
+                                                         focusedBorder:
+                                                         OutlineInputBorder(
+                                                           borderSide: BorderSide(
+                                                             width: 1, //<-- SEE HERE
+                                                             color: Colors.black,
+                                                           ),
+                                                           borderRadius:
+                                                           BorderRadius.circular(
+                                                               10.0),
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ),
+                                                   SizedBox(
+                                                     height: 10,
+                                                   )
+                                                 ],
+                                               ),
+                                             );
+                                           }),
+                                     ],
+                                   ),),
                                       AuthButton(
                                         decoration: BoxDecoration(
                                           color: HexColor('#CEE812'),

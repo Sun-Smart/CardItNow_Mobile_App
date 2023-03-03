@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:cardit/main.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/verify_userid_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -60,7 +61,10 @@ class StartState extends State<SplashScreens> {
             options: const AuthenticationOptions(biometricOnly: true));
         if (didAuthenticate) {
           await authcon.getLoginToken();
-          Get.offAll(() => MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
+          Get.offAll(()=>MyApp.logindetails["status"] == "A"?
+        MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen():
+          VerifyUserId());
+
         }
       } catch (e) {
         print("BIO : " + e.toString());
@@ -68,12 +72,14 @@ class StartState extends State<SplashScreens> {
       }
     } else {
       await authcon.getLoginToken();
-      Get.offAll(() => MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
+      Get.offAll(()=>MyApp.logindetails["status"] == "A"?
+      MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen():
+      VerifyUserId());
     }
   }
 
   _navigation() async {
-    await Future.delayed(const Duration(milliseconds: 8500), () {});
+    await Future.delayed( Duration(milliseconds: 8000), () {});
     if (GetStorage().read('save_token') == null) {
       Get.offAll(Home());
     } else {

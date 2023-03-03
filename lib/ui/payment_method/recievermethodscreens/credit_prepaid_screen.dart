@@ -2,6 +2,7 @@
 
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/main.dart';
+import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
@@ -383,7 +384,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
-              Text('₱ 20000',
+              Text(' 0',
                   style: TextStyle(
                       color: HexColor('#CEE812'),
                       fontSize: 24,
@@ -399,7 +400,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             backgroundColor: HexColor('#1C292C'),
             animationDuration: 2500,
             animateFromLastPercent: true,
-            center: Text("+10.0%",
+            center: Text("+0%",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Sora',
@@ -431,7 +432,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
-              Text('₱ 20000',
+              Text(' 0',
                   style: TextStyle(
                       color: HexColor('#CEE812'),
                       fontSize: 24,
@@ -447,7 +448,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             backgroundColor: HexColor('#1C292C'),
             animationDuration: 2500,
             animateFromLastPercent: true,
-            center: Text("+10.0%",
+            center: Text("+0%",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Sora',
@@ -478,7 +479,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
-              Text('₱ 20000',
+              Text(' 0',
                   style: TextStyle(
                       color: HexColor('#CEE812'),
                       fontSize: 24,
@@ -494,7 +495,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             backgroundColor: HexColor('#1C292C'),
             animationDuration: 2500,
             animateFromLastPercent: true,
-            center: Text("+10.0%",
+            center: Text("+0%",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Sora',
@@ -515,8 +516,9 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             children: [
               GestureDetector(
                 child: Container(
-                  height: 70,
-                  width: 170,
+                  padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                  // height: 70,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
@@ -529,19 +531,21 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       Text('Pay',
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: 'Sora',
+                              fontFamily: 'Sora',fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ],
                   ),
                 ),
                 onTap: () {
-                  print('Pay Tapped');
+                  Get.offAll(PaymentDashboard());
                 },
               ),
+
               GestureDetector(
                 child: Container(
-                  height: 70,
-                  width: 170,
+                  padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                  // height: 70,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
@@ -554,7 +558,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       Text('Receive',
                           style: TextStyle(
                               fontSize: 14,
-                              fontFamily: 'Sora',
+                              fontFamily: 'Sora',fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ],
                   ),
@@ -600,7 +604,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               GestureDetector(
                 child: Container(
                   height: 70,
-                  width: 170,
+                  // width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),

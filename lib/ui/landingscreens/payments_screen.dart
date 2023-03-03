@@ -22,11 +22,11 @@ class PaymentsState extends State<Payments>
 
   int _currentsliderindex = 0;
   List<_SalesData> data = [
-    _SalesData('Jan', 35, Color(0Xff1C292C)),
-    _SalesData('Feb', 50, Color(0Xff1C292C)),
-    _SalesData('Mar', 150, Color(0Xff036D7A)),
-    _SalesData('Apr', 32, Color(0Xff1C292C)),
-    _SalesData('May', 40, Color(0Xff1C292C)),
+    _SalesData('Jan', 0, Color(0Xff1C292C)),
+    _SalesData('Feb', 0, Color(0Xff1C292C)),
+    _SalesData('Mar', 0, Color(0Xff036D7A)),
+    _SalesData('Apr', 0, Color(0Xff1C292C)),
+    _SalesData('May', 0, Color(0Xff1C292C)),
   ];
   var item = [
     'Monthly',
@@ -254,7 +254,7 @@ class PaymentsState extends State<Payments>
           height: 15,
         ),
         Text(
-          '2000.0',
+          '0',
           style: TextStyle(color: Color(0XFFCEE812), fontSize: 24),
         )
       ]),
@@ -309,7 +309,7 @@ class PaymentsState extends State<Payments>
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: const [
                         Text(
-                          "₱ 2000.00",
+                          "₱ 0.00",
                           style:
                               TextStyle(color: Color(0XFFCEE812), fontSize: 24),
                         ),
@@ -325,7 +325,7 @@ class PaymentsState extends State<Payments>
                           width: 5,
                         ),
                         Text(
-                          "2.5%",
+                          "0",
                           style:
                               TextStyle(color: Color(0XFFFFFFFF), fontSize: 14),
                         ),
@@ -371,13 +371,14 @@ class PaymentsState extends State<Payments>
   Widget _buildBusinesscard() {
     final items = <Widget>[];
 
-    items.add(buildTransactionCade(
-        '25 December 2022', '₱ 4000', 'Paid to San Nicolas', 45879652, true));
-    items.add(SizedBox(
-      height: 20,
-    ));
-    items.add(buildTransactionCade(
-        '28 December 2022', '₱ 5000', 'Paid to San suresh', 45879652, false));
+    // items.add(buildTransactionCade(
+    //     '25 December 2022', '₱ 4000', 'Paid to San Nicolas', 45879652, true));
+    // items.add(SizedBox(
+    //   height: 20,
+    // ));
+    // items.add(buildTransactionCade(
+    //     '28 December 2022', '₱ 5000', 'Paid to San suresh', 45879652, false)
+    // );
 
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(15, 0, 15, 0),

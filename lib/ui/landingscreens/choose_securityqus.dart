@@ -10,7 +10,8 @@ import '../../const/responsive.dart';
 import '../../themes/styles.dart';
 
 class ChooseSecQus extends StatefulWidget {
-  const ChooseSecQus({Key? key}) : super(key: key);
+  final customeridqusestion;
+   ChooseSecQus({Key? key,this.customeridqusestion}) : super(key: key);
 
   @override
   State<ChooseSecQus> createState() => _ChooseSecQusState();
@@ -34,24 +35,24 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
 
           ):null,
           body:Responsive.isMobile(context)
-              ? Container(
+              ? SingleChildScrollView(
+                child: Container(
             margin: EdgeInsets.all(15),
             child: Column(
 
-              children: [
+                children: [
 
 
-                Row(
-                  children: [
-                    Text("Security Questions",
-                        style: TextStyle(
-                            fontSize: 24,fontFamily: 'Sora',
-                            fontWeight: FontWeight.bold,
-                            color: HexColor('#004751'))),
-                  ],
-                ),
-                Obx(() =>Expanded(
-                  child: Column(
+                  Row(
+                    children: [
+                      Text("Security Questions",
+                          style: TextStyle(
+                              fontSize: 24,fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                              color: HexColor('#004751'))),
+                    ],
+                  ),
+                  Obx(() =>Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
@@ -70,29 +71,52 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${auth.securedetailslist[index]}",
+                                    "${auth.securedetailslist[index]["question"]}",
                                     style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                                   ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+
                                   TextFormField(
                                     textAlign: TextAlign.start,
                                     controller:  protectcontrollers[index],
                                     autofocus: false,
-                                    keyboardType: TextInputType.text,),
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1, //<-- SEE HERE
+                                          color: Colors.black,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1, //<-- SEE HERE
+                                          color: Colors.black,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                    ),),
+                                  SizedBox(height: 30,),
                                 ],
+
                               ),);}),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 30,),
 
 
 
                     ],
                   ),
+                  ),
 
-                ),
-                ),
-
-              ],
+                ],
             ),
-          ): Responsive.isDesktop(context)?Row(
+          ),
+              ): Responsive.isDesktop(context)?Row(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width / 3,
@@ -392,7 +416,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                 if (protectcontrollers[i].text.isNotEmpty) {
                   var body = {
                     "securityquestionid": auth.securedetailslist[i]["securityquestionid"],
-                    "customerid": int.parse(GetStorage().read("custid")),
+                    "customerid": widget.customeridqusestion,
                     "questionid": auth.securedetailslist[i]["questionid"],
                     "answer": protectcontrollers[i].text,
                     "status": ""

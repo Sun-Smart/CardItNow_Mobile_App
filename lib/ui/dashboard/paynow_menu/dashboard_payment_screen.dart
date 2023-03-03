@@ -83,6 +83,10 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
             child: AppBar(
               leading: BackButton(
+                onPressed: (){
+
+                  Get.back();
+                },
                 color: themeChange.darkTheme ? Colors.white : Colors.black,
               ),
               centerTitle: true,

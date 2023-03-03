@@ -13,6 +13,7 @@ import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
+import 'package:cardit/utils/shuftipro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,7 @@ import '../ui/splash/home_screen.dart';
 import '../widgets/stepper.dart';
 var mocktermscond;
 var ShuftiProValues;
+
 class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
   var scandocs = '';
@@ -98,9 +100,11 @@ class RegisterAPI extends GetxController with BaseController {
 
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
+  
 
   @override
   void onInit() {
+   
     termsconditionsfun();
     geoaccess();
     countryselection();
@@ -233,7 +237,7 @@ class RegisterAPI extends GetxController with BaseController {
 
     hideLoading();
     if (data != "Fail" && data != "not match") {
-      if (data == "Success") {
+      if (data == "success") {
         if (kIsWeb) {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
@@ -471,6 +475,7 @@ class RegisterAPI extends GetxController with BaseController {
         .post(API().onboardPayeePost, body)
         .catchError(handleError);
     print("---data-----$body");
+
     if (response == null) return;
     var data = json.decode(response);
     print('Pass' + data);
@@ -543,7 +548,7 @@ class RegisterAPI extends GetxController with BaseController {
 
 
   //forgot password otp
-  void forgotPasswordOTP(String email) async {
+  void forgotPasswordOTP(String email,) async {
     showLoading();
     var body = {"email": email};
     var response = await BaseClient()
@@ -558,10 +563,11 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(data1);
 
 
-    if (data["status"] == "success") {
 
-      Get.to(ChooseSecQus());
-      securitydetail();
+    if (data["status"] == "success") {
+      securitydetail(custidval: data["customerid"]);
+      Get.to(ChooseSecQus(customeridqusestion: data["customerid"]));
+
       // Get.to(UpdatePasswordCode());
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
@@ -773,10 +779,10 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   //securityquestiondetails
-  void securitydetail() async {
-    var customerids = GetStorage().read("custid");
+  void securitydetail({custidval}) async {
+
     var response = await BaseClient()
-        .get(API().securitydetails + customerids)
+        .get(API().securitydetails + custidval.toString())
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -798,7 +804,7 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (response == null) return;
     var data = json.decode(response);
-    if (data != null) {
+    if (data = true) {
       if (kIsWeb) {
         pageController!.nextPage(
             duration: Duration(milliseconds: 200), curve: Curves.linear);
@@ -806,9 +812,10 @@ class RegisterAPI extends GetxController with BaseController {
         //
       } else {
         Get.to(UpdatePasswordCode());
+        Fluttertoast.showToast(msg: "Success");
       }
     } else {
-      Fluttertoast.showToast(msg: "Something Went Wrong");
+      Fluttertoast.showToast(msg: data.toString());
     }
   }
 

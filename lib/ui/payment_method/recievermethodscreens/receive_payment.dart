@@ -2,6 +2,7 @@
 
 import 'package:cardit/ui/payment_method/recievermethodscreens/payee_details.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -40,12 +41,13 @@ class _ReceivePaymentPageState extends State<ReceivePaymentPage> {
             }, Icons.house_outlined, 'Bank Account'),
             SizedBox(height: 20),
             selectCard(context, () {
-              print('2 Tapped');
+              Fluttertoast.showToast(msg: "Coming Soon");
             }, Icons.wallet_rounded, 'Digital Wallet'),
             SizedBox(height: 20),
-            selectCard(context, () {
-              print('2 Tapped');
-            }, Icons.credit_card_rounded, 'Apply for Prepaid Card'),
+            selectCard(
+                context, () {
+              Fluttertoast.showToast(msg: "Coming Soon");
+            }, Icons.credit_card_rounded, 'Apply for Prepaid Card',),
           ],
         ),
       ):Responsive.isDesktop(context)?

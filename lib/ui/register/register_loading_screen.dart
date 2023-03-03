@@ -23,7 +23,7 @@ class Registerloading extends StatefulWidget {
 Future<bool> _willPopCallback() async {
   // await showDialog or Show add banners or whatever
   // then
-  return Future.value(false);
+  return Future.value(true);
 }
 
 class _RegisterloadingState extends State<Registerloading> {
@@ -130,7 +130,7 @@ class _RegisterloadingState extends State<Registerloading> {
               height: 20,
             ),
             Text(
-              'We are verifying your ID and Details. We will notify you once done',
+              'We are verifying your Details. We will notify you once done',
               style: TextStyle(
                 fontSize: 12,
                 fontFamily: 'Sora',
@@ -177,7 +177,7 @@ Widget buildtitle1(context) {
           ),
           SizedBox(height: 20),
           Text(
-            'We are verifying your ID and Details. We will notify you once done',
+            'We are verifying your Details. We will notify you once done',
             style: TextStyle(
               fontSize: 12,
               fontFamily: 'Sora',
@@ -212,7 +212,7 @@ Widget buildtitle1(context) {
           ),
           SizedBox(height: 20),
           Text(
-            'We are verifying your ID and Details. We will notify you once done',
+            'We are verifying your Details. We will notify you once done',
             style: TextStyle(
               fontSize: 12,
               fontFamily: 'Sora',
