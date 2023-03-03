@@ -45,7 +45,7 @@ class _CountryState extends State<Country> {
                   height: 80,
                 ),
 
-                SvgPicture.asset('assets/lodaingimg.svg',
+                SvgPicture.asset('assets/carditcountry.svg',
                     width: 230, height: 65),
                 SizedBox(
                   height: 30,

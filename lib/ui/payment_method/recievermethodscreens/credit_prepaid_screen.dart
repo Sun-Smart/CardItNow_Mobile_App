@@ -396,7 +396,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
             radius: 65,
             lineWidth: 10,
             animation: true,
-            percent: .7,
+            percent: 0,
             backgroundColor: HexColor('#1C292C'),
             animationDuration: 2500,
             animateFromLastPercent: true,

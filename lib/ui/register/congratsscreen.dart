@@ -1,3 +1,4 @@
+import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
@@ -20,6 +21,7 @@ class congratesscreen extends StatefulWidget {
 }
 
 class _congratesscreenState extends State<congratesscreen> {
+  final RegisterAPI reg = Get.put(RegisterAPI());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,13 +47,13 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
-              MyApp.logindetails['username'] == null?
+            reg.firstNameController.text == null?
               Text("Hey Congrats your Document Verification done",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                       fontWeight: FontWeight.bold
                   )):
-              Text("Hey Congrats ${MyApp.logindetails['username']} !",
+              Text("Hey Congrats ${reg.firstNameController.text} !",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                   fontWeight: FontWeight.bold
@@ -84,13 +86,13 @@ class _congratesscreenState extends State<congratesscreen> {
               ),
 
               SizedBox(height: 30),
-              MyApp.logindetails['username'] == null?
+              reg.firstNameController.text == null?
               Text("Hey Congrats your Document",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                   fontWeight: FontWeight.bold
                   )):
-              Text("Hey Congrats ${MyApp.logindetails['username']} !",
+              Text("Hey Congrats ${reg.firstNameController.text} !",
                   style: TextStyle(
                       fontSize: 22, color: Colors.lightGreen, fontFamily: 'sora',
                       fontWeight: FontWeight.bold

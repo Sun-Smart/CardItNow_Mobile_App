@@ -35,7 +35,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final RegisterAPI con = Get.put(RegisterAPI());
+  final RegisterAPI reg = Get.put(RegisterAPI());
   var usertab = '/userdetails';
   @override
   Widget build(BuildContext context) {
@@ -449,8 +449,17 @@ class _ProfileState extends State<Profile> {
                           color: HexColor('#90BA06'),
                           borderRadius: BorderRadius.circular(5)),
                       onTap: () {
+
                         GetStorage().remove('save_token');
+                        GetStorage().remove("avatarpic");
                         GetStorage().remove("customer_type");
+                        reg.firstNameController.clear();
+                        reg.lastNameController.clear();
+                        reg.mobileNoController.clear();
+                        reg.postalCodeController.clear();
+                        reg.emailController.clear();
+                        reg.dateOfBrithController.clear();
+
                         Get.offAll(Home());
                       },
                       text: "Yes"),
@@ -481,6 +490,7 @@ class _ProfileState extends State<Profile> {
                   GestureDetector(
                     onTap: () {
                       GetStorage().remove('save_token');
+                      GetStorage().remove("avatarpic");
                       GetStorage().remove("customer_type");
                       Get.offAll(Home());
                     },
