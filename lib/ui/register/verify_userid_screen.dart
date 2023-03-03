@@ -638,11 +638,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           onTap: () async {
             if(con.countrywisedoc != null) {
             if(kIsWeb){
-              Shuftipro web=  Shuftipro();
-              web.loadreference();
-              // getImage(
-              //     ImageSource
-              //         .gallery);
+              // Shuftipro web=  Shuftipro();
+              // web.loadreference();
+              getImage(
+                  ImageSource
+                      .gallery);
             } else {
               Shuftipro pro = Shuftipro();
               pro.continueFun();
@@ -679,11 +679,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 if(con.countrywisedoc != null) {
                   if (kIsWeb) {
-                      Shuftipro web=  Shuftipro();
-              web.loadreference();
-                    // getImage(
-                    //     ImageSource
-                    //         .gallery);
+              //         Shuftipro web=  Shuftipro();
+              // web.loadreference();
+                    getImage(
+                        ImageSource
+                            .gallery);
                   } else {
                     Shuftipro pro = Shuftipro();
                     pro.continueFun();
@@ -793,11 +793,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               msg: 'Enter ${dropdownvalue.toString()} Number',
             );
           }
-          else if(
-          ShuftiProValues==null
-          ){
-            Fluttertoast.showToast(msg: "Your Verification Process is Unsuceessful Please Verify");
+          if(kIsWeb){
+reg.ocrdocument();
           }
+          // else if(
+          // ShuftiProValues==null
+          // ){
+          //   Fluttertoast.showToast(msg: "Your Verification Process is Unsuceessful Please Verify");
+          // }
             else{
                con.uploadDocx(con.emailController.text, reg.documentIDController.text);
             }

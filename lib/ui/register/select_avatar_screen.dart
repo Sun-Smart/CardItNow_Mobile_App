@@ -313,7 +313,10 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                     onTap: () {
 
                                       GetStorage().read("avatarpic");
-                                      Get.to(const ProfileInformation());
+                                      
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      
                                     },
                                     text: "Next",
                                   ),
