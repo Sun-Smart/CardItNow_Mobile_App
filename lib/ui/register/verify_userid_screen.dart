@@ -638,11 +638,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           onTap: () async {
             if(con.countrywisedoc != null) {
             if(kIsWeb){
-              Shuftipro web=  Shuftipro();
-              web.loadreference();
-              // getImage(
-              //     ImageSource
-              //         .gallery);
+              // Shuftipro web=  Shuftipro();
+              // web.loadreference();
+              getImage(
+                  ImageSource
+                      .gallery);
             } else {
               Shuftipro pro = Shuftipro();
               pro.continueFun();
@@ -675,11 +675,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 if(con.countrywisedoc != null) {
                   if (kIsWeb) {
-                      Shuftipro web=  Shuftipro();
-              web.loadreference();
-                    // getImage(
-                    //     ImageSource
-                    //         .gallery);
+              //         Shuftipro web=  Shuftipro();
+              // web.loadreference();
+                    getImage(
+                        ImageSource
+                            .gallery);
                   } else {
                     Shuftipro pro = Shuftipro();
                     pro.continueFun();
@@ -788,6 +788,9 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             Fluttertoast.showToast(
               msg: 'Enter ${dropdownvalue.toString()} Number',
             );
+          }
+          if(kIsWeb){
+reg.ocrdocument();
           }
           // else if(
           // ShuftiProValues==null
