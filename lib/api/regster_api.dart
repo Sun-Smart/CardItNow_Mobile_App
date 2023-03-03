@@ -13,6 +13,7 @@ import 'package:cardit/ui/auth/update_password_screen.dart';
 import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
+import 'package:cardit/utils/shuftipro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,7 @@ import '../ui/splash/home_screen.dart';
 import '../widgets/stepper.dart';
 var mocktermscond;
 var ShuftiProValues;
+
 class RegisterAPI extends GetxController with BaseController {
   var profileinfo = {}.obs;
   var scandocs = '';
@@ -98,9 +100,11 @@ class RegisterAPI extends GetxController with BaseController {
 
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
+  
 
   @override
   void onInit() {
+   
     termsconditionsfun();
     geoaccess();
     countryselection();
