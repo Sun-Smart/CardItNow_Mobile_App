@@ -52,8 +52,8 @@ class _TwofactorState extends State<Twofactor> {
                   ),
                 ),
                 onTap: () {
-                  Get.to(termsandconditions());
-                  // Get.to(const congratesscreen());
+                  // Get.to(termsandconditions());
+                  Get.to(const congratesscreen());
                 },
               ),
             ),
@@ -166,8 +166,8 @@ class _TwofactorState extends State<Twofactor> {
       onTap: () {
         if (pass = true) {
           GetStorage().write("bioAuth", true);
-          Get.to(termsandconditions());
-          // Get.to(congratesscreen());
+          // Get.to(termsandconditions());
+          Get.to(congratesscreen());
         } else {
           Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
           // Get.to(termsandconditions());

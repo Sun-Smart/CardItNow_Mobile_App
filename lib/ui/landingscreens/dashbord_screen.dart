@@ -37,14 +37,14 @@ class DashbordScreenState extends State<DashbordScreen>
   final CardAPI cardcons = Get.put(CardAPI());
   int _currentsliderindex = 0;
   List<_SalesData> data = [
-    _SalesData('Jan', 35, const Color(0XffEDEDED)),
-    _SalesData('Feb', 50, const Color(0XffEDEDED)),
-    _SalesData('Mar', 100, const Color(0XffEDEDED)),
-    _SalesData('Apr', 32, const Color(0XffEDEDED)),
-    _SalesData('May', 40, const Color(0XffEDEDED)),
-    _SalesData('June', 90, const Color(0XffEDEDED)),
-    _SalesData('July', 150, const Color(0Xff036D7A)),
-    _SalesData('August', 80, const Color(0XffEDEDED)),
+    _SalesData('Jan', 0, const Color(0Xff036D7A)),
+    _SalesData('Feb', 0, const Color(0Xff036D7A)),
+    _SalesData('Mar', 0, const Color(0Xff036D7A)),
+    _SalesData('Apr', 0, const Color(0Xff036D7A)),
+    _SalesData('May', 0, const Color(0Xff036D7A)),
+    _SalesData('June', 0, const Color(0Xff036D7A)),
+    _SalesData('July', 0, const Color(0Xff036D7A)),
+    _SalesData('August', 0, const Color(0XffEDEDED)),
   ];
   var item = ['Monthly', 'weekly'];
   String? dropdownvalue;
@@ -210,10 +210,12 @@ class DashbordScreenState extends State<DashbordScreen>
                                       ))))
                               : Slider(),
                           buildPaySchedule(),
-                          // buildPayCharttitle(),
-                          //buildPayChart(),
-                          //buildTranstitle(),
-                          //_buildBusinesscard(),
+                          buildPayCharttitle(),
+                          buildPayChart(),
+                          buildTranstitle(),
+                          // _buildBusinesscard(),
+                          buildTransactionCade(),
+
                           const SizedBox(height: 20)
                         ],
                       )))
@@ -998,103 +1000,110 @@ class DashbordScreenState extends State<DashbordScreen>
                   pointColorMapper: (_SalesData data, _) => data.color)
             ]));
   }
-
-  Widget _buildBusinesscard() {
-    final items = <Widget>[];
-
-    items.add(buildTransactionCade(
-        '25 December 2022', '₱ 4000', 'Paid to San Nicolas', 45879652, true));
-    items.add(const SizedBox(
-      height: 20,
-    ));
-    items.add(buildTransactionCade(
-        '28 December 2022', '₱ 5000', 'Paid to San suresh', 45879652, false));
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-      child: Column(
-        children: items,
-      ),
-    );
-  }
+  //
+  // Widget _buildBusinesscard() {
+  //   final items = <Widget>[];
+  //
+  //   items.add(buildTransactionCade(
+  //       '25 December 2022', '₱ 0', 'Paid to San Nicolas', 45879652, true));
+  //   items.add(const SizedBox(
+  //     height: 20,
+  //   ));
+  //   items.add(buildTransactionCade(
+  //       '28 December 2022', '₱ 0', 'Paid to San Nicolas', 45879652, false));
+  //
+  //   return SingleChildScrollView(
+  //     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+  //     child: Column(
+  //       children: items,
+  //     ),
+  //   );
+  // }
 
   Widget buildTransactionCade(
-      String date, String amount, String paidname, int tax, bool states) {
+      ) {
     return Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0XffE5E5E5), width: 1.5),
-        ),
-        // padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(15),
-              color: const Color(0Xff004751),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(amount.toString(),
-                          style: const TextStyle(
-                            color: Color(0XffCEE812),
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      Text(date.toString(),
-                          style: const TextStyle(
-                              color: Color(0Xffffffff), fontSize: 9))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      height: 300,
+      width: 300,
+      child:  ListView.builder(
+        scrollDirection: Axis.vertical,
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0XffE2E5E5), width: 1.5),
+                ),
+                // padding: EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(15),
+                      color: const Color(0Xff004751),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("amount.toString()",
+                                  style: const TextStyle(
+                                    color: Color(0XffCEE812),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Text("date.toString()",
+                                  style: const TextStyle(
+                                      color: Color(0Xffffffff), fontSize: 9))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("paidname.toString()",
+                                    style: const TextStyle(
+                                        color: Color(0Xffffffff), fontSize: 14),
+                                    textAlign: TextAlign.left),
+                                const SizedBox(
+                                  width: 10,
+                                )
+                              ]),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('TXN ID  :  ' ,
+                                  style: const TextStyle(
+                                      color: Color(0Xffffffff), fontSize: 11)),
+                              const Text('Download Receipt',
+                                  style:
+                                  TextStyle(color: Color(0Xffffffff), fontSize: 10))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
                       children: [
-                        Text(paidname.toString(),
-                            style: const TextStyle(
-                                color: Color(0Xffffffff), fontSize: 14),
-                            textAlign: TextAlign.left),
-                        const SizedBox(
-                          width: 10,
-                        )
-                      ]),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('TXN ID  :  ' + amount.toString(),
-                          style: const TextStyle(
-                              color: Color(0Xffffffff), fontSize: 11)),
-                      const Text('Download Receipt',
-                          style:
-                              TextStyle(color: Color(0Xffffffff), fontSize: 10))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                states
-                    ? Image.asset("assets/paymentsuccess.png", width: 32)
-                    : Image.asset("assets/paymentsuccess.png",
-                        width: 32, color: const Color(0XffFF9D00)),
-                const SizedBox(width: 5),
-                Text(states ? 'Transaction Success' : 'Confirmation Pending',
-                    style: TextStyle(
-                        color: states
-                            ? const Color(0Xff0AA06E)
-                            : const Color(0XffFF9D00),
-                        fontSize: 14))
-              ],
-            )
-          ],
-        ));
+                        Image.asset("assets/paymentsuccess.png", width: 32),
+
+
+
+                        Text('Confirmation Pending',
+                            style: TextStyle(
+                                color:  const Color(0XffFF9D00),
+                                fontSize: 14))
+                      ],
+                    )
+                  ],
+                ));
+          }),
+    );
+
   }
 }
 

@@ -79,7 +79,7 @@ class Shuftipro {
         ShuftiProValues = body;
       } else if (res["event"] == "verification.declined") {
         var body = jsonDecode(res["body"].toString());
-        ShuftiProValues = body;
+        ShuftiProValues = null;
         Fluttertoast.showToast(msg: body["declined_reason"].toString());
       } else if (res["event"] == "verification.cancelled") {
         // print(res["message"].toString());
