@@ -4,6 +4,7 @@ import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -45,12 +46,14 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                 'Payment Transfer to the payee within 3 \nworking days'),
             SizedBox(height: 20),
             selectCard(context, () {
-              Get.to(const Loans());
+              Fluttertoast.showToast(msg: "Coming Soon");
+              // Get.to(const Loans());
             }, 'Easy Payment Plan',
                 'Payment Transfer to the payee within 5 \nworking days'),
             SizedBox(height: 20),
             selectCard(context, () {
-              Get.to(const OnBoardPayeePage());
+              Fluttertoast.showToast(msg: "Coming Soon");
+              // Get.to(const OnBoardPayeePage());
             }, 'Brankas',
                 'Payment Transfer to the payee within 1 \nworking day'),
           ],
@@ -83,17 +86,20 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                     color: HexColor('#004751'))),
             SizedBox(height: 30),
             selectcardweb(context, () {
+
               Get.to( AddCreditCardPage());
             }, 'Use Credit Card',
                 'Payment Transfer to the payee within 3 \nworking days'),
             SizedBox(height: 20),
             selectcardweb(context, () {
-              Get.to(const Loans());
+              Fluttertoast.showToast(msg: "Coming Soon");
+              // Get.to(const Loans());
             }, 'Easy Payment Plan',
                 'Payment Transfer to the payee within 5 \nworking days'),
             SizedBox(height: 20),
            selectcardweb(context, () {
-              Get.to(const OnBoardPayeePage());
+             Fluttertoast.showToast(msg: "Coming Soon");
+             // Get.to(const OnBoardPayeePage());
             }, 'Brankas',
                 'Payment Transfer to the payee within 1 \nworking day'),
           ],

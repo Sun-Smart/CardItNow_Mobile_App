@@ -507,7 +507,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                                    Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 4.8:
                                  MediaQuery.of(context).size.width / 8  ),
                                     Text(
-                          "Enter ID Number ",
+                          "Enter ID Numbers ",
                          style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
                               ),
                             ],
