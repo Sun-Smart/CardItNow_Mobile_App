@@ -12,7 +12,8 @@ class PaymentSuccessful extends StatefulWidget {
   var payee;
   var purpose;
   var payment;
-   PaymentSuccessful({super.key, this.paymentType,this.payee, this.purpose, this.payment});
+  var transaction;
+   PaymentSuccessful({super.key, this.paymentType,this.payee, this.purpose, this.payment, this.transaction});
 
   @override
   State<PaymentSuccessful> createState() => _PaymentSuccessfulState();
@@ -118,7 +119,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Text(
-                  "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                  "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -165,7 +166,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
-                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -242,7 +243,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
-                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
