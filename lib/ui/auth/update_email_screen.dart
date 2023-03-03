@@ -45,14 +45,27 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               ],
             ),
           )): Responsive.isDesktop(context)?Row(children: [
-                  Container(
+                 Container(
                     width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width / 1,
+                    //height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
-                        child: Image.asset("assets/carditlogo.png",
-                            width: 130, height: 65)),
-
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
                   ),
                   Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,6 +95,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
        if(con.emailController.text.isEmpty){
          Fluttertoast.showToast(msg: "Enter your Email Id");
        }else{
+
          con.forgotPasswordOTP(con.emailController.text.toString().trim(),
 
          );
@@ -110,13 +124,27 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
               ],
             ),
                   ]):Row(children: [
-                  Container(
+                 Container(
                     width: MediaQuery.of(context).size.width / 3,
+                   // height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
-                        child: Image.asset("assets/carditlogo.png",
-                            width: 130, height: 65)),
-
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
                   ),
                    Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,11 +170,14 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
              
                 SizedBox(height: 30),
                 GestureDetector(
-        onTap: () {
+       onTap: () {
        if(con.emailController.text.isEmpty){
          Fluttertoast.showToast(msg: "Enter your Email Id");
        }else{
-         con.forgotPasswordOTP(con.emailController.text.toString().trim());
+
+         con.forgotPasswordOTP(con.emailController.text.toString().trim(),
+
+         );
        }
       },
       child: Container(

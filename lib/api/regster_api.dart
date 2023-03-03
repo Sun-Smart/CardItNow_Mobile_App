@@ -32,7 +32,8 @@ import '../ui/splash/home_screen.dart';
 import '../widgets/stepper.dart';
 var mocktermscond;
 var ShuftiProValues;
-
+ Shuftipro web=  Shuftipro();
+           
 class RegisterAPI extends GetxController with BaseController {
   PaymentAPI pay = PaymentAPI();
   var profileinfo = {}.obs;
@@ -103,7 +104,7 @@ class RegisterAPI extends GetxController with BaseController {
 
   @override
   void onInit() {
-   
+      //web.loadreference();
     termsconditionsfun();
     geoaccess();
     countryselection();
