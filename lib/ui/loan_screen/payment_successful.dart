@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import '../../main.dart';
 import '../../widgets/auth_button.dart';
+import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 
 class PaymentSuccessful extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
   var payment;
-   PaymentSuccessful({super.key, this.paymentType,this.payee, this.purpose, this.payment});
+  var transaction;
+   PaymentSuccessful({super.key, this.paymentType,this.payee, this.purpose, this.payment, this.transaction});
 
   @override
   State<PaymentSuccessful> createState() => _PaymentSuccessfulState();
@@ -22,7 +25,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
 
   Future<bool> _willPopCallback() async {
     if(Responsive.isMobile(context)){
-      Get.offAll(DashbordScreen());
+      if(MyApp.logindetails["customertype"] == "I"){
+        Get.offAll(DashbordScreen());
+      }
+      else{
+        Get.offAll(CreditPrepaidScreen());
+      }
     } else{
       Get.offAll(DrawerWeb());
     }
@@ -43,7 +51,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   backgroundColor: Colors.transparent,
                   leading: IconButton(
                       onPressed: () {
-                        Get.offAll(DashbordScreen());
+                        if(MyApp.logindetails["customertype"] == "I"){
+                          Get.offAll(DashbordScreen());
+                        }
+                        else{
+                          Get.offAll(CreditPrepaidScreen());
+                        }
                       },
                       icon: Icon(Icons.close),
                       color: Colors.white))
@@ -118,7 +131,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Text(
-                  "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                  "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -165,7 +178,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
-                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -242,7 +255,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
-                          "Your payment to ${widget.purpose["ownername"]} with “TXN ID” ${widget.payment[""]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                          "Your payment to ${widget.purpose["KEYVALUE"]["Declared Owner"] ?? ""} with “TXN ID” ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -291,7 +304,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-      Get.offAll(DashbordScreen());
+        if(MyApp.logindetails["customertype"] == "I"){
+          Get.offAll(DashbordScreen());
+        }
+        else{
+          Get.offAll(CreditPrepaidScreen());
+        }
       },
       text: "Go to dashboard",
     );

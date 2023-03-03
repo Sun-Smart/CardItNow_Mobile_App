@@ -638,9 +638,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           onTap: () async {
             if(con.countrywisedoc != null) {
             if(kIsWeb){
-              getImage(
-                  ImageSource
-                      .gallery);
+              Shuftipro web=  Shuftipro();
+              web.loadreference();
+              // getImage(
+              //     ImageSource
+              //         .gallery);
             } else {
               Shuftipro pro = Shuftipro();
               pro.continueFun();
@@ -677,9 +679,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
               onTap: () async {
                 if(con.countrywisedoc != null) {
                   if (kIsWeb) {
-                    getImage(
-                        ImageSource
-                            .gallery);
+                      Shuftipro web=  Shuftipro();
+              web.loadreference();
+                    // getImage(
+                    //     ImageSource
+                    //         .gallery);
                   } else {
                     Shuftipro pro = Shuftipro();
                     pro.continueFun();

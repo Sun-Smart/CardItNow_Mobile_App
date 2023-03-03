@@ -63,7 +63,7 @@ class _StepperWebState extends State<StepperWeb> {
         progress = 3;
         break;
       default:
-        return progress = 1;
+        return progress = 0;
     }
 
 //     if(progress==1){

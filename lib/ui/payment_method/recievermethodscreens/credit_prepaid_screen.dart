@@ -11,6 +11,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../api/payment_api.dart';
+
 
 
 class CreditPrepaidScreen extends StatefulWidget {
@@ -21,6 +23,7 @@ class CreditPrepaidScreen extends StatefulWidget {
 }
 
 class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
+  PaymentAPI pay = PaymentAPI();
   ValueNotifier<double> _slider1Value = ValueNotifier<double>(0.0);
   bool? check1 = false;
 
@@ -735,28 +738,28 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       fontWeight: FontWeight.bold))
             ],
           ),
-          SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails(),
-          // SizedBox(height: 30),
-          // _buildCustomerDetails()
+          SizedBox(
+            height: 200,
+              child: ListView.builder(
+                  itemCount: pay.transactionList.length,
+                  itemBuilder: (context, i) {
+                    var item = pay.transactionList[i];
+                    return _buildCustomerDetails(item);
+                  },
+                )
+
+
+          )
+
         ],
       ),
     );
   }
 
-  Widget _buildCustomerDetails() {
-    return Container(
-        child: Row(
+  Widget _buildCustomerDetails(var item) {
+    return Column(
+      children: [
+        Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
@@ -768,7 +771,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               children: [
                 Row(
                   children: [
-                    Text('Rita',
+                    Text('${item[""]}',
                         style: TextStyle(
                             fontFamily: 'Sora',
                             fontWeight: FontWeight.bold,
@@ -807,7 +810,10 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
           ],
         )
       ],
-    ));
+    ),
+        SizedBox(height: 10,)
+      ],
+    );
   }
 
   Future<bool> _popupScreen() async {

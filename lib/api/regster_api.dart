@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/ui/auth/update_password_code_screen.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/payment_loading.dart';
 import 'package:cardit/ui/auth/login_screen.dart';
@@ -10,8 +11,6 @@ import 'package:cardit/ui/landingscreens/choose_securityqus.dart';
 import 'package:cardit/ui/payment_method/choose_payment_method.dart';
 import 'package:cardit/ui/register/congratsfiles/passcodecongrats.dart';
 import 'package:cardit/ui/auth/update_password_screen.dart';
-import 'package:cardit/ui/register/congratsscreen.dart';
-import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/ui/register/twofactor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,9 @@ import '../ui/splash/home_screen.dart';
 import '../widgets/stepper.dart';
 var mocktermscond;
 var ShuftiProValues;
+
 class RegisterAPI extends GetxController with BaseController {
+  PaymentAPI pay = PaymentAPI();
   var profileinfo = {}.obs;
   var scandocs = '';
   File? image;
@@ -98,9 +99,11 @@ class RegisterAPI extends GetxController with BaseController {
 
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
+  
 
   @override
   void onInit() {
+   
     termsconditionsfun();
     geoaccess();
     countryselection();
@@ -114,6 +117,7 @@ class RegisterAPI extends GetxController with BaseController {
       documenttypeget();
       paymentpurposeget();
       invoicegetmethod();
+      pay.transactionListAPI();
     }
     super.onInit();
   }

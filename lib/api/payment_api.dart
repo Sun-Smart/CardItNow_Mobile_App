@@ -61,6 +61,9 @@ class PaymentAPI extends GetxController with BaseController {
   var endYear;
 
 
+  //transaction
+  var transactionList = [];
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -203,9 +206,9 @@ class PaymentAPI extends GetxController with BaseController {
         Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
       } else {
         var data = json.decode(response);
-        // if (data["status"] == "success") {
-        //    var jsonResponse = json.encode(data["data"]);
-        //    var responce = json.decode(jsonResponse);
+        if (data["status"] == "success") {
+           var jsonResponse = json.encode(data["data"]);
+           var responce = json.decode(jsonResponse);
         var payee = {
           "payee": lguProvince,
           "purpose": lguPurpose,
@@ -214,30 +217,30 @@ class PaymentAPI extends GetxController with BaseController {
             "end": endDate.text
           }
         };
-        var responce;
-        responce = {
-          "KEYVALUE": {
-            "PIN": "003-19-003-07-004",
-            "Taxpayer": "NACION, FELIX & EDITHA SPS",
-            "Bill Date": "November 15, 2022",
-            "Declared Owner": " NACION, FELIX & EDITHA SPS",
-            "Location": "SAN BARTOLOME",
-            "BILL AMOUNT": "P 75.68",
-            "BAR CODE": "00319220022090"
-          },
-          "DOCNAME": "MUNICIPAL STATEMENT",
-          "TableResult": {
-            "statement summary": [
-              {
-                "A/V": "4,730.00",
-                "PERIOD": "2023",
-                "BASIC": "47.30",
-                "D/P1": "-9.46",
-                "TOTAL": "75.68"
-              }
-            ]
-          }
-        };
+        // var responce;
+        // responce = {
+        //   "KEYVALUE": {
+        //     "PIN": "003-19-003-07-004",
+        //     "Taxpayer": "NACION, FELIX & EDITHA SPS",
+        //     "Bill Date": "November 15, 2022",
+        //     "Declared Owner": " NACION, FELIX & EDITHA SPS",
+        //     "Location": "SAN BARTOLOME",
+        //     "BILL AMOUNT": "P 75.68",
+        //     "BAR CODE": "00319220022090"
+        //   },
+        //   "DOCNAME": "MUNICIPAL STATEMENT",
+        //   "TableResult": {
+        //     "statement summary": [
+        //       {
+        //         "A/V": "4,730.00",
+        //         "PERIOD": "2023",
+        //         "BASIC": "47.30",
+        //         "D/P1": "-9.46",
+        //         "TOTAL": "75.68"
+        //       }
+        //     ]
+        //   }
+        // };
 
         var dateList = responce["TableResult"]["statement summary"] ?? [];
         startYearList = dateList ?? [];
@@ -246,9 +249,9 @@ class PaymentAPI extends GetxController with BaseController {
         endYear = endYearList.last;
         Get.to(PurposeDetails(
             paymentType: type, payee: payee, purpose: responce));
-        // } else {
-        //   Fluttertoast.showToast(msg: "This is an existing Relationship");
-        // }
+        } else {
+          Fluttertoast.showToast(msg: "This is an existing Relationship");
+        }
       }}
     else {
       Fluttertoast.showToast(msg: "Please Upload Statement of Account");
@@ -285,39 +288,70 @@ class PaymentAPI extends GetxController with BaseController {
   finalPaymentAPI(String type, var payee, var purpose, var payment, var date) async {
     showLoading();
     var body = {
-      "TransactionID":null,
-      "UID": MyApp.logindetails["userid"],
-      "PayeeUID": payee["payee"]["uid"],
+      "transactionid":null,
+      "uid": MyApp.logindetails["uid"],
+      "recipientuid": payee["payee"]["uid"],
+      "recipientid":payee["payee"]["customerid"],
       "PrivateID": null,
       "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
-      "PayeeName": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
-      "DocumentNumber": purpose["KEYVALUE"]["BAR CODE"],
-      "AdditionalDocumentNumber":"",
-      "StartDate": payee["date"]["start"],
-      "ExpiryDate": payee["date"]["end"],
-      "Address": purpose["KEYVALUE"]["Location"],
-      "BillDate": purpose["KEYVALUE"]["Bill Date"],
-      "ContractAmount": payment["billamount"],
-      "Discount":"",
-      "CarditConvFee": payment["CC_carditnowfee"],
-      "PayAmount": payment["CC_totalamount"],
-      "PayID": 1,
-      "PayType":"O",
-      "Status":""
+      "recipientname": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
+      "documentnumber": purpose["KEYVALUE"]["BAR CODE"],
+      "additionaldocumentnumber":"",
+      "startdate": payee["date"]["start"],
+      "expirydate": payee["date"]["end"],
+      "address": purpose["KEYVALUE"]["Location"],
+      "billdate": purpose["KEYVALUE"]["Bill Date"],
+      "contractamount": payment["billamount"],
+      "discount": "0.0",
+      "carditconvfee": payment["CC_carditnowfee"],
+      "payamount": payment["CC_totalamount"],
+      "payid": 1,
+      "paytype":"O",
+      "status":""
     };
-    var response = await BaseClient()
-        .post(API().lguPayment, body)
-        .catchError(handleError);
-    hideLoading();
-    if (response == null){
-      Fluttertoast.showToast(msg: "Payment Failed");
-    } else{
-    var data = json.decode(response);
-    if (data == "success") {
-    Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,));
-    } else {
-      Fluttertoast.showToast(msg: "$data");
-    }
-  }}
+    var uri = Uri.parse(API().baseURL + API().lguPayment);
+    var payload = json.encode(body);
+    var tokens = GetStorage().read("save_token");
 
+    var response = await http
+        .post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $tokens',
+          'accept': 'application/json',
+        },
+        body: payload)
+        .timeout(const Duration(seconds: 20));
+    hideLoading();
+    print(response.statusCode.toString());
+    print("body : " + response.body.toString());
+    try{
+    if (response.statusCode == 200){
+
+        var data = json.decode(response.body);
+        if (data != null) {
+          var transaction =  data["transactionmaster"];
+          Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,transaction: transaction,));
+        } else {
+          Fluttertoast.showToast(msg: "$data");
+        }
+
+    } else {
+      var data = json.decode(response.body);
+      Fluttertoast.showToast(msg: data);
+    }}
+    catch(ex){
+    Fluttertoast.showToast(msg: "$ex");
+    }}
+
+
+  void transactionListAPI() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    transactionList = data;
+  }
 }
