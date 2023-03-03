@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
+import '../../main.dart';
 import '../../widgets/auth_button.dart';
+import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 
 class PaymentSuccessful extends StatefulWidget {
   var paymentType;
@@ -23,7 +25,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
 
   Future<bool> _willPopCallback() async {
     if(Responsive.isMobile(context)){
-      Get.offAll(DashbordScreen());
+      if(MyApp.logindetails["customertype"] == "I"){
+        Get.offAll(DashbordScreen());
+      }
+      else{
+        Get.offAll(CreditPrepaidScreen());
+      }
     } else{
       Get.offAll(DrawerWeb());
     }
@@ -44,7 +51,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                   backgroundColor: Colors.transparent,
                   leading: IconButton(
                       onPressed: () {
-                        Get.offAll(DashbordScreen());
+                        if(MyApp.logindetails["customertype"] == "I"){
+                          Get.offAll(DashbordScreen());
+                        }
+                        else{
+                          Get.offAll(CreditPrepaidScreen());
+                        }
                       },
                       icon: Icon(Icons.close),
                       color: Colors.white))
@@ -292,7 +304,12 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
         borderRadius: BorderRadius.circular(5),
       ),
       onTap: () {
-      Get.offAll(DashbordScreen());
+        if(MyApp.logindetails["customertype"] == "I"){
+          Get.offAll(DashbordScreen());
+        }
+        else{
+          Get.offAll(CreditPrepaidScreen());
+        }
       },
       text: "Go to dashboard",
     );

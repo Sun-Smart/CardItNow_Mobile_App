@@ -61,6 +61,9 @@ class PaymentAPI extends GetxController with BaseController {
   var endYear;
 
 
+  //transaction
+  var transactionList = [];
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -203,9 +206,9 @@ class PaymentAPI extends GetxController with BaseController {
         Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
       } else {
         var data = json.decode(response);
-        // if (data["status"] == "success") {
-        //    var jsonResponse = json.encode(data["data"]);
-        //    var responce = json.decode(jsonResponse);
+        if (data["status"] == "success") {
+           var jsonResponse = json.encode(data["data"]);
+           var responce = json.decode(jsonResponse);
         var payee = {
           "payee": lguProvince,
           "purpose": lguPurpose,
@@ -214,30 +217,30 @@ class PaymentAPI extends GetxController with BaseController {
             "end": endDate.text
           }
         };
-        var responce;
-        responce = {
-          "KEYVALUE": {
-            "PIN": "003-19-003-07-004",
-            "Taxpayer": "NACION, FELIX & EDITHA SPS",
-            "Bill Date": "November 15, 2022",
-            "Declared Owner": " NACION, FELIX & EDITHA SPS",
-            "Location": "SAN BARTOLOME",
-            "BILL AMOUNT": "P 75.68",
-            "BAR CODE": "00319220022090"
-          },
-          "DOCNAME": "MUNICIPAL STATEMENT",
-          "TableResult": {
-            "statement summary": [
-              {
-                "A/V": "4,730.00",
-                "PERIOD": "2023",
-                "BASIC": "47.30",
-                "D/P1": "-9.46",
-                "TOTAL": "75.68"
-              }
-            ]
-          }
-        };
+        // var responce;
+        // responce = {
+        //   "KEYVALUE": {
+        //     "PIN": "003-19-003-07-004",
+        //     "Taxpayer": "NACION, FELIX & EDITHA SPS",
+        //     "Bill Date": "November 15, 2022",
+        //     "Declared Owner": " NACION, FELIX & EDITHA SPS",
+        //     "Location": "SAN BARTOLOME",
+        //     "BILL AMOUNT": "P 75.68",
+        //     "BAR CODE": "00319220022090"
+        //   },
+        //   "DOCNAME": "MUNICIPAL STATEMENT",
+        //   "TableResult": {
+        //     "statement summary": [
+        //       {
+        //         "A/V": "4,730.00",
+        //         "PERIOD": "2023",
+        //         "BASIC": "47.30",
+        //         "D/P1": "-9.46",
+        //         "TOTAL": "75.68"
+        //       }
+        //     ]
+        //   }
+        // };
 
         var dateList = responce["TableResult"]["statement summary"] ?? [];
         startYearList = dateList ?? [];
@@ -246,9 +249,9 @@ class PaymentAPI extends GetxController with BaseController {
         endYear = endYearList.last;
         Get.to(PurposeDetails(
             paymentType: type, payee: payee, purpose: responce));
-        // } else {
-        //   Fluttertoast.showToast(msg: "This is an existing Relationship");
-        // }
+        } else {
+          Fluttertoast.showToast(msg: "This is an existing Relationship");
+        }
       }}
     else {
       Fluttertoast.showToast(msg: "Please Upload Statement of Account");
@@ -342,4 +345,13 @@ class PaymentAPI extends GetxController with BaseController {
     Fluttertoast.showToast(msg: "$ex");
     }}
 
+
+  void transactionListAPI() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    transactionList = data;
+  }
 }

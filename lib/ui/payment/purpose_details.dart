@@ -43,7 +43,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"];
+    billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"].replaceAll(RegExp(r'[^0-9.]'), '');
   }
 
   @override

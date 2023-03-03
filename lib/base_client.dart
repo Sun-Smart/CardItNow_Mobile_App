@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:cardit/ui/splash/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -284,9 +285,17 @@ class BaseClient {
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
       case 400:
-        throw BadRequestException(
-            utf8.decode(response.bodyBytes), response.request!.url.toString());
+        // throw BadRequestException(
+        //     utf8.decode(response.bodyBytes), response.request!.url.toString());
+        return;
       case 401:
+        var message = json.decode(response.body);
+        Fluttertoast.showToast(msg: "$message");
+        return;
+      case 417:
+        var message = json.decode(response.body);
+      Fluttertoast.showToast(msg: "$message");
+      return;
       case 403:
         throw UnAuthorizedException(
             utf8.decode(response.bodyBytes), response.request!.url.toString());
@@ -294,6 +303,9 @@ class BaseClient {
         throw BadRequestException(
             utf8.decode(response.bodyBytes), response.request!.url.toString());
       case 500:
+        var message = json.decode(response.body);
+        Fluttertoast.showToast(msg: "$message");
+        return;
       default:
         throw FetchDataException(
             'Error occured with code : ${response.statusCode}',
@@ -308,10 +320,12 @@ class BaseController {
     if (error is BadRequestException) {
       var message = error.message;
       var err = json.decode(message!);
-      DialogHelper.showErroDialog(description: err);
+      Fluttertoast.showToast(msg: "$err");
+      // DialogHelper.showErroDialog(description: err);
     } else if (error is FetchDataException) {
       var message = error.message;
-      DialogHelper.showErroDialog(description: message);
+      Fluttertoast.showToast(msg: "$message");
+      // DialogHelper.showErroDialog(description: message);
     } else if (error is ApiNotRespondingException) {
       DialogHelper.showErroDialog(
           description: 'Oops! It took longer to respond.');
