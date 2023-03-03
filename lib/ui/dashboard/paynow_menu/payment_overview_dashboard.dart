@@ -324,7 +324,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           '${widget.payee["purpose"]["masterdatadescription"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
-              fontSize: 24,
+              fontSize: 12,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -434,7 +434,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           '${widget.payee["purpose"]["masterdatadescription"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
-              fontSize: 24,
+              fontSize: 12,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -537,7 +537,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           '${widget.payee["purpose"]["masterdatadescription"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
-              fontSize: 24,
+              fontSize: 12,
               fontWeight: FontWeight.bold),
         ),
         // Text(
