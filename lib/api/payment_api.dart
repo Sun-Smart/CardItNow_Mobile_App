@@ -61,6 +61,9 @@ class PaymentAPI extends GetxController with BaseController {
   var endYear;
 
 
+  //transaction
+  var transactionList = [];
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -342,4 +345,13 @@ class PaymentAPI extends GetxController with BaseController {
     Fluttertoast.showToast(msg: "$ex");
     }}
 
+
+  void transactionListAPI() async {
+    var response = await BaseClient()
+        .get(API().Paymentpurposedropdown)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    transactionList = data;
+  }
 }
