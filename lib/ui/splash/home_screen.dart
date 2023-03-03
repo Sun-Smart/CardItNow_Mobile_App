@@ -4295,11 +4295,134 @@ class ContactUsWeb extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 30),
+                            
                           ],
                         ),
                       ),
                     ],
-                  )))
+                  ))),
+                   Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.55,
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    color: Color(0XFF004751),
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.center,
+                              child: Text('Are you ready?',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white))),
+                          SizedBox(height: 20),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text('Let’s get started',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: HexColor('#CEE812')),
+                            child: MaterialButton(
+                              minWidth: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(20),
+                              onPressed: () {},
+                              child: Text('Get Started',
+                                  style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 16,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Home',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(height: 10),
+                              Text('How it Works?',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Pricing',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Split Expenses',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              Text('Refer a Friend',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('About Us',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Contact us',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 20)
+                            ],
+                          ),
+                          SizedBox(height: 30),
+                          Center(
+                            child: Text(
+                              'Copyright © 2020. Carditnow. All rights reserved.',
+                              style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      child: Image.asset('assets/city.png',
+                           //width: MediaQuery.of(context).size.width / 2,
+                          fit: BoxFit.fill)),
+                ],
+              ),
            
       ],
     ):Column(
@@ -4456,12 +4579,142 @@ class ContactUsWeb extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 30),
+                            
                           ],
                         ),
                       ),
                     ],
                   )))
           
+      
+         ,Row(
+                children: [
+                  Container(
+                 //   width: MediaQuery.of(context).size.width / 2.5,
+                    height: MediaQuery.of(context).size.height / 2,
+                    color: Color(0XFF004751),
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.center,
+                              child: Text('Are you ready?',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Sora',
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white))),
+                          SizedBox(height: 20),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text('Let’s get started',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: HexColor('#CEE812')),
+                            child: MaterialButton(
+                              minWidth: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.all(20),
+                              onPressed: () {},
+                              child: Text('Get Started',
+                                  style: TextStyle(
+                                    color: Color(0XFF004751),
+                                    fontSize: 16,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Home',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(height: 10),
+                              Text('How it Works?',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Pricing',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Split Expenses',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Refer a Friend',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('About Us',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      color: Colors.white)),
+                              SizedBox(height: 10),
+                              Text('Contact us',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white)),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Center(
+                            child: Text(
+                              'Copyright © 2020. Carditnow. All rights reserved.',
+                              style: TextStyle(
+                                fontFamily: 'Sora',
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: Image.asset('assets/city.png',
+                          width: MediaQuery.of(context).size.width / 2,
+                          fit: BoxFit.fill)),
+                ],
+              ),
+           
+      
       ],
     );
   }
@@ -4857,7 +5110,7 @@ class buildgetstartedweb extends StatelessWidget {
                   Container(
                       height: MediaQuery.of(context).size.height / 1.5,
                       child: Image.asset('assets/city.png',
-                          width: MediaQuery.of(context).size.width / 2,
+                          width: MediaQuery.of(context).size.width / 1.8,
                           fit: BoxFit.fill)),
                 ],
               ),
