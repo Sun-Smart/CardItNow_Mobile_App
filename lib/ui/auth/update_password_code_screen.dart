@@ -52,13 +52,28 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
               )
             : Responsive.isDesktop(context)
                 ? Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/carditlogo.png",
-                              width: 130, height: 65)),
-                    ),
+                   Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                 //   height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
+                  ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -95,13 +110,28 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                     )
                   ])
                 : Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/carditlogo.png",
-                              width: 130, height: 65)),
-                    ),
+                   Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                  //  height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
+                  ),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

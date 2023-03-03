@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:shuftipro_sdk/shuftipro_sdk.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../api/regster_api.dart';
 
@@ -125,38 +126,13 @@ class Shuftipro {
     createdPayload["callback_url"]=url_Callback;
     createdPayload["redirect_url"]=url_redirect;
      shuftiproweb();
+    
   }
 
    shuftiproweb() async {
     var token = await tokenRequest();
     var url = 'https://api.shuftipro.com/';
-    Map data = {
-      "reference": "1645467",
-      "callback_url": "http://www.example.com/",
-      "email": "johndoe@example.com",
-      "country": "GB",
-      "language": "EN",
-      "redirect_url": "http://www.example.com",
-      "verification_mode": "image_only",
-      "document": {
-        "proof": "",
-        "supported_types": ["id_card", "driving_license", "passport"],
-        "name": "",
-        "dob": "",
-        "issue_date": "",
-        "expiry_date": "",
-        "document_number": ""
-      },
-      "address": {
-        "proof": "",
-        "supported_types": ["id_card", "bank_statement"],
-        "name": "",
-        "issue_date": "",
-        "full_address": "",
-        "address_fuzzy_match": "1"
-      }
-    };
-
+  
     String body = json.encode(createdPayload);
 
     var response = await http.post(Uri.parse(url),
@@ -166,10 +142,35 @@ class Shuftipro {
               'Bearer $token',
         },
         body: body);
-    print("${response.statusCode}");
-    print("${response.body}");
+   var test=json.decode(response.body);
+    var gggg = Uri.parse(test["verification_url"]);
+
+
+      if (!await launchUrl(gggg)) {
+    throw Exception('Could not launch $gggg');
+   } else{
+    shuftiproweb1();
+   }
+   }
+
+      shuftiproweb1() async {
+    var url = 'https://demo.herbie.ai/carditnow/#/';
+  
+    String body = json.encode(createdPayload);
+
+    var response = await http.get(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+        },);
+   var test=json.decode(response.body);
+    var gggg = Uri.parse(test["verification_url"]);
+   await launchUrl(gggg);
+  //     if (!await launchUrl(gggg)) {
+  //   throw Exception('Could not launch $gggg');
+  //  }
+   }
   }
   
-  
+ 
   //
-}
+
