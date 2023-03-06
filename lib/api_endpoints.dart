@@ -84,5 +84,5 @@ class API {
 
   //dashboardapis
 String  recentransaction = "common/dashboard_allrecenttransaction";
-
+String barchartviewapi = "common/dashboard_transactionoverview";
 }

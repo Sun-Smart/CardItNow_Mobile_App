@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
+import 'package:cardit/ui/landingscreens/PaymentViewAll.dart';
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -910,12 +911,18 @@ class DashbordScreenState extends State<DashbordScreen>
                       ? Colors.white
                       : const Color(0XFF041316),
                   fontSize: 20)),
-          Text('View',
-              style: TextStyle(
-                  color: themeChange.darkTheme
-                      ? Colors.blue
-                      : const Color(0Xff004751),
-                  fontSize: 14))
+          GestureDetector(
+            onTap: (){
+
+              Get.to(paymentviewall());
+            },
+            child: Text('View All',
+                style: TextStyle(
+                    color: themeChange.darkTheme
+                        ? Colors.blue
+                        : const Color(0Xff004751),
+                    fontSize: 14)),
+          )
         ],
       ),
     );

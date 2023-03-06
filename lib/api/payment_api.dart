@@ -62,7 +62,8 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   //transaction
-  var transactionList = [];
+  var transactionList = [].obs;
+  var barlist = [];
 
   @override
   void onInit() {
@@ -349,6 +350,23 @@ class PaymentAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
 
-    transactionList = data;
+    transactionList.value = data;
   }
+
+  // barchart
+  void barcharshowing() async {
+
+    var body ={
+      "customerid":MyApp.logindetails["userid"]
+    };
+    var response = await BaseClient()
+        .post(API().barchartviewapi,body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    barlist = data;
+  }
+
+
 }

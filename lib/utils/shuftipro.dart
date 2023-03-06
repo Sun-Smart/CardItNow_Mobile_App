@@ -45,13 +45,7 @@ class Shuftipro {
         "last_name": "",
         "middle_name": "",
       },
-      "dob": "",
       "document_number": "",
-      "expiry_date": "",
-      "issue_date": "",
-      "fetch_enhanced_data": "",
-      "gender": "",
-      "backside_proof_required": "0",
     },
   };
 
