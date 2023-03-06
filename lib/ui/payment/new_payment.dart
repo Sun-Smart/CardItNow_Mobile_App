@@ -18,6 +18,7 @@ import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 import '../payment_method/card_input_formatter_class.dart';
+import 'purpose_details.dart';
 
 // ignore: must_be_immutable
 class NewPayment extends StatefulWidget {
@@ -1455,10 +1456,12 @@ class _NewPaymentState extends State<NewPayment> {
           }
         });
       } else {
+       
         pay.newPaymentDocumentAPI(widget.paymentType, widget.payee);
         //
       }
     }
+    
   }
 
   lguValidateFunction() {

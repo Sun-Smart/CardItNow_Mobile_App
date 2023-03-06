@@ -97,8 +97,11 @@ class _CountryState extends State<Country> {
                                         Get.off(StepperWeb());
 
                                       }
-                                     else{
-                                       Get.off(Register());
+                                     else if(Responsive.isTablet(context)){
+                                       Get.off(StepperWeb());
+                                    
+                                     }else{
+                                         Get.off(Register());
                                      }
                                     }
                                   }
