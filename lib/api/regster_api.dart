@@ -153,7 +153,7 @@ class RegisterAPI extends GetxController with BaseController {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         } else {
-          Get.to(VerifyEmail());
+          Get.off(VerifyEmail());
         }
         Fluttertoast.showToast(msg: data["message"].toString());
       } else {
@@ -201,7 +201,7 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(data1);
     if (data["status"] == "success") {
       GetStorage().write("custid", data["customerid"]);
-      Get.to(Passcode());
+      Get.off(Passcode());
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
@@ -230,7 +230,7 @@ class RegisterAPI extends GetxController with BaseController {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         } else {
-          Get.to(() => Passcode());
+          Get.off(() => Passcode());
         }
 
         Fluttertoast.showToast(msg: "OTP validated");
@@ -289,7 +289,7 @@ class RegisterAPI extends GetxController with BaseController {
         pageController!.nextPage(
             duration: Duration(milliseconds: 200), curve: Curves.linear);
       } else {
-        Get.to(SecurityQuestion());
+        Get.off(SecurityQuestion());
       }
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -321,6 +321,7 @@ class RegisterAPI extends GetxController with BaseController {
   void pinsetapi(email, pin) async {
     print(email);
     print(pin);
+    showLoading();
     var body = {};
     var response = await BaseClient()
         .post(
@@ -338,7 +339,7 @@ class RegisterAPI extends GetxController with BaseController {
         pageController!.nextPage(
             duration: Duration(milliseconds: 200), curve: Curves.linear);
       } else {
-        Get.to(() => passcodecongrats());
+        Get.off(() => passcodecongrats());
       }
 
       // Get.to(VerifyUserId());
@@ -425,7 +426,7 @@ class RegisterAPI extends GetxController with BaseController {
       pageController!.nextPage(
           duration: Duration(milliseconds: 200), curve: Curves.linear);
     } else {
-      Get.to(AvatarPageView());
+      Get.off(AvatarPageView());
     }
     //await Get.to(AvatarPageView());
     if (data["status"] == "success") {
@@ -433,7 +434,7 @@ class RegisterAPI extends GetxController with BaseController {
         pageController!.nextPage(
             duration: Duration(milliseconds: 200), curve: Curves.linear);
       } else {
-        Get.offAll(AvatarPageView());
+        Get.off(AvatarPageView());
       }
 
       Fluttertoast.showToast(msg: data["message"]);
@@ -443,6 +444,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   void geoaccess() async {
+    showLoading();
     var response = await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -480,6 +482,7 @@ class RegisterAPI extends GetxController with BaseController {
 
 //get method
   void banklistget() async {
+    showLoading();
     var response =
         await BaseClient().get(API().banklistdropdown).catchError(handleError);
     if (response == null) return;
@@ -525,7 +528,7 @@ class RegisterAPI extends GetxController with BaseController {
     if (data["status"] == "success") {
       emailController.clear();
       Fluttertoast.showToast(msg: data["message"].toString());
-      Get.offAll(Home());
+      Get.off(Home());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
     }
@@ -550,7 +553,7 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data["status"] == "success") {
       securitydetail(custidval: data["customerid"]);
-      Get.to(ChooseSecQus(customeridqusestion: data["customerid"]));
+      Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
 
       // Get.to(UpdatePasswordCode());
     } else {
@@ -572,7 +575,7 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(data1);
 
     if (data["status"] == "success") {
-      Get.to(() => UpdatePassword());
+      Get.off(() => UpdatePassword());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
     }
@@ -602,6 +605,7 @@ class RegisterAPI extends GetxController with BaseController {
   //city country selctions api
 
   void countryselection() async {
+
     var response =
         await BaseClient().get(API().countryselect).catchError(handleError);
     if (response == null) return;
@@ -629,7 +633,7 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
     print('Pass' + data);
     if (data == 'Success') {
-      Get.to(ChoosePaymentPage());
+      Get.off(ChoosePaymentPage());
     } else {
       Fluttertoast.showToast(msg: data.toString());
     }
@@ -672,7 +676,7 @@ class RegisterAPI extends GetxController with BaseController {
             pageController!.nextPage(
                 duration: Duration(milliseconds: 200), curve: Curves.linear);
           } else {
-            Get.to(ChoosePaymentPage());
+            Get.off(ChoosePaymentPage());
           }
         }
       }
@@ -747,7 +751,7 @@ class RegisterAPI extends GetxController with BaseController {
 
         // Get.to(termsandconditions());
       } else {
-        Get.to(Twofactor());
+        Get.off(Twofactor());
       }
     } else {
       Fluttertoast.showToast(msg: "Something Went Wrong");

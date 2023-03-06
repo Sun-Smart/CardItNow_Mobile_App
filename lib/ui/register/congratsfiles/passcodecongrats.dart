@@ -139,7 +139,9 @@ Widget bulildbutton() {
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
 
-        Get.to(VerifyUserId());
+        CircularProgressIndicator();
+
+        Get.off(VerifyUserId());
 
 
 

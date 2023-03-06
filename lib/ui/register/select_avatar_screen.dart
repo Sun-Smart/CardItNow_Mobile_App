@@ -72,11 +72,11 @@ class _AvatarPageViewState extends State<AvatarPageView> {
         appBar: Responsive.isMobile(context)
             ? AppBar(
                 automaticallyImplyLeading: false,
-                leading: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(Icons.arrow_back)),
+                // leading: IconButton(
+                //     onPressed: () {
+                //       Get.back();
+                //     },
+                //     icon: Icon(Icons.arrow_back)),
                 iconTheme: IconThemeData(color: Colors.black),
                 backgroundColor: Colors.transparent,
                 actions: [
@@ -96,7 +96,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                       color: HexColor('#004751'),
                                       fontWeight: FontWeight.bold)))),
                       onTap: () {
-                        Get.to(const ProfileInformation());
+                        Get.off( ProfileInformation());
                       },
                     ),
                   ),
@@ -182,7 +182,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                                 borderRadius: BorderRadius.circular(5)),
                             onTap: () {
                               GetStorage().read("avatarpic");
-                              Get.to(const ProfileInformation());
+                              Get.off( ProfileInformation());
                             },
                             text: "Next",
                           ),
@@ -438,7 +438,7 @@ class _AvatarPageViewState extends State<AvatarPageView> {
                 ),
               ),
               onTap: () {
-                Get.to(ProfileInformation());
+                Get.off(ProfileInformation());
               },
             ),
           ]),

@@ -200,14 +200,16 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+
         bottomSheet:
             Responsive.isMobile(context) ? bulildbutton() : null,
         appBar: Responsive.isMobile(context)
             ? AppBar(
+          automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
-                leading: BackButton(
-                  color: themeChange.darkTheme ? Colors.white : Colors.black,
-                ),
+                // leading: BackButton(
+                //   color: themeChange.darkTheme ? Colors.white : Colors.black,
+                // ),
                 actions: [
 
                   const SizedBox(width: 20),
@@ -657,13 +659,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ShuftiProValues==null?
+              Obx(() => ShuftiProValues==null?
               Icon(
 
-                  Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,),
-              const SizedBox(height: 5),
+                  Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,), ),
 
-              ShuftiProValues==null? Text('Scan your Document'): Text('Successfully Verified')
+              const SizedBox(height: 5),
+        Obx(() => ShuftiProValues==null? Text('Scan your Document'): Text('Successfully Verified'))
+
             ],
           ),
         ),
@@ -799,7 +802,7 @@ reg.ocrdocument();
           // else if(
           // ShuftiProValues==null
           // ){
-          //   Fluttertoast.showToast(msg: "Your Verification Process is Unsuceessful Please Verify");
+          //   Fluttertoast.showToast(msg: "Your Verification Process is Unsuccessful Please Verify");
           // }
             else{
                con.uploadDocx(con.emailController.text, reg.documentIDController.text);

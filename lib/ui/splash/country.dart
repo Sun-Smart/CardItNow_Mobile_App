@@ -94,7 +94,7 @@ class _CountryState extends State<Country> {
                                       Get.off(Login());
                                     } else {
                                      if(Responsive.isDesktop(context)){
-                                        Get.to(StepperWeb());
+                                        Get.off(StepperWeb());
 
                                       }
                                      else{

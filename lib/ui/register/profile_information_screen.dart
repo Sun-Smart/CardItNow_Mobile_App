@@ -59,6 +59,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
           ? AppBar(
               backgroundColor: Colors.transparent,
               leading: BackButton(
+                onPressed: (){
+                  Get.back();
+                },
                   color: themeChange.darkTheme ? Colors.white : Colors.black))
           : null,
       body: Responsive.isMobile(context)

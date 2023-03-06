@@ -134,16 +134,8 @@ Widget bulildbutton() {
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
 
+        Get.off(()=>termsandconditions());
 
-  if (GetStorage().read('save_token') == null) {
-    // Fluttertoast.showToast(msg: "Your token is null");
-    Get.to(()=>termsandconditions());
-    // Get.to(()=>ChoosePaymentPage());
-
-  } else {
-    Get.to(()=>termsandconditions());
-    // Get.to(()=>ChoosePaymentPage());
-  }
 
       },
 
