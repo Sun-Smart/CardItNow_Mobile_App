@@ -97,9 +97,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                                 'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
                             SizedBox(height: 20),
                             selectcardweb(context, () {
-                                pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-                             // Get.to(const ReceivePaymentPage());
+            //                     pageController!.nextPage(
+            // duration: Duration(milliseconds: 200), curve: Curves.linear);
+                             Get.to(const ReceivePaymentPage());
                             },
                                 'assets/banner/down_arrow.png',
                                 'Receive Payments',
@@ -147,9 +147,9 @@ class _ChoosePaymentPageState extends State<ChoosePaymentPage> {
                               'Pay Via Credit card or Easy Payment Plan \nto payees in a very easy way.'),
                           SizedBox(height: 20),
                           selectcardweb(context, () {
-                              pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-                            //Get.to(const ReceivePaymentPage());
+            //                   pageController!.nextPage(
+            // duration: Duration(milliseconds: 200), curve: Curves.linear);
+                            Get.to(const ReceivePaymentPage());
                           }, 'assets/banner/down_arrow.png', 'Receive Payments',
                               'Receive Payment via Carditnow and track \nyour finances.')
                         ],

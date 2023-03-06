@@ -644,808 +644,824 @@ class _PayeeDetailsState extends State<PayeeDetails> {
             )
           : Row(
               children: [
-                Container(
+                 Container(
                     width: MediaQuery.of(context).size.width / 3,
-                    //height: MediaQuery.of(context).size.width / 1,
+                 //   height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3))),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
+                  ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          BackButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                          ),
-                        ],
-                      ),
-                      Text('Payee Details',
-                          style: TextStyle(
-                              fontSize: 28,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.bold,
-                              color: HexColor('#004751'))),
-                      SizedBox(height: 30),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.8
-                                : MediaQuery.of(context).size.width / 12,
-                          ),
-                          Text('Payee Type *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 13,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color(0XffB7C5C7), width: 1.5),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(3))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: DropdownButton(
-                            focusColor: Colors.transparent,
-                            underline: const SizedBox(),
-                            dropdownColor: Colors.white,
-                            isExpanded: true,
-                            value: bank.payeeType,
-                            hint: Text('Select Payee Type',
-                                style: TextStyle(
-                                    color: Styles.whitecustomlable,
-                                    fontSize: 14)),
-                            icon: GestureDetector(
-                                child: Icon(
-                              Icons.keyboard_arrow_down,
-                              // color: themeChange.darkTheme
-                              //     ? Colors.white
-                              //     : Colors.black45
-                            )),
-                            items: bank.payeeTypeList.map((String item) {
-                              return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item,
-                                      style: const TextStyle(
-                                          color: Color(0Xff413D4B),
-                                          fontSize: 14)));
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                bank.payeeType = newValue!;
-                              });
-                            },
-                            style: const TextStyle(color: Colors.black),
-                          ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            BackButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      bank.payeeType == "Individual"
-                     ?  Column(
-                        children: [
-
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 12,
-                              ),
-                              Text("First Name *",
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              controller: bank.firstNameCnl,
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hoverColor: Colors.transparent,
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'First Name',
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 12,
-                              ),
-                              Text("Middle Name *",
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              controller: bank.middleNameCnl,
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hoverColor: Colors.transparent,
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Middle Name',
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 12,
-                              ),
-                              Text("Last Name *",
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              controller: bank.lastNameCnl,
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hoverColor: Colors.transparent,
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Last Name',
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      )
-                      : Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 12,
-                              ),
-                              Text("Company Name *",
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              controller: bank.payeeCompanyNameCnl,
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hoverColor: Colors.transparent,
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Company Name',
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 12,
-                              ),
-                              Text("Company Registration Number *",
-                                  style: TextStyle(
-                                      fontFamily: 'Sora',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4
-                                : MediaQuery.of(context).size.width / 2,
-                            child: TextFormField(
-                              enabled: true,
-                              controller: bank.businessRegNoCnl,
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
-                                hoverColor: Colors.transparent,
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Company Registration Number',
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 15),
-                                focusColor: Colors.grey.shade300,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1.0)),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gapPadding: 7,
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide:
-                                    const BorderSide(color: Colors.grey)),
-                                errorStyle: const TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          width: Responsive.isDesktop(context)
-                              ? MediaQuery.of(context).size.width / 4
-                              : MediaQuery.of(context).size.width /
-                                  2, //alignment: Alignment.bottomLeft,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Theme(
-                                  data: ThemeData(
-                                      unselectedWidgetColor: Color(0xff004751)),
-                                  child: Checkbox(
-                                    activeColor: Color(0xff004751),
-                                    value: bank.isVisibleToAll,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        bank.isVisibleToAll = value!;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                Text(
-                                  ' Visible all',
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                ),
-                              ])),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.8
-                                : MediaQuery.of(context).size.width / 12,
-                          ),
-                          Text('Select Bank *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 13,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color(0XffB7C5C7), width: 1.5),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(3))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: DropdownButton(
-                            focusColor: Colors.transparent,
-                            underline: const SizedBox(),
-                            dropdownColor: Colors.white,
-                            isExpanded: true,
-                            value: bank.selectedBank,
-                            hint: Text('Select Your Business type',
-                                style: TextStyle(
-                                    color: Styles.whitecustomlable,
-                                    fontSize: 14)),
-                            icon: GestureDetector(
-                                child: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  // color: themeChange.darkTheme
-                                  //     ? Colors.white
-                                  //     : Colors.black45
-                                )),
-                            items: auth.banklist.map((var item) {
-                              return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item["bankname"],
-                                      style: const TextStyle(
-                                          color: Color(0Xff413D4B),
-                                          fontSize: 14)));
-                            }).toList(),
-                            onChanged: (var newValue) {
-                              setState(() {
-                                bank.selectedBank = newValue!;
-                              });
-                            },
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.8
-                                : MediaQuery.of(context).size.width / 12,
-                          ),
-                          Text('Account Number *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
-                        child: TextFormField(
-                          enabled: true,
-                          //label: "Account Number *",
-                          controller: bank.accountNumberCnl,
-                          obscureText: false,
-                          textInputAction: TextInputAction.next,
-                          // inputHint: "Enter Your Account Number",
-                          validator: (value) {
-                            // if (requiredNoController.text.isEmpty) {
-                            //   return "";
-                            // } else {
-                            //   return null;
-                            // }
-                          },
-                          decoration: InputDecoration(
-                            hoverColor: Colors.transparent,
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Enter Account No',
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle: const TextStyle(
-                                fontFamily: 'Sora', fontSize: 14),
-                            hintStyle: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.normal,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            focusColor: Colors.grey.shade300,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                gapPadding: 7,
-                                borderSide:
-                                const BorderSide(color: Colors.grey)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                const BorderSide(color: Colors.grey)),
-                            errorStyle: const TextStyle(
+                        Text('Payee Details',
+                            style: TextStyle(
+                                fontSize: 28,
                                 fontFamily: 'Sora',
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.8
-                                : MediaQuery.of(context).size.width / 12,
-                          ),
-                          Text('Account Type *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 13,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color(0XffB7C5C7), width: 1.5),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(3))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: DropdownButton(
-                            focusColor: Colors.transparent,
-                            underline: const SizedBox(),
-                            dropdownColor: Colors.white,
-                            isExpanded: true,
-                            value: bank.accountType,
-                            hint: Text('Select account type',
-                                style: TextStyle(
-                                    color: Styles.whitecustomlable,
-                                    fontSize: 14)),
-                            icon: GestureDetector(
-                                child: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  // color: themeChange.darkTheme
-                                  //     ? Colors.white
-                                  //     : Colors.black45
-                                )),
-                            items: bank.accountTypeList.map((String item) {
-                              return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item,
-                                      style: const TextStyle(
-                                          color: Color(0Xff413D4B),
-                                          fontSize: 14)));
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                bank.accountType = newValue!;
-                              });
-                            },
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: Responsive.isDesktop(context)
-                                ? MediaQuery.of(context).size.width / 4.8
-                                : MediaQuery.of(context).size.width / 12,
-                          ),
-                          Text('Enter Branch Address *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4
-                            : MediaQuery.of(context).size.width / 2,
-                        child: TextFormField(
-                          enabled: true,
-                          //label: "Enter Branch Address *",
-                          controller: bank.branchAddressCnl,
-                          obscureText: false,
-                          textInputAction: TextInputAction.next,
-                          //inputHint: "Enter Your Bank Branch Address",
-                          validator: (value) {
-                            // if (requiredNoController.text.isEmpty) {
-                            //   return "";
-                            // } else {
-                            //   return null;
-                            // }
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Enter Branch Address',
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            helperStyle: const TextStyle(
-                                fontFamily: 'Sora', fontSize: 14),
-                            hintStyle: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.bold,
+                                color: HexColor('#004751'))),
+                        SizedBox(height: 30),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4.8
+                                  : MediaQuery.of(context).size.width / 12,
                             ),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            focusColor: Colors.grey.shade300,
-                            border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1.0)),
-                            focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                gapPadding: 7,
-                                borderSide:
-                                const BorderSide(color: Colors.grey)),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide:
-                                const BorderSide(color: Colors.grey)),
-                            errorStyle: const TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold),
-                          ),
+                            Text('Payee Type *',
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          validationFunction();
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
                           width: Responsive.isDesktop(context)
                               ? MediaQuery.of(context).size.width / 4
                               : MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.height * 0.07,
+                          height: MediaQuery.of(context).size.height / 13,
                           decoration: BoxDecoration(
-                              color: HexColor('#CEE812'),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                            child: Text(
-                              "Confirm",
-                              style: TextStyle(
-                                fontFamily: 'ProductSans',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: HexColor('#004751'),
-                              ),
+                              border: Border.all(
+                                  color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(3))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: DropdownButton(
+                              focusColor: Colors.transparent,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              isExpanded: true,
+                              value: bank.payeeType,
+                              hint: Text('Select Payee Type',
+                                  style: TextStyle(
+                                      color: Styles.whitecustomlable,
+                                      fontSize: 14)),
+                              icon: GestureDetector(
+                                  child: Icon(
+                                Icons.keyboard_arrow_down,
+                                // color: themeChange.darkTheme
+                                //     ? Colors.white
+                                //     : Colors.black45
+                              )),
+                              items: bank.payeeTypeList.map((String item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  bank.payeeType = newValue!;
+                                });
+                              },
+                              style: const TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          height: 30,
+                        ),
+                        bank.payeeType == "Individual"
+                       ?  Column(
+                          children: [
+                  
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 12,
+                                ),
+                                Text("First Name *",
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4
+                                  : MediaQuery.of(context).size.width / 2,
+                              child: TextFormField(
+                                enabled: true,
+                                controller: bank.firstNameCnl,
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hoverColor: Colors.transparent,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'First Name',
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                  
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 12,
+                                ),
+                                Text("Middle Name *",
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4
+                                  : MediaQuery.of(context).size.width / 2,
+                              child: TextFormField(
+                                enabled: true,
+                                controller: bank.middleNameCnl,
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hoverColor: Colors.transparent,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Middle Name',
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                  
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 12,
+                                ),
+                                Text("Last Name *",
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4
+                                  : MediaQuery.of(context).size.width / 2,
+                              child: TextFormField(
+                                enabled: true,
+                                controller: bank.lastNameCnl,
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hoverColor: Colors.transparent,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Last Name',
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        )
+                        : Column(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 12,
+                                ),
+                                Text("Company Name *",
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4
+                                  : MediaQuery.of(context).size.width / 2,
+                              child: TextFormField(
+                                enabled: true,
+                                controller: bank.payeeCompanyNameCnl,
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hoverColor: Colors.transparent,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Company Name',
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 12,
+                                ),
+                                Text("Company Registration Number *",
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4
+                                  : MediaQuery.of(context).size.width / 2,
+                              child: TextFormField(
+                                enabled: true,
+                                controller: bank.businessRegNoCnl,
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hoverColor: Colors.transparent,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Company Registration Number',
+                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                  helperStyle: const TextStyle(
+                                      fontFamily: 'Sora', fontSize: 14),
+                                  hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 15),
+                                  focusColor: Colors.grey.shade300,
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1.0)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      gapPadding: 7,
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                                  errorStyle: const TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                            width: Responsive.isDesktop(context)
+                                ? MediaQuery.of(context).size.width / 4
+                                : MediaQuery.of(context).size.width /
+                                    2, //alignment: Alignment.bottomLeft,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Theme(
+                                    data: ThemeData(
+                                        unselectedWidgetColor: Color(0xff004751)),
+                                    child: Checkbox(
+                                      activeColor: Color(0xff004751),
+                                      value: bank.isVisibleToAll,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          bank.isVisibleToAll = value!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Text(
+                                    ' Visible all',
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                ])),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4.8
+                                  : MediaQuery.of(context).size.width / 12,
+                            ),
+                            Text('Select Bank *',
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 13,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(3))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: DropdownButton(
+                              focusColor: Colors.transparent,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              isExpanded: true,
+                              value: bank.selectedBank,
+                              hint: Text('Select Your Business type',
+                                  style: TextStyle(
+                                      color: Styles.whitecustomlable,
+                                      fontSize: 14)),
+                              icon: GestureDetector(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    // color: themeChange.darkTheme
+                                    //     ? Colors.white
+                                    //     : Colors.black45
+                                  )),
+                              items: auth.banklist.map((var item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item["bankname"],
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
+                              onChanged: (var newValue) {
+                                setState(() {
+                                  bank.selectedBank = newValue!;
+                                });
+                              },
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4.8
+                                  : MediaQuery.of(context).size.width / 12,
+                            ),
+                            Text('Account Number *',
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
+                          child: TextFormField(
+                            enabled: true,
+                            //label: "Account Number *",
+                            controller: bank.accountNumberCnl,
+                            obscureText: false,
+                            textInputAction: TextInputAction.next,
+                            // inputHint: "Enter Your Account Number",
+                            validator: (value) {
+                              // if (requiredNoController.text.isEmpty) {
+                              //   return "";
+                              // } else {
+                              //   return null;
+                              // }
+                            },
+                            decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Enter Account No',
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                  const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                  const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4.8
+                                  : MediaQuery.of(context).size.width / 12,
+                            ),
+                            Text('Account Type *',
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 13,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color(0XffB7C5C7), width: 1.5),
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(3))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: DropdownButton(
+                              focusColor: Colors.transparent,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              isExpanded: true,
+                              value: bank.accountType,
+                              hint: Text('Select account type',
+                                  style: TextStyle(
+                                      color: Styles.whitecustomlable,
+                                      fontSize: 14)),
+                              icon: GestureDetector(
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    // color: themeChange.darkTheme
+                                    //     ? Colors.white
+                                    //     : Colors.black45
+                                  )),
+                              items: bank.accountTypeList.map((String item) {
+                                return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item,
+                                        style: const TextStyle(
+                                            color: Color(0Xff413D4B),
+                                            fontSize: 14)));
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  bank.accountType = newValue!;
+                                });
+                              },
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: Responsive.isDesktop(context)
+                                  ? MediaQuery.of(context).size.width / 4.8
+                                  : MediaQuery.of(context).size.width / 12,
+                            ),
+                            Text('Enter Branch Address *',
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2,
+                          child: TextFormField(
+                            enabled: true,
+                            //label: "Enter Branch Address *",
+                            controller: bank.branchAddressCnl,
+                            obscureText: false,
+                            textInputAction: TextInputAction.next,
+                            //inputHint: "Enter Your Bank Branch Address",
+                            validator: (value) {
+                              // if (requiredNoController.text.isEmpty) {
+                              //   return "";
+                              // } else {
+                              //   return null;
+                              // }
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Enter Branch Address',
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              helperStyle: const TextStyle(
+                                  fontFamily: 'Sora', fontSize: 14),
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.normal,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 15),
+                              focusColor: Colors.grey.shade300,
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  gapPadding: 7,
+                                  borderSide:
+                                  const BorderSide(color: Colors.grey)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide:
+                                  const BorderSide(color: Colors.grey)),
+                              errorStyle: const TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            validationFunction();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            width: Responsive.isDesktop(context)
+                                ? MediaQuery.of(context).size.width / 4
+                                : MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            decoration: BoxDecoration(
+                                color: HexColor('#CEE812'),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Center(
+                              child: Text(
+                                "Confirm",
+                                style: TextStyle(
+                                  fontFamily: 'ProductSans',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor('#004751'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

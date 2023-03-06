@@ -86,8 +86,9 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                     color: HexColor('#004751'))),
             SizedBox(height: 30),
             selectcardweb(context, () {
-
-              Get.to( AddCreditCardPage());
+              Get.to( AddCreditCardPage(
+                  cardflow: "Regflow",
+              ));
             }, 'Use Credit Card',
                 'Payment Transfer to the payee within 3 \nworking days'),
             SizedBox(height: 20),
@@ -135,7 +136,9 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
                     color: HexColor('#004751'))),
             SizedBox(height: 30),
             selectcardweb(context, () {
-              Get.to( AddCreditCardPage());
+              Get.to( AddCreditCardPage(
+                  cardflow: "Regflow",
+              ));
             }, 'Use Credit Card',
                 'Payment Transfer to the payee within 3 working days'),
             SizedBox(height: 20),
