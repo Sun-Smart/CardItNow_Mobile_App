@@ -186,16 +186,6 @@ class PaymentAPI extends GetxController with BaseController {
     if(pickedFile != null) {
       Get.to(Registerloading());
       var body = {
-        "customerid": MyApp.logindetails["userid"],
-        "purpose": lguPurpose["masterdatadescription"] == "Real property TAX"
-            ? "P"
-            : "R",
-        "municipality": lguProvince["customerid"],
-        "province": "Ilocos Norte",
-        "pin": PINCnl.text,
-        "billamount": billAmountCnl.text,
-        "startdate": startDate.text,
-        "enddate": endDate.text,
         "uploadDoc": pickedFile
       };
       var response = await BaseClient()
@@ -208,8 +198,9 @@ class PaymentAPI extends GetxController with BaseController {
         var data = json.decode(response);
         if (data["status"] == "success") {
            var jsonResponse = json.encode(data["data"]);
-           var responce = json.decode(jsonResponse);
-        var payee = {
+           var responce1 = json.decode(jsonResponse);
+            var responce = json.decode(responce1);
+           var payee = {
           "payee": lguProvince,
           "purpose": lguPurpose,
           "date": {

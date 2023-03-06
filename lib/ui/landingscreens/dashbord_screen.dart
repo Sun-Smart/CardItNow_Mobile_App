@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, sort_child_properties_last, avoid_print, unnecessary_null_comparison, library_private_types_in_public_api, unnecessary_import, non_constant_identifier_names
 
 import 'dart:io';
+import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
+import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
 import 'package:flutter/foundation.dart';
@@ -34,6 +36,7 @@ class DashbordScreen extends StatefulWidget {
 class DashbordScreenState extends State<DashbordScreen>
     with SingleTickerProviderStateMixin {
   final RegisterAPI con = Get.find();
+  PaymentAPI pay = PaymentAPI();
   final CardAPI cardcons = Get.put(CardAPI());
   int _currentsliderindex = 0;
   List<_SalesData> data = [
@@ -1027,80 +1030,85 @@ class DashbordScreenState extends State<DashbordScreen>
       width: 300,
       child:  ListView.builder(
         scrollDirection: Axis.vertical,
-          itemCount: 5,
+          itemCount: pay.transactionList.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0XffE2E5E5), width: 1.5),
-                ),
-                // padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      color: const Color(0Xff004751),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("amount.toString()",
-                                  style: const TextStyle(
-                                    color: Color(0XffCEE812),
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              Text("date.toString()",
-                                  style: const TextStyle(
-                                      color: Color(0Xffffffff), fontSize: 9))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
+            return GestureDetector(
+              onTap: (){
+                Get.to(PaymentsDetails());
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: const Color(0XffE2E5E5), width: 1.5),
+                  ),
+                  // padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        color: const Color(0Xff004751),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("amount.toString()",
+                                    style: const TextStyle(
+                                      color: Color(0XffCEE812),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                Text("date.toString()",
+                                    style: const TextStyle(
+                                        color: Color(0Xffffffff), fontSize: 9))
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("paidname.toString()",
+                                      style: const TextStyle(
+                                          color: Color(0Xffffffff), fontSize: 14),
+                                      textAlign: TextAlign.left),
+                                  const SizedBox(
+                                    width: 10,
+                                  )
+                                ]),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("paidname.toString()",
+                                Text('TXN ID  :  ' ,
                                     style: const TextStyle(
-                                        color: Color(0Xffffffff), fontSize: 14),
-                                    textAlign: TextAlign.left),
-                                const SizedBox(
-                                  width: 10,
-                                )
-                              ]),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('TXN ID  :  ' ,
-                                  style: const TextStyle(
-                                      color: Color(0Xffffffff), fontSize: 11)),
-                              const Text('Download Receipt',
-                                  style:
-                                  TextStyle(color: Color(0Xffffffff), fontSize: 10))
-                            ],
-                          ),
-                        ],
+                                        color: Color(0Xffffffff), fontSize: 11)),
+                                const Text('Download Receipt',
+                                    style:
+                                    TextStyle(color: Color(0Xffffffff), fontSize: 10))
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset("assets/paymentsuccess.png", width: 32),
+                      Row(
+                        children: [
+                          Image.asset("assets/paymentsuccess.png", width: 32),
 
 
 
-                        Text('Confirmation Pending',
-                            style: TextStyle(
-                                color:  const Color(0XffFF9D00),
-                                fontSize: 14))
-                      ],
-                    )
-                  ],
-                ));
+                          Text('Confirmation Pending',
+                              style: TextStyle(
+                                  color:  const Color(0XffFF9D00),
+                                  fontSize: 14))
+                        ],
+                      )
+                    ],
+                  )),
+            );
           }),
     );
 

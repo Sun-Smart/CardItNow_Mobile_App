@@ -310,6 +310,23 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         //       fontSize: 10,
         //       fontWeight: FontWeight.bold),
         // ),
+        Text(
+          'Purpose',
+          style: TextStyle(
+              color: Color(0Xff99B5B9),
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          '${widget.payee["purpose"]["masterdatadescription"]??''}',
+          style: TextStyle(
+              color: Color(0XffCEE812),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
+        ),
         SizedBox(
           height: 10,
         ),
@@ -403,6 +420,23 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         //       fontSize: 10,
         //       fontWeight: FontWeight.bold),
         // ),
+        Text(
+          'Purpose',
+          style: TextStyle(
+              color: Color(0Xff99B5B9),
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          '${widget.payee["purpose"]["masterdatadescription"]??''}',
+          style: TextStyle(
+              color: Color(0XffCEE812),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
+        ),
         SizedBox(
           height: 10,
         ),
@@ -488,6 +522,23 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ),
         SizedBox(
           height: 30,
+        ),
+        Text(
+          'Purpose',
+          style: TextStyle(
+              color: Color(0Xff99B5B9),
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          '${widget.payee["purpose"]["masterdatadescription"]??''}',
+          style: TextStyle(
+              color: Color(0XffCEE812),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
         ),
         // Text(
         //   'TXN ID: ${widget.payment["txdid"]}',
