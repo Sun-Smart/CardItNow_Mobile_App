@@ -42,156 +42,77 @@ class _PurposeDetailsState extends State<PurposeDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-      billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"].replaceAll(RegExp(r'[^0-9.]'), '');
-  }
+    if(widget.paymentType == "LGU") {
+      billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"].replaceAll(
+          RegExp(r'[^0-9.]'), '');
+    }
+    }
+ 
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Responsive.isMobile(context)
           ? AppBar(
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.black,
-              centerTitle: true,
-          title: Text('Your ${widget.purpose["purpose"] ?? "Payment"} Details',
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Sora',
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)))
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          centerTitle: true,
+          title: Text(widget.paymentType == "House"
+              ? 'Payment Details for ${widget.purpose ?? 'purpose'}'
+              :'Your ${widget.purpose["purpose"] ?? "Payment"} Details',
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Sora',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)))
           : null,
       body: Responsive.isMobile(context)
           ? SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: widget.paymentType == "LGU" ? lguPayeeWidget() :newPayeeWidget(),
+        ),
+      )
+          : Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 3,
+            height: MediaQuery.of(context).size.height / 1,
+            color: Color(0XFF004751),
+            child: Center(
+                child: Image.asset("assets/applogo-02.png",
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    height: MediaQuery.of(context).size.height / 3)),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 1.5,
+            child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: widget.paymentType == "LGU"
-                    ? lguPayeeWidget()
-                    : newPayeeWidget(),
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        BackButton(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                    widget.paymentType == "LGU" ? lguPayeeWidget() :newPayeeWidget(),
+                   ],
+                ),
               ),
-            )
-          : Responsive.isDesktop(context)?Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                //  height: MediaQuery.of(context).size.width / 1,
-                  color: Color(0XFF004751),
-                  child: Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset("assets/logoweb.png", width: 150, height: 90),
-                      SizedBox(height: 15),
-                      Text(
-                        '"Make your life Easy"',
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'sora'),
-                      ),
-                    ],
-                  )),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              BackButton(
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                      width:MediaQuery.of(context).size.width / 5.2),
-                        
-                              Text('Your Payment Details',
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          widget.paymentType == "LGU"
-                              ? lguPayeeWidget()
-                              : newPayeeWidget(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ):Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
-                 // height: MediaQuery.of(context).size.width / 1,
-                  color: Color(0XFF004751),
-                  child: Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset("assets/logoweb.png", width: 150, height: 90),
-                      SizedBox(height: 15),
-                      Text(
-                        '"Make your life Easy"',
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'sora'),
-                      ),
-                    ],
-                  )),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.7,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              BackButton(
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                      width
-                          : MediaQuery.of(context).size.width / 12),
-                              Text('Your Payment Details',
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          widget.paymentType == "LGU"
-                              ? lguPayeeWidget()
-                              : newPayeeWidget(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
-   
-      bottomNavigationBar:
-          Responsive.isMobile(context) ? confirmationButton() : null,
+          ),
+        ],
+      ),
+      bottomNavigationBar: Responsive.isMobile(context)
+          ? confirmationButton()
+          : null,
     );
   }
 
@@ -1539,17 +1460,260 @@ SizedBox(
           );
   }
 
-  confirmationButton() {
+  housePayeeWidget(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Payee Name,',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16)),
+        const SizedBox(height: 10),
+        Text(widget.purpose ?? '',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.grey,
+                fontSize: 16)),
+        SizedBox(height: 20),
+        const Text('Bank Name',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16)),
+        const SizedBox(height: 10),
+        Text(widget.purpose ?? '',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.grey,
+                fontSize: 16)),
+        SizedBox(height: 20),
+        const Text('Account No',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16)),
+        const SizedBox(height: 10),
+        Text(widget.purpose ?? '',
+            style: TextStyle(
+                fontFamily: 'Sora',
+                color: Colors.grey,
+                fontSize: 16)),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text('Invoice Date',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+            SizedBox(height: 10),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+            SizedBox(height: 20),
+            Text('Invoice Amount',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+            SizedBox(height: 10),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+
+          ],
+        ),
+        Column(
+          children: [
+            SizedBox(height: 20),
+            Text('Property Address',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+            SizedBox(height: 10),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+            SizedBox(height: 20),
+            Text('Contract Terms',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+            SizedBox(height: 10),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+          ],
+        ),
+
+        SizedBox(height: 20),
+        Column(
+            children: [
+              // ignore: unnecessary_brace_in_string_interps
+              Column(
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('Select Start Year *',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: HexColor('#505050')))),
+                  const SizedBox(height: 5),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: DropdownButtonFormField(
+                        decoration: Styles.dropdownDecoration(),
+                        dropdownColor: Colors.white,
+                        isExpanded: true,
+                        value: pay.startYear,
+                        hint: const Text('Select Start Year ',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                        icon: const InkWell(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        items: pay.startYearList.map((item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item["PERIOD"].toString(),
+                                style: const TextStyle(
+                                    color: Color(0Xff413D4B),
+                                    fontSize: 14)),
+                          );
+                        }).toList(),
+                        onChanged: (var newValue) {
+                          setState(() {
+                            pay.startYear = newValue;
+                            billAmount = amountCalculation(pay.startYear, pay.endYear);
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: Text('Select End Year *',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: HexColor('#505050')))),
+                  const SizedBox(height: 5),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: DropdownButtonFormField(
+                        decoration: Styles.dropdownDecoration(),
+                        dropdownColor: Colors.white,
+                        isExpanded: true,
+                        value: pay.endYear,
+                        hint: const Text('Select End Year ',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                        icon: const InkWell(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        items: pay.endYearList.map((item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item["PERIOD"].toString(),
+                                style: const TextStyle(
+                                    color: Color(0Xff413D4B),
+                                    fontSize: 14)),
+                          );
+                        }).toList(),
+                        onChanged: (var newValue) {
+                          setState(() {
+                            pay.endYear = newValue;
+                            billAmount = amountCalculation(pay.startYear, pay.endYear);
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+        SizedBox(height: 20),
+        Padding(
+            padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+            child: TextFormField(
+                controller: pay.paymentController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                decoration: InputDecoration(
+                    hintText:
+                    'Enter How Much you want to pay',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Sora', fontSize: 14)))),
+        SizedBox(height: 20),
+        if(!Responsive.isMobile(context))
+          confirmationButton()
+      ],
+    );
+  }
+
+  confirmationButton(){
     return AuthButton(
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {
           if (widget.paymentType == "LGU") {
             lguValidation();
-          } else {
-            var boby = {
-              "name": widget.purpose["owner"],
-              "email": pay.payeeEmailCnl.text,
+          }  else if (widget.paymentType == "House"){
+            houseValidation();
+        } else{
+            var boby ={
+              "name" : widget.purpose["owner"],
+              "email" : pay.payeeEmailCnl.text,
               "amount": pay.paymentController.text
             };
             Get.to(() => PayeeLoading(
@@ -1572,4 +1736,17 @@ SizedBox(
           widget.paymentType, widget.payee, widget.purpose, billAmount);
     }
   }
+
+  houseValidation(){
+    if(pay.startYear == null){
+      Fluttertoast.showToast(msg: "Please Enter Start Year");
+    } else if (pay.endYear == null) {
+      Fluttertoast.showToast(msg: "Please Enter End Year");
+    } else if (pay.paymentController.text.isEmpty){
+      Fluttertoast.showToast(msg: "Please Enter Amount");
+    } else{
+      pay.housePaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, billAmount);
+    }
+  }
+
 }

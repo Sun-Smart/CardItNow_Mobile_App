@@ -578,8 +578,14 @@ Widget  buildcardenable (){
                                                   if (isChecked) {
                                                     isChecked = false;
                                                   } else {
-                                                    isChecked = true;
-                                                    // showAlertDialog(context);
+
+                                                    datePickerForDate().then((value){
+                                                      if(value != null){
+                                                        isChecked = true;
+                                                      } else{
+                                                        isChecked = false;
+                                                      }
+                                                    });
                                                   }
                                                 });
                                               },
@@ -938,6 +944,34 @@ Widget  buildcardenable (){
           pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
           }),
     );
+  }
+
+
+  datePickerForDate() async{
+    DateTime? date = DateTime(1900);
+    FocusScope.of(context).requestFocus(new FocusNode());
+    date = (await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: HexColor('#004751'),
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary:
+                HexColor('#004751'), // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(DateTime.now().year + 18),));
+    return date;
   }
 
   }

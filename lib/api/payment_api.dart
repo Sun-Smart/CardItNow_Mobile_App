@@ -22,17 +22,17 @@ class PaymentAPI extends GetxController with BaseController {
   var paymentPurpose;
   var paymentSubPurposeList = [{"name":"Monthly Rent"},{"name":"Advance Rent"},{"name":"Security Deposit"}];
   var paymentSubPurpose;
-  var provinceList = [{"name":"Vellore"},];
-  var province;
-  var cityList = [{"name":"Tirupattur"}];
-  var city;
+  var provinceList = [{"name":"Vellore"},]; // *
+  var province; // *
+  var cityList = [{"name":"Tirupattur"}]; // *
+  var city; // *
   final propertyOwnerNameCnl = TextEditingController();
-  final addressNoCnl = TextEditingController();
-  final streetNameCnl = TextEditingController();
-  final startDate = TextEditingController();
-  final endDate = TextEditingController();
-  final postalCode = TextEditingController();
-  var pickedFile;
+  final addressNoCnl = TextEditingController(); // *
+  final streetNameCnl = TextEditingController();  // *
+  final startDate = TextEditingController(); // *
+  final endDate = TextEditingController();  // *
+  final postalCode = TextEditingController();  // *
+  var pickedFile;  // *
 
   //LGU payee
   var lguPurposeList = [].obs;
@@ -52,9 +52,9 @@ class PaymentAPI extends GetxController with BaseController {
   var bankDetails;
   var accountTypeList = ["Saving", "Current"];
   String? accountType = "Saving";
-  TextEditingController paymentController = TextEditingController();
+  TextEditingController paymentController = TextEditingController(); // *
 
-  //LGU purpose details
+  //LGU purpose details // *
   var startYearList = [];
   var startYear;
   var endYearList = [];
@@ -62,7 +62,41 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   //transaction
-  var transactionList = [];
+  var transactionList = [].obs;
+  var barlist = [];
+
+
+  //House details
+  var housePayeeList = [
+    {
+      "id": "1",
+      "name": "Medical"
+    },
+  ].obs;
+  var housePayee;
+  var housePurposeList = [ {
+    "id": "1",
+    "name": "Monthly Rent"
+  },
+    {
+      "id": "1",
+      "name": "Advance Rent"
+    },
+    {
+      "id": "1",
+      "name": "Security Deposit"
+    },
+    {
+      "id": "1",
+      "name": "Maintenance"
+    },
+    {
+      "id": "1",
+      "name": "Renovation"
+    },];
+  var housePurpose;
+  final invoiceNoCnl = TextEditingController();
+  final invoiceDateCnl = TextEditingController();
 
   @override
   void onInit() {
@@ -162,7 +196,7 @@ class PaymentAPI extends GetxController with BaseController {
       "customerid": MyApp.logindetails["userid"],
       "purpose": lguPurpose["masterdatadescription"] == "Real property TAX" ? "P": "",
       "municipality": lguProvince["customerid"],
-      "province": "Ilocos Norte",
+      "province": "",
       "pin": PINCnl.text,
       "billamount": billAmountCnl.text,
       "startdate": startDate.text,
@@ -338,6 +372,130 @@ class PaymentAPI extends GetxController with BaseController {
     Fluttertoast.showToast(msg: "$ex");
     }}
 
+  housePaymentVerificationAPI(String type, var payee) async {
+    showLoading();
+    var body = {
+      "customerid": MyApp.logindetails["userid"],
+      "payeeid": housePayee["name"],
+      "purpose": housePurpose["name"] == "Real property TAX" ? "P": "",
+      "invoiceno": invoiceNoCnl.text,
+      "invoicedate": invoiceDateCnl.text,
+      "city": city["name"],
+      "province": province["name"],
+      "addressno": addressNoCnl.text,
+      "streetname": streetNameCnl.text,
+      "startdate": startDate.text,
+      "enddate": endDate.text,
+      "postal": postalCode.text,
+    };
+    var response = await BaseClient()
+        .post(API().lguPaymentVerify, body)
+        .catchError(handleError);
+    hideLoading();
+    if (response == null) return;
+    var dataValue = json.decode(response);
+    var data = json.decode(dataValue);
+    if (data["status"] == "success") {
+      return "Success";
+    } else {
+      Fluttertoast.showToast(msg: "This is an existing Relationship");
+      return null;
+    }
+  }
+
+  void housePaymentDocumentAPI(String type, var payee) async {
+    if(pickedFile != null) {
+      Get.to(Registerloading());
+      var body = {
+        "uploadDoc": pickedFile
+      };
+      var response = await BaseClient()
+          .post(API().lguPaymentDocument, body)
+          .catchError(handleError);
+      Get.back();
+      if (response == null) {
+        Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
+      } else {
+        var data = json.decode(response);
+        if (data["status"] == "success") {
+          var jsonResponse = json.encode(data["data"]);
+          var responce1 = json.decode(jsonResponse);
+          var responce = json.decode(responce1);
+          var payee = {
+            "payee": province,
+            "purpose": housePurpose,
+            "date": {
+              "start": startDate.text,
+              "end": endDate.text
+            }
+          };
+          // var responce;
+          // responce = {
+          //   "KEYVALUE": {
+          //     "PIN": "003-19-003-07-004",
+          //     "Taxpayer": "NACION, FELIX & EDITHA SPS",
+          //     "Bill Date": "November 15, 2022",
+          //     "Declared Owner": " NACION, FELIX & EDITHA SPS",
+          //     "Location": "SAN BARTOLOME",
+          //     "BILL AMOUNT": "P 75.68",
+          //     "BAR CODE": "00319220022090"
+          //   },
+          //   "DOCNAME": "MUNICIPAL STATEMENT",
+          //   "TableResult": {
+          //     "statement summary": [
+          //       {
+          //         "A/V": "4,730.00",
+          //         "PERIOD": "2023",
+          //         "BASIC": "47.30",
+          //         "D/P1": "-9.46",
+          //         "TOTAL": "75.68"
+          //       }
+          //     ]
+          //   }
+          // };
+
+          var dateList = responce["TableResult"]["statement summary"] ?? [];
+          startYearList = dateList ?? [];
+          endYearList = dateList ?? [];
+          startYear = startYearList.first;
+          endYear = endYearList.last;
+          Get.to(PurposeDetails(
+              paymentType: type, payee: payee, purpose: responce));
+        } else {
+          Fluttertoast.showToast(msg: "This is an existing Relationship");
+        }
+      }}
+    else {
+      Fluttertoast.showToast(msg: "Please Upload Statement of Account");
+    }
+
+  }
+
+  housePaymentDetailsAPI(String type, var payee, var purpose, String billAmount) async {
+    showLoading();
+    var body = {
+      "billamount": billAmount,
+    };
+    var response = await BaseClient()
+        .post(API().lguPaymentDetails, body)
+        .catchError(handleError);
+    hideLoading();
+    if (response == null){
+      Fluttertoast.showToast(msg: "Payment Validation Failed");
+    } else{
+      var dataValue = json.decode(response);
+      var data = json.decode(dataValue);
+      if (data != null) {
+        var date = {
+          "start": startYear,
+          "end": endYear
+        };
+        Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
+      } else {
+        Fluttertoast.showToast(msg: "Payment Validation Wrong");
+      }}
+  }
+
 
   void transactionListAPI() async {
 
@@ -350,6 +508,23 @@ class PaymentAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
 
-    transactionList = data;
+    transactionList.value = data;
   }
+
+  // barchart
+  void barcharshowing() async {
+
+    var body ={
+      "customerid":MyApp.logindetails["userid"]
+    };
+    var response = await BaseClient()
+        .post(API().barchartviewapi,body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    barlist = data;
+  }
+
+
 }

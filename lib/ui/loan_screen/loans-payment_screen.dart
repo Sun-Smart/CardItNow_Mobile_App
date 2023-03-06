@@ -34,16 +34,8 @@ class LoansPayment extends StatefulWidget {
         'url': 'assets/goverment.png',
       },
       {
-        'title': 'Medical',
+        'title': 'Housing Company',
         'url': 'assets/medical.png',
-      },
-      {
-        'title': 'Grocery',
-        'url': 'assets/foot.png',
-      },
-      {
-        'title': 'Utilities',
-        'url': 'assets/home.png',
       },
     ],
   };
