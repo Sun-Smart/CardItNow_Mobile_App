@@ -25,7 +25,6 @@ class Shuftipro {
   };
 
   Map<String, Object> createdPayload = {
-    "country": "PH",
     "language": "EN",
     "email": "",
     "show_consent": 0,
@@ -99,6 +98,7 @@ class Shuftipro {
     var v = DateTime.now();
     var reference = "CardITNow${v.day}${v.millisecond}";
     createdPayload["reference"] = reference;
+    createdPayload["country"] =  reg.dropdownvalue != null && reg.dropdownvalue["geoname"] == "UAE" ? "UAE": "PH";
     initPlatformState();
   }
   //for web(shuftipro integration)........
