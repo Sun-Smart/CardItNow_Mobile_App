@@ -264,33 +264,28 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                           borderRadius: BorderRadius.circular(5),
                                         ),
                                         onTap: () {
-                                          var answerList = [];
-                                          print(auth.securityQuestionList[0]
-                                              ["questionid"]);
-                                          for (var i = 0;
-                                              i < securecontrollers.length;
-                                              i++) {
-                                            if (securecontrollers[i].text.isNotEmpty) {
-                                              var body = {
-                                                "securityquestionid": null,
-                                                "customerid": int.parse(
-                                                    GetStorage().read("custid")),
-                                                "questionid":
-                                                    auth.securityQuestionList[i]
-                                                        ["questionid"],
-                                                "answer": securecontrollers[i].text,
-                                                "status": ""
-                                              };
-                                              answerList.add(body);
-                                            }
-                                          }
-                                          if (answerList.length < 3) {
-                                            Fluttertoast.showToast(
-                                                msg: "You must answer 3 Questions");
-                                          } else {
-                                            auth.securityPost(answerList);
-                                          }
-                                        },
+                    var answerList = [];
+                    print(auth.securityQuestionList[0]["questionid"]);
+                    for (var i = 0; i < securecontrollers.length; i++) {
+                      if (securecontrollers[i].text.isNotEmpty) {
+                        var body = {
+                          "securityquestionid": null,
+                          "customerid": int.parse(GetStorage().read("custid")),
+                          "questionid": auth.securityQuestionList[i]
+                              ["questionid"],
+                          "answer": securecontrollers[i].text,
+                          "status": ""
+                        };
+                        answerList.add(body);
+                      }
+                    }
+                    if (answerList.length < 3) {
+                      Fluttertoast.showToast(
+                          msg: "You must answer 3 Questions");
+                    } else {
+                      auth.securityPost(answerList);
+                    }
+                  },
                                         text: "Next",
                                       )
                                                                
@@ -438,33 +433,28 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                                           borderRadius: BorderRadius.circular(5),
                                         ),
                                         onTap: () {
-                                          var answerList = [];
-                                          print(auth.securityQuestionList[0]
-                                              ["questionid"]);
-                                          for (var i = 0;
-                                              i < securecontrollers.length;
-                                              i++) {
-                                            if (securecontrollers[i].text.isNotEmpty) {
-                                              var body = {
-                                                "securityquestionid": null,
-                                                "customerid": int.parse(
-                                                    GetStorage().read("custid")),
-                                                "questionid":
-                                                    auth.securityQuestionList[i]
-                                                        ["questionid"],
-                                                "answer": securecontrollers[i].text,
-                                                "status": ""
-                                              };
-                                              answerList.add(body);
-                                            }
-                                          }
-                                          if (answerList.length < 3) {
-                                            Fluttertoast.showToast(
-                                                msg: "You must answer 3 Questions");
-                                          } else {
-                                            auth.securityPost(answerList);
-                                          }
-                                        },
+                    var answerList = [];
+                    print(auth.securityQuestionList[0]["questionid"]);
+                    for (var i = 0; i < securecontrollers.length; i++) {
+                      if (securecontrollers[i].text.isNotEmpty) {
+                        var body = {
+                          "securityquestionid": null,
+                          "customerid": int.parse(GetStorage().read("custid")),
+                          "questionid": auth.securityQuestionList[i]
+                              ["questionid"],
+                          "answer": securecontrollers[i].text,
+                          "status": ""
+                        };
+                        answerList.add(body);
+                      }
+                    }
+                    if (answerList.length < 3) {
+                      Fluttertoast.showToast(
+                          msg: "You must answer 3 Questions");
+                    } else {
+                      auth.securityPost(answerList);
+                    }
+                  },
                                         text: "Next",
                                       )
                                     ],

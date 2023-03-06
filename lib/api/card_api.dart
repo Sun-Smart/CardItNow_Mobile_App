@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
+import 'package:cardit/ui/register/drawer/drawerscreen.dart';
+import 'package:cardit/widgets/drawer_web.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -7,9 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import '../api_endpoints.dart';
 import '../base_client.dart';
 
-
 class CardAPI extends GetxController with BaseController {
-
   final emailController = TextEditingController();
 
   var banklist = [];
@@ -25,14 +26,11 @@ class CardAPI extends GetxController with BaseController {
   //your Details
   var Owner = {}.obs;
 
-
-
   @override
   void onInit() {
     creditCardgetAPI();
     super.onInit();
   }
-
 
   void setCardDefaultPost(payId) async {
     var userid = GetStorage().read("getuserid");
@@ -71,8 +69,8 @@ class CardAPI extends GetxController with BaseController {
       "createddate": dateStr,
       "updatedby": userid,
       "updateddate": dateStr,
-      "customertype":"I",
-      "Type":"I"
+      "customertype": "I",
+      "Type": "I"
     };
     var response = await BaseClient()
         .post(API().crediCardPost, body)
@@ -80,12 +78,15 @@ class CardAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data == "Success") {
-
       Fluttertoast.showToast(msg: 'Data Added Successfully.....');
       creditCardgetAPI();
-      if(type == "Regflow"){
-        Get.offAll(DashbordScreen());
-      } else{
+      if (type == "Regflow") {
+        if (kIsWeb) {
+          Get.offAll(DrawerWeb());
+        } else {
+          Get.offAll(DashbordScreen());
+        }
+      } else {
         Get.back();
       }
     } else {
@@ -94,7 +95,7 @@ class CardAPI extends GetxController with BaseController {
   }
 
   //get credit card details
-   creditCardgetAPI() async {
+  creditCardgetAPI() async {
     var userid = GetStorage().read("getuserid");
     var response = await BaseClient()
         .get(API().creditCardGetLink + userid)
@@ -103,6 +104,4 @@ class CardAPI extends GetxController with BaseController {
     var data = json.decode(response);
     creditCardGet.value = data;
   }
-
-
 }

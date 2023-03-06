@@ -327,15 +327,28 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       ):Responsive.isDesktop(context)
               ? Row(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.height / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                      Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                 //   height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
+                  ),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: Column(
@@ -348,15 +361,28 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 )
               : Row(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      //height: MediaQuery.of(context).size.height / 1,
-                      color: Color(0XFF004751),
-                      child: Center(
-                          child: Image.asset("assets/applogo-02.png",
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.height / 3)),
-                    ),
+                      Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                 //   height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/login_logo.png",
+                                width: 140, height: 75),
+                                SizedBox(height: 15),
+                                  Text('"Make your life Easy"',
+                  style: TextStyle(
+                    letterSpacing: 1,
+                  fontSize: 16, color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'sora'
+                  ),
+                ),
+                          ],
+                        )),
+                  ),
                      Container(
                         width: MediaQuery.of(context).size.width / 1.5,
                         child: Column(
@@ -426,19 +452,20 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                 borderRadius: BorderRadius.circular(5)),
             child: Stack(
                     children: [
-                      TextFormField(
+                        TextFormField(
                           keyboardType: TextInputType.number,
                           controller: creditCardController,
                           validator: (value) {
                             if (creditCardController.text.isEmpty) {
                               return 'Enter Card Number';
-                            } else if(creditCardController.text.length > 15){
-                              return 'Enter Valid Card Number';
-                            }
+                            } else {}
                           },
                           onChanged: (v) {
-                            changeNumber = v;
-                            print(changeNumber);
+                            setState(() {
+                              changeNumber = v;
+                              cardType = cardTypeFunction(v);
+                              print(cardType);
+                            });
                           },
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -446,9 +473,9 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             CustomInputFormatter()
                           ],
                           decoration: InputDecoration(
-                            hoverColor: Colors.transparent,
                               labelText: '4XXX 5XXX 7XXX 3XXX',
                               filled: true,
+                              suffix: Text(cardType),
                               fillColor: Colors.white,
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
@@ -484,11 +511,8 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                                   fontFamily: 'Sora',
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold))),
-                      // Positioned(
-                      //     child: Image.asset('assets/visa.png',
-                      //         width: 40, height: 35),
-                      //     right: 10,
-                      //     top: 5)
+
+                   
                     ],
                   ),
                 ),
@@ -636,17 +660,18 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
           ),
            SizedBox(height: 30),
           GestureDetector(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                cardcons.creditCardPostAPI(
-                    creditCardController.text.toString(),
-                    validityController.text.toString(),
-                    cvvController.text.toString(),
-                    cardType.toString(),
-                    bankNameController.text.toString(),
-                    addNickController.text.toString(), widget.cardflow);
-              }
-            },
+             onTap: () {
+                if (formKey.currentState!.validate()) {
+                  cardcons.creditCardPostAPI(
+                      creditCardController.text.toString(),
+                      validityController.text.toString(),
+                      cvvController.text.toString(),
+                      cardType,
+                      bankNameController.text.toString(),
+                      addNickController.text.toString(),
+                      widget.cardflow);
+                }
+              },
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               width: Responsive.isDesktop(context)
