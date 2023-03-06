@@ -110,6 +110,7 @@ class RegisterAPI extends GetxController with BaseController {
     privacypolicy();
 
     if (GetStorage().read('save_token').toString() != "null") {
+      getLoginToken();
       docselect();
       taxDetailsGetApi();
       banklistget();
