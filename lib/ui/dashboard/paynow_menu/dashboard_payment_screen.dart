@@ -43,17 +43,9 @@ class PaymentDashboard extends StatefulWidget {
         'url': 'assets/goverment.png',
       },
       {
-        'title': 'Medical',
+        'title': 'Housing',
         'url': 'assets/medical.png',
-      },
-      {
-        'title': 'Grocery',
-        'url': 'assets/foot.png',
-      },
-      {
-        'title': 'Utilities',
-        'url': 'assets/home.png',
-      },
+      }
     ],
   };
 }
@@ -315,19 +307,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(width: 1, color: Color(0xffE5E5E5))),
         child: Column(children: [
-          GestureDetector(
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(18.0),
-                child: Image.asset(
-                  partners.url,
-                  fit: BoxFit.cover,
-                  width: 38,
-                  height: 38,
-                )),
-            onTap: () {
-              Get.to(NewPayment( paymentType: "LGU",));
-            },
-          ),
+          ClipRRect(
+              borderRadius: BorderRadius.circular(18.0),
+              child: Image.asset(
+                partners.url,
+                fit: BoxFit.cover,
+                width: 38,
+                height: 38,
+              )),
           //commit
           SizedBox(
             height: 10,
@@ -341,7 +328,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
               )),
         ]),
       ),
-      onTap: () {},
+      onTap: () {
+        if(partners.title == "LGU"){
+          Get.to(NewPayment( paymentType: "LGU",));
+        } else{
+          Get.to(NewPayment( paymentType: "House",));
+        }
+
+      },
     );
   }
 }
