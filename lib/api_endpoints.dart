@@ -80,4 +80,9 @@ class API {
   String lguPaymentDocument = "transactionmaster/Post_transactiondocument";
   String lguPaymentDetails = "transactionmaster/Post_billamountcalculation";
   String lguPayment = "transactionmaster/Post_transactionmaster";
+
+
+  //dashboardapis
+String  recentransaction = "common/dashboard_allrecenttransaction";
+
 }

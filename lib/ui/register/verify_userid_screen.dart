@@ -659,13 +659,13 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Obx(() => ShuftiProValues==null?
+             ShuftiProValues==null?
               Icon(
 
-                  Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,), ),
+                  Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,),
 
               const SizedBox(height: 5),
-        Obx(() => ShuftiProValues==null? Text('Scan your Document'): Text('Successfully Verified'))
+       ShuftiProValues==null? Text('Scan your Document'): Text('Successfully Verified')
 
             ],
           ),

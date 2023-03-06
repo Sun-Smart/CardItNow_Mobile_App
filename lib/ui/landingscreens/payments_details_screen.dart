@@ -1,3 +1,4 @@
+import 'package:cardit/api/payment_api.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,8 @@ import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 
 class PaymentsDetails extends StatefulWidget {
-  const PaymentsDetails({Key? key}) : super(key: key);
+  final fulldetails;
+   PaymentsDetails({Key? key,this.fulldetails}) : super(key: key);
 
   @override
   State<PaymentsDetails> createState() => _PaymentsDetailsState();
@@ -18,7 +20,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
   void initState() {
     super.initState();
   }
-
+  PaymentAPI pay = PaymentAPI();
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -148,7 +150,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
               ),
             ),
             title: Text(
-              'San Nicolas',
+              widget.fulldetails["paidto"].toString(),
               style: TextStyle(
                   color:
                       themeChange.darkTheme ? Colors.white : Color(0Xff000000),
@@ -156,7 +158,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
                   fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              'MID - 23344565',
+              widget.fulldetails["uid"].toString(),
               style: TextStyle(
                   color: themeChange.darkTheme
                       ? Colors.white
@@ -236,7 +238,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000',
+         "${widget.fulldetails["payamount"].toString()}",
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -256,7 +258,8 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 0',
+          "${widget.fulldetails["discount"].toString()}",
+
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -276,7 +279,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000',
+          widget.fulldetails["payamount"].toString(),
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -296,7 +299,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000 + ₱ 80 = ₱ 4080',
+          "${widget.fulldetails["contractamount"].toString()} +  ${widget.fulldetails["carditconvfee"].toString()} = ${widget.fulldetails["payamount"].toString()}",
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -305,13 +308,13 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
         SizedBox(
           height: 30,
         ),
-        Text(
-          'TXN ID: 45879652',
-          style: TextStyle(
-              color: Color(0XffFFFFFF),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   'TXN ID: 45879652',
+        //   style: TextStyle(
+        //       color: Color(0XffFFFFFF),
+        //       fontSize: 10,
+        //       fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: 10,
         ),

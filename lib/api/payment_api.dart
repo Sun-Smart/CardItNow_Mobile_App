@@ -287,6 +287,7 @@ class PaymentAPI extends GetxController with BaseController {
       "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
       "recipientname": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
       "documentnumber": purpose["KEYVALUE"]["BAR CODE"],
+      // 00319220022090,
       "additionaldocumentnumber":"",
       "startdate": payee["date"]["start"],
       "expirydate": payee["date"]["end"],
@@ -338,11 +339,16 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   void transactionListAPI() async {
+
+    var body ={
+      "customerid":MyApp.logindetails["userid"]
+    };
     var response = await BaseClient()
-        .get(API().Paymentpurposedropdown)
+        .post(API().recentransaction,body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+
     transactionList = data;
   }
 }

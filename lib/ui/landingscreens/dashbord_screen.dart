@@ -55,7 +55,9 @@ class DashbordScreenState extends State<DashbordScreen>
   @override
   void initState() {
     cardcons.creditCardgetAPI();
+    pay.transactionListAPI();
     imageprint();
+    print("sdfs"+pay.transactionList.toString());
     super.initState();
   }
 
@@ -1034,7 +1036,11 @@ class DashbordScreenState extends State<DashbordScreen>
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: (){
-                Get.to(PaymentsDetails());
+
+                Get.to(PaymentsDetails(
+                  fulldetails: pay.transactionList[index]
+
+                ));
               },
               child: Container(
                   decoration: BoxDecoration(
@@ -1044,6 +1050,7 @@ class DashbordScreenState extends State<DashbordScreen>
                   child: Column(
                     children: [
                       Container(
+                        margin: EdgeInsets.all(15),
                         padding: const EdgeInsets.all(15),
                         color: const Color(0Xff004751),
                         child: Column(
@@ -1052,15 +1059,15 @@ class DashbordScreenState extends State<DashbordScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("amount.toString()",
+                                Text("₱${pay.transactionList[index]["payamount"].toString()}",
                                     style: const TextStyle(
                                       color: Color(0XffCEE812),
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     )),
-                                Text("date.toString()",
+                                Text(pay.transactionList[index]["purpose"],
                                     style: const TextStyle(
-                                        color: Color(0Xffffffff), fontSize: 9))
+                                        color: Color(0Xffffffff), fontSize: 11,fontWeight: FontWeight.bold))
                               ],
                             ),
                             const SizedBox(
@@ -1069,7 +1076,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("paidname.toString()",
+                                  Text("Paid to ${pay.transactionList[index]["paidto"]}",
                                       style: const TextStyle(
                                           color: Color(0Xffffffff), fontSize: 14),
                                       textAlign: TextAlign.left),
@@ -1078,34 +1085,21 @@ class DashbordScreenState extends State<DashbordScreen>
                                   )
                                 ]),
                             const SizedBox(
-                              height: 10,
+                              height: 30,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('TXN ID  :  ' ,
+                                Text(pay.transactionList[index]["transactiondate"].toString() ,
                                     style: const TextStyle(
-                                        color: Color(0Xffffffff), fontSize: 11)),
-                                const Text('Download Receipt',
-                                    style:
-                                    TextStyle(color: Color(0Xffffffff), fontSize: 10))
+                                        color: Color(0Xffffffff), fontSize: 12,fontWeight: FontWeight.bold)),
+
                               ],
                             ),
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          Image.asset("assets/paymentsuccess.png", width: 32),
 
-
-
-                          Text('Confirmation Pending',
-                              style: TextStyle(
-                                  color:  const Color(0XffFF9D00),
-                                  fontSize: 14))
-                        ],
-                      )
                     ],
                   )),
             );
