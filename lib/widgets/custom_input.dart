@@ -14,7 +14,7 @@ class MyCustomInputBox extends StatefulWidget {
   final bool? enabled;
   final int? maxLength;
   final inputFormatters;
-
+//
   final TextInputType? keyboardType;
   final Widget? Function(String?)? onChanged;
   final TextInputType? textInputType;
