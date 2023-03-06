@@ -79,9 +79,10 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
                 ? EdgeInsets.only(left: 16, bottom: 0)
                 : Responsive.isDesktop(context)
                     ? EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width / 6.5)
+                      left: MediaQuery.of(context).size.width / 4.8)
                     : EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 7),
+                        left: MediaQuery.of(context).size.width / 10,
+                         ),
             child: Text(
               widget.label ?? "",
               style: TextStyle(fontFamily: 'Sora', fontSize: 14,fontWeight: FontWeight.bold),
@@ -90,13 +91,14 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
         ),
          SizedBox(height:Responsive.isMobile(context)?10: 10),
         Container(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+          padding:  Responsive.isMobile(context)
+              ? EdgeInsets.fromLTRB(15, 0, 15, 10):EdgeInsets.zero,
           alignment: Alignment.bottomCenter,
           width: Responsive.isMobile(context)
               ? MediaQuery.of(context).size.width / 1
               : Responsive.isDesktop(context)
                   ? MediaQuery.of(context).size.width / 4
-                  : MediaQuery.of(context).size.width / 2.3,
+                  : MediaQuery.of(context).size.width / 2.5,
           // height: MediaQuery.of(context).size.height * 0.070,
 
           child: TextFormField(
