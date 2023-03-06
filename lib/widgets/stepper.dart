@@ -99,7 +99,7 @@ class _StepperWebState extends State<StepperWeb> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset("assets/login_logo.png",
+                    Image.asset("assets/logoweb.png",
                         width: 120, height: 60),
                   ],
                 ),
