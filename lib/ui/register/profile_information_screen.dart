@@ -1411,7 +1411,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             MyCustomInputBox(
-              enabled: false,
+              enabled: true,
               label: "First Name",
               controller: reg.firstNameController,
               obsecureText: false,

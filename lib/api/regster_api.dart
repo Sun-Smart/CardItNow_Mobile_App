@@ -672,12 +672,12 @@ class RegisterAPI extends GetxController with BaseController {
         GetStorage()
             .write("getuserid", MyApp.logindetails["userid"].toString());
         if (kIsWeb) {
-          if (kIsWeb) {
+
             pageController!.nextPage(
                 duration: Duration(milliseconds: 200), curve: Curves.linear);
           } else {
-            Get.off(ChoosePaymentPage());
-          }
+            Get.offAll(ChoosePaymentPage());
+
         }
       }
 
