@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last, avoid_unnecessary_containers, unnecessary_new, prefer_final_fields, sized_box_for_whitespace
-
+import 'package:intl/intl.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/main.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
@@ -12,6 +12,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../api/payment_api.dart';
+import '../../landingscreens/PaymentViewAll.dart';
+import '../../landingscreens/payments_details_screen.dart';
 
 
 
@@ -27,6 +29,12 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
   ValueNotifier<double> _slider1Value = ValueNotifier<double>(0.0);
   bool? check1 = false;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pay.transactionListAPI();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -520,8 +528,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               GestureDetector(
                 child: Container(
                   padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
-                  // height: 70,
-                  // width: 170,
+                  width: MediaQuery.of(context).size.width / 2.5,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
@@ -547,15 +554,14 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               GestureDetector(
                 child: Container(
                   padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
-                  // height: 70,
-                  // width: 170,
+                  width: MediaQuery.of(context).size.width / 2.5,
                   decoration: BoxDecoration(
                       border: Border.all(color: HexColor('#D3D3D3'), width: 2),
                       borderRadius: BorderRadius.circular(10)),
                   child: Row(
                     children: [
                       SizedBox(width: 15),
-                      Image.asset('assets/card/up_arrow.png',
+                      Image.asset('assets/banner/down_arrow.png',
                           width: 50, height: 50),
                       SizedBox(width: 15),
                       Text('Receive',
@@ -614,7 +620,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   child: Row(
                     children: [
                       SizedBox(width: 15),
-                      Image.asset('assets/card/up_arrow.png',
+                      Image.asset('assets/banner/down_arrow.png',
                           width: 50, height: 50),
                       SizedBox(width: 15),
                       Text('Receive',
@@ -720,8 +726,8 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
   }
 
   Widget _buildRecentTransaction() {
-    return Container(
-      child: Column(
+    return Obx(()=>
+      Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -731,11 +737,16 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                       fontSize: 20,
                       fontFamily: 'Sora',
                       fontWeight: FontWeight.bold)),
-              Text('View',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Sora',
-                      fontWeight: FontWeight.bold))
+              InkWell(
+                onTap: (){
+                  Get.to(paymentviewall());
+                },
+                child: Text('View',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.bold)),
+              )
             ],
           ),
           SizedBox(
@@ -757,62 +768,67 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
   }
 
   Widget _buildCustomerDetails(var item) {
-    return Column(
-      children: [
-        Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.asset('assets/card/up_arrow.png', width: 50, height: 50),
-            SizedBox(width: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text('${item[""]}',
-                        style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16)),
-                    SizedBox(width: 25),
-                    Icon(Icons.arrow_upward)
-                  ],
-                ),
-                Text('at 4:30 pm',
-                    style: TextStyle(
-                        fontFamily: 'Sora',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16))
-              ],
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              '₱ 4000.00',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              '24 Dec 21',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontSize: 16,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        )
-      ],
-    ),
-        SizedBox(height: 10,)
-      ],
+    return InkWell(
+      onTap: (){
+        Get.to(PaymentsDetails(
+            fulldetails: item
+        ));
+      },
+      child: Column(
+        children: [
+          Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 50, height: 50),
+              SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text('${item["paidto"]}',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
+                    ],
+                  ),
+                  Text('at ${DateFormat("hh:mm a").format(DateTime.parse(item["transactiondate"]))}',
+                      style: TextStyle(
+                          fontFamily: 'Sora',
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16))
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Text(
+                '${item["payamount"]}',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '${DateFormat("dd MMMM yy").format(DateTime.parse(item["transactiondate"]))}',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          )
+        ],
+      ),
+          SizedBox(height: 10,)
+        ],
+      ),
     );
   }
 
