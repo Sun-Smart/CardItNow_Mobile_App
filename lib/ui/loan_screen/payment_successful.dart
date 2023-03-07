@@ -143,7 +143,7 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
           )
         : Responsive.isDesktop(context)
             ? Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //SizedBox(height: MediaQuery.of(context).size.width/10),

@@ -312,7 +312,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   finalPaymentAPI(String type, var payee, var purpose, var payment, var date) async {
-    showLoading();
+    // showLoading();
     var body = {
       "transactionid":null,
       "uid": MyApp.logindetails["uid"],
@@ -321,7 +321,8 @@ class PaymentAPI extends GetxController with BaseController {
       "PrivateID": null,
       "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
       "recipientname": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
-      "documentnumber": purpose["KEYVALUE"]["BAR CODE"],
+      "documentnumber": "00319220022093",
+      //  purpose["KEYVALUE"]["BAR CODE"],
       // 00319220022090,
       "additionaldocumentnumber":"",
       "startdate": payee["date"]["start"],
