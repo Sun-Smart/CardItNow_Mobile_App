@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../payment_method/recievermethodscreens/reciever_transaction.dart';
+
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
 
@@ -98,7 +100,9 @@ class _NotificationsState extends State<Notifications> {
     fontWeight: FontWeight.bold,
     fontSize: 16)),
       trailing: TextButton(
-    onPressed: () {  },
+    onPressed: () {
+      Get.to(ReceiverTransaction(payee: item,));
+    },
     child: Text('Pay Now',
     style: TextStyle(
     fontSize: 16,
