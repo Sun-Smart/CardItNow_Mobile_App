@@ -107,7 +107,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                 ],
               ),
             )
-          : Column(
+          :  Responsive.isDesktop(context)?Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -116,7 +116,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                     BackButton(
                 color: Colors.black,
               ),
-              SizedBox(width:Responsive.isDesktop(context)? 250:100,),
+              SizedBox(width: 250),
               Text(
                 'Payment',
                 style: TextStyle(
@@ -134,7 +134,70 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                 _buildtitle2(),
                 _buildPartners(),
               ],
-            ),
+            ):Row(
+              children: [
+                Container(
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      // height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/logoweb.png",
+                              width: 150, height: 90),
+                          SizedBox(height: 15),
+                          Text(
+                            '"Make your life Easy"',
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'sora'),
+                          ),
+                        ],
+                      )),
+                    ),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                      child: Column(
+                        //crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              BackButton(
+                                        color: Colors.black,
+                                      ),
+                            ],
+                          ),
+                                  
+                                  Text(
+                                    'Payment',
+                                    style: TextStyle(
+                          color: Color(0Xff413D4B),
+                          fontSize: 16,
+                          fontFamily: "Sora",
+                          fontWeight: FontWeight.w600),
+                                  ),
+                                    SizedBox(height: 50,),
+                                    //  _buildScarch(),
+                                    _buildtitle1(),
+                                    Row(
+                                      children: [
+                                        buildRecipients(),
+                                      ],
+                                    ),
+                                    _buildtitle2(),
+                                    _buildPartners(),
+                        ],
+                      ),
+                    ),
+             
+              ],
+            )
+              
+          
     ));
   }
 

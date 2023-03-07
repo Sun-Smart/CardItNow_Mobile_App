@@ -131,7 +131,7 @@ class _DrawerWebState extends State<DrawerWeb> {
     Row(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width / 3,
+          width: MediaQuery.of(context).size.width / 4.5,
           height: MediaQuery.of(context).size.height / 1 ,
           decoration: BoxDecoration(    color: Color(0XFF004751),),
           child: Column(
@@ -223,7 +223,7 @@ class _DrawerWebState extends State<DrawerWeb> {
         ),
         Container(
             width:Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 1.25:
-            MediaQuery.of(context).size.width / 1.5,
+            MediaQuery.of(context).size.width / 1.3,
            //    height: MediaQuery.of(context).size.height / 1,
                decoration: BoxDecoration(
                 //color: Colors.green
