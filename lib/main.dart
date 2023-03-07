@@ -55,6 +55,7 @@ Future main() async {
   await GetStorage.init();
 //Size width=
   runApp(const MyApp());
+  Get.put(RegisterAPI());
 }
 
 class MyApp extends StatefulWidget {
