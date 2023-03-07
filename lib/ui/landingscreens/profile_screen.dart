@@ -72,7 +72,7 @@ class _ProfileState extends State<Profile> {
                         ? buildmenu('assets/banner/card.png', 'Manage Cards',
                             '/manualCard')
                         : buildmenu('assets/banner/card.png',
-                            'Manage Prepaid Cards', '/manualCard'),
+                            'Manage Prepaid Cards', ''),
                     MyApp.logindetails["customertype"] == "I"
                         ? SizedBox(height: 15)
                         : SizedBox(),
