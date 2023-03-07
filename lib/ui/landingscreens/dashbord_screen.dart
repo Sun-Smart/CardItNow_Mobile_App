@@ -1066,7 +1066,7 @@ class DashbordScreenState extends State<DashbordScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("₱${pay.transactionList[index]["payamount"].toString()}",
+                                Text("${pay.transactionList[index]["payamount"].toString()}",
                                     style: const TextStyle(
                                       color: Color(0XffCEE812),
                                       fontSize: 24,
