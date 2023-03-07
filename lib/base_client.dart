@@ -55,6 +55,7 @@ class DialogHelper {
   //show loading
   static void showLoading([String? message]) {
     Get.dialog(
+      barrierDismissible: false,
       Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,

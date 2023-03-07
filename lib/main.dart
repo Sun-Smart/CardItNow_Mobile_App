@@ -2,11 +2,14 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:cardit/const/responsive.dart';
 import 'package:cardit/firebase_options.dart';
 import 'package:cardit/themes/Themes.dart';
 import 'package:cardit/themes/theme_notifier.dart';
+import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/ui/splash/splash_screen.dart';
 import 'package:cardit/ui/splash/home_screen.dart';
+import 'package:cardit/widgets/drawer_web.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -18,12 +21,10 @@ import 'package:provider/provider.dart';
 import 'api/regster_api.dart';
 import 'base_client.dart';
 
-
 DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-
+ // var webwidth;
 Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
-
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -36,17 +37,14 @@ class MyHttpOverrides extends HttpOverrides {
 
 Future main() async {
   HttpOverrides.global = MyHttpOverrides();
-  if(!kIsWeb){
-WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  }else{
-    WidgetsFlutterBinding.ensureInitialized(
-
-    );
+  if (!kIsWeb) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  } else {
+    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-    );
-      // initialiaze the facebook javascript SDK
+        options: DefaultFirebaseOptions.currentPlatform);
+    // initialiaze the facebook javascript SDK
     await FacebookAuth.instance.webAndDesktopInitialize(
       appId: "601591934671361",
       cookie: true,
@@ -55,7 +53,7 @@ WidgetsFlutterBinding.ensureInitialized();
     );
   }
   await GetStorage.init();
-
+//Size width=
   runApp(const MyApp());
   Get.put(RegisterAPI());
 }
@@ -63,6 +61,7 @@ WidgetsFlutterBinding.ensureInitialized();
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
   static var logindetails;
+ 
   @override
   State<MyApp> createState() => MyAppState();
 }
@@ -70,11 +69,14 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
   Timer? _timer;
+  // bool? isDeske;
 
   @override
   void initState() {
     super.initState();
+
     getCurrentAppTheme();
+
     _initializeTimer();
     findCookies();
   }
@@ -84,11 +86,11 @@ class MyAppState extends State<MyApp> {
     if (_timer != null) {
       _timer?.cancel();
     }
-    _timer = Timer(const  Duration(minutes: 5), _logOutUser);
+    _timer = Timer(const Duration(minutes: 5), _logOutUser);
   }
 
   void _logOutUser() {
-    if(GetStorage().read("save_token").toString() != 'null'){
+    if (GetStorage().read("save_token").toString() != 'null') {
       _timer?.cancel();
       _timer = null;
       print("Time OUT");
@@ -107,7 +109,7 @@ class MyAppState extends State<MyApp> {
   }
 
   //FIND COOKIES
-  void findCookies(){
+  void findCookies() {
     // if(kIsWeb){
     //   try {
     //     var jsWindow = html.window.navigator.cookieEnabled;
@@ -123,6 +125,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //  bool isDeske = MediaQuery.of(context).size.width >= 1100 ? true : false;
     return ChangeNotifierProvider(
       create: (_) {
         return themeChangeProvider;
@@ -137,12 +140,17 @@ class MyAppState extends State<MyApp> {
                 title: 'Card-it',
                 debugShowCheckedModeBanner: false,
                 theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-               home: kIsWeb ? Home() : SplashScreens()),
+                home: Builder(
+                  builder: (context) {
+ //var webwidth= MediaQuery.of(context).size.width >= 1100;
+                    return Responsive.isDesktop(context)
+                        ? Home()
+                        : Responsive.isTablet(context)?Home():SplashScreens();
+                  },
+                )),
           );
         },
       ),
     );
   }
 }
-
-

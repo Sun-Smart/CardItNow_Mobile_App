@@ -140,18 +140,20 @@ class RegisterAPI extends GetxController with BaseController {
 
     var response =
         await BaseClient().post(API().register, body).catchError(handleError);
+    //hideLoading();
     if (response == null) return;
-
+hideLoading();
     var data1 = json.decode(response);
-
-    hideLoading();
     if (data1 != "Your account already register") {
       var data = json.decode(data1);
       GetStorage().write("custid", data["customerid"]);
       print(data);
       print(data["OTP"]);
       if (data["status"] == "success") {
-        if (kIsWeb) {
+        if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         } else {
@@ -203,7 +205,16 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(data1);
     if (data["status"] == "success") {
       GetStorage().write("custid", data["customerid"]);
-      Get.off(Passcode());
+        if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }else{
+            Get.off(Passcode());
+        }
+    
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
@@ -221,14 +232,18 @@ class RegisterAPI extends GetxController with BaseController {
                 otp,
             body)
         .catchError(handleError);
+
     if (response == null) return;
 
     var data = json.decode(response);
-
     hideLoading();
+
     if (data != "Fail" && data != "not match") {
       if (data == "success") {
-        if (kIsWeb) {
+       if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         } else {
@@ -259,7 +274,18 @@ class RegisterAPI extends GetxController with BaseController {
     var data = json.decode(response);
     print('pass' + data);
     if (data == "Success") {
-      Get.to(Login());
+      if (size.width >= 1100) {
+        Get.to(Login());
+          // pageController!.nextPage(
+          //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          Get.to(Login());
+          // pageController!.nextPage(
+          //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }else{
+          Get.to(Login());
+        }
+     
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -287,10 +313,13 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == 'success') {
-      if (kIsWeb) {
-        pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-      } else {
+     if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
         Get.off(SecurityQuestion());
       }
     } else {
@@ -337,10 +366,13 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == "success") {
-      if (kIsWeb) {
-        pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-      } else {
+     if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }  else {
         Get.off(() => passcodecongrats());
       }
 
@@ -398,10 +430,13 @@ class RegisterAPI extends GetxController with BaseController {
 
     if (data != null) {
       profileinfo.value = data;
-      if (kIsWeb) {
-        pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-      }
+      if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } 
       // Get.to(AvatarPageView());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -424,10 +459,13 @@ class RegisterAPI extends GetxController with BaseController {
     var data1 = json.decode(response);
     var data = jsonDecode(data1);
     if (response == null) return;
-    if (kIsWeb) {
-      pageController!.nextPage(
-          duration: Duration(milliseconds: 200), curve: Curves.linear);
-    } else {
+   if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }  else {
       Get.off(AvatarPageView());
     }
     //await Get.to(AvatarPageView());
@@ -607,7 +645,6 @@ class RegisterAPI extends GetxController with BaseController {
   //city country selctions api
 
   void countryselection() async {
-
     var response =
         await BaseClient().get(API().countryselect).catchError(handleError);
     if (response == null) return;
@@ -674,12 +711,10 @@ class RegisterAPI extends GetxController with BaseController {
         GetStorage()
             .write("getuserid", MyApp.logindetails["userid"].toString());
         if (kIsWeb) {
-
-            pageController!.nextPage(
-                duration: Duration(milliseconds: 200), curve: Curves.linear);
-          } else {
-            Get.offAll(ChoosePaymentPage());
-
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else {
+          Get.offAll(ChoosePaymentPage());
         }
       }
 

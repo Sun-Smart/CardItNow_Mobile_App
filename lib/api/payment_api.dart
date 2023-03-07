@@ -180,6 +180,7 @@ class PaymentAPI extends GetxController with BaseController {
        if (data.toString() == "Success") {
          Get.to(PurposeDetails(paymentType:type, payee: payee, purpose: body));
        } else {
+         
          Fluttertoast.showToast(msg: "This is an existing Relationship");
        }
      }
