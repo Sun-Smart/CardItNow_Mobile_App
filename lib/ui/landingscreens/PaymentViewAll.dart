@@ -2,6 +2,9 @@ import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../main.dart';
 
 class paymentviewall extends StatefulWidget {
   const paymentviewall({Key? key}) : super(key: key);
@@ -39,7 +42,8 @@ class _paymentviewallState extends State<paymentviewall> {
             shrinkWrap: true,
             itemCount: pay.transactionList.length,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
+              var item = pay.transactionList[index];
+              return InkWell(
                 onTap: (){
 
                   Get.to(PaymentsDetails(
@@ -47,7 +51,8 @@ class _paymentviewallState extends State<paymentviewall> {
 
                   ));
                 },
-                child:   Container(
+                child:  MyApp.logindetails["customertype"] == "I"
+                ? Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: const Color(0XffE2E5E5), width: 1.5),
                     ),
@@ -106,10 +111,72 @@ class _paymentviewallState extends State<paymentviewall> {
                         ),
 
                       ],
-                    )),
+                    ))
+                 : Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: _buildCustomerDetails(item),
+                 )
               );
             }),
       ),
+    );
+  }
+
+  Widget _buildCustomerDetails(var item) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 50, height: 50),
+                SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text('${item["paidto"]}',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ],
+                    ),
+                    Text('at ${DateFormat("hh:mm a").format(DateTime.parse(item["transactiondate"]))}',
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16))
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  '${item["payamount"]}',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '${DateFormat("dd MMMM yy").format(DateTime.parse(item["transactiondate"]))}',
+                  style: TextStyle(
+                      fontFamily: 'Sora',
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10,)
+      ],
     );
   }
 }

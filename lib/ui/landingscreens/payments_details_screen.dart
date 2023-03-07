@@ -2,6 +2,7 @@ import 'package:cardit/api/payment_api.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
@@ -16,17 +17,14 @@ class PaymentsDetails extends StatefulWidget {
 }
 
 class _PaymentsDetailsState extends State<PaymentsDetails> {
-  @override
-  void initState() {
-    super.initState();
-  }
   PaymentAPI pay = PaymentAPI();
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return SafeArea(
         child: Scaffold(
-      bottomNavigationBar: Responsive.isMobile(context)?bulildbutton():null,
+      bottomNavigationBar: Responsive.isMobile(context)?bulildbutton(widget.fulldetails):null,
       appBar: Responsive.isMobile(context)? PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
@@ -58,7 +56,9 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           children: [bulildcard(), bulildPaymentsDetails(),
           SizedBox(height: 50,),
           GestureDetector(
-      onTap: (){},
+      onTap: (){
+        mailFunction(widget.fulldetails);
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         width: 
@@ -93,7 +93,9 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
             children: [bulildcard(), bulildPaymentsDetails(),
             SizedBox(height: 50,),
             GestureDetector(
-        onTap: (){},
+        onTap: (){
+          mailFunction(widget.fulldetails);
+        },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           width: 
@@ -130,15 +132,15 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Paying',
-            style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Colors.white
-                    : Color.fromARGB(255, 140, 140, 140),
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
-          ),
+          // Text(
+          //   'Paying',
+          //   style: TextStyle(
+          //       color: themeChange.darkTheme
+          //           ? Colors.white
+          //           : Color.fromARGB(255, 140, 140, 140),
+          //       fontSize: 14,
+          //       fontWeight: FontWeight.bold),
+          // ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading: ClipRRect(
@@ -174,15 +176,15 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Paying',
-            style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Colors.white
-                    : Color.fromARGB(255, 140, 140, 140),
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
-          ),
+          // Text(
+          //   'Paying',
+          //   style: TextStyle(
+          //       color: themeChange.darkTheme
+          //           ? Colors.white
+          //           : Color.fromARGB(255, 140, 140, 140),
+          //       fontSize: 14,
+          //       fontWeight: FontWeight.bold),
+          // ),
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading: ClipRRect(
@@ -194,7 +196,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
               ),
             ),
             title: Text(
-              'San Nicolas',
+              widget.fulldetails["paidto"].toString(),
               style: TextStyle(
                   color:
                       themeChange.darkTheme ? Colors.white : Color(0Xff000000),
@@ -202,7 +204,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
                   fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              'MID - 23344565',
+              widget.fulldetails["uid"].toString(),
               style: TextStyle(
                   color: themeChange.darkTheme
                       ? Colors.white
@@ -248,7 +250,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 20,
         ),
         Text(
-          'LGU Discount',
+          'Discount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -350,7 +352,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000',
+          "${widget.fulldetails["payamount"].toString()}",
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -360,7 +362,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 20,
         ),
         Text(
-          'LGU Discount',
+          'Discount',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -370,7 +372,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 0',
+          "${widget.fulldetails["discount"].toString()}",
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -390,7 +392,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000',
+          widget.fulldetails["payamount"].toString(),
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -410,7 +412,7 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
           height: 10,
         ),
         Text(
-          '₱ 4000 + ₱ 80 = ₱ 4080',
+            "${widget.fulldetails["contractamount"].toString()} +  ${widget.fulldetails["carditconvfee"].toString()} = ${widget.fulldetails["payamount"].toString()}",
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 12,
@@ -419,13 +421,13 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
         SizedBox(
           height: 30,
         ),
-        Text(
-          'TXN ID: 45879652',
-          style: TextStyle(
-              color: Color(0XffFFFFFF),
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
+        // Text(
+        //   'TXN ID: 45879652',
+        //   style: TextStyle(
+        //       color: Color(0XffFFFFFF),
+        //       fontSize: 10,
+        //       fontWeight: FontWeight.bold),
+        // ),
         SizedBox(
           height: 10,
         ),
@@ -443,14 +445,23 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
     );
   }
 
-  Widget bulildbutton() {
+  Widget bulildbutton(var item) {
     return AuthButton(
       decoration: BoxDecoration(
         color: HexColor('#CEE812'),
         borderRadius: BorderRadius.circular(5),
       ),
-      onTap: () {},
+      onTap: ()  {
+        mailFunction(item);
+      },
       text: "Contact Support",
     );
+  }
+
+  mailFunction(var item) async{
+    var mailURL = Uri.parse("mailto:pingme@carditnow.com?subject=${item["txnid"]}&body=");
+    if (!await launchUrl(mailURL)) {
+    throw Exception('Could not launch $mailURL');
+    }
   }
 }
