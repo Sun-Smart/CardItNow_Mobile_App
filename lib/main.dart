@@ -55,7 +55,6 @@ Future main() async {
   await GetStorage.init();
 //Size width=
   runApp(const MyApp());
-  Get.put(RegisterAPI());
 }
 
 class MyApp extends StatefulWidget {
@@ -125,7 +124,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //  bool isDeske = MediaQuery.of(context).size.width >= 1100 ? true : false;
     return ChangeNotifierProvider(
       create: (_) {
         return themeChangeProvider;
@@ -142,7 +140,6 @@ class MyAppState extends State<MyApp> {
                 theme: Styles.themeData(themeChangeProvider.darkTheme, context),
                 home: Builder(
                   builder: (context) {
- //var webwidth= MediaQuery.of(context).size.width >= 1100;
                     return Responsive.isDesktop(context)
                         ? Home()
                         : Responsive.isTablet(context)?Home():SplashScreens();

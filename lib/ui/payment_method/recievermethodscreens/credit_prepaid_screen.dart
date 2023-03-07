@@ -540,7 +540,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   ),
                 ),
                 onTap: () {
-                  Get.offAll(PaymentDashboard());
+                  Get.to(PaymentDashboard());
                 },
               ),
 

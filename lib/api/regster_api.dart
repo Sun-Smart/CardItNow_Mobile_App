@@ -484,7 +484,6 @@ hideLoading();
   }
 
   void geoaccess() async {
-    showLoading();
     var response = await BaseClient().get(API().terms).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -522,13 +521,11 @@ hideLoading();
 
 //get method
   void banklistget() async {
-    showLoading();
     var response =
         await BaseClient().get(API().banklistdropdown).catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     banklist = data;
-    print("-----data-------$banklist");
   }
 
   void paymentpurposeget() async {
