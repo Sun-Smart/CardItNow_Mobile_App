@@ -141,7 +141,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   //           height: MediaQuery.of(context).size.height / 3)),
                   // ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 1.5,
+                    width: MediaQuery.of(context).size.width / 2,
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(
