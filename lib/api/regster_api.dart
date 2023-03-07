@@ -687,6 +687,7 @@ hideLoading();
   //termsandconditions post
 
   void Termspost() async {
+    showLoading();
     DateTime datetime = DateTime.now();
     String dateaccpt = datetime.toString();
     var customerids = GetStorage().read("custid");
