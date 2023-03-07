@@ -77,15 +77,29 @@ class _PurposeDetailsState extends State<PurposeDetails> {
       )
           : Row(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 3,
-            height: MediaQuery.of(context).size.height / 1,
-            color: Color(0XFF004751),
-            child: Center(
-                child: Image.asset("assets/applogo-02.png",
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    height: MediaQuery.of(context).size.height / 3)),
-          ),
+           Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 1,
+                    color: Color(0XFF004751),
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/logoweb.png",
+                            width: 150, height: 90),
+                        SizedBox(height: 15),
+                        Text(
+                          '"Make your life Easy"',
+                          style: TextStyle(
+                              letterSpacing: 1,
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'sora'),
+                        ),
+                      ],
+                    )),
+                  ),
           Container(
             width: MediaQuery.of(context).size.width / 1.5,
             child: SingleChildScrollView(
@@ -1220,7 +1234,7 @@ SizedBox(
             ],
           )
         : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -1461,7 +1475,8 @@ SizedBox(
   }
 
   housePayeeWidget(){
-    return Column(
+    return  Responsive.isMobile(context)?
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Payee Name,',
@@ -1698,11 +1713,361 @@ SizedBox(
         if(!Responsive.isMobile(context))
           confirmationButton()
       ],
+    ):  Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          children: [SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+
+             Text('Payee Name,',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+          ],
+        ),
+        SizedBox(height: 20),
+        Row(
+          children: [
+            SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+            const Text('Bank Name',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+          ],
+        ),
+        SizedBox(height: 20),
+        Row(
+          children: [
+            SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+            const Text('Account No',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+            Text(widget.purpose ?? '',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    color: Colors.grey,
+                    fontSize: 16)),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text('Invoice Date',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text(widget.purpose ?? '',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.grey,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text('Invoice Amount',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text(widget.purpose ?? '',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.grey,
+                        fontSize: 16)),
+              ],
+            ),
+
+          ],
+        ),
+        Column(
+          children: [
+            SizedBox(height: 20),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text('Property Address',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text(widget.purpose ?? '',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.grey,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text('Contract Terms',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                Text(widget.purpose ?? '',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        color: Colors.grey,
+                        fontSize: 16)),
+              ],
+            ),
+          ],
+        ),
+
+        SizedBox(height: 20),
+        Column(
+            children: [
+              // ignore: unnecessary_brace_in_string_interps
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                      Text('Select Start Year *',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: HexColor('#505050'))),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                   // margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 4
+                          : MediaQuery.of(context).size.width / 2.5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: DropdownButtonFormField(
+                        decoration: Styles.dropdownDecoration(),
+                        dropdownColor: Colors.white,
+                        isExpanded: true,
+                        value: pay.startYear,
+                        hint: const Text('Select Start Year ',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                        icon: const InkWell(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        items: pay.startYearList.map((item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item["PERIOD"].toString(),
+                                style: const TextStyle(
+                                    color: Color(0Xff413D4B),
+                                    fontSize: 14)),
+                          );
+                        }).toList(),
+                        onChanged: (var newValue) {
+                          setState(() {
+                            pay.startYear = newValue;
+                            billAmount = amountCalculation(pay.startYear, pay.endYear);
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+
+                children: [
+                  Row(
+                    children: [
+                      SizedBox( width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 5.2
+                          : MediaQuery.of(context).size.width / 14),
+                      Text('Select End Year *',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: HexColor('#505050'))),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                   width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width /4
+                          : MediaQuery.of(context).size.width / 2.5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: DropdownButtonFormField(
+                        decoration: Styles.dropdownDecoration(),
+                        dropdownColor: Colors.white,
+                        isExpanded: true,
+                        value: pay.endYear,
+                        hint: const Text('Select End Year ',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                        icon: const InkWell(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        items: pay.endYearList.map((item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item["PERIOD"].toString(),
+                                style: const TextStyle(
+                                    color: Color(0Xff413D4B),
+                                    fontSize: 14)),
+                          );
+                        }).toList(),
+                        onChanged: (var newValue) {
+                          setState(() {
+                            pay.endYear = newValue;
+                            billAmount = amountCalculation(pay.startYear, pay.endYear);
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+        SizedBox(height: 20),
+        Container(
+          width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width / 4
+                          : MediaQuery.of(context).size.width / 2.5,
+          child: TextFormField(
+              controller: pay.paymentController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              decoration: InputDecoration(
+                  hintText:
+                  'Enter How Much you want to pay',
+                  hintStyle: TextStyle(
+                      fontFamily: 'Sora', fontSize: 14))),
+        ),
+        SizedBox(height: 20),
+        if(!Responsive.isMobile(context))
+          confirmationButton()
+      ],
     );
+ ;
   }
 
   confirmationButton(){
-    return AuthButton(
+    return  AuthButton(
         decoration: BoxDecoration(
             color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
         onTap: () {

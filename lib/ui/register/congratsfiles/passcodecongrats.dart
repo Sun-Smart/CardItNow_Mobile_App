@@ -1,4 +1,5 @@
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/main.dart';
 import 'package:cardit/ui/auth/login_screen.dart';
 import 'package:cardit/ui/register/verify_userid_screen.dart';
 
@@ -138,10 +139,18 @@ Widget bulildbutton() {
       decoration: BoxDecoration(
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
+        if (size.width >= 1100) {
+            Get.off(VerifyUserId());
+        } else if (size.width < 1100 && size.width >= 650) {
+            Get.off(VerifyUserId());
+        }  else {
+         CircularProgressIndicator();
+            Get.off(VerifyUserId());
+      }
 
-        CircularProgressIndicator();
+      
 
-        Get.off(VerifyUserId());
+      
 
 
 

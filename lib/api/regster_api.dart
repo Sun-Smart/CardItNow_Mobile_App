@@ -474,10 +474,15 @@ hideLoading();
     }
     //await Get.to(AvatarPageView());
     if (data["status"] == "success") {
-      if (kIsWeb) {
-        pageController!.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.linear);
-      } else {
+       if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } 
+      // Get.to(AvatarPageView());
+    else {
         Get.off(AvatarPageView());
       }
 
