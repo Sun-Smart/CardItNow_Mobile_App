@@ -3,8 +3,14 @@
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:intl/intl.dart';
+import '../../../api/payment_api.dart';
+import '../../landingscreens/PaymentViewAll.dart';
+import '../../landingscreens/payments_details_screen.dart';
 
 class ReceiverPaymentScreen extends StatefulWidget {
   const ReceiverPaymentScreen({Key? key}) : super(key: key);
@@ -14,6 +20,16 @@ class ReceiverPaymentScreen extends StatefulWidget {
 }
 
 class _ReceiverPaymentScreenState extends State<ReceiverPaymentScreen> {
+
+  PaymentAPI pay = PaymentAPI();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pay.transactionListAPI();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  DefaultTabController(
@@ -190,79 +206,117 @@ Text('Payments',
               ),
             ),
             SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
-            SizedBox(height: 30),
-            _buildCustomerDetails(),
+            _buildRecentTransaction(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCustomerDetails() {
-    return Container(
-    //     child: Row(
-    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //   children: [
-    //     Row(
-    //       children: [
-    //         Image.asset('assets/card/up_arrow.png', width: 50, height: 50),
-    //         SizedBox(width: 20),
-    //         Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Row(
-    //               children: [
-    //                 Text('Rita',
-    //                     style: TextStyle(
-    //                         fontFamily: 'Sora',
-    //                         fontWeight: FontWeight.bold,
-    //                         fontSize: 16)),
-    //                 SizedBox(width: 25),
-    //                 Icon(Icons.arrow_upward)
-    //               ],
-    //             ),
-    //             Text('at 4:30 pm',
-    //                 style: TextStyle(
-    //                     fontFamily: 'Sora',
-    //                     color: Colors.grey,
-    //                     fontWeight: FontWeight.bold,
-    //                     fontSize: 16))
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //     Column(
-    //       children: [
-    //         Text(
-    //           '₱ 4000.00',
-    //           style: TextStyle(
-    //               fontFamily: 'Sora',
-    //               fontSize: 16,
-    //               fontWeight: FontWeight.bold),
-    //         ),
-    //         Text(
-    //           '24 Dec 21',
-    //           style: TextStyle(
-    //               fontFamily: 'Sora',
-    //               fontSize: 16,
-    //               color: Colors.grey,
-    //               fontWeight: FontWeight.bold),
-    //         ),
-    //       ],
-    //     )
-    //   ],
-    // )
-        );
+  Widget _buildRecentTransaction() {
+    return Obx(()=>
+        Column(
+          children: [
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text('Recent Transactions',
+            //         style: TextStyle(
+            //             fontSize: 20,
+            //             fontFamily: 'Sora',
+            //             fontWeight: FontWeight.bold)),
+            //     InkWell(
+            //       onTap: (){
+            //         Get.to(paymentviewall());
+            //       },
+            //       child: Text('View',
+            //           style: TextStyle(
+            //               fontSize: 16,
+            //               fontFamily: 'Sora',
+            //               fontWeight: FontWeight.bold)),
+            //     )
+            //   ],
+            // ),s
+            SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  itemCount: pay.transactionList.length,
+                  itemBuilder: (context, i) {
+                    var item = pay.transactionList[i];
+                    return _buildCustomerDetails(item);
+                  },
+                )
+
+
+            )
+
+          ],
+        ),
+    );
+  }
+
+  Widget _buildCustomerDetails(var item) {
+    return InkWell(
+      onTap: (){
+        Get.to(PaymentsDetails(
+            fulldetails: item
+        ));
+      },
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 50, height: 50),
+                  SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('${item["paidto"]}',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16)),
+                        ],
+                      ),
+                      Text('at ${DateFormat("hh:mm a").format(DateTime.parse(item["transactiondate"]))}',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16))
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    '${item["payamount"]}',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${DateFormat("dd MMMM yy").format(DateTime.parse(item["transactiondate"]))}',
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontSize: 16,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )
+            ],
+          ),
+          SizedBox(height: 10,)
+        ],
+      ),
+    );
   }
 }
