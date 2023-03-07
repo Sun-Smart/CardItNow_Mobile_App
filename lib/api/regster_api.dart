@@ -100,6 +100,9 @@ class RegisterAPI extends GetxController with BaseController {
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
 
+  //notification
+  var notificationList = [].obs;
+
   @override
   void onInit() {
     //web.loadreference();
@@ -119,6 +122,7 @@ class RegisterAPI extends GetxController with BaseController {
       invoicegetmethod();
       pay.transactionListAPI();
       pay.barcharshowing();
+      notificationListAPI();
     }
     super.onInit();
   }
@@ -842,6 +846,20 @@ hideLoading();
     var data = json.decode(response);
     privacycontent.value = data["privacypolicy"];
   }
+
+
+  void notificationListAPI() async {
+    var body = {
+            "customerid":MyApp.logindetails["userid"]
+              };
+    var response = await BaseClient()
+        .post(API().notification,body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    notificationList.value = data;
+  }
+
 }
 
 Future<void> readJson() async {

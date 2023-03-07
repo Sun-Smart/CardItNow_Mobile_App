@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last, avoid_unnecessary_containers, unnecessary_new, prefer_final_fields, sized_box_for_whitespace
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/main.dart';
@@ -13,6 +14,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../api/payment_api.dart';
 import '../../landingscreens/PaymentViewAll.dart';
+import '../../landingscreens/notification.dart';
 import '../../landingscreens/payments_details_screen.dart';
 
 
@@ -35,342 +37,374 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
     super.initState();
     pay.transactionListAPI();
   }
+
+  DateTime? currentBackPressTime;
+  Future<bool> exitPopFunction() {
+    DateTime now = DateTime.now();
+    if (
+        currentBackPressTime == null ||
+            now.difference(currentBackPressTime!) > Duration(seconds: 5)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Press again to exit");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () => exitPopFunction(),
+      child: Scaffold(
 
-      body: Responsive.isMobile(context)
-          ? SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-
-                            Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: const Color(0xff036D7A)),
-                                child: GetStorage().read("avatarpic") == null
-                                    ? Container()
-                                    : GetStorage()
-                                    .read("avatarpic")
-                                    .toString()
-                                    .contains('assets')
-                                    ? Image.asset(
-                                    GetStorage().read("avatarpic"),
-                                    fit: BoxFit.cover,
-                                    height: 43,
-                                    width: 43)
-                                    : Container()
-
-                              // Image.file(
-                              //             File(
-                              //                 GetStorage().read("avatarpic")),
-                              //             fit: BoxFit.cover,
-                              //             height: 43,
-                              //             width: 43)
-
-                            ),
-                            SizedBox(width: 15),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 15),
-                                RichText(
-                                    text: TextSpan(
-                                        text: 'Heloo!',
-                                        style:  TextStyle(
-                                            color: Color(0xff036D7A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                        children: <TextSpan>[
-                                      TextSpan(
-                                          text: ' ${MyApp.logindetails['username']}',
-                                          style: const TextStyle(
-                                              color: Color(0xffC9E313),
-                                              fontSize: 18))
-                                    ])),
-                                Text(
-                                  'Welcome !',
-                                  style: TextStyle(
-                                      color: HexColor('#1B1B1B'), fontSize: 12),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Icon(Icons.notifications_none_outlined,
-                            color: HexColor('#036D7A'), size: 30)
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Cardit Prepaid',
-                            style: TextStyle(
-                                color: HexColor('#1B1B1B'),
-                                fontFamily: 'Sora',
-                                fontSize: 20)),
-                        SizedBox(height: 10),
-                        _buildWalletBalance(),
-                        SizedBox(height: 20),
-                        _buildContainer(),
-                        SizedBox(height: 20),
-                        _buildInvitedUsers(),
-                        SizedBox(height: 20),
-                        _buildRecentTransaction()
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          : Responsive.isDesktop(context)
-              ? Row(
+        body: Responsive.isMobile(context)
+            ? SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      height: MediaQuery.of(context).size.width / 1,
-                      decoration:
-                          BoxDecoration(color: Colors.grey.withOpacity(0.1)),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 4,
-                              height: 100,
-                              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                   Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: const Color(0xff036D7A)),
-                                child: GetStorage().read("avatarpic") == null
-                                    ? Container()
-                                    : GetStorage()
-                                    .read("avatarpic")
-                                    .toString()
-                                    .contains('assets')
-                                    ? Image.asset(
-                                    GetStorage().read("avatarpic"),
-                                    fit: BoxFit.cover,
-                                    height: 43,
-                                    width: 43)
-                                    : Container()
+                      width: MediaQuery.of(context).size.width,
+                      height: 100,
+                      padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
 
-                              // Image.file(
-                              //             File(
-                              //                 GetStorage().read("avatarpic")),
-                              //             fit: BoxFit.cover,
-                              //             height: 43,
-                              //             width: 43)
+                              Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: const Color(0xff036D7A)),
+                                  child: GetStorage().read("avatarpic") == null
+                                      ? Container()
+                                      : GetStorage()
+                                      .read("avatarpic")
+                                      .toString()
+                                      .contains('assets')
+                                      ? Image.asset(
+                                      GetStorage().read("avatarpic"),
+                                      fit: BoxFit.cover,
+                                      height: 43,
+                                      width: 43)
+                                      : Container()
 
-                            ),
-                                      SizedBox(width: 15),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: 15),
-                                          RichText(
-                                              text: TextSpan(
-                                                  text: 'Heloo!',
-                                                  style: const TextStyle(
-                                                      color: Color(0xff036D7A),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                  children: <TextSpan>[
-                                                TextSpan(
-                                                    text: ' Angelo',
-                                                    style: const TextStyle(
-                                                        color:
-                                                            Color(0xffC9E313),
-                                                        fontSize: 18))
-                                              ])),
-                                          Text(
-                                            'Welcome !',
-                                            style: TextStyle(
-                                                color: HexColor('#1B1B1B'),
-                                                fontSize: 12),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Icon(Icons.notifications_none_outlined,
-                                      color: HexColor('#036D7A'), size: 30)
-                                ],
+                                // Image.file(
+                                //             File(
+                                //                 GetStorage().read("avatarpic")),
+                                //             fit: BoxFit.cover,
+                                //             height: 43,
+                                //             width: 43)
+
                               ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('Cardit Prepaid',
-                                          style: TextStyle(
-                                              color: HexColor('#1B1B1B'),
-                                              fontFamily: 'Sora',
-                                              fontSize: 20)),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  _buildWalletBalance(),
-                                  SizedBox(height: 20),
-                                  _buildContainer(),
-                                  SizedBox(height: 20),
-                                  //   _buildInvitedUsers(),
-                                  //SizedBox(height: 20),
-                                  _buildRecentTransaction()
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width/8),
-                      child: _buildInvitedUsers(),
-                    )
-                  ],
-                )
-              : Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                    height: MediaQuery.of(context).size.width / 1,
-                      decoration:
-                          BoxDecoration(color: Colors.grey.withOpacity(0.1)),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: 100,
-                              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                     Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: const Color(0xff036D7A)),
-                                child: GetStorage().read("avatarpic") == null
-                                    ? Container()
-                                    : GetStorage()
-                                    .read("avatarpic")
-                                    .toString()
-                                    .contains('assets')
-                                    ? Image.asset(
-                                    GetStorage().read("avatarpic"),
-                                    fit: BoxFit.cover,
-                                    height: 43,
-                                    width: 43)
-                                    : Container()
-
-                              // Image.file(
-                              //             File(
-                              //                 GetStorage().read("avatarpic")),
-                              //             fit: BoxFit.cover,
-                              //             height: 43,
-                              //             width: 43)
-
-                            ),
-                                      SizedBox(width: 15),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: 15),
-                                          RichText(
-                                              text: TextSpan(
-                                                  text: 'Heloo!',
-                                                  style: const TextStyle(
-                                                      color: Color(0xff036D7A),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                  children: <TextSpan>[
-                                                TextSpan(
-                                                    text: ' Angelo',
-                                                    style: const TextStyle(
-                                                        color:
-                                                            Color(0xffC9E313),
-                                                        fontSize: 18))
-                                              ])),
-                                          Text(
-                                            'Welcome !',
-                                            style: TextStyle(
-                                                color: HexColor('#1B1B1B'),
-                                                fontSize: 12),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Icon(Icons.notifications_none_outlined,
-                                      color: HexColor('#036D7A'), size: 30)
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width/1.5,
-                              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                              child: Column(
+                              SizedBox(width: 15),
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Cardit Prepaid',
-                                      style: TextStyle(
-                                          color: HexColor('#1B1B1B'),
-                                          fontFamily: 'Sora',
-                                          fontSize: 20)),
-                                  SizedBox(height: 10),
-                                  _buildWalletBalance(),
-                                  SizedBox(height: 20),
-                                  _buildContainer(),
-                                  //SizedBox(height: 20),
-                                 // _buildInvitedUsers(),
-                                  SizedBox(height: 20),
-                                  _buildRecentTransaction()
+                                  SizedBox(height: 15),
+                                  RichText(
+                                      text: TextSpan(
+                                          style:  TextStyle(
+                                              color: Color(0xff036D7A),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                          text: 'Hello ',
+                                          children: <TextSpan>[
+                                        TextSpan(
+                                            text: '${MyApp.logindetails['username']}',
+                                            style: const TextStyle(
+                                                color: Color(0xffC9E313),
+                                                fontSize: 18))
+                                      ])),
+                                  Text(
+                                    'Welcome !',
+                                    style: TextStyle(
+                                        color: HexColor('#1B1B1B'), fontSize: 12),
+                                  )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
+                            ],
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Get.to(Notifications());
+                            },
+                            icon: Icon(Icons.notifications_none_outlined,
+                                color: HexColor('#036D7A'), size: 30),
+                          )
+                        ],
                       ),
                     ),
-                  _buildInvitedUsers(),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Cardit Prepaid',
+                              style: TextStyle(
+                                  color: HexColor('#1B1B1B'),
+                                  fontFamily: 'Sora',
+                                  fontSize: 20)),
+                          SizedBox(height: 10),
+                          _buildWalletBalance(),
+                          SizedBox(height: 20),
+                          _buildContainer(),
+                          SizedBox(height: 20),
+                          _buildInvitedUsers(),
+                          SizedBox(height: 20),
+                          _buildRecentTransaction()
+                        ],
+                      ),
+                    )
                   ],
                 ),
-      bottomNavigationBar:
-          Responsive.isMobile(context) ? BottomNavBarReceiver(index: 0) : null,
+              )
+            : Responsive.isDesktop(context)
+                ? Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        height: MediaQuery.of(context).size.width / 1,
+                        decoration:
+                            BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 4,
+                                height: 100,
+                                padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                     Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: const Color(0xff036D7A)),
+                                  child: GetStorage().read("avatarpic") == null
+                                      ? Container()
+                                      : GetStorage()
+                                      .read("avatarpic")
+                                      .toString()
+                                      .contains('assets')
+                                      ? Image.asset(
+                                      GetStorage().read("avatarpic"),
+                                      fit: BoxFit.cover,
+                                      height: 43,
+                                      width: 43)
+                                      : Container()
+
+                                // Image.file(
+                                //             File(
+                                //                 GetStorage().read("avatarpic")),
+                                //             fit: BoxFit.cover,
+                                //             height: 43,
+                                //             width: 43)
+
+                              ),
+                                        SizedBox(width: 15),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 15),
+                                            RichText(
+                                                text: TextSpan(
+                                                    text: 'Hello ',
+                                                    style: const TextStyle(
+                                                        color: Color(0xff036D7A),
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                    children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: '${MyApp.logindetails['username']}',
+                                                      style: const TextStyle(
+                                                          color:
+                                                              Color(0xffC9E313),
+                                                          fontSize: 18))
+                                                ])),
+                                            Text(
+                                              'Welcome !',
+                                              style: TextStyle(
+                                                  color: HexColor('#1B1B1B'),
+                                                  fontSize: 12),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Get.to(Notifications());
+                                      },
+                                      icon: Icon(Icons.notifications_none_outlined,
+                                          color: HexColor('#036D7A'), size: 30),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text('Cardit Prepaid',
+                                            style: TextStyle(
+                                                color: HexColor('#1B1B1B'),
+                                                fontFamily: 'Sora',
+                                                fontSize: 20)),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    _buildWalletBalance(),
+                                    SizedBox(height: 20),
+                                    _buildContainer(),
+                                    SizedBox(height: 20),
+                                    //   _buildInvitedUsers(),
+                                    //SizedBox(height: 20),
+                                    _buildRecentTransaction()
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width/8),
+                        child: _buildInvitedUsers(),
+                      )
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                      height: MediaQuery.of(context).size.width / 1,
+                        decoration:
+                            BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                height: 100,
+                                padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                       Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: const Color(0xff036D7A)),
+                                  child: GetStorage().read("avatarpic") == null
+                                      ? Container()
+                                      : GetStorage()
+                                      .read("avatarpic")
+                                      .toString()
+                                      .contains('assets')
+                                      ? Image.asset(
+                                      GetStorage().read("avatarpic"),
+                                      fit: BoxFit.cover,
+                                      height: 43,
+                                      width: 43)
+                                      : Container()
+
+                                // Image.file(
+                                //             File(
+                                //                 GetStorage().read("avatarpic")),
+                                //             fit: BoxFit.cover,
+                                //             height: 43,
+                                //             width: 43)
+
+                              ),
+                                        SizedBox(width: 15),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 15),
+                                            RichText(
+                                                text: TextSpan(
+                                                    text: 'Hello ',
+                                                    style: const TextStyle(
+                                                        color: Color(0xff036D7A),
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                    children: <TextSpan>[
+                                                  TextSpan(
+                                                      text: '${MyApp.logindetails['username']}',
+                                                      style: const TextStyle(
+                                                          color:
+                                                              Color(0xffC9E313),
+                                                          fontSize: 18))
+                                                ])),
+                                            Text(
+                                              'Welcome !',
+                                              style: TextStyle(
+                                                  color: HexColor('#1B1B1B'),
+                                                  fontSize: 12),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Get.to(Notifications());
+                                      },
+                                      icon: Icon(Icons.notifications_none_outlined,
+                                          color: HexColor('#036D7A'), size: 30),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width/1.5,
+                                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Cardit Prepaid',
+                                        style: TextStyle(
+                                            color: HexColor('#1B1B1B'),
+                                            fontFamily: 'Sora',
+                                            fontSize: 20)),
+                                    SizedBox(height: 10),
+                                    _buildWalletBalance(),
+                                    SizedBox(height: 20),
+                                    _buildContainer(),
+                                    //SizedBox(height: 20),
+                                   // _buildInvitedUsers(),
+                                    SizedBox(height: 20),
+                                    _buildRecentTransaction()
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    _buildInvitedUsers(),
+                    ],
+                  ),
+        bottomNavigationBar:
+            Responsive.isMobile(context) ? BottomNavBarReceiver(index: 0) : null,
+      ),
     );
   }
 
@@ -766,6 +800,9 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
       ),
     );
   }
+  String getInitials(String name) => name.isNotEmpty
+      ? name.trim().split(' ').map((l) => l[0]).take(2).join()
+      : '';
 
   Widget _buildCustomerDetails(var item) {
     return InkWell(
@@ -781,7 +818,21 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
         children: [
           Row(
             children: [
-              Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 50, height: 50),
+              Container(
+                alignment: Alignment.center,
+                width: 50, height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(45),
+                  color: HexColor('#CEE812'),
+                ),
+
+                child: Text(getInitials(item["paidto"]),
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('#036D7B'),
+                        fontSize: 16)),
+              ),
               SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -805,7 +856,9 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
               ),
             ],
           ),
+          Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 25, height: 25),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 '${item["payamount"]}',
@@ -815,7 +868,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '${DateFormat("dd MMMM yy").format(DateTime.parse(item["transactiondate"]))}',
+                '${DateFormat("dd MMM yy").format(DateTime.parse(item["transactiondate"]))}',
                 style: TextStyle(
                     fontFamily: 'Sora',
                     fontSize: 16,

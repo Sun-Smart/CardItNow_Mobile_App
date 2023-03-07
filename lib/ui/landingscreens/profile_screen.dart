@@ -23,6 +23,7 @@ import 'package:provider/provider.dart';
 import '../../api/regster_api.dart';
 import '../../widgets/drawer_web.dart';
 import '../payment_method/manula_card_screen.dart';
+import '../payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 import '../register/drawer/drawerscreen.dart';
 import '../splash/home_screen.dart';
 import 'dashbord_screen.dart';
@@ -37,212 +38,221 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final RegisterAPI reg = Get.put(RegisterAPI());
   var usertab = '/userdetails';
+
+  Future<bool> popFunction() {
+    Get.offAll(CreditPrepaidScreen());
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: Responsive.isMobile(context)
-            ? MyApp.logindetails["customertype"] == "I"
-                ? BottomNavBarWidget(3)
-                : BottomNavBarReceiver(
-                    index: 2,
-                  )
-            : null,
-        body: Responsive.isMobile(context)
-            ? Container(
-                child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.only(
-                            top: 40, bottom: 30, left: 20, right: 20),
-                        margin: EdgeInsets.only(top: 30),
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/loginbg.png"),
-                                fit: BoxFit.cover)),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [buildToptitle(), buildtitle()])),
-                    buildmenu('assets/banner/usericon.png', 'User Details',
-                        '/userdetails'),
-                    SizedBox(height: 15),
-                    MyApp.logindetails["customertype"] == "I"
-                        ? buildmenu('assets/banner/card.png', 'Manage Cards',
-                            '/manualCard')
-                        : buildmenu('assets/banner/card.png',
-                            'Manage Prepaid Cards', ''),
-                    MyApp.logindetails["customertype"] == "I"
-                        ? SizedBox(height: 15)
-                        : SizedBox(),
-                    MyApp.logindetails["customertype"] == "I"
-                        ? buildmenu('assets/banner/reward.png', 'My Rewards',
-                            '/settings')
-                        : SizedBox(),
-                    SizedBox(height: 15),
-                    buildmenu(
-                        'assets/banner/setting.png', 'Settings', '/settings'),
-                    SizedBox(height: 15),
-                    buildmenu('assets/banner/chart.png', 'Help and Support',
-                        '/settings'),
-                    SizedBox(height: 15),
-                    buildlogout('assets/banner/logout.png', 'Log out')
-                  ],
-                ),
-              ))
-            : Responsive.isDesktop(context)
-                ? Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      height: MediaQuery.of(context).size.width / 1,
-                      decoration: BoxDecoration(
-                          // color: Colors.blue
-                          ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              profileweb(),
-                              TextButton(
-                                  style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14, color: Colors.black),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text('Set up to Recieve',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold))),
-                              buildmenu('assets/banner/usericon.png',
-                                  'User Details', '/userdetails'),
-                              SizedBox(height: 15),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? buildmenu('assets/banner/card.png',
-                                      'Manage Cards', '/manualCard')
-                                  : buildmenu('assets/banner/card.png',
-                                      'Manage Prepaid Cards', '/manualCard'),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? SizedBox(height: 15)
-                                  : SizedBox(),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? buildmenu('assets/banner/reward.png',
-                                      'My Rewards', '/settings')
-                                  : SizedBox(),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/setting.png', 'Settings',
-                                  '/settings'),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/chart.png',
-                                  'Help and Support', '/settings'),
-                              SizedBox(height: 15),
-                              buildlogout('assets/banner/logout.png', 'Log out')
-                            ]),
+    return WillPopScope(
+      onWillPop: ()=> popFunction(),
+      child: Scaffold(
+          bottomNavigationBar: Responsive.isMobile(context)
+              ? MyApp.logindetails["customertype"] == "I"
+                  ? BottomNavBarWidget(3)
+                  : BottomNavBarReceiver(
+                      index: 2,
+                    )
+              : null,
+          body: Responsive.isMobile(context)
+              ? Container(
+                  child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(
+                              top: 40, bottom: 30, left: 20, right: 20),
+                          margin: EdgeInsets.only(top: 30),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("assets/loginbg.png"),
+                                  fit: BoxFit.cover)),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [buildToptitle(), buildtitle()])),
+                      buildmenu('assets/banner/usericon.png', 'User Details',
+                          '/userdetails'),
+                      SizedBox(height: 15),
+                      MyApp.logindetails["customertype"] == "I"
+                          ? buildmenu('assets/banner/card.png', 'Manage Cards',
+                              '/manualCard')
+                          : buildmenu('assets/banner/card.png',
+                              'Manage Prepaid Cards', ''),
+                      MyApp.logindetails["customertype"] == "I"
+                          ? SizedBox(height: 15)
+                          : SizedBox(),
+                      MyApp.logindetails["customertype"] == "I"
+                          ? buildmenu('assets/banner/reward.png', 'My Rewards',
+                              '/settings')
+                          : SizedBox(),
+                      SizedBox(height: 15),
+                      buildmenu(
+                          'assets/banner/setting.png', 'Settings', '/settings'),
+                      SizedBox(height: 15),
+                      buildmenu('assets/banner/chart.png', 'Help and Support',
+                          '/settings'),
+                      SizedBox(height: 15),
+                      buildlogout('assets/banner/logout.png', 'Log out')
+                    ],
+                  ),
+                ))
+              : Responsive.isDesktop(context)
+                  ? Row(children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        height: MediaQuery.of(context).size.width / 1,
+                        decoration: BoxDecoration(
+                            // color: Colors.blue
+                            ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                profileweb(),
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                      textStyle: TextStyle(
+                                          fontSize: 14, color: Colors.black),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text('Set up to Recieve',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold))),
+                                buildmenu('assets/banner/usericon.png',
+                                    'User Details', '/userdetails'),
+                                SizedBox(height: 15),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? buildmenu('assets/banner/card.png',
+                                        'Manage Cards', '/manualCard')
+                                    : buildmenu('assets/banner/card.png',
+                                        'Manage Prepaid Cards', '/manualCard'),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? SizedBox(height: 15)
+                                    : SizedBox(),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? buildmenu('assets/banner/reward.png',
+                                        'My Rewards', '/settings')
+                                    : SizedBox(),
+                                SizedBox(height: 15),
+                                buildmenu('assets/banner/setting.png', 'Settings',
+                                    '/settings'),
+                                SizedBox(height: 15),
+                                buildmenu('assets/banner/chart.png',
+                                    'Help and Support', '/settings'),
+                                SizedBox(height: 15),
+                                buildlogout('assets/banner/logout.png', 'Log out')
+                              ]),
+                        ),
                       ),
-                    ),
-                    usertab == '/userdetails'
-                        ? Container(
-                            // decoration: BoxDecoration(color: Colors.blueGrey),
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: UserDetails())
-                        : usertab == '/manualCard'
-                            ? Container(
-                                // decoration: BoxDecoration(color: Colors.blue),
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: ManualCard())
-                            : usertab == '/settings'
-                                ? Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Settings())
-                                : usertab == '/settings'
-                                    ? Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        child: Settings())
-                                    : Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        child: UserDetails())
-                  ])
-                : Row(children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 1,
-                      decoration: BoxDecoration(
-                          // color: Colors.blue
-                          ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              profileweb(),
-                              TextButton(
-                                  style: TextButton.styleFrom(
-                                    textStyle: TextStyle(
-                                        fontSize: 14, color: Colors.black),
-                                  ),
-                                  onPressed: () {},
-                                  child: Text('Set up to Recieve',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold))),
-                              buildmenu('assets/banner/usericon.png',
-                                  'User Details', '/userdetails'),
-                              SizedBox(height: 15),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? buildmenu('assets/banner/card.png',
-                                      'Manage Cards', '/manualCard')
-                                  : buildmenu('assets/banner/card.png',
-                                      'Manage Prepaid Cards', '/manualCard'),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? SizedBox(height: 15)
-                                  : SizedBox(),
-                              MyApp.logindetails["customertype"] == "I"
-                                  ? buildmenu('assets/banner/reward.png',
-                                      'My Rewards', '/settings')
-                                  : SizedBox(),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/setting.png', 'Settings',
-                                  '/settings'),
-                              SizedBox(height: 15),
-                              buildmenu('assets/banner/chart.png',
-                                  'Help and Support', '/settings'),
-                              SizedBox(height: 15),
-                              buildlogout('assets/banner/logout.png', 'Log out')
-                            ]),
+                      usertab == '/userdetails'
+                          ? Container(
+                              // decoration: BoxDecoration(color: Colors.blueGrey),
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: UserDetails())
+                          : usertab == '/manualCard'
+                              ? Container(
+                                  // decoration: BoxDecoration(color: Colors.blue),
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: ManualCard())
+                              : usertab == '/settings'
+                                  ? Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: Settings())
+                                  : usertab == '/settings'
+                                      ? Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  2,
+                                          child: Settings())
+                                      : Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  2,
+                                          child: UserDetails())
+                    ])
+                  : Row(children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 1,
+                        decoration: BoxDecoration(
+                            // color: Colors.blue
+                            ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                profileweb(),
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                      textStyle: TextStyle(
+                                          fontSize: 14, color: Colors.black),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text('Set up to Recieve',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold))),
+                                buildmenu('assets/banner/usericon.png',
+                                    'User Details', '/userdetails'),
+                                SizedBox(height: 15),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? buildmenu('assets/banner/card.png',
+                                        'Manage Cards', '/manualCard')
+                                    : buildmenu('assets/banner/card.png',
+                                        'Manage Prepaid Cards', '/manualCard'),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? SizedBox(height: 15)
+                                    : SizedBox(),
+                                MyApp.logindetails["customertype"] == "I"
+                                    ? buildmenu('assets/banner/reward.png',
+                                        'My Rewards', '/settings')
+                                    : SizedBox(),
+                                SizedBox(height: 15),
+                                buildmenu('assets/banner/setting.png', 'Settings',
+                                    '/settings'),
+                                SizedBox(height: 15),
+                                buildmenu('assets/banner/chart.png',
+                                    'Help and Support', '/settings'),
+                                SizedBox(height: 15),
+                                buildlogout('assets/banner/logout.png', 'Log out')
+                              ]),
+                        ),
                       ),
-                    ),
-                    usertab == '/userdetails'
-                        ? Container(
-                            width: MediaQuery.of(context).size.width / 2.2,
-                            child: UserDetails())
-                        : usertab == '/manualCard'
-                            ? Container(
-                                // decoration: BoxDecoration(color: Colors.blue),
-                                width: MediaQuery.of(context).size.width / 2.2,
-                                child: ManualCard())
-                            : usertab == '/settings'
-                                ? Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.2,
-                                    child: Settings())
-                                : usertab == '/settings'
-                                    ? Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2.2,
-                                        child: Settings())
-                                    : Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2.2,
-                                        child: UserDetails())
-                  ]));
+                      usertab == '/userdetails'
+                          ? Container(
+                              width: MediaQuery.of(context).size.width / 2.2,
+                              child: UserDetails())
+                          : usertab == '/manualCard'
+                              ? Container(
+                                  // decoration: BoxDecoration(color: Colors.blue),
+                                  width: MediaQuery.of(context).size.width / 2.2,
+                                  child: ManualCard())
+                              : usertab == '/settings'
+                                  ? Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2.2,
+                                      child: Settings())
+                                  : usertab == '/settings'
+                                      ? Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  2.2,
+                                          child: Settings())
+                                      : Container(
+                                          width:
+                                              MediaQuery.of(context).size.width /
+                                                  2.2,
+                                          child: UserDetails())
+                    ])),
+    );
   }
 
   Widget buildToptitle() {

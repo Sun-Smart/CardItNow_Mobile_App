@@ -9,8 +9,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 import '../../../api/payment_api.dart';
-import '../../landingscreens/PaymentViewAll.dart';
 import '../../landingscreens/payments_details_screen.dart';
+import 'credit_prepaid_screen.dart';
 
 class ReceiverPaymentScreen extends StatefulWidget {
   const ReceiverPaymentScreen({Key? key}) : super(key: key);
@@ -30,67 +30,30 @@ class _ReceiverPaymentScreenState extends State<ReceiverPaymentScreen> {
     pay.transactionListAPI();
   }
 
+  Future<bool> popFunction() {
+    Get.offAll(CreditPrepaidScreen());
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          bottomNavigationBar:
-          Responsive.isMobile(context) ? BottomNavBarReceiver(index: 1,) : null,
-        appBar: Responsive.isMobile(context)?AppBar(
-          automaticallyImplyLeading: false,
-          foregroundColor: Colors.black,
-          title: Text('Payments',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24)),
-          backgroundColor: Colors.transparent,
-          bottom: TabBar(
-            indicatorColor: Color(0XffCEE812),
-            indicatorWeight: 2.5,
-            tabs: [
-              Tab(text: "This Week"),
-              Tab(text: "This Month"),
-              Tab(text: "This Year"),
-            ],
-          ),
-          actions: [
-            Icon(Icons.pie_chart_rounded),
-            SizedBox(width: 10),
-            Center(
-                child: Text('Monthly',
-                    style: TextStyle(fontSize: 12, fontFamily: 'Sora'))),
-            Center(
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.keyboard_arrow_down_sharp))),
-            SizedBox(width: 10),
-          ],
-        ):null,
-        body:Responsive.isMobile(context)? TabBarView(
-          children: [
-            _buildThisWeek(),
-            Text('Pass'),
-            _buildThisWeek(),
-          ],
-        ):Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                 SizedBox(height: 30,),
-Text('Payments',
-              style: TextStyle(
-                  fontFamily: 'Sora',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24)),
-              ],
-            ),
-            SizedBox(height: 40,),
-            Container(
-              width: MediaQuery.of(context).size.width/2,
-              child: TabBar(
+    return  WillPopScope(
+      onWillPop: ()=> popFunction(),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            bottomNavigationBar:
+            Responsive.isMobile(context) ? BottomNavBarReceiver(index: 1,) : null,
+          appBar: Responsive.isMobile(context)?AppBar(
+            automaticallyImplyLeading: false,
+            foregroundColor: Colors.black,
+            title: Text('Payments',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24)),
+            backgroundColor: Colors.transparent,
+            bottom: TabBar(
               indicatorColor: Color(0XffCEE812),
               indicatorWeight: 2.5,
               tabs: [
@@ -98,22 +61,57 @@ Text('Payments',
                 Tab(text: "This Month"),
                 Tab(text: "This Year"),
               ],
-                      ),
             ),
-            Expanded(
-              child: Container(
-                 width: MediaQuery.of(context).size.width/2,
-                child: TabBarView(
-                  children: [
-                    _buildThisWeek(),
-                    Text('Pass'),
-                    _buildThisWeek(),
-                  ],
+            actions: [
+            ],
+          ):null,
+          body:Responsive.isMobile(context)? TabBarView(
+            children: [
+              _buildThisWeek(),
+              _buildThisWeek(),
+              _buildThisWeek(),
+            ],
+          ):Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   SizedBox(height: 30,),
+Text('Payments',
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24)),
+                ],
+              ),
+              SizedBox(height: 40,),
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: TabBar(
+                indicatorColor: Color(0XffCEE812),
+                indicatorWeight: 2.5,
+                tabs: [
+                  Tab(text: "This Week"),
+                  Tab(text: "This Month"),
+                  Tab(text: "This Year"),
+                ],
+                        ),
+              ),
+              Expanded(
+                child: Container(
+                   width: MediaQuery.of(context).size.width/2,
+                  child: TabBarView(
+                    children: [
+                      _buildThisWeek(),
+                      _buildThisWeek(),
+                      _buildThisWeek(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        )
+            ],
+          )
+        ),
       ),
     );
   }
@@ -255,6 +253,10 @@ Text('Payments',
     );
   }
 
+  String getInitials(String name) => name.isNotEmpty
+      ? name.trim().split(' ').map((l) => l[0]).take(2).join()
+      : '';
+
   Widget _buildCustomerDetails(var item) {
     return InkWell(
       onTap: (){
@@ -269,7 +271,21 @@ Text('Payments',
             children: [
               Row(
                 children: [
-                  Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 50, height: 50),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 50, height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(45),
+                      color: HexColor('#CEE812'),
+                    ),
+
+                    child: Text(getInitials(item["paidto"]),
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontWeight: FontWeight.bold,
+                            color: HexColor('#036D7B'),
+                            fontSize: 16)),
+                  ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,7 +309,9 @@ Text('Payments',
                   ),
                 ],
               ),
+              Image.asset(item["transactiontype"] == "P" ? 'assets/card/up_arrow.png' : 'assets/banner/down_arrow.png', width: 25, height: 25),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     '${item["payamount"]}',
@@ -303,7 +321,7 @@ Text('Payments',
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '${DateFormat("dd MMMM yy").format(DateTime.parse(item["transactiondate"]))}',
+                    '${DateFormat("dd MMM yy").format(DateTime.parse(item["transactiondate"]))}',
                     style: TextStyle(
                         fontFamily: 'Sora',
                         fontSize: 16,
