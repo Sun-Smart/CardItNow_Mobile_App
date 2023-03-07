@@ -26,7 +26,6 @@ import '../../widgets/bottom_navbar.dart';
 import '../../widgets/promo_slider.dart';
 import '../splash/home_screen.dart';
 
-
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({Key? key}) : super(key: key);
 
@@ -58,476 +57,510 @@ class DashbordScreenState extends State<DashbordScreen>
     cardcons.creditCardgetAPI();
     pay.transactionListAPI();
     imageprint();
-    print("sdfs"+pay.transactionList.toString());
+    print("sdfs" + pay.transactionList.toString());
     super.initState();
   }
 
-  imageprint(){
-    var printimage = GetStorage()
-        .read("avatarpic")
-        .toString();
-    print("dsdsf"+printimage.toString());
+  imageprint() {
+    var printimage = GetStorage().read("avatarpic").toString();
+    print("dsdsf" + printimage.toString());
   }
-
-
 
   var dashboard = '/payment_dashboard';
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBackButtonPressed,
-      child: Scaffold(
-          bottomNavigationBar:
-              Responsive.isMobile(context) ? BottomNavBarWidget(0) : null,
-          appBar: Responsive.isMobile(context)
-              ? PreferredSize(
-                  preferredSize: const Size.fromHeight(70.0),
-                  child: AppBar(
-                    elevation: 0,
-                    centerTitle: false,
-                    leadingWidth: 40,
-                    titleSpacing: 0.0,
-                    backgroundColor: Styles.colorBackgroundBlock,
-                    title: Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: const Color(0xff036D7A)),
-                                child: GetStorage().read("avatarpic") == null
-                                    ? Container()
-                                    : GetStorage()
-                                            .read("avatarpic")
-                                            .toString()
-                                            .contains('assets')
-                                        ? Image.asset(
-                                            GetStorage().read("avatarpic"),
-                                            fit: BoxFit.cover,
-                                            height: 43,
-                                            width: 43)
-                                        : Container()
-
-                            ),
-                            Container(
-                                alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if (MyApp.logindetails != null)
-                                      RichText(
-                                          text: TextSpan(
-                                              text:
-                                                  '${MyApp.logindetails['username']}',
-                                              style: const TextStyle(
-                                                  color: Color(0xff036D7A),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500),
-                                              /*defining default style is optional */
-                                              children: <TextSpan>[
-                                            TextSpan(
-                                                text: '',
+        onWillPop: _onBackButtonPressed,
+        child: Scaffold(
+            bottomNavigationBar:
+                Responsive.isMobile(context) ? BottomNavBarWidget(0) : null,
+            appBar: Responsive.isMobile(context)
+                ? PreferredSize(
+                    preferredSize: const Size.fromHeight(70.0),
+                    child: AppBar(
+                      elevation: 0,
+                      centerTitle: false,
+                      leadingWidth: 40,
+                      titleSpacing: 0.0,
+                      backgroundColor: Styles.colorBackgroundBlock,
+                      title: Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: const Color(0xff036D7A)),
+                                  child: GetStorage().read("avatarpic") == null
+                                      ? Container()
+                                      : GetStorage()
+                                              .read("avatarpic")
+                                              .toString()
+                                              .contains('assets')
+                                          ? Image.asset(
+                                              GetStorage().read("avatarpic"),
+                                              fit: BoxFit.cover,
+                                              height: 43,
+                                              width: 43)
+                                          : Container()),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (MyApp.logindetails != null)
+                                        RichText(
+                                            text: TextSpan(
+                                                text:
+                                                    '${MyApp.logindetails['username']}',
                                                 style: const TextStyle(
-                                                    color: Color(0xffC9E313),
-                                                    fontSize: 18))
-                                          ]
-                                          )
+                                                    color: Color(0xff036D7A),
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                                /*defining default style is optional */
+                                                children: <TextSpan>[
+                                              TextSpan(
+                                                  text: '',
+                                                  style: const TextStyle(
+                                                      color: Color(0xffC9E313),
+                                                      fontSize: 18))
+                                            ])),
+                                      const Text(
+                                        'Welcome !',
+                                        style: TextStyle(
+                                            color: Color(0xffA49EA5),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                    const Text(
-                                      'Welcome !',
-                                      style: TextStyle(
-                                          color: Color(0xffA49EA5),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ))
+                                    ],
+                                  ))
+                            ],
+                          )),
+                      actions: [
+                        Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10.0, top: 10),
+                            child: GestureDetector(
+                                onTap: () {},
+                                child: Image.asset('assets/notification.png',
+                                    fit: BoxFit.contain,
+                                    width: 25,
+                                    height: 25))),
+                        Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10.0, top: 10),
+                            child: GestureDetector(
+                                onTap: () {},
+                                child: IconButton(
+                                    onPressed: () {
+                                      _logoutPressed();
+                                    },
+                                    icon: Icon(Icons.power_settings_new,
+                                        color: Colors.black)))),
+                      ],
+                    ),
+                  )
+                : null,
+            body: Responsive.isMobile(context)
+                ? SingleChildScrollView(
+                    child: Obx(() => Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            cardcons.creditCardGet.isEmpty
+                                ? Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Container(
+                                        height: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(
+                                                color: HexColor('#004751'),
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Align(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            CircleAvatar(
+                                                radius: 30,
+                                                backgroundColor:
+                                                    HexColor('#CEE812'),
+                                                child: CircleAvatar(
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          Get.to(() =>
+                                                              AddCreditCardPage());
+                                                        },
+                                                        icon: Icon(Icons.add,
+                                                            color: HexColor(
+                                                                '#004751'))),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    radius: 28)),
+                                            SizedBox(height: 10),
+                                            Text('Add Card',
+                                                style: TextStyle(
+                                                    fontFamily: 'Sora',
+                                                    fontSize: 16)),
+                                          ],
+                                        ))))
+                                : Slider(),
+                            buildPaySchedule(),
+                            buildPayCharttitle(),
+                            buildPayChart(),
+                            buildTranstitle(),
+                            // _buildBusinesscard(),
+                            buildTransactionCade(),
+
+                            const SizedBox(height: 20)
                           ],
-                        )),
-                    actions: [
-                      Padding(
-                          padding: const EdgeInsets.only(right: 10.0, top: 10),
-                          child: GestureDetector(
-                              onTap: () {},
-                              child: Image.asset('assets/notification.png',
-                                  fit: BoxFit.contain, width: 25, height: 25))),
-                      Padding(
-                          padding: const EdgeInsets.only(right: 10.0, top: 10),
-                          child: GestureDetector(
-                              onTap: () {},
-                              child: IconButton(
-                                  onPressed: () {
-                                    _logoutPressed();
-                                  },
-                                  icon: Icon(Icons.power_settings_new,
-                                      color: Colors.black)))),
-                    ],
-                  ),
-                )
-              : null,
-          body: Responsive.isMobile(context)
-              ? SingleChildScrollView(
-                  child: Obx(() => Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        )))
+                : Responsive.isDesktop(context)
+                    ? Row(
                         children: [
-                          cardcons.creditCardGet.isEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: HexColor('#004751'),
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Align(
+                          Obx(() => Container(
+                                width: MediaQuery.of(context).size.width / 3.5,
+                                //height: MediaQuery.of(context).size.width / 1,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.1)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                color: const Color(0xff036D7A)),
+                                            child: GetStorage()
+                                                        .read("avatarpic") ==
+                                                    null
+                                                ? Container()
+                                                : GetStorage()
+                                                        .read("avatarpic")
+                                                        .toString()
+                                                        .contains('assets')
+                                                    ? Image.asset(
+                                                        GetStorage()
+                                                            .read("avatarpic"),
+                                                        fit: BoxFit.cover,
+                                                        height: 43,
+                                                        width: 43)
+                                                    : Image.file(
+                                                        File(GetStorage()
+                                                            .read("avatarpic")),
+                                                        fit: BoxFit.cover,
+                                                        height: 43,
+                                                        width: 43)),
+                                        Container(
+                                          // alignment: Alignment.centerLeft,
+                                          padding: const EdgeInsets.all(20.0),
                                           child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          CircleAvatar(
-                                              radius: 30,
-                                              backgroundColor:
-                                                  HexColor('#CEE812'),
-                                              child: CircleAvatar(
-                                                  child: IconButton(
-                                                      onPressed: () {
-                                                        Get.to(() =>
-                                                            AddCreditCardPage());
-                                                      },
-                                                      icon: Icon(Icons.add,
-                                                          color: HexColor(
-                                                              '#004751'))),
-                                                  backgroundColor: Colors.white,
-                                                  radius: 28)),
-                                          SizedBox(height: 10),
-                                          Text('Add Card',
-                                              style: TextStyle(
-                                                  fontFamily: 'Sora',
-                                                  fontSize: 16)),
-                                        ],
-                                      ))))
-                              : Slider(),
-                          buildPaySchedule(),
-                          buildPayCharttitle(),
-                          buildPayChart(),
-                          buildTranstitle(),
-                          // _buildBusinesscard(),
-                          buildTransactionCade(),
-
-                          const SizedBox(height: 20)
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (MyApp.logindetails != null)
+                                                RichText(
+                                                    text: TextSpan(
+                                                        text:
+                                                            '${MyApp.logindetails['username']}',
+                                                        style: const TextStyle(
+                                                            color: Color(
+                                                                0xff036D7A),
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                        /*defining default style is optional */
+                                                        children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: '',
+                                                          style: const TextStyle(
+                                                              color: Color(
+                                                                  0xffC9E313),
+                                                              fontSize: 18))
+                                                    ])),
+                                              const Text(
+                                                'Welcome !',
+                                                style: TextStyle(
+                                                    color: Color(0xffA49EA5),
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    cardcons.creditCardGet.isEmpty
+                                        ? Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                    height: 200,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: HexColor(
+                                                                '#004751'),
+                                                            width: 2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Align(
+                                                        child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        CircleAvatar(
+                                                            radius: 30,
+                                                            backgroundColor:
+                                                                HexColor(
+                                                                    '#CEE812'),
+                                                            child: CircleAvatar(
+                                                                child:
+                                                                    IconButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Get.to(() =>
+                                                                              AddCreditCardPage());
+                                                                        },
+                                                                        icon: Icon(
+                                                                            Icons
+                                                                                .add,
+                                                                            color: HexColor(
+                                                                                '#004751'))),
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                radius: 28)),
+                                                        SizedBox(height: 10),
+                                                        Text('Add Card',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Sora',
+                                                                fontSize: 16)),
+                                                      ],
+                                                    ))),
+                                              ],
+                                            ))
+                                        : Slider(),
+                                    payscheduleweb(),
+                                    const SizedBox(height: 20),
+                                    buildTranstitle()
+                                  ],
+                                ),
+                              )),
+                          dashboard == '/payment_dashboard'
+                              ? SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              1.5,
+                                          child: PaymentDashboard()),
+                                      buildPayCharttitle(),
+                                      buildPayChart()
+                                    ],
+                                  ),
+                                )
+                              : Container(),
                         ],
-                      )))
-              : Responsive.isDesktop(context)
-                  ? Row(
-                      children: [
+                      )
+                    : Row(children: [
                         Obx(() => Container(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              height: MediaQuery.of(context).size.width / 1,
+                              width: MediaQuery.of(context).size.width / 1.3,
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.1)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              color: const Color(0xff036D7A)),
-                                          child: GetStorage()
-                                                      .read("avatarpic") ==
-                                                  null
-                                              ? Container()
-                                              : GetStorage()
-                                                      .read("avatarpic")
-                                                      .toString()
-                                                      .contains('assets')
-                                                  ? Image.asset(
-                                                      GetStorage()
-                                                          .read("avatarpic"),
-                                                      fit: BoxFit.cover,
-                                                      height: 43,
-                                                      width: 43)
-                                                  : Image.file(
-                                                      File(GetStorage()
-                                                          .read("avatarpic")),
-                                                      fit: BoxFit.cover,
-                                                      height: 43,
-                                                      width: 43)),
-                                      Container(
-                                        // alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if (MyApp.logindetails != null)
-                                              RichText(
-                                                  text: TextSpan(
-                                                      text:
-                                                          '${MyApp.logindetails['username']}',
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Color(0xff036D7A),
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                      /*defining default style is optional */
-                                                      children: <TextSpan>[
-                                                    TextSpan(
-                                                        text: '',
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                color: const Color(0xff036D7A)),
+                                            child: GetStorage()
+                                                        .read("avatarpic") ==
+                                                    null
+                                                ? Container()
+                                                : GetStorage()
+                                                        .read("avatarpic")
+                                                        .toString()
+                                                        .contains('assets')
+                                                    ? Image.asset(
+                                                        GetStorage()
+                                                            .read("avatarpic"),
+                                                        fit: BoxFit.cover,
+                                                        height: 43,
+                                                        width: 43)
+                                                    : Image.file(
+                                                        File(GetStorage()
+                                                            .read("avatarpic")),
+                                                        fit: BoxFit.cover,
+                                                        height: 43,
+                                                        width: 43)),
+                                        Container(
+                                          // alignment: Alignment.centerLeft,
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (MyApp.logindetails != null)
+                                                RichText(
+                                                    text: TextSpan(
+                                                        text:
+                                                            '${MyApp.logindetails['username']}',
                                                         style: const TextStyle(
                                                             color: Color(
-                                                                0xffC9E313),
-                                                            fontSize: 18))
-                                                  ])),
-                                            const Text(
-                                              'Welcome !',
-                                              style: TextStyle(
-                                                  color: Color(0xffA49EA5),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  cardcons.creditCardGet.isEmpty
-                                      ? Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                  height: 200,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      4,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                          color: HexColor(
-                                                              '#004751'),
-                                                          width: 2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
-                                                  child: Align(
-                                                      child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      CircleAvatar(
-                                                          radius: 30,
-                                                          backgroundColor:
-                                                              HexColor(
-                                                                  '#CEE812'),
-                                                          child: CircleAvatar(
-                                                              child: IconButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Get.to(() =>
-                                                                        AddCreditCardPage());
-                                                                  },
-                                                                  icon: Icon(
-                                                                      Icons.add,
-                                                                      color: HexColor(
-                                                                          '#004751'))),
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                              radius: 28)),
-                                                      SizedBox(height: 10),
-                                                      Text('Add Card',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Sora',
-                                                              fontSize: 16)),
-                                                    ],
-                                                  ))),
+                                                                0xff036D7A),
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                        /*defining default style is optional */
+                                                        children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: '',
+                                                          style: const TextStyle(
+                                                              color: Color(
+                                                                  0xffC9E313),
+                                                              fontSize: 18))
+                                                    ])),
+                                              const Text(
+                                                'Welcome !',
+                                                style: TextStyle(
+                                                    color: Color(0xffA49EA5),
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
                                             ],
-                                          ))
-                                      : Slider(),
-                                  payscheduleweb(),
-                                  const SizedBox(height: 20)
-                                ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 20,),
+                                    cardcons.creditCardGet.isEmpty
+                                        ? Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                    height: 200,
+                                                    width: Responsive.isDesktop(
+                                                            context)
+                                                        ? MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4
+                                                        : MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            3.5,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                            color: HexColor(
+                                                                '#004751'),
+                                                            width: 2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Align(
+                                                        child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        CircleAvatar(
+                                                            radius: 30,
+                                                            backgroundColor:
+                                                                HexColor(
+                                                                    '#CEE812'),
+                                                            child: CircleAvatar(
+                                                                child:
+                                                                    IconButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Get.to(() =>
+                                                                              AddCreditCardPage());
+                                                                        },
+                                                                        icon: Icon(
+                                                                            Icons
+                                                                                .add,
+                                                                            color: HexColor(
+                                                                                '#004751'))),
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                radius: 28)),
+                                                        SizedBox(height: 10),
+                                                        Text('Add Card',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Sora',
+                                                                fontSize: 16)),
+                                                      ],
+                                                    ))),
+                                              ],
+                                            ))
+                                        : Slider(),
+                                    payscheduleweb(),
+                                    // const SizedBox(height: 20),
+                                    // dashboard == '/payment_dashboard'
+                                    //     ? Container(
+                                    //         width: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width /
+                                    //             2.3,
+                                    //         child: PaymentDashboard())
+                                    //     : Container(),
+                                    buildTranstitle(),
+                                    buildPayCharttitle(),
+                                    buildPayChart()
+                                  ],
+                                ),
                               ),
                             )),
-                        dashboard == '/payment_dashboard'
-                            ? Container(
-                                width: MediaQuery.of(context).size.width / 2.2,
-                                child: PaymentDashboard())
-                            : Container()
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        Obx(() => Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              color: const Color(0xff036D7A)),
-                                          child: GetStorage()
-                                                      .read("avatarpic") ==
-                                                  null
-                                              ? Container()
-                                              : GetStorage()
-                                                      .read("avatarpic")
-                                                      .toString()
-                                                      .contains('assets')
-                                                  ? Image.asset(
-                                                      GetStorage()
-                                                          .read("avatarpic"),
-                                                      fit: BoxFit.cover,
-                                                      height: 43,
-                                                      width: 43)
-                                                  : Image.file(
-                                                      File(GetStorage()
-                                                          .read("avatarpic")),
-                                                      fit: BoxFit.cover,
-                                                      height: 43,
-                                                      width: 43)),
-                                      Container(
-                                        // alignment: Alignment.centerLeft,
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if (MyApp.logindetails != null)
-                                              RichText(
-                                                  text: TextSpan(
-                                                      text:
-                                                          '${MyApp.logindetails['username']}',
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Color(0xff036D7A),
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                      /*defining default style is optional */
-                                                      children: <TextSpan>[
-                                                    TextSpan(
-                                                        text: '',
-                                                        style: const TextStyle(
-                                                            color: Color(
-                                                                0xffC9E313),
-                                                            fontSize: 18))
-                                                  ])),
-                                            const Text(
-                                              'Welcome !',
-                                              style: TextStyle(
-                                                  color: Color(0xffA49EA5),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  cardcons.creditCardGet.isEmpty
-                                      ? Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                  height: 200,
-                                                  width: Responsive.isDesktop(
-                                                          context)
-                                                      ? MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          4
-                                                      : MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          3.5,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                          color: HexColor(
-                                                              '#004751'),
-                                                          width: 2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10)),
-                                                  child: Align(
-                                                      child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      CircleAvatar(
-                                                          radius: 30,
-                                                          backgroundColor:
-                                                              HexColor(
-                                                                  '#CEE812'),
-                                                          child: CircleAvatar(
-                                                              child: IconButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Get.to(() =>
-                                                                        AddCreditCardPage());
-                                                                  },
-                                                                  icon: Icon(
-                                                                      Icons.add,
-                                                                      color: HexColor(
-                                                                          '#004751'))),
-                                                              backgroundColor:
-                                                                  Colors.white,
-                                                              radius: 28)),
-                                                      SizedBox(height: 10),
-                                                      Text('Add Card',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Sora',
-                                                              fontSize: 16)),
-                                                    ],
-                                                  ))),
-                                            ],
-                                          ))
-                                      : Slider(),
-                                  payscheduleweb(),
-                                  const SizedBox(height: 20)
-                                ],
-                              ),
-                            )),
-                        dashboard == '/payment_dashboard'
-                            ? Container(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 2.2
-                                    : MediaQuery.of(context).size.width / 2.3,
-                                child: PaymentDashboard())
-                            : Container()
-                      ],
-                    )),
-    );
+                      ])));
   }
 
   //Logout Tapped
@@ -626,6 +659,7 @@ class DashbordScreenState extends State<DashbordScreen>
 
   Widget Slider() {
     return Container(
+      width:Responsive.isMobile(context)?0: MediaQuery.of(context).size.width/2,
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/dashbordpg.png"), fit: BoxFit.cover)),
@@ -691,7 +725,13 @@ class DashbordScreenState extends State<DashbordScreen>
                       focusColor: const Color(0XFFffffff),
                       splashColor: Colors.green,
                       // splash color
-                      onTap: () {},
+                      onTap: () {
+                        if (dashboard == '/payment_dashboard') {
+                          setState(() {
+                            dashboard;
+                          });
+                        }
+                      },
                       // button pressed
                       child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -725,8 +765,8 @@ class DashbordScreenState extends State<DashbordScreen>
           )
         : Container(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
                     decoration: BoxDecoration(
@@ -740,11 +780,12 @@ class DashbordScreenState extends State<DashbordScreen>
                       focusColor: const Color(0XFFffffff),
                       splashColor: Colors.green,
                       onTap: () {
-                        if (dashboard == '/payment_dashboard') {
-                          setState(() {
-                            dashboard;
-                          });
-                        }
+                        // if (dashboard == '/payment_dashboard') {
+                        //   setState(() {
+                        //     dashboard;
+                        //   });
+                        // }
+                        Get.to(PaymentDashboard());
                       },
                       // button pressed
                       child: Padding(
@@ -753,7 +794,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               const SizedBox(width: 5),
-                              Image.asset("assets/paynow.png", width: 32),
+                              Image.asset("assets/paynow.png", width: 20),
                               const SizedBox(width: 15),
                               Text("Pay Now",
                                   style: TextStyle(
@@ -765,7 +806,7 @@ class DashbordScreenState extends State<DashbordScreen>
                             ],
                           )),
                     )),
-                Container(
+                       Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
@@ -793,7 +834,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                   padding: const EdgeInsets.all(4),
                                   child: Image.asset(
                                     "assets/calander.png",
-                                    width: 20,
+                                    width: 15,
                                   )),
                               const SizedBox(
                                 width: 15,
@@ -807,7 +848,8 @@ class DashbordScreenState extends State<DashbordScreen>
                             ],
                           )),
                     )),
-              ],
+            
+               ],
             ),
           );
   }
@@ -912,8 +954,7 @@ class DashbordScreenState extends State<DashbordScreen>
                       : const Color(0XFF041316),
                   fontSize: 20)),
           GestureDetector(
-            onTap: (){
-
+            onTap: () {
               Get.to(paymentviewall());
             },
             child: Text('View All',
@@ -930,89 +971,174 @@ class DashbordScreenState extends State<DashbordScreen>
 
   Widget buildPayCharttitle() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-            margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-            child: Text(
-              "Money Spend",
-              style: TextStyle(
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : const Color(0XFF041316),
-                  fontSize: 20),
-            )),
-        Container(
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          width: MediaQuery.of(context).size.width / 3.6,
-          height: MediaQuery.of(context).size.height / 15,
-          decoration: const BoxDecoration(
-              ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: DropdownButton(
-              underline: const SizedBox(),
-              dropdownColor: Colors.white,
-              isExpanded: true,
-              value: dropdownvalue,
-              hint: Text(
-                'Monthly',
-                style: TextStyle(
-                    color: themeChange.darkTheme
-                        ? Colors.blue
-                        : const Color(0Xff004751),
-                    fontSize: 14),
-              ),
-              icon: InkWell(
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: themeChange.darkTheme
-                      ? Colors.white
-                      : const Color(0Xff004751),
+    return Responsive.isMobile(context)
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Text(
+                    "Money Spend",
+                    style: TextStyle(
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : const Color(0XFF041316),
+                        fontSize: 20),
+                  )),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                width: MediaQuery.of(context).size.width / 3.6,
+                height: MediaQuery.of(context).size.height / 15,
+                decoration: const BoxDecoration(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: DropdownButton(
+                    underline: const SizedBox(),
+                    dropdownColor: Colors.white,
+                    isExpanded: true,
+                    value: dropdownvalue,
+                    hint: Text(
+                      'Monthly',
+                      style: TextStyle(
+                          color: themeChange.darkTheme
+                              ? Colors.blue
+                              : const Color(0Xff004751),
+                          fontSize: 14),
+                    ),
+                    icon: InkWell(
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : const Color(0Xff004751),
+                      ),
+                    ),
+                    items: item.map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff004751), fontSize: 14)),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownvalue = newValue!;
+                      });
+                    },
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-              items: item.map((String item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text(item,
-                      style: const TextStyle(
-                          color: Color(0Xff004751), fontSize: 14)),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownvalue = newValue!;
-                });
-              },
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-        ),
-      ],
-    );
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Text(
+                    "Money Spend",
+                    style: TextStyle(
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : const Color(0XFF041316),
+                        fontSize: 20),
+                  )),
+              SizedBox(width: MediaQuery.of(context).size.width / 4),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                width: 100,
+                // height: MediaQuery.of(context).size.height / 15,
+                decoration: const BoxDecoration(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: DropdownButton(
+                    underline: const SizedBox(),
+                    dropdownColor: Colors.white,
+                    isExpanded: true,
+                    value: dropdownvalue,
+                    hint: Text(
+                      'Monthly',
+                      style: TextStyle(
+                          color: themeChange.darkTheme
+                              ? Colors.blue
+                              : const Color(0Xff004751),
+                          fontSize: 14),
+                    ),
+                    icon: InkWell(
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : const Color(0Xff004751),
+                      ),
+                    ),
+                    items: item.map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item,
+                            style: const TextStyle(
+                                color: Color(0Xff004751), fontSize: 14)),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownvalue = newValue!;
+                      });
+                    },
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          );
   }
 
   Widget buildPayChart() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<_SalesData, String>>[
-              ColumnSeries<_SalesData, String>(
-                  dataSource: data,
-                  yValueMapper: (_SalesData sales, _) => sales.sales,
-                  xValueMapper: (_SalesData sales, _) => sales.year,
-                  name: 'Sales',
-                  // Enable data label
-                  dataLabelSettings: const DataLabelSettings(isVisible: true),
-                  borderRadius: const BorderRadius.all(Radius.circular(6)),
-                  trackColor: Colors.grey,
-                  pointColorMapper: (_SalesData data, _) => data.color)
-            ]));
-  }
-  //
+    return Responsive.isMobile(context)
+        ? Container(
+            padding: const EdgeInsets.all(10),
+            child: SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_SalesData, String>>[
+                  ColumnSeries<_SalesData, String>(
+                      dataSource: data,
+                      yValueMapper: (_SalesData sales, _) => sales.sales,
+                      xValueMapper: (_SalesData sales, _) => sales.year,
+                      name: 'Sales',
+                      // Enable data label
+                      dataLabelSettings:
+                          const DataLabelSettings(isVisible: true),
+                      borderRadius: const BorderRadius.all(Radius.circular(6)),
+                      trackColor: Colors.grey,
+                      pointColorMapper: (_SalesData data, _) => data.color)
+                ]))
+        : Container(
+            width: Responsive.isDesktop(context)
+                ? MediaQuery.of(context).size.width / 2.2
+                : MediaQuery.of(context).size.width / 2.3,
+            padding: const EdgeInsets.all(10),
+            child: SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_SalesData, String>>[
+                  ColumnSeries<_SalesData, String>(
+                      dataSource: data,
+                      yValueMapper: (_SalesData sales, _) => sales.sales,
+                      xValueMapper: (_SalesData sales, _) => sales.year,
+                      name: 'Sales',
+                      // Enable data label
+                      dataLabelSettings:
+                          const DataLabelSettings(isVisible: true),
+                      borderRadius: const BorderRadius.all(Radius.circular(6)),
+                      trackColor: Colors.grey,
+                      pointColorMapper: (_SalesData data, _) => data.color)
+                ]));
+  } //
   // Widget _buildBusinesscard() {
   //   final items = <Widget>[];
   //
@@ -1032,26 +1158,23 @@ class DashbordScreenState extends State<DashbordScreen>
   //   );
   // }
 
-  Widget buildTransactionCade(
-      ) {
+  Widget buildTransactionCade() {
     return Container(
       height: 300,
       width: 300,
-      child:  ListView.builder(
-        scrollDirection: Axis.vertical,
+      child: ListView.builder(
+          scrollDirection: Axis.vertical,
           itemCount: pay.transactionList.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-              onTap: (){
-
-                Get.to(PaymentsDetails(
-                  fulldetails: pay.transactionList[index]
-
-                ));
+              onTap: () {
+                Get.to(
+                    PaymentsDetails(fulldetails: pay.transactionList[index]));
               },
               child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0XffE2E5E5), width: 1.5),
+                    border:
+                        Border.all(color: const Color(0XffE2E5E5), width: 1.5),
                   ),
                   // padding: EdgeInsets.all(15),
                   child: Column(
@@ -1066,7 +1189,8 @@ class DashbordScreenState extends State<DashbordScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("${pay.transactionList[index]["payamount"].toString()}",
+                                Text(
+                                    "${pay.transactionList[index]["payamount"].toString()}",
                                     style: const TextStyle(
                                       color: Color(0XffCEE812),
                                       fontSize: 24,
@@ -1074,18 +1198,23 @@ class DashbordScreenState extends State<DashbordScreen>
                                     )),
                                 Text(pay.transactionList[index]["purpose"],
                                     style: const TextStyle(
-                                        color: Color(0Xffffffff), fontSize: 11,fontWeight: FontWeight.bold))
+                                        color: Color(0Xffffffff),
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold))
                               ],
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Paid to ${pay.transactionList[index]["paidto"]}",
+                                  Text(
+                                      "Paid to ${pay.transactionList[index]["paidto"]}",
                                       style: const TextStyle(
-                                          color: Color(0Xffffffff), fontSize: 14),
+                                          color: Color(0Xffffffff),
+                                          fontSize: 14),
                                       textAlign: TextAlign.left),
                                   const SizedBox(
                                     width: 10,
@@ -1097,22 +1226,24 @@ class DashbordScreenState extends State<DashbordScreen>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(pay.transactionList[index]["transactiondate"].toString() ,
+                                Text(
+                                    pay.transactionList[index]
+                                            ["transactiondate"]
+                                        .toString(),
                                     style: const TextStyle(
-                                        color: Color(0Xffffffff), fontSize: 12,fontWeight: FontWeight.bold)),
-
+                                        color: Color(0Xffffffff),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ],
                         ),
                       ),
-
                     ],
                   )),
             );
           }),
     );
-
   }
 }
 

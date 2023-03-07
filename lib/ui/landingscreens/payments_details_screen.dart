@@ -85,42 +85,69 @@ class _PaymentsDetailsState extends State<PaymentsDetails> {
     )
   ],
         ),
-      ): Container(
-        width: MediaQuery.of(context).size.width/2.5,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [bulildcard(), bulildPaymentsDetails(),
-            SizedBox(height: 50,),
-            GestureDetector(
-        onTap: (){
-          mailFunction(widget.fulldetails);
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          width: 
-                MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.height * 0.07,
-          decoration: BoxDecoration(
-          color: HexColor('#CEE812'),
-          borderRadius: BorderRadius.circular(5),
-        ),
-          child: Center(
-            child: Text(
-             "Contact Support",
-              style: TextStyle(
-                fontFamily: 'ProductSans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: HexColor('#004751'),
+      ): Row(
+        children: [
+           Container(
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      // height: MediaQuery.of(context).size.width / 1,
+                      color: Color(0XFF004751),
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/logoweb.png",
+                              width: 150, height: 90),
+                          SizedBox(height: 15),
+                          Text(
+                            '"Make your life Easy"',
+                            style: TextStyle(
+                                letterSpacing: 1,
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'sora'),
+                          ),
+                        ],
+                      )),
+                    ),
+          Container(
+            width: MediaQuery.of(context).size.width/2.5,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [bulildcard(), bulildPaymentsDetails(),
+                SizedBox(height: 50,),
+                GestureDetector(
+            onTap: (){
+              mailFunction(widget.fulldetails);
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              width: 
+                    MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.height * 0.07,
+              decoration: BoxDecoration(
+              color: HexColor('#CEE812'),
+              borderRadius: BorderRadius.circular(5),
+            ),
+              child: Center(
+                child: Text(
+                 "Contact Support",
+                  style: TextStyle(
+                    fontFamily: 'ProductSans',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor('#004751'),
+                  ),
+                ),
+              ),
+            ),
+              )
+            ],
               ),
             ),
           ),
-        ),
-          )
         ],
-          ),
-        ),
       ),
     ));
   }
