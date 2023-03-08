@@ -103,6 +103,12 @@ class RegisterAPI extends GetxController with BaseController {
   //notification
   var notificationList = [].obs;
 
+  //payee search
+  var payeeSearchList = [{
+    "name":"raj",
+    "email": "@gmail.com"
+  }].obs;
+  TextEditingController payeeSearchCnl = TextEditingController();
   @override
   void onInit() {
     //web.loadreference();
@@ -687,6 +693,7 @@ hideLoading();
   //termsandconditions post
 
   void Termspost() async {
+    showLoading();
     DateTime datetime = DateTime.now();
     String dateaccpt = datetime.toString();
     var customerids = GetStorage().read("custid");
@@ -863,6 +870,18 @@ hideLoading();
     if (response == null) return;
     var data = json.decode(response);
     notificationList.value = data;
+  }
+
+  void payeeSearchListAPI() async {
+    var body = {
+      "customerid":MyApp.logindetails["userid"]
+    };
+    var response = await BaseClient()
+        .post(API().notification,body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    payeeSearchList.value = data;
   }
 
 }

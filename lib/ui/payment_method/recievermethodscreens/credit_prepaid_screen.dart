@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, sort_child_properties_last, avoid_unnecessary_containers, unnecessary_new, prefer_final_fields, sized_box_for_whitespace
+import 'package:cardit/ui/payment_method/recievermethodscreens/search_payee.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:cardit/const/responsive.dart';
@@ -607,7 +608,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   ),
                 ),
                 onTap: () {
-                  print('Receive Tapped');
+                  Get.to(SearchPayee());
                 },
               ),
             ],
@@ -666,7 +667,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                   ),
                 ),
                 onTap: () {
-                  print('Receive Tapped');
+               Get.to(SearchPayee());
                 },
               ),
             ],

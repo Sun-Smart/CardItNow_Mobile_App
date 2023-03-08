@@ -799,14 +799,14 @@ class _VerifyUserIdState extends State<VerifyUserId> {
           if(kIsWeb){
 reg.ocrdocument();
           }
-          // else if(
-          // ShuftiProValues==null
-          // ){
-          //   Fluttertoast.showToast(msg: "Your Verification Process is Unsuccessful Please Verify");
-          // }
-          // else if(con.countrywisedoc == null){
-          //  Fluttertoast.showToast(msg: "Select Document type");
-          // }
+          else if(
+          ShuftiProValues==null
+          ){
+            Fluttertoast.showToast(msg: "Your Verification Process is Unsuccessful Please Verify");
+          }
+          else if(con.countrywisedoc == null){
+           Fluttertoast.showToast(msg: "Select Document type");
+          }
             else{
                con.uploadDocx(con.emailController.text, reg.documentIDController.text);
             }

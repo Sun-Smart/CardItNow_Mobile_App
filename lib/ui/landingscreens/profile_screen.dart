@@ -40,7 +40,11 @@ class _ProfileState extends State<Profile> {
   var usertab = '/userdetails';
 
   Future<bool> popFunction() {
-    Get.offAll(CreditPrepaidScreen());
+    if(MyApp.logindetails["customertype"] == "I"){
+      Get.offAll(DashbordScreen());
+    } else{
+      Get.offAll(CreditPrepaidScreen());
+    }
     return Future.value(true);
   }
 
