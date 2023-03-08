@@ -232,144 +232,148 @@ class DashbordScreenState extends State<DashbordScreen>
                                 //height: MediaQuery.of(context).size.width / 1,
                                 decoration: BoxDecoration(
                                     color: Colors.grey.withOpacity(0.1)),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                color: const Color(0xff036D7A)),
-                                            child: GetStorage()
-                                                        .read("avatarpic") ==
-                                                    null
-                                                ? Container()
-                                                : GetStorage()
-                                                        .read("avatarpic")
-                                                        .toString()
-                                                        .contains('assets')
-                                                    ? Image.asset(
-                                                        GetStorage()
-                                                            .read("avatarpic"),
-                                                        fit: BoxFit.cover,
-                                                        height: 43,
-                                                        width: 43)
-                                                    : Image.file(
-                                                        File(GetStorage()
-                                                            .read("avatarpic")),
-                                                        fit: BoxFit.cover,
-                                                        height: 43,
-                                                        width: 43)),
-                                        Container(
-                                          // alignment: Alignment.centerLeft,
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (MyApp.logindetails != null)
-                                                RichText(
-                                                    text: TextSpan(
-                                                        text:
-                                                            '${MyApp.logindetails['username']}',
-                                                        style: const TextStyle(
-                                                            color: Color(
-                                                                0xff036D7A),
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
-                                                        /*defining default style is optional */
-                                                        children: <TextSpan>[
-                                                      TextSpan(
-                                                          text: '',
+                                child: 
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  color: const Color(0xff036D7A)),
+                                              child: GetStorage()
+                                                          .read("avatarpic") ==
+                                                      null
+                                                  ? Container()
+                                                  : GetStorage()
+                                                          .read("avatarpic")
+                                                          .toString()
+                                                          .contains('assets')
+                                                      ? Image.asset(
+                                                          GetStorage()
+                                                              .read("avatarpic"),
+                                                          fit: BoxFit.cover,
+                                                          height: 43,
+                                                          width: 43)
+                                                      : Image.file(
+                                                          File(GetStorage()
+                                                              .read("avatarpic")),
+                                                          fit: BoxFit.cover,
+                                                          height: 43,
+                                                          width: 43)),
+                                          Container(
+                                            // alignment: Alignment.centerLeft,
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                if (MyApp.logindetails != null)
+                                                  RichText(
+                                                      text: TextSpan(
+                                                          text:
+                                                              '${MyApp.logindetails['username']}',
                                                           style: const TextStyle(
                                                               color: Color(
-                                                                  0xffC9E313),
-                                                              fontSize: 18))
-                                                    ])),
-                                              const Text(
-                                                'Welcome !',
-                                                style: TextStyle(
-                                                    color: Color(0xffA49EA5),
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    cardcons.creditCardGet.isEmpty
-                                        ? Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                    height: 200,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            4,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                            color: HexColor(
-                                                                '#004751'),
-                                                            width: 2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Align(
-                                                        child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        CircleAvatar(
-                                                            radius: 30,
-                                                            backgroundColor:
-                                                                HexColor(
-                                                                    '#CEE812'),
-                                                            child: CircleAvatar(
-                                                                child:
-                                                                    IconButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          Get.to(() =>
-                                                                              AddCreditCardPage());
-                                                                        },
-                                                                        icon: Icon(
-                                                                            Icons
-                                                                                .add,
-                                                                            color: HexColor(
-                                                                                '#004751'))),
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .white,
-                                                                radius: 28)),
-                                                        SizedBox(height: 10),
-                                                        Text('Add Card',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'Sora',
-                                                                fontSize: 16)),
-                                                      ],
-                                                    ))),
+                                                                  0xff036D7A),
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                          /*defining default style is optional */
+                                                          children: <TextSpan>[
+                                                        TextSpan(
+                                                            text: '',
+                                                            style: const TextStyle(
+                                                                color: Color(
+                                                                    0xffC9E313),
+                                                                fontSize: 18))
+                                                      ])),
+                                                const Text(
+                                                  'Welcome !',
+                                                  style: TextStyle(
+                                                      color: Color(0xffA49EA5),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
                                               ],
-                                            ))
-                                        : Slider(),
-                                    payscheduleweb(),
-                                    const SizedBox(height: 20),
-                                    buildTranstitle()
-                                  ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      cardcons.creditCardGet.isEmpty
+                                          ? Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      height: 200,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(
+                                                              color: HexColor(
+                                                                  '#004751'),
+                                                              width: 2),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10)),
+                                                      child: Align(
+                                                          child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          CircleAvatar(
+                                                              radius: 30,
+                                                              backgroundColor:
+                                                                  HexColor(
+                                                                      '#CEE812'),
+                                                              child: CircleAvatar(
+                                                                  child:
+                                                                      IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            Get.to(() =>
+                                                                                AddCreditCardPage());
+                                                                          },
+                                                                          icon: Icon(
+                                                                              Icons
+                                                                                  .add,
+                                                                              color: HexColor(
+                                                                                  '#004751'))),
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  radius: 28)),
+                                                          SizedBox(height: 10),
+                                                          Text('Add Card',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Sora',
+                                                                  fontSize: 16)),
+                                                        ],
+                                                      ))),
+                                                ],
+                                              ))
+                                          : Slider(),
+                                      payscheduleweb(),
+                                      const SizedBox(height: 20),
+                                      buildTranstitle(),
+                                         buildTransactionCade(),
+                                    ],
+                                  ),
                                 ),
                               )),
                           dashboard == '/payment_dashboard'
@@ -554,8 +558,10 @@ class DashbordScreenState extends State<DashbordScreen>
                                     //         child: PaymentDashboard())
                                     //     : Container(),
                                     buildTranstitle(),
+                                     buildTransactionCade(),
                                     buildPayCharttitle(),
-                                    buildPayChart()
+                                    buildPayChart(),
+                                      
                                   ],
                                 ),
                               ),
@@ -1234,6 +1240,7 @@ class DashbordScreenState extends State<DashbordScreen>
                                         color: Color(0Xffffffff),
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold)),
+                                        SizedBox(height: 10,)
                               ],
                             ),
                           ],
