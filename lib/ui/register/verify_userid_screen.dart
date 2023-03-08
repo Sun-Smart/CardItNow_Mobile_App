@@ -13,6 +13,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -199,13 +200,15 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return Scaffold(
+    return ScreenUtilInit(
+        builder: (context , child) {
+          return Scaffold(
 
-        bottomSheet:
-            Responsive.isMobile(context) ? bulildbutton() : null,
-        appBar: Responsive.isMobile(context)
-            ? AppBar(
-          automaticallyImplyLeading: false,
+              bottomSheet:
+              Responsive.isMobile(context) ? bulildbutton() : null,
+              appBar: Responsive.isMobile(context)
+                  ? AppBar(
+                automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
                 // leading: BackButton(
                 //   color: themeChange.darkTheme ? Colors.white : Colors.black,
@@ -215,86 +218,88 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   const SizedBox(width: 20),
                 ],
               )
-            : null,
-        body: Responsive.isMobile(context)
-            ? SingleChildScrollView(
-              child: Container(
+                  : null,
+              body: Responsive.isMobile(context)
+                  ? SingleChildScrollView(
+                child: Container(
                   //color: Color(0XFFffffff),
-                  child: SingleChildScrollView(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                      buildtitle(),
-                      bulidForm(),
-                    ]))),
-            )
-            //
-            : Responsive.isDesktop(context)
-                ? Row(
-                    children: [
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width / 3,
-                      //   height: MediaQuery.of(context).size.width / 1,
-                      //   color: Color(0XFF004751),
-                      //   child: Center(
-                      //       child: Image.asset("assets/applogo-02.png",
-                      //           width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                      //         )),
-                      // ),
-                      Container(
-                           width: MediaQuery.of(context).size.width / 1.5,
-                          //color: Color(0XFFffffff),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                    child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildtitle(),
+                              bulidForm(),
+                            ]))),
+              )
+              //
+                  : Responsive.isDesktop(context)
+                  ? Row(
+                children: [
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width / 3,
+                  //   height: MediaQuery.of(context).size.width / 1,
+                  //   color: Color(0XFF004751),
+                  //   child: Center(
+                  //       child: Image.asset("assets/applogo-02.png",
+                  //           width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                  //         )),
+                  // ),
+                  Container(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      //color: Color(0XFFffffff),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [
-                                  SizedBox(
-                                    height: 20,
+                                  BackButton(
+                                    color:  Colors.black,
                                   ),
-                                   Row(
-                                    children: [
-                                      BackButton(
-                  color:  Colors.black,
-                ),
-                                    ],
-                                  ),
-                                 // buildToptitle(),
-                                  buildtitle(),
-                                  bulidForm(),
-                                  bulildbutton()
-                                ]),
-                          ))
-                    ],
-                  )
-                : Row(
-                    children: [
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width / 3,
-                      //   color: Color(0XFF004751),
-                      //   child: Center(
-                      //       child: Image.asset("assets/applogo-02.png",
-                      //           width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
-                      //         )),
-                      // ),
-                      Container(
-                         width: MediaQuery.of(context).size.width / 1.5,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                                ],
+                              ),
+                              // buildToptitle(),
+                              buildtitle(),
+                              bulidForm(),
+                              bulildbutton()
+                            ]),
+                      ))
+                ],
+              )
+                  : Row(
+                children: [
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width / 3,
+                  //   color: Color(0XFF004751),
+                  //   child: Center(
+                  //       child: Image.asset("assets/applogo-02.png",
+                  //           width: MediaQuery.of(context).size.width / 1.5, height:  MediaQuery.of(context).size.height / 3
+                  //         )),
+                  // ),
+                  Container(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
                               children: [
-                             Row(
-                                    children: [
-                                      BackButton(
-                  color:  Colors.black,
-                ),
-                                    ],
-                                  ),
-                           // buildToptitle(),
+                                BackButton(
+                                  color:  Colors.black,
+                                ),
+                              ],
+                            ),
+                            // buildToptitle(),
                             buildtitle(),
                             bulidForm(),
                             bulildbutton()
                           ]))
-                    ],
-                  ));
+                ],
+              ));
+        },
+    );
   }
 
   Widget buildToptitle() {
@@ -495,11 +500,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           ? "Enter Your Document Number"
                           : "Enter Your ${dropdownvalue.toString()} Number",
                       validator: (value) {
-                        if (dropdownvalue == null) {
-                          return "Enter Your Document Type";
-                        } else {
-                          return "Enter ${dropdownvalue.toString()} Number";
-                        }
+                        // if (dropdownvalue == null) {
+                        //   return "Enter Your Document Type";
+                        // } else {
+                        //   return "Enter ${dropdownvalue.toString()} Number";
+                        // }
                       }):Column(
                         children: [
                           Row(
@@ -566,11 +571,12 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           ),
                                             
                           validator: (value) {
-                            if (dropdownvalue == null) {
-                              return "Enter Your Document Type";
-                            } else {
-                              return "Enter ${dropdownvalue.toString()} Number";
-                            }}
+                            // if (dropdownvalue == null) {
+                            //   return "Enter Your Document Type";
+                            // } else {
+                            //   return "Enter ${dropdownvalue.toString()} Number";
+                            // }
+                            }
                           ),
                               ),
                         ],
