@@ -901,8 +901,8 @@ Widget buildformweb(){
                 "lastname": "",
                 "socialid": userData['id'].toString(),
                 "mediatype": "Facebook",
-                  "mobile":"",
-                  "geoid": RegisterAPI.dropdownvalue["geoid"].toString()
+                "mobile":"",
+                "geoid": RegisterAPI.dropdownvalue["geoid"].toString()
                 };
                 con.registerSignAPI(userDatas);
                 } else {

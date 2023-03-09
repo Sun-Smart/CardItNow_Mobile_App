@@ -110,7 +110,7 @@ class RegisterAPI extends GetxController with BaseController {
   }].obs;
   TextEditingController payeeSearchCnl = TextEditingController();
 
-
+  bool pass = false;
   List<SalesData> barlist = [];
 
   @override

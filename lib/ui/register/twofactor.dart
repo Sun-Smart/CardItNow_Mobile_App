@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/ui/register/terms&condition.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -22,7 +23,7 @@ class _TwofactorState extends State<Twofactor> {
   final LocalAuthentication auth = LocalAuthentication();
 
 
-  bool pass = false;
+  final RegisterAPI reg = Get.put(RegisterAPI());
   String msg = "You are not authorized.";
 
   @override
@@ -164,13 +165,11 @@ class _TwofactorState extends State<Twofactor> {
   Widget buildbutton() {
     return AuthButton(
       onTap: () {
-        if (pass = true) {
+        if (reg.pass = true) {
           GetStorage().write("bioAuth", true);
-          // Get.to(termsandconditions());
           Get.to(congratesscreen());
         } else {
           Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
-
         }
       },
       text: "Enable",

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cardit/main.dart';
 import 'package:cardit/const/responsive.dart';
+import 'package:cardit/ui/register/congratsscreen.dart';
 import 'package:cardit/utils/gmail_auth_services.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/landingscreens/loans_screen.dart';
@@ -15,6 +16,7 @@ import 'package:cardit/widgets/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -90,8 +92,9 @@ class _ProfileState extends State<Profile> {
                           ? SizedBox(height: 15)
                           : SizedBox(),
                       MyApp.logindetails["customertype"] == "I"
-                          ? buildmenu('assets/banner/reward.png', 'My Rewards',
-                              '/settings')
+                          ? buildmenu('assets/banner/reward.png', 'Enable Biometrics',
+                          "/enablebio"
+                      )
                           : SizedBox(),
                       SizedBox(height: 15),
                       buildmenu(
@@ -392,8 +395,13 @@ class _ProfileState extends State<Profile> {
               Get.to(ManualCard());
             } else if (link == "/settings") {
               Get.to(Settings());
-            } else if (link == "/settings") {
-              Get.to(Settings());
+            } else if (link == "/enablebio") {
+              if (reg.pass = true) {
+                GetStorage().write("bioAuth", true);
+                Fluttertoast.showToast(msg: "Biometrics Enabled");
+              } else {
+                Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
+              }
             }
           }
         },
