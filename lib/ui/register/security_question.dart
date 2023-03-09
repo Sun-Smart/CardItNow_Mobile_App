@@ -67,6 +67,12 @@ class _SecurityQuestionState extends State<SecurityQuestion> {
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
                            SizedBox(
+                             height: 10,
+                           ),
+                          Text("You Must Answer Atleast 3 Questions",style: TextStyle(
+                            color: Colors.red,fontFamily: "Sora",fontWeight: FontWeight.bold
+                          ),),
+                           SizedBox(
                              height: 40,
                            ),
                            ListView.builder(
