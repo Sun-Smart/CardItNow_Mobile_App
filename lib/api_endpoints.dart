@@ -85,5 +85,7 @@ class API {
   //dashboardapis
 String  recentransaction = "common/dashboard_allrecenttransaction";
 String barchartviewapi = "common/dashboard_moneyspenddetails";
-  String  notification = "";
+String  notification = "";
+
+String getlgucustomers = "common/GetLGUcustomers";
 }

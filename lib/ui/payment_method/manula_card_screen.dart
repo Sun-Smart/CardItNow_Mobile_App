@@ -277,21 +277,11 @@ class CustomeCardData extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Name',
-                            style: TextStyle(
-                                fontFamily: 'Sora',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16)),
+
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(nameHolder,
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
+
                             Text(cardNumber,
                                 style: TextStyle(
                                     fontFamily: 'Sora',
@@ -314,15 +304,16 @@ class CustomeCardData extends StatelessWidget {
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(5)),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Exp',
+
+                          Text("Exp ${validity.substring(5, 10)}",
                               style: TextStyle(
                                   fontFamily: 'Sora',
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14)),
-                          SizedBox(width: 10),
-                          Text(validity.substring(5, 10),
+                          Text(nameHolder,
                               style: TextStyle(
                                   fontFamily: 'Sora',
                                   color: Colors.black,

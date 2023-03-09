@@ -170,7 +170,7 @@ class _TwofactorState extends State<Twofactor> {
           Get.to(congratesscreen());
         } else {
           Fluttertoast.showToast(msg: "Please Go settings Enable Your Security Settings");
-          // Get.to(termsandconditions());
+
         }
       },
       text: "Enable",

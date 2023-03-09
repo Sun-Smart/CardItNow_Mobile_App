@@ -5,6 +5,7 @@ import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/landingscreens/PaymentViewAll.dart';
+import 'package:cardit/ui/landingscreens/notification.dart';
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
 import 'package:cardit/ui/payment_method/add_credit_card.dart';
 import 'package:cardit/widgets/auth_button.dart';
@@ -136,7 +137,9 @@ class DashbordScreenState extends State<DashbordScreen>
                             padding:
                                 const EdgeInsets.only(right: 10.0, top: 10),
                             child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(Notifications());
+                                },
                                 child: Image.asset('assets/notification.png',
                                     fit: BoxFit.contain,
                                     width: 25,

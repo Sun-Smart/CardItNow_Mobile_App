@@ -208,8 +208,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    return ScreenUtilInit(
-        builder: (context , child) {
           return Scaffold(
 
               bottomSheet:
@@ -306,8 +304,6 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           ]))
                 ],
               ));
-        },
-    );
   }
 
   Widget buildToptitle() {

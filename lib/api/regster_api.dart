@@ -133,6 +133,7 @@ class RegisterAPI extends GetxController with BaseController {
       pay.transactionListAPI();
       barcharshowing();
       notificationListAPI();
+      pay.getlgu();
     }
     super.onInit();
   }
@@ -905,7 +906,7 @@ hideLoading();
     var barlistvalue = data ?? [];
     barlist.clear();
     for(int i = 0; i < barlistvalue.length; i++){
-      barlist.add(SalesData(barlistvalue[i]["monthname"], double.parse(barlistvalue[i]["moneyd"].toString()), Colors.black));
+      barlist.add(SalesData(barlistvalue[i]["monthname"], double.parse(barlistvalue[i]["moneyd"].toString()), Color(0Xff004751)));
     }
   }
 

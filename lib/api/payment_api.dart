@@ -64,6 +64,8 @@ class PaymentAPI extends GetxController with BaseController {
   //transaction
   var transactionList = [].obs;
 
+  var getlgucust =[];
+
 
   //House details
   var housePayeeList = [
@@ -508,6 +510,18 @@ class PaymentAPI extends GetxController with BaseController {
     var data = json.decode(response);
 
     transactionList.value = data;
+  }
+
+
+  // getlgu customers
+
+  void getlgu() async {
+    var response = await BaseClient()
+        .get(API().getlgucustomers)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    getlgucust = data["privacypolicy"];
   }
 
 
