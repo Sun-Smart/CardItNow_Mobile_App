@@ -64,7 +64,7 @@ class PaymentAPI extends GetxController with BaseController {
   //transaction
   var transactionList = [].obs;
 
-  var getlgucust =[];
+  var getlgucust;
 
 
   //House details

@@ -174,7 +174,7 @@ Text('Payments',
             SizedBox(height: 30),
             Container(
               padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-              height: 120,
+              height: 50,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(10)),
@@ -185,14 +185,14 @@ Text('Payments',
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Carditnow Points',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10),
-                      Text('0.0',
+                      // Text('Carditnow Points',
+                      //     style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 14,
+                      //         fontFamily: 'Sora',
+                      //         fontWeight: FontWeight.bold)),
+                      // SizedBox(height: 10),
+                      Text('My Payee',
                           style: TextStyle(
                               color: HexColor('#CEE812'),
                               fontSize: 24,
