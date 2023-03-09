@@ -893,7 +893,7 @@ await showDialog(
         return StatefulBuilder(
             builder: (context, setState) {
             return Responsive.isMobile(context)?AlertDialog(
-              content: Container(
+              content: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1102,6 +1102,9 @@ await showDialog(
                 ),
               ),
               actions: <Widget>[
+                Divider(
+                  thickness: 2,
+                ),
                 Container(
                   margin: EdgeInsets.all(10),
                   height: 50,
