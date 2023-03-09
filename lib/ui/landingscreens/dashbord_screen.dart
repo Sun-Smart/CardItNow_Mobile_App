@@ -39,16 +39,6 @@ class DashbordScreenState extends State<DashbordScreen>
   PaymentAPI pay = PaymentAPI();
   final CardAPI cardcons = Get.put(CardAPI());
   int _currentsliderindex = 0;
-  List<_SalesData> data = [
-    _SalesData('Jan', 0, const Color(0Xff036D7A)),
-    _SalesData('Feb', 0, const Color(0Xff036D7A)),
-    _SalesData('Mar', 0, const Color(0Xff036D7A)),
-    _SalesData('Apr', 0, const Color(0Xff036D7A)),
-    _SalesData('May', 0, const Color(0Xff036D7A)),
-    _SalesData('June', 0, const Color(0Xff036D7A)),
-    _SalesData('July', 0, const Color(0Xff036D7A)),
-    _SalesData('August', 0, const Color(0XffEDEDED)),
-  ];
   var item = ['Monthly', 'weekly'];
   String? dropdownvalue;
 
@@ -1105,24 +1095,26 @@ class DashbordScreenState extends State<DashbordScreen>
   }
 
   Widget buildPayChart() {
+    print(con.barlist);
     return Responsive.isMobile(context)
         ? Container(
             padding: const EdgeInsets.all(10),
             child: SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_SalesData, String>>[
-                  ColumnSeries<_SalesData, String>(
-                      dataSource: data,
-                      yValueMapper: (_SalesData sales, _) => sales.sales,
-                      xValueMapper: (_SalesData sales, _) => sales.year,
+                series: <ChartSeries<SalesData, String>>[
+                  ColumnSeries<SalesData, String>(
+                      dataSource: con.barlist,
+                      yValueMapper: (SalesData sales, _) => sales.sales,
+                      xValueMapper: (SalesData sales, _) => sales.year,
                       name: 'Sales',
                       // Enable data label
                       dataLabelSettings:
                           const DataLabelSettings(isVisible: true),
                       borderRadius: const BorderRadius.all(Radius.circular(6)),
                       trackColor: Colors.grey,
-                      pointColorMapper: (_SalesData data, _) => data.color)
+                      pointColorMapper: (SalesData data, _) => data.color
+                )
                 ]))
         : Container(
             width: Responsive.isDesktop(context)
@@ -1132,18 +1124,19 @@ class DashbordScreenState extends State<DashbordScreen>
             child: SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_SalesData, String>>[
-                  ColumnSeries<_SalesData, String>(
-                      dataSource: data,
-                      yValueMapper: (_SalesData sales, _) => sales.sales,
-                      xValueMapper: (_SalesData sales, _) => sales.year,
+                series: <ChartSeries<SalesData, String>>[
+                  ColumnSeries<SalesData, String>(
+                      dataSource: con.barlist,
+                      yValueMapper: (SalesData sales, _) => sales.sales,
+                      xValueMapper: (SalesData sales, _) => sales.year,
                       name: 'Sales',
                       // Enable data label
                       dataLabelSettings:
                           const DataLabelSettings(isVisible: true),
                       borderRadius: const BorderRadius.all(Radius.circular(6)),
                       trackColor: Colors.grey,
-                      pointColorMapper: (_SalesData data, _) => data.color)
+                      pointColorMapper: (SalesData data, _) => data.color
+                  )
                 ]));
   } //
   // Widget _buildBusinesscard() {
@@ -1253,12 +1246,4 @@ class DashbordScreenState extends State<DashbordScreen>
           }),
     );
   }
-}
-
-class _SalesData {
-  _SalesData(this.year, this.sales, this.color);
-
-  final String year;
-  final double sales;
-  final Color? color;
 }
