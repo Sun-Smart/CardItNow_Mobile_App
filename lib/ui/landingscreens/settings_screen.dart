@@ -29,18 +29,21 @@ class SettingsState extends State<Settings> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
           child: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.black
+            ),
             elevation: 0,
             centerTitle: false,
             leadingWidth: 50,
             titleSpacing: 0.0,
-            backgroundColor: Colors.white,
+
             title:  Padding(
                 padding: EdgeInsets.only(top: 0.0),
                 child:Responsive.isMobile(context)?  Text(
                   "Settings",
                   style: TextStyle(
                       color: Color(0XFF1B1B1B),
-                      fontSize: 18,
+                      fontSize: 18,fontFamily: "Sora",
                       fontWeight: FontWeight.bold),
                 ):Center(
                   child: Text(
@@ -56,7 +59,7 @@ class SettingsState extends State<Settings> {
         body: Responsive.isMobile(context)? 
         SingleChildScrollView(
             child: Container(
-               // margin: EdgeInsets.all(20),
+               margin: EdgeInsets.all(20),
                 child: Column(children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,14 +72,14 @@ class SettingsState extends State<Settings> {
                             "Notification",
                             style: TextStyle(
                               color: Color(0XFF000000),
-                              fontSize: 16,
+                              fontSize: 16,fontFamily: "Sora",
                             ),
                           ),
                           Text(
                             "Turn Notification on and off",
                             style: TextStyle(
                               color: Color(0XFFF000000),
-                              fontSize: 12,
+                              fontSize: 12,fontFamily: "Sora",
                             ),
                           )
                         ],
@@ -108,14 +111,14 @@ class SettingsState extends State<Settings> {
                             "Change Login Pin",
                             style: TextStyle(
                               color: Color(0XFF000000),
-                              fontSize: 16,
+                              fontSize: 16,fontFamily: "Sora",
                             ),
                           ),
                           Text(
                             "Update Your Login Pin",
                             style: TextStyle(
                               color: Color(0XFFF000000),
-                              fontSize: 12,
+                              fontSize: 12,fontFamily: "Sora",
                             ),
                           )
                         ],
@@ -126,7 +129,7 @@ class SettingsState extends State<Settings> {
                           "Change",
                           style: TextStyle(
                               color: Color(0XFF026C7A),
-                              fontSize: 16,
+                              fontSize: 16,fontFamily: "Sora",
                               fontWeight: FontWeight.bold),
                         ),
                       )
@@ -146,14 +149,14 @@ class SettingsState extends State<Settings> {
                             "Check for Updates",
                             style: TextStyle(
                               color: Color(0XFF000000),
-                              fontSize: 16,
+                              fontSize: 16,fontFamily: "Sora",
                             ),
                           ),
                           Text(
                             "Get Updated with latest version",
                             style: TextStyle(
                               color: Color(0XFFF000000),
-                              fontSize: 12,
+                              fontSize: 12,fontFamily: "Sora",
                             ),
                           )
                         ],
@@ -164,7 +167,7 @@ class SettingsState extends State<Settings> {
                           "Check",
                           style: TextStyle(
                             color: Color(0XFF026C7A),
-                            fontSize: 16,
+                            fontSize: 16,fontFamily: "Sora",
                           ),
                         ),
                       )
@@ -193,7 +196,7 @@ class SettingsState extends State<Settings> {
                             "Turn Dark Mode on and off",
                             style: TextStyle(
                               color: Color(0XFFF000000),
-                              fontSize: 12,
+                              fontSize: 12,fontFamily: "Sora",
                             ),
                           ),
                           SizedBox(
@@ -207,7 +210,7 @@ class SettingsState extends State<Settings> {
                             },
                             child: Text("Change Payment Method",
                             style: TextStyle(
-                              fontSize: 16
+                              fontSize: 16,fontFamily: "Sora",
                             ),
                             ),
                           ),
@@ -215,7 +218,7 @@ class SettingsState extends State<Settings> {
                             "change your payment details",
                             style: TextStyle(
                               color: Color(0XFFF000000),
-                              fontSize: 12,
+                              fontSize: 12,fontFamily: "Sora",
                             ),
                           ),
                         ],

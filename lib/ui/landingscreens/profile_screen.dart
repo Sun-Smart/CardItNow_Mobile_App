@@ -92,10 +92,12 @@ class _ProfileState extends State<Profile> {
                           ? SizedBox(height: 15)
                           : SizedBox(),
                       MyApp.logindetails["customertype"] == "I"
-                          ? buildmenu('assets/banner/reward.png', 'Enable Biometrics',
+                          ? buildmenu('assets/touch  id 1.png', 'Enable Biometrics',
                           "/enablebio"
                       )
-                          : SizedBox(),
+                          : buildmenu('assets/touch  id 1.png', 'Enable Biometrics',
+                          "/enablebio"
+                      ),
                       SizedBox(height: 15),
                       buildmenu(
                           'assets/banner/setting.png', 'Settings', '/settings'),
