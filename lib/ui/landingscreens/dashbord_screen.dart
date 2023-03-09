@@ -45,10 +45,16 @@ class DashbordScreenState extends State<DashbordScreen>
     _SalesData('Mar', 0, const Color(0Xff036D7A)),
     _SalesData('Apr', 0, const Color(0Xff036D7A)),
     _SalesData('May', 0, const Color(0Xff036D7A)),
-    _SalesData('June', 0, const Color(0Xff036D7A)),
-    _SalesData('July', 0, const Color(0Xff036D7A)),
-    _SalesData('August', 0, const Color(0XffEDEDED)),
+    _SalesData('June',0, const Color(0Xff036D7A)),
+    _SalesData('July',0, const Color(0Xff036D7A)),
+    _SalesData('August',0, const Color(0XffEDEDED)),
   ];
+
+  // final chartData = pay.barlist.map((item) => _SalesData(
+  //     item['monthname']!,
+  //     int.parse(item['weightage']!)
+  // )).toList();
+
   var item = ['Monthly', 'weekly'];
   String? dropdownvalue;
 

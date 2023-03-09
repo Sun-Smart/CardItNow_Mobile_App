@@ -38,7 +38,7 @@ class AuthService {
         "socialid": details.user!.uid.toString(),
         "mediatype": "Google",
         "mobile":details.user!.phoneNumber.toString(),
-        "geoid": con.dropdownvalue["geoid"].toString()
+        "geoid": RegisterAPI.dropdownvalue["geoid"].toString()
       };
       con.registerSignAPI(userDatas);
       GetStorage().write('useremail', details.user!.email);

@@ -32,6 +32,14 @@ class VerifyUserId extends StatefulWidget {
 }
 
 class _VerifyUserIdState extends State<VerifyUserId> {
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+
   final formKey = GlobalKey<FormState>();
   RegisterAPI reg = Get.put(RegisterAPI());
   List<String> _pictures = [];
@@ -452,7 +460,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                  Responsive.isMobile(context)? MyCustomInputBox(
                       enabled: true,
                       label: "Enter ID Number ",
-                      controller: reg.documentIDController,
+                      controller: reg.documentIDController.obs.value,
                       obsecureText: false,
                       inputDecoration: InputDecoration(
                         labelStyle: TextStyle(
@@ -528,7 +536,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                           child: TextFormField(
                             enabled: true,
                                              // label: "Enter ID Number ",
-                          controller: reg.documentIDController,
+                          controller: reg.documentIDController.obs.value,
                           obscureText: false,
                           decoration: InputDecoration(
                             hoverColor: Colors.transparent,
@@ -652,8 +660,11 @@ class _VerifyUserIdState extends State<VerifyUserId> {
                   ImageSource
                       .gallery);
             } else {
-              Shuftipro pro = Shuftipro();
-              pro.continueFun();
+
+                Shuftipro pro = Shuftipro();
+                pro.continueFun();
+
+
             }}
             else{
               Fluttertoast.showToast(
@@ -665,10 +676,10 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             ShuftiProValues==null?
-              Icon(
 
-                  Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,),
+             ShuftiProValues==null?
+
+              Icon(Icons.camera_alt_outlined):Icon(Icons.done, color: Colors.green,size: 40,),
 
               const SizedBox(height: 5),
        ShuftiProValues==null? Text('Scan your Document'): Text('Successfully Verified')
@@ -803,7 +814,7 @@ class _VerifyUserIdState extends State<VerifyUserId> {
             );
           }
           if(kIsWeb){
-reg.ocrdocument();
+          con.uploadDocx(con.emailController.text, reg.documentIDController.text);
           }
           else if(
           ShuftiProValues==null

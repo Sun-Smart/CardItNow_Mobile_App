@@ -467,6 +467,7 @@ class _ProfileState extends State<Profile> {
                         GetStorage().remove('save_token');
                         GetStorage().remove("avatarpic");
                         GetStorage().remove("customer_type");
+
                         reg.firstNameController.clear();
                         reg.lastNameController.clear();
                         reg.mobileNoController.clear();

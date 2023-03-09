@@ -858,7 +858,7 @@ Widget buildformweb(){
                 "socialid": userData['id'].toString(),
                 "mediatype": "Facebook",
                 "mobile":"",
-                "geoid": con.dropdownvalue["geoid"].toString()
+                "geoid": RegisterAPI.dropdownvalue["geoid"].toString()
                 };
                 con.registerSignAPI(userDatas);
                 } else {
@@ -902,7 +902,7 @@ Widget buildformweb(){
                 "socialid": userData['id'].toString(),
                 "mediatype": "Facebook",
                   "mobile":"",
-                  "geoid": con.dropdownvalue["geoid"].toString()
+                  "geoid": RegisterAPI.dropdownvalue["geoid"].toString()
                 };
                 con.registerSignAPI(userDatas);
                 } else {

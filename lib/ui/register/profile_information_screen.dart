@@ -27,8 +27,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
   @override
   void initState() {
     print(reg.postalCodeController.text);
-    if(reg.dropdownvalue!=null){
-      reg.cityselection(reg.dropdownvalue["geoid"].toString());
+    if(RegisterAPI.dropdownvalue!=null){
+      reg.cityselection(RegisterAPI.dropdownvalue["geoid"].toString());
     }
     // reg.assignProfileInfo();
     assignvaluesweb();
@@ -68,7 +68,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
           ? Container(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: reg.dropdownvalue == null
+                child: RegisterAPI.dropdownvalue == null
                     ? Center(
                         child: LinearProgressIndicator(
                         backgroundColor: HexColor('#004751'),
@@ -716,7 +716,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             enabled: true,
                             //: "Phone Number",
                             maxLength:
-                                reg.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
+                            RegisterAPI.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
                             controller: reg.mobileNoController,
                             obscureText: false,
                             keyboardType: TextInputType.number,
@@ -734,7 +734,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               hoverColor: Colors.transparent,
                               prefixIcon: TextButton(
                                   onPressed: () {},
-                                  child: reg.dropdownvalue["geoname"] == "UAE"
+                                  child: RegisterAPI.dropdownvalue["geoname"] == "UAE"
                                       ? Text(
                                           "+971",
                                           style: TextStyle(
@@ -1116,7 +1116,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                               underline: const SizedBox(),
                               dropdownColor: Colors.white,
                               isExpanded: true,
-                              value: reg.dropdownvalue,
+                              value: RegisterAPI.dropdownvalue,
                               hint: Text('Select Your Country',
                                   style: TextStyle(
                                       color: Styles.whitecustomlable,
@@ -1137,10 +1137,10 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                             fontSize: 14)));
                               }).toList(),
                               onChanged: (dynamic newValue) {
-                                reg.dropdownvalue = newValue!;
+                                RegisterAPI.dropdownvalue = newValue!;
                                 reg
                                     .cityselection(
-                                        reg.dropdownvalue["geoid"].toString())
+                                    RegisterAPI.dropdownvalue["geoid"].toString())
                                     .then((value) {
                                   setState(() {
                                     reg.pickcity;
@@ -1712,7 +1712,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             MyCustomInputBox(
               enabled: true,
               label: "Phone Number *",
-              maxLength: reg.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
+              maxLength: RegisterAPI.dropdownvalue["geoname"] == "UAE" ? 9 : 8,
               keyboardType: TextInputType.number,
               controller: reg.mobileNoController,
               obsecureText: false,
@@ -1736,7 +1736,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 hoverColor: Colors.transparent,
                 prefixIcon: TextButton(
                     onPressed: () {},
-                    child: reg.dropdownvalue["geoname"] == "UAE"
+                    child: RegisterAPI.dropdownvalue["geoname"] == "UAE"
                         ? Text(
                             "+971",
                             style: TextStyle(
@@ -2027,7 +2027,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   underline: const SizedBox(),
                   dropdownColor: Colors.white,
                   isExpanded: true,
-                  value: reg.dropdownvalue,
+                  value: RegisterAPI.dropdownvalue,
                   hint: Text('Select Your Country',
                       style: TextStyle(
                           color: Styles.whitecustomlable, fontSize: 14)),
@@ -2046,9 +2046,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                                 color: Color(0Xff413D4B), fontSize: 14)));
                   }).toList(),
                   onChanged: (dynamic newValue) {
-                    reg.dropdownvalue = newValue!;
+                    RegisterAPI.dropdownvalue = newValue!;
                     reg
-                        .cityselection(reg.dropdownvalue["geoid"].toString())
+                        .cityselection(RegisterAPI.dropdownvalue["geoid"].toString())
                         .then((value) {
                       setState(() {
                         reg.pickcity;

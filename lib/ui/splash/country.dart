@@ -87,8 +87,8 @@ class _CountryState extends State<Country> {
                               hoverColor: Colors.transparent,
                               onTap: () {
                                 setState(() {
-                                  con.dropdownvalue = con.pickcountry[index];
-                                  if (con.dropdownvalue != null) {
+                                  RegisterAPI.dropdownvalue = con.pickcountry[index];
+                                  if (RegisterAPI.dropdownvalue != null) {
                                     con.docselect();
                                     if (widget.choosetype == "Login") {
                                       Get.off(Login());
@@ -115,7 +115,7 @@ class _CountryState extends State<Country> {
 
                                 child: Card(
                                   elevation: 0,
-                                  color: con.dropdownvalue != null && (con.pickcountry[index]["geoid"] == con.dropdownvalue["geoid"])
+                                  color: RegisterAPI.dropdownvalue != null && (con.pickcountry[index]["geoid"] == RegisterAPI.dropdownvalue["geoid"])
                                     ? HexColor('#CEE812')
                                       : Colors.white12,
                                   shape: RoundedRectangleBorder(
@@ -136,7 +136,7 @@ class _CountryState extends State<Country> {
                                               Text(con.pickcountry[index]['geoname'],
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,color:
-                                                  con.dropdownvalue != null && (con.pickcountry[index]["geoid"] ==  con.dropdownvalue["geoid"])?
+                                                  RegisterAPI.dropdownvalue != null && (con.pickcountry[index]["geoid"] ==  RegisterAPI.dropdownvalue["geoid"])?
                                                   HexColor('#004751'):Colors.lightGreen,
                                                       fontSize: 20)),
                                               const SizedBox(height: 10),
