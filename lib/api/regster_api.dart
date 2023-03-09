@@ -109,6 +109,10 @@ class RegisterAPI extends GetxController with BaseController {
     "email": "@gmail.com"
   }].obs;
   TextEditingController payeeSearchCnl = TextEditingController();
+
+
+  List<SalesData> barlist = [];
+
   @override
   void onInit() {
     //web.loadreference();
@@ -127,7 +131,7 @@ class RegisterAPI extends GetxController with BaseController {
       paymentpurposeget();
       invoicegetmethod();
       pay.transactionListAPI();
-      pay.barcharshowing();
+      barcharshowing();
       notificationListAPI();
     }
     super.onInit();
@@ -886,6 +890,25 @@ hideLoading();
     payeeSearchList.value = data;
   }
 
+  // barchart
+  void barcharshowing() async {
+
+    var body ={
+      "customerid":MyApp.logindetails["userid"]
+    };
+    var response = await BaseClient()
+        .post(API().barchartviewapi,body)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+
+    var barlistvalue = data ?? [];
+    barlist.clear();
+    for(int i = 0; i < barlistvalue.length; i++){
+      barlist.add(SalesData(barlistvalue[i]["monthname"], double.parse(barlistvalue[i]["moneyd"].toString()), Colors.black));
+    }
+  }
+
 }
 
 Future<void> readJson() async {
@@ -896,4 +919,13 @@ Future<void> readJson() async {
 
   mocktermscond.clear();
   mocktermscond = data;
+}
+
+
+class SalesData {
+  SalesData(this.year, this.sales, this.color);
+
+  final String year;
+  final double sales;
+  final Color color;
 }

@@ -63,7 +63,6 @@ class PaymentAPI extends GetxController with BaseController {
 
   //transaction
   var transactionList = [].obs;
-  var barlist = [];
 
 
   //House details
@@ -509,21 +508,6 @@ class PaymentAPI extends GetxController with BaseController {
     var data = json.decode(response);
 
     transactionList.value = data;
-  }
-
-  // barchart
-  void barcharshowing() async {
-
-    var body ={
-      "customerid":MyApp.logindetails["userid"]
-    };
-    var response = await BaseClient()
-        .post(API().barchartviewapi,body)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-
-    barlist = data;
   }
 
 
