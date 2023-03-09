@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
+import 'package:clipboard/clipboard.dart';
 import '../../../api/payment_api.dart';
 import '../../landingscreens/PaymentViewAll.dart';
 import '../../landingscreens/notification.dart';
@@ -30,7 +30,7 @@ class CreditPrepaidScreen extends StatefulWidget {
 class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
   PaymentAPI pay = PaymentAPI();
   ValueNotifier<double> _slider1Value = ValueNotifier<double>(0.0);
-  bool? check1 = false;
+  bool? applyForAll = false;
 
   @override
   void initState() {
@@ -886,248 +886,44 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
     );
   }
 
-  Future<bool> _popupScreen() async {
-    bool exitApp = await showDialog(
+_popupScreen() async {
+await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return  Responsive.isMobile(context)?AlertDialog(
-          content: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Share Link',
+        return StatefulBuilder(
+            builder: (context, setState) {
+            return Responsive.isMobile(context)?AlertDialog(
+              content: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Share Link',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.bold)),
+                        IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(Icons.close, size: 25)),
+                      ],
+                    ),
+                    Text('Choose from options',
                         style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontFamily: 'Sora',
-                            fontWeight: FontWeight.bold)),
-                    IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(Icons.close, size: 25)),
-                  ],
-                ),
-                Text('Choose from options',
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.grey, fontFamily: 'Sora')),
-                SizedBox(height: 20),
-                Text('Name of Payer',
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                SizedBox(height: 10),
-                TextFormField(
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2)),
-                    hintText: 'Enter Name',
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text('Name of Payer',
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                SizedBox(height: 10),
-                TextFormField(
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2)),
-                    hintText: 'Enter Email or Phone Number',
-                  ),
-                ),
-                SizedBox(height: 10),
-                Center(
-                  child: Text('or',
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          color: Colors.black)),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text('payviacardir300.co'),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Copy Link',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor('#026C7A')),
-                            ))
-                      ]),
-                ),
-                SizedBox(height: 10),
-                Text('Service Fee',
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('0%',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Sora',
-                              color: Colors.black)),
-                      Text('50%',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Sora',
-                              color: Colors.black)),
-                      Text('100%',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Sora',
-                              color: Colors.black))
-                    ]),
-                _buildBalloonSlider(
-                    showRope: false,
-                    color: HexColor('#CEE812'),
-                    sliderValue: _slider1Value),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Payer',
-                            style: TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey)),
-                        SizedBox(height: 10),
-                        SizedBox(
-                          width: 130,
-                          height: 50,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 2)),
-                            child: Center(
-                                child: Text('0.75%',
-                                    style: TextStyle(color: Colors.grey))),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Payee',
-                            style: TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey)),
-                        SizedBox(height: 10),
-                        SizedBox(
-                          width: 130,
-                          height: 50,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 2)),
-                            child: Center(
-                                child: Text('0.75%',
-                                    style: TextStyle(color: Colors.grey))),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      activeColor: Color(0xff004751),
-                      value: check1,
-                      tristate: true,
-                      onChanged: (value) {
-                        setState(() {
-                          check1 = value;
-                        });
-                      },
-                    ),
-                    Text('Apply for all Payers', style: TextStyle(fontSize: 12))
-                  ],
-                )
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            Container(
-              margin: EdgeInsets.all(10),
-              height: 50,
-              width: MediaQuery.of(context).size.width/4,
-              child: MaterialButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text('Share link',
-                    style: TextStyle(
-                        fontSize: 14, fontFamily: 'Sora', color: Colors.black)),
-                color: HexColor('#CEE812'),
-              ),
-            ),
-          ],
-        ):AlertDialog(
-          content: Container(
-            //width: MediaQuery.of(context).size.width/3,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-               // mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Share Link',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontFamily: 'Sora',
-                              fontWeight: FontWeight.bold)),
-                      IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: Icon(Icons.close, size: 25)),
-                    ],
-                  ),
-                  Text('Choose from options',
-                      style: TextStyle(
-                          fontSize: 14, color: Colors.grey, fontFamily: 'Sora')),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(width:Responsive.isDesktop(context)?50:10,),
-                      Text('Name of Payer',
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:MediaQuery.of(context).size.width/2,
-                    child: TextFormField(
+                            fontSize: 14, color: Colors.grey, fontFamily: 'Sora')),
+                    SizedBox(height: 20),
+                    Text('Name of Payer',
+                        style: TextStyle(
+                            fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                    SizedBox(height: 10),
+                    TextFormField(
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey, width: 2)),
@@ -1136,21 +932,12 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                         hintText: 'Enter Name',
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(width: Responsive.isDesktop(context)?50:10),
-                      Text('Name of Payer',
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                     width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4:
-                     MediaQuery.of(context).size.width/2,
-                    child: TextFormField(
+                    SizedBox(height: 20),
+                    Text('Name of Payer',
+                        style: TextStyle(
+                            fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                    SizedBox(height: 10),
+                    TextFormField(
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey, width: 2)),
@@ -1159,47 +946,43 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                         hintText: 'Enter Email or Phone Number',
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: Text('or',
+                    SizedBox(height: 10),
+                    Center(
+                      child: Text('or',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              color: Colors.black)),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 2),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text('payviacardir300.co'),
+                            TextButton(
+                                onPressed: () {
+                                  FlutterClipboard.copy('payviacardir300.co').then(( value ) =>
+                                      Fluttertoast.showToast(msg: "copied"));
+                                },
+                                child: Text(
+                                  'Copy Link',
+                                  style: TextStyle(
+                                      fontFamily: 'Sora',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: HexColor('#026C7A')),
+                                ))
+                          ]),
+                    ),
+                    SizedBox(height: 10),
+                    Text('Service Fee',
                         style: TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 14,
-                            color: Colors.black)),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: Responsive.isDesktop(context)?  MediaQuery.of(context).size.width/4:
-                    MediaQuery.of(context).size.width/2,
-                   // height:  MediaQuery.of(context).size.width/15,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 2),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text('payviacardir300.co'),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Copy Link',
-                                style: TextStyle(
-                                    fontFamily: 'Sora',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: HexColor('#026C7A')),
-                              ))
-                        ]),
-                  ),
-                  SizedBox(height: 10),
-                  Text('Service Fee',
-                      style: TextStyle(
-                          fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
-                  Container(
-                    width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:
-                    MediaQuery.of(context).size.width/2,
-                    child: Row(
+                            fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                    Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('0%',
@@ -1218,14 +1001,37 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                   fontFamily: 'Sora',
                                   color: Colors.black))
                         ]),
-                  ),
-                  _buildBalloonSlider(
-                      showRope: false,
-                      color: HexColor('#CEE812'),
-                      sliderValue: _slider1Value),
-                  Container(
-                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4 :MediaQuery.of(context).size.width/2,
-                    child: Row(
+                    Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 60,
+                            child: BalloonSlider(
+                                value: _slider1Value.value,
+                                ropeLength: 50,
+                                showRope: false,
+                                onChanged: (val) {setState(() {
+                                  _slider1Value.value = val;
+                                });},
+                                color:  HexColor('#CEE812'))),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: ValueListenableBuilder<double>(
+                            valueListenable: _slider1Value,
+                            builder: (context, value, child) {
+                              int progress = (value * 100).round();
+                              return Text(
+                                "$progress",
+                                style: TextStyle(fontWeight: FontWeight.bold, color:  HexColor('#CEE812')),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
@@ -1246,7 +1052,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                     border:
                                         Border.all(color: Colors.grey, width: 2)),
                                 child: Center(
-                                    child: Text('0.75%',
+                                    child: Text('${(_slider1Value.value * 100).round()} %',
                                         style: TextStyle(color: Colors.grey))),
                               ),
                             ),
@@ -1270,7 +1076,7 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                                     border:
                                         Border.all(color: Colors.grey, width: 2)),
                                 child: Center(
-                                    child: Text('0.75%',
+                                    child: Text('${100 - (_slider1Value.value * 100).round()} %',
                                         style: TextStyle(color: Colors.grey))),
                               ),
                             ),
@@ -1278,114 +1084,306 @@ class _CreditPrepaidScreenState extends State<CreditPrepaidScreen> {
                         )
                       ],
                     ),
-                  ),
-                  Row(
-                   
-                  
-                    children: [
-                     //  SizedBox(   width:   MediaQuery.of(context).size.width/5,),
-                     
-                      Checkbox(
-                        activeColor: Color(0xff004751),
-                        value: check1,
-                        tristate: true,
-                        onChanged: (value) {
-                          setState(() {
-                            check1 = value;
-                          });
-                        },
-                      ),
-                      Text('Apply for all Payers', style: TextStyle(fontSize: 12))
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            Container(
-              margin: EdgeInsets.all(10),
-              height: 50,
-              width: MediaQuery.of(context).size.width/3,
-              child: Center(
-                child: MaterialButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text('Share link',
-                      style: TextStyle(
-                          fontSize: 14, fontFamily: 'Sora', color: Colors.black)),
-                  color: HexColor('#CEE812'),
+                    Row(
+                      children: [
+                        Checkbox(
+                          activeColor: Color(0xff004751),
+                          value: applyForAll,
+                          onChanged: (value) {
+                            setState(() {
+                              applyForAll = value;
+                            });
+                          },
+                        ),
+                        Text('Apply for all Payers', style: TextStyle(fontSize: 12))
+                      ],
+                    )
+                  ],
                 ),
               ),
-            ),
-          ],
+              actions: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width/4,
+                  child: MaterialButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text('Share link',
+                        style: TextStyle(
+                            fontSize: 14, fontFamily: 'Sora', color: Colors.black)),
+                    color: HexColor('#CEE812'),
+                  ),
+                ),
+              ],
+            ):AlertDialog(
+              content: Container(
+                //width: MediaQuery.of(context).size.width/3,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                   // mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Share Link',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.bold)),
+                          IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(Icons.close, size: 25)),
+                        ],
+                      ),
+                      Text('Choose from options',
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey, fontFamily: 'Sora')),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          SizedBox(width:Responsive.isDesktop(context)?50:10,),
+                          Text('Name of Payer',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:MediaQuery.of(context).size.width/2,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 2)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 2)),
+                            hintText: 'Enter Name',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          SizedBox(width: Responsive.isDesktop(context)?50:10),
+                          Text('Name of Payer',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                         width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4:
+                         MediaQuery.of(context).size.width/2,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 2)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 2)),
+                            hintText: 'Enter Email or Phone Number',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Center(
+                        child: Text('or',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 14,
+                                color: Colors.black)),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        width: Responsive.isDesktop(context)?  MediaQuery.of(context).size.width/4:
+                        MediaQuery.of(context).size.width/2,
+                       // height:  MediaQuery.of(context).size.width/15,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 2),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('payviacardir300.co'),
+                              TextButton(
+                                  onPressed: () {
+                                    FlutterClipboard.copy('payviacardir300.co').then(( value ) =>
+                                        Fluttertoast.showToast(msg: "copied"));
+                                  },
+                                  child: Text(
+                                    'Copy Link',
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: HexColor('#026C7A')),
+                                  ))
+                            ]),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Service Fee',
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.black, fontFamily: 'Sora')),
+                      Container(
+                        width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4:
+                        MediaQuery.of(context).size.width/2,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('0%',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      color: Colors.black)),
+                              Text('50%',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      color: Colors.black)),
+                              Text('100%',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Sora',
+                                      color: Colors.black))
+                            ]),
+                      ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          Container(
+                              width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4:
+                              MediaQuery.of(context).size.width/2,
+                              height: 60,
+                              child: BalloonSlider(
+                                  value: _slider1Value.value,
+                                  ropeLength: 50,
+                                  showRope: false,
+                                  onChanged: (val) {setState(() {
+                                    _slider1Value.value = val;
+                                  });},
+                                  color: HexColor('#CEE812'))),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: ValueListenableBuilder<double>(
+                              valueListenable: _slider1Value,
+                              builder: (context, value, child) {
+                                int progress = (value * 100).round();
+                                return Text(
+                                  "$progress",
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: HexColor('#CEE812')),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4 :MediaQuery.of(context).size.width/2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Payer',
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey)),
+                                SizedBox(height: 10),
+                                SizedBox(
+                                  width: 130,
+                                  height: 50,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.grey, width: 2)),
+                                    child: Center(
+                                        child: Text('${(_slider1Value.value * 100).round()} %',
+                                            style: TextStyle(color: Colors.grey))),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Payee',
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey)),
+                                SizedBox(height: 10),
+                                SizedBox(
+                                  width: 130,
+                                  height: 50,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Colors.grey, width: 2)),
+                                    child: Center(
+                                        child: Text('${100 - (_slider1Value.value * 100).round()} %',
+                                            style: TextStyle(color: Colors.grey))),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Row(
+
+
+                        children: [
+                         //  SizedBox(   width:   MediaQuery.of(context).size.width/5,),
+
+                          Checkbox(
+                            activeColor: Color(0xff004751),
+                            value: applyForAll,
+                            onChanged: (value) {
+                              setState(() {
+                                applyForAll = value;
+                              });
+                            },
+                          ),
+                          Text('Apply for all Payers', style: TextStyle(fontSize: 12))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              actions: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width/3,
+                  child: Center(
+                    child: MaterialButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text('Share link',
+                          style: TextStyle(
+                              fontSize: 14, fontFamily: 'Sora', color: Colors.black)),
+                      color: HexColor('#CEE812'),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
         );
       },
     );
-    return exitApp ?? false;
   }
 
-  Widget _buildBalloonSlider(
-      {required ValueNotifier<double> sliderValue,
-      required Color color,
-      required bool showRope}) {
-    return Responsive.isMobile(context)? Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-            width: MediaQuery.of(context).size.width,
-            height: 60,
-            child: BalloonSlider(
-                value: sliderValue.value,
-                ropeLength: 50,
-                showRope: showRope,
-                onChanged: (val) => sliderValue.value = val,
-                color: color)),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: ValueListenableBuilder<double>(
-            valueListenable: sliderValue,
-            builder: (context, value, child) {
-              int progress = (value * 100).round();
-              return Text(
-                "$progress",
-                style: TextStyle(fontWeight: FontWeight.bold, color: color),
-              );
-            },
-          ),
-        )
-      ],
-    ):
-    Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-            width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width/4:
-            MediaQuery.of(context).size.width/2,
-            height: 60,
-            child: BalloonSlider(
-                value: sliderValue.value,
-                ropeLength: 50,
-                showRope: showRope,
-                onChanged: (val) => sliderValue.value = val,
-                color: color)),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: ValueListenableBuilder<double>(
-            valueListenable: sliderValue,
-            builder: (context, value, child) {
-              int progress = (value * 100).round();
-              return Text(
-                "$progress",
-                style: TextStyle(fontWeight: FontWeight.bold, color: color),
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
 }
