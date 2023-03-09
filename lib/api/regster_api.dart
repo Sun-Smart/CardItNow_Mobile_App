@@ -372,6 +372,7 @@ hideLoading();
                 pin,
             body)
         .catchError(handleError);
+        hideLoading();
     if (response == null) return;
     var data1 = json.decode(response);
     var data = json.decode(data1);
@@ -712,6 +713,7 @@ hideLoading();
         .post(API().termsacceptance, body)
         .catchError(handleError);
     log(body.toString());
+    hideLoading();
     if (response == null) return;
     var data = json.decode(response);
     if (data != null) {

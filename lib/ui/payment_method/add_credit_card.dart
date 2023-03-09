@@ -1,6 +1,7 @@
 
 import 'package:cardit/const/common/fourDigitsplit.dart';
 import 'package:cardit/widgets/auth_button.dart';
+import 'package:cardit/widgets/stepper.dart';
 import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,8 @@ import 'card_input_formatter_class.dart';
 
 class AddCreditCardPage extends StatefulWidget {
   final cardflow;
-   AddCreditCardPage({Key? key, this.cardflow}) : super(key: key);
+  var pages;
+   AddCreditCardPage({Key? key, this.cardflow,this.pages}) : super(key: key);
 
   @override
   State<AddCreditCardPage> createState() => _AddCreditCardPageState();
@@ -327,7 +329,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
       ):Responsive.isDesktop(context)
               ? Row(
                   children: [
-                      Container(
+                     Container(
                     width: MediaQuery.of(context).size.width / 3,
                  //   height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
@@ -338,7 +340,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             Image.asset("assets/logoweb.png",
                                 width: 140, height: 75),
                                 SizedBox(height: 15),
-                                  Text('"Make your life Easy"',
+                                  Text('"Make your life simple"',
                   style: TextStyle(
                     letterSpacing: 1,
                   fontSize: 16, color: Colors.white,
@@ -372,7 +374,7 @@ class _AddCreditCardPageState extends State<AddCreditCardPage> {
                             Image.asset("assets/logoweb.png",
                                 width: 140, height: 75),
                                 SizedBox(height: 15),
-                                  Text('"Make your life Easy"',
+                                  Text('"Make your life simple"',
                   style: TextStyle(
                     letterSpacing: 1,
                   fontSize: 16, color: Colors.white,
