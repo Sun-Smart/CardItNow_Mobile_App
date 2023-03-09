@@ -97,7 +97,7 @@ class _NewPaymentState extends State<NewPayment> {
                             width: 150, height: 90),
                         SizedBox(height: 15),
                         Text(
-                          '"Make your life Easy"',
+                          '"Make your life simple"',
                           style: TextStyle(
                               letterSpacing: 1,
                               fontSize: 16,
@@ -146,7 +146,7 @@ class _NewPaymentState extends State<NewPayment> {
                               width: 150, height: 90),
                           SizedBox(height: 15),
                           Text(
-                            '"Make your life Easy"',
+                            '"Make your life simple"',
                             style: TextStyle(
                                 letterSpacing: 1,
                                 fontSize: 16,
@@ -1324,33 +1324,26 @@ class _NewPaymentState extends State<NewPayment> {
 
   payeeHouseWidget() {
     return Responsive.isMobile(context)
-        ? Column(
+? Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
                 Obx(() => Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                                width: Responsive.isDesktop(context)
-                                    ? MediaQuery.of(context).size.width / 4.8
-                                    : MediaQuery.of(context).size.width / 10),
-                            const Text(
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            child: const Text(
                               'Select Payee *',
                               style: TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                            )),
                         const SizedBox(height: 5),
                         Container(
-                          width: Responsive.isDesktop(context)
-                              ? MediaQuery.of(context).size.width / 4
-                              : MediaQuery.of(context).size.width / 2.5,
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          width: MediaQuery.of(context).size.width / 1.1,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: DropdownButtonFormField(
@@ -1386,6 +1379,416 @@ class _NewPaymentState extends State<NewPayment> {
                               },
                               style: const TextStyle(color: Colors.black),
                             ),
+                          ),
+                        ),
+                      ],
+                    )),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        child: const Text(
+                          'Select Purpose *',
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        )),
+                    const SizedBox(height: 5),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        child: DropdownButtonFormField(
+                          decoration: Styles.dropdownDecoration(),
+                          dropdownColor: Colors.white,
+                          isExpanded: true,
+                          value: pay.housePurpose,
+                          hint: const Text('Select Purpose',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Sora',
+                                  fontWeight: FontWeight.w400,
+                                  color: Color.fromRGBO(65, 61, 75, 0.6))),
+                          icon: const InkWell(
+                            child: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.black45,
+                            ),
+                          ),
+                          items: pay.housePurposeList.map((item) {
+                            return DropdownMenuItem(
+                              value: item,
+                              child: Text("${item["name"]}",
+                                  style: const TextStyle(
+                                      color: Color(0Xff413D4B), fontSize: 14)),
+                            );
+                          }).toList(),
+                          onChanged: (var newValue) {
+                            setState(() {
+                              pay.housePurpose = newValue;
+                              if (pay.housePurpose["name"] == "Maintenance" ||
+                                  pay.housePurpose["name"] == "Renovation") {
+                                houseTypePurpose = true;
+                              } else {
+                                houseTypePurpose = false;
+                              }
+                            });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                houseTypePurpose
+                    ? Column(
+                        children: [
+                          MyCustomInputBox(
+                            label: "Invoice Date *",
+                            controller: pay.invoiceDateCnl,
+                            obsecureText: false,
+                            read: true,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            inputDecoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      datePickerForDate("Date");
+                                    },
+                                    icon: Icon(Icons.date_range)),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                hintText: "dd-MM-YYY",
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          MyCustomInputBox(
+                            label: "House/Apt/Office No *",
+                            controller: pay.addressNoCnl,
+                            obsecureText: false,
+                            textInputType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            inputDecoration: Styles.textFiledDecoration(
+                                hint: "House/Apt/Office No"),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "Street Name *",
+                            controller: pay.streetNameCnl,
+                            obsecureText: false,
+                            textInputType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            inputDecoration:
+                                Styles.textFiledDecoration(hint: "Street Name"),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                          Column(
+                            children: [
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  margin:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                  child: const Text(
+                                    'Select Province *',
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              const SizedBox(height: 5),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 0),
+                                  child: DropdownButtonFormField(
+                                    decoration: Styles.dropdownDecoration(),
+                                    dropdownColor: Colors.white,
+                                    isExpanded: true,
+                                    value: pay.province,
+                                    hint: const Text('Select Province',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'Sora',
+                                            fontWeight: FontWeight.w400,
+                                            color: Color.fromRGBO(
+                                                65, 61, 75, 0.6))),
+                                    icon: const InkWell(
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: Colors.black45,
+                                      ),
+                                    ),
+                                    items: pay.provinceList.map((item) {
+                                      return DropdownMenuItem(
+                                        value: item["name"].toString(),
+                                        child: Text(item["name"].toString(),
+                                            style: const TextStyle(
+                                                color: Color(0Xff413D4B),
+                                                fontSize: 14)),
+                                      );
+                                    }).toList(),
+                                    onChanged: (var newValue) {
+                                      setState(() {
+                                        pay.province = newValue;
+                                      });
+                                    },
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Column(
+                            children: [
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  margin:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                  child: const Text(
+                                    'Select City *',
+                                    style: TextStyle(
+                                        fontFamily: 'Sora',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              const SizedBox(height: 5),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                width: MediaQuery.of(context).size.width / 1.1,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 0),
+                                  child: DropdownButtonFormField(
+                                    decoration: Styles.dropdownDecoration(),
+                                    dropdownColor: Colors.white,
+                                    isExpanded: true,
+                                    value: pay.city,
+                                    hint: const Text('Select City',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'Sora',
+                                            fontWeight: FontWeight.w400,
+                                            color: Color.fromRGBO(
+                                                65, 61, 75, 0.6))),
+                                    icon: const InkWell(
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: Colors.black45,
+                                      ),
+                                    ),
+                                    items: pay.cityList.map((item) {
+                                      return DropdownMenuItem(
+                                        value: item["name"].toString(),
+                                        child: Text(item["name"].toString(),
+                                            style: const TextStyle(
+                                                color: Color(0Xff413D4B),
+                                                fontSize: 14)),
+                                      );
+                                    }).toList(),
+                                    onChanged: (var newValue) {
+                                      setState(() {
+                                        pay.city = newValue;
+                                      });
+                                    },
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "Postal Code *",
+                            controller: pay.postalCode,
+                            obsecureText: false,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            inputDecoration:
+                                Styles.textFiledDecoration(hint: "Postal Code"),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "Start Date *",
+                            controller: pay.startDate,
+                            obsecureText: false,
+                            read: true,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            inputDecoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      datePickerForDate("Start");
+                                    },
+                                    icon: Icon(Icons.date_range)),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                hintText: "dd-MM-YYY",
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "End Date *",
+                            controller: pay.endDate,
+                            obsecureText: false,
+                            read: true,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            inputDecoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      datePickerForDate("End");
+                                    },
+                                    icon: Icon(Icons.date_range)),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                hintText: "dd-MM-YYY",
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2, color: Color(0xFFE5E5E5))),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                helperStyle: const TextStyle(
+                                    fontFamily: 'Sora', fontSize: 14),
+                                hintStyle: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                MyCustomInputBox(
+                  label: "Invoice No *",
+                  controller: pay.invoiceNoCnl,
+                  obsecureText: false,
+                  textInputType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  textInputAction: TextInputAction.next,
+                  inputDecoration:
+                      Styles.textFiledDecoration(hint: "Invoice No"),
+                  enabled: true,
+                ),
+                const SizedBox(height: 10),
+                filePickWidget(),
+                const SizedBox(height: 10),
+                if (!Responsive.isMobile(context)) firstButtonNext()
+              ]):         Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                Obx(() => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                                width: Responsive.isDesktop(context)
+                                    ? MediaQuery.of(context).size.width / 4.8
+                                    : MediaQuery.of(context).size.width / 10),
+                            const Text(
+                              'Select Payee *',
+                              style: TextStyle(
+                                  fontFamily: 'Sora',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4
+                              : MediaQuery.of(context).size.width / 2.5,
+                          child: DropdownButtonFormField(
+                            decoration: Styles.dropdownDecoration(),
+                            dropdownColor: Colors.white,
+                            isExpanded: true,
+                            value: pay.housePayee,
+                            hint: const Text('Select Payee',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            icon: const InkWell(
+                              child: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.black45,
+                              ),
+                            ),
+                            items: pay.housePayeeList.map((item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text("${item["name"]}",
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B),
+                                        fontSize: 14)),
+                              );
+                            }).toList(),
+                            onChanged: (var newValue) {
+                              setState(() {
+                                pay.housePayee = newValue;
+                              });
+                            },
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ),
                       ],
@@ -1484,6 +1887,7 @@ class _NewPaymentState extends State<NewPayment> {
                                 ? MediaQuery.of(context).size.width / 4
                                 : MediaQuery.of(context).size.width / 2.5,
                             child: TextFormField(
+                              
                               //label: "Invoice Date *",
                               controller: pay.invoiceDateCnl,
                               obscureText: false,
@@ -1493,6 +1897,7 @@ class _NewPaymentState extends State<NewPayment> {
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                       onPressed: () {
+                                      
                                         datePickerForDate("Date");
                                       },
                                       icon: Icon(Icons.date_range)),
@@ -1915,413 +2320,7 @@ class _NewPaymentState extends State<NewPayment> {
                 const SizedBox(height: 10),
                 if (!Responsive.isMobile(context)) firstButtonNext()
               ])
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                Obx(() => Column(
-                      children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: const Text(
-                              'Select Payee *',
-                              style: TextStyle(
-                                  fontFamily: 'Sora',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        const SizedBox(height: 5),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          width: MediaQuery.of(context).size.width / 1.1,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 0),
-                            child: DropdownButtonFormField(
-                              decoration: Styles.dropdownDecoration(),
-                              dropdownColor: Colors.white,
-                              isExpanded: true,
-                              value: pay.housePayee,
-                              hint: const Text('Select Payee',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Sora',
-                                      fontWeight: FontWeight.w400,
-                                      color: Color.fromRGBO(65, 61, 75, 0.6))),
-                              icon: const InkWell(
-                                child: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: Colors.black45,
-                                ),
-                              ),
-                              items: pay.housePayeeList.map((item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text("${item["name"]}",
-                                      style: const TextStyle(
-                                          color: Color(0Xff413D4B),
-                                          fontSize: 14)),
-                                );
-                              }).toList(),
-                              onChanged: (var newValue) {
-                                setState(() {
-                                  pay.housePayee = newValue;
-                                });
-                              },
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                const SizedBox(height: 10),
-                Column(
-                  children: [
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: const Text(
-                          'Select Purpose *',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        )),
-                    const SizedBox(height: 5),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                        child: DropdownButtonFormField(
-                          decoration: Styles.dropdownDecoration(),
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: pay.housePurpose,
-                          hint: const Text('Select Purpose',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(65, 61, 75, 0.6))),
-                          icon: const InkWell(
-                            child: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.black45,
-                            ),
-                          ),
-                          items: pay.housePurposeList.map((item) {
-                            return DropdownMenuItem(
-                              value: item,
-                              child: Text("${item["name"]}",
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)),
-                            );
-                          }).toList(),
-                          onChanged: (var newValue) {
-                            setState(() {
-                              pay.housePurpose = newValue;
-                              if (pay.housePurpose["name"] == "Maintenance" ||
-                                  pay.housePurpose["name"] == "Renovation") {
-                                houseTypePurpose = true;
-                              } else {
-                                houseTypePurpose = false;
-                              }
-                            });
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                houseTypePurpose
-                    ? Column(
-                        children: [
-                          MyCustomInputBox(
-                            label: "Invoice Date *",
-                            controller: pay.invoiceDateCnl,
-                            obsecureText: false,
-                            read: true,
-                            textInputType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            inputDecoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      datePickerForDate("Date");
-                                    },
-                                    icon: Icon(Icons.date_range)),
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                hintText: "dd-MM-YYY",
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          MyCustomInputBox(
-                            label: "House/Apt/Office No *",
-                            controller: pay.addressNoCnl,
-                            obsecureText: false,
-                            textInputType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            inputDecoration: Styles.textFiledDecoration(
-                                hint: "House/Apt/Office No"),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                          MyCustomInputBox(
-                            label: "Street Name *",
-                            controller: pay.streetNameCnl,
-                            obsecureText: false,
-                            textInputType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            inputDecoration:
-                                Styles.textFiledDecoration(hint: "Street Name"),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            children: [
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  margin:
-                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  child: const Text(
-                                    'Select Province *',
-                                    style: TextStyle(
-                                        fontFamily: 'Sora',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              const SizedBox(height: 5),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                width: MediaQuery.of(context).size.width / 1.1,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 0),
-                                  child: DropdownButtonFormField(
-                                    decoration: Styles.dropdownDecoration(),
-                                    dropdownColor: Colors.white,
-                                    isExpanded: true,
-                                    value: pay.province,
-                                    hint: const Text('Select Province',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Sora',
-                                            fontWeight: FontWeight.w400,
-                                            color: Color.fromRGBO(
-                                                65, 61, 75, 0.6))),
-                                    icon: const InkWell(
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: Colors.black45,
-                                      ),
-                                    ),
-                                    items: pay.provinceList.map((item) {
-                                      return DropdownMenuItem(
-                                        value: item["name"].toString(),
-                                        child: Text(item["name"].toString(),
-                                            style: const TextStyle(
-                                                color: Color(0Xff413D4B),
-                                                fontSize: 14)),
-                                      );
-                                    }).toList(),
-                                    onChanged: (var newValue) {
-                                      setState(() {
-                                        pay.province = newValue;
-                                      });
-                                    },
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            children: [
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  margin:
-                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  child: const Text(
-                                    'Select City *',
-                                    style: TextStyle(
-                                        fontFamily: 'Sora',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              const SizedBox(height: 5),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                width: MediaQuery.of(context).size.width / 1.1,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 0),
-                                  child: DropdownButtonFormField(
-                                    decoration: Styles.dropdownDecoration(),
-                                    dropdownColor: Colors.white,
-                                    isExpanded: true,
-                                    value: pay.city,
-                                    hint: const Text('Select City',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: 'Sora',
-                                            fontWeight: FontWeight.w400,
-                                            color: Color.fromRGBO(
-                                                65, 61, 75, 0.6))),
-                                    icon: const InkWell(
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: Colors.black45,
-                                      ),
-                                    ),
-                                    items: pay.cityList.map((item) {
-                                      return DropdownMenuItem(
-                                        value: item["name"].toString(),
-                                        child: Text(item["name"].toString(),
-                                            style: const TextStyle(
-                                                color: Color(0Xff413D4B),
-                                                fontSize: 14)),
-                                      );
-                                    }).toList(),
-                                    onChanged: (var newValue) {
-                                      setState(() {
-                                        pay.city = newValue;
-                                      });
-                                    },
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          MyCustomInputBox(
-                            label: "Postal Code *",
-                            controller: pay.postalCode,
-                            obsecureText: false,
-                            textInputType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            inputDecoration:
-                                Styles.textFiledDecoration(hint: "Postal Code"),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                          MyCustomInputBox(
-                            label: "Start Date *",
-                            controller: pay.startDate,
-                            obsecureText: false,
-                            read: true,
-                            textInputType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            inputDecoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      datePickerForDate("Start");
-                                    },
-                                    icon: Icon(Icons.date_range)),
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                hintText: "dd-MM-YYY",
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                          MyCustomInputBox(
-                            label: "End Date *",
-                            controller: pay.endDate,
-                            obsecureText: false,
-                            read: true,
-                            textInputType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            inputDecoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      datePickerForDate("End");
-                                    },
-                                    icon: Icon(Icons.date_range)),
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                hintText: "dd-MM-YYY",
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color(0xFFE5E5E5))),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                helperStyle: const TextStyle(
-                                    fontFamily: 'Sora', fontSize: 14),
-                                hintStyle: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Sora',
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-                MyCustomInputBox(
-                  label: "Invoice No *",
-                  controller: pay.invoiceNoCnl,
-                  obsecureText: false,
-                  textInputType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  textInputAction: TextInputAction.next,
-                  inputDecoration:
-                      Styles.textFiledDecoration(hint: "Invoice No"),
-                  enabled: true,
-                ),
-                const SizedBox(height: 10),
-                filePickWidget(),
-                const SizedBox(height: 10),
-                if (!Responsive.isMobile(context)) firstButtonNext()
-              ]);
+        ;
   }
 
   datePickerForDate(String type) async {

@@ -38,29 +38,31 @@ class _StepperWebState extends State<StepperWeb> {
       setState(() {
         _currentProgress = _decideProgress(
             int.parse(pageController!.page?.floor().toString() ?? "0"));
+            
       });
     });
   }
 
   int _decideProgress(int progress) {
     switch (progress) {
-      case 1:
-        progress = 1;
+      case 0:
+        progress = 0;
         break;
 
+      case 1:
       case 2:
       case 3:
       case 4:
-      case 5:
-        progress = 2;
+        
+        progress = 1;
         break;
+      case 5:
       case 6:
       case 7:
       case 8:
       case 9:
       case 10:
-      case 11:
-        progress = 3;
+        progress = 2;
         break;
       default:
         return progress = 0;
