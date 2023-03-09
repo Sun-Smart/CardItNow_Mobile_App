@@ -127,7 +127,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                             width: 150, height: 90),
                         SizedBox(height: 15),
                         Text(
-                          '"Make your life Easy"',
+                          '"Make your life simple"',
                           style: TextStyle(
                               letterSpacing: 1,
                               fontSize: 16,

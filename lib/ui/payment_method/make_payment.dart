@@ -20,6 +20,7 @@ class MakePaymentPage extends StatefulWidget {
 }
 
 class _MakePaymentPageState extends State<MakePaymentPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +88,7 @@ class _MakePaymentPageState extends State<MakePaymentPage> {
             SizedBox(height: 30),
             selectcardweb(context, () {
               Get.to( AddCreditCardPage(
+                pages: "page routing",
                   cardflow: "Regflow",
               ));
             }, 'Use Credit Card',

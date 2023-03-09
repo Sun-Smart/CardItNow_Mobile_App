@@ -63,7 +63,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                             Image.asset("assets/logoweb.png",
                                 width: 140, height: 75),
                                 SizedBox(height: 15),
-                                  Text('"Make your life Easy"',
+                                  Text('"Make your life simple"',
                   style: TextStyle(
                     letterSpacing: 1,
                   fontSize: 16, color: Colors.white,
@@ -121,7 +121,7 @@ class _UpdatePasswordCodeState extends State<UpdatePasswordCode> {
                             Image.asset("assets/logoweb.png",
                                 width: 140, height: 75),
                                 SizedBox(height: 15),
-                                  Text('"Make your life Easy"',
+                                  Text('"Make your life simple"',
                   style: TextStyle(
                     letterSpacing: 1,
                   fontSize: 16, color: Colors.white,
