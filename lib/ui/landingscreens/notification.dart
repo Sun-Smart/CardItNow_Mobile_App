@@ -18,7 +18,7 @@ class _NotificationsState extends State<Notifications> {
 
   @override
   void initState() {
-    reg.notificationListAPI();
+   // reg.notificationListAPI();
     super.initState();
   }
 

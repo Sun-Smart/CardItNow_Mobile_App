@@ -131,7 +131,7 @@ class RegisterAPI extends GetxController with BaseController {
       invoicegetmethod();
       pay.transactionListAPI();
       barcharshowing();
-      notificationListAPI();
+      // notificationListAPI();
       pay.getlgu();
     }
     super.onInit();
