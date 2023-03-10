@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 class API {
-
   String baseURL = "https://demo.herbie.ai/CardItNowAPI/carditnowapi/";
   // String baseURL = "https://10.0.2.2:5001/carditnowapi/";
 
@@ -59,10 +58,10 @@ class API {
 
   //Securitypost
 
-  String securitypost = "customersecurityquestion/insertcustomerallsecurityquestions";
+  String securitypost =
+      "customersecurityquestion/insertcustomerallsecurityquestions";
   String securitydetails = "customersecurityquestion/customerquestiondetail/";
   String securityanswers = "customersecurityquestion/securityquestionscheck";
-
 
   //privacy clause
   String privacyclausecontent = "common/GetPrivacyclause";
@@ -81,11 +80,11 @@ class API {
   String lguPaymentDetails = "transactionmaster/Post_billamountcalculation";
   String lguPayment = "transactionmaster/Post_transactionmaster";
 
-
   //dashboardapis
-String  recentransaction = "common/dashboard_allrecenttransaction";
-String barchartviewapi = "common/dashboard_moneyspenddetails";
-String  notification = "";
+  String recentransaction = "common/dashboard_allrecenttransaction";
+  String barchartviewapi = "common/dashboard_moneyspenddetails";
+  String notification = "";
 
-String getlgucustomers = "common/GetLGUcustomers";
+  String getlgucustomers = "common/GetLGUcustomers";
+  String mypayees = "/carditnowapi/payerpayeeprivate/GetpayeeList/";
 }

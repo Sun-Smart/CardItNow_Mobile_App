@@ -52,7 +52,9 @@ class RegisterAPI extends GetxController with BaseController {
 
   // geoaccess
   var geoacclist;
+  //existing payee
 
+  var existingpayee = [];
   var drawercountry = "CM".obs;
 
   var documenttypelist = [];
@@ -892,6 +894,7 @@ class RegisterAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
+    existingpayee= data;
   }
 
   // barchart

@@ -1,9 +1,11 @@
 import 'package:cardit/ui/dashboard/paynow_menu/dashboard_payment_screen.dart';
 import 'package:cardit/ui/landingscreens/payments_details_screen.dart';
+import 'package:cardit/ui/onboard_screen/onboard-seller-apply_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../api/regster_api.dart';
 import '../../const/responsive.dart';
 import '../../themes/theme_notifier.dart';
 import '../../widgets/bottom_navbar.dart';
@@ -35,6 +37,7 @@ class PaymentsState extends State<Payments>
     'weekly',
   ];
   String? dropdownvalue;
+  final RegisterAPI reg= Get.put(RegisterAPI());
   @override
   void initState() {
     super.initState();
@@ -361,7 +364,9 @@ class PaymentsState extends State<Payments>
                   "My payee",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: Color(0XFF041316), fontSize: 18, fontFamily: "Sora"),
+                      color: Color(0XFF041316),
+                      fontSize: 18,
+                      fontFamily: "Sora"),
                 ),
               ],
             ),
@@ -695,6 +700,44 @@ class PaymentsState extends State<Payments>
   Widget buildpayee() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final items = <Widget>[];
+    for (var i = 0; i < reg.existingpayee.length; i++) {
+      items.add(
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+          padding: EdgeInsets.all(8),
+          child: InkWell(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      "",
+                      //regpayeelist.existingpayee.,
+                      fit: BoxFit.cover,
+                      width: 36,
+                      height: 36,
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(reg.existingpayee[i],
+                    style: TextStyle(
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : Color(0XFF000000),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+            onTap: () {
+              Get.to(OnboardSellerApply());
+            },
+          ),
+        ),
+      );
+    }
 
     items.add(Container(
       // margin: EdgeInsets.fromLTRB(0, 10, 20, 10),
@@ -703,9 +746,7 @@ class PaymentsState extends State<Payments>
         onTap: () {
           Get.to(NewPayment());
         },
-        child: Column(
-        
-          children: [
+        child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -732,12 +773,13 @@ class PaymentsState extends State<Payments>
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-           width: 5,
-          ),
+                width: 5,
+              ),
               Text('Add',
                   style: TextStyle(
-                      color:
-                          themeChange.darkTheme ? Colors.white : Color(0XFF000000),
+                      color: themeChange.darkTheme
+                          ? Colors.white
+                          : Color(0XFF000000),
                       fontFamily: "Sora",
                       fontSize: 12,
                       fontWeight: FontWeight.w400)),

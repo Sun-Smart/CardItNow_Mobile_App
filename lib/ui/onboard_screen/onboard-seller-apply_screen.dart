@@ -35,8 +35,8 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                         child: AppBar(
                           leading: IconButton(
                             onPressed: () {
-                              // Get.to( const PaymentLoading());
-                              // Navigator.pop(context);
+                              //Get.to( const PaymentLoading());
+                              Navigator.pop(context);
                             },
                             icon: const Icon(Icons.close),
                             color: themeChange.darkTheme
@@ -101,7 +101,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/notesimg.png',
+                          'assets/payeeloading.png',
                           fit: BoxFit.cover,
                           height: 80,
                           width: 80,
@@ -110,35 +110,28 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                           height: 20,
                         ),
                         Text(
-                          'Congratulations ! ',
+                          "You Don't have any Payment",
                           style: TextStyle(
                               color: themeChange.darkTheme
                                   ? Colors.white
-                                  : Color(0xff016F7E),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
+                                  : Color(0xffCEE812),
+                              fontSize: 14,
+                              fontFamily: "Sora",
+                              fontWeight: FontWeight.w800),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'We have verified the Recipient.',
-                          style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Color(0xff413D4B),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'You can now initiate payments.',
-                          style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Color(0xff413D4B),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
+                              "Press on start new payment to get started",
+                              style: TextStyle(
+                                  color: themeChange.darkTheme
+                                      ? Colors.white
+                                      : Color(0xff413D4B),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                       
                       ],
                     ),
                   )
@@ -216,7 +209,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                               height: 150,
                             ),
                             Image.asset(
-                              'assets/notesimg.png',
+                              'assets/payeeloading.png',
                               fit: BoxFit.cover,
                               height: 80,
                               width: 80,
@@ -225,7 +218,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                               height: 20,
                             ),
                             Text(
-                              'Congratulations ! ',
+                               "Press on start new payment to get started",
                               style: TextStyle(
                                   color: themeChange.darkTheme
                                       ? Colors.white
@@ -237,7 +230,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                               height: 10,
                             ),
                             Text(
-                              'We have verified the Recipient.',
+                              "Press on start new payment to get started",
                               style: TextStyle(
                                   color: themeChange.darkTheme
                                       ? Colors.white
@@ -259,8 +252,8 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.to(LoanAmount());
-                                // showAlertDialog(context);
+                                // Get.to(LoanAmount());
+                               //  showAlertDialog(context);
                                 // con.invoicegetmethod();
                                 // Get.to(AmountPay());
                               },
@@ -298,7 +291,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
           color: HexColor('#CEE812'), borderRadius: BorderRadius.circular(5)),
       onTap: () {
       
-        Get.to(LoanAmount());
+       // Get.to(LoanAmount());
       },
       text: "Start New Payment",
     );
