@@ -1483,6 +1483,20 @@ class _NewPaymentState extends State<NewPayment> {
                             enabled: true,
                           ),
                           const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "Invoice No *",
+                            controller: pay.invoiceNoCnl,
+                            obsecureText: false,
+                            textInputType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            textInputAction: TextInputAction.next,
+                            inputDecoration:
+                            Styles.textFiledDecoration(hint: "Invoice No"),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
                         ],
                       )
                     : Column(
@@ -1708,20 +1722,6 @@ class _NewPaymentState extends State<NewPayment> {
                                     fontFamily: 'Sora',
                                     fontWeight: FontWeight.w400,
                                     color: Color.fromRGBO(65, 61, 75, 0.6))),
-                            enabled: true,
-                          ),
-                          const SizedBox(height: 10),
-                          MyCustomInputBox(
-                            label: "Invoice No *",
-                            controller: pay.invoiceNoCnl,
-                            obsecureText: false,
-                            textInputType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            textInputAction: TextInputAction.next,
-                            inputDecoration:
-                            Styles.textFiledDecoration(hint: "Invoice No"),
                             enabled: true,
                           ),
                           const SizedBox(height: 10),
