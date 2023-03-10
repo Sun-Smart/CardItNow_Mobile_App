@@ -1711,22 +1711,22 @@ class _NewPaymentState extends State<NewPayment> {
                             enabled: true,
                           ),
                           const SizedBox(height: 10),
+                          MyCustomInputBox(
+                            label: "Invoice No *",
+                            controller: pay.invoiceNoCnl,
+                            obsecureText: false,
+                            textInputType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            textInputAction: TextInputAction.next,
+                            inputDecoration:
+                            Styles.textFiledDecoration(hint: "Invoice No"),
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 10),
                         ],
                       ),
-                MyCustomInputBox(
-                  label: "Invoice No *",
-                  controller: pay.invoiceNoCnl,
-                  obsecureText: false,
-                  textInputType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  textInputAction: TextInputAction.next,
-                  inputDecoration:
-                      Styles.textFiledDecoration(hint: "Invoice No"),
-                  enabled: true,
-                ),
-                const SizedBox(height: 10),
                 filePickWidget(),
                 const SizedBox(height: 10),
                 if (!Responsive.isMobile(context)) firstButtonNext()
@@ -1920,6 +1920,39 @@ class _NewPaymentState extends State<NewPayment> {
                                       fontFamily: 'Sora',
                                       fontWeight: FontWeight.w400,
                                       color: Color.fromRGBO(65, 61, 75, 0.6))),
+                              enabled: true,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              SizedBox(
+                                  width: Responsive.isDesktop(context)
+                                      ? MediaQuery.of(context).size.width / 4.8
+                                      : MediaQuery.of(context).size.width / 10),
+                              const Text(
+                                "Invoice No *",
+                                style: TextStyle(
+                                    fontFamily: 'Sora',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            width: Responsive.isDesktop(context)
+                                ? MediaQuery.of(context).size.width / 4
+                                : MediaQuery.of(context).size.width / 2.5,
+                            child: TextFormField(
+                              //  label: "Invoice No *",
+                              controller: pay.invoiceNoCnl,
+                              obscureText: false,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              textInputAction: TextInputAction.next,
+                              decoration: Styles.textFiledDecoration(hint: "Invoice No"),
                               enabled: true,
                             ),
                           ),
@@ -2283,39 +2316,7 @@ class _NewPaymentState extends State<NewPayment> {
                           const SizedBox(height: 10),
                         ],
                       ),
-                Row(
-                  children: [
-                    SizedBox(
-                        width: Responsive.isDesktop(context)
-                            ? MediaQuery.of(context).size.width / 4.8
-                            : MediaQuery.of(context).size.width / 10),
-                    const Text(
-                      "Invoice No *",
-                      style: TextStyle(
-                          fontFamily: 'Sora',
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: Responsive.isDesktop(context)
-                      ? MediaQuery.of(context).size.width / 4
-                      : MediaQuery.of(context).size.width / 2.5,
-                  child: TextFormField(
-                    //  label: "Invoice No *",
-                    controller: pay.invoiceNoCnl,
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    textInputAction: TextInputAction.next,
-                    decoration: Styles.textFiledDecoration(hint: "Invoice No"),
-                    enabled: true,
-                  ),
-                ),
-                const SizedBox(height: 10),
+
                 filePickWidget(),
                 const SizedBox(height: 10),
                 if (!Responsive.isMobile(context)) firstButtonNext()
@@ -2529,7 +2530,7 @@ class _NewPaymentState extends State<NewPayment> {
       Fluttertoast.showToast(msg: "Please Select Purpose");
     } else if (pay.lguProvince == null) {
       Fluttertoast.showToast(msg: "Please Select Province");
-    } else if (pay.invoiceNoCnl.text.isEmpty) {
+    } else if (pay.invoiceNoCnl.text.isEmpty && houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Enter Invoice");
     } else if (pay.invoiceDateCnl.text.isEmpty && houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Enter Invoice Date");
