@@ -433,7 +433,7 @@ hideLoading();
     }
   }
 
- // processocr
+ // processocr for web
   void ocrdocument() async {
     Get.to(Registerloading());
     var body = {"livestockphoto": scandocs};
