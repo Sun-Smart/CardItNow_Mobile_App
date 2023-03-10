@@ -72,7 +72,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: widget.paymentType == "LGU" ? lguPayeeWidget() :newPayeeWidget(),
+          child: widget.paymentType == "LGU" ? lguPayeeWidget() :widget.paymentType == "House" ? housePayeeWidget() : newPayeeWidget(),
         ),
       )
           : Row(
@@ -116,7 +116,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                         ),
                       ],
                     ),
-                    widget.paymentType == "LGU" ? lguPayeeWidget() :newPayeeWidget(),
+                    widget.paymentType == "LGU" ? lguPayeeWidget() : widget.paymentType == "House" ? housePayeeWidget() : newPayeeWidget(),
                    ],
                 ),
               ),
