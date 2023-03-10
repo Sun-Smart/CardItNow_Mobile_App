@@ -148,15 +148,30 @@ class _PayeeLoadingState extends State<PayeeLoading> {
               ),
             ):Row(
                 children: [
-                  Container(
+                Container(
                     width: MediaQuery.of(context).size.width / 3,
-                    // height: MediaQuery.of(context).size.height / 1,
+                    height: MediaQuery.of(context).size.width / 1,
                     color: Color(0XFF004751),
                     child: Center(
-                        child: Image.asset("assets/applogo-02.png",
-                            width: MediaQuery.of(context).size.width / 1.5,
-                            height: MediaQuery.of(context).size.height / 3)),
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/logoweb.png",
+                            width: 150, height: 90),
+                        SizedBox(height: 15),
+                        Text(
+                          '"Make your life simple"',
+                          style: TextStyle(
+                              letterSpacing: 1,
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'sora'),
+                        ),
+                      ],
+                    )),
                   ),
+         
                   Container(
                       width: MediaQuery.of(context).size.width / 1.5,
                       height: MediaQuery.of(context).size.height / 1,
