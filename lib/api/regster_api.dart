@@ -104,10 +104,9 @@ class RegisterAPI extends GetxController with BaseController {
   var notificationList = [].obs;
 
   //payee search
-  var payeeSearchList = [{
-    "name":"raj",
-    "email": "@gmail.com"
-  }].obs;
+  var payeeSearchList = [
+    {"name": "raj", "email": "@gmail.com"}
+  ].obs;
   TextEditingController payeeSearchCnl = TextEditingController();
 
   bool pass = false;
@@ -157,7 +156,7 @@ class RegisterAPI extends GetxController with BaseController {
         await BaseClient().post(API().register, body).catchError(handleError);
     //hideLoading();
     if (response == null) return;
-hideLoading();
+    hideLoading();
     var data1 = json.decode(response);
     if (data1 != "Your account already register") {
       var data = json.decode(data1);
@@ -220,16 +219,16 @@ hideLoading();
     var data = json.decode(data1);
     if (data["status"] == "success") {
       GetStorage().write("custid", data["customerid"]);
-        if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }else{
-            Get.off(Passcode());
-        }
-    
+      if (size.width >= 1100) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.off(Passcode());
+      }
+
       Fluttertoast.showToast(msg: data["message"].toString());
     } else {
       Fluttertoast.showToast(msg: data["message"].toString());
@@ -255,7 +254,7 @@ hideLoading();
 
     if (data != "Fail" && data != "not match") {
       if (data == "success") {
-       if (size.width >= 1100) {
+        if (size.width >= 1100) {
           pageController!.nextPage(
               duration: Duration(milliseconds: 200), curve: Curves.linear);
         } else if (size.width < 1100 && size.width >= 650) {
@@ -291,16 +290,16 @@ hideLoading();
     if (data == "Success") {
       if (size.width >= 1100) {
         Get.to(Login());
-          // pageController!.nextPage(
-          //     duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          Get.to(Login());
-          // pageController!.nextPage(
-          //     duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }else{
-          Get.to(Login());
-        }
-     
+        // pageController!.nextPage(
+        //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        Get.to(Login());
+        // pageController!.nextPage(
+        //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        Get.to(Login());
+      }
+
       Fluttertoast.showToast(msg: data.toString());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -328,13 +327,13 @@ hideLoading();
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == 'success') {
-     if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else {
+      if (size.width >= 1100) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
         Get.off(SecurityQuestion());
       }
     } else {
@@ -377,18 +376,18 @@ hideLoading();
                 pin,
             body)
         .catchError(handleError);
-        hideLoading();
+    hideLoading();
     if (response == null) return;
     var data1 = json.decode(response);
     var data = json.decode(data1);
     if (data["status"] == "success") {
-     if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }  else {
+      if (size.width >= 1100) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
         Get.off(() => passcodecongrats());
       }
 
@@ -433,7 +432,7 @@ hideLoading();
     }
   }
 
- // processocr for web
+  // processocr for web
   void ocrdocument() async {
     Get.to(Registerloading());
     var body = {"livestockphoto": scandocs};
@@ -443,16 +442,16 @@ hideLoading();
     Get.back();
     if (response == null) return;
     var data = json.decode(response);
-  
+
     if (data != null) {
       profileinfo.value = data;
       if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      }
       // Get.to(AvatarPageView());
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -475,26 +474,26 @@ hideLoading();
     var data1 = json.decode(response);
     var data = jsonDecode(data1);
     if (response == null) return;
-   if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }  else {
+    if (size.width >= 1100) {
+      pageController!.nextPage(
+          duration: Duration(milliseconds: 200), curve: Curves.linear);
+    } else if (size.width < 1100 && size.width >= 650) {
+      pageController!.nextPage(
+          duration: Duration(milliseconds: 200), curve: Curves.linear);
+    } else {
       Get.off(AvatarPageView());
     }
     //await Get.to(AvatarPageView());
     if (data["status"] == "success") {
-       if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } 
+      if (size.width >= 1100) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+        pageController!.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
+      }
       // Get.to(AvatarPageView());
-    else {
+      else {
         Get.off(AvatarPageView());
       }
 
@@ -866,13 +865,10 @@ hideLoading();
     privacycontent.value = data["privacypolicy"];
   }
 
-
   void notificationListAPI() async {
-    var body = {
-            "customerid":MyApp.logindetails["userid"]
-              };
+    var body = {"customerid": MyApp.logindetails["userid"]};
     var response = await BaseClient()
-        .post(API().notification,body)
+        .post(API().notification, body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
@@ -880,36 +876,42 @@ hideLoading();
   }
 
   void payeeSearchListAPI() async {
-    var body = {
-      "customerid":MyApp.logindetails["userid"]
-    };
+    var body = {"customerid": MyApp.logindetails["userid"]};
     var response = await BaseClient()
-        .post(API().notification,body)
+        .post(API().notification, body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     payeeSearchList.value = data;
   }
 
+  //mypayee
+  void payeelist() async {
+    var response = await BaseClient()
+        .get(API().mypayees + MyApp.logindetails["userid"])
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+  }
+
   // barchart
   void barcharshowing() async {
-
-    var body ={
-      "customerid":MyApp.logindetails["userid"]
-    };
+    var body = {"customerid": MyApp.logindetails["userid"]};
     var response = await BaseClient()
-        .post(API().barchartviewapi,body)
+        .post(API().barchartviewapi, body)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
 
     var barlistvalue = data ?? [];
     barlist.clear();
-    for(int i = 0; i < barlistvalue.length; i++){
-      barlist.add(SalesData(barlistvalue[i]["monthname"], double.parse(barlistvalue[i]["moneyd"].toString()), Color(0Xff004751)));
+    for (int i = 0; i < barlistvalue.length; i++) {
+      barlist.add(SalesData(
+          barlistvalue[i]["monthname"],
+          double.parse(barlistvalue[i]["moneyd"].toString()),
+          Color(0Xff004751)));
     }
   }
-
 }
 
 Future<void> readJson() async {
@@ -921,7 +923,6 @@ Future<void> readJson() async {
   mocktermscond.clear();
   mocktermscond = data;
 }
-
 
 class SalesData {
   SalesData(this.year, this.sales, this.color);
