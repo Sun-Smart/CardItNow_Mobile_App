@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:cardit/api/regster_api.dart';
+import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/ui/landingscreens/dashbord_screen.dart';
 import 'package:cardit/widgets/drawer_web.dart';
 import 'package:flutter/foundation.dart';
@@ -15,7 +16,6 @@ import '../ui/payment_method/recievermethodscreens/credit_prepaid_screen.dart';
 import '../ui/register/verify_userid_screen.dart';
 
 class LoginAPI extends GetxController with BaseController {
-  final emailController = TextEditingController();
 
 
   //loginApi
@@ -37,6 +37,12 @@ class LoginAPI extends GetxController with BaseController {
       if(MyApp.logindetails["status"] == "A"){
         Get.offAll(kIsWeb?DrawerWeb():MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen());
       } else{
+         RegisterAPI con1 = Get.find();
+         con1.emailController.text = email;
+         if(con1.pickcountry.isNotEmpty){
+           RegisterAPI.dropdownvalue = con1.pickcountry.where((element) => element["geoid"].toString() == MyApp.logindetails["geoid"]).first;
+         }
+         GetStorage().write("custid", MyApp.logindetails["userid"].toString());
         Get.to(VerifyUserId());
       }
     } else {

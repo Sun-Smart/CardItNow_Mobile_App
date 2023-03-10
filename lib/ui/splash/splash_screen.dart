@@ -61,6 +61,12 @@ class StartState extends State<SplashScreens> {
             options: const AuthenticationOptions(biometricOnly: true));
         if (didAuthenticate) {
           await authcon.getLoginToken();
+          final RegisterAPI con = Get.find();
+          con.emailController.text = MyApp.logindetails["email"][0].toString();
+          if(con.pickcountry.isNotEmpty){
+            RegisterAPI.dropdownvalue = con.pickcountry.where((element) => element["geoid"].toString() == MyApp.logindetails["geoid"]).first;
+          }
+          GetStorage().write("custid", MyApp.logindetails["userid"].toString());
           Get.offAll(()=>MyApp.logindetails["status"] == "A"?
         MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen():
           VerifyUserId());
@@ -72,6 +78,12 @@ class StartState extends State<SplashScreens> {
       }
     } else {
       await authcon.getLoginToken();
+      final RegisterAPI con = Get.find();
+      con.emailController.text = MyApp.logindetails["email"][0].toString();
+      if(con.pickcountry.isNotEmpty){
+        RegisterAPI.dropdownvalue = con.pickcountry.where((element) => element["geoid"].toString() == MyApp.logindetails["geoid"]).first;
+      }
+      GetStorage().write("custid", MyApp.logindetails["userid"].toString());
       Get.offAll(()=>MyApp.logindetails["status"] == "A"?
       MyApp.logindetails["customertype"] == "I" ? DashbordScreen() : CreditPrepaidScreen():
       VerifyUserId());
