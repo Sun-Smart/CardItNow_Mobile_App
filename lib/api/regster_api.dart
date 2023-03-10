@@ -433,31 +433,31 @@ hideLoading();
     }
   }
 
-  //processocr
-  // void ocrdocument() async {
-  //   Get.to(Registerloading());
-  //   var body = {"livestockphoto": scandocs};
-  //   log(scandocs);
-  //   var response =
-  //       await BaseClient().post(API().processocr, body).catchError(handleError);
-  //   Get.back();
-  //   if (response == null) return;
-  //   var data = json.decode(response);
-  //
-  //   if (data != null) {
-  //     profileinfo.value = data;
-  //     if (size.width >= 1100) {
-  //         pageController!.nextPage(
-  //             duration: Duration(milliseconds: 200), curve: Curves.linear);
-  //       } else if (size.width < 1100 && size.width >= 650) {
-  //         pageController!.nextPage(
-  //             duration: Duration(milliseconds: 200), curve: Curves.linear);
-  //       }
-  //     // Get.to(AvatarPageView());
-  //   } else {
-  //     Fluttertoast.showToast(msg: data.toString());
-  //   }
-  // }
+ // processocr
+  void ocrdocument() async {
+    Get.to(Registerloading());
+    var body = {"livestockphoto": scandocs};
+    log(scandocs);
+    var response =
+        await BaseClient().post(API().processocr, body).catchError(handleError);
+    Get.back();
+    if (response == null) return;
+    var data = json.decode(response);
+  
+    if (data != null) {
+      profileinfo.value = data;
+      if (size.width >= 1100) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        } else if (size.width < 1100 && size.width >= 650) {
+          pageController!.nextPage(
+              duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }
+      // Get.to(AvatarPageView());
+    } else {
+      Fluttertoast.showToast(msg: data.toString());
+    }
+  }
 
   void uploadDocx(email, docid) async {
     Get.to(Registerloading());

@@ -137,7 +137,7 @@ class PaymentsState extends State<Payments>
             :  Responsive.isDesktop(context)?Row(
                 children: [
                   Container(
-                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.5:
+                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 1.5:
                     MediaQuery.of(context).size.width / 2.6,
                     //height: MediaQuery.of(context).size.width / 1,
                     child: SingleChildScrollView(
@@ -147,7 +147,7 @@ class PaymentsState extends State<Payments>
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "Payments",
@@ -158,10 +158,11 @@ class PaymentsState extends State<Payments>
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(width: 60,),
                               Container(
                                 margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
                                 width: 100,
-                                height: MediaQuery.of(context).size.height / 15,
+                                //height: MediaQuery.of(context).size.height / 15,
                                 decoration: BoxDecoration(
                                     //border: Border.all(color: Color(0XffB7C5C7), width: 1.5),
                                     //borderRadius: const BorderRadius.all(Radius.circular(3)))
@@ -223,17 +224,17 @@ class PaymentsState extends State<Payments>
                       ],
                     )),
                   ),
-                  paymenttab == '/paymentsdetails'
-                      ? Container(
-                          width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.2:
-                          MediaQuery.of(context).size.width / 2.5,
-                          child: PaymentsDetails())
-                      : Container()
+                  // paymenttab == '/paymentsdetails'
+                  //     ? Container(
+                  //         width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width / 2.2:
+                  //         MediaQuery.of(context).size.width / 2.5,
+                  //         child: PaymentsDetails())
+                  //     : Container()
                 ],
               ):Row(
                 children: [
                   Container(
-                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3.5:
+                    width:Responsive.isDesktop(context)? MediaQuery.of(context).size.width / 3:
                     MediaQuery.of(context).size.width / 1.5,
                     //height: MediaQuery.of(context).size.width / 1,
                     child: SingleChildScrollView(
@@ -379,7 +380,7 @@ class PaymentsState extends State<Payments>
   }
 
   Widget buildPayChart() {
-    return Container(
+    return  Responsive.isMobile(context)?Container(
         decoration: const BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           image: DecorationImage(
@@ -435,6 +436,90 @@ class PaymentsState extends State<Payments>
                 ],
               ),
               Container(
+                padding: EdgeInsets.all(10),
+                child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    // Chart title
+                    //title: ChartTitle(text: 'Half yearly sales analysis'),
+                    // Enable legend
+                    //legend: Legend(isVisible: true),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_SalesData, String>>[
+                      ColumnSeries<_SalesData, String>(
+                          dataSource: data,
+                          yValueMapper: (_SalesData sales, _) => sales.sales,
+                          xValueMapper: (_SalesData sales, _) => sales.year,
+                          name: 'Sales',
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(
+                              isVisible: true, color: Color(0Xff026C7A)),
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          trackColor: Colors.grey,
+                          borderColor: Color(0X00F6FBFF),
+                          pointColorMapper: (_SalesData data, _) => data.color)
+                    ]),
+              ),
+            ],
+          ),
+        )):Container(
+          width: 500,
+        decoration: const BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          image: DecorationImage(
+            image: AssetImage("assets/dashbordpg.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Color(0Xff000000),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          margin: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Text(
+                          "₱ 0.00",
+                          style:
+                              TextStyle(color: Color(0XFFCEE812), fontSize: 24),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.arrow_upward,
+                          color: Color(0XffCEE812),
+                          size: 35,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "0",
+                          style:
+                              TextStyle(color: Color(0XFFFFFFFF), fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.asset(
+                    "assets/piyimg.png",
+                    width: 16,
+                  )
+                ],
+              ),
+              Container(
+                width: 500,
                 padding: EdgeInsets.all(10),
                 child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
