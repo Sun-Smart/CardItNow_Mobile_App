@@ -125,6 +125,25 @@ class PaymentAPI extends GetxController with BaseController {
     lguProvinceList = data;
   }
 
+
+  void getHouseCustomerListAPI() async {
+    var response = await BaseClient()
+        .get(API().getHomeCustomer)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    housePayeeList = data;
+  }
+
+  void getHomePurposeListAPI() async {
+    var response = await BaseClient()
+        .get(API().getHomePurpose)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    housePurposeList = data;
+  }
+
   //newPayVerifyAPI
    newPaymentVerificationAPI(String type, var payee) async {
     showLoading();
@@ -375,22 +394,18 @@ class PaymentAPI extends GetxController with BaseController {
 
   housePaymentVerificationAPI(String type, var payee) async {
     showLoading();
-    var body = {
-      "customerid": MyApp.logindetails["userid"],
-      "payeeid": housePayee["name"],
-      "purpose": housePurpose["name"] == "Real property TAX" ? "P": "",
-      "invoiceno": invoiceNoCnl.text,
-      "invoicedate": invoiceDateCnl.text,
-      "city": city["name"],
-      "province": province["name"],
-      "addressno": addressNoCnl.text,
-      "streetname": streetNameCnl.text,
-      "startdate": startDate.text,
-      "enddate": endDate.text,
-      "postal": postalCode.text,
-    };
+    var body =
+      {
+        "customerid": MyApp.logindetails["userid"],
+        "recipientid":0,
+        "recipientuid":"",
+        "purpose":"P",
+        "province": province["name"],
+        "startdate": startDate.text,
+        "enddate": endDate.text
+      };
     var response = await BaseClient()
-        .post(API().lguPaymentVerify, body)
+        .post(API().housePaymentVerify, body)
         .catchError(handleError);
     hideLoading();
     if (response == null) return;
@@ -411,7 +426,7 @@ class PaymentAPI extends GetxController with BaseController {
         "uploadDoc": pickedFile
       };
       var response = await BaseClient()
-          .post(API().lguPaymentDocument, body)
+          .post(API().housePaymentDocument, body)
           .catchError(handleError);
       Get.back();
       if (response == null) {
@@ -430,30 +445,6 @@ class PaymentAPI extends GetxController with BaseController {
               "end": endDate.text
             }
           };
-          // var responce;
-          // responce = {
-          //   "KEYVALUE": {
-          //     "PIN": "003-19-003-07-004",
-          //     "Taxpayer": "NACION, FELIX & EDITHA SPS",
-          //     "Bill Date": "November 15, 2022",
-          //     "Declared Owner": " NACION, FELIX & EDITHA SPS",
-          //     "Location": "SAN BARTOLOME",
-          //     "BILL AMOUNT": "P 75.68",
-          //     "BAR CODE": "00319220022090"
-          //   },
-          //   "DOCNAME": "MUNICIPAL STATEMENT",
-          //   "TableResult": {
-          //     "statement summary": [
-          //       {
-          //         "A/V": "4,730.00",
-          //         "PERIOD": "2023",
-          //         "BASIC": "47.30",
-          //         "D/P1": "-9.46",
-          //         "TOTAL": "75.68"
-          //       }
-          //     ]
-          //   }
-          // };
 
           var dateList = responce["TableResult"]["statement summary"] ?? [];
           startYearList = dateList ?? [];
