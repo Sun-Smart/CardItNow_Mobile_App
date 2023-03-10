@@ -280,7 +280,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       padding: EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
-          Get.to(NewPayment());
+          Get.to(NewPayment(paymentType: "Pay",));
         },
         child: Column(children: [
           Container(

@@ -248,7 +248,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.paymentPurposeList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -303,7 +303,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.paymentSubPurposeList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -391,7 +391,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.provinceList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -446,7 +446,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.cityList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -561,7 +561,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.paymentPurposeList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -622,7 +622,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.paymentSubPurposeList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -716,7 +716,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.provinceList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -779,7 +779,7 @@ class _NewPaymentState extends State<NewPayment> {
                           ),
                           items: pay.cityList.map((item) {
                             return DropdownMenuItem(
-                              value: item["name"].toString(),
+                              value: item,
                               child: Text(item["name"].toString(),
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
@@ -1563,7 +1563,7 @@ class _NewPaymentState extends State<NewPayment> {
                                     ),
                                     items: pay.provinceList.map((item) {
                                       return DropdownMenuItem(
-                                        value: item["name"].toString(),
+                                        value: item,
                                         child: Text(item["name"].toString(),
                                             style: const TextStyle(
                                                 color: Color(0Xff413D4B),
@@ -1622,7 +1622,7 @@ class _NewPaymentState extends State<NewPayment> {
                                     ),
                                     items: pay.cityList.map((item) {
                                       return DropdownMenuItem(
-                                        value: item["name"].toString(),
+                                        value: item,
                                         child: Text(item["name"].toString(),
                                             style: const TextStyle(
                                                 color: Color(0Xff413D4B),
@@ -2076,7 +2076,7 @@ class _NewPaymentState extends State<NewPayment> {
                                     ),
                                     items: pay.provinceList.map((item) {
                                       return DropdownMenuItem(
-                                        value: item["name"].toString(),
+                                        value: item,
                                         child: Text(item["name"].toString(),
                                             style: const TextStyle(
                                                 color: Color(0Xff413D4B),
@@ -2142,7 +2142,7 @@ class _NewPaymentState extends State<NewPayment> {
                                     ),
                                     items: pay.cityList.map((item) {
                                       return DropdownMenuItem(
-                                        value: item["name"].toString(),
+                                        value: item,
                                         child: Text(item["name"].toString(),
                                             style: const TextStyle(
                                                 color: Color(0Xff413D4B),
@@ -2476,15 +2476,15 @@ class _NewPaymentState extends State<NewPayment> {
       Fluttertoast.showToast(msg: "Please Enter Postal Code");
     } else {
       if (!isVerify) {
-        pay
-            .newPaymentVerificationAPI(widget.paymentType, widget.payee)
-            .then((value) {
-          if (value == "Success") {
+        // pay
+        //     .newPaymentVerificationAPI(widget.paymentType, widget.payee)
+        //     .then((value) {
+        //   if (value == "Success") {
             setState(() {
               isVerify = true;
             });
-          }
-        });
+        //   }
+        // });
       } else {
         pay.newPaymentDocumentAPI(widget.paymentType, widget.payee);
       }

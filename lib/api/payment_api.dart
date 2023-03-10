@@ -18,13 +18,13 @@ import 'card_api.dart';
 
 class PaymentAPI extends GetxController with BaseController {
   CardAPI card = CardAPI();
-  var paymentPurposeList = [{"name":"Rent"}];
+  var paymentPurposeList = [{"id":"1", "name":"Rent"}];
   var paymentPurpose;
-  var paymentSubPurposeList = [{"name":"Monthly Rent"},{"name":"Advance Rent"},{"name":"Security Deposit"}];
+  var paymentSubPurposeList = [{"id":"1", "name":"Monthly Rent"},{"id":"2", "name":"Advance Rent"},{"id":"3", "name":"Security Deposit"}];
   var paymentSubPurpose;
-  var provinceList = [{"name":"Vellore"},]; // *
+  var provinceList = [{"id":"1", "name":"Vellore"},]; // *
   var province; // *
-  var cityList = [{"name":"Tirupattur"}]; // *
+  var cityList = [{"id":"1", "name":"Tirupattur"}]; // *
   var city; // *
   final propertyOwnerNameCnl = TextEditingController();
   final addressNoCnl = TextEditingController(); // *
@@ -43,7 +43,7 @@ class PaymentAPI extends GetxController with BaseController {
   final billAmountCnl = TextEditingController();
 
   //purpose details
-  var payeeTypeList = [{"name":"Property Owner"}, {"name":"Property Management Company"}];
+  var payeeTypeList = [{"id":"1", "name":"Property Owner"}, {"id":"2", "name":"Property Management Company"}];
   var payeeType;
   final payeeNameCnl = TextEditingController();
   final payeeEmailCnl = TextEditingController();
@@ -175,8 +175,8 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   void newPaymentDocumentAPI(String type, var payee) async {
-     if(pickedFile != null) {
-       Get.to(Registerloading());
+     // if(pickedFile != null) {
+     //   Get.to(Registerloading());
        var body = {
          "customerid": MyApp.logindetails["userid"],
          "purpose": paymentPurpose["name"],
@@ -191,22 +191,22 @@ class PaymentAPI extends GetxController with BaseController {
          "postal": postalCode.text,
          "file": pickedFile
        };
-       var response = await BaseClient()
-           .post(API().newPaymentDocument, body, isMultiPart: true)
-           .catchError(handleError);
-      Get.back();
-       if (response == null) return;
-       var data = json.decode(response);
-       if (data.toString() == "Success") {
+     //   var response = await BaseClient()
+     //       .post(API().newPaymentDocument, body, isMultiPart: true)
+     //       .catchError(handleError);
+     //  Get.back();
+     //   if (response == null) return;
+     //   var data = json.decode(response);
+     //   if (data.toString() == "Success") {
          Get.to(PurposeDetails(paymentType:type, payee: payee, purpose: body));
-       } else {
-         
-         Fluttertoast.showToast(msg: "This is an existing Relationship");
-       }
-     }
-      else{
-       Fluttertoast.showToast(msg: "Please Upload Document");
-     }
+     //   } else {
+     //
+     //     Fluttertoast.showToast(msg: "This is an existing Relationship");
+     //   }
+     // }
+     //  else{
+     //   Fluttertoast.showToast(msg: "Please Upload Document");
+     // }
   }
 
   //LGU Payee Verification
