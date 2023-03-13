@@ -195,18 +195,21 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-                child: widget.purpose["payee"]["defaultavatar"] != null
-                    ? widget.paymentType == "LGU"
-                    ? Image.asset("assets/logouser.png",
+                child: widget.paymentType == "LGU" ?
+                Image.asset("assets/logouser.png",
                   fit: BoxFit.cover,
                   width: 45.0,
                   height: 45.0,
-                ) : Image.network("${widget.purpose["payee"]["defaultavatar"]}",
+                ):
+                widget.paymentType == "House"
+               && widget.purpose["payee"]["defaultavatar"] != null
+                    ? Image.network("${widget.purpose["payee"]["defaultavatar"]}",
                   fit: BoxFit.cover,
                   width: 45.0,
                   height: 45.0,
-                )
-                    :Text(reg.getInitials("${widget.purpose["payee"]["firstname"]}"),
+                ) :Text(reg.getInitials(widget.paymentType == "House"
+                    ? "${widget.purpose["payee"]["firstname"]}"
+                : "${widget.purpose["owner"]}"),
                     style: TextStyle(
                         fontFamily: 'Sora',
                         fontWeight: FontWeight.bold,
@@ -216,7 +219,9 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             title: Text(
               widget.paymentType == "LGU"
               ? widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? ""
-              : widget.purpose["payee"]["firstname"],
+              : widget.paymentType == "House"
+              ? widget.purpose["payee"]["firstname"]
+              : widget.purpose["owner"],
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -244,28 +249,28 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: widget.purpose["payee"]["defaultavatar"] != null
-           ? widget.paymentType == "LGU"
-           ? Image.asset("assets/logouser.png",
-            fit: BoxFit.cover,
-            width: 45.0,
-            height: 45.0,
-            ) : Image.network("${widget.purpose["payee"]["defaultavatar"]}",
-              fit: BoxFit.cover,
-              width: 45.0,
-              height: 45.0,
-            )
-                :Text(reg.getInitials("${widget.purpose["payee"]["firstname"]}"),
-                style: TextStyle(
-                    fontFamily: 'Sora',
-                    fontWeight: FontWeight.bold,
-                    color: HexColor('#036D7B'),
-                    fontSize: 16))
+                child: widget.paymentType == "LGU" ?
+                Image.asset("assets/logouser.png",
+                  fit: BoxFit.cover,
+                  width: 45.0,
+                  height: 45.0,
+                ):
+                widget.paymentType == "House"
+                    && widget.purpose["payee"]["defaultavatar"] != null
+                    ? Image.network("${widget.purpose["payee"]["defaultavatar"]}",
+                  fit: BoxFit.cover,
+                  width: 45.0,
+                  height: 45.0,
+                ) :Text(reg.getInitials(widget.paymentType == "House"
+                    ? "${widget.purpose["payee"]["firstname"]}"
+                    : "${widget.purpose["owner"]}"))
             ),
             title: Text(
               widget.paymentType == "LGU"
                   ? widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? ""
-                  : widget.purpose["payee"]["firstname"],
+                  : widget.paymentType == "House"
+                  ? widget.purpose["payee"]["firstname"]
+                  : widget.purpose["owner"],
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -354,7 +359,9 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Text(
           widget.paymentType == "LGU"
     ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
-    : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
+    : widget.paymentType == "House"
+         ? 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+          : 'For ${widget.purpose["purpose"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -449,7 +456,10 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Text(
           widget.paymentType == "LGU"
               ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
-              : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
+              : widget.paymentType == "House"
+              ? 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+              : 'For ${widget.purpose["purpose"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
+
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -544,7 +554,10 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Text(
           widget.paymentType == "LGU"
               ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
-              : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
+              : widget.paymentType == "House"
+              ? 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+              : 'For ${widget.purpose["purpose"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
+
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,

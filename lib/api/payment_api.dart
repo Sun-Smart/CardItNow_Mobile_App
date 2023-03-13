@@ -242,10 +242,10 @@ class PaymentAPI extends GetxController with BaseController {
      //   Get.to(Registerloading());
        var body = {
          "customerid": MyApp.logindetails["userid"],
-         "purpose": paymentPurpose["name"],
-         "subpurpose": paymentSubPurpose["name"],
-         "province": province["name"],
-         "city": city["name"],
+         "purpose": paymentPurpose,
+         "subpurpose": paymentSubPurpose,
+         "province": province,
+         "city": city,
          "owner": propertyOwnerNameCnl.text,
          "addressno": addressNoCnl.text,
          "streetname": streetNameCnl.text,
@@ -271,6 +271,47 @@ class PaymentAPI extends GetxController with BaseController {
      //   Fluttertoast.showToast(msg: "Please Upload Document");
      // }
   }
+
+  payeePaymentDetailsAPI(String type, var payee, var purpose, var purposeRes, String billAmount) async {
+    showLoading();
+    var body = {
+      "billamount": billAmount,
+      "payeetype": payeeType,
+      "email": payeeEmailCnl.text,
+      "mobileno": payeeMobileCnl.text,
+      "bank": bankDetails,
+      "accountno": accountNoCnl.text,
+    "accounttype": accountType
+    };
+    var response = await BaseClient()
+        .post(API().housePaymentDetails, body)
+        .catchError(handleError);
+    hideLoading();
+    if (response == null) return;
+    // var dataValue = json.decode(response);
+    // var data = json.decode(dataValue);
+    var details = {
+      "billamount": billAmount,
+      "payeetype": payeeType,
+      "email": payeeEmailCnl.text,
+      "mobileno": payeeMobileCnl.text,
+      "bank": bankDetails,
+      "accountno": accountNoCnl.text,
+      "accounttype": accountType
+    };
+    var data = {
+      "paystatus":"paying",
+      "username": "Raj",
+      "profileurl": null,
+      "CC_totalamount":"$billAmount",
+      "CC_carditnowfee": "20",
+      "billamount":"200",
+      "feereason": "Some reason"
+    };
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: details, paymentResponse: data,));
+  }
+
+
 
   //LGU Payee Verification
   lguPaymentVerificationAPI(String type, var payee) async {

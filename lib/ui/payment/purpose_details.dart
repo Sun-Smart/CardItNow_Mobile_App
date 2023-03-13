@@ -41,6 +41,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
 
   @override
   void initState() {
+    con.banklistget();
     // TODO: implement initState
     super.initState();
     if(widget.paymentType == "LGU") {
@@ -372,7 +373,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
                           dropdownColor: Colors.white,
                           isExpanded: true,
                           value: pay.bankDetails,
-                          hint: const Text('Select User Id',
+                          hint: const Text('Select Bank',
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Sora',
@@ -895,7 +896,7 @@ SizedBox(height: 5,),
                           dropdownColor: Colors.white,
                           isExpanded: true,
                           value: pay.bankDetails,
-                          hint: const Text('Select User Id',
+                          hint: const Text('Select Bank',
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Sora',
@@ -2047,17 +2048,7 @@ SizedBox(
           }  else if (widget.paymentType == "House"){
             houseValidation();
         } else{
-            var boby ={
-              "name" : widget.purposeResponse["owner"],
-              "email" : pay.payeeEmailCnl.text,
-              "amount": pay.paymentController.text
-            };
-            Get.to(() => PayeeLoading(
-                  payee: boby,
-                  purpose: widget.purpose,
-                  purposeRes: widget.purposeResponse,
-                  paymentType: widget.paymentType,
-                ));
+          payeeValidation();
           }
         },
         text: "Confirm");
@@ -2083,6 +2074,27 @@ SizedBox(
       Fluttertoast.showToast(msg: "Please Enter Amount");
     } else{
       pay.housePaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, widget.purposeResponse , pay.paymentController.text);
+    }
+  }
+
+  payeeValidation(){
+    if(pay.payeeType == null){
+      Fluttertoast.showToast(msg: "Please Enter Payee Type");
+    } else if (pay.accountType == null) {
+      Fluttertoast.showToast(msg: "Please Enter Account Type");
+    }
+    else if (pay.accountNoCnl.text.isEmpty){
+      Fluttertoast.showToast(msg: "Please Enter Account NO");
+    } else if (pay.payeeEmailCnl.text.isEmpty){
+      Fluttertoast.showToast(msg: "Please Enter Email");
+    }
+    else if (pay.payeeMobileCnl.text.isEmpty){
+      Fluttertoast.showToast(msg: "Please Enter Mobile");
+    }
+    else if (pay.paymentController.text.isEmpty){
+      Fluttertoast.showToast(msg: "Please Enter Amount");
+    } else{
+      pay.payeePaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, widget.purposeResponse , pay.paymentController.text);
     }
   }
 
