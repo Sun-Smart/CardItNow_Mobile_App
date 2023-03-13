@@ -12,7 +12,6 @@ import '../base_client.dart';
 import '../main.dart';
 import '../ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import '../ui/loan_screen/payment_successful.dart';
-import '../ui/payment/payee_loading.dart';
 import '../ui/payment/purpose_details.dart';
 import '../ui/register/register_loading_screen.dart';
 import 'card_api.dart';
@@ -90,7 +89,41 @@ class PaymentAPI extends GetxController with BaseController {
     }
   ].obs;
   var houseClassification;
-  var housePayeeList = [].obs;
+  var housePayeeList = [
+    {
+      "customerid": 465,
+      "customerid": 465,
+      "mode": "I",
+      "uid": "P00000465",
+      "type": "R",
+      "firstname": "",
+      "lastname": "",
+      "email": "miracledhamu0703@gmail.com",
+      "mobile": "23423423",
+      "dob": "2005-01-01T00:00:00",
+      "customerinterests": null,
+      "defaultavatar": null,
+      "customerphoto": null,
+      "googleid": "4xKZn5zUOITvNtE8Ky5YeLCkL0F3",
+      "facebookid": "0",
+      "lasttermsaccepted": null,
+      "customfield": null,
+      "attachment": null,
+      "status": "A",
+      "deletionaccountrequestedon": null,
+      "autodeletedon": null,
+      "deleterevokedon": null,
+      "createddate": "2023-03-02T07:49:51.503",
+      "createdby": 1,
+      "updatedby": 0,
+      "updateddate": "2023-03-02T07:50:09.978",
+      "otp": "586844",
+      "password": "978978",
+      "tpin": "978978",
+      "nickname": "sdfsdf",
+      "customervisible": true
+    }
+  ].obs;
   var housePayee;
   var housePurposeList = [].obs;
   var housePurpose;
@@ -144,7 +177,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    housePayeeList.value = data["homerentcustomers"] ?? [];
+   // housePayeeList.value = data["homerentcustomers"] ?? [];
   }
 
   void getHomePurposeListAPI() async {
@@ -466,22 +499,53 @@ class PaymentAPI extends GetxController with BaseController {
           .post(API().housePaymentDocument, body)
           .catchError(handleError);
       Get.back();
-      if (response == null) {
-        Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
-      } else {
-        var data = json.decode(response);
-        if (data["status"] == "success") {
-          var jsonResponse = json.encode(data["data"]);
-          var responce1 = json.decode(jsonResponse);
-          var responce = json.decode(responce1);
-          var payee = {
-            "payee": province,
+      if (response == null) return;
+        // var data = json.decode(response);
+        // if (data["status"] == "success") {
+        //   var jsonResponse = json.encode(data["data"]);
+        //   var responce1 = json.decode(jsonResponse);
+        //   var responce = json.decode(responce1);
+          var house = {
+            "payee": housePayee,
             "purpose": housePurpose,
-            "date": {
-              "start": startDate.text,
-              "end": endDate.text
+            "house_no": addressNoCnl.text,
+            "street": streetNameCnl.text,
+            "province": province,
+            "city": city,
+            "postal_code": postalCode.text,
+            "start": startDate.text,
+            "end": endDate.text,
+            "invoice":invoiceNoCnl.text,
+            "invoice_date": invoiceDateCnl.text
+          };
+      var responce;
+       responce = {
+         "bankname":"HDFC",
+         "accountno": "1234 **** **** 2342",
+         "invoiceno": "12323232",
+            "KEYVALUE": {
+              "PIN": "003-19-003-07-004",
+              "Taxpayer": "NACION, FELIX & EDITHA SPS",
+              "Bill Date": "November 15, 2022",
+              "Declared Owner": " NACION, FELIX & EDITHA SPS",
+              "Location": "SAN BARTOLOME",
+              "BILL AMOUNT": "P 75.68",
+              "BAR CODE": "00319220022090"
+            },
+            "DOCNAME": "MUNICIPAL STATEMENT",
+            "TableResult": {
+              "statement summary": [
+                {
+                  "A/V": "4,730.00",
+                  "PERIOD": "2023",
+                  "BASIC": "47.30",
+                  "D/P1": "-9.46",
+                  "TOTAL": "75.68"
+                }
+              ]
             }
           };
+
 
           var dateList = responce["TableResult"]["statement summary"] ?? [];
           startYearList = dateList ?? [];
@@ -489,11 +553,11 @@ class PaymentAPI extends GetxController with BaseController {
           startYear = startYearList.first;
           endYear = endYearList.last;
           Get.to(PurposeDetails(
-              paymentType: type, payee: payee, purpose: responce));
-        } else {
-          Fluttertoast.showToast(msg: "This is an existing Relationship");
-        }
-      }}
+              paymentType: type, payee: payee, purpose: house, purposeResponse: responce));
+        // } else {
+        //   Fluttertoast.showToast(msg: "This is an existing Relationship");
+        // }
+      }
     else {
       Fluttertoast.showToast(msg: "Please Upload Statement of Account");
     }
@@ -506,23 +570,27 @@ class PaymentAPI extends GetxController with BaseController {
       "billamount": billAmount,
     };
     var response = await BaseClient()
-        .post(API().lguPaymentDetails, body)
+        .post(API().housePaymentDetails, body)
         .catchError(handleError);
     hideLoading();
-    if (response == null){
-      Fluttertoast.showToast(msg: "Payment Validation Failed");
-    } else{
-      var dataValue = json.decode(response);
-      var data = json.decode(dataValue);
-      if (data != null) {
-        var date = {
+    if (response == null) return;
+      // var dataValue = json.decode(response);
+      // var data = json.decode(dataValue);
+        var details = {
           "start": startYear,
-          "end": endYear
+          "end": endYear,
+          "bill_amount": billAmount
         };
-      //  Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
-      } else {
-        Fluttertoast.showToast(msg: "Payment Validation Wrong");
-      }}
+    var data = {
+      "paystatus":"paying",
+      "username": "Raj",
+      "profileurl": null,
+      "CC_totalamount":"$billAmount",
+      "CC_carditnowfee": "20",
+      "billamount":"200",
+      "feereason": "Some reason"
+    };
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: details, paymentResponse: data,));
   }
 
 

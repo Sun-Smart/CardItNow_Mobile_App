@@ -79,7 +79,10 @@ class API {
 
   //House
   String housePaymentVerify = "common/duplicatetransactionvalidation_hr";
-  String housePaymentDocument = "customerdocumentverification";
+  String housePaymentDocument = "";
+      // "customerdocumentverification";
+  String housePaymentDetails = "";
+  String housePayment = "";
 
   //payment
   String getNewPaymentPurpose = "common/GetPurposeList";

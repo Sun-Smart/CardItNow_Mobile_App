@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:cardit/ui/payment/purpose_details.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,6 @@ import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 import '../payment_method/card_input_formatter_class.dart';
-import 'purpose_details.dart';
 
 // ignore: must_be_immutable
 class NewPayment extends StatefulWidget {
@@ -1422,7 +1419,7 @@ class _NewPaymentState extends State<NewPayment> {
                               items: pay.housePayeeList.map((item) {
                                 return DropdownMenuItem(
                                   value: item,
-                                  child: Text("${item["name"]}",
+                                  child: Text("${item["nickname"]}",
                                       style: const TextStyle(
                                           color: Color(0Xff413D4B),
                                           fontSize: 14)),
@@ -2640,13 +2637,14 @@ class _NewPaymentState extends State<NewPayment> {
   }
 
   houseValidateFunction() {
-    Get.to(PurposeDetails(
-        paymentType: widget.paymentType, payee: widget.payee, purpose: null));
-    if (pay.housePayee == null) {
+    if (pay.houseClassification == null) {
+      Fluttertoast.showToast(msg: "Please Select Classification");
+    }
+    else if (pay.housePayee == null) {
       Fluttertoast.showToast(msg: "Please Select Payee");
     } else if (pay.housePurpose == null) {
       Fluttertoast.showToast(msg: "Please Select Purpose");
-    } else if (pay.lguProvince == null) {
+    } else if (pay.province == null && !houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Select Province");
     } else if (pay.invoiceNoCnl.text.isEmpty && houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Enter Invoice");
