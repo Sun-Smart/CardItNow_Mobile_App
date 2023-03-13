@@ -210,7 +210,7 @@ class BaseClient {
     var uri = Uri.parse(API().baseURL + endPoint);
     var tokens = GetStorage().read("save_token");
     print("Get URL : " + uri.toString());
-    if(endPoint != "")
+    if(endPoint == "")
       {
         return [];
       }
