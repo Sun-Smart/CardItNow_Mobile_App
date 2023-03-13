@@ -253,7 +253,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                 Fluttertoast.showToast(
                     msg: "Please Enter Your Valid Answers");
               } else {
-                auth.securitycheck(checklist);
+                auth.securitycheck(checklist,context);
               }
             },
                       text: "Next",
@@ -401,7 +401,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                 Fluttertoast.showToast(
                     msg: "Please Enter Your Valid Answers");
               } else {
-                auth.securitycheck(checklist);
+                auth.securitycheck(checklist,context);
               }
             },
                       text: "Next",
@@ -436,7 +436,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                 Fluttertoast.showToast(
                     msg: "Please Enter Your Valid Answers");
               } else {
-                auth.securitycheck(checklist);
+                auth.securitycheck(checklist,context);
               }
             },
             text: "Next",

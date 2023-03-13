@@ -11,7 +11,8 @@ import '../../widgets/auth_button.dart';
 class OnboardSellerApply extends StatefulWidget {
   var name;
   var email;
-   OnboardSellerApply({Key? key,this.name,this.email}) : super(key: key);
+  var image;
+   OnboardSellerApply({Key? key,this.name,this.email,this.image}) : super(key: key);
 
   @override
   State<OnboardSellerApply> createState() => _OnboardSellerApplyState();

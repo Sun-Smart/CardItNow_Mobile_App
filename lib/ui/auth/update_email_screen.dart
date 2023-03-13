@@ -248,7 +248,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
       key: formKey,
       child: MyCustomInputBox(
         enabled: true,
-        label: "Enter Email",
+        label: "Enter Email/Phone number",
         controller: con.emailController,
         obsecureText: false,
         validator: (value) {
@@ -264,7 +264,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
         inputDecoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: 'Enter Email',
+          hintText: 'Enter Email/Phone Number',
           floatingLabelBehavior: FloatingLabelBehavior.never,
           helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
           hintStyle: const TextStyle(
