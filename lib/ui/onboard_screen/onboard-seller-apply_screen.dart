@@ -9,7 +9,9 @@ import '../../themes/theme_notifier.dart';
 import '../../widgets/auth_button.dart';
 
 class OnboardSellerApply extends StatefulWidget {
-  const OnboardSellerApply({Key? key}) : super(key: key);
+  var name;
+  var email;
+   OnboardSellerApply({Key? key,this.name,this.email}) : super(key: key);
 
   @override
   State<OnboardSellerApply> createState() => _OnboardSellerApplyState();
@@ -69,7 +71,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                                         children: [
                                           RichText(
                                               text: TextSpan(
-                                            text: 'Angelo',
+                                            text: widget.name??'',
                                             style: TextStyle(
                                                 color: themeChange.darkTheme
                                                     ? Colors.white
@@ -79,7 +81,7 @@ class _OnboardSellerApplyState extends State<OnboardSellerApply> {
                                             /*defining default style is optional */
                                           )),
                                           Text(
-                                            'Angelo@gmail.com',
+                                            widget.email??'',
                                             style: TextStyle(
                                                 color: themeChange.darkTheme
                                                     ? Colors.white
