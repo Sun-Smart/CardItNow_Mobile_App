@@ -238,7 +238,7 @@ class BaseClient {
     var uri = Uri.parse(API().baseURL + endPoint);
     var payload = json.encode(payloadObj);
     var tokens = GetStorage().read("save_token");
-    if(endPoint != "")
+    if(endPoint == "")
     {
       return "";
     }
