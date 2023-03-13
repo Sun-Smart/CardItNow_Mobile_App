@@ -1384,65 +1384,67 @@ class _NewPaymentState extends State<NewPayment> {
                       ],
                     )),
                 const SizedBox(height: 10),
-                Column(
-                  children: [
-                    Container(
-                        alignment: Alignment.centerLeft,
+              Obx(() =>
+                   Column(
+                    children: [
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: const Text(
+                            'Select Purpose *',
+                            style: TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          )),
+                      const SizedBox(height: 5),
+                      Container(
                         margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: const Text(
-                          'Select Purpose *',
-                          style: TextStyle(
-                              fontFamily: 'Sora',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        )),
-                    const SizedBox(height: 5),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                        child: DropdownButtonFormField(
-                          decoration: Styles.dropdownDecoration(),
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: pay.housePurpose,
-                          hint: const Text('Select Purpose',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Sora',
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(65, 61, 75, 0.6))),
-                          icon: const InkWell(
-                            child: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.black45,
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: DropdownButtonFormField(
+                            decoration: Styles.dropdownDecoration(),
+                            dropdownColor: Colors.white,
+                            isExpanded: true,
+                            value: pay.housePurpose,
+                            hint: const Text('Select Purpose',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Sora',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(65, 61, 75, 0.6))),
+                            icon: const InkWell(
+                              child: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.black45,
+                              ),
                             ),
+                            items: pay.housePurposeList.map((item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text("${item["description"]}",
+                                    style: const TextStyle(
+                                        color: Color(0Xff413D4B), fontSize: 14)),
+                              );
+                            }).toList(),
+                            onChanged: (var newValue) {
+                              setState(() {
+                                pay.housePurpose = newValue;
+                                if (pay.housePurpose["description"] == "Maintenance" ||
+                                    pay.housePurpose["description"] == "Renovation") {
+                                  houseTypePurpose = true;
+                                } else {
+                                  houseTypePurpose = false;
+                                }
+                              });
+                            },
+                            style: const TextStyle(color: Colors.black),
                           ),
-                          items: pay.housePurposeList.map((item) {
-                            return DropdownMenuItem(
-                              value: item,
-                              child: Text("${item["name"]}",
-                                  style: const TextStyle(
-                                      color: Color(0Xff413D4B), fontSize: 14)),
-                            );
-                          }).toList(),
-                          onChanged: (var newValue) {
-                            setState(() {
-                              pay.housePurpose = newValue;
-                              if (pay.housePurpose["name"] == "Maintenance" ||
-                                  pay.housePurpose["name"] == "Renovation") {
-                                houseTypePurpose = true;
-                              } else {
-                                houseTypePurpose = false;
-                              }
-                            });
-                          },
-                          style: const TextStyle(color: Colors.black),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 10),
                 houseTypePurpose
@@ -1838,7 +1840,7 @@ class _NewPaymentState extends State<NewPayment> {
                           items: pay.housePurposeList.map((item) {
                             return DropdownMenuItem(
                               value: item,
-                              child: Text("${item["name"]}",
+                              child: Text("${item["description"]}",
                                   style: const TextStyle(
                                       color: Color(0Xff413D4B), fontSize: 14)),
                             );
@@ -1846,8 +1848,8 @@ class _NewPaymentState extends State<NewPayment> {
                           onChanged: (var newValue) {
                             setState(() {
                               pay.housePurpose = newValue;
-                              if (pay.housePurpose["name"] == "Maintenance" ||
-                                  pay.housePurpose["name"] == "Renovation") {
+                              if (pay.housePurpose["description"] == "Maintenance" ||
+                                  pay.housePurpose["description"] == "Renovation") {
                                 houseTypePurpose = true;
                               } else {
                                 houseTypePurpose = false;
