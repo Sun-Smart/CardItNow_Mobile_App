@@ -757,7 +757,7 @@ class RegisterAPI extends GetxController with BaseController {
           .post(API().countrydoc, body)
           .catchError(handleError);
 
-      if (response == null) return;
+      if (response == null || response == "") return;
       var data = json.decode(response);
       pickdoc.value = data;
     }
