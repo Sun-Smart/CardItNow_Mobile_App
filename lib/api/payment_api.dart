@@ -104,8 +104,19 @@ class PaymentAPI extends GetxController with BaseController {
     // TODO: implement onInit
     super.onInit();
     getPurposeListAPI();
-    getProvinceListAPI();
+    getLGUProvinceListAPI();
+    getHomePurposeListAPI();
   }
+
+  void getPaymentPurposeListAPI() async {
+    var response = await BaseClient()
+        .get(API().getNewPaymentPurpose)
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    paymentPurposeList = data;
+  }
+
   //Get LGU
   void getPurposeListAPI() async {
     var response = await BaseClient()
@@ -116,7 +127,7 @@ class PaymentAPI extends GetxController with BaseController {
     lguPurposeList.value = data;
   }
 
-  void getProvinceListAPI() async {
+  void getLGUProvinceListAPI() async {
     var response = await BaseClient()
         .get(API().getLGUPayee)
         .catchError(handleError);
@@ -132,7 +143,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    housePayeeList = data;
+    housePayeeList = data["privacypolicy"] ?? [];
   }
 
   void getHomePurposeListAPI() async {
@@ -142,6 +153,24 @@ class PaymentAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     housePurposeList = data;
+  }
+
+  void getProvinceListAPI() async {
+    var response = await BaseClient()
+        .get(API().getProvince+MyApp.logindetails["geoid"].toString())
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    provinceList = data;
+  }
+
+  void getCityListAPI() async {
+    var response = await BaseClient()
+        .get(API().getCity + "${MyApp.logindetails["geoid"]}/${province["id"]}")
+        .catchError(handleError);
+    if (response == null) return;
+    var data = json.decode(response);
+    cityList = data;
   }
 
   //newPayVerifyAPI
@@ -396,13 +425,17 @@ class PaymentAPI extends GetxController with BaseController {
     showLoading();
     var body =
       {
-        "customerid": MyApp.logindetails["userid"],
-        "recipientid":0,
-        "recipientuid":"",
-        "purpose":"P",
-        "province": province["name"],
-        "startdate": startDate.text,
-        "enddate": endDate.text
+    "customerid": MyApp.logindetails["userid"],
+    "recipientid":0,
+    "recipientuid":"",
+    "purposeid":1,
+    "purpose":"Monthly rent",
+    "province": "",
+    "billamount":"",
+    "startdate": startDate.text,
+    "enddate": endDate.text,
+    "invoiceno": invoiceNoCnl.text,
+    "invoicedate": invoiceDateCnl.text
       };
     var response = await BaseClient()
         .post(API().housePaymentVerify, body)

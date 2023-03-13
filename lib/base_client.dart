@@ -210,16 +210,20 @@ class BaseClient {
     var uri = Uri.parse(API().baseURL + endPoint);
     var tokens = GetStorage().read("save_token");
     print("Get URL : " + uri.toString());
+    if(endPoint != "")
+      {
+        return [];
+      }
     try {
-      var response = await http.get(uri, headers: <String, String>{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $tokens',
-        'accept': 'application/json',
-      }).timeout(const Duration(seconds: TIME_OUT_DURATION));
-      print(response.statusCode);
-      print("Get Body : " + response.body);
-      return _processResponse(response);
+        var response = await http.get(uri, headers: <String, String>{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $tokens',
+          'accept': 'application/json',
+        }).timeout(const Duration(seconds: TIME_OUT_DURATION));
+        print(response.statusCode);
+        print("Get Body : " + response.body);
+        return _processResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', uri.toString());
     } on TimeoutException {
@@ -234,6 +238,10 @@ class BaseClient {
     var uri = Uri.parse(API().baseURL + endPoint);
     var payload = json.encode(payloadObj);
     var tokens = GetStorage().read("save_token");
+    if(endPoint != "")
+    {
+      return "";
+    }
     try {
       if (isMultiPart) {
         print("M-URL : " +uri.toString());

@@ -70,15 +70,19 @@ class API {
   String getLGUPurpose = "transactionmaster/Getpurpose";
   String getLGUPayee = "transactionmaster/Getpayee";
 
+  String getProvince = "customermaster/Getproviencedeatail/"; // {geoid}
+  String getCity = "customermaster/Getcitydetail/"; // {geoid}/{provienceid}
+
   //Get House
   String getHomeCustomer = "common/GetHomerentcustomers";
-  String getHomePurpose = "";
+  String getHomePurpose = "common/GetPurposeList_hr";
 
   //House
   String housePaymentVerify = "common/duplicatetransactionvalidation_hr";
   String housePaymentDocument = "customerdocumentverification";
 
   //payment
+  String getNewPaymentPurpose = "common/GetPurposeList";
   String newPaymentVerify = "";
   String newPaymentDocument = "";
 
