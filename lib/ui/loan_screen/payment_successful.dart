@@ -134,7 +134,10 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                 child: Text(
                   widget.paymentType == "LGU"
                  ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
-                  : "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                  : widget.paymentType == "House"
+                      ? "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
+                      :"Your payment to ${widget.purpose["owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -183,7 +186,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                         child: Text(
                           widget.paymentType == "LGU"
                               ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
-                              : "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                              : widget.paymentType == "House"
+                         ? "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
+                            :  "Your payment to ${widget.purpose["owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
@@ -262,7 +267,10 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                         child: Text(
                           widget.paymentType == "LGU"
                               ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
-                              : "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+                              : widget.paymentType == "House"
+                              ? "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
+                             : "Your payment to ${widget.purpose["owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}",
+
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: Colors.white.withOpacity(0.6)),
