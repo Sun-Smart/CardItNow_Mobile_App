@@ -24,7 +24,7 @@ class _OnboardSellerloadState extends State<OnboardSellerLoad> {
 
   _navigation() async {
     await Future.delayed(const Duration(milliseconds: 3000), () {
-      Get.to(const OnboardSellerApply());
+      Get.to( OnboardSellerApply());
     });
   }
 
