@@ -27,7 +27,7 @@ class LoginAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     hideLoading();
-
+//
     if (data["token"].toString()!="null") {
       RegisterAPI auth = RegisterAPI();
       GetStorage().write("save_token", data["token"].toString());

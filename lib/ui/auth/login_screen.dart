@@ -490,9 +490,10 @@ Widget buildformweb(){
                                 Get.offAll(() => UpdateEmailScreen());
                               },
                               child: Text(
-                                'Forgot Passcode?',
+                                'Help me !',
                                 style: TextStyle(
                                     fontSize: 14,
+                                    fontFamily: "Sora",
                                     color: themeChange.darkTheme
                                         ? Colors.white
                                         : HexColor('#004751')),
@@ -506,12 +507,14 @@ Widget buildformweb(){
                     ),
                     onTap: () {
                       if (_emailController.text.isEmpty) {
-                        Fluttertoast.showToast(msg: "Entery your Email");
+                        Fluttertoast.showToast(msg: "Enter your Email");
                       } else if (_passwordController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Enter Your Passcode");
-                      } else {
+                       
+                      } 
+                      else {
                         logincon.loginAPI(_emailController.text,
-                            _passwordController.text, isremember);
+                            _passwordController.text, isremember,context);
                       }
                     },
                     text: "Login",
@@ -757,7 +760,7 @@ Widget buildformweb(){
                                 Get.to(() => UpdateEmailScreen());
                               },
                               child: Text(
-                                'Forgot Passcode?',
+                                'Help me!',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: themeChange.darkTheme
@@ -775,10 +778,12 @@ Widget buildformweb(){
                       if (_emailController.text.isEmpty) {
                         Fluttertoast.showToast(msg: "Entery your Email");
                       } else if (_passwordController.text.isEmpty) {
+                      
                         Fluttertoast.showToast(msg: "Enter Your Passcode");
+                        //
                       } else {
                         logincon.loginAPI(_emailController.text,
-                            _passwordController.text, isremember);
+                            _passwordController.text, isremember,context);
                       }
                     },
                     text: "Login",
@@ -951,5 +956,4 @@ Widget buildformweb(){
 
       }
   }
-
 }
