@@ -22,7 +22,7 @@ class PaymentAPI extends GetxController with BaseController {
   var paymentPurpose;
   var paymentSubPurposeList = [{"id":"1", "name":"Monthly Rent"},{"id":"2", "name":"Advance Rent"},{"id":"3", "name":"Security Deposit"}];
   var paymentSubPurpose;
-  var provinceList = [{"id":"1", "name":"Vellore"},]; // *
+  var provinceList = [{"id":"1", "name":"Rent"}]; // *
   var province; // *
   var cityList = [{"id":"1", "name":"Tirupattur"}]; // *
   var city; // *
@@ -68,33 +68,9 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   //House details
-  var housePayeeList = [
-    {
-      "id": "1",
-      "name": "Medical"
-    },
-  ].obs;
+  var housePayeeList = [].obs;
   var housePayee;
-  var housePurposeList = [ {
-    "id": "1",
-    "name": "Monthly Rent"
-  },
-    {
-      "id": "1",
-      "name": "Advance Rent"
-    },
-    {
-      "id": "1",
-      "name": "Security Deposit"
-    },
-    {
-      "id": "1",
-      "name": "Maintenance"
-    },
-    {
-      "id": "1",
-      "name": "Renovation"
-    },];
+  var housePurposeList = [].obs;
   var housePurpose;
   final invoiceNoCnl = TextEditingController();
   final invoiceDateCnl = TextEditingController();
@@ -106,6 +82,9 @@ class PaymentAPI extends GetxController with BaseController {
     getPurposeListAPI();
     getLGUProvinceListAPI();
     getHomePurposeListAPI();
+    getHouseCustomerListAPI();
+    // getProvinceListAPI();
+    // getCityListAPI();
   }
 
   void getPaymentPurposeListAPI() async {
@@ -143,7 +122,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    housePayeeList = data["privacypolicy"] ?? [];
+    housePayeeList.value = data["homerentcustomers"] ?? [];
   }
 
   void getHomePurposeListAPI() async {
@@ -152,7 +131,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    housePurposeList = data;
+    housePurposeList.value = data["houserent_puposelist"] ?? [];
   }
 
   void getProvinceListAPI() async {
@@ -428,8 +407,8 @@ class PaymentAPI extends GetxController with BaseController {
     "customerid": MyApp.logindetails["userid"],
     "recipientid":0,
     "recipientuid":"",
-    "purposeid":1,
-    "purpose":"Monthly rent",
+    "purposeid": housePurpose["value"],
+    "purpose": housePurpose["description"],
     "province": "",
     "billamount":"",
     "startdate": startDate.text,
