@@ -19,7 +19,7 @@ class LoginAPI extends GetxController with BaseController {
 
 
   //loginApi
-  void loginAPI(email, password, bool ischecked_checkbox) async {
+  void loginAPI(email, password, bool ischecked_checkbox,context) async {
     showLoading();
     var response = await BaseClient()
         .get("Token?email=$email&Password=$password")
@@ -46,7 +46,33 @@ class LoginAPI extends GetxController with BaseController {
         Get.to(VerifyUserId());
       }
     } else {
-      Fluttertoast.showToast(msg: data["message"].toString());
+      _showMyDialog(context);
+      // Fluttertoast.showToast(msg: data["message"].toString());
     }
   }
+  _showMyDialog(context) async {
+  return showDialog<void>(
+    context: context,
+   // barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title:const Icon(Icons.warning,color: Colors.red,),
+        content:  const Text('Oh Oh ! Invalid credentials. Please try again or click help me to continue',
+        style: TextStyle(
+          fontSize: 14,
+          fontFamily: "Sora"
+        ),),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 }

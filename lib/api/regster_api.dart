@@ -124,17 +124,19 @@ class RegisterAPI extends GetxController with BaseController {
     privacypolicy();
 
     if (GetStorage().read('save_token').toString() != "null") {
+  
       getLoginToken();
       docselect();
       taxDetailsGetApi();
       banklistget();
       documenttypeget();
-      paymentpurposeget();
+     // paymentpurposeget();
       invoicegetmethod();
       pay.transactionListAPI();
       barcharshowing();
       // notificationListAPI();
       pay.getlgu();
+           payeelist();
     }
     super.onInit();
   }
@@ -894,7 +896,9 @@ class RegisterAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    existingpayee= data;
+    existingpayee= data["allPayee"];
+    print("---data------$data");
+    print("wwwww------${existingpayee}");
   }
 
   // barchart

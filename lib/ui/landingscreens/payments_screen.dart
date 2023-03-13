@@ -25,12 +25,12 @@ class Payments extends StatefulWidget {
 class PaymentsState extends State<Payments>
     with SingleTickerProviderStateMixin {
   int _currentsliderindex = 0;
-  List<_SalesData> data = [
-    _SalesData('Jan', 0, Color(0Xff1C292C)),
-    _SalesData('Feb', 0, Color(0Xff1C292C)),
-    _SalesData('Mar', 0, Color(0Xff036D7A)),
-    _SalesData('Apr', 0, Color(0Xff1C292C)),
-    _SalesData('May', 0, Color(0Xff1C292C)),
+  List<SalesData> data = [
+    SalesData('Jan', 0, Color(0Xff1C292C)),
+    SalesData('Feb', 0, Color(0Xff1C292C)),
+    SalesData('Mar', 0, Color(0Xff036D7A)),
+    SalesData('Apr', 0, Color(0Xff1C292C)),
+    SalesData('May', 0, Color(0Xff1C292C)),
   ];
   var item = [
     'Monthly',
@@ -465,12 +465,12 @@ class PaymentsState extends State<Payments>
                         //legend: Legend(isVisible: true),
                         // Enable tooltip
                         tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <ChartSeries<_SalesData, String>>[
-                          ColumnSeries<_SalesData, String>(
+                        series: <ChartSeries<SalesData, String>>[
+                          ColumnSeries<SalesData, String>(
                               dataSource: data,
-                              yValueMapper: (_SalesData sales, _) =>
+                              yValueMapper: (SalesData sales, _) =>
                                   sales.sales,
-                              xValueMapper: (_SalesData sales, _) => sales.year,
+                              xValueMapper: (SalesData sales, _) => sales.year,
                               name: 'Sales',
                               // Enable data label
                               dataLabelSettings: DataLabelSettings(
@@ -479,7 +479,7 @@ class PaymentsState extends State<Payments>
                                   BorderRadius.all(Radius.circular(6)),
                               trackColor: Colors.grey,
                               borderColor: Color(0X00F6FBFF),
-                              pointColorMapper: (_SalesData data, _) =>
+                              pointColorMapper: (SalesData data, _) =>
                                   data.color)
                         ]),
                   ),
@@ -553,12 +553,12 @@ class PaymentsState extends State<Payments>
                         //legend: Legend(isVisible: true),
                         // Enable tooltip
                         tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <ChartSeries<_SalesData, String>>[
-                          ColumnSeries<_SalesData, String>(
+                        series: <ChartSeries<SalesData, String>>[
+                          ColumnSeries<SalesData, String>(
                               dataSource: data,
-                              yValueMapper: (_SalesData sales, _) =>
+                              yValueMapper: (SalesData sales, _) =>
                                   sales.sales,
-                              xValueMapper: (_SalesData sales, _) => sales.year,
+                              xValueMapper: (SalesData sales, _) => sales.year,
                               name: 'Sales',
                               // Enable data label
                               dataLabelSettings: DataLabelSettings(
@@ -567,7 +567,7 @@ class PaymentsState extends State<Payments>
                                   BorderRadius.all(Radius.circular(6)),
                               trackColor: Colors.grey,
                               borderColor: Color(0X00F6FBFF),
-                              pointColorMapper: (_SalesData data, _) =>
+                              pointColorMapper: (SalesData data, _) =>
                                   data.color)
                         ]),
                   ),
@@ -696,48 +696,59 @@ class PaymentsState extends State<Payments>
       },
     );
   }
+//  Widget payeelist(){ 
+//    final themeChange = Provider.of<DarkThemeProvider>(context);
+//     final items = <Widget>[];
+//     for (var i = 0; i < reg.existingpayee.length;i++) {
+//       items.add(
+//         Container(
+//           margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+//           padding: EdgeInsets.all(8),
+//           child: InkWell(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 // ClipRRect(
+//                 //     borderRadius: BorderRadius.circular(50),
+//                 //     child: Image.asset(
+                      
+//                 //       reg.existingpayee[i]["email"]??null,
+//                 //       fit: BoxFit.cover,
+//                 //       width: 36,
+//                 //       height: 36,
+//                 //     )),
+//                 SizedBox(
+//                   height: 10,
+//                 ),
+//                 Text(reg.existingpayee[i]["email"]??'',
+//                     style: TextStyle(
+//                         color: themeChange.darkTheme
+//                             ? Colors.white
+//                             : Color(0XFF000000),
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.bold)),
+//               ],
+//             ),
+//             onTap: () {
+//               Get.to(OnboardSellerApply(name:reg.existingpayee[i]["firstname"]??'' ,email:reg.existingpayee[i]["email"]??'' ,));
+//             },
+//           ),
+//         ),
+//       );
+//        return Container(
+//       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+//       child: Wrap(
+//         children: items,
+//       ),
+//     );
+//     }
+// }
 
   Widget buildpayee() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final items = <Widget>[];
-    for (var i = 0; i < reg.existingpayee.length; i++) {
-      items.add(
-        Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
-          padding: EdgeInsets.all(8),
-          child: InkWell(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "",
-                      //regpayeelist.existingpayee.,
-                      fit: BoxFit.cover,
-                      width: 36,
-                      height: 36,
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(reg.existingpayee[i],
-                    style: TextStyle(
-                        color: themeChange.darkTheme
-                            ? Colors.white
-                            : Color(0XFF000000),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold)),
-              ],
-            ),
-            onTap: () {
-              Get.to(OnboardSellerApply());
-            },
-          ),
-        ),
-      );
-    }
+  
 
     items.add(Container(
       // margin: EdgeInsets.fromLTRB(0, 10, 20, 10),
@@ -795,6 +806,7 @@ class PaymentsState extends State<Payments>
       ),
     );
   }
+ 
 }
 
 class _SalesData {
