@@ -17,7 +17,8 @@ class PurposeDetails extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
-   PurposeDetails({Key? key, this.paymentType,this.payee, this.purpose}) : super(key: key);
+  var purposeResponse;
+   PurposeDetails({Key? key, this.paymentType,this.payee, this.purpose, this.purposeResponse}) : super(key: key);
 
   @override
   State<PurposeDetails> createState() => _PurposeDetailsState();
@@ -43,7 +44,7 @@ class _PurposeDetailsState extends State<PurposeDetails> {
     // TODO: implement initState
     super.initState();
     if(widget.paymentType == "LGU") {
-      billAmount = widget.purpose["KEYVALUE"]["BILL AMOUNT"].replaceAll(
+      billAmount = widget.purposeResponse["KEYVALUE"]["BILL AMOUNT"].replaceAll(
           RegExp(r'[^0-9.]'), '');
     }
     }
@@ -60,7 +61,9 @@ class _PurposeDetailsState extends State<PurposeDetails> {
           centerTitle: true,
           title: Text(widget.paymentType == "House"
               ? 'Payment Details for ${widget.purpose ?? 'purpose'}'
-              :'Your ${widget.purpose["purpose"] ?? "Payment"} Details',
+              : widget.paymentType == "LGU"
+          ? 'Your ${widget.purpose["purpose"]["masterdatadescription"] ?? "Payment"} Details'
+          : 'Your ${widget.purpose["purpose"] ?? "Payment"} Details',
               style: const TextStyle(
                   fontSize: 14,
                   fontFamily: 'Sora',
@@ -1080,7 +1083,7 @@ SizedBox(
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               const SizedBox(height: 10),
-              Text(widget.purpose["KEYVALUE"]["Declared Owner"] ?? '',
+              Text(widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? '',
                   style: TextStyle(
                       fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
               SizedBox(height: 20),
@@ -1091,7 +1094,7 @@ SizedBox(
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               SizedBox(height: 10),
-              Text(widget.purpose["KEYVALUE"]["Location"] ?? '',
+              Text(widget.purposeResponse["KEYVALUE"]["Location"] ?? '',
                   style: TextStyle(
                       fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
               SizedBox(height: 20),
@@ -1226,7 +1229,7 @@ SizedBox(
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               SizedBox(height: 10),
-              Text("${widget.purpose["KEYVALUE"]["PIN"]}",
+              Text("${widget.purposeResponse["KEYVALUE"]["PIN"]}",
                   style: TextStyle(
                       fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
               SizedBox(height: 20),
@@ -1257,7 +1260,7 @@ SizedBox(
                       width: Responsive.isDesktop(context)
                           ? MediaQuery.of(context).size.width / 5.2
                           : MediaQuery.of(context).size.width / 14),
-                  Text(widget.purpose["KEYVALUE"]["Declared Owner"] ?? '',
+                  Text(widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? '',
                       style: TextStyle(
                           fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
                 ],
@@ -1284,7 +1287,7 @@ SizedBox(
                       width: Responsive.isDesktop(context)
                           ? MediaQuery.of(context).size.width / 5.2
                           : MediaQuery.of(context).size.width / 14),
-                  Text(widget.purpose["KEYVALUE"]["Location"] ?? '',
+                  Text(widget.purposeResponse["KEYVALUE"]["Location"] ?? '',
                       style: TextStyle(
                           fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
                 ],
@@ -1463,7 +1466,7 @@ SizedBox(
                       width: Responsive.isDesktop(context)
                           ? MediaQuery.of(context).size.width / 5.2
                           : MediaQuery.of(context).size.width / 14),
-                  Text("${widget.purpose["KEYVALUE"]["PIN"]}",
+                  Text("${widget.purposeResponse["KEYVALUE"]["PIN"]}",
                       style: TextStyle(
                           fontFamily: 'Sora', color: Colors.grey, fontSize: 16)),
                 ],
@@ -2077,13 +2080,14 @@ SizedBox(
             houseValidation();
         } else{
             var boby ={
-              "name" : widget.purpose["owner"],
+              "name" : widget.purposeResponse["owner"],
               "email" : pay.payeeEmailCnl.text,
               "amount": pay.paymentController.text
             };
             Get.to(() => PayeeLoading(
                   payee: boby,
                   purpose: widget.purpose,
+                  purposeRes: widget.purposeResponse,
                   paymentType: widget.paymentType,
                 ));
           }
@@ -2098,7 +2102,7 @@ SizedBox(
       Fluttertoast.showToast(msg: "Please Enter End Year");
     } else {
       pay.lguPaymentDetailsAPI(
-          widget.paymentType, widget.payee, widget.purpose, billAmount);
+          widget.paymentType, widget.payee, widget.purpose, widget.purposeResponse, billAmount);
     }
   }
 
@@ -2110,7 +2114,7 @@ SizedBox(
     } else if (pay.paymentController.text.isEmpty){
       Fluttertoast.showToast(msg: "Please Enter Amount");
     } else{
-      pay.housePaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, billAmount);
+      pay.housePaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, widget.purposeResponse , billAmount);
     }
   }
 

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -37,7 +38,13 @@ class PaymentAPI extends GetxController with BaseController {
   //LGU payee
   var lguPurposeList = [].obs;
   var lguPurpose;
-  var lguProvinceList = [];
+  var lguProvinceList = [
+    {
+      "firstname": "First",
+      "lastname": "Last",
+      "customerid":"144"
+    }
+  ];
   var lguProvince;
   final PINCnl = TextEditingController();
   final billAmountCnl = TextEditingController();
@@ -68,6 +75,21 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   //House details
+  var houseClassificationList = [
+    {
+     "value": "1",
+     "description": "Individual landlord"
+    },
+    {
+      "value": "2",
+      "description": "Property Management"
+    },
+    {
+      "value": "3",
+      "description": "Maintenance and Contractors"
+    }
+  ].obs;
+  var houseClassification;
   var housePayeeList = [].obs;
   var housePayee;
   var housePurposeList = [].obs;
@@ -112,7 +134,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    lguProvinceList = data;
+    // lguProvinceList = data;
   }
 
 
@@ -263,9 +285,11 @@ class PaymentAPI extends GetxController with BaseController {
            var jsonResponse = json.encode(data["data"]);
            var responce1 = json.decode(jsonResponse);
             var responce = json.decode(responce1);
-           var payee = {
+           var purpose = {
           "payee": lguProvince,
           "purpose": lguPurpose,
+          "pin": PINCnl.text,
+          "bill_amount": billAmountCnl.text,
           "date": {
             "start": startDate.text,
             "end": endDate.text
@@ -302,7 +326,7 @@ class PaymentAPI extends GetxController with BaseController {
         startYear = startYearList.first;
         endYear = endYearList.last;
         Get.to(PurposeDetails(
-            paymentType: type, payee: payee, purpose: responce));
+            paymentType: type, payee: payee, purpose: purpose, purposeResponse: responce));
         } else {
           Fluttertoast.showToast(msg: "This is an existing Relationship");
         }
@@ -314,7 +338,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   //LGU Payee Verification
-  lguPaymentDetailsAPI(String type, var payee, var purpose, String billAmount) async {
+  lguPaymentDetailsAPI(String type, var payee, var purpose, var  purposeRes, String billAmount) async {
     showLoading();
     var body = {
       "billamount": billAmount,
@@ -329,37 +353,38 @@ class PaymentAPI extends GetxController with BaseController {
     var dataValue = json.decode(response);
     var data = json.decode(dataValue);
     if (data != null) {
-      var date = {
+      var details = {
         "start": startYear,
-        "end": endYear
+        "end": endYear,
+        "bill_amount": billAmount
       };
-    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, purposeResponse: purposeRes,paymentType: type, payment: details, paymentResponse: data,));
     } else {
       Fluttertoast.showToast(msg: "Payment Validation Wrong");
     }}
   }
 
-  finalPaymentAPI(String type, var payee, var purpose, var payment, var date) async {
+  finalPaymentAPI(String type, var payee, var purpose, var payment, var paymentResponse, var purposeResponse) async {
     showLoading();
     var body = {
       "transactionid":null,
       "uid": MyApp.logindetails["uid"],
-      "recipientuid": payee["payee"]["uid"],
-      "recipientid":payee["payee"]["customerid"],
+      "recipientuid": purpose["payee"]["uid"],
+      "recipientid":purpose["payee"]["customerid"],
       "PrivateID": null,
-      "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
-      "recipientname": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
-      "documentnumber": purpose["KEYVALUE"]["BAR CODE"],
+      "TransactionType":purpose["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
+      "recipientname": '${purpose["payee"]["firstname"]} ${purpose["payee"]["lastname"] ?? ""}',
+      "documentnumber": purposeResponse["KEYVALUE"]["BAR CODE"],
       // 00319220022090,
       "additionaldocumentnumber":"",
-      "startdate": payee["date"]["start"],
-      "expirydate": payee["date"]["end"],
-      "address": purpose["KEYVALUE"]["Location"],
-      "billdate": purpose["KEYVALUE"]["Bill Date"],
-      "contractamount": payment["billamount"],
+      "startdate": purpose["date"]["start"],
+      "expirydate": purpose["date"]["end"],
+      "address": purposeResponse["KEYVALUE"]["Location"],
+      "billdate": purposeResponse["KEYVALUE"]["Bill Date"],
+      "contractamount": paymentResponse["billamount"],
       "discount": "0.0",
-      "carditconvfee": payment["CC_carditnowfee"],
-      "payamount": payment["CC_totalamount"],
+      "carditconvfee": paymentResponse["CC_carditnowfee"],
+      "payamount": paymentResponse["CC_totalamount"],
       "payid": 1,
       "paytype":"O",
       "status":""
@@ -387,7 +412,7 @@ class PaymentAPI extends GetxController with BaseController {
         var data = json.decode(response.body);
         if (data != null) {
           var transaction =  data["transactionmaster"];
-          Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,transaction: transaction,));
+          Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: paymentResponse,transaction: transaction,));
         } else {
           Fluttertoast.showToast(msg: "$data");
         }
@@ -475,7 +500,7 @@ class PaymentAPI extends GetxController with BaseController {
 
   }
 
-  housePaymentDetailsAPI(String type, var payee, var purpose, String billAmount) async {
+  housePaymentDetailsAPI(String type, var payee, var purpose, var purposeRes, String billAmount) async {
     showLoading();
     var body = {
       "billamount": billAmount,
@@ -494,7 +519,7 @@ class PaymentAPI extends GetxController with BaseController {
           "start": startYear,
           "end": endYear
         };
-        Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
+      //  Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
       } else {
         Fluttertoast.showToast(msg: "Payment Validation Wrong");
       }}
@@ -527,5 +552,34 @@ class PaymentAPI extends GetxController with BaseController {
     getlgucust = data["privacypolicy"];
   }
 
+
+  locationPermission() async{
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else if(permission == LocationPermission.deniedForever){
+        print("'Location permissions are permanently denied");
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else{
+        print("GPS Location service is granted");
+        return await getLocation();
+      }
+    }else{
+      print("GPS Location permission granted.");
+    return await getLocation();
+    }
+    return false;
+  }
+
+  getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude); //Output: 80.24599079
+    print(position.latitude); //Output: 29.6593457
+   return true;
+  }
 
 }

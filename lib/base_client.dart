@@ -294,6 +294,8 @@ class BaseClient {
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
       case 400:
+        var message = utf8.decode(response.bodyBytes);
+        Fluttertoast.showToast(msg: "$message");
         // throw BadRequestException(
         //     utf8.decode(response.bodyBytes), response.request!.url.toString());
         return;

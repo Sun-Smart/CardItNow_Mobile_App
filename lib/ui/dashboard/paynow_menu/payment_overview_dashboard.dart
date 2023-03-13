@@ -1,6 +1,6 @@
 import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
-import 'package:cardit/ui/loan_screen/payment_successful.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
@@ -14,9 +14,10 @@ class OverviewPayment extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
+  var purposeResponse;
   var payment;
-  var date;
-   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.payment, this.date});
+  var paymentResponse;
+   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.purposeResponse, this.payment, this.paymentResponse});
 
   @override
   State<OverviewPayment> createState() => _OverviewPaymentState();
@@ -181,7 +182,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.payment["paystatus"] ?? "",
+            widget.paymentResponse["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -199,7 +200,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             )
             ),
             title: Text(
-              widget.purpose["KEYVALUE"]["Declared Owner"] ?? "",
+              widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? "",
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -208,7 +209,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontWeight: FontWeight.w400),
             ),
             // subtitle: Text(
-            //   'Invoice No. - ${widget.payment["invoiceno"]}',
+            //   'Invoice No. - ${widget.paymentResponse["invoiceno"]}',
             //   style: TextStyle(
             //       color:  Color.fromARGB(255, 140, 140, 140),
             //       fontSize: 15,
@@ -223,7 +224,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.payment["paystatus"] ?? "",
+            widget.paymentResponse["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -250,7 +251,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontWeight: FontWeight.w400),
             ),
             // subtitle: Text(
-            //   'Invoice No. - ${widget.payment["invoiceno"] ?? ""}',
+            //   'Invoice No. - ${widget.paymentResponse["invoiceno"] ?? ""}',
             //   style: TextStyle(
             //       color:  Color.fromARGB(255, 140, 140, 140),
             //       fontSize: 15,
@@ -283,7 +284,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -302,7 +303,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -323,7 +324,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Column(
           children: [
             Text(
-              '${widget.payment["feereason"]}',
+              '${widget.paymentResponse["feereason"]}',
               style: TextStyle(
                   color: Color(0Xff99B5B9),
                   fontSize: 10,
@@ -332,34 +333,24 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   'TXN ID: ${widget.paymentResponse["txdid"]}',
         //   style: TextStyle(
         //       color: Color(0XffCEE812),
         //       fontSize: 10,
         //       fontWeight: FontWeight.bold),
         // ),
         Text(
-          'Purpose',
+    'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
-          height: 10,
-        ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
-              fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 10,
+          height: 20,
         ),
         Text(
           'View Invoice/Contract',
@@ -393,7 +384,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -412,7 +403,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -433,7 +424,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           Column(
             children: [
               Text(
-                '${widget.payment["feereason"]}',
+                '${widget.paymentResponse["feereason"]}',
                 style: TextStyle(
                     color: Color(0Xff99B5B9),
                     fontSize: 10,
@@ -442,30 +433,20 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             ],
           ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   'TXN ID: ${widget.paymentResponse["txdid"]}',
         //   style: TextStyle(
         //       color: Color(0XffCEE812),
         //       fontSize: 10,
         //       fontWeight: FontWeight.bold),
         // ),
         Text(
-          'Purpose',
+    'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -503,7 +484,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -522,7 +503,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -543,7 +524,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           Column(
             children: [
               Text(
-                '${widget.payment["feereason"]}',
+                '${widget.paymentResponse["feereason"]}',
                 style: TextStyle(
                     color: Color(0Xff99B5B9),
                     fontSize: 10,
@@ -552,10 +533,10 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             ],
           ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         Text(
-          'Purpose',
+          'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
@@ -564,23 +545,13 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         SizedBox(
           height: 10,
         ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
-              fontWeight: FontWeight.bold),
-        ),
         // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
+        //   'TXN ID: ${widget.paymentResponse["txdid"]}',
         //   style: TextStyle(
         //       color: Color(0XffCEE812),
         //       fontSize: 10,
         //       fontWeight: FontWeight.bold),
         // ),
-        SizedBox(
-          height: 10,
-        ),
         Text(
           'View  Invoice/Contract',
           style: TextStyle(
@@ -894,7 +865,12 @@ Widget  buildcardenable (){
                     color: Color(0XFFCEE812))),
             onSwipe: () {
 
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
+              pay.locationPermission().then((va){
+                if(va){
+                  pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+                }
+              });
+
             }),
    ),
       ],
@@ -942,7 +918,13 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment,widget.date);
+
+              pay.locationPermission().then((va){
+                if(va){
+                  pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+                }
+              });
+
             }),
    ),
       ],
@@ -972,7 +954,12 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-          pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
+            pay.locationPermission().then((va){
+              if(va){
+                pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+              }
+            });
+
           }),
     );
   }

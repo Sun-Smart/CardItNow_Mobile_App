@@ -17,7 +17,8 @@ class PayeeLoading extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
-   PayeeLoading({Key? key, this.paymentType,this.payee, this.purpose}) : super(key: key);
+  var purposeRes;
+   PayeeLoading({Key? key, this.paymentType,this.payee, this.purpose, this.purposeRes}) : super(key: key);
 
   @override
   State<PayeeLoading> createState() => _PayeeLoadingState();
@@ -36,16 +37,16 @@ class _PayeeLoadingState extends State<PayeeLoading> {
   }
 
   iniLoadingFunction() async {
-    pay.lguPaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, "200")
-        .then((value) {
-      if (value == "Success") {
-        setState(() {
-          isLoading = false;
-        });
-      } else {
-        Get.back();
-      }
-    });
+    // pay.lguPaymentDetailsAPI(widget.paymentType, widget.payee, widget.purpose, widget.purposeRes, "200")
+    //     .then((value) {
+    //   if (value == "Success") {
+    //     setState(() {
+    //       isLoading = false;
+    //     });
+    //   } else {
+    //     Get.back();
+    //   }
+    // });
   }
 
   @override
