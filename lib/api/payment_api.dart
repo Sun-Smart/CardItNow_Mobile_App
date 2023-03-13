@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, no_leading_underscores_for_local_identifiers, prefer_const_constructors, prefer_typing_uninitialized_variables, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,6 @@ import '../base_client.dart';
 import '../main.dart';
 import '../ui/dashboard/paynow_menu/payment_overview_dashboard.dart';
 import '../ui/loan_screen/payment_successful.dart';
-import '../ui/payment/payee_loading.dart';
 import '../ui/payment/purpose_details.dart';
 import '../ui/register/register_loading_screen.dart';
 import 'card_api.dart';
@@ -37,7 +37,13 @@ class PaymentAPI extends GetxController with BaseController {
   //LGU payee
   var lguPurposeList = [].obs;
   var lguPurpose;
-  var lguProvinceList = [];
+  var lguProvinceList = [
+    {
+      "firstname": "First",
+      "lastname": "Last",
+      "customerid":"144"
+    }
+  ];
   var lguProvince;
   final PINCnl = TextEditingController();
   final billAmountCnl = TextEditingController();
@@ -68,7 +74,56 @@ class PaymentAPI extends GetxController with BaseController {
 
 
   //House details
-  var housePayeeList = [].obs;
+  var houseClassificationList = [
+    {
+     "value": "1",
+     "description": "Individual landlord"
+    },
+    {
+      "value": "2",
+      "description": "Property Management"
+    },
+    {
+      "value": "3",
+      "description": "Maintenance and Contractors"
+    }
+  ].obs;
+  var houseClassification;
+  var housePayeeList = [
+    {
+      "customerid": 465,
+      "customerid": 465,
+      "mode": "I",
+      "uid": "P00000465",
+      "type": "R",
+      "firstname": "",
+      "lastname": "",
+      "email": "miracledhamu0703@gmail.com",
+      "mobile": "23423423",
+      "dob": "2005-01-01T00:00:00",
+      "customerinterests": null,
+      "defaultavatar": null,
+      "customerphoto": null,
+      "googleid": "4xKZn5zUOITvNtE8Ky5YeLCkL0F3",
+      "facebookid": "0",
+      "lasttermsaccepted": null,
+      "customfield": null,
+      "attachment": null,
+      "status": "A",
+      "deletionaccountrequestedon": null,
+      "autodeletedon": null,
+      "deleterevokedon": null,
+      "createddate": "2023-03-02T07:49:51.503",
+      "createdby": 1,
+      "updatedby": 0,
+      "updateddate": "2023-03-02T07:50:09.978",
+      "otp": "586844",
+      "password": "978978",
+      "tpin": "978978",
+      "nickname": "sdfsdf",
+      "customervisible": true
+    }
+  ].obs;
   var housePayee;
   var housePurposeList = [].obs;
   var housePurpose;
@@ -112,7 +167,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    lguProvinceList = data;
+    // lguProvinceList = data;
   }
 
 
@@ -122,7 +177,7 @@ class PaymentAPI extends GetxController with BaseController {
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    housePayeeList.value = data["homerentcustomers"] ?? [];
+   // housePayeeList.value = data["homerentcustomers"] ?? [];
   }
 
   void getHomePurposeListAPI() async {
@@ -263,9 +318,11 @@ class PaymentAPI extends GetxController with BaseController {
            var jsonResponse = json.encode(data["data"]);
            var responce1 = json.decode(jsonResponse);
             var responce = json.decode(responce1);
-           var payee = {
+           var purpose = {
           "payee": lguProvince,
           "purpose": lguPurpose,
+          "pin": PINCnl.text,
+          "bill_amount": billAmountCnl.text,
           "date": {
             "start": startDate.text,
             "end": endDate.text
@@ -302,7 +359,7 @@ class PaymentAPI extends GetxController with BaseController {
         startYear = startYearList.first;
         endYear = endYearList.last;
         Get.to(PurposeDetails(
-            paymentType: type, payee: payee, purpose: responce));
+            paymentType: type, payee: payee, purpose: purpose, purposeResponse: responce));
         } else {
           Fluttertoast.showToast(msg: "This is an existing Relationship");
         }
@@ -314,7 +371,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   //LGU Payee Verification
-  lguPaymentDetailsAPI(String type, var payee, var purpose, String billAmount) async {
+  lguPaymentDetailsAPI(String type, var payee, var purpose, var  purposeRes, String billAmount) async {
     showLoading();
     var body = {
       "billamount": billAmount,
@@ -329,37 +386,38 @@ class PaymentAPI extends GetxController with BaseController {
     var dataValue = json.decode(response);
     var data = json.decode(dataValue);
     if (data != null) {
-      var date = {
+      var details = {
         "start": startYear,
-        "end": endYear
+        "end": endYear,
+        "bill_amount": billAmount
       };
-    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, purposeResponse: purposeRes,paymentType: type, payment: details, paymentResponse: data,));
     } else {
       Fluttertoast.showToast(msg: "Payment Validation Wrong");
     }}
   }
 
-  finalPaymentAPI(String type, var payee, var purpose, var payment, var date) async {
+  finalPaymentAPI(String type, var payee, var purpose, var payment, var paymentResponse, var purposeResponse) async {
     showLoading();
     var body = {
       "transactionid":null,
       "uid": MyApp.logindetails["uid"],
-      "recipientuid": payee["payee"]["uid"],
-      "recipientid":payee["payee"]["customerid"],
+      "recipientuid": purpose["payee"]["uid"],
+      "recipientid":purpose["payee"]["customerid"],
       "PrivateID": null,
-      "TransactionType":payee["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
-      "recipientname": '${payee["payee"]["firstname"]} ${payee["payee"]["lastname"] ?? ""}',
-      "documentnumber": purpose["KEYVALUE"]["BAR CODE"],
+      "TransactionType":purpose["purpose"]["masterdatadescription"] == "Real property TAX" ? "P": "R",
+      "recipientname": '${purpose["payee"]["firstname"]} ${purpose["payee"]["lastname"] ?? ""}',
+      "documentnumber": purposeResponse["KEYVALUE"]["BAR CODE"],
       // 00319220022090,
       "additionaldocumentnumber":"",
-      "startdate": payee["date"]["start"],
-      "expirydate": payee["date"]["end"],
-      "address": purpose["KEYVALUE"]["Location"],
-      "billdate": purpose["KEYVALUE"]["Bill Date"],
-      "contractamount": payment["billamount"],
+      "startdate": purpose["date"]["start"],
+      "expirydate": purpose["date"]["end"],
+      "address": purposeResponse["KEYVALUE"]["Location"],
+      "billdate": purposeResponse["KEYVALUE"]["Bill Date"],
+      "contractamount": paymentResponse["billamount"],
       "discount": "0.0",
-      "carditconvfee": payment["CC_carditnowfee"],
-      "payamount": payment["CC_totalamount"],
+      "carditconvfee": paymentResponse["CC_carditnowfee"],
+      "payamount": paymentResponse["CC_totalamount"],
       "payid": 1,
       "paytype":"O",
       "status":""
@@ -387,7 +445,7 @@ class PaymentAPI extends GetxController with BaseController {
         var data = json.decode(response.body);
         if (data != null) {
           var transaction =  data["transactionmaster"];
-          Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: payment,transaction: transaction,));
+          Get.to(PaymentSuccessful(payee: payee, purpose: purpose, paymentType: type, payment: paymentResponse,transaction: transaction,));
         } else {
           Fluttertoast.showToast(msg: "$data");
         }
@@ -441,22 +499,53 @@ class PaymentAPI extends GetxController with BaseController {
           .post(API().housePaymentDocument, body)
           .catchError(handleError);
       Get.back();
-      if (response == null) {
-        Fluttertoast.showToast(msg: "Upload Statement of Account Failed");
-      } else {
-        var data = json.decode(response);
-        if (data["status"] == "success") {
-          var jsonResponse = json.encode(data["data"]);
-          var responce1 = json.decode(jsonResponse);
-          var responce = json.decode(responce1);
-          var payee = {
-            "payee": province,
+      if (response == null) return;
+        // var data = json.decode(response);
+        // if (data["status"] == "success") {
+        //   var jsonResponse = json.encode(data["data"]);
+        //   var responce1 = json.decode(jsonResponse);
+        //   var responce = json.decode(responce1);
+          var house = {
+            "payee": housePayee,
             "purpose": housePurpose,
-            "date": {
-              "start": startDate.text,
-              "end": endDate.text
+            "house_no": addressNoCnl.text,
+            "street": streetNameCnl.text,
+            "province": province,
+            "city": city,
+            "postal_code": postalCode.text,
+            "start": startDate.text,
+            "end": endDate.text,
+            "invoice":invoiceNoCnl.text,
+            "invoice_date": invoiceDateCnl.text
+          };
+      var responce;
+       responce = {
+         "bankname":"HDFC",
+         "accountno": "1234 **** **** 2342",
+         "invoiceno": "12323232",
+            "KEYVALUE": {
+              "PIN": "003-19-003-07-004",
+              "Taxpayer": "NACION, FELIX & EDITHA SPS",
+              "Bill Date": "November 15, 2022",
+              "Declared Owner": " NACION, FELIX & EDITHA SPS",
+              "Location": "SAN BARTOLOME",
+              "BILL AMOUNT": "P 75.68",
+              "BAR CODE": "00319220022090"
+            },
+            "DOCNAME": "MUNICIPAL STATEMENT",
+            "TableResult": {
+              "statement summary": [
+                {
+                  "A/V": "4,730.00",
+                  "PERIOD": "2023",
+                  "BASIC": "47.30",
+                  "D/P1": "-9.46",
+                  "TOTAL": "75.68"
+                }
+              ]
             }
           };
+
 
           var dateList = responce["TableResult"]["statement summary"] ?? [];
           startYearList = dateList ?? [];
@@ -464,40 +553,44 @@ class PaymentAPI extends GetxController with BaseController {
           startYear = startYearList.first;
           endYear = endYearList.last;
           Get.to(PurposeDetails(
-              paymentType: type, payee: payee, purpose: responce));
-        } else {
-          Fluttertoast.showToast(msg: "This is an existing Relationship");
-        }
-      }}
+              paymentType: type, payee: payee, purpose: house, purposeResponse: responce));
+        // } else {
+        //   Fluttertoast.showToast(msg: "This is an existing Relationship");
+        // }
+      }
     else {
       Fluttertoast.showToast(msg: "Please Upload Statement of Account");
     }
 
   }
 
-  housePaymentDetailsAPI(String type, var payee, var purpose, String billAmount) async {
+  housePaymentDetailsAPI(String type, var payee, var purpose, var purposeRes, String billAmount) async {
     showLoading();
     var body = {
       "billamount": billAmount,
     };
     var response = await BaseClient()
-        .post(API().lguPaymentDetails, body)
+        .post(API().housePaymentDetails, body)
         .catchError(handleError);
     hideLoading();
-    if (response == null){
-      Fluttertoast.showToast(msg: "Payment Validation Failed");
-    } else{
-      var dataValue = json.decode(response);
-      var data = json.decode(dataValue);
-      if (data != null) {
-        var date = {
+    if (response == null) return;
+      // var dataValue = json.decode(response);
+      // var data = json.decode(dataValue);
+        var details = {
           "start": startYear,
-          "end": endYear
+          "end": endYear,
+          "bill_amount": billAmount
         };
-        Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: data, date: date,));
-      } else {
-        Fluttertoast.showToast(msg: "Payment Validation Wrong");
-      }}
+    var data = {
+      "paystatus":"paying",
+      "username": "Raj",
+      "profileurl": null,
+      "CC_totalamount":"$billAmount",
+      "CC_carditnowfee": "20",
+      "billamount":"200",
+      "feereason": "Some reason"
+    };
+    Get.to(OverviewPayment(payee: payee, purpose: purpose, paymentType: type, payment: details, paymentResponse: data,));
   }
 
 
@@ -527,5 +620,34 @@ class PaymentAPI extends GetxController with BaseController {
     getlgucust = data["privacypolicy"];
   }
 
+
+  locationPermission() async{
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else if(permission == LocationPermission.deniedForever){
+        print("'Location permissions are permanently denied");
+        Fluttertoast.showToast(msg: "you should have to enable location");
+      }else{
+        print("GPS Location service is granted");
+        return await getLocation();
+      }
+    }else{
+      print("GPS Location permission granted.");
+    return await getLocation();
+    }
+    return false;
+  }
+
+  getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude); //Output: 80.24599079
+    print(position.latitude); //Output: 29.6593457
+   return true;
+  }
 
 }

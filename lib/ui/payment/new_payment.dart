@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:cardit/ui/payment/purpose_details.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,6 @@ import '../../themes/styles.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/custom_input.dart';
 import '../payment_method/card_input_formatter_class.dart';
-import 'purpose_details.dart';
 
 // ignore: must_be_immutable
 class NewPayment extends StatefulWidget {
@@ -40,7 +37,7 @@ class _NewPaymentState extends State<NewPayment> {
   titleText() {
     return Text(
       widget.payee != null
-          ? '${widget.payee["name"]}'
+          ? '${widget.payee["firstname"]} ${widget.payee["lastname"]}'
           : widget.paymentType == "LGU"
               ? "LGU"
               : widget.paymentType == "House"
@@ -1328,6 +1325,62 @@ class _NewPaymentState extends State<NewPayment> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Obx(() => Column(
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                      child: const Text(
+                        'Select Classification *',
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  const SizedBox(height: 5),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: DropdownButtonFormField(
+                        decoration: Styles.dropdownDecoration(),
+                        dropdownColor: Colors.white,
+                        isExpanded: true,
+                        value: pay.houseClassification,
+                        hint: const Text('Select Classification',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Sora',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(65, 61, 75, 0.6))),
+                        icon: const InkWell(
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        items: pay.houseClassificationList.map((item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text("${item["description"]}",
+                                style: const TextStyle(
+                                    color: Color(0Xff413D4B),
+                                    fontSize: 14)),
+                          );
+                        }).toList(),
+                        onChanged: (var newValue) {
+                          setState(() {
+                            pay.houseClassification = newValue;
+                          });
+                        },
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+              const SizedBox(height: 10),
                 Obx(() => Column(
                       children: [
                         Container(
@@ -1366,7 +1419,7 @@ class _NewPaymentState extends State<NewPayment> {
                               items: pay.housePayeeList.map((item) {
                                 return DropdownMenuItem(
                                   value: item,
-                                  child: Text("${item["name"]}",
+                                  child: Text("${item["nickname"]}",
                                       style: const TextStyle(
                                           color: Color(0Xff413D4B),
                                           fontSize: 14)),
@@ -1736,6 +1789,66 @@ class _NewPaymentState extends State<NewPayment> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Obx(() => Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                          width: Responsive.isDesktop(context)
+                              ? MediaQuery.of(context).size.width / 4.8
+                              : MediaQuery.of(context).size.width / 10),
+                      const Text(
+                        'Select Classification *',
+                        style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    width: Responsive.isDesktop(context)
+                        ? MediaQuery.of(context).size.width / 4
+                        : MediaQuery.of(context).size.width / 2.5,
+                    child: DropdownButtonFormField(
+                      decoration: Styles.dropdownDecoration(),
+                      dropdownColor: Colors.white,
+                      isExpanded: true,
+                      value: pay.houseClassification,
+                      hint: const Text('Select Classification',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromRGBO(65, 61, 75, 0.6))),
+                      icon: const InkWell(
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      items: pay.houseClassificationList.map((item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text("${item["description"]}",
+                              style: const TextStyle(
+                                  color: Color(0Xff413D4B),
+                                  fontSize: 14)),
+                        );
+                      }).toList(),
+                      onChanged: (var newValue) {
+                        setState(() {
+                          pay.houseClassification = newValue;
+                        });
+                      },
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              )),
+              const SizedBox(height: 10),
                 Obx(() => Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -2524,13 +2637,14 @@ class _NewPaymentState extends State<NewPayment> {
   }
 
   houseValidateFunction() {
-    Get.to(PurposeDetails(
-        paymentType: widget.paymentType, payee: widget.payee, purpose: null));
-    if (pay.housePayee == null) {
+    if (pay.houseClassification == null) {
+      Fluttertoast.showToast(msg: "Please Select Classification");
+    }
+    else if (pay.housePayee == null) {
       Fluttertoast.showToast(msg: "Please Select Payee");
     } else if (pay.housePurpose == null) {
       Fluttertoast.showToast(msg: "Please Select Purpose");
-    } else if (pay.lguProvince == null) {
+    } else if (pay.province == null && !houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Select Province");
     } else if (pay.invoiceNoCnl.text.isEmpty && houseTypePurpose) {
       Fluttertoast.showToast(msg: "Please Enter Invoice");

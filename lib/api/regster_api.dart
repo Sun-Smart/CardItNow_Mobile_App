@@ -116,6 +116,10 @@ class RegisterAPI extends GetxController with BaseController {
   bool pass = false;
   List<SalesData> barlist = [];
 
+  String getInitials(String name) => name.isNotEmpty
+      ? name.trim().split(' ').map((l) => l[0]).take(2).join()
+      : '';
+
   @override
   void onInit() {
     //web.loadreference();
@@ -555,14 +559,14 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   void paymentpurposeget() async {
-    var response = await BaseClient()
-        .get(API().Paymentpurposedropdown)
-        .catchError(handleError);
-    if (response == null) return;
-    var data = json.decode(response);
-    paymentpurposelist = data;
-
-    print("-----data-------$paymentpurposelist");
+    // var response = await BaseClient()
+    //     .get(API().Paymentpurposedropdown)
+    //     .catchError(handleError);
+    // if (response == null) return;
+    // var data = json.decode(response);
+    // paymentpurposelist = data;
+    //
+    // print("-----data-------$paymentpurposelist");
   }
 
   void invoicegetmethod() async {

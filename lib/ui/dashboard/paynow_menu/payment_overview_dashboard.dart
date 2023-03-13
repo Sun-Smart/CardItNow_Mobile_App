@@ -1,11 +1,12 @@
 import 'package:cardit/api/payment_api.dart';
 import 'package:cardit/const/responsive.dart';
-import 'package:cardit/ui/loan_screen/payment_successful.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../../../api/card_api.dart';
+import '../../../api/regster_api.dart';
 import '../../payment_method/add_credit_card.dart';
 
 
@@ -14,9 +15,10 @@ class OverviewPayment extends StatefulWidget {
   var paymentType;
   var payee;
   var purpose;
+  var purposeResponse;
   var payment;
-  var date;
-   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.payment, this.date});
+  var paymentResponse;
+   OverviewPayment({super.key, this.paymentType,this.payee, this.purpose, this.purposeResponse, this.payment, this.paymentResponse});
 
   @override
   State<OverviewPayment> createState() => _OverviewPaymentState();
@@ -25,6 +27,7 @@ class OverviewPayment extends StatefulWidget {
 class _OverviewPaymentState extends State<OverviewPayment> {
   PaymentAPI pay = PaymentAPI();
   CardAPI card = Get.put(CardAPI());
+  RegisterAPI reg = RegisterAPI();
   bool isChecked = false;
   bool isFeeCheck = false;
   bool cardLoading = true;
@@ -181,7 +184,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.payment["paystatus"] ?? "",
+            widget.paymentResponse["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -192,14 +195,28 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/logouser.png",
-            fit: BoxFit.cover,
-            width: 45.0,
-            height: 45.0,
-            )
+                child: widget.purpose["payee"]["defaultavatar"] != null
+                    ? widget.paymentType == "LGU"
+                    ? Image.asset("assets/logouser.png",
+                  fit: BoxFit.cover,
+                  width: 45.0,
+                  height: 45.0,
+                ) : Image.network("${widget.purpose["payee"]["defaultavatar"]}",
+                  fit: BoxFit.cover,
+                  width: 45.0,
+                  height: 45.0,
+                )
+                    :Text(reg.getInitials("${widget.purpose["payee"]["firstname"]}"),
+                    style: TextStyle(
+                        fontFamily: 'Sora',
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('#036D7B'),
+                        fontSize: 16))
             ),
             title: Text(
-              widget.purpose["KEYVALUE"]["Declared Owner"] ?? "",
+              widget.paymentType == "LGU"
+              ? widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? ""
+              : widget.purpose["payee"]["firstname"],
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -207,13 +224,6 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontSize: 14,
                   fontWeight: FontWeight.w400),
             ),
-            // subtitle: Text(
-            //   'Invoice No. - ${widget.payment["invoiceno"]}',
-            //   style: TextStyle(
-            //       color:  Color.fromARGB(255, 140, 140, 140),
-            //       fontSize: 15,
-            //       fontWeight: FontWeight.w700),
-            // ),
           )
         ],
       ),
@@ -223,7 +233,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.payment["paystatus"] ?? "",
+            widget.paymentResponse["paystatus"] ?? "",
             style: TextStyle(
                 color:
             
@@ -234,14 +244,28 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ListTile(
             contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             leading:  ClipOval(
-            child: Image.asset("assets/logouser.png",
+            child: widget.purpose["payee"]["defaultavatar"] != null
+           ? widget.paymentType == "LGU"
+           ? Image.asset("assets/logouser.png",
             fit: BoxFit.cover,
             width: 45.0,
             height: 45.0,
+            ) : Image.network("${widget.purpose["payee"]["defaultavatar"]}",
+              fit: BoxFit.cover,
+              width: 45.0,
+              height: 45.0,
             )
+                :Text(reg.getInitials("${widget.purpose["payee"]["firstname"]}"),
+                style: TextStyle(
+                    fontFamily: 'Sora',
+                    fontWeight: FontWeight.bold,
+                    color: HexColor('#036D7B'),
+                    fontSize: 16))
             ),
             title: Text(
-              widget.purpose["KEYVALUE"]["Declared Owner"] ?? "",
+              widget.paymentType == "LGU"
+                  ? widget.purposeResponse["KEYVALUE"]["Declared Owner"] ?? ""
+                  : widget.purpose["payee"]["firstname"],
               style: TextStyle(
                   color:
                       //themeChange.darkTheme ? Colors.white :
@@ -249,13 +273,6 @@ class _OverviewPaymentState extends State<OverviewPayment> {
                   fontSize: 14,
                   fontWeight: FontWeight.w400),
             ),
-            // subtitle: Text(
-            //   'Invoice No. - ${widget.payment["invoiceno"] ?? ""}',
-            //   style: TextStyle(
-            //       color:  Color.fromARGB(255, 140, 140, 140),
-            //       fontSize: 15,
-            //       fontWeight: FontWeight.w700),
-            // ),
           )
         ],
       ),
@@ -283,7 +300,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -302,7 +319,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -323,7 +340,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Column(
           children: [
             Text(
-              '${widget.payment["feereason"]}',
+              '${widget.paymentResponse["feereason"]}',
               style: TextStyle(
                   color: Color(0Xff99B5B9),
                   fontSize: 10,
@@ -332,34 +349,19 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           ],
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
-        //   style: TextStyle(
-        //       color: Color(0XffCEE812),
-        //       fontSize: 10,
-        //       fontWeight: FontWeight.bold),
-        // ),
         Text(
-          'Purpose',
+          widget.paymentType == "LGU"
+    ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+    : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
-          height: 10,
-        ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
-              fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 10,
+          height: 20,
         ),
         Text(
           'View Invoice/Contract',
@@ -393,7 +395,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -412,7 +414,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -433,7 +435,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           Column(
             children: [
               Text(
-                '${widget.payment["feereason"]}',
+                '${widget.paymentResponse["feereason"]}',
                 style: TextStyle(
                     color: Color(0Xff99B5B9),
                     fontSize: 10,
@@ -442,30 +444,15 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             ],
           ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
-        //   style: TextStyle(
-        //       color: Color(0XffCEE812),
-        //       fontSize: 10,
-        //       fontWeight: FontWeight.bold),
-        // ),
         Text(
-          'Purpose',
+          widget.paymentType == "LGU"
+              ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+              : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
-              fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
               fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -503,7 +490,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           height: 10,
         ),
         Text(
-          '${widget.payment["CC_totalamount"]??''}',
+          '${widget.paymentResponse["CC_totalamount"]??''}',
           style: TextStyle(
               color: Color(0XffCEE812),
               fontSize: 24,
@@ -522,7 +509,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
         Row(
           children: [
             Text(
-              '${widget.payment["billamount"]} + ${widget.payment["CC_carditnowfee"]} = ${widget.payment["CC_totalamount"]}',
+              '${widget.paymentResponse["billamount"]} + ${widget.paymentResponse["CC_carditnowfee"]} = ${widget.paymentResponse["CC_totalamount"]}',
               style: TextStyle(
                   color: Color(0XffCEE812),
                   fontSize: 12,
@@ -543,7 +530,7 @@ class _OverviewPaymentState extends State<OverviewPayment> {
           Column(
             children: [
               Text(
-                '${widget.payment["feereason"]}',
+                '${widget.paymentResponse["feereason"]}',
                 style: TextStyle(
                     color: Color(0Xff99B5B9),
                     fontSize: 10,
@@ -552,32 +539,17 @@ class _OverviewPaymentState extends State<OverviewPayment> {
             ],
           ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         Text(
-          'Purpose',
+          widget.paymentType == "LGU"
+              ? 'For ${widget.purpose["purpose"]["masterdatadescription"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}'
+              : 'For ${widget.purpose["purpose"]["description"]??''} on ${DateFormat("dd-MMM-yyyy").format(DateTime.now())}',
           style: TextStyle(
               color: Color(0Xff99B5B9),
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          '${widget.payee["purpose"]["masterdatadescription"]??''}',
-          style: TextStyle(
-              color: Color(0XffCEE812),
-              fontSize: 12,
-              fontWeight: FontWeight.bold),
-        ),
-        // Text(
-        //   'TXN ID: ${widget.payment["txdid"]}',
-        //   style: TextStyle(
-        //       color: Color(0XffCEE812),
-        //       fontSize: 10,
-        //       fontWeight: FontWeight.bold),
-        // ),
         SizedBox(
           height: 10,
         ),
@@ -894,7 +866,12 @@ Widget  buildcardenable (){
                     color: Color(0XFFCEE812))),
             onSwipe: () {
 
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
+              pay.locationPermission().then((va){
+                if(va){
+                  pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+                }
+              });
+
             }),
    ),
       ],
@@ -942,7 +919,13 @@ Widget  buildcardenable (){
                     fontWeight: FontWeight.w600,
                     color: Color(0XFFCEE812))),
             onSwipe: () {
-              pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment,widget.date);
+
+              pay.locationPermission().then((va){
+                if(va){
+                  pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+                }
+              });
+
             }),
    ),
       ],
@@ -972,7 +955,12 @@ Widget  buildcardenable (){
                   fontWeight: FontWeight.w600,
                   color: Color(0XFFCEE812))),
           onSwipe: () {
-          pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.date);
+            pay.locationPermission().then((va){
+              if(va){
+                pay.finalPaymentAPI(widget.paymentType, widget.payee, widget.purpose,  widget.payment, widget.paymentResponse, widget.purposeResponse);
+              }
+            });
+
           }),
     );
   }

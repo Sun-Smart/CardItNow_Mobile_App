@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cardit/api/regster_api.dart';
 import 'package:cardit/themes/theme_notifier.dart';
 import 'package:cardit/ui/payment/payee_information.dart';
 import 'package:cardit/ui/dashboard/paynow_menu/select_recipient_screen.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../../const/responsive.dart';
@@ -55,6 +57,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
 
   DataDashboard? myData;
 
+  RegisterAPI reg = RegisterAPI();
   @override
   void initState() {
     myData = DataDashboard.fromJson(PaymentDashboard.mdata);
@@ -236,51 +239,110 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         ));
   }
 
+  var customerList = [
+    {
+      "customerid": 465,
+      "customerid": 465,
+      "mode": "I",
+      "uid": "P00000465",
+      "type": "R",
+      "firstname": "",
+      "lastname": "",
+      "email": "miracledhamu0703@gmail.com",
+      "mobile": "23423423",
+      "dob": "2005-01-01T00:00:00",
+      "customerinterests": null,
+      "defaultavatar": null,
+      "customerphoto": null,
+      "googleid": "4xKZn5zUOITvNtE8Ky5YeLCkL0F3",
+      "facebookid": "0",
+      "lasttermsaccepted": null,
+      "customfield": null,
+      "attachment": null,
+      "status": "A",
+      "deletionaccountrequestedon": null,
+      "autodeletedon": null,
+      "deleterevokedon": null,
+      "createddate": "2023-03-02T07:49:51.503",
+      "createdby": 1,
+      "updatedby": 0,
+      "updateddate": "2023-03-02T07:50:09.978",
+      "otp": "586844",
+      "password": "978978",
+      "tpin": "978978",
+      "nickname": "sdfsdf",
+      "customervisible": true
+    }
+  ];
+
   Widget buildRecipients() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final items = <Widget>[];
-    // for (var i = 0; i < myData!.user!.length; i++) {
-    //   items.add(
-    //     Container(
-    //       margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
-    //       padding: EdgeInsets.all(8),
-    //       child: InkWell(
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.center,
-    //           mainAxisAlignment: MainAxisAlignment.start,
-    //           children: [
-    //             ClipRRect(
-    //                 borderRadius: BorderRadius.circular(50),
-    //                 child: Image.asset(
-    //                   myData!.user![i].url,
-    //                   fit: BoxFit.cover,
-    //                   width: 36,
-    //                   height: 36,
-    //                 )),
-    //             SizedBox(
-    //               height: 10,
-    //             ),
-    //             Text(myData!.user![i].title,
-    //                 style: TextStyle(
-    //                     color: themeChange.darkTheme
-    //                         ? Colors.white
-    //                         : Color(0XFF000000),
-    //                     fontSize: 12,
-    //                     fontWeight: FontWeight.bold)),
-    //           ],
-    //         ),
-    //         onTap: () {},
-    //       ),
-    //     ),
-    //   );
-    // }
+    for (var i = 0; i < customerList.length; i++) {
+      items.add(
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+          padding: EdgeInsets.all(8),
+          child: InkWell(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child:
+                    customerList[i]["defaultavatar"] != null
+                 ? Image.asset(
+                      "${customerList[i]["defaultavatar"]}",
+                      fit: BoxFit.cover,
+                      width: 36,
+                      height: 36,
+                    )
+                :  Container(
+                      alignment: Alignment.center,
+                      width: 50, height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(45),
+                        color: HexColor('#CEE812'),
+                      ),
+
+                      child: Text(reg.getInitials("${customerList[i]["firstname"]}"),
+                          style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                              color: HexColor('#036D7B'),
+                              fontSize: 16)),
+                    ),),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("${customerList[i]["firstname"]}",
+                    style: TextStyle(
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : Color(0XFF000000),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+            onTap: () {
+            Get.to(NewPayment(paymentType: customerList[i]["mode"] == "LG"
+            ?"LGU"
+            : customerList[i]["mode"] == "IL" || customerList[i]["mode"] == "M" || customerList[i]["mode"] == "PP"
+            ? "House"
+            : "Pay"));
+            },
+          ),
+        ),
+      );
+    }
 
     items.add(Container(
       margin: EdgeInsets.fromLTRB(0, 10, 20, 10),
       padding: EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () {
-          Get.to(NewPayment(paymentType: "Pay",));
+          Get.to(NewPayment(paymentType: "Pay"));
         },
         child: Column(children: [
           Container(
