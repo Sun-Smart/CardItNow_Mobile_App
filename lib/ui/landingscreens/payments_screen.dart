@@ -704,7 +704,7 @@ class PaymentsState extends State<Payments>
  Widget payeelist(){ 
    final themeChange = Provider.of<DarkThemeProvider>(context);
     final items = <Widget>[];
-    for (var i = 0; i < reg.existingpayee.length;i++) {
+    for (var i = 0; i < RegisterAPI.existingpayee.length;i++) {
       items.add(
         Container(
          // margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
@@ -722,23 +722,23 @@ class PaymentsState extends State<Payments>
                     color: Color(0XFFCEE812),
                   ),
                    child:
-                   // reg.existingpayee[i]["defaultavatar"]==null? ClipRRect(
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     child:  Image.asset(
+                  RegisterAPI.existingpayee[i]["defaultavatar"]!=null? ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child:  Image.asset(
                         
-                  //       reg.existingpayee[i]["defaultavatar"],
-                  //       fit: BoxFit.cover,
-                  //       width: 36,
-                  //       height: 36,
-                  //     )
-                  //     )
+RegisterAPI.existingpayee[i]["defaultavatar"],
+                        fit: BoxFit.cover,
+                        width: 36,
+                        height: 36,
+                      )
+                      ):
                   Icon(Icons.person)
                       
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text(reg.existingpayee[i]["email"]??'',
+                Text(RegisterAPI.existingpayee[i]["email"]??'',
                     style: TextStyle(
                         color: themeChange.darkTheme
                             ? Colors.white
@@ -748,7 +748,7 @@ class PaymentsState extends State<Payments>
               ],
             ),
             onTap: () {
-              Get.to(OnboardSellerApply(name:reg.existingpayee[i]["firstname"]??'' ,email:reg.existingpayee[i]["email"]??'' ,));
+              Get.to(OnboardSellerApply(name:RegisterAPI.existingpayee[i]["firstname"]??'' ,email:RegisterAPI.existingpayee[i]["email"]??'' ,));
             },
           ),
         ),
