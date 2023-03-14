@@ -101,5 +101,5 @@ class API {
   String notification = "";
 
   String getlgucustomers = "common/GetLGUcustomers";
-  String mypayees = "/carditnowapi/payerpayeeprivate/GetpayeeList/";
+  String mypayees = "payerpayeeprivate/GetpayeeList/";
 }

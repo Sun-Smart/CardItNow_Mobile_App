@@ -55,7 +55,7 @@ class RegisterAPI extends GetxController with BaseController {
   var geoacclist;
   //existing payee
 
-  var existingpayee = [];
+  static var existingpayee = [];
   var drawercountry = "CM".obs;
 
   var documenttypelist = [];
@@ -128,22 +128,26 @@ class RegisterAPI extends GetxController with BaseController {
     countryselection();
     getSecurityQuestionAPI();
     privacypolicy();
+    tokenGetFunction();
+    super.onInit();
+  }
 
+  tokenGetFunction() async{
     if (GetStorage().read('save_token').toString() != "null") {
       getLoginToken();
+      pay.transactionListAPI();
+      barcharshowing();
+      await payeelist();
       docselect();
-      taxDetailsGetApi();
+      // taxDetailsGetApi();
       banklistget();
       documenttypeget();
       // paymentpurposeget();
       invoicegetmethod();
-      pay.transactionListAPI();
-      barcharshowing();
+
       // notificationListAPI();
       pay.getlgu();
-      payeelist();
     }
-    super.onInit();
   }
 
   getLoginToken() {
@@ -905,15 +909,13 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   //mypayee
-  void payeelist() async {
+   payeelist() async {
     var response = await BaseClient()
         .get(API().mypayees + MyApp.logindetails["userid"])
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
     existingpayee = data["allPayee"];
-    print("---data------$data");
-    print("wwwww------${existingpayee}");
   }
 
   // barchart

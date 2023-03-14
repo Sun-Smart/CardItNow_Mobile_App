@@ -61,6 +61,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   @override
   void initState() {
     myData = DataDashboard.fromJson(PaymentDashboard.mdata);
+    //reg.payeelist();
     super.initState();
   }
 
@@ -278,7 +279,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   Widget buildRecipients() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final items = <Widget>[];
-    for (var i = 0; i < customerList.length; i++) {
+    for (var i = 0; i < RegisterAPI.existingpayee.length; i++) {
       items.add(
         Container(
           margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
@@ -291,9 +292,9 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child:
-                    customerList[i]["defaultavatar"] != null
+                    RegisterAPI.existingpayee[i]["defaultavatar"] != null
                  ? Image.asset(
-                      "${customerList[i]["defaultavatar"]}",
+                      "${RegisterAPI.existingpayee[i]["defaultavatar"]}",
                       fit: BoxFit.cover,
                       width: 36,
                       height: 36,
@@ -306,7 +307,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                         color: HexColor('#CEE812'),
                       ),
 
-                      child: Text(reg.getInitials("${customerList[i]["firstname"]}"),
+                      child: Text(reg.getInitials("${RegisterAPI.existingpayee[i]["firstname"]}"),
                           style: TextStyle(
                               fontFamily: 'Sora',
                               fontWeight: FontWeight.bold,
@@ -316,7 +317,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
                 SizedBox(
                   height: 10,
                 ),
-                Text("${customerList[i]["firstname"]}",
+                Text("${RegisterAPI.existingpayee[i]["firstname"]}",
                     style: TextStyle(
                         color: themeChange.darkTheme
                             ? Colors.white
@@ -326,9 +327,9 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
               ],
             ),
             onTap: () {
-            Get.to(NewPayment(paymentType: customerList[i]["mode"] == "LG"
+            Get.to(NewPayment(paymentType: RegisterAPI.existingpayee[i]["mode"] == "LG"
             ?"LGU"
-            : customerList[i]["mode"] == "IL" || customerList[i]["mode"] == "M" || customerList[i]["mode"] == "PP"
+            : RegisterAPI.existingpayee[i]["mode"] == "IL" || RegisterAPI.existingpayee[i]["mode"] == "M" || customerList[i]["mode"] == "PP"
             ? "House"
             : "Pay"));
             },
