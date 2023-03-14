@@ -871,7 +871,10 @@ Widget  buildcardenable (){
             borderRadius: BorderRadius.circular(3),
             activeTrackColor: const Color(0XFF004751),
             height: 60,
-            child: const Text("SWIPE TO PAY",
+            child:  Text(
+              widget.paymentType == "Receive"
+   ? "SWIPE TO REQUEST"
+       : "SWIPE TO PAY",
                 style: TextStyle(
                     fontFamily: "assets/fonts/Sora.ttf",
                     fontSize: 18,
@@ -925,7 +928,10 @@ Widget  buildcardenable (){
             borderRadius: BorderRadius.circular(3),
             activeTrackColor: const Color(0XFF004751),
             height: 60,
-            child: const Text("SWIPE TO PAY",
+            child:  Text( widget.paymentType == "Receive"
+                ? "SWIPE TO REQUEST"
+             : "SWIPE TO PAY"
+                ,
                 style: TextStyle(
                     fontFamily: "assets/fonts/Sora.ttf",
                     fontSize: 18,
@@ -961,7 +967,9 @@ Widget  buildcardenable (){
           borderRadius: BorderRadius.circular(3),
           activeTrackColor: const Color(0XFF004751),
           height: 60,
-          child: const Text("SWIPE TO PAY",
+          child:  Text( widget.paymentType == "Receive"
+              ? "SWIPE TO REQUEST"
+              : "SWIPE TO PAY",
               style: TextStyle(
                   fontFamily: "assets/fonts/Sora.ttf",
                   fontSize: 18,

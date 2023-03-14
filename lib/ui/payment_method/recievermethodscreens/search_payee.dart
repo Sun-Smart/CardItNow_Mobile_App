@@ -150,7 +150,7 @@ class _SearchPayeeState extends State<SearchPayee> {
   Widget payeeWidget(var item) {
     return InkWell(
       onTap: (){
-        Get.to(ReceiverTransaction(payee: item,));
+        Get.to(ReceiverTransaction(payee: item, paymentType: "Receive",));
       },
       child: ListTile(
         leading: Container(
