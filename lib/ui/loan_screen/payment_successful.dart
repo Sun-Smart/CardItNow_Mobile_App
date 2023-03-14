@@ -120,7 +120,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                 height: 20,
               ),
               Text(
-                "Payment Successfull ! ",
+                widget.paymentType == "Receive"
+                ? "Request Sent !"
+                 : "Payment Successfull ! ",
                 style: TextStyle(
                   fontSize: 15,
                   color: HexColor('#CEE812'),
@@ -132,7 +134,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.5,
                 child: Text(
-                  widget.paymentType == "LGU"
+                  widget.paymentType == "Receive"
+                  ? "We have sent your payment request to ${widget.purpose["owner"] ?? ""} on Transaction Initiated Date ${DateFormat("dd-MM-yyyy").format(DateTime.now())}."
+                  : widget.paymentType == "LGU"
                  ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
                   : widget.paymentType == "House"
                       ? "Your payment to ${widget.purpose["payee"]["firstname"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
@@ -170,7 +174,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     height: 20,
                   ),
                   Text(
-                    "Payment Successfull ! ",
+                    widget.paymentType == "Receive"
+                        ? "Request Sent !"
+                        : "Payment Successfull ! ",
                     style: TextStyle(
                       fontSize: 15,
                       color: HexColor('#CEE812'),
@@ -184,6 +190,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
+                          widget.paymentType == "Receive"
+                              ? "We have sent your payment request to ${widget.purpose["owner"] ?? ""} on Transaction Initiated Date ${DateFormat("dd-MM-yyyy").format(DateTime.now())}."
+                              :
                           widget.paymentType == "LGU"
                               ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
                               : widget.paymentType == "House"
@@ -251,7 +260,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     height: 20,
                   ),
                   Text(
-                    "Payment Successfull ! ",
+                    widget.paymentType == "Receive"
+                        ? "Request Sent !"
+                        : "Payment Successfull ! ",
                     style: TextStyle(
                       fontSize: 15,
                       color: HexColor('#CEE812'),
@@ -265,6 +276,9 @@ class _PaymentSuccessfulState extends State<PaymentSuccessful> {
                     child: Container(
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: Text(
+                          widget.paymentType == "Receive"
+                              ? "We have sent your payment request to ${widget.purpose["owner"] ?? ""} on Transaction Initiated Date ${DateFormat("dd-MM-yyyy").format(DateTime.now())}."
+                              :
                           widget.paymentType == "LGU"
                               ? "Your payment to ${widget.purposeResponce["KEYVALUE"]["Declared Owner"] ?? ""} with TXN ID - ${widget.transaction["transactionid"]} is completed on ${DateFormat("dd-MM-yyyy").format(DateTime.now())}"
                               : widget.paymentType == "House"
