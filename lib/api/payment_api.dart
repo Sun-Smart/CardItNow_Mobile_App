@@ -134,10 +134,15 @@ class PaymentAPI extends GetxController with BaseController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getPurposeListAPI();
-    getLGUProvinceListAPI();
-    getHomePurposeListAPI();
-    getHouseCustomerListAPI();
+  }
+
+  initFunction() async{
+
+    await getPurposeListAPI();
+    await getLGUProvinceListAPI();
+    await getHomePurposeListAPI();
+    await getHouseCustomerListAPI();
+    await getlgu();
     // getProvinceListAPI();
     // getCityListAPI();
   }
@@ -152,7 +157,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
   //Get LGU
-  void getPurposeListAPI() async {
+   getPurposeListAPI() async {
     var response = await BaseClient()
         .get(API().getLGUPurpose)
         .catchError(handleError);
@@ -161,7 +166,7 @@ class PaymentAPI extends GetxController with BaseController {
     lguPurposeList.value = data;
   }
 
-  void getLGUProvinceListAPI() async {
+   getLGUProvinceListAPI() async {
     var response = await BaseClient()
         .get(API().getLGUPayee)
         .catchError(handleError);
@@ -171,7 +176,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
 
-  void getHouseCustomerListAPI() async {
+   getHouseCustomerListAPI() async {
     var response = await BaseClient()
         .get(API().getHomeCustomer)
         .catchError(handleError);
@@ -180,7 +185,7 @@ class PaymentAPI extends GetxController with BaseController {
    // housePayeeList.value = data["homerentcustomers"] ?? [];
   }
 
-  void getHomePurposeListAPI() async {
+   getHomePurposeListAPI() async {
     var response = await BaseClient()
         .get(API().getHomePurpose)
         .catchError(handleError);
@@ -534,6 +539,22 @@ class PaymentAPI extends GetxController with BaseController {
     if(pickedFile != null) {
       Get.to(Registerloading());
       var body = {
+        "verification_id": null,
+        "customer_id": MyApp.logindetails["userid"],
+        // "documentnumber":,
+        // "documenttype":,
+        // "payeeid":,
+        // "payeeuid":,
+        // "purpose":,
+        // "pro_address":,
+        // "startdate":,
+        // "enddate":,
+        // "invoicenumb":,
+        // "invoicedate":,
+        // "uploadfilename":,
+        // "uploadpath":,
+        // "status":"",
+        "remarks":"",
         "uploadDoc": pickedFile
       };
       var response = await BaseClient()
@@ -635,7 +656,7 @@ class PaymentAPI extends GetxController with BaseController {
   }
 
 
-  void transactionListAPI() async {
+   transactionListAPI() async {
 
     var body ={
       "customerid":MyApp.logindetails["userid"]
@@ -652,13 +673,13 @@ class PaymentAPI extends GetxController with BaseController {
 
   // getlgu customers
 
-  void getlgu() async {
+   getlgu() async {
     var response = await BaseClient()
         .get(API().getlgucustomers)
         .catchError(handleError);
     if (response == null) return;
     var data = json.decode(response);
-    getlgucust = data["privacypolicy"];
+    getlgucust = data["lgUcustomers"];
   }
 
 

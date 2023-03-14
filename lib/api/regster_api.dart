@@ -133,19 +133,18 @@ class RegisterAPI extends GetxController with BaseController {
 
   tokenGetFunction() async {
     if (GetStorage().read('save_token').toString() != "null") {
-      getLoginToken();
-      pay.transactionListAPI();
-      barcharshowing();
+      await getLoginToken();
+      await pay.transactionListAPI();
+      await barcharshowing();
       await payeelist();
       docselect();
       // taxDetailsGetApi();
-      banklistget();
-      documenttypeget();
+      await banklistget();
+      await documenttypeget();
       // paymentpurposeget();
       invoicegetmethod();
 
       // notificationListAPI();
-      pay.getlgu();
     }
   }
 
@@ -553,7 +552,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
 //get method
-  void banklistget() async {
+   banklistget() async {
     var response =
         await BaseClient().get(API().banklistdropdown).catchError(handleError);
     if (response == null) return;
@@ -666,7 +665,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
 //documenttype get
-  void documenttypeget() async {
+   documenttypeget() async {
     var response = await BaseClient()
         .get(API().documenttypedropdown)
         .catchError(handleError);
@@ -918,7 +917,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   // barchart
-  void barcharshowing() async {
+   barcharshowing() async {
     var body = {"customerid": MyApp.logindetails["userid"]};
     var response = await BaseClient()
         .post(API().barchartviewapi, body)
