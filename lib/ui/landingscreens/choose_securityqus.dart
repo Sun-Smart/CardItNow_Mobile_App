@@ -183,7 +183,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                             return Container(
                                 width: MediaQuery.of(context).size.width / 4,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     "${auth.securedetailslist[index]["question"]}",
@@ -382,7 +382,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
                         color: HexColor('#CEE812'),
                         borderRadius: BorderRadius.circular(5),
                       ),
-                       onTap: () {
+                        onTap: () {
               var checklist = [];
 
               for (var i = 0; i < protectcontrollers.length; i++) {
@@ -417,7 +417,7 @@ class _ChooseSecQusState extends State<ChooseSecQus> {
               color: HexColor('#CEE812'),
               borderRadius: BorderRadius.circular(5),
             ),
-            onTap: () {
+             onTap: () {
               var checklist = [];
 
               for (var i = 0; i < protectcontrollers.length; i++) {

@@ -36,7 +36,7 @@ var ShuftiProValues;
 
 class RegisterAPI extends GetxController with BaseController {
   PaymentAPI pay = PaymentAPI();
-  
+
   var profileinfo = {}.obs;
   var scandocs = '';
   File? image;
@@ -103,7 +103,6 @@ class RegisterAPI extends GetxController with BaseController {
   //VERIFY USERID SCREEN
   TextEditingController documentIDController = TextEditingController();
 
-
   //notification
   var notificationList = [].obs;
 
@@ -132,7 +131,7 @@ class RegisterAPI extends GetxController with BaseController {
     super.onInit();
   }
 
-  tokenGetFunction() async{
+  tokenGetFunction() async {
     if (GetStorage().read('save_token').toString() != "null") {
       getLoginToken();
       pay.transactionListAPI();
@@ -159,8 +158,8 @@ class RegisterAPI extends GetxController with BaseController {
       MyApp.logindetails["customertype"] = GetStorage().read("user_type");
     }
   }
-  
- //var hidemail=(emailController.text.replaceRange(2, emailController.length, "*" * emailController.length - 2));
+
+  //var hidemail=(emailController.text.replaceRange(2, emailController.length, "*" * emailController.length - 2));
   //regsterApi
   void registerAPI(email) async {
     showLoading();
@@ -626,12 +625,11 @@ class RegisterAPI extends GetxController with BaseController {
       securitydetail(custidval: data["customerid"]);
       if (emailController.text.contains('@')) {
         //Get.to(UpdatePasswordCode());
-          Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
+        Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
       } else {
         Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
       }
- //Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
-     
+      //Get.off(ChooseSecQus(customeridqusestion: data["customerid"]));
     } else {
       Fluttertoast.showToast(msg: "Something wrong");
     }
@@ -845,7 +843,7 @@ class RegisterAPI extends GetxController with BaseController {
 
   //security questions check
 
-  void securitycheck(List checklist,context) async {
+  void securitycheck(List checklist, context) async {
     var storedquestions = {
       "securityquestions": [
         {"questiondetails": checklist}
@@ -859,18 +857,19 @@ class RegisterAPI extends GetxController with BaseController {
     if (response == null) return;
     var data = json.decode(response);
     if (data = true) {
-       if (size.width >= 1100) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        } else if (size.width < 1100 && size.width >= 650) {
-          pageController!.nextPage(
-              duration: Duration(milliseconds: 200), curve: Curves.linear);
-        }
-      else {
-      //  Get.to(UpdatePasswordCode());
-        _showMyDialog(context,check(emailController.text));
-      
-       // Fluttertoast.showToast(msg: "Success");
+      if (size.width >= 1100) {
+          _showMyDialog(context, check(emailController.text));
+        // pageController!.nextPage(
+        //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else if (size.width < 1100 && size.width >= 650) {
+          _showMyDialog(context, check(emailController.text));
+        // pageController!.nextPage(
+        //     duration: Duration(milliseconds: 200), curve: Curves.linear);
+      } else {
+        //  Get.to(UpdatePasswordCode());
+        _showMyDialog(context, check(emailController.text));
+
+        
       }
     } else {
       Fluttertoast.showToast(msg: data.toString());
@@ -909,7 +908,7 @@ class RegisterAPI extends GetxController with BaseController {
   }
 
   //mypayee
-   payeelist() async {
+  payeelist() async {
     var response = await BaseClient()
         .get(API().mypayees + MyApp.logindetails["userid"])
         .catchError(handleError);
@@ -947,24 +946,22 @@ Future<void> readJson() async {
   mocktermscond.clear();
   mocktermscond = data;
 }
- _showMyDialog(context,email) async {
+
+_showMyDialog(context, email) async {
   return showDialog<void>(
     context: context,
-  
     builder: (BuildContext context) {
       return AlertDialog(
-       // title:const Icon(Icons.warning,color: Colors.red,),
-        content:   Text('we have sent you a verification to your:${email}',
-        style: TextStyle(
-          fontSize: 14,
-          fontFamily: "Sora"
-        ),),
+        // title:const Icon(Icons.warning,color: Colors.red,),
+        content: Text(
+          'we have sent you a verification to your:${email}',
+          style: TextStyle(fontSize: 14, fontFamily: "Sora"),
+        ),
         actions: <Widget>[
           TextButton(
             child: const Text('Ok'),
             onPressed: () {
-                Get.off(UpdatePasswordCode());
-           
+              Get.off(UpdatePasswordCode());
             },
           ),
         ],
@@ -973,11 +970,13 @@ Future<void> readJson() async {
   );
 }
 
-check(email){
- var nameuser = email.split("@");
-var emailcaracter=email.replaceRange(2,nameuser[0].length,"*" *(nameuser[0].length-2));
-return emailcaracter;
+check(email) {
+  var nameuser = email.split("@");
+  var emailcaracter =
+      email.replaceRange(2, nameuser[0].length, "*" * (nameuser[0].length - 2));
+  return emailcaracter;
 }
+
 class SalesData {
   SalesData(this.year, this.sales, this.color);
 

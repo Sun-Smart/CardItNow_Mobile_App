@@ -299,7 +299,7 @@ class _UpdateEmailScreenState extends State<UpdateEmailScreen> {
             children: [
               SizedBox(width: Responsive.isDesktop(context)?MediaQuery.of(context).size.width/4.8:
               MediaQuery.of(context).size.width/12,),
-Text("Enter Email",
+Text("Enter Email/Phone number",
  style: TextStyle(fontFamily: 'Sora', fontSize: 16,fontWeight: FontWeight.bold),
 )
             ],
@@ -327,7 +327,7 @@ Text("Enter Email",
                 hoverColor: Colors.transparent,
                 filled: true,
                 fillColor: Colors.white,
-                hintText: 'Enter Email',
+                hintText: 'Enter Email/Phone number',
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 helperStyle: const TextStyle(fontFamily: 'Sora', fontSize: 14),
                 hintStyle: const TextStyle(
