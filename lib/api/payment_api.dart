@@ -492,8 +492,14 @@ class PaymentAPI extends GetxController with BaseController {
         }
 
     } else {
-      var data = json.decode(response.body);
-      Fluttertoast.showToast(msg: data);
+  //              var message;
+  //     try {
+  //   message = json.decode(response.body);
+  // } on FormatException catch (e) {
+  //   message = response.body;
+  //   print(e.message);
+  // }
+      Fluttertoast.showToast(msg: '${response.body}');
     }}
     catch(ex){
     Fluttertoast.showToast(msg: "$ex");
