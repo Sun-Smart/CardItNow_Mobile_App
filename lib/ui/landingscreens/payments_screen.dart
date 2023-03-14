@@ -371,7 +371,12 @@ class PaymentsState extends State<Payments>
               ],
             ),
           ),
-          buildpayee()
+          Row(
+            children: [
+              payeelist(),
+              buildpayee(),
+            ],
+          )
         ],
       ),
     );
@@ -696,54 +701,68 @@ class PaymentsState extends State<Payments>
       },
     );
   }
-//  Widget payeelist(){ 
-//    final themeChange = Provider.of<DarkThemeProvider>(context);
-//     final items = <Widget>[];
-//     for (var i = 0; i < reg.existingpayee.length;i++) {
-//       items.add(
-//         Container(
-//           margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
-//           padding: EdgeInsets.all(8),
-//           child: InkWell(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 // ClipRRect(
-//                 //     borderRadius: BorderRadius.circular(50),
-//                 //     child: Image.asset(
+ Widget payeelist(){ 
+   final themeChange = Provider.of<DarkThemeProvider>(context);
+    final items = <Widget>[];
+    for (var i = 0; i < reg.existingpayee.length;i++) {
+      items.add(
+        Container(
+         // margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+         // padding: EdgeInsets.all(8),
+          child: InkWell(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                     width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0XFFCEE812),
+                  ),
+                   child:
+                   // reg.existingpayee[i]["defaultavatar"]==null? ClipRRect(
+                  //     borderRadius: BorderRadius.circular(50),
+                  //     child:  Image.asset(
+                        
+                  //       reg.existingpayee[i]["defaultavatar"],
+                  //       fit: BoxFit.cover,
+                  //       width: 36,
+                  //       height: 36,
+                  //     )
+                  //     )
+                  Icon(Icons.person)
                       
-//                 //       reg.existingpayee[i]["email"]??null,
-//                 //       fit: BoxFit.cover,
-//                 //       width: 36,
-//                 //       height: 36,
-//                 //     )),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 Text(reg.existingpayee[i]["email"]??'',
-//                     style: TextStyle(
-//                         color: themeChange.darkTheme
-//                             ? Colors.white
-//                             : Color(0XFF000000),
-//                         fontSize: 12,
-//                         fontWeight: FontWeight.bold)),
-//               ],
-//             ),
-//             onTap: () {
-//               Get.to(OnboardSellerApply(name:reg.existingpayee[i]["firstname"]??'' ,email:reg.existingpayee[i]["email"]??'' ,));
-//             },
-//           ),
-//         ),
-//       );
-//        return Container(
-//       margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-//       child: Wrap(
-//         children: items,
-//       ),
-//     );
-//     }
-// }
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(reg.existingpayee[i]["email"]??'',
+                    style: TextStyle(
+                        color: themeChange.darkTheme
+                            ? Colors.white
+                            : Color(0XFF000000),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+            onTap: () {
+              Get.to(OnboardSellerApply(name:reg.existingpayee[i]["firstname"]??'' ,email:reg.existingpayee[i]["email"]??'' ,));
+            },
+          ),
+        ),
+      );
+    }
+       return Container(
+      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+      child: Wrap(
+        children: items,
+      ),
+    );
+    }
+
+
 
   Widget buildpayee() {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -807,7 +826,7 @@ class PaymentsState extends State<Payments>
     );
   }
  
-}
+    }
 
 class _SalesData {
   _SalesData(this.year, this.sales, this.color);
