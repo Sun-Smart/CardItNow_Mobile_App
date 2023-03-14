@@ -294,7 +294,13 @@ class BaseClient {
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
       case 400:
-        var message = utf8.decode(response.bodyBytes);
+       var message;
+      try {
+    message = utf8.decode(response.bodyBytes);
+  } on FormatException catch (e) {
+    message = response.body;
+  }
+        
         Fluttertoast.showToast(msg: "$message");
         // throw BadRequestException(
         //     utf8.decode(response.bodyBytes), response.request!.url.toString());
@@ -304,8 +310,14 @@ class BaseClient {
         Fluttertoast.showToast(msg: "$message");
         return;
       case 417:
-        var message = json.decode(response.body);
-      Fluttertoast.showToast(msg: "$message");
+             var message;
+      try {
+    message = json.decode(response.body);
+  } on FormatException catch (e) {
+    message = response.body;
+    print(e.message);
+  }
+        Fluttertoast.showToast(msg: "$message");
       return;
       case 403:
         throw UnAuthorizedException(
